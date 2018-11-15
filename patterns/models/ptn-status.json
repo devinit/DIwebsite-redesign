@@ -1,0 +1,30 @@
+[
+	{ 
+		"name": "e1-error", 
+		"stage": "review" 
+	},
+	{ 
+		"name": "e2-500", 
+		"stage": "approved" 
+	},
+	{ 
+		"name": "template-default", 
+		"stage": "Template" 
+	},
+	{ 
+		"name": "template-sidebar", 
+		"stage": "Template" 
+	},
+	{ 
+		"name": "template-standard", 
+		"stage": "Template" 
+	},
+	{ 
+		"name": "template-article-listing", 
+		"stage": "Template" 
+	},
+	{ 
+		"name": "template-event-listing", 
+		"stage": "Template" 
+	}
+]

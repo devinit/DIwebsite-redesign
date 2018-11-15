@@ -1,0 +1,5 @@
+[
+	{ "name": "warning" },
+	{ "name": "success" },
+	{ "name": "error" }
+]

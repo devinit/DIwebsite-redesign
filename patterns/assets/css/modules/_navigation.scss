@@ -1,0 +1,136 @@
+// ------------------------------------------------------------
+// Navigation
+// ------------------------------------------------------------
+
+// ------------------------------------------------------------
+// Primary navigation Toggle
+// ------------------------------------------------------------
+
+.navigation-primary-toggle {
+	display: none;
+	overflow: hidden;
+	width: 44px;
+	height: 42px;
+	position: absolute;
+	top: 4px; // Tweak as needed
+	right: $internal-spacing;
+	&:before,
+	&:after {
+		content: "";
+		display: block;
+		overflow: hidden;
+		height: 2px;
+		width: 44px;
+		background-color: $nav-toggle-color;
+		position: absolute;
+		top: 12px;
+	}
+	&:after {
+		top: auto;
+		bottom: 12px;
+	}
+	span {
+		height: 2px;
+		width: 44px;
+		background-color: $nav-toggle-color;
+		text-indent: -999em;
+		display: block;
+		position: relative;
+	}
+	&:focus {
+		outline: none;
+		span {
+			
+		}
+	}
+	@include respond-to-max($menu-respond) {
+		html.js & {
+			display: block;
+		}
+		&--active {
+			&:before,
+			&:after {
+				display: none;
+			}
+			span {
+				background-color: $nav-toggle-color-active;
+			}
+		}
+	}
+	@include respond-to($menu-respond) {
+		display: none;
+		html.js & {
+			display: none;
+		}
+	}
+}
+
+// ------------------------------------------------------------
+// Primary menu with mobile folding
+// ------------------------------------------------------------
+
+.navigation-primary {
+	display: block;
+	@include respond-to-max($menu-respond) {
+		overflow: hidden;
+		transition: max-height ease-out 0.35s;
+		html.js & {
+			//display: none;
+			max-height: 0;
+			margin-top: 1em;
+		}
+		&--active {
+			html.js & {
+				//display: block;
+				transition: max-height ease-out 0.5s;
+				max-height: 1000px;
+			}
+		}
+	}
+	@include respond-to($menu-respond) {
+		display: block;
+		float: right;
+		html.js & {
+			display: block;
+		}
+	}
+	&__item {
+		position: relative;
+		overflow: hidden;
+		@include font-size($para);
+		@include respond-to($menu-respond) {
+			display: inline-block;
+			float: left;
+			margin-left: 1em;
+			&:first-child {
+				margin-left: 0;
+			}
+		}
+		a {
+			display: block;
+			position: relative;
+			span {
+				font-size: inherit;
+				position: relative;
+				z-index: 1;
+			}
+			@include respond-to-max($menu-respond) {
+				padding: 0.75em 0;
+				border-bottom: $default-border-width solid $heading-color;
+			}
+			@include respond-to($menu-respond) {
+			
+			}
+			@include link-active-styles {
+				
+			}
+		}
+		&--active {
+			a {
+				@include link-active-styles {
+					
+				}
+			}
+		}
+	}
+}

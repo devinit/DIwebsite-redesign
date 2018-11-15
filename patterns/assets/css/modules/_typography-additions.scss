@@ -1,0 +1,76 @@
+// ------------------------------------------------------------
+// Aligment and meter
+// ------------------------------------------------------------
+
+.max-meter 				{ max-width: 800px; }
+.max-meter--center 		{ margin-left: auto; margin-right: auto; }
+
+.align-center 			{ text-align: center; }
+.align-left 			{ text-align: left; }
+.align-right 			{ text-align: right; }
+
+
+// ------------------------------------------------------------
+// Additional typesetting
+// ------------------------------------------------------------
+
+// Make articles text more legible
+.is-typeset.is-typeset--article {
+	@include respond-to($menu-respond) {
+		p, li {
+			 @include font-size($para*1.25);
+		}
+		h1, h2 {
+			@include font-size($alpha*1.25); 
+		}
+		h3, h4 {
+			@include font-size($beta*1.25); 
+		}
+		h5 {
+			@include font-size($gamma*1.25); 
+		}
+		h6 {
+			@include font-size($delta*1.25); 
+		}
+	}
+}
+
+// Initial paragraph styles
+.is-typeset--additionals {
+	> p:first-of-type {
+		color: $heading-color;
+		font-size: 125%;
+		@include leading($base-font-size*1.05);
+	}
+}
+
+// ------------------------------------------------------------
+// Blockquotes
+// ------------------------------------------------------------
+
+.as-blockquote {
+	position: relative;
+	p {
+		@include font-size($quote);
+	}
+	cite {
+		display: block;
+	}
+}
+
+.is-typeset {
+	blockquote {
+		@extend .as-blockquote;
+	}
+}
+
+// ------------------------------------------------------------
+// Library CMS control. Delete / Add as required
+// ------------------------------------------------------------
+
+@import "libs/wagtail";
+@import "libs/wordpress-wysiwyg";
+//@import "libs/wordpress-paging";
+//@import "libs/wordpress-comments";
+
+

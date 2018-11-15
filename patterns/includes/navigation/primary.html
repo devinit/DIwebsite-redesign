@@ -1,0 +1,19 @@
+{% model 'navigation', as="navigation" %}
+
+{# Place button where needed in the DOM. The might mean moving it from this include #}
+<button role="button" class="navigation-primary-toggle" id="navigation-primary-toggle"><span>Menu</span></button>
+
+<nav class="navigation-primary" role="navigation" id="navigation-primary">
+	<ul class="navigation-primary__items">
+		<li class="navigation-primary__item navigation-primary__item--home{% if section == 'home' %} navigation-primary__item--active{% else %}{% endif %}"><a href="">Home</a></li>
+		{% for item in navigation.primary %}
+			{% if item.hidden == false %}
+				{% if section == item.in_section %}
+					<li id="section-{{ item.in_section }}" class='navigation-primary__item navigation-primary__item--active'><a href="">{{ item.label }}</a></li>
+				{% else %}
+					<li id="section-{{ item.in_section }}" class='navigation-primary__item'><a href="">{{ item.label }}</a></li>
+				{% endif %}
+			{% endif %}
+		{% endfor %}
+	</ul>
+</nav>

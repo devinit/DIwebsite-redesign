@@ -1,0 +1,64 @@
+// ------------------------------------------------------------
+// Layout
+// Defing layouts rather than using a set grid system
+// Only define the scaffolding, not modules
+// Prefix with 'l'
+// ------------------------------------------------------------
+
+%l {
+	position: relative;
+	display: block;
+	@extend %pie-clearfix;
+}
+
+// For flexbox layouts
+%l-flexbox {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+// ------------------------------------------------------------
+// Standard
+// ------------------------------------------------------------
+
+.l-standard {
+	@extend %l;
+}
+
+.l-error {
+	@extend %l;
+	padding-top: 2em;
+}
+
+// ------------------------------------------------------------
+// Sidebar
+// ------------------------------------------------------------
+
+.l-sidebar {
+	@extend %l;
+	&__aside {
+		@include respond-to($sidebar-respond) {
+			float: left;
+			display: inline-block;
+			width: $sidebar-aside-width;
+		}
+	}
+	&__body {
+		margin-bottom: 2em;
+		@include respond-to($sidebar-respond) {
+			float: left;
+			display: inline-block;
+			width: $sidebar-body-width;
+			margin-bottom: 0;
+			padding-right: 5em;
+		}
+	}
+}
+
+// ------------------------------------------------------------
+// Listings
+// ------------------------------------------------------------
+
+.l-listing {
+	@extend %l;
+}

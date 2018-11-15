@@ -1,0 +1,25 @@
+{
+    "article_list": [
+	    { 
+		    "title": "Extending liaison psychiatry service at the Bristol Royal Infirmary improves care and reduces costs for self-harm patients",
+		    "date": "25 Aug 2017",
+		    "author": "Robert Terwilliger",
+		    "taxonomy": "<a href=''>News</a>, <a href=''>Updates</a>",
+		    "excerpt": "The following examples include an image of how the example should look in a supporting browser, they each link to a page with more information about the technique being shown, code and a CodePen of the example. Unless otherwise noted these examples work in any browser supporting the up to date Grid Specification"
+		},
+		{ 
+		    "title": "University of Bristol team develop a new test to assist GP antibiotic prescribing",
+		    "date": "25 Aug 2017",
+		    "author": "Robert Terwilliger",
+		    "taxonomy": "<a href=''>News</a>",
+		    "excerpt": "The following examples include an image of how the example should look in a supporting browser, they each link to a page with more information about the technique being shown, code and a CodePen of the example. Unless otherwise noted these examples work in any browser supporting the up to date Grid Specification"
+		},
+		{ 
+		    "title": "Creating a communications culture in our sector",
+		    "date": "25 Aug 2017",
+		    "author": "Robert Terwilliger",
+		    "taxonomy": "<a href=''>Updates</a>",
+		    "excerpt": "The following examples include an image of how the example should look in a supporting browser, they each link to a page with more information about the technique being shown, code and a CodePen of the example. Unless otherwise noted these examples work in any browser supporting the up to date Grid Specification"
+		}
+    ]
+}

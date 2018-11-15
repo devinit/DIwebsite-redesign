@@ -1,0 +1,28 @@
+
+.ico-error-error {
+	background-image: url('png/error-error.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-success-success {
+	background-image: url('png/success-success.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-test {
+	background-image: url('png/test.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-warning-warning {
+	background-image: url('png/warning-warning.png');
+	background-repeat: no-repeat;
+}
+
+

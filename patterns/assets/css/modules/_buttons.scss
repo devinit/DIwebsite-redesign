@@ -1,0 +1,76 @@
+// ------------------------------------------------------------
+// Button styles
+// ------------------------------------------------------------
+
+.button {
+	background: transparent; // // Reset button and reset elements
+	border: none; // Reset button and reset elements
+	// ------- //
+	display: inline-block;
+	text-align: left;
+	padding: 1em;
+	@include font-size($para);
+	line-height: 1;
+	color: #fff;
+	background-color: $action;
+	text-decoration: none;
+	position: relative;
+	vertical-align: middle;
+	cursor: pointer;
+	@include link-active-styles {
+		color: #fff;
+		background-color: $action-respond;
+	}
+}
+
+// Give actual buttons some love
+button.button {
+	border: 0;
+	width: 100%;
+}
+
+// ------------------------------------------------------------
+// Accessible labels
+// ------------------------------------------------------------
+
+.button-a11y {
+	position: relative;
+	overflow: hidden;
+	span {
+		top: -10em;
+		position: absolute;
+		display: inline-block;
+	}
+	&:after {
+		 content: attr(title);
+		 display: inline-block;
+		 color: inherit;
+	}
+}
+
+// We want this available as a BEM to extend .button, as well as being stand alone
+.button--a11y {
+	@extend .button-a11y;
+}
+
+// ------------------------------------------------------------
+// Variation styles
+// ------------------------------------------------------------
+
+.button--block {
+	display: block;
+	width: 100%;
+}
+
+.button--secondary {
+	background-color: $action-respond;
+	@include link-active-styles {
+		background-color: $action;
+	}
+}
+
+.button--disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+	filter: grayscale(100%);
+}

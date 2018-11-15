@@ -1,0 +1,29 @@
+{
+    "primary": [
+	    { 
+		    "label": "Option A",
+		    "in_section": "",
+		    "hidden": false
+		},
+		{ 
+		    "label": "Option B",
+		    "in_section": "",
+		    "hidden": false
+		},
+		{ 
+		    "label": "Option C",
+		    "in_section": "",
+		    "hidden": false
+		},
+		{ 
+		    "label": "Option D",
+		    "in_section": "",
+		    "hidden": false
+		},
+		{ 
+		    "label": "Option E",
+		    "in_section": "",
+		    "hidden": false
+		}
+    ]
+}

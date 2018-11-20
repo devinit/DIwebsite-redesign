@@ -1,5 +1,10 @@
 [
-	{ "name": "warning" },
-	{ "name": "success" },
-	{ "name": "error" }
+	{ "name": "slate" },
+	{ "name": "poppy" },
+	{ "name": "sunflower" },
+	{ "name": "marigold" },
+	{ "name": "rose" },
+	{ "name": "lavendar" },
+	{ "name": "bluebell" },
+	{ "name": "leaf" }
 ]

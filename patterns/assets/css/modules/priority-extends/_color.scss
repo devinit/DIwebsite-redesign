@@ -4,10 +4,15 @@
 // colors, fills (aka background) and rules (aka borders)
 // ------------------------------------------------------------
 
-@each $name, $color in 
-		('warning', $warning),
-		('error', $error),
-		('success', $success),
+@each $name, $color in
+		('slate', $slate),
+		('poppy', $poppy),
+		('sunflower', $sunflower),
+		('marigold', $marigold),
+		('rose', $rose),
+		('lavendar', $lavendar),
+		('bluebell', $bluebell),
+		('leaf', $leaf),
 	{
 	.color-#{$name} {
 		color: $color;

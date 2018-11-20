@@ -22,5 +22,7 @@
 %max-width 				{ max-width: 100%; height: auto; display: block; }
 
 // Fonts
-%font-sans				{ font-family: sans-serif; }
+%font-sans				{ font-family: "Geomanist Regular", sans-serif; }
+%font-heading			{ font-family: "Geomanist Bold", sans-serif; }
+%font-light				{ font-family: "Geomanist Light", sans-serif; }
 %font-body 				{ @extend %font-sans; }

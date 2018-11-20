@@ -3,8 +3,8 @@
 // ------------------------------------------------------------
 
 // 'xl' for Extra large
-.type-xl { 
-	@include font-size($alpha); 
+.type-xl {
+	@include font-size($alpha);
 	@include leading($alpha/1.25);
 	&--leader {
 		@include leader($alpha/1.25);
@@ -13,13 +13,13 @@
 		@include trailer($alpha/4);
 	}
 	&.heading {
-		
+
 	}
-} 
+}
 
 // 'l' for Large
-.type-l { 
-	@include font-size($beta); 
+.type-l {
+	@include font-size($beta);
 	&--leader {
 		@include leader($beta*2);
 	}
@@ -27,14 +27,14 @@
 		@include trailer($beta/2);
 	}
 	&.heading {
-		
+
 	}
-} 
+}
 
 // 'm' stands for Median not Medium
 // This should be the middle typesize
-.type-m { 
-	@include font-size($gamma); 
+.type-m {
+	@include font-size($gamma);
 	&--leader {
 		@include leader($gamma*2);
 	}
@@ -42,12 +42,12 @@
 		@include trailer($gamma/2);
 	}
 	&.heading {
-		
+
 	}
-} 	
+}
 
 // 's' for Small
-.type-s { 
+.type-s {
 	@include font-size($delta);
 	&--leader {
 		@include leader($delta*2);
@@ -56,13 +56,13 @@
 		@include trailer($delta/2);
 	}
 	&.heading {
-		
+
 	}
-} 	
+}
 
 // 'xs' for Extra small
-.type-xs { 
-	@include font-size($epsilon); 
+.type-xs {
+	@include font-size($epsilon);
 	&--leader {
 		@include leader($epsilon*2);
 	}
@@ -70,9 +70,9 @@
 		@include trailer($epsilon/2);
 	}
 	&.heading {
-		
+
 	}
-} 	
+}
 
 
 // ------------------------------------------------------------
@@ -80,7 +80,7 @@
 // ------------------------------------------------------------
 
 .heading {
-	font-weight: 600;
+	@extend %font-heading;
 }
 
 // ------------------------------------------------------------
@@ -96,30 +96,30 @@
 .list-item--typeset 			{ @include trailer($para/2); }
 
 // Lists
-.unordered-list 	{ 
-	@include unordered; 
-	padding-left: 3em; 
-	li { 
-		@extend .list-item; 
-		@extend .list-item--typeset; 
-	} 
+.unordered-list 	{
+	@include unordered;
+	padding-left: 3em;
+	li {
+		@extend .list-item;
+		@extend .list-item--typeset;
+	}
 }
 
-.ordered-list 	{ 
-	@include ordered; 
-	padding-left: 3.5em; 
-	li { 
-		@extend .list-item; 
-		@extend .list-item--typeset; 
-	} 
+.ordered-list 	{
+	@include ordered;
+	padding-left: 3.5em;
+	li {
+		@extend .list-item;
+		@extend .list-item--typeset;
+	}
 }
 
-.nobullet-list 	{ 
-	@include nobullet; 
-	li { 
-		@extend .list-item; 
-		@extend .list-item--typeset; 
-	} 
+.nobullet-list 	{
+	@include nobullet;
+	li {
+		@extend .list-item;
+		@extend .list-item--typeset;
+	}
 }
 
 .list--typeset 					{ @include trailer($para); @include leader($para); }
@@ -132,67 +132,67 @@
 // ------------------------------------------------------------
 
 .is-typeset {
-	
+
 	h1, h2 {
-		@extend .type-l; 
-		@extend .type-l--leader; 
-		@extend .type-l--trailer; 
+		@extend .type-l;
+		@extend .type-l--leader;
+		@extend .type-l--trailer;
 		@extend .heading;
 	}
-	
+
 	h3, h4 {
-		@extend .type-m; 
-		@extend .type-m--leader; 
-		@extend .type-m--trailer; 
+		@extend .type-m;
+		@extend .type-m--leader;
+		@extend .type-m--trailer;
 		@extend .heading;
 	}
-	
+
 	h5 {
-		@extend .type-s; 
-		@extend .type-s--leader; 
-		@extend .type-s--trailer; 
+		@extend .type-s;
+		@extend .type-s--leader;
+		@extend .type-s--trailer;
 		@extend .heading;
 	}
-	
+
 	h6 {
-		@extend .type-xs; 
-		@extend .type-xs--leader; 
-		@extend .type-xs--trailer; 
+		@extend .type-xs;
+		@extend .type-xs--leader;
+		@extend .type-xs--trailer;
 		@extend .heading;
 	}
-	
+
 	ol {
 		@extend .ordered-list;
 	}
-	
+
 	ul {
 		@extend .unordered-list;
 	}
-	
+
 	p {
 		@extend .para;
 		@extend .para--typeset;
 	}
-	
+
 	img {
 		@extend %max-width;
 		margin: ($para/$rembase) + em 0;
 	}
-	
+
 	// Tear out the initial top margin to allow things to flush together
-	> h1:first-child, 
-	> h2:first-child, 
-	> h3:first-child, 
+	> h1:first-child,
+	> h2:first-child,
+	> h3:first-child,
 	> h4:first-child,
 	> h5:first-child,
 	> h6:first-child,
 	> img:first-child,
-	> media-video-wrapper:first-child  { 
-		margin-top: 0; 
+	> media-video-wrapper:first-child  {
+		margin-top: 0;
 	}
-	
+
 	// Stop it with your spacing with empty tags madness
-	br + br, 
+	br + br,
 	h1:empty,
 	h2:empty,
 	h3:empty,
@@ -210,10 +210,10 @@
 }
 
 // No bottom. Like a reverse Kim Kardashian
-.is-typeset--no-trailing { 
-	p, li, ul, ol { 
-		&:last-child { 
-			margin-bottom: 0; 
-		} 
-	} 
+.is-typeset--no-trailing {
+	p, li, ul, ol {
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
 }

@@ -1,10 +1,24 @@
 [
 	{ "name": "slate" },
 	{ "name": "poppy" },
+	{ "name": "poppy-light" },
+	{ "name": "poppy-dark" },
 	{ "name": "sunflower" },
+	{ "name": "sunflower-light" },
+	{ "name": "sunflower-dark" },
 	{ "name": "marigold" },
+	{ "name": "marigold-light" },
+	{ "name": "marigold-dark" },
 	{ "name": "rose" },
+	{ "name": "rose-light" },
+	{ "name": "rose-dark" },
 	{ "name": "lavendar" },
+	{ "name": "lavendar-light" },
+	{ "name": "lavendar-dark" },
 	{ "name": "bluebell" },
-	{ "name": "leaf" }
+	{ "name": "bluebell-light" },
+	{ "name": "bluebell-dark" },
+	{ "name": "leaf" },
+	{ "name": "leaf-light" },
+	{ "name": "leaf-dark" }
 ]

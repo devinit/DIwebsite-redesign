@@ -7,12 +7,26 @@
 @each $name, $color in
 		('slate', $slate),
 		('poppy', $poppy),
+		('poppy-light', $poppy-light),
+		('poppy-dark', $poppy-dark),
 		('sunflower', $sunflower),
+		('sunflower-light', $sunflower-light),
+		('sunflower-dark', $sunflower-dark),
 		('marigold', $marigold),
+		('marigold-light', $marigold-light),
+		('marigold-dark', $marigold-dark),
 		('rose', $rose),
+		('rose-light', $rose-light),
+		('rose-dark', $rose-dark),
 		('lavendar', $lavendar),
+		('lavendar-light', $lavendar-light),
+		('lavendar-dark', $lavendar-dark),
 		('bluebell', $bluebell),
+		('bluebell-light', $bluebell-light),
+		('bluebell-dark', $bluebell-dark),
 		('leaf', $leaf),
+		('leaf-light', $leaf-light),
+		('leaf-dark', $leaf-dark),
 	{
 	.color-#{$name} {
 		color: $color;

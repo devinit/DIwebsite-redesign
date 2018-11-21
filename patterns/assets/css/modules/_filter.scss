@@ -1,0 +1,30 @@
+// -----------------------------------------
+// Filter
+// -----------------------------------------
+
+.filter {
+    
+}
+
+.filter__title {
+    @include font-size($delta);
+    @extend %font-heading;
+    margin-bottom: 1em;
+}
+
+.filter__list {
+    @include font-size($zeta);
+     li {
+         display: inline-block;
+         margin-right: 0.5em;
+         margin-bottom: 1em;
+         a {
+             border: 1px solid $action;
+             padding: 0.25em 1em;
+             border-radius: 1.5em;
+             @include link-active-styles {
+                 border-color: $action-respond;
+             }
+         }
+     }
+}

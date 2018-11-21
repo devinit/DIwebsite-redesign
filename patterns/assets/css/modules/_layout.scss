@@ -56,6 +56,48 @@
 }
 
 // ------------------------------------------------------------
+// 2 columns
+// ------------------------------------------------------------
+
+.l-2up {
+	@extend %l;
+	@include respond-to($c-vp) {
+		@supports (display: grid) {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			grid-column-gap: 40px;
+			grid-row: inherit;
+		}
+		@supports (display: -ms-grid) {
+			display: block;
+		}
+	}
+	&__col, .card {
+		margin-bottom: 3em;
+		@include respond-to($c-vp) {
+			float: left;
+			width: 47.5%;
+			margin-right: 5%;
+			&:nth-child(2n) {
+				margin-right: 0;
+			}
+			@supports (display: grid) {
+				width: auto;
+				margin-right: 0;
+			}
+			@supports (display: -ms-grid) {
+				float: left;
+				width: 47.5%;
+				margin-right: 5%;
+				&:nth-child(2n) {
+					margin-right: 0;
+				}
+			}
+		}
+	}
+}
+
+// ------------------------------------------------------------
 // Listings
 // ------------------------------------------------------------
 

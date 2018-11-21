@@ -12,7 +12,7 @@
 	width: 44px;
 	height: 42px;
 	position: absolute;
-	top: 4px; // Tweak as needed
+	top: 20px; // Tweak as needed
 	right: $internal-spacing;
 	&:before,
 	&:after {
@@ -40,7 +40,7 @@
 	&:focus {
 		outline: none;
 		span {
-			
+
 		}
 	}
 	@include respond-to-max($menu-respond) {
@@ -90,6 +90,7 @@
 	@include respond-to($menu-respond) {
 		display: block;
 		float: right;
+		margin-top: 10px;
 		html.js & {
 			display: block;
 		}
@@ -97,11 +98,11 @@
 	&__item {
 		position: relative;
 		overflow: hidden;
-		@include font-size($para);
+		@include font-size($zeta);
 		@include respond-to($menu-respond) {
 			display: inline-block;
 			float: left;
-			margin-left: 1em;
+			margin-left: 2.5em;
 			&:first-child {
 				margin-left: 0;
 			}
@@ -109,26 +110,37 @@
 		a {
 			display: block;
 			position: relative;
+			color: $heading-color;
 			span {
 				font-size: inherit;
 				position: relative;
 				z-index: 1;
 			}
 			@include respond-to-max($menu-respond) {
+				color: #fff;
 				padding: 0.75em 0;
-				border-bottom: $default-border-width solid $heading-color;
+				border-bottom: $default-border-width solid #fff;
 			}
 			@include respond-to($menu-respond) {
-			
+				@include link-active-styles {
+					border-bottom: 2px solid $action;
+				}
 			}
-			@include link-active-styles {
-				
+		}
+		&:last-child {
+			@include respond-to-max($menu-respond) {
+				a {
+					border-bottom: none;
+				}
 			}
 		}
 		&--active {
-			a {
-				@include link-active-styles {
-					
+			@include respond-to($menu-respond) {
+				a {
+					border-bottom: 2px solid $action;
+					@include link-active-styles {
+
+					}
 				}
 			}
 		}

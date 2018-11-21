@@ -1,3 +1,33 @@
 // ------------------------------------------------------------
 // Keyframes
 // ------------------------------------------------------------
+
+@keyframes herofade {
+    from { opacity: 0; }
+    to   { opacity: 0.5; }
+}
+
+@keyframes herofade2 {
+    from { opacity: 0; }
+    to   { opacity: 0.25; }
+}
+
+@keyframes herofade3 {
+    from { opacity: 0; }
+    to   { opacity: 0.1; }
+}
+
+@keyframes herofade4 {
+    from { opacity: 0; }
+    to   { opacity: 0.2; }
+}
+
+@keyframes herofade5 {
+    from { opacity: 0; }
+    to   { opacity: 0.3; }
+}
+
+@keyframes herofade6 {
+    from { opacity: 0; }
+    to   { opacity: 0.15; }
+}

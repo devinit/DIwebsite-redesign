@@ -1,0 +1,22 @@
+// -----------------------------------------
+// Section
+// -----------------------------------------
+
+.section {
+    @extend .space-section-both;
+    &__heading {
+        position: relative;
+        display: inline-block;
+        margin-bottom: 2em;
+        @include font-size($beta);
+        &:after {
+            content: "";
+            position: absolute;
+            top: 20px;
+            right: -4em;
+            height: 1px;
+            width: 3em;
+            background-color: $poppy-dark;
+        }
+    }
+}

@@ -7,6 +7,7 @@
 // ------------------------------------------------------------
 
 $slate                              : #443e42;
+$cloud                              : #EBE8EB;
 $poppy                              : #e84439;
 $sunflower                          : #f49b21;
 $marigold                           : #eb642b;
@@ -18,7 +19,7 @@ $leaf                               : #109e68;
 // Tones of colour palette
 // ------------------------------------------------------------
 $poppy-light                        : #f0826d;
-$poppy-dark                         : #bc2629;
+$poppy-dark                         : #8f1b13;
 $sunflower-light                    : #f9b865;
 $sunflower-dark                     : #e48a00;
 $marigold-light                     : #f18e5e;
@@ -52,13 +53,13 @@ $flickr-color 						: #ff0084;
 // ------------------------------------------------------------
 
 // Defaults
-$body-color 						: #fff;
-$base-color							: #444;
-$heading-color						: #333;
+$body-color 						: $cloud;
+$base-color							: $slate;
+$heading-color						: $slate;
 
 // Actions
-$action								: #09c;
-$action-respond						: #f0c;
+$action								: $poppy-dark;
+$action-respond						: $marigold;
 
 // Borders
 $default-border-color 				: #ddd;
@@ -71,8 +72,8 @@ $form-checkbox-color				: $heading-color;
 $form-radio-color					: $heading-color;
 
 // Navigation
-$nav-toggle-color					: $heading-color;
-$nav-toggle-color-active			: $action;
+$nav-toggle-color					: #fff;
+$nav-toggle-color-active			: #fff;
 
 
 // Responses

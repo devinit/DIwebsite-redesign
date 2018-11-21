@@ -5,7 +5,6 @@
 
 <nav class="navigation-primary" role="navigation" id="navigation-primary">
 	<ul class="navigation-primary__items">
-		<li class="navigation-primary__item navigation-primary__item--home{% if section == 'home' %} navigation-primary__item--active{% else %}{% endif %}"><a href="">Home</a></li>
 		{% for item in navigation.primary %}
 			{% if item.hidden == false %}
 				{% if section == item.in_section %}

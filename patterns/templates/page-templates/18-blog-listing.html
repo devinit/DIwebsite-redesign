@@ -1,0 +1,70 @@
+{# 1. Extend the relevant layout #}
+{# --------------------------------------- #}
+
+{% extends 'default.html' %}
+
+
+{# --------------------------------------- #}
+{# 2. Assign Settings and variables #}
+{# --------------------------------------- #}
+
+{% set id = "blog" %}
+{% set section = "blog" %}
+{% set title = "Blog" %}
+{% set excerpt = "The Development Initiativesblod is updated regularly ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." %}
+
+{# --------------------------------------- #}
+{# 3. Add models and macros #}
+{# --------------------------------------- #}
+
+{% model 'articles', as="articles" %}
+
+{% import 'macros/button.html' as buttons %}
+{% import 'macros/icon.html' as icons %}
+
+
+{# --------------------------------------- #}
+{#
+   4. Add page content into relevant areas
+      Add/Delete blocks as necessary
+#}
+{# --------------------------------------- #}
+
+{% block body %}
+    {% include 'heroes/hero.html' %}
+
+    <section class="section">
+        <div class="row row--narrow">
+            {% include 'partials/filter.html' %}
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <h2 class="section__heading">Latest blog posts</h2>
+            <div class="max-meter">
+                <div class="card card--duo">
+                    <div class="card__media">
+                        <img src="{{ global.assets_root }}/img/ptn-example.jpg" alt="alt tag">
+                    </div>
+                    <div class="card__body">
+                        <span class="card__meta">Oct 10, 2018</span>
+                        <h3 class="card__title"><a href="#">Is using ODA for blending a good use of scarce concessional resources</a></h3>
+                        <p class="card__excerpt">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                    </div>
+                </div>
+
+                <div class="card card--duo">
+                    <div class="card__media">
+                        <img src="{{ global.assets_root }}/img/ptn-example.jpg" alt="alt tag">
+                    </div>
+                    <div class="card__body">
+                        <span class="card__meta">Oct 10, 2018</span>
+                        <h3 class="card__title"><a href="#">Is using ODA for blending a good use of scarce concessional resources</a></h3>
+                        <p class="card__excerpt">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

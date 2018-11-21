@@ -1,28 +1,33 @@
 {
     "primary": [
-	    { 
-		    "label": "Option A",
-		    "in_section": "",
+	    {
+		    "label": "Who we are",
+		    "in_section": "are",
 		    "hidden": false
 		},
-		{ 
-		    "label": "Option B",
-		    "in_section": "",
+		{
+		    "label": "What we do",
+		    "in_section": "do",
 		    "hidden": false
 		},
-		{ 
-		    "label": "Option C",
-		    "in_section": "",
+		{
+		    "label": "How we work",
+		    "in_section": "work",
 		    "hidden": false
 		},
-		{ 
-		    "label": "Option D",
-		    "in_section": "",
+		{
+		    "label": "Pulbications",
+		    "in_section": "pulbications",
 		    "hidden": false
 		},
-		{ 
-		    "label": "Option E",
-		    "in_section": "",
+		{
+		    "label": "Blog",
+		    "in_section": "blog",
+		    "hidden": false
+		},
+        {
+		    "label": "Work with us",
+		    "in_section": "contact",
 		    "hidden": false
 		}
     ]

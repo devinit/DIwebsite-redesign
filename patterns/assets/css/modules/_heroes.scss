@@ -1,0 +1,98 @@
+// ------------------------------------------------------------
+// Heroes
+// ------------------------------------------------------------
+
+.hero {
+    position: relative;
+    background-color: $poppy-dark;
+    padding: 5em 0 5em 0;
+    @include respond-to($menu-respond) {
+        padding: 15em 0 8em 0;
+        width: 95%;
+        &:after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 60px;
+            background-color: $cloud;
+        }
+    }
+}
+
+.hero__content {
+    max-width: 650px;
+}
+
+.hero__title {
+    @extend %font-heading;
+    @include font-size($alpha-papa);
+    margin-bottom: 0.25em;
+    color: #fff;
+}
+
+.hero__excerpt {
+    @include font-size($para);
+    color: #fff;
+}
+
+// Heroe flourishes
+// ------------------------------------------------------------
+
+.hero__flourish {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 120px;
+    height: 120px;
+    opacity: 0;
+    background: $poppy;
+    animation: herofade 1s;
+    animation-delay: 1.5s;
+    animation-fill-mode: forwards;
+    &:nth-child(2) {
+        left: 50px;
+        width: 100px;
+        height: 100px;
+        animation: herofade2 1s;
+        animation-delay: 1s;
+        animation-fill-mode: forwards;
+    }
+    &:nth-child(3) {
+        top: 200px;
+        left: 700px;
+        width: 80px;
+        height: 80px;
+        animation: herofade3 1s;
+        animation-delay: 0.75s;
+        animation-fill-mode: forwards;
+    }
+    &:nth-child(4) {
+        top: 140px;
+        left: 780px;
+        width: 60px;
+        height: 60px;
+        animation: herofade4 1s;
+        animation-delay: 0.5s;
+        animation-fill-mode: forwards;
+    }
+    &:nth-child(5) {
+        top: 30px;
+        left: 950px;
+        width: 40px;
+        height: 40px;
+        animation: herofade5 1s;
+        animation-delay: 1.6s;
+        animation-fill-mode: forwards;
+    }
+    &:nth-child(6) {
+        top: 30px;
+        left: 90px;
+        width: 70px;
+        height: 70px;
+        animation: herofade6 1s;
+        animation-delay: 2s;
+        animation-fill-mode: forwards;
+    }
+}

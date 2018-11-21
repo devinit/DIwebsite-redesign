@@ -1,0 +1,61 @@
+// -----------------------------------------
+// Cards
+// -----------------------------------------
+
+.card {
+    @extend %pie-clearfix;
+    position: relative;
+    background-color: #fff;
+    margin-bottom: 6em;
+    &--duo {
+        @include respond-to($menu-respond) {
+            .card__media {
+                float: left;
+                width: 40%;
+                transform:translate(-2em,-2em);
+            }
+            .card__body {
+                float: left;
+                width: 60%;
+            }
+        }
+    }
+    &:last-of-type {
+        margin-bottom: 0;
+    }
+}
+
+.card__media {
+    img {
+        max-width: 100%;
+        display: block;
+    }
+}
+
+.card__body {
+    padding: 3em;
+}
+
+.card__meta {
+    @include font-size($eta);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.5em;
+    display: block;
+}
+
+.card__title {
+    @include font-size($gamma);
+    margin-bottom: 0.5em;
+    a {
+        color: $heading-color;
+        @include link-active-styles {
+            border-bottom: 1px solid $action;
+        }
+    }
+}
+
+.card__excerpt {
+    @include font-size($zeta);
+    line-height: 1.6;
+}

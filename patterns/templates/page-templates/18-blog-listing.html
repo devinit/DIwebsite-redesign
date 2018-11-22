@@ -17,7 +17,7 @@
 {# 3. Add models and macros #}
 {# --------------------------------------- #}
 
-{% model 'articles', as="articles" %}
+{% model 'cards', as="card" %}
 
 {% import 'macros/button.html' as buttons %}
 {% import 'macros/icon.html' as icons %}
@@ -42,29 +42,12 @@
     <section class="section">
         <div class="row row--narrow">
             <h2 class="section__heading">Latest blog posts</h2>
-            <div class="max-meter">
-                <div class="card card--duo">
-                    <div class="card__media">
-                        <img src="{{ global.assets_root }}/img/ptn-example.jpg" alt="alt tag">
-                    </div>
-                    <div class="card__body">
-                        <span class="card__meta">Oct 10, 2018</span>
-                        <h3 class="card__title"><a href="#">Is using ODA for blending a good use of scarce concessional resources</a></h3>
-                        <p class="card__excerpt">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                    </div>
-                </div>
-
-                <div class="card card--duo">
-                    <div class="card__media">
-                        <img src="{{ global.assets_root }}/img/ptn-example.jpg" alt="alt tag">
-                    </div>
-                    <div class="card__body">
-                        <span class="card__meta">Oct 10, 2018</span>
-                        <h3 class="card__title"><a href="#">Is using ODA for blending a good use of scarce concessional resources</a></h3>
-                        <p class="card__excerpt">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                    </div>
-                </div>
+            <div class="l-2up-3up">
+                {% for item in card.blog_list %}
+                    {% include 'cards/card-blog.html' %}
+                {% endfor %}
             </div>
+            {% include 'partials/pagination.html' %}
         </div>
     </section>
 {% endblock %}

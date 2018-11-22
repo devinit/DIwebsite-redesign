@@ -17,8 +17,14 @@
 	padding-right: $internal-spacing;
 	@include respond-to($menu-respond) {
 		&--narrow {
-			padding-left: $internal-spacing*3;
-			padding-right: $internal-spacing*3;
+			padding-left: $internal-spacing*2;
+			padding-right: $internal-spacing*2;
+		}
+	}
+	@include respond-to($d-vp) {
+		&--narrow {
+			padding-left: $internal-spacing*4;
+			padding-right: $internal-spacing*4;
 		}
 	}
 }

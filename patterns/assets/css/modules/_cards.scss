@@ -6,7 +6,8 @@
     @extend %pie-clearfix;
     position: relative;
     background-color: #fff;
-    margin-bottom: 6em;
+    margin-top: 2em;
+    display: block;
     &--duo {
         @include respond-to($menu-respond) {
             .card__media {
@@ -20,12 +21,47 @@
             }
         }
     }
+    &--offset {
+        @include respond-to($menu-respond) {
+            .card__media {
+                transform:translate(-2em,-2em);
+                transition: all, ease-in-out, 0.3s;
+            }
+            .card__body {
+                padding-top: 1em;
+                transition: all, ease-in-out, 0.3s;
+            }
+        }
+    }
     &:last-of-type {
         margin-bottom: 0;
     }
 }
 
+// hover transitions when whole card block is a link
+a.card {
+    &:hover {
+        .card__title {
+            a, span {
+                border-width: 2px;
+            }
+        }
+    }
+    &--offset {
+        &:hover {
+            .card__media {
+                transform:translate(0,0);
+            }
+            .card__body {
+                transform: translateY(1em);
+            }
+        }
+    }
+}
+
 .card__media {
+    @include maintain-ratio(4 3);
+    @extend .background-cover;
     img {
         max-width: 100%;
         display: block;
@@ -42,20 +78,24 @@
     letter-spacing: 1px;
     margin-bottom: 0.5em;
     display: block;
+    color: $heading-color;
 }
 
 .card__title {
     @include font-size($gamma);
     margin-bottom: 0.5em;
-    a {
+    display: inline-block;
+    a, span {
+        position: relative;
         color: $heading-color;
-        @include link-active-styles {
-            border-bottom: 1px solid $action;
-        }
+        display: inline;
+        border-bottom: 0 solid $action;
+        transition: all, ease-in-out, 0.3s;
     }
 }
 
 .card__excerpt {
     @include font-size($zeta);
     line-height: 1.6;
+    color: $heading-color;
 }

@@ -3,7 +3,7 @@
 // -----------------------------------------
 
 .filter {
-    
+
 }
 
 .filter__title {
@@ -24,6 +24,8 @@
              border-radius: 1.5em;
              @include link-active-styles {
                  border-color: $action-respond;
+                 background-color: lighten($action-respond, 20%);
+                 color: #fff;
              }
          }
      }

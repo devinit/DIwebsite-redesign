@@ -1,0 +1,46 @@
+// ------------------------------------------------------------
+// Modules
+// prefix with m-
+// ------------------------------------------------------------
+
+.m-author {
+    overflow: hidden;
+    background-color: darken($poppy-dark, 10%);
+    max-width: 300px;
+    .hero & {
+        position: absolute;
+        bottom: -35px;
+        left: $internal-spacing;
+        @include respond-to($menu-respond) {
+    		left: $internal-spacing*2;
+    	}
+    	@include respond-to($d-vp) {
+    		left: $internal-spacing*4;
+    	}
+    }
+}
+
+.m-author__image {
+    float: left;
+    width: 27%;
+    img {
+        @extend .max-width;
+    }
+}
+
+.m-author__body {
+    padding-left: 32%;
+    top: -50%;
+    transform: translateY(50%);
+}
+
+.m-author__title {
+    @include font-size($eta);
+    @extend %font-heading;
+    color: #fff;
+}
+
+.m-author__job {
+    @include font-size($eta);
+    color: #fff;
+}

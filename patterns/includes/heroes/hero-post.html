@@ -1,0 +1,32 @@
+<section class="hero" >
+    <div class="hero__image" style="background-image: url('{{ global.assets_root }}/img/content-image1.jpg');"></div>
+    <span class="hero__flourish"></span>
+    <span class="hero__flourish"></span>
+    <span class="hero__flourish"></span>
+    <span class="hero__flourish"></span>
+    <span class="hero__flourish"></span>
+    <span class="hero__flourish"></span>
+    <span class="hero__flourish"></span>
+    <span class="hero__flourish"></span>
+    <div class="row row--narrow">
+        <div class="hero__content">
+            <ul class="hero__meta">
+                <li class="hero__meta-item hero__meta-item--block">Blog</li>
+                <li class="hero__meta-item">25th Oct 2018</li>
+            </ul>
+            <h1 class="hero__title">{{ title }}</h1>
+            {% if excerpt %}
+                <p class="hero__excerpt">{{ excerpt }}</p>
+            {% endif %}
+        </div>
+    </div>
+    <div class="m-author">
+        <div class="m-author__image">
+            <img src="{{ global.assets_root }}/img/profile.jpg" alt="alt tag">
+        </div>
+        <div class="m-author__body">
+            <h3 class="m-author__title">Written by Cecilis Caio</h3>
+            <p class="m-author__job">Senior Analyst</p>
+        </div>
+    </div>
+</section>

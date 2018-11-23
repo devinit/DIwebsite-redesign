@@ -7,7 +7,7 @@
     background-color: $poppy-dark;
     padding: 5em 0 5em 0;
     @include respond-to($menu-respond) {
-        padding: 15em 0 8em 0;
+        padding: 18em 0 8em 0;
         width: 95%;
         &:after {
             content: "";
@@ -21,20 +21,75 @@
     }
 }
 
+.hero__image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    &:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        @include rgba(#000, 0.6);
+    }
+    &:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 50px;
+        height: 60px;
+        background-color: $poppy-dark;
+    }
+    @include respond-to($menu-respond) {
+        top: 5%;
+        left: 50px;
+        width: 90%;
+        height: 95%;
+    }
+}
+
 .hero__content {
     max-width: 650px;
 }
 
 .hero__title {
     @extend %font-heading;
-    @include font-size($alpha-papa);
+    @include font-size($alpha);
+    line-height: 1.3;
     margin-bottom: 0.25em;
     color: #fff;
+    @include respond-to($menu-respond) {
+        @include font-size($alpha-papa);
+    }
 }
 
 .hero__excerpt {
     @include font-size($para);
     color: #fff;
+}
+
+.hero__meta {
+    margin-bottom: 2em;
+}
+
+.hero__meta-item {
+    @include font-size($eta);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: inline-block;
+    margin-right: 2em;
+    color: #fff;
+    &--block {
+        background-color: #fff;
+        color: $heading-color;
+        padding: 0 0.5em;
+    }
 }
 
 // Heroe flourishes
@@ -51,6 +106,7 @@
     animation: herofade 1s;
     animation-delay: 1.5s;
     animation-fill-mode: forwards;
+    mix-blend-mode: color;
     &:nth-child(2) {
         left: 50px;
         width: 100px;

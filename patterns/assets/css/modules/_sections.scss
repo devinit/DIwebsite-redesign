@@ -4,6 +4,9 @@
 
 .section {
     @extend .space-section-both;
+    &--post {
+        margin-top: $internal-spacing*2.5;
+    }
     &__heading {
         position: relative;
         display: inline-block;
@@ -16,7 +19,7 @@
             right: -4em;
             height: 1px;
             width: 3em;
-            background-color: $poppy-dark;
+            background-color: $poppy;
         }
     }
 }

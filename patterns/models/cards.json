@@ -36,5 +36,25 @@
 		    "date": "Oct 10, 2018",
 		    "excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
 		}
+    ],
+    "blog_related": [
+	    {
+            "img_name": "content-image1",
+		    "title": "Is using ODA for blending a good use of scarce concessional resources",
+		    "date": "Oct 10, 2018",
+		    "excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+		},
+        {
+            "img_name": "content-image2",
+		    "title": "How can data really be transformative?",
+		    "date": "Oct 10, 2018",
+		    "excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."
+		},
+        {
+            "img_name": "content-image3",
+		    "title": "Data to leave no one behind: Development cooperation and the P20",
+		    "date": "Oct 10, 2018",
+		    "excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi."
+		}
     ]
 }

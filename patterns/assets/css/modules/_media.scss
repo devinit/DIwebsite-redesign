@@ -28,7 +28,8 @@
 		height: auto;
 	}
 	&__caption {
-		@include font-size($para - 2);
+		border-left: 3px solid $poppy;
+		@include font-size($para - 3);
 		display: block;
 		padding: 0.5em 1em;
 	}

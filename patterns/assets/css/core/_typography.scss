@@ -169,6 +169,13 @@
 		@extend .unordered-list;
 	}
 
+	a:not(.button) {
+		border-bottom: 1px solid $action-respond;
+		@include link-active-styles {
+			border-color: $poppy;
+		}
+	}
+
 	p {
 		@extend .para;
 		@extend .para--typeset;

@@ -123,7 +123,7 @@
 			}
 			@include respond-to($menu-respond) {
 				@include link-active-styles {
-					border-bottom: 2px solid $action;
+					border-bottom: 2px solid $poppy;
 				}
 			}
 		}
@@ -137,7 +137,7 @@
 		&--active {
 			@include respond-to($menu-respond) {
 				a {
-					border-bottom: 2px solid $action;
+					border-bottom: 2px solid $poppy;
 					@include link-active-styles {
 
 					}

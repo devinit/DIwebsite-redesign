@@ -21,7 +21,7 @@ $internal-spacing-pixel				: 30px; 	// Space internally with fixed measure. Rend
 // --------------------------
 $a-vp								: 300px;
 $b-vp 								: 500px;
-$c-vp 								: 780px;
+$c-vp 								: 850px;
 $d-vp 								: 1000px;
 $e-vp 								: 1400px;
 
@@ -37,8 +37,8 @@ $max-vp								: $e-vp + $internal-spacing-pixel*2;	// Max viewport
 $table-respond						: $c-vp;								// Responsive tables
 $menu-respond						: $c-vp;								// If using ss/non ss navigation
 $sidebar-respond					: $c-vp;								// Sidebar switch point
-$sidebar-aside-width				: 32.5%;								// Sidebar column default
-$sidebar-body-width					: 67.5%;								// Sidebar body default
+$sidebar-aside-width				: 25%;								    // Sidebar column default
+$sidebar-body-width					: 65%;								    // Sidebar body default
 
 
 // FFS assignments

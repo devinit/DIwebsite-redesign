@@ -14,5 +14,9 @@
 	{
 		"name": "12-blog-single",
 		"stage": "Template"
+	},
+	{
+		"name": "16-job-single",
+		"stage": "Template"
 	}
 ]

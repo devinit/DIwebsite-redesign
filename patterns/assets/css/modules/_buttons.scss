@@ -9,17 +9,18 @@
 	display: inline-block;
 	text-align: left;
 	padding: 1em;
-	@include font-size($para);
+	@include font-size($para - 1);
 	line-height: 1;
-	color: #fff;
-	background-color: $action;
+	color: $action;
+	border: 1px solid $action;
 	text-decoration: none;
 	position: relative;
 	vertical-align: middle;
 	cursor: pointer;
+	transition: all, ease-in-out, 0.3s;
 	@include link-active-styles {
 		color: #fff;
-		background-color: $action-respond;
+		background-color: $action;
 	}
 }
 

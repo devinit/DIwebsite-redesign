@@ -9,8 +9,15 @@
     <span class="hero__flourish"></span>
     <div class="row row--narrow">
         <div class="hero__content">
+            {% if section == 'jobs' %}
+                <ul class="hero__meta">
+                    <li class="hero__meta-item hero__meta-item--block">Bristol, UK</li>
+                </ul>
+            {% endif %}
             <h1 class="hero__title">{{ title }}</h1>
-            <p class="hero__excerpt">{{ excerpt }}</p>
+            {% if excerpt %}
+                <p class="hero__excerpt">{{ excerpt }}</p>
+            {% endif %}
         </div>
     </div>
 </section>

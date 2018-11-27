@@ -1,0 +1,62 @@
+{# 1. Extend the relevant layout #}
+{# --------------------------------------- #}
+
+{% extends 'sidebar.html' %}
+
+
+{# --------------------------------------- #}
+{# 2. Assign Settings and variables #}
+{# --------------------------------------- #}
+
+{% set id = "jobs" %}
+{% set section = "jobs" %}
+{% set title = "Communications officer" %}
+{% set excerpt = "" %}
+
+{# --------------------------------------- #}
+{# 3. Add models and macros #}
+{# --------------------------------------- #}
+
+{% model 'cards', as="card" %}
+
+{% import 'macros/button.html' as buttons %}
+{% import 'macros/icon.html' as icons %}
+
+
+{# --------------------------------------- #}
+{#
+   4. Add page content into relevant areas
+      Add/Delete blocks as necessary
+#}
+{# --------------------------------------- #}
+
+{% block hero %}
+    {% include 'heroes/hero.html' %}
+{% endblock %}
+
+{% block main %}
+    <section class="section">
+        {% include 'partials/breadcrumbs.html' %}
+        <div class="highlight">
+
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="is-typeset is-typeset--additionals wysiwyg">
+            {% include 'content/longform.html' %}
+        </div>
+    </section>
+{% endblock %}
+
+{% block aside %}
+    <div class="aside">
+        <h2 class="aside__heading">Apply for this position</h2>
+        <p class="aside__excerpt">Please read the full role profile and apply by emailing your CV and cover letter to <a href="#">HR@devinit.org</a>.</p>
+        <div class="aside__button-group">
+            <a href="#" class="button">Recruitment pack</a>
+            <a href="#" class="button">Diversity monitoring form</a>
+            <a href="#" class="button">Guaranted Interview form</a>
+        </div>
+    </div>
+{% endblock %}

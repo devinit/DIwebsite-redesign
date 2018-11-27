@@ -9,10 +9,10 @@
         position: relative;
         display: block;
         margin-bottom: 2em;
-        background-color: #fff;
-        padding: 0.5em 1em;
         .hero & {
             @include respond-to($d-vp) {
+                background-color: #fff;
+                padding: 0.5em 1em;
                 position: absolute;
                 bottom: -52px;
                 right: 0;

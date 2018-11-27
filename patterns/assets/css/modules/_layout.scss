@@ -38,7 +38,7 @@
 	@extend %l;
 	&__aside {
 		@include respond-to($sidebar-respond) {
-			float: left;
+			float: right;
 			display: inline-block;
 			width: $sidebar-aside-width;
 		}

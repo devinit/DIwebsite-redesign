@@ -4,42 +4,45 @@
 
 .breadcrumbs {
     @extend %pie-clearfix;
-    position: relative;
-    display: block;
-    margin-bottom: 2em;
-    background-color: #fff;
-    padding: 0.5em 1em;
-    .section--post & {
-        @include respond-to($d-vp) {
-            position: absolute;
-            top: -75px;
-            right: $internal-spacing*2;
-            max-width: 480px;
-        }
-        @include respond-to($e-vp) {
-            max-width: 800px;
-        }
-    }
-    &__item {
+    display: none;
+    @include respond-to($d-vp) {
         position: relative;
-        @include font-size($zeta);
-        float: left;
-        margin-right: 1em;
-        &:after {
-            content: "/";
-            position: absolute;
-            top: 0;
-            right: -9px;
-            color: $heading-color;
-        }
-        a   {
-            &:hover {
-                border-bottom: 1px solid $poppy;
+        display: block;
+        margin-bottom: 2em;
+        background-color: #fff;
+        padding: 0.5em 1em;
+        .hero & {
+            @include respond-to($d-vp) {
+                position: absolute;
+                bottom: -52px;
+                right: 0;
+                max-width: 480px;
+            }
+            @include respond-to($e-vp) {
+                max-width: 800px;
             }
         }
-        &:last-child {
+        &__item {
+            position: relative;
+            @include font-size($zeta);
+            float: left;
+            margin-right: 1em;
             &:after {
-                content: none;
+                content: "/";
+                position: absolute;
+                top: 0;
+                right: -9px;
+                color: $heading-color;
+            }
+            a   {
+                &:hover {
+                    border-bottom: 1px solid $poppy;
+                }
+            }
+            &:last-child {
+                &:after {
+                    content: none;
+                }
             }
         }
     }

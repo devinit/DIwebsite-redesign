@@ -18,8 +18,12 @@
 }
 
 .media-figure {
+	position: relative;
 	.is-typeset & {
 		margin: 2em 0;
+		@include respond-to($d-vp) {
+			margin-bottom: 4em;
+		}
 	}
 	img {
 		display: block;
@@ -28,9 +32,19 @@
 		height: auto;
 	}
 	&__caption {
-		border-left: 3px solid $poppy;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		z-index: 2;
+		background-color: $slate;
+		color: #fff;
 		@include font-size($para - 3);
 		display: block;
-		padding: 0.5em 1em;
+		padding: 1em 1.5em;
+		max-width: 500px;
+		@include respond-to($d-vp) {
+			bottom: -2em;
+			left: -2em;
+		}
 	}
 }

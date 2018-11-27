@@ -38,9 +38,24 @@
 // Initial paragraph styles
 .is-typeset--additionals {
 	> p:first-of-type {
+		position: relative;
+		font-weight: 600;
 		color: $heading-color;
-		@include font-size($para + 2);
-		@include leading($base-font-size*1.05);
+		@include font-size($para + 4);
+		@include leading($base-font-size);
+		@include respond-to($d-vp) {
+			margin-bottom: 2em;
+			&:before {
+				content: "";
+				position: absolute;
+				top: -40px;
+				left: -60px;
+				width: 40px;
+				height: 40px;
+				background-color: #fff;
+				z-index: -1;
+			}
+		}
 	}
 }
 
@@ -50,20 +65,30 @@
 
 .as-blockquote {
 	position: relative;
-	&:before {
+	&:before, &:after {
 		content: "";
 		position: absolute;
-		top: -20px;
-		left: -60px;
-		width: 50px;
-		height: 50px;
-		background-color: #fff;
+		width: 30px;
+		height: 30px;
+		background-color: $poppy;
 		z-index: -1;
 	}
+	&:before {
+		top: -20px;
+		left: -60px;
+		opacity: 0.5;
+	}
+	&:after {
+		top: -35px;
+    	left: -40px;
+		opacity: 0.75;
+	}
 	p {
+		color: $poppy-dark;
 		@include font-size($quote);
 	}
 	cite {
+		color: $poppy-dark;
 		display: block;
 	}
 }
@@ -71,8 +96,11 @@
 .is-typeset {
 	blockquote {
 		@extend .as-blockquote;
+		margin: 6em 0 5em 0;
 		@include respond-to($d-vp) {
-			margin-left: -5em;
+			max-width: 80%;
+			margin-left: auto;
+			margin-right: auto;
 		}
 	}
 }

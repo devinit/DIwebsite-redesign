@@ -76,7 +76,7 @@ $eta		: 11;
 
 $base-font-size		: $delta; 		// Page default size
 $para				: $delta;  	 	// Paragraph size
-$quote				: $beta;		// Quote size
+$quote				: $gamma;		// Quote size
 $form-label-size    : $epsilon;		// Form label size
 $form-legend-size	: $gamma;		// Form legend size
 
@@ -84,4 +84,4 @@ $form-legend-size	: $gamma;		// Form legend size
 // Calc units
 // --------------------------------
 $rembase 			: 10;			// What do we want our units to calculate from. 10 is nice and easy
-$base-rhythm		: 24;			// Vertical rhythm
+$base-rhythm		: 28;			// Vertical rhythm

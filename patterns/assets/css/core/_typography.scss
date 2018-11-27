@@ -133,28 +133,35 @@
 
 .is-typeset {
 
-	h1, h2 {
+	h1 {
+		@extend .type-xl;
+		@extend .type-xl--leader;
+		@extend .type-xl--trailer;
+		@extend .heading;
+	}
+
+	h2 {
 		@extend .type-l;
 		@extend .type-l--leader;
 		@extend .type-l--trailer;
 		@extend .heading;
 	}
 
-	h3, h4 {
+	h3 {
 		@extend .type-m;
 		@extend .type-m--leader;
 		@extend .type-m--trailer;
 		@extend .heading;
 	}
 
-	h5 {
+	h4 {
 		@extend .type-s;
 		@extend .type-s--leader;
 		@extend .type-s--trailer;
 		@extend .heading;
 	}
 
-	h6 {
+	h5, h6 {
 		@extend .type-xs;
 		@extend .type-xs--leader;
 		@extend .type-xs--trailer;
@@ -163,10 +170,18 @@
 
 	ol {
 		@extend .ordered-list;
+		margin-top: 2em;
+		ol {
+			margin-top: 0.5em;
+		}
 	}
 
 	ul {
 		@extend .unordered-list;
+		margin-top: 2em;
+		ul {
+			margin-top: 0.5em;
+		}
 	}
 
 	a:not(.button) {

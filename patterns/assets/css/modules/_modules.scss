@@ -5,7 +5,7 @@
 
 .m-author {
     overflow: hidden;
-    background-color: darken($poppy-dark, 10%);
+    background-color: $poppy-dark;
     max-width: 300px;
     .hero & {
         position: absolute;

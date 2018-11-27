@@ -36,6 +36,8 @@
         @include font-size($zeta);
         height: $form-item-height;
         width: auto;
+        background-color: $action;
+        color: #fff;
     }
 }
 

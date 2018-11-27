@@ -38,7 +38,13 @@
     <section class="section">
         {% include 'partials/breadcrumbs.html' %}
         <div class="highlight">
-
+            <span class="highlight__flag">Full-time, permanent</span>
+            <ul class="highlight__list">
+                <li><span>Salary scale:</span>&pound;25,000 - &pound;30,00 per annum, dependant on experience</li>
+                <li><span>Closing date:</span>2 December 2018</li>
+                <li><span>First interview:</span>December 2018</li>
+                <li><span>Start date:</span>January 2019</li>
+            </ul>
         </div>
     </section>
 
@@ -59,4 +65,17 @@
             <a href="#" class="button">Guaranted Interview form</a>
         </div>
     </div>
+{% endblock %}
+
+{% block after_content %}
+    <section class="section">
+        <div class="row row--narrow">
+            <h2 class="section__heading">Learn more about Developement Initiatives</h2>
+            <div class="l-4up">
+                {% for item in card.job_info %}
+                    {% include 'cards/card-cta.html' %}
+                {% endfor %}
+            </div>
+        </div>
+    </section>
 {% endblock %}

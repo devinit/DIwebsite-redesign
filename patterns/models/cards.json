@@ -56,5 +56,27 @@
 		    "date": "Oct 10, 2018",
 		    "excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi."
 		}
+    ],
+    "job_info": [
+	    {
+            "img_name": "content-image1",
+		    "title": "Who we are",
+		    "excerpt": ""
+		},
+        {
+            "img_name": "content-image2",
+		    "title": "Our Story",
+		    "excerpt": ""
+		},
+        {
+            "img_name": "content-image3",
+		    "title": "Meet the team",
+		    "excerpt": ""
+		},
+        {
+            "img_name": "content-image1",
+		    "title": "What we do",
+		    "excerpt": ""
+		}
     ]
 }

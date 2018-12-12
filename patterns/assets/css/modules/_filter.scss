@@ -13,7 +13,7 @@
 }
 
 .filter__list {
-    @include font-size($zeta);
+    @include font-size($epsilon);
      li {
          display: inline-block;
          margin-right: 0.5em;

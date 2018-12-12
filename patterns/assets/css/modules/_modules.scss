@@ -30,17 +30,16 @@
 
 .m-author__body {
     padding-left: 32%;
-    top: -50%;
-    transform: translateY(50%);
+    padding-top: 10px;
 }
 
 .m-author__title {
-    @include font-size($eta);
+    @include font-size($zeta);
     @extend %font-heading;
     color: #fff;
 }
 
 .m-author__job {
-    @include font-size($eta);
+    @include font-size($zeta);
     color: #fff;
 }

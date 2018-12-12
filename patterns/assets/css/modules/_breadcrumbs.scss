@@ -23,12 +23,14 @@
             }
         }
         &__item {
+            @include font-size($epsilon - 1);
+            background-color: #fff;
+            padding: 0.25em 0.75em;
             position: relative;
-            @include font-size($zeta);
             float: left;
             margin-right: 1em;
-            &:after {
-                content: "/";
+            &:before {
+                content: "";
                 position: absolute;
                 top: 0;
                 right: -9px;

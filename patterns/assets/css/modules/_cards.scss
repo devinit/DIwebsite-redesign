@@ -86,6 +86,7 @@ a.card {
 
 .card__title {
     @include font-size($gamma);
+    line-height: 1.5;
     margin-bottom: 0.5em;
     display: inline-block;
     a, span {
@@ -98,7 +99,7 @@ a.card {
 }
 
 .card__excerpt {
-    @include font-size($zeta);
+    @include font-size($epsilon);
     line-height: 1.6;
     color: $heading-color;
 }

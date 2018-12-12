@@ -1,4 +1,32 @@
 
+.ico-download-blank {
+	background-image: url('png/download-blank.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-download-poppy {
+	background-image: url('png/download-poppy.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-download-poppydark {
+	background-image: url('png/download-poppydark.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-download-slate {
+	background-image: url('png/download-slate.png');
+	background-repeat: no-repeat;
+}
+
+
+
 .ico-error-error {
 	background-image: url('png/error-error.png');
 	background-repeat: no-repeat;

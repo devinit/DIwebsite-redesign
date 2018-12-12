@@ -2,9 +2,9 @@
 // General icon control
 // ------------------------------------------------------------
 
-.ico { 
-	display: inline-block; 
-	vertical-align: middle; 
+.ico {
+	display: inline-block;
+	vertical-align: middle;
 	overflow: hidden;
 	position: relative;
 	background-repeat: no-repeat;
@@ -27,7 +27,7 @@
 // Specific sizes
 // ------------------------------------------------------------
 
-$icon-sizes: 16, 24;
+$icon-sizes: 16, 20, 24;
 
 @each $icon-size in $icon-sizes {
     .ico--#{$icon-size} {

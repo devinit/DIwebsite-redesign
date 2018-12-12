@@ -5,9 +5,9 @@
 .hero {
     position: relative;
     background-color: $poppy-dark;
-    padding: 5em 0 5em 0;
+    padding: 8em 0 5em 0;
     @include respond-to($menu-respond) {
-        padding: 18em 0 8em 0;
+        padding: 22em 0 10em 0;
         width: 95%;
         &:after {
             content: "";

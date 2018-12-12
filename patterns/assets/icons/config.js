@@ -1,11 +1,11 @@
 var path = require( "path" );
 
 module.exports = {
-	
+
   src: "assets/svg/icons/*.svg",
   dest: "assets/icons/",
-  
-  
+
+
   // CSS filenames
   datasvgcss: "ico.data.svg.css",
   datapngcss: "ico.data.png.css",
@@ -39,6 +39,10 @@ module.exports = {
   	error: "#f25111",
   	warning: "#b2a216",
   	success: "#41b38e",
+	poppy: "#e84439",
+    poppydark: "#8f1b13",
+  	slate: "#443e42",
+  	blank: "#ffffff",
   },
 
   dynamicColorOnly: true,

@@ -18,6 +18,10 @@
     		left: $internal-spacing*4;
     	}
     }
+    .card & {
+        margin-top: 2em;
+        background-color: #fff;
+    }
 }
 
 .m-author__image {
@@ -37,9 +41,15 @@
     @include font-size($zeta);
     @extend %font-heading;
     color: #fff;
+    .card & {
+        color: $heading-color;
+    }
 }
 
 .m-author__job {
     @include font-size($zeta);
     color: #fff;
+    .card & {
+        color: $base-color;
+    }
 }

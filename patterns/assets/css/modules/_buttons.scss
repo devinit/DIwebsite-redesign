@@ -75,6 +75,15 @@ button.button {
 	}
 }
 
+.button--reverse {
+	border-color: #fff;
+	color: #fff;
+	@include link-active-styles {
+		border-color: #fff;
+		color: #fff;
+	}
+}
+
 .button--secondary {
 	background-color: $action-respond;
 	@include link-active-styles {

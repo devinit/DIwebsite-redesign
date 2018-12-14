@@ -8,11 +8,10 @@
 {# 2. Assign Settings and variables #}
 {# --------------------------------------- #}
 
-{% set id = "work" %}
+{% set id = "jobs" %}
 {% set section = "jobs" %}
-{% set title = "Work with us" %}
-{% set excerpt = "The Development Initiativesblod is updated regularly ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." %}
-{% set button = "View current vacancies" %}
+{% set title = "Current vacancies" %}
+{% set excerpt = "We recognise that our mission can only be achieved when the people who work at DI are given the right support, resources and opportunities to flourish." %}
 
 {# --------------------------------------- #}
 {# 3. Add models and macros #}
@@ -36,16 +35,23 @@
 
     <section class="section">
         <div class="row row--narrow">
-            <div class="is-typeset is-typeset--additionals max-meter">
-                <p>We aim for a culture of honesty and openness and want to attract and retain talented people who share our vision to end absolute poverty by 2030.</p>
-                <p>We can offer you the opportunity to use your talents in an innovative working environemnt with colleagues who are as passionate as you are about our vision.</p>
+            {% include 'partials/breadcrumbs.html' %}
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <div class="l-2up-3up">
+                {% for item in card.job_listing %}
+                    {% include 'cards/card-job.html' %}
+                {% endfor %}
             </div>
         </div>
     </section>
 
     <section class="section">
         <div class="row row--narrow">
-
+            <h2 class="section__heading">Sign up for vacancy alerts</h2>
         </div>
     </section>
 {% endblock %}

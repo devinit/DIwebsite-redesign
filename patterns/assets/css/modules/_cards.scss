@@ -103,3 +103,15 @@ a.card {
     line-height: 1.6;
     color: $heading-color;
 }
+
+.card__list {
+    @include font-size($epsilon);
+    color: $base-color;
+    margin-top: 1em;
+    li {
+        margin-bottom: 0.25em;
+        span {
+            font-weight: 600;
+        }
+    }
+}

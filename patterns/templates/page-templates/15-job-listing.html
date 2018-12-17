@@ -18,6 +18,7 @@
 {# --------------------------------------- #}
 
 {% model 'cards', as="card" %}
+{% model 'form-jobs', as="form" %}
 
 {% import 'macros/button.html' as buttons %}
 {% import 'macros/icon.html' as icons %}
@@ -52,6 +53,20 @@
     <section class="section">
         <div class="row row--narrow">
             <h2 class="section__heading">Sign up for vacancy alerts</h2>
+            <div class="is-typeset max-meter">
+                <p>Do you want to know when new jobs become available in your chosen field?</p>
+                <p>Subscribe to job alerts!</p>
+            </div>
+            <form class="form">
+                <fieldset class="form-section">
+                    {% for item in form.input %}
+                        {% include 'forms/partials/input-types.html' %}
+                    {% endfor %}
+                    {% for item in form.checkbox %}
+                        {% include 'forms/partials/checkbox-type.html' %}
+                    {% endfor %}
+                </fieldset>
+            </form>
         </div>
     </section>
 {% endblock %}

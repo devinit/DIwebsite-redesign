@@ -71,8 +71,20 @@ a.card {
 .card__body {
     padding: 3em;
     .card--simple & {
-        padding: 2em;
+        padding-top: 6em;
     }
+}
+
+.card__flag {
+    @include font-size($eta);
+    position: absolute;
+    top: -10px;
+    left: 3em;
+    padding: 0.25em 0.5em;
+    background-color: $poppy-dark;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .card__meta {

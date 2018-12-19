@@ -83,6 +83,14 @@ textarea.form-item {
 
 .form-field__radio-buttons,
 .form-field__checkboxes {
+	&--columns {
+		@include respond-to($b-vp) {
+			columns: 2;
+		}
+		@include respond-to($c-vp) {
+			columns: 3;
+		}
+	}
 	label {
 		position: relative;
 		top: 0;

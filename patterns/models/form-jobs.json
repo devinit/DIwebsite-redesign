@@ -13,16 +13,38 @@
     ],
 	"checkbox": [
 	    {
+            "columns": true,
 		    "field_spacing": true,
 		    "field_error": false,
 		    "item_id": "checkbox1",
-		    "item_label": "Checkboxes",
+		    "item_label": "Choose departments",
 		    "item_label_type": "",
 		     "options": [
-                { "id": "visa3", "label": "Visa" },
-                { "id": "mastercard3", "label": "Mastercard" },
-                { "id": "paypal3", "label": "PayPal" },
-                { "id": "american-express3", "label": "American Express" }
+                { "id": "leadership", "label": "Leadership" },
+                { "id": "date-science", "label": "Data Science" },
+                { "id": "research-analysis", "label": "Research and analysis" },
+                { "id": "project-management", "label": "Project Management" },
+                { "id": "hr", "label": "HR" },
+                { "id": "it", "label": "IT" },
+                { "id": "finance", "label": "Finance" },
+                { "id": "policy-engagement", "label": "Policy and engagement" },
+                { "id": "communications", "label": "Communications" },
+                { "id": "strategic-partnerships", "label": "Strategic partnerships" },
+                { "id": "non-excutive-directors", "label": "Non-excutive directors" },
+                { "id": "consultants", "label": "Consultants" }
+		    ]
+		}
+	],
+    "gdpr": [
+	    {
+            "columns": false,
+		    "field_spacing": true,
+		    "field_error": false,
+		    "item_id": "checkbox2",
+		    "item_label": "",
+		    "item_label_type": "form-label--hidden",
+		     "options": [
+                { "id": "gdpr", "label": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." }
 		    ]
 		}
 	]

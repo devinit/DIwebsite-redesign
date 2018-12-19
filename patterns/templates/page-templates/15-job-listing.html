@@ -65,6 +65,12 @@
                     {% for item in form.checkbox %}
                         {% include 'forms/partials/checkbox-type.html' %}
                     {% endfor %}
+                    {% for item in form.gdpr %}
+                        {% include 'forms/partials/checkbox-type.html' %}
+                    {% endfor %}
+                    <div class="form-field form-field--spaced">
+                        <input class="button" type="submit" value="Sign up for alerts">
+                    </div>
                 </fieldset>
             </form>
         </div>

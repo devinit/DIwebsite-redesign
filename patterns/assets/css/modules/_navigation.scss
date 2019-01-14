@@ -146,3 +146,22 @@
 		}
 	}
 }
+
+// ------------------------------------------------------------
+// Secondary menu
+// ------------------------------------------------------------
+
+.navigation-secondary {
+
+}
+
+.navigation-secondary__item {
+	@include font-size($epsilon);
+	margin-bottom: 0.75em;
+	&:last-child {
+		margin-bottom: 0;
+	}
+	a {
+		font-size: inherit;
+	}
+}

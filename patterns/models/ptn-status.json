@@ -8,6 +8,10 @@
 		"stage": "approved"
 	},
 	{
+		"name": "01-general-page",
+		"stage": "Template"
+	},
+	{
 		"name": "11-blog-listing",
 		"stage": "Template"
 	},

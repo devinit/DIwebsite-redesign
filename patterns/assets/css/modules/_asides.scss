@@ -7,6 +7,13 @@
 	&:first-of-type {
 		margin-top: $internal-spacing*1.2;
 	}
+	&--clipping {
+		background-color: #fff;
+		padding: 2em;
+		&:first-of-type {
+			margin-top: -100px;
+		}
+	}
 }
 
 .aside__heading {

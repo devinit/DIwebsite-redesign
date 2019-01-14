@@ -23,3 +23,22 @@
         }
     }
 }
+
+.section__highlight {
+    position: relative;
+    background-color: $slate;
+    @include respond-to($menu-respond) {
+        margin-left: $internal-spacing*2;
+        margin-right: $internal-spacing*2;
+        padding: $internal-spacing;
+    }
+    &:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 50px;
+        height: 50px;
+        background-color: $cloud;
+    }
+}

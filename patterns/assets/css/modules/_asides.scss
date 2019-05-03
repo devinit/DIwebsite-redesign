@@ -10,8 +10,10 @@
 	&--clipping {
 		background-color: #fff;
 		padding: 2em;
-		&:first-of-type {
-			margin-top: -100px;
+		@include respond-to($c-vp) {
+			&:first-of-type {
+				margin-top: -100px;
+			}
 		}
 	}
 }

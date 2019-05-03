@@ -1,0 +1,37 @@
+// ------------------------------------------------------------
+// Timeline
+// ------------------------------------------------------------
+
+.timeline {
+    @extend %pie-clearfix;
+    margin: 3em 0;
+}
+
+.timeline__item {
+    @include font-size($zeta);
+    position: relative;
+    display: block;
+    float: left;
+    margin-right: 5%;
+    transform: scale(1);
+    transition: all, ease-in-out, 0.3s;
+    text-align: center;
+    background-color: $slate;
+    color: #fff;
+    width: 45px;
+    height: 45px;
+    text-align: center;
+    border-radius: 50%;
+    span {
+        display: block;
+        margin-top: 10px;
+    }
+    @include link-active-styles {
+        transform: scale(1.5);
+        background-color: $poppy-dark;
+    }
+    &--active {
+        transform: scale(1.5);
+        background-color: $poppy-dark;
+    }
+}

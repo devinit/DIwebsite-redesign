@@ -3,6 +3,7 @@
 // ------------------------------------------------------------
 
 .highlight {
+    @extend %pie-clearfix;
     position: relative;
     background-color: darken($cloud, 5%);
     padding: 3em;
@@ -25,6 +26,17 @@
         width: 50px;
         height: 50px;
         background-color: $body-color;
+    }
+}
+
+.highlight__heading {
+    @include font-size($gamma);
+    margin-bottom: 1em;
+}
+
+.highlight__media {
+    img {
+        @extend %max-width;
     }
 }
 

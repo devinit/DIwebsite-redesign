@@ -1,0 +1,28 @@
+// ------------------------------------------------------------
+// Banner
+// ------------------------------------------------------------
+
+.banner {
+    position: relative;
+    background-color: $slate;
+    margin-top: 6em;
+}
+
+.banner__media {
+    transform: translate(-2em, -2em);
+    img {
+        @extend %max-width;
+    }
+}
+
+.banner__heading {
+    @include font-size($gamma);
+    color: #fff;
+    margin-bottom: 1em;
+}
+
+.banner__excerpt {
+    @include font-size($para);
+    color: #fff;
+    margin-bottom: 1em;
+}

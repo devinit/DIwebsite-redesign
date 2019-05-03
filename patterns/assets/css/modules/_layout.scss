@@ -37,6 +37,7 @@
 .l-sidebar {
 	@extend %l;
 	&__aside {
+		margin-bottom: 2em;
 		@include respond-to($sidebar-respond) {
 			float: right;
 			display: inline-block;
@@ -53,6 +54,52 @@
 			padding-right: 5em;
 		}
 	}
+}
+
+// ------------------------------------------------------------
+// Highlight
+// ------------------------------------------------------------
+
+.l-highlight {
+	@extend %l;
+	&__main {
+        margin-bottom: 2em;
+        @include respond-to($c-vp) {
+            margin-bottom: 0;
+            float: left;
+            width: 60%;
+        }
+    }
+    &__aside {
+        @include respond-to($c-vp) {
+            float: right;
+            width: 35%;
+        }
+    }
+}
+
+// ------------------------------------------------------------
+// Banner
+// ------------------------------------------------------------
+
+.l-banner {
+	@extend %l;
+	&__main {
+		padding: 3em;
+		padding-left: 0;
+        @include respond-to($c-vp) {
+            float: right;
+            width: 55%;
+        }
+    }
+    &__aside {
+		margin-bottom: 2em;
+        @include respond-to($c-vp) {
+			margin-bottom: 0;
+            float: left;
+            width: 40%;
+        }
+    }
 }
 
 // ------------------------------------------------------------

@@ -12,6 +12,10 @@
 		"stage": "Template"
 	},
 	{
+		"name": "04-our-story",
+		"stage": "Template"
+	},
+	{
 		"name": "11-blog-listing",
 		"stage": "Template"
 	},

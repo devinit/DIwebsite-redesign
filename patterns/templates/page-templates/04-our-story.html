@@ -1,0 +1,131 @@
+{# 1. Extend the relevant layout #}
+{# --------------------------------------- #}
+
+{% extends 'default.html' %}
+
+
+{# --------------------------------------- #}
+{# 2. Assign Settings and variables #}
+{# --------------------------------------- #}
+
+{% set id = "general" %}
+{% set section = "are" %}
+{% set title = "Our story" %}
+{% set excerpt = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." %}
+
+{# --------------------------------------- #}
+{# 3. Add models and macros #}
+{# --------------------------------------- #}
+
+{% model 'cards', as="card" %}
+{% model 'form-jobs', as="form" %}
+
+{% import 'macros/button.html' as buttons %}
+{% import 'macros/icon.html' as icons %}
+
+
+{# --------------------------------------- #}
+{#
+   4. Add page content into relevant areas
+      Add/Delete blocks as necessary
+#}
+{# --------------------------------------- #}
+
+{% block body %}
+    {% include 'heroes/hero.html' %}
+
+    <section class="section">
+        <div class="row row--narrow">
+            <div class="l-sidebar">
+                <aside class="l-sidebar__aside">
+                    <div class="aside aside--clipping">
+                        <h2 class="aside__heading">In this section</h2>
+                        <nav class="navigation-secondary">
+                            <ul>
+                                <li class="navigation-secondary__item"><a href="#">Menu item</a></li>
+                                <li class="navigation-secondary__item"><a href="#">Menu item</a></li>
+                                <li class="navigation-secondary__item"><a href="#">Menu item</a></li>
+                                <li class="navigation-secondary__item"><a href="#">Menu item</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </aside>
+                <div class="l-sidebar__body">
+                    <div class="is-typeset wysiwyg">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <h2 class="section__heading">DI has achieved much over the past 20 years.</h2>
+            <div class="is-typeset">
+                <p>Here is our story so far...</p>
+            </div>
+            <ul class="timeline">
+                <li class="timeline__item"><span>1993</span></li>
+                <li class="timeline__item"><span>1994</span></li>
+                <li class="timeline__item"><span>2000</span></li>
+                <li class="timeline__item"><span>2007</span></li>
+                <li class="timeline__item"><span>2008</span></li>
+                <li class="timeline__item timeline__item--active"><span>2009</span></li>
+                <li class="timeline__item"><span>2011</span></li>
+                <li class="timeline__item"><span>2012</span></li>
+                <li class="timeline__item"><span>2013</span></li>
+                <li class="timeline__item"><span>2018</span></li>
+            </ul>
+            <div class="highlight">
+                <div class="l-highlight">
+                    <div class="l-highlight__main">
+                        <span class="highlight__flag">2009</span>
+                        <h3 class="highlight__heading">The International Aid Transparency Initiative (IATI) is agreed</h3>
+                        <div class="is-typeset">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                        </div>
+                        <a href="#" class="button button--icon">IATI factsheet {{ icons.icon('ico-download-poppydark', '16') }}</a>
+                    </div>
+                    <div class="l-highlight__aside">
+                        <div class="highlight__media">
+                            <img src="{{ global.assets_root }}/img/content-image1.jpg" alt="alt tag">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <div class="banner">
+                <div class="l-banner">
+                    <div class="l-banner__aside">
+                        <div class="banner__media">
+                            <img src="{{ global.assets_root }}/img/content-image2.jpg" alt="alt tag">
+                        </div>
+                    </div>
+                    <div class="l-banner__main">
+                        <h3 class="banner__heading">The impact of our work</h3>
+                        <p class="banner__excerpt">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                        <a href="#" class="button button--reverse">Read our imapct report</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <h2 class="section__heading">Other pages in this section</h2>
+            <div class="l-4up">
+                {% for item in card.job_info %}
+                    {% include 'cards/card-cta.html' %}
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

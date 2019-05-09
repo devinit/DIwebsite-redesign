@@ -86,10 +86,10 @@
 	@extend %l;
 	&__main {
 		padding: 3em;
-		padding-left: 0;
         @include respond-to($c-vp) {
             float: right;
             width: 55%;
+			padding-left: 0;
         }
     }
     &__aside {
@@ -314,7 +314,7 @@
 	@include respond-to($d-vp) {
 		grid-template-columns: 1fr 1fr 1fr 1fr;
 	}
-	&__col, .card {
+	&__col, .card, .location {
 		margin-bottom: 3em;
 		@include respond-to($c-vp) {
 			float: left;

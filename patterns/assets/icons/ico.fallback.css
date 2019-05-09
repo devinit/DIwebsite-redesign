@@ -34,6 +34,34 @@
 
 
 
+.ico-star-blank {
+	background-image: url('png/star-blank.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-star-poppy {
+	background-image: url('png/star-poppy.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-star-poppydark {
+	background-image: url('png/star-poppydark.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-star-slate {
+	background-image: url('png/star-slate.png');
+	background-repeat: no-repeat;
+}
+
+
+
 .ico-success-success {
 	background-image: url('png/success-success.png');
 	background-repeat: no-repeat;

@@ -53,3 +53,21 @@
         color: $base-color;
     }
 }
+
+.m-stat {
+    border-top: 3px solid darken($cloud, 5%);
+    padding-top: 2em;
+    margin-top: 2em;
+    .ico {
+        margin-bottom: 1em;
+    }
+}
+
+.m-stat__title {
+    @include font-size($gamma);
+    margin-bottom: 0.5em;
+}
+
+.m-stat__excerpt {
+    @include font-size($para - 2);
+}

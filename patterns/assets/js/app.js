@@ -4,15 +4,16 @@ import $ from 'jquery';
 import skipLinks from './utils/skipLinks';
 import iframer from './utils/iframer';
 import mNav from './utils/mNav';
+import initGmaps from './utils/gmaps';
 
 function globals () {
 
 	// FastClick
     fastClick(document.body);
-    
+
     // iframe video in body content
     iframer();
-    
+
     // Small Screen Navigation
     mNav(
         '#navigation-primary-toggle',
@@ -20,6 +21,9 @@ function globals () {
         '#navigation-primary',
         'navigation-primary--active'
     );
+
+    // gmaps
+    initGmaps('#map', 'AIzaSyAZAIjZtkBlsF0ZqvrlkvyLfVn6Bju6bJ4');
 }
 
 $(function run () {

@@ -1,0 +1,26 @@
+// ------------------------------------------------------------
+// Locations
+// ------------------------------------------------------------
+
+.location {
+    background-color: $poppy-dark;
+    padding: 3em;
+}
+
+.location__heading {
+    @include font-size($gamma);
+    color: #fff;
+    margin-bottom: 0.5em;
+}
+
+.location__copy {
+    @include font-size($zeta);
+    color: #fff;
+}
+
+.location__contact {
+    @include font-size($zeta);
+    color: #fff;
+    margin-top: 1em;
+    display: block;
+}

@@ -1,0 +1,179 @@
+{# 1. Extend the relevant layout #}
+{# --------------------------------------- #}
+
+{% extends 'default.html' %}
+
+
+{# --------------------------------------- #}
+{# 2. Assign Settings and variables #}
+{# --------------------------------------- #}
+
+{% set id = "who-we-are" %}
+{% set section = "are" %}
+{% set title = "Who we are" %}
+{% set excerpt = "Development Initiatives (DI) is a respected independent and politically neutral authority on global finance and resources." %}
+
+{# --------------------------------------- #}
+{# 3. Add models and macros #}
+{# --------------------------------------- #}
+
+{% model 'cards', as="card" %}
+{% model 'form-jobs', as="form" %}
+
+{% import 'macros/button.html' as buttons %}
+{% import 'macros/icon.html' as icons %}
+
+
+{# --------------------------------------- #}
+{#
+   4. Add page content into relevant areas
+      Add/Delete blocks as necessary
+#}
+{# --------------------------------------- #}
+
+{% block body %}
+    {% include 'heroes/hero.html' %}
+
+    <section class="section">
+        <div class="row row--narrow">
+            <div class="l-sidebar">
+                <aside class="l-sidebar__aside">
+                    <div class="aside aside--clipping">
+                        <h2 class="aside__heading">In this section</h2>
+                        <nav class="navigation-secondary">
+                            <ul>
+                                <li class="navigation-secondary__item"><a href="#">Menu item</a></li>
+                                <li class="navigation-secondary__item"><a href="#">Menu item</a></li>
+                                <li class="navigation-secondary__item"><a href="#">Menu item</a></li>
+                                <li class="navigation-secondary__item"><a href="#">Menu item</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </aside>
+                <div class="l-sidebar__body">
+                    <div class="is-typeset wysiwyg">
+                        <h2>Our vision</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                        <h2>Our mission</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        <p><a href="#" class="button">View our strategy for 2020</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <div class="banner">
+                <div class="l-banner">
+                    <div class="l-banner__aside">
+                        <div class="banner__media">
+                            <img src="{{ global.assets_root }}/img/profile.jpg" alt="alt tag">
+                        </div>
+                    </div>
+                    <div class="l-banner__main">
+                        <p class="banner__excerpt">"The driving force behind our work is a passion for ending poverty. We want every penny intended to end poverty and build resilience to be directed and spent effectively so that every person has the opportunity to make meaningful choices that can improve their life in a lasting way. We know that finding a sustainable solution is complicated. So we are committed to uncovering evidence that will help all actors, from local to international, find new solutions that will lift vulnerable people permanently out of poverty and promote inclusion."</p>
+                        <span class="banner__meta">- Harpinder Collacott - Executive Director</span>
+                        <a href="#" class="button button--reverse">Meet the team</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <h2 class="section__heading">Our values</h2>
+            <div class="is-typeset">
+                <p>They define the way we work and how we interact with people around us.</p>
+            </div>
+            <div class="l-3up">
+                <div class="l-3up__col">
+                    <div class="m-stat">
+                        {{ icons.icon('ico-star-poppy', '30') }}
+                        <h3 class="m-stat__title">Empowering</h3>
+                        <p class="m-stat__excerpt">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+                <div class="l-3up__col">
+                    <div class="m-stat">
+                        {{ icons.icon('ico-star-poppy', '30') }}
+                        <h3 class="m-stat__title">Transparent</h3>
+                        <p class="m-stat__excerpt">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+                <div class="l-3up__col">
+                    <div class="m-stat">
+                        {{ icons.icon('ico-star-poppy', '30') }}
+                        <h3 class="m-stat__title">Innovative</h3>
+                        <p class="m-stat__excerpt">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+                <div class="l-3up__col">
+                    <div class="m-stat">
+                        {{ icons.icon('ico-star-poppy', '30') }}
+                        <h3 class="m-stat__title">Agile</h3>
+                        <p class="m-stat__excerpt">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+                <div class="l-3up__col">
+                    <div class="m-stat">
+                        {{ icons.icon('ico-star-poppy', '30') }}
+                        <h3 class="m-stat__title">Impartial</h3>
+                        <p class="m-stat__excerpt">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+                <div class="l-3up__col">
+                    <div class="m-stat">
+                        {{ icons.icon('ico-star-poppy', '30') }}
+                        <h3 class="m-stat__title">Quality</h3>
+                        <p class="m-stat__excerpt">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <h2 class="section__heading">Where our offices are based</h2>
+            <div class="media-map">
+                <div id="map" class="media-map__location" data-latlng="51.463001,-2.556310"></div>
+            </div>
+            <div class="l-4up space-section-top">
+                <div class="location">
+                    <h3 class="location__heading">UK</h3>
+                    <p class="location__copy">North Quay House Quay Side, Temple Back Bristol, BS1 6FL, UK</p>
+                    <span class="location__contact">+44 (0) 1179 272 505</span>
+                </div>
+                <div class="location">
+                    <h3 class="location__heading">Kenya</h3>
+                    <p class="location__copy">Shelter Afrique Building 4th Floor, Mamlaka Road Nairobi, Kenya PO Box 102802-00101 </p>
+                    <span class="location__contact">+254 (0) 20 272 5346</span>
+                </div>
+                <div class="location">
+                    <h3 class="location__heading">Uganda</h3>
+                    <p class="location__copy">Ggaba Road, Mutesasira Zone, Kansanga PO Box 22459 Kampala, Uganda</p>
+                    <span class="location__contact">+266 (0) 312 26629/30</span>
+                </div>
+                <div class="location">
+                    <h3 class="location__heading">United States</h3>
+                    <p class="location__copy">1110 Vermont Ave NW, Suite 500, Washington DC 20005, USA</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <h2 class="section__heading">Other pages in this section</h2>
+            <div class="l-4up">
+                {% for item in card.job_info %}
+                    {% include 'cards/card-cta.html' %}
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

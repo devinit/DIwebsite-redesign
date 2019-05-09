@@ -26,3 +26,11 @@
     color: #fff;
     margin-bottom: 1em;
 }
+
+.banner__meta {
+    @include font-size($eta);
+    color: #fff;
+    display: block;
+    text-transform: uppercase;
+    margin-bottom: 1.5em;
+}

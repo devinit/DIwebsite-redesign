@@ -1,48 +1,25 @@
 [{
   "name": "Ben Coleman",
-  "job": "Managing Director",
-  "email": "ben@fffunction.co",
+  "job": "UX Designer and Consultant",
+  "email": "ben@bteam.co",
   "image_url": "https://fffunction.co/media/images/ben-2017-650.2e16d0ba.fill-625x625.jpg"
-},
-{
-  "name": "Russell Kirkland",
-  "job": "Technical Director",
-  "email": "russell@fffunction.co",
-  "image_url": "https://fffunction.co/media/images/IMG_0051.2e16d0ba.fill-500x500.jpg"
-},
-{
-  "name": "Dan Goodwin",
-  "job": "UX Director",
-  "email": "dan@fffunction.co",
-  "image_url": "https://fffunction.co/media/images/dang.2e16d0ba.fill-500x500.jpg"
-},
-{
-  "name": "Davinia Emberson",
-  "job": "Director of Delivery",
-  "email": "davinia@fffunction.co",
-  "image_url": "https://fffunction.co/media/images/davinia.2e16d0ba.fill-625x625.jpg"
-},
-{
-  "name": "Francesca Sargent",
-  "job": "Developer",
-  "email": "francesca@fffunction.co",
-  "image_url": "https://fffunction.co/media/images/francesca-sargent.2e16d0ba.fill-625x625.jpg"
 },
 {
   "name": "Ben Darby",
   "job": "Lead Designer",
-  "email": "benmd@fffunction.co",
+  "email": "hello@bendarby.co.uk",
   "image_url": "https://fffunction.co/media/images/bend.2e16d0ba.fill-500x500.jpg"
+},
+{
+  "name": "Russell Kirkland",
+  "job": "Developer",
+  "email": "russell@mashandgravy.co.uk",
+  "image_url": "https://fffunction.co/media/images/IMG_0051.2e16d0ba.fill-500x500.jpg"
 },
 {
   "name": "Jonti Eccles",
   "job": "Content Designer",
-  "email": "jonti@fffunction.co",
+  "email": "jonti.eccles@gmail.com",
   "image_url": "https://fffunction.co/media/images/jonti.2e16d0ba.fill-625x625.jpg"
-},
-{
-  "name": "Nina Whitby",
-  "job": "Marketing Consultant",
-  "image_url": "https://fffunction.co/media/images/nina.2e16d0ba.fill-625x625.jpg"
 }
 ]

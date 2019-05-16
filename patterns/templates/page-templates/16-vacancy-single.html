@@ -8,10 +8,13 @@
 {# 2. Assign Settings and variables #}
 {# --------------------------------------- #}
 
-{% set id = "job-single" %}
-{% set section = "jobs" %}
+{% set id = "vacancy" %}
+{% set section = "vacancy" %}
 {% set title = "Communications officer" %}
 {% set excerpt = "" %}
+
+{% set breadcrumbs_parent = "Work with us" %}
+{% set breadcrumbs_child = "Vacancies" %}
 
 {# --------------------------------------- #}
 {# 3. Add models and macros #}
@@ -60,9 +63,9 @@
         <h2 class="aside__heading">Apply for this position</h2>
         <p class="aside__excerpt">Please read the full role profile and apply by emailing your CV and cover letter to <a href="#">HR@devinit.org</a>.</p>
         <div class="aside__button-group">
-            <a href="#" class="button button--icon">Recruitment pack {{ icons.icon('ico-download-poppydark', '16') }}</a>
-            <a href="#" class="button button--icon">Diversity monitoring form {{ icons.icon('ico-download-poppydark', '16') }}</a>
-            <a href="#" class="button button--icon">Guaranted Interview form {{ icons.icon('ico-download-poppydark', '16') }}</a>
+            <a href="#" class="button button--icon">Recruitment pack (PDF 1.8mb){{ icons.icon('ico-download-poppydark', '16') }}</a>
+            <a href="#" class="button button--icon">Diversity monitoring form (Doc 776kb) {{ icons.icon('ico-download-poppydark', '16') }}</a>
+            <a href="#" class="button button--icon">Guaranted Interview form (PDF 1.2mb) {{ icons.icon('ico-download-poppydark', '16') }}</a>
         </div>
     </div>
 {% endblock %}

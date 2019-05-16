@@ -21,13 +21,13 @@
 		    "hidden": false
 		},
 		{
-		    "label": "Blog",
-		    "in_section": "blog",
+		    "label": "Opinions",
+		    "in_section": "opinion",
 		    "hidden": false
 		},
         {
 		    "label": "Work with us",
-		    "in_section": "jobs",
+		    "in_section": "vacancy",
 		    "hidden": false
 		}
     ]

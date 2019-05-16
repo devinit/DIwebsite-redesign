@@ -20,19 +20,19 @@
 		"stage": "Template"
 	},
 	{
-		"name": "11-blog-listing",
+		"name": "11-opinion-listing",
 		"stage": "Template"
 	},
 	{
-		"name": "12-blog-single",
+		"name": "12-opinion-single",
 		"stage": "Template"
 	},
 	{
-		"name": "15-job-listing",
+		"name": "15-vacancy-listing",
 		"stage": "Template"
 	},
 	{
-		"name": "16-job-single",
+		"name": "16-vacancy-single",
 		"stage": "Template"
 	}
 ]

@@ -21,21 +21,7 @@
         height: 50px;
         background-color: $cloud;
     }
-    .form {
-        position: relative;
-    }
-    .form-item {
-        background-color: lighten($slate, 15%);
-        border: none;
-        @include font-size($zeta);
-    }
     .button {
-        position: absolute;
-        top: 0;
-        right: 0;
-        @include font-size($zeta);
-        height: $form-item-height;
-        width: auto;
         background-color: $action;
         color: #fff;
     }

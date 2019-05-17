@@ -5,6 +5,7 @@ import skipLinks from './utils/skipLinks';
 import iframer from './utils/iframer';
 import mNav from './utils/mNav';
 import initGmaps from './utils/gmaps';
+import './libs/slick';
 
 function globals () {
 
@@ -24,6 +25,25 @@ function globals () {
 
     // gmaps
     initGmaps('#map', 'AIzaSyAZAIjZtkBlsF0ZqvrlkvyLfVn6Bju6bJ4');
+
+    // Lightslider
+    $('.slider-for').slick({
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        arrows: false,
+        fade: true,
+        asNavFor: '.slider-nav',
+        infinite: false,
+    });
+    $('.slider-nav').slick({
+        slidesToShow: 8,
+        slidesToScroll: 1,
+        asNavFor: '.slider-for',
+        dots: false,
+        centerMode: false,
+        focusOnSelect: true,
+        infinite: false,
+    });
 }
 
 $(function run () {

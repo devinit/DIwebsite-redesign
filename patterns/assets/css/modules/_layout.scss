@@ -90,6 +90,11 @@
             float: right;
             width: 55%;
 			padding-left: 0;
+			.l-banner--reverse & {
+				float: left;
+				padding-left: 3em;
+				padding-right: 0;
+			}
         }
     }
     &__aside {
@@ -98,6 +103,9 @@
 			margin-bottom: 0;
             float: left;
             width: 40%;
+			.l-banner--reverse & {
+				float: right;
+			}
         }
     }
 }

@@ -1,0 +1,110 @@
+{# 1. Extend the relevant layout #}
+{# --------------------------------------- #}
+
+{% extends 'default.html' %}
+
+
+{# --------------------------------------- #}
+{# 2. Assign Settings and variables #}
+{# --------------------------------------- #}
+
+{% set id = "focus" %}
+{% set section = "do" %}
+{% set title = "Our work in Uganda" %}
+{% set excerpt = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." %}
+
+{% set breadcrumbs_parent = "What we do" %}
+{% set breadcrumbs_child = "Uganda" %}
+
+{# --------------------------------------- #}
+{# 3. Add models and macros #}
+{# --------------------------------------- #}
+
+{% model 'cards', as="card" %}
+{% model 'form-jobs', as="form" %}
+
+{% import 'macros/button.html' as buttons %}
+{% import 'macros/icon.html' as icons %}
+
+
+{# --------------------------------------- #}
+{#
+   4. Add page content into relevant areas
+      Add/Delete blocks as necessary
+#}
+{# --------------------------------------- #}
+
+{% block body %}
+    {% include 'heroes/hero.html' %}
+
+    <section class="section">
+        <div class="row row--narrow">
+            <div class="l-sidebar">
+                <aside class="l-sidebar__aside">
+                    <div class="aside aside--clipping">
+                        <h2 class="aside__heading">In this section</h2>
+                        <nav class="navigation-secondary">
+                            <ul>
+                                <li class="navigation-secondary__item"><a href="#">Menu item</a></li>
+                                <li class="navigation-secondary__item"><a href="#">Menu item</a></li>
+                                <li class="navigation-secondary__item"><a href="#">Menu item</a></li>
+                                <li class="navigation-secondary__item"><a href="#">Menu item</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </aside>
+                <div class="l-sidebar__body">
+                    {% include 'partials/breadcrumbs.html' %}
+                    <div class="is-typeset wysiwyg">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        <img src="{{ global.assets_root }}/img/content-image2.jpg" alt="Inline image">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <div class="banner">
+                <div class="l-banner l-banner--reverse">
+                    <div class="l-banner__aside">
+                        <div class="banner__media">
+                            <img src="{{ global.assets_root }}/img/content-image1.jpg" alt="alt tag">
+                        </div>
+                    </div>
+                    <div class="l-banner__main">
+                        <h3 class="banner__heading">Development Data Hub Spotlight for Uganda</h3>
+                        <ul class="banner__list">
+                            <li>
+                                <h4 class="banner__subeading">Explore</h4>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                            </li>
+                            <li>
+                                <h4 class="banner__subeading">Poverty in Uganda</h4>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                            </li>
+                        </ul>
+                        <a href="#" class="button button--reverse">Spotlight on Uganda</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <h2 class="section__heading">You may also be interested in the following publications</h2>
+            <div class="teaser teaser--feature">
+                <div class="teaser__media" style="background-image:url({{ global.assets_root }}/img/content-image2.jpg)"></div>
+                <div class="teaser__body">
+                    <span class="teaser__flag">Publication</span>
+                    <h2 class="teaser__heading"><a href="#">Is using ODA for blending a good use of scarce concessional resource?</a></h2>
+                    <p class="teaser__excerpt">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

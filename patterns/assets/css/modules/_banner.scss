@@ -6,6 +6,12 @@
     position: relative;
     background-color: $slate;
     margin-top: 6em;
+    .is-typeset {
+        h1,h2,h3,h4,h5,p {
+            color: #fff;
+        }
+        color: #fff;
+    }
 }
 
 .banner__media {
@@ -25,6 +31,21 @@
     @include font-size($para);
     color: #fff;
     margin-bottom: 1em;
+}
+
+.banner__list {
+    @include font-size($para);
+    color: #fff;
+    li {
+        margin-bottom: 1em;
+        &:last-child {
+            margin-bottom: 2em;
+        }
+    }
+    .banner__subeading {
+        @extend %font-heading;
+        color: #fff;
+    }
 }
 
 .banner__meta {

@@ -44,3 +44,15 @@
 		margin-bottom: 1em;
 	}
 }
+
+.aside__list {
+	@include font-size($para);
+	&__item {
+		margin-bottom: 1em;
+		padding-left: 1em;
+		border-left: 2px solid $default-border-color;
+	}
+	a {
+		display: block;
+	}
+}

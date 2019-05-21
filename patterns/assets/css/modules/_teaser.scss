@@ -1,0 +1,62 @@
+// ------------------------------------------------------------
+// Teaser
+// ------------------------------------------------------------
+
+.teaser {
+    position: relative;
+}
+
+.teaser__media {
+    background-size: cover;
+    background-position: center;
+    min-height: 200px;
+    @include respond-to($c-vp) {
+        float: left;
+        width: 40%;
+        min-height: 300px;
+    }
+}
+
+.teaser__body {
+    background-color: #fff;
+    padding: 3em;
+    @include respond-to($c-vp) {
+        float: right;
+        width: 60%;
+        transform: translateY(1.5em);
+    }
+}
+
+.teaser__heading {
+    @include font-size($gamma);
+    line-height: 1.5;
+    margin-bottom: 0.5em;
+    display: inline-block;
+    a, span {
+        position: relative;
+        color: $heading-color;
+        display: inline;
+        border-bottom: 0 solid $poppy;
+        transition: all, ease-in-out, 0.3s;
+        &:hover {
+            border-width: 2px;
+        }
+    }
+}
+
+.teaser__excerpt {
+    @include font-size($epsilon);
+    line-height: 1.6;
+    color: $heading-color;
+}
+
+.teaser__flag {
+    @include font-size($eta);
+    margin-bottom: 2em;
+    display: inline-block;
+    padding: 0.25em 0.5em;
+    background-color: $poppy-dark;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}

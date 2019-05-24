@@ -61,10 +61,20 @@
     </section>
 
     <section class="section">
-        <div class="section__highlight">
-            <div class="row row--narrow">
-                <div class="testimonial">
-                    
+        <div class="row row--narrow">
+            <div class="banner">
+                <div class="l-banner">
+                    <div class="l-banner__aside">
+                        <div class="banner__media">
+                            <img src="{{ global.assets_root }}/img/profile.jpg" alt="alt tag">
+                        </div>
+                    </div>
+                    <div class="l-banner__main">
+                        <p class="banner__excerpt">"The driving force behind our work is a passion for ending poverty. We want every penny intended to end poverty and build resilience to be directed and spent effectively so that every person has the opportunity to make meaningful choices that can improve their life in a lasting way. We know that finding a sustainable solution is complicated. So we are committed to uncovering evidence that will help all actors, from local to international, find new solutions that will lift vulnerable people permanently out of poverty and promote inclusion."</p>
+                        <span class="banner__meta">- Harpinder Collacott - Executive Director</span>
+                        <a href="#" class="button button--reverse">Meet the team</a>
+                        <a href="#" class="button button--reverse">Team stories</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -74,8 +84,32 @@
         <div class="row row--narrow">
             <div class="max-meter">
                 <div class="is-typeset wysiwyg">
-                    {% include 'content/longform.html' %}
+                    {% include 'content/shortform.html' %}
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <div class="duo">
+                <div class="duo__media">
+
+                </div>
+                <div class="duo__main">
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <h2 class="section__heading">Other pages in this section</h2>
+            <div class="l-4up">
+                {% for item in card.job_info %}
+                    {% include 'cards/card-cta.html' %}
+                {% endfor %}
             </div>
         </div>
     </section>

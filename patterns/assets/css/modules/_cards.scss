@@ -59,6 +59,19 @@ a.card {
     }
 }
 
+.card__tag {
+    @include font-size($eta);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 5;
+    background-color: $poppy-dark;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0.25em 0.5em;
+}
+
 .card__media {
     @include maintain-ratio(4 3);
     @extend .background-cover;

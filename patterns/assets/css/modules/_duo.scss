@@ -1,0 +1,24 @@
+// ------------------------------------------------------------
+// Duo
+// ------------------------------------------------------------
+
+.duo {
+    @extend %pie-clearfix;
+    &__media {
+        margin-bottom: 1em;
+        img {
+            @extend %max-width;
+        }
+        @include respond-to($c-vp) {
+            margin-bottom: 0;
+            float: left;
+            width: 45%;
+        }
+    }
+    &__main {
+        @include respond-to($c-vp) {
+            float: right;
+            width: 50%;
+        }
+    }
+}

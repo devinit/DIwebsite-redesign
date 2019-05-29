@@ -65,6 +65,38 @@ button.button {
 	width: 100%;
 }
 
+.button--faux {
+	display: block;
+	width: 100%;
+	&:hover {
+		border-left-width: 1px;
+	}
+	&__meta {
+		color: $slate;
+		@include font-size($eta);
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		margin-bottom: 1.25em;
+		display: block;
+	}
+	&__heading {
+		@extend %font-heading;
+		margin-bottom: 0.75em;
+		display: block;
+	}
+	&__list {
+		li {
+			margin-bottom: 0.5em;
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
+	}
+	.aside & {
+		margin-top: 1em;
+	}
+}
+
 .button--icon {
 	position: relative;
 	padding-right: 3em;

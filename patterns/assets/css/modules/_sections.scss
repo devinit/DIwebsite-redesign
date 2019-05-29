@@ -22,6 +22,10 @@
             background-color: $poppy;
         }
     }
+    &--alt {
+        background-color: #fff;
+        @extend .padd-section-both;
+    }
 }
 
 .section__highlight {

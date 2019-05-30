@@ -2,42 +2,11 @@
 // Timeline
 // ------------------------------------------------------------
 
-.carousel {
-
-}
-
-.carousel__timeline {
-    @extend %pie-clearfix;
-    margin: 3em 0;
-    width: 100%;
-    .slick-slide {
-        width: 45px !important;
-    }
-    div {
-        @include font-size($zeta);
-        position: relative;
-        display: block;
-        float: left;
-        margin-right: 5%;
-        transform: scale(1);
-        transition: all, ease-in-out, 0.3s;
-        text-align: center;
-        background-color: $slate;
-        color: #fff;
-        width: 45px;
-        height: 45px;
-        text-align: center;
-        border-radius: 50%;
-        span {
-            display: block;
-            margin-top: 10px;
-        }
-    }
-}
-
 .timeline {
     @extend %pie-clearfix;
+    position: relative;
     margin: 3em 0;
+    padding: 0 5em;
     width: 100%;
 }
 
@@ -67,5 +36,18 @@
     &--active {
         transform: scale(1.5);
         background-color: $poppy-dark;
+    }
+}
+
+.timeline__nav {
+    position: absolute;
+    top: 1em;
+    left: 0;
+    &--prev {
+        transform: rotate(180deg);
+    }
+    &--next {
+        right: 0;
+        left: auto;
     }
 }

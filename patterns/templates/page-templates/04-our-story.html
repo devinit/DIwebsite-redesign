@@ -68,16 +68,18 @@
             </div>
             <div class="carousel">
                 <div class="timeline">
+                    <button class="timeline__nav timeline__nav--prev" type="button">{{ icons.icon('ico-arrow-poppy', '24') }}</button>
                     <div class="timeline__item"><span>1993</span></div>
                     <div class="timeline__item"><span>1994</span></div>
                     <div class="timeline__item"><span>2000</span></div>
                     <div class="timeline__item"><span>2007</span></div>
                     <div class="timeline__item"><span>2008</span></div>
-                    <div class="timeline__item"><span>2009</span></div>
+                    <div class="timeline__item timeline__item--active"><span>2009</span></div>
                     <div class="timeline__item"><span>2011</span></div>
                     <div class="timeline__item"><span>2012</span></div>
                     <div class="timeline__item"><span>2013</span></div>
                     <div class="timeline__item"><span>2018</span></div>
+                    <button class="timeline__nav timeline__nav--next" type="button">{{ icons.icon('ico-arrow-poppy', '24') }}</button>
                 </div>
                 <div class="highlight">
                     <div class="l-highlight">
@@ -87,7 +89,15 @@
                             <div class="is-typeset">
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
                             </div>
-                            <a href="#" class="button button--icon">IATI factsheet {{ icons.icon('ico-download-poppydark', '16') }}</a>
+                            <div class="button button--faux button--icon">
+                                {{ icons.icon('ico-download-poppy', '24') }}
+                                <span class="button--faux__meta">Download</span>
+                                <h3 class="button--faux__heading">IATI factsheet</h3>
+                                <ul class="button--faux__list">
+                                    <li><a href="#">PDF 1.8mb</a></li>
+                                    <li><a href="#">Docx 1.8mb</a></li>
+                                </ul>
+                            </div>
                         </div>
                         <div class="l-highlight__aside">
                             <div class="highlight__media">
@@ -107,12 +117,21 @@
                     <div class="l-banner__aside">
                         <div class="banner__media">
                             <img src="{{ global.assets_root }}/img/content-image2.jpg" alt="alt tag">
+                            <span class="banner__credit">Image by <a href="#">Credit name</a></span>
                         </div>
                     </div>
                     <div class="l-banner__main">
                         <h3 class="banner__heading">The impact of our work</h3>
                         <p class="banner__excerpt">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                        <a href="#" class="button button--reverse">Read our imapct report</a>
+                        <div class="button button--reverse button--faux button--icon">
+                            {{ icons.icon('ico-download-blank', '24') }}
+                            <span class="button--faux__meta">Download</span>
+                            <h3 class="button--faux__heading">Impact report</h3>
+                            <ul class="button--faux__list">
+                                <li><a href="#">PDF 1.8mb</a></li>
+                                <li><a href="#">Docx 1.8mb</a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>

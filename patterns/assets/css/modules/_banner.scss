@@ -18,9 +18,24 @@
 }
 
 .banner__media {
+    position: relative;
     transform: translate(-2em, -2em);
     img {
         @extend %max-width;
+    }
+}
+
+.banner__credit {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    @include font-size($zeta);
+    color: #fff;
+    @include rgba(#000, 0.75);
+    padding: 0.25em 0.5em;
+    a {
+        color: #fff;
+        text-decoration: underline;
     }
 }
 

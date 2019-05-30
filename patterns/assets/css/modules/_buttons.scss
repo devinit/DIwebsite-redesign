@@ -66,8 +66,10 @@ button.button {
 }
 
 .button--faux {
-	display: block;
-	width: 100%;
+	.aside &, .l-3up & {
+		display: block;
+		width: 100%;
+	}
 	&:hover {
 		border-left-width: 1px;
 	}
@@ -99,7 +101,7 @@ button.button {
 
 .button--icon {
 	position: relative;
-	padding-right: 3em;
+	padding-right: 5em;
 	.ico {
 		position: absolute;
 		top: 14px;
@@ -112,6 +114,15 @@ button.button {
 	color: #fff;
 	@include link-active-styles {
 		border-color: #fff;
+		color: #fff;
+	}
+	.button--faux__meta {
+		color: #fff;
+	}
+	.button--faux__heading {
+		color: #fff;
+	}
+	.button--faux__list a {
 		color: #fff;
 	}
 }

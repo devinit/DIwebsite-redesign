@@ -1,4 +1,32 @@
 
+.ico-arrow-blank {
+	background-image: url('png/arrow-blank.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-arrow-poppy {
+	background-image: url('png/arrow-poppy.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-arrow-poppydark {
+	background-image: url('png/arrow-poppydark.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-arrow-slate {
+	background-image: url('png/arrow-slate.png');
+	background-repeat: no-repeat;
+}
+
+
+
 .ico-download-blank {
 	background-image: url('png/download-blank.png');
 	background-repeat: no-repeat;

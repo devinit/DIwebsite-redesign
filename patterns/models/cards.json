@@ -57,6 +57,26 @@
 		    "excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi."
 		}
     ],
+    "work_feature": [
+	    {
+            "img_name": "content-image1",
+		    "title": "Poverty",
+		    "meta": "Measuring the progress of people out of poverty",
+		    "excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+		},
+        {
+            "img_name": "content-image2",
+		    "title": "Resources",
+		    "meta": "Investments to end poverty and build resilience",
+		    "excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."
+		},
+        {
+            "img_name": "content-image3",
+		    "title": "Data Use",
+		    "meta": "Improving data use for sustainable development",
+		    "excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi."
+		}
+    ],
     "news_related": [
 	    {
             "content": "Publication",

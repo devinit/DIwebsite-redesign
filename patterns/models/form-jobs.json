@@ -44,7 +44,7 @@
 		    "item_label": "",
 		    "item_label_type": "form-label--hidden",
 		     "options": [
-                { "id": "gdpr", "label": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." }
+                { "id": "gdpr", "label": "We manage our mailing list through Mailchimp. We collect only the information you give us via the subscription form, as well as IP address (your computer's unique ID number) which Mailchimp automatically collects. You can view our <a href='#'>Privacy Policy</a>, and also <a href='#'>Mailchimp's Privacy Policy</a> to find out more about privacy and what we do with your data. You can also read about our <a href='#'>Recruitment Policy</a>." }
 		    ]
 		}
 	]

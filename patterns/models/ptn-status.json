@@ -12,6 +12,10 @@
 		"stage": "Template"
 	},
 	{
+		"name": "01b-general-with-accounts-module",
+		"stage": "Template"
+	},
+	{
 		"name": "03-who-we-are",
 		"stage": "Template"
 	},

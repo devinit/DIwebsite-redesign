@@ -1,0 +1,140 @@
+{# 1. Extend the relevant layout #}
+{# --------------------------------------- #}
+
+{% extends 'default.html' %}
+
+
+{# --------------------------------------- #}
+{# 2. Assign Settings and variables #}
+{# --------------------------------------- #}
+
+{% set id = "general" %}
+{% set section = "general" %}
+{% set title = "General page heading" %}
+{% set excerpt = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." %}
+
+{# --------------------------------------- #}
+{# 3. Add models and macros #}
+{# --------------------------------------- #}
+
+{% model 'cards', as="card" %}
+{% model 'form-jobs', as="form" %}
+
+{% import 'macros/button.html' as buttons %}
+{% import 'macros/icon.html' as icons %}
+
+
+{# --------------------------------------- #}
+{#
+   4. Add page content into relevant areas
+      Add/Delete blocks as necessary
+#}
+{# --------------------------------------- #}
+
+{% block body %}
+    {% include 'heroes/hero.html' %}
+
+    <section class="section">
+        <div class="row row--narrow">
+            <div class="l-sidebar">
+                <aside class="l-sidebar__aside">
+                    <div class="aside aside--clipping">
+                        <h2 class="aside__heading">In this section</h2>
+                        <nav class="navigation-secondary">
+                            <ul>
+                                <li class="navigation-secondary__item"><a href="#">Menu item</a></li>
+                                <li class="navigation-secondary__item"><a href="#">Menu item</a></li>
+                                <li class="navigation-secondary__item"><a href="#">Menu item</a></li>
+                                <li class="navigation-secondary__item"><a href="#">Menu item</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </aside>
+                <div class="l-sidebar__body">
+                    <div class="is-typeset wysiwyg">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <h2 class="section__heading">DIPR accounts</h2>
+            <div class="is-typeset max-meter">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            </div>
+            <div class="l-3up">
+                <div class="l-3up__col">
+                    <div class="button button--faux button--icon">
+                        {{ icons.icon('ico-download-poppy', '24') }}
+                        <span class="button--faux__meta">Download</span>
+                        <h3 class="button--faux__heading">DIPR Accounts 2017</h3>
+                        <ul class="button--faux__list">
+                            <li><a href="#">PDF 1.8mb</a></li>
+                            <li><a href="#">Docx 1.8mb</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="l-3up__col">
+                    <div class="button button--faux button--icon">
+                        {{ icons.icon('ico-download-poppy', '24') }}
+                        <span class="button--faux__meta">Download</span>
+                        <h3 class="button--faux__heading">DIPR Accounts 2016</h3>
+                        <ul class="button--faux__list">
+                            <li><a href="#">PDF 1.8mb</a></li>
+                            <li><a href="#">Docx 1.8mb</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="l-3up__col">
+                    <div class="button button--faux button--icon">
+                        {{ icons.icon('ico-download-poppy', '24') }}
+                        <span class="button--faux__meta">Download</span>
+                        <h3 class="button--faux__heading">DIPR Accounts 2015</h3>
+                        <ul class="button--faux__list">
+                            <li><a href="#">PDF 1.8mb</a></li>
+                            <li><a href="#">Docx 1.8mb</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="l-3up__col">
+                    <div class="button button--faux button--icon">
+                        {{ icons.icon('ico-download-poppy', '24') }}
+                        <span class="button--faux__meta">Download</span>
+                        <h3 class="button--faux__heading">DIPR Accounts 2014</h3>
+                        <ul class="button--faux__list">
+                            <li><a href="#">PDF 1.8mb</a></li>
+                            <li><a href="#">Docx 1.8mb</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="l-3up__col">
+                    <div class="button button--faux button--icon">
+                        {{ icons.icon('ico-download-poppy', '24') }}
+                        <span class="button--faux__meta">Download</span>
+                        <h3 class="button--faux__heading">DIPR Accounts 2013</h3>
+                        <ul class="button--faux__list">
+                            <li><a href="#">PDF 1.8mb</a></li>
+                            <li><a href="#">Docx 1.8mb</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="l-3up__col">
+                    <div class="button button--faux button--icon">
+                        {{ icons.icon('ico-download-poppy', '24') }}
+                        <span class="button--faux__meta">Download</span>
+                        <h3 class="button--faux__heading">DIPR Accounts 2012</h3>
+                        <ul class="button--faux__list">
+                            <li><a href="#">PDF 1.8mb</a></li>
+                            <li><a href="#">Docx 1.8mb</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

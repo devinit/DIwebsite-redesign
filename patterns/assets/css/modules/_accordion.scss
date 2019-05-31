@@ -1,0 +1,57 @@
+// -----------------------------------------------------------
+// Accordion
+// -----------------------------------------------------------
+
+.accordion {
+
+}
+
+.accordion__list-item {
+    margin-top: 2em;
+    display: block;
+}
+
+.accordion__heading {
+	position: relative;
+	background-color: $poppy-dark;
+    color: #fff;
+    width: 100%;
+	padding: 0.75em 1.5em;
+	display: block;
+	color: #fff;
+	transition: all, ease-in-out, 0.3s;
+	@include font-size($delta);
+	@include link-active-styles {
+		background-color: $slate;
+	}
+	.ico {
+		position: absolute;
+		top: 12px;
+		right: 1.5em;
+		transition: all, ease-in-out, 0.3s;
+		transform: rotate(0);
+	}
+	.accordion__list-item--active &,
+	html.no-js & {
+		color: #fff;
+		background-color: $slate;
+		.ico {
+			transform: rotate(45deg);
+		}
+	}
+	html.no-js & {
+		.ico {
+			display: none;
+		}
+	}
+}
+
+.accordion__content {
+    background-color: #fff;
+	padding: 2em;
+	display: none;
+	.accordion__list-item--active &,
+	html.no-js & {
+		display: block;
+	}
+}

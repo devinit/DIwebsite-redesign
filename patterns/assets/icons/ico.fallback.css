@@ -62,6 +62,34 @@
 
 
 
+.ico-plus-blank {
+	background-image: url('png/plus-blank.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-plus-poppy {
+	background-image: url('png/plus-poppy.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-plus-poppydark {
+	background-image: url('png/plus-poppydark.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-plus-slate {
+	background-image: url('png/plus-slate.png');
+	background-repeat: no-repeat;
+}
+
+
+
 .ico-star-blank {
 	background-image: url('png/star-blank.png');
 	background-repeat: no-repeat;

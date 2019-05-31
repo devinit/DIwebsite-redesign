@@ -24,7 +24,8 @@
     }
     &--alt {
         background-color: #fff;
-        @extend .padd-section-both;
+        padding-top: $internal-spacing*1.5;
+        padding-bottom: $internal-spacing*1.5;
     }
 }
 

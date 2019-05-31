@@ -32,7 +32,11 @@
 		"stage": "Template"
 	},
 	{
-		"name": "11-opinion-listing",
+		"name": "11-blog-listing",
+		"stage": "Template"
+	},
+	{
+		"name": "11a-news-listing",
 		"stage": "Template"
 	},
 	{
@@ -44,7 +48,7 @@
 		"stage": "Template"
 	},
 	{
-		"name": "15-vacancy-listing",
+		"name": "18-vacancy-listing",
 		"stage": "Template"
 	},
 	{

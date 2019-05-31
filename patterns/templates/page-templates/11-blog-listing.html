@@ -8,9 +8,9 @@
 {# 2. Assign Settings and variables #}
 {# --------------------------------------- #}
 
-{% set id = "opinion" %}
-{% set section = "opinion" %}
-{% set title = "Opinions" %}
+{% set id = "blog" %}
+{% set section = "blog" %}
+{% set title = "Blog" %}
 {% set excerpt = "The Development Initiativesblod is updated regularly ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." %}
 
 {# --------------------------------------- #}
@@ -41,7 +41,7 @@
 
     <section class="section">
         <div class="row row--narrow">
-            <h2 class="section__heading">Latest opinions</h2>
+            <h2 class="section__heading">Latest blog posts</h2>
             <div class="l-2up-3up">
                 {% for item in card.blog_list %}
                     {% include 'cards/card-blog.html' %}

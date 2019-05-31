@@ -49,6 +49,20 @@
 	}
 }
 
+.media-figure__credit {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    @include font-size($zeta);
+    color: #fff;
+    @include rgba(#000, 0.75);
+    padding: 0.25em 0.5em;
+    a {
+        color: #fff;
+        text-decoration: underline;
+    }
+}
+
 .media-map {
 	position: relative;
 	@include maintain-ratio(16 9);

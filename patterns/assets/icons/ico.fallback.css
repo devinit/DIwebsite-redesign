@@ -27,6 +27,62 @@
 
 
 
+.ico-calendar-blank {
+	background-image: url('png/calendar-blank.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-calendar-poppy {
+	background-image: url('png/calendar-poppy.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-calendar-poppydark {
+	background-image: url('png/calendar-poppydark.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-calendar-slate {
+	background-image: url('png/calendar-slate.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-clock-blank {
+	background-image: url('png/clock-blank.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-clock-poppy {
+	background-image: url('png/clock-poppy.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-clock-poppydark {
+	background-image: url('png/clock-poppydark.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-clock-slate {
+	background-image: url('png/clock-slate.png');
+	background-repeat: no-repeat;
+}
+
+
+
 .ico-download-blank {
 	background-image: url('png/download-blank.png');
 	background-repeat: no-repeat;
@@ -57,6 +113,34 @@
 
 .ico-error-error {
 	background-image: url('png/error-error.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-location-blank {
+	background-image: url('png/location-blank.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-location-poppy {
+	background-image: url('png/location-poppy.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-location-poppydark {
+	background-image: url('png/location-poppydark.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-location-slate {
+	background-image: url('png/location-slate.png');
 	background-repeat: no-repeat;
 }
 

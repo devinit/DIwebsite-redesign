@@ -55,6 +55,71 @@
 		    "excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi."
 		}
     ],
+    "events_list": [
+	    {
+            "img_name": "content-image1",
+		    "title": "Is using ODA for blending a good use of scarce concessional resources",
+		    "date": "Dec 10 - Dec 12, 2019",
+            "time": "9am - 4pm",
+            "location": "Kisumu County at the Jumia Hotel"
+		},
+        {
+            "img_name": "fallback-image",
+		    "title": "How can data really be transformative?",
+            "date": "Dec 10 - Dec 12, 2019",
+            "time": "9am - 4pm",
+            "location": "Kisumu County at the Jumia Hotel"
+		},
+        {
+            "img_name": "content-image3",
+		    "title": "Data to leave no one behind: Development cooperation and the P20",
+            "date": "Dec 10 - Dec 12, 2019",
+            "time": "9am - 4pm",
+            "location": "Kisumu County at the Jumia Hotel"
+		},
+        {
+            "img_name": "content-image2",
+		    "title": "How can data really be transformative?",
+            "date": "Dec 10 - Dec 12, 2019",
+            "time": "9am - 4pm",
+            "location": "Kisumu County at the Jumia Hotel"
+		},
+        {
+            "img_name": "content-image3",
+		    "title": "Data to leave no one behind: Development cooperation and the P20",
+            "date": "Dec 10 - Dec 12, 2019",
+            "time": "9am - 4pm",
+            "location": "Kisumu County at the Jumia Hotel"
+		},
+        {
+            "img_name": "content-image1",
+		    "title": "Is using ODA for blending a good use of scarce concessional resources",
+            "date": "Dec 10 - Dec 12, 2019",
+            "time": "9am - 4pm",
+            "location": "Kisumu County at the Jumia Hotel"
+		},
+        {
+            "img_name": "content-image3",
+		    "title": "Data to leave no one behind: Development cooperation and the P20",
+            "date": "Dec 10 - Dec 12, 2019",
+            "time": "9am - 4pm",
+            "location": "Kisumu County at the Jumia Hotel"
+		},
+        {
+            "img_name": "content-image2",
+		    "title": "How can data really be transformative?",
+            "date": "Dec 10 - Dec 12, 2019",
+            "time": "9am - 4pm",
+            "location": "Kisumu County at the Jumia Hotel"
+		},
+        {
+            "img_name": "content-image3",
+		    "title": "Data to leave no one behind: Development cooperation and the P20",
+            "date": "Dec 10 - Dec 12, 2019",
+            "time": "9am - 4pm",
+            "location": "Kisumu County at the Jumia Hotel"
+		}
+    ],
     "blog_related": [
 	    {
             "img_name": "content-image1",

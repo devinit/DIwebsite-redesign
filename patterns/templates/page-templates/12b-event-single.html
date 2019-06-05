@@ -1,0 +1,80 @@
+{# 1. Extend the relevant layout #}
+{# --------------------------------------- #}
+
+{% extends 'sidebar.html' %}
+
+
+{# --------------------------------------- #}
+{# 2. Assign Settings and variables #}
+{# --------------------------------------- #}
+
+{% set id = "news" %}
+{% set section = "do" %}
+{% set title = "Is using ODA for blending a good use of scarce concessional resources" %}
+{% set excerpt = "" %}
+
+{# --------------------------------------- #}
+{# 3. Add models and macros #}
+{# --------------------------------------- #}
+
+{% model 'cards', as="card" %}
+
+{% import 'macros/button.html' as buttons %}
+{% import 'macros/icon.html' as icons %}
+
+
+{# --------------------------------------- #}
+{#
+   4. Add page content into relevant areas
+      Add/Delete blocks as necessary
+#}
+{# --------------------------------------- #}
+
+{% block hero %}
+    {% include 'heroes/hero-event.html' %}
+{% endblock %}
+
+{% block main %}
+    <section class="section">
+        <div class="highlight">
+            <ul class="highlight__list">
+                <li>{{ icons.icon('ico-calendar-slate', '14') }} Dec 10 - Dec 12, 2019</li>
+                <li>{{ icons.icon('ico-clock-slate', '14') }} 9am - 4pm</li>
+                <li>{{ icons.icon('ico-location-slate', '14') }} Kisumu County at the Jumuia Hotel</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="section section--post">
+        <div class="is-typeset is-typeset--additionals wysiwyg">
+            {% include 'content/longform.html' %}
+        </div>
+    </section>
+{% endblock %}
+
+{% block aside %}
+    <div class="aside aside--clipping">
+        <h2 class="aside__heading">In this section</h2>
+        <nav class="navigation-secondary">
+            <ul>
+                <li class="navigation-secondary__item"><a href="#">Menu item</a></li>
+                <li class="navigation-secondary__item"><a href="#">Menu item</a></li>
+                <li class="navigation-secondary__item"><a href="#">Menu item</a></li>
+                <li class="navigation-secondary__item"><a href="#">Menu item</a></li>
+            </ul>
+        </nav>
+    </div>
+{% endblock %}
+
+{% block after_content %}
+    <section class="section">
+        <div class="row row--narrow">
+            <h2 class="section__heading">Related content</h2>
+            <div class="l-2up-3up">
+                {% for item in card.news_related %}
+                    {% include 'cards/card-related.html' %}
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

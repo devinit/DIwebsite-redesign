@@ -1,0 +1,11 @@
+<a href="#" class="card card--offset">
+    <div class="card__media" style="background-image: url({{ global.assets_root }}/img/{{ item.img_name }}.jpg);"></div>
+    <div class="card__body">
+        <h3 class="card__title"><span>{{ item.title }}</span></h3>
+        <ul class="card__list">
+            <li>{{ icons.icon('ico-calendar-slate', '14') }} {{ item.date }}</li>
+            <li>{{ icons.icon('ico-clock-slate', '14') }} {{ item.time }}</li>
+            <li>{{ icons.icon('ico-location-slate', '14') }} {{ item.location }}</li>
+        </ul>
+    </div>
+</a>

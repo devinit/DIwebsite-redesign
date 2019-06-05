@@ -57,7 +57,7 @@
 .hero__credit {
     position: absolute;
     bottom: 0;
-    left: 3.8em;
+    left: $internal-spacing;
     @include font-size($zeta);
     color: #fff;
     @include rgba(#000, 0.75);
@@ -65,6 +65,9 @@
     a {
         color: #fff;
         text-decoration: underline;
+    }
+    @include respond-to($c-vp) {
+        left: 3.8em;
     }
 }
 

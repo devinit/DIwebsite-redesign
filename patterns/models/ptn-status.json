@@ -40,11 +40,19 @@
 		"stage": "Template"
 	},
 	{
+		"name": "11b-events-listing",
+		"stage": "Template"
+	},
+	{
 		"name": "12-blog-single",
 		"stage": "Template"
 	},
 	{
 		"name": "12a-news-single",
+		"stage": "Template"
+	},
+	{
+		"name": "12b-event-single",
 		"stage": "Template"
 	},
 	{

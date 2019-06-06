@@ -9,13 +9,11 @@
     max-width: 300px;
     .hero & {
         position: absolute;
-        bottom: -35px;
+        bottom: -85px;
         left: $internal-spacing;
         @include respond-to($menu-respond) {
-    		left: $internal-spacing*2;
-    	}
-    	@include respond-to($d-vp) {
-    		left: $internal-spacing*4;
+    		left: $internal-spacing*8;
+            bottom: -35px;
     	}
     }
     .card & {

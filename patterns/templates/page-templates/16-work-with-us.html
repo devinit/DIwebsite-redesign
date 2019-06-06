@@ -1,0 +1,60 @@
+{# 1. Extend the relevant layout #}
+{# --------------------------------------- #}
+
+{% extends 'default.html' %}
+
+
+{# --------------------------------------- #}
+{# 2. Assign Settings and variables #}
+{# --------------------------------------- #}
+
+{% set id = "vacancies" %}
+{% set section = "vacancy" %}
+{% set title = "Our people are our geatest assets" %}
+{% set excerpt = "We have over 70 staff either working through partnerships or in our own offices in the UK, Uganda, Brazil, Nepal, Kenya and the USA." %}
+{% set button = "View current vacancies" %}
+
+{# --------------------------------------- #}
+{# 3. Add models and macros #}
+{# --------------------------------------- #}
+
+{% model 'cards', as="card" %}
+{% model 'form-jobs', as="form" %}
+
+{% import 'macros/button.html' as buttons %}
+{% import 'macros/icon.html' as icons %}
+
+
+{# --------------------------------------- #}
+{#
+   4. Add page content into relevant areas
+      Add/Delete blocks as necessary
+#}
+{# --------------------------------------- #}
+
+{% block body %}
+    {% include 'heroes/hero.html' %}
+
+    <section class="section">
+        <div class="row row--narrow">
+            <div class="is-typeset is-typeset--additionals max-meter">
+                <p>We aim for a culture of honesty and openess and want to attract and retain talented people who share our vision to end absolute pverty by 2030</p>
+                <p>We can offer you the opportunity to use your talents in an innovative working environment with colleagues who are as passionate as you are about our vision.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <h2 class="section__heading">Latest vacancies</h2>
+            <div class="is-typeset max-meter">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+            </div>
+            <div class="l-2up-3up">
+                {% for item in card.job_listing %}
+                    {% include 'cards/card-job.html' %}
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

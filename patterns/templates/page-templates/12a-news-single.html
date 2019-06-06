@@ -45,14 +45,7 @@
 {% block aside %}
     <div class="aside aside--clipping">
         <h2 class="aside__heading">In this section</h2>
-        <nav class="navigation-secondary">
-            <ul>
-                <li class="navigation-secondary__item"><a href="#">Menu item</a></li>
-                <li class="navigation-secondary__item"><a href="#">Menu item</a></li>
-                <li class="navigation-secondary__item"><a href="#">Menu item</a></li>
-                <li class="navigation-secondary__item"><a href="#">Menu item</a></li>
-            </ul>
-        </nav>
+        {% include 'navigation/secondary.html' %}
     </div>
 {% endblock %}
 

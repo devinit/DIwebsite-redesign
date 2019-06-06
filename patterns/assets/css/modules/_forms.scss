@@ -46,6 +46,15 @@
 	padding-top: $internal-spacing;
 }
 
+.form-field--inline {
+	display: inline-block;
+	width: 47.5%;
+	.button {
+		margin-top: -2px;
+		display: block;
+	}
+}
+
 // Standard form elements
 .form-item {
 	padding: 0 $form-padding/2;

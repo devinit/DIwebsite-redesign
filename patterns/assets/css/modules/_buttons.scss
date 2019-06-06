@@ -28,8 +28,11 @@
 
 // Give actual buttons some love
 button.button {
-	border: 0;
-	width: 100%;
+	background-color: $poppy-dark;
+	color: #fff;
+	@include link-active-styles {
+		background-color: $slate;
+	};
 }
 
 // ------------------------------------------------------------

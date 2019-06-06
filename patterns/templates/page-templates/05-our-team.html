@@ -1,0 +1,85 @@
+{# 1. Extend the relevant layout #}
+{# --------------------------------------- #}
+
+{% extends 'default.html' %}
+
+
+{# --------------------------------------- #}
+{# 2. Assign Settings and variables #}
+{# --------------------------------------- #}
+
+{% set id = "team" %}
+{% set section = "are" %}
+{% set title = "Meet the team" %}
+{% set excerpt = "During the past 20 years, DI has expanded from a small organisation in rural south-west England to a 66-staff strong global organisation with teams in East Africa, South Asia, North America and Latin America." %}
+
+{# --------------------------------------- #}
+{# 3. Add models and macros #}
+{# --------------------------------------- #}
+
+{% model 'cards', as="card" %}
+{% model 'team', as="team" %}
+
+{% import 'macros/button.html' as buttons %}
+{% import 'macros/icon.html' as icons %}
+
+
+{# --------------------------------------- #}
+{#
+   4. Add page content into relevant areas
+      Add/Delete blocks as necessary
+#}
+{# --------------------------------------- #}
+
+{% block body %}
+    {% include 'heroes/hero.html' %}
+
+    <section class="section">
+        <div class="row row--narrow">
+            <div class="l-sidebar">
+                <aside class="l-sidebar__aside">
+                    <div class="aside aside--clipping">
+                        <h2 class="aside__heading">In this section</h2>
+                        <nav class="navigation-secondary">
+                            <ul>
+                                <li class="navigation-secondary__item"><a href="#">Menu item</a></li>
+                                <li class="navigation-secondary__item"><a href="#">Menu item</a></li>
+                                <li class="navigation-secondary__item"><a href="#">Menu item</a></li>
+                                <li class="navigation-secondary__item"><a href="#">Menu item</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </aside>
+                <div class="l-sidebar__body">
+                    <div class="highlight">
+                        {% include 'forms/team-filter.html' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <div class="l-4up">
+                {% for item in team.team_list %}
+                    <div class="l-4up__col">
+                        {% include 'partials/profile.html' %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <h2 class="section__heading">Other pages in this section</h2>
+            <div class="l-4up">
+                {% for item in card.job_info %}
+                    {% include 'cards/card-cta.html' %}
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

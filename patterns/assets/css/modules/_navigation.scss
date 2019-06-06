@@ -164,4 +164,12 @@
 	a {
 		font-size: inherit;
 	}
+	&--active {
+		a {
+			border-bottom: 2px solid $poppy-dark;
+			@include link-active-styles {
+
+			}
+		}
+	}
 }

@@ -14,7 +14,7 @@
 
 .filter__list {
     @include font-size($epsilon);
-     li {
+     .filter__list__item {
          display: inline-block;
          margin-right: 0.5em;
          margin-bottom: 1em;
@@ -23,10 +23,15 @@
              padding: 0.25em 1em;
              border-radius: 1.5em;
              @include link-active-styles {
-                 border-color: $action-respond;
-                 background-color: lighten($action-respond, 20%);
+                 background-color: $poppy-dark;
                  color: #fff;
              }
+         }
+         &--active {
+            a {
+                background-color: $poppy-dark;
+                color: #fff;
+            }
          }
      }
 }

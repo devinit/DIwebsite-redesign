@@ -11,9 +11,9 @@
 {% set id = "vacancies" %}
 {% set section = "vacancies" %}
 {% set title = "Current vacancies" %}
-{% set excerpt = "We recognise that our mission can only be achieved when the people who work at DI are given the right support, resources and opportunities to flourish." %}
+{% set excerpt = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor assumenda consequuntur maiores asperiores deserunt ratione nesciunt inventore quia esse nemo, recusandae non doloremque totam odio expedita modi id quo placeat!" %}
 
-{% set breadcrumbs_parent = "Work with us" %}
+{% set breadcrumbs_parent = "Work for us" %}
 {% set breadcrumbs_child = "Vacancies" %}
 
 {# --------------------------------------- #}
@@ -57,9 +57,11 @@
         <div class="row row--narrow">
             <h2 class="section__heading">Sign up for vacancy alerts</h2>
             <div class="is-typeset max-meter">
-                <p>Do you want to know when new jobs become available in your chosen field?</p>
-                <p>Subscribe to job alerts!</p>
+                <p>Do you want to know when new vacancies become available in your chosen field?</p>
+                <p>Subscribe to vacancy alerts!</p>
             </div>
+            <span class="alert alert--success"><i role="presentation" aria-hidden="true" class="ico ico-success-success"></i>Thanks for subscribing to updates</span>
+            <span class="alert alert--error"><i role="presentation" aria-hidden="true" class="ico ico-error-error"></i>Validation error message</span>
             <form class="form">
                 <fieldset class="form-section">
                     {% for item in form.input %}

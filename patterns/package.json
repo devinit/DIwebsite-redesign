@@ -14,6 +14,7 @@
   "license": "MIT",
   "dependencies": {
     "fastclick": "^1.0.6",
+    "google-maps": "^3.3.0",
     "jquery": "^2.1.4"
   }
 }

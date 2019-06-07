@@ -33,6 +33,10 @@
             }
         }
     }
+    &--alt {
+        background-color: $cloud;
+        margin-top: 4em;
+    }
     &:last-of-type {
         margin-bottom: 0;
     }

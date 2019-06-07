@@ -6,6 +6,7 @@ import iframer from './utils/iframer';
 import mNav from './utils/mNav';
 import initGmaps from './utils/gmaps';
 import accordion from './utils/accordion';
+import initSVGmap from './utils/svgmap';
 
 function globals () {
 
@@ -33,6 +34,9 @@ function globals () {
         '.accordion__content',
         'accordion__content--active'
     );
+
+    // svgmap
+    initSVGmap();
 }
 
 $(function run () {

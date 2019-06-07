@@ -9,7 +9,7 @@
 {# --------------------------------------- #}
 
 {% set id = "who-we-are" %}
-{% set section = "do" %}
+{% set section = "What we do" %}
 {% set title = "What we do" %}
 {% set excerpt = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis commodo mattis nisi eu adipiscing." %}
 
@@ -18,11 +18,10 @@
 {# --------------------------------------- #}
 
 {% model 'cards', as="card" %}
-{% model 'form-jobs', as="form" %}
+{% model 'navigation', as="navigation" %}
 
-{% import 'macros/button.html' as buttons %}
 {% import 'macros/icon.html' as icons %}
-
+{% import 'macros/secondary-navigation.html' as secondary_navigation %}
 
 {# --------------------------------------- #}
 {#
@@ -39,8 +38,7 @@
             <div class="l-sidebar">
                 <aside class="l-sidebar__aside">
                     <div class="aside aside--clipping">
-                        <h2 class="aside__heading">In this section</h2>
-                        {% include 'navigation/secondary.html' %}
+                        {{ secondary_navigation.active(active_page, section, navigation.secondary_what_we_do) }}
                     </div>
                 </aside>
                 <div class="l-sidebar__body">

@@ -9,16 +9,18 @@
 {# --------------------------------------- #}
 
 {% set id = "events" %}
-{% set section = "do" %}
+{% set section = "What we do" %}
 {% set title = "Events" %}
 {% set excerpt = "The Development Initiatives blog is updated regularly ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." %}
+{% set active_page = "Events" %}
 
 {# --------------------------------------- #}
 {# 3. Add models and macros #}
 {# --------------------------------------- #}
 
 {% model 'cards', as="card" %}
-
+{% model 'navigation', as="navigation" %}
+{% import 'macros/secondary-navigation.html' as secondary_navigation %}
 {% import 'macros/button.html' as buttons %}
 {% import 'macros/icon.html' as icons %}
 
@@ -38,15 +40,13 @@
             <div class="l-sidebar">
                 <aside class="l-sidebar__aside">
                     <div class="aside aside--clipping">
-                        <h2 class="aside__heading">In this section</h2>
-                        {% include 'navigation/secondary.html' %}
+                        {{ secondary_navigation.active(active_page, section, navigation.secondary_what_we_do) }}
                     </div>
                 </aside>
                 <div class="l-sidebar__body">
                     <div class="is-typeset wysiwyg">
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
                     </div>
-                    <a href="#" class="button">Sign up for our latest news</a>
                 </div>
             </div>
         </div>

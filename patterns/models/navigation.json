@@ -2,33 +2,47 @@
     "primary": [
 	    {
 		    "label": "Who we are",
-		    "in_section": "are",
+		    "in_section": "Who we are",
 		    "hidden": false
 		},
 		{
 		    "label": "What we do",
-		    "in_section": "do",
+		    "in_section": "What we do",
 		    "hidden": false
 		},
 		{
 		    "label": "How we work",
-		    "in_section": "work",
+		    "in_section": "How we work",
 		    "hidden": false
 		},
 		{
 		    "label": "Publications",
-		    "in_section": "publications",
+		    "in_section": "Publications",
 		    "hidden": false
 		},
 		{
 		    "label": "Blog",
-		    "in_section": "blog",
+		    "in_section": "Blog",
 		    "hidden": false
 		},
         {
 		    "label": "Work for us",
-		    "in_section": "vacancy",
+		    "in_section": "Work for us",
 		    "hidden": false
 		}
+    ],
+    "secondary_who_we_are": [
+        {"label": "Our story"},
+        {"label": "Team"},
+        {"label": "2020 strategy"},
+        {"label": "Our funding"},
+        {"label": "Finances"}
+    ],
+    "secondary_what_we_do": [
+        {"label": "Focus areas"},
+        {"label": "Consultancy services"},
+        {"label": "Data support services"},
+        {"label": "News"},
+        {"label": "Events"}
     ]
 }

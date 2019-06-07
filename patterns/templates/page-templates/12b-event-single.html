@@ -9,16 +9,18 @@
 {# --------------------------------------- #}
 
 {% set id = "news" %}
-{% set section = "do" %}
+{% set section = "What we do" %}
 {% set title = "Is using ODA for blending a good use of scarce concessional resources" %}
 {% set excerpt = "" %}
+{% set active_page = "Events" %}
 
 {# --------------------------------------- #}
 {# 3. Add models and macros #}
 {# --------------------------------------- #}
 
 {% model 'cards', as="card" %}
-
+{% model 'navigation', as="navigation" %}
+{% import 'macros/secondary-navigation.html' as secondary_navigation %}
 {% import 'macros/button.html' as buttons %}
 {% import 'macros/icon.html' as icons %}
 
@@ -55,8 +57,7 @@
 
 {% block aside %}
     <div class="aside aside--clipping">
-        <h2 class="aside__heading">In this section</h2>
-        {% include 'navigation/secondary.html' %}
+        {{ secondary_navigation.active(active_page, section, navigation.secondary_what_we_do) }}
     </div>
 {% endblock %}
 

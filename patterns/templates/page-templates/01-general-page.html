@@ -9,19 +9,19 @@
 {# --------------------------------------- #}
 
 {% set id = "general" %}
-{% set section = "general" %}
+{% set section = "Who we are" %}
 {% set title = "General page heading" %}
 {% set excerpt = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." %}
+{% set active_page = "2020 strategy" %}
 
 {# --------------------------------------- #}
 {# 3. Add models and macros #}
 {# --------------------------------------- #}
 
-{% model 'cards', as="card" %}
-{% model 'form-jobs', as="form" %}
+{% model 'navigation', as="navigation" %}
 
-{% import 'macros/button.html' as buttons %}
 {% import 'macros/icon.html' as icons %}
+{% import 'macros/secondary-navigation.html' as secondary_navigation %}
 
 
 {# --------------------------------------- #}
@@ -39,8 +39,7 @@
             <div class="l-sidebar">
                 <aside class="l-sidebar__aside">
                     <div class="aside aside--clipping">
-                        <h2 class="aside__heading">In this section</h2>
-                        {% include 'navigation/secondary.html' %}
+                        {{ secondary_navigation.active(active_page, section, navigation.secondary_who_we_are) }}
                     </div>
                 </aside>
                 <div class="l-sidebar__body">

@@ -1,0 +1,108 @@
+// ------------------------------------------------------------
+// Project
+// ------------------------------------------------------------
+
+.project {
+    @extend %pie-clearfix;
+    position: relative;
+    background-color: $cloud-dark;
+    margin-bottom: 5em;
+    &:last-of-type {
+        margin-bottom: 0;
+    }
+    @include respond-to($c-vp) {
+        @supports (display: flex) {
+            display: flex;
+        }
+    }
+    &:after {
+        content: "";
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        background-color: $poppy;
+        right: -15px;
+        bottom: -15px;
+        z-index: 1;
+    }
+    &:before {
+        content: "";
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        @include rgba($poppy, 0.5%);
+        right: 15px;
+        bottom: 15px;
+        z-index: 2;
+    }
+    &__main {
+        padding: 3em;
+        @include respond-to($c-vp) {
+            width: 65%;
+            float: left;
+            flex: auto;
+        }
+    }
+    &__aside {
+        padding: 3em;
+        background-color: #fff;
+        @include respond-to($c-vp) {
+            width: 30%;
+            float: right;
+            flex: auto;
+        }
+    }
+}
+
+.project__header {
+    @extend %pie-clearfix;
+    position: relative;
+    margin-bottom: 2em;
+    @include respond-to($b-vp + 150px) {
+        margin-bottom: 0;
+    }
+}
+
+.project__media {
+    img {
+        @extend %max-width;
+    }
+    @include respond-to($b-vp + 150px) {
+        float: left;
+        width: 25%;
+        transform:translate(-4em,-4em);
+    }
+}
+
+.project__heading {
+    @include font-size($beta);
+}
+
+.project__subheading {
+    @include font-size($delta + 1);
+}
+
+.project-card {
+    @include maintain-ratio(16 9);
+    position: relative;
+    background-size: cover;
+    margin-top: 1em;
+    display: block;
+    &:hover {
+        .project-card__caption {
+            @include rgba($poppy-dark, 0.75);
+            padding-left: 1em;
+        }
+    }
+}
+
+.project-card__caption {
+    @include font-size($epsilon);
+    @include rgba(#000, 0.75);
+    color: #fff;
+    padding: 0.25em 0.5em;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    transition: all, ease-in-out, 0.3s;
+}

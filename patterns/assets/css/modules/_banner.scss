@@ -15,6 +15,9 @@
     .button {
         margin-right: 1em;
     }
+    &--light {
+        background-color: $cloud-dark;
+    }
 }
 
 .banner__media {
@@ -43,12 +46,18 @@
     @include font-size($gamma);
     color: #fff;
     margin-bottom: 1em;
+    .banner--light & {
+        color: $heading-color;
+    }
 }
 
 .banner__excerpt {
     @include font-size($para);
     color: #fff;
     margin-bottom: 1em;
+    .banner--light & {
+        color: $base-color;
+    }
 }
 
 .banner__list {

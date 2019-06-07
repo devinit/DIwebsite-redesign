@@ -12,7 +12,7 @@
 		padding: 2em;
 		@include respond-to($c-vp) {
 			&:first-of-type {
-				margin-top: -100px;
+				margin-top: -150px;
 			}
 		}
 	}

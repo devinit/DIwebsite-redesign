@@ -27,6 +27,7 @@
 		('leaf', $leaf),
 		('leaf-light', $leaf-light),
 		('leaf-dark', $leaf-dark),
+		('cloud', $cloud),
 	{
 	.color-#{$name} {
 		color: $color;

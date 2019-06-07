@@ -8,17 +8,18 @@
 {# 2. Assign Settings and variables #}
 {# --------------------------------------- #}
 
-{% set id = "news" %}
+{% set id = "focus" %}
 {% set section = "What we do" %}
-{% set title = "News" %}
-{% set excerpt = "The Development Initiatives blog is updated regularly ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." %}
-{% set active_page = "News" %}
+{% set title = "Focus areas" %}
+{% set excerpt = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." %}
+{% set active_page = "Focus areas" %}
 
 {# --------------------------------------- #}
 {# 3. Add models and macros #}
 {# --------------------------------------- #}
 
 {% model 'cards', as="card" %}
+{% model 'form-jobs', as="form" %}
 {% model 'navigation', as="navigation" %}
 
 {% import 'macros/button.html' as buttons %}
@@ -45,9 +46,13 @@
                 </aside>
                 <div class="l-sidebar__body">
                     <div class="is-typeset wysiwyg">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        <div class="media-figure">
+                        	<img src="{{ global.assets_root }}/img/content-image3.jpg" alt="Inline image">
+                        	<figcaption class="media-figure__credit">Image by <a href="#">Credit name</a></figcaption>
+                        </div>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
                     </div>
-                    <a href="#" class="button">Sign up for our latest news</a>
                 </div>
             </div>
         </div>
@@ -55,12 +60,13 @@
 
     <section class="section">
         <div class="row row--narrow">
+            <h2 class="section__heading">Related content</h2>
             <div class="l-2up-3up">
-                {% for item in card.blog_list %}
-                    {% include 'cards/card-news.html' %}
+                {% for item in card.news_related %}
+                    {% include 'cards/card-related.html' %}
                 {% endfor %}
             </div>
-            {% include 'partials/pagination.html' %}
         </div>
     </section>
+
 {% endblock %}

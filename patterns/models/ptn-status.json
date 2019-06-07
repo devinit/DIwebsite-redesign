@@ -32,7 +32,11 @@
 		"stage": "review"
 	},
 	{
-		"name": "08-focus-country-project",
+		"name": "08-focus-areas",
+		"stage": "Template"
+	},
+	{
+		"name": "08-1-focus-country-project",
 		"stage": "review"
 	},
 	{

@@ -9,9 +9,10 @@
 {# --------------------------------------- #}
 
 {% set id = "team" %}
-{% set section = "are" %}
+{% set section = "Who we are" %}
 {% set title = "Meet the team" %}
 {% set excerpt = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis cupiditate et vel sint aperiam quod ea blanditiis culpa fugiat facere odit omnis repellendus, corporis perspiciatis. Eveniet consequatur sunt, corrupti ipsum!" %}
+{% set active_page = "Team" %}
 
 {# --------------------------------------- #}
 {# 3. Add models and macros #}
@@ -19,9 +20,9 @@
 
 {% model 'cards', as="card" %}
 {% model 'team', as="team" %}
+{% model 'navigation', as="navigation" %}
 
-{% import 'macros/button.html' as buttons %}
-{% import 'macros/icon.html' as icons %}
+{% import 'macros/secondary-navigation.html' as secondary_navigation %}
 
 
 {# --------------------------------------- #}
@@ -39,8 +40,7 @@
             <div class="l-sidebar">
                 <aside class="l-sidebar__aside">
                     <div class="aside aside--clipping">
-                        <h2 class="aside__heading">In this section</h2>
-                        {% include 'navigation/secondary.html' %}
+                        {{ secondary_navigation.active(active_page, section, navigation.secondary_who_we_are) }}
                     </div>
                 </aside>
                 <div class="l-sidebar__body">

@@ -6,11 +6,10 @@ import iframer from './utils/iframer';
 import mNav from './utils/mNav';
 import initGmaps from './utils/gmaps';
 import accordion from './utils/accordion';
-import './libs/slick';
 
 function globals () {
 
-	// FastClick
+    // FastClick
     fastClick(document.body);
 
     // iframe video in body content
@@ -34,25 +33,6 @@ function globals () {
         '.accordion__content',
         'accordion__content--active'
     );
-
-    // Lightslider
-    $('.slider-for').slick({
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        arrows: false,
-        fade: true,
-        asNavFor: '.slider-nav',
-        infinite: false,
-    });
-    $('.slider-nav').slick({
-        slidesToShow: 8,
-        slidesToScroll: 1,
-        asNavFor: '.slider-for',
-        dots: false,
-        centerMode: false,
-        focusOnSelect: true,
-        infinite: false,
-    });
 }
 
 $(function run () {

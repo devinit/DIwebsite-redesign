@@ -1,0 +1,23 @@
+<section class="hero" >
+    <div class="hero__image" style="background-image: url('{{ global.assets_root }}/img/content-image1.jpg');"></div>
+    <span class="hero__credit">Image by <a href="#">Credit name</a></span>
+    <span class="hero__flourish"></span>
+    <span class="hero__flourish"></span>
+    <span class="hero__flourish"></span>
+    <span class="hero__flourish"></span>
+    <span class="hero__flourish"></span>
+    <span class="hero__flourish"></span>
+    <span class="hero__flourish"></span>
+    <span class="hero__flourish"></span>
+    <div class="row row--narrow">
+        <div class="hero__content">
+            <ul class="hero__meta">
+                <li class="hero__meta-item hero__meta-item--block">Chapter 2</li>
+            </ul>
+            <h1 class="hero__title">{{ title }}</h1>
+            {% if excerpt %}
+                <p class="hero__excerpt">{{ excerpt }}</p>
+            {% endif %}
+        </div>
+    </div>
+</section>

@@ -75,3 +75,20 @@
 		height: 100%;
 	}
 }
+
+.media-caption {
+	@include font-size($para - 2);
+	border-left: 3px solid $action;
+	padding-left: 1em;
+	margin-top: 1em;
+	a {
+		@extend %font-heading;
+		text-decoration: underline;
+	}
+	.is-typeset & {
+		ul {
+			list-style: none;
+			padding-left: 0;
+		}
+	}
+}

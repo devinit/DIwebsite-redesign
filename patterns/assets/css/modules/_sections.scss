@@ -47,3 +47,60 @@
         background-color: $cloud;
     }
 }
+
+// ------------------------------------------------------------
+// Chapter sub-sections
+// ------------------------------------------------------------
+
+.section-chapter {
+    position: relative;
+    @include respond-to($d-vp + 150px) {
+        &:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -110%;
+            height: 100%;
+            width: 100%;
+            background-color: $bluebell;
+            display: block;
+        }
+    }
+}
+
+.section-chapter__number {
+    @include font-size($beta);
+    color: $bluebell;
+    border-bottom: 3px solid $bluebell;
+    margin-bottom: 0.5em;
+    display: inline-block;
+    @include respond-to($d-vp + 150px) {
+        @include font-size($alpha + 8);
+        position: absolute;
+        top: 0.25em;
+        left: 0;
+        line-height: 1;
+    }
+}
+
+.section-chapter__link {
+    @include font-size($eta);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 1em;
+    display: block;
+    text-decoration: underline;
+    .ico {
+        margin-right: 5px;
+        top: -1px;
+    }
+}
+
+.section-chapter__heading {
+    @include font-size($alpha / 1.25);
+    line-height: 1.3;
+    @include respond-to($menu-respond) {
+        @include font-size($alpha + 8);
+        max-width: 70%;
+    }
+}

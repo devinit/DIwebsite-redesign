@@ -1,0 +1,57 @@
+// ------------------------------------------------------------
+// Publications
+// Colour variations
+// ------------------------------------------------------------
+
+body.body--bluebell {
+    .header {
+        background-color: $bluebell;
+    	&:after {
+    		background-color: $bluebell;
+    	}
+    	@include respond-to($menu-respond) {
+    		background-color: $body-color;
+    	}
+    }
+    .branding {
+
+    }
+    .hero {
+        background-color: $bluebell;
+    }
+    .hero__image {
+        &:after {
+            background-color: $bluebell;
+        }
+    }
+    .hero__flourish {
+        background: $bluebell;
+    }
+    .navigation-primary__item {
+        a {
+            @include link-active-styles {
+                border-bottom: 2px solid $bluebell;
+            }
+        }
+        &--active a {
+            border-bottom: 2px solid $bluebell;
+        }
+    }
+    .is-typeset {
+        a:not(.button) {
+            color: $bluebell;
+            &:hover {
+                border-color: $bluebell;
+            }
+        }
+    }
+    .section-chapter__link {
+        color: $bluebell;
+    }
+    .media-caption {
+        a {
+            color: $bluebell;
+        }
+        border-color: $bluebell;
+    }
+}

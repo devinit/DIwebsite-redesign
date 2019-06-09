@@ -118,6 +118,34 @@
 
 
 
+.ico-link-blank {
+	background-image: url('png/link-blank.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-link-bluebell {
+	background-image: url('png/link-bluebell.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-link-poppy {
+	background-image: url('png/link-poppy.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-link-slate {
+	background-image: url('png/link-slate.png');
+	background-repeat: no-repeat;
+}
+
+
+
 .ico-location-blank {
 	background-image: url('png/location-blank.png');
 	background-repeat: no-repeat;

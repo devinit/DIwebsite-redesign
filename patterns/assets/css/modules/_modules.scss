@@ -69,3 +69,232 @@
 .m-stat__excerpt {
     @include font-size($para - 2);
 }
+
+.m-downloads {
+    position: relative;
+    background-color: #fff;
+    padding: 3em;
+    &:after {
+        content: "";
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        background-color: $poppy;
+        right: -15px;
+        bottom: -15px;
+        z-index: 1;
+    }
+    &:before {
+        content: "";
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        @include rgba($poppy, 0.5%);
+        right: 15px;
+        bottom: 15px;
+        z-index: 2;
+    }
+}
+
+.m-downloads__heading {
+    @include font-size($beta);
+    margin-bottom: 0.75em;
+}
+
+.m-downloads__list {
+    @include font-size($epsilon);
+    li {
+        margin-bottom: 0.5em;
+        a {
+            text-decoration: underline;
+        }
+    }
+    @include respond-to($c-vp) {
+        columns: 2;
+    }
+}
+
+// downloadChapter --------------------------------------------
+.mainAction {
+}
+
+.download {
+    margin-bottom: 3rem;
+    @include respond-to($d-vp) {
+        margin-bottom: 0;
+        width: 40%;
+        width: calc(40% - 40px);
+        float: left;
+    }
+    &-full {
+        @include respond-to($d-vp) {
+            width: 100%;
+        }
+        .download__item {
+            &:last-of-type {
+                border-bottom: 1px solid rgba($slate, 0.25);
+            }
+        }
+    }
+}
+
+.download__item {
+    position: relative;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba($slate, 0.25);
+    &:last-of-type {
+        border-bottom: 0;
+    }
+}
+
+.download__img {
+    position: relative;
+    display: inline-block;
+    background-size: cover;
+    background-position: center;
+    height: 50px;
+    width: 50px;
+}
+
+.download__label {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    @include font-size($eta / 1.25);
+    @include respond-to($d-vp) {
+        @include font-size($eta);
+    }
+}
+
+.download__link {
+    @include font-size($para);
+    display: block;
+    margin-bottom: 0.5rem;
+    text-decoration: underline;
+    .downloadSize {
+        &:after {
+            background: $action;
+        }
+    }
+    &:hover {
+        .downloadSize {
+            &:after {
+                background: $action-respond;
+            }
+        }
+    }
+}
+
+// orderReport ------------------------------------------------
+.orderReport {
+    position: relative;
+    @include respond-to($d-vp) {
+        width: 60%;
+        float: right;
+    }
+}
+
+.orderReport__img {
+    display: block;
+    max-width: 250px;
+    width: 100%;
+    height: 350px;
+    background-size: cover;
+    background-position: center;
+    margin-bottom: 2rem;
+    @include respond-to($d-vp) {
+        margin-bottom: 0;
+    }
+    &-standardAction {
+        width: 100%;
+        height: 200px;
+        max-width: 100%;
+        @include respond-to($d-vp) {
+            max-width: 250px;
+            width: 100%;
+            height: 350px;
+        }
+    }
+}
+
+.orderReport__content {
+    background: #fff;
+    @include respond-to($d-vp) {
+        padding: 3rem 0 3rem 5rem;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        -webkit-transform: translateY(-50%);
+        left: 30%;
+        width: 70%;
+    }
+}
+
+// shareBlock -------------------------------------------------
+.share {
+    position: relative;
+    padding: 3rem;
+    overflow: hidden;
+    text-align: center;
+    background-color: $bluebell;
+    @include respond-to($c-vp) {
+        text-align: left;
+    }
+}
+
+.share__wrapper {
+    @extend %pie-clearfix;
+    &[data-js="share-section"] {
+        @include leader($para);
+        @include trailer($beta);
+        .js & {
+            display: none;
+        }
+    }
+}
+
+.share__media {
+    @include respond-to($c-vp) {
+        float: left;
+    }
+}
+
+.share__item {
+    width: 40px;
+    display: inline-block;
+}
+
+
+.share__content {
+    background: #fff;
+    padding: 3rem;
+}
+
+.share__copy {
+    max-width: 100%;
+    width: 100%;
+    @include respond-to($c-vp) {
+        width: calc(100% - 140px);
+        float: left;
+        margin-left: 5px;
+    }
+    .button {
+        display: inline-block;
+        position: relative;
+        top: -4px;
+        width: auto;
+        border: 1px solid $action;
+        margin-left: 3px;
+        @include font-size($zeta);
+        .no-js & {
+            display: none;
+        }
+    }
+    input {
+        @include font-size($delta);
+        display: inline-block;
+        width: calc((100% - 74px);
+        padding: 9px 1.5rem;
+        border: 1px solid $slate;
+        opacity: 0.5;
+    }
+}

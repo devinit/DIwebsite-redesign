@@ -85,6 +85,13 @@ body.body--bluebell {
             border-color: $bluebell;
         }
     }
+    .download__link {
+        color: $bluebell;
+    }
+    .orderReport__content .button {
+        color: $bluebell;
+        border-color: $bluebell;
+    }
 }
 
 // Green
@@ -183,5 +190,12 @@ body.body--leaf {
             background-color: $leaf;
             border-color: $leaf;
         }
+    }
+    .download__link {
+        color: $leaf;
+    }
+    .orderReport__content .button {
+        color: $leaf;
+        border-color: $leaf;
     }
 }

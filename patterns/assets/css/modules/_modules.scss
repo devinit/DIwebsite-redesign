@@ -166,22 +166,10 @@
 }
 
 .download__link {
-    @include font-size($para);
+    font-size: 1.3rem !important;
     display: block;
     margin-bottom: 0.5rem;
     text-decoration: underline;
-    .downloadSize {
-        &:after {
-            background: $action;
-        }
-    }
-    &:hover {
-        .downloadSize {
-            &:after {
-                background: $action-respond;
-            }
-        }
-    }
 }
 
 // orderReport ------------------------------------------------
@@ -219,7 +207,7 @@
 .orderReport__content {
     background: #fff;
     @include respond-to($d-vp) {
-        padding: 3rem 0 3rem 5rem;
+        padding: 3rem;
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
@@ -297,4 +285,58 @@
         border: 1px solid $slate;
         opacity: 0.5;
     }
+}
+
+// footnotes --------------------------------------------------
+.footnotes {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.footnotes__list {
+    list-style: decimal;
+    margin-bottom: 1rem;
+    padding-left: 1rem;
+    @include respond-to($c-vp) {
+        padding-left: 2rem;
+    }
+}
+
+.footnotes__sub {
+    position: relative;
+    display: inline-block;
+    padding-top: 1.5rem;
+    margin-bottom: 2rem;
+    &:after {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 12px;
+        width: 100%;
+        height: 3px;
+        background: $slate;
+    }
+}
+
+.footnotes__item {
+    margin-bottom: 2rem
+}
+
+.footnotes__text {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    @include respond-to($c-vp) {
+        @include font-size($eta*1.25);
+    }
+}
+
+.footnotes__link {
+    word-break: break-all;
+    text-decoration: underline;
+}
+
+.footnotes__return {
+    text-transform: uppercase;
+    color: $action;
+
 }

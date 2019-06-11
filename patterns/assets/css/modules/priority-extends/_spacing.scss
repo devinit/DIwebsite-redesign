@@ -13,3 +13,5 @@
 .space-section-top 		{ margin-top: $internal-spacing*1.5; }
 .space-section-bottom 	{ margin-bottom: $internal-spacing*1.5; }
 .space-section-both 	{ @extend .space-section-top; @extend .space-section-bottom; }
+
+.space-section-top--small { margin-top: $internal-spacing/2; }

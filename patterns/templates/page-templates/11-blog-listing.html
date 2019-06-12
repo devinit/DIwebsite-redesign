@@ -1,0 +1,54 @@
+{# 1. Extend the relevant layout #}
+{# --------------------------------------- #}
+
+{% extends 'default.html' %}
+
+
+{# --------------------------------------- #}
+{# 2. Assign Settings and variables #}
+{# --------------------------------------- #}
+
+{% set id = "blog" %}
+{% set section = "blog" %}
+{% set title = "Blog" %}
+{% set excerpt = "The Development Initiatives blog is updated regularly ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." %}
+{% set image_name = "content-image1.jpg" %}
+
+{# --------------------------------------- #}
+{# 3. Add models and macros #}
+{# --------------------------------------- #}
+
+{% model 'cards', as="card" %}
+
+{% import 'macros/button.html' as buttons %}
+{% import 'macros/icon.html' as icons %}
+
+
+{# --------------------------------------- #}
+{#
+   4. Add page content into relevant areas
+      Add/Delete blocks as necessary
+#}
+{# --------------------------------------- #}
+
+{% block body %}
+    {% include 'heroes/hero.html' %}
+
+    <section class="section">
+        <div class="row row--narrow">
+            {% include 'partials/filter.html' %}
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <h2 class="section__heading">Latest blog posts</h2>
+            <div class="l-2up-3up">
+                {% for item in card.blog_list %}
+                    {% include 'cards/card-blog.html' %}
+                {% endfor %}
+            </div>
+            {% include 'partials/pagination.html' %}
+        </div>
+    </section>
+{% endblock %}

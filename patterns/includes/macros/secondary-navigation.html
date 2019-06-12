@@ -1,0 +1,10 @@
+{% macro active(active_page,section,secondary_navigation_items) %}
+<h2 class="aside__heading">More in: {{ section }}</h2>
+<nav class="navigation-secondary">
+    <ul>
+    	{% for item in secondary_navigation_items %}
+			<li class="navigation-secondary__item {% if active_page == item.label %}navigation-secondary__item--active{% endif %}"><a href="#">{{ item.label }}</a></li>
+    	{% endfor %}
+    </ul>
+</nav>
+{% endmacro %}

@@ -1,0 +1,84 @@
+{# 1. Extend the relevant layout #}
+{# --------------------------------------- #}
+
+{% extends 'default.html' %}
+
+
+{# --------------------------------------- #}
+{# 2. Assign Settings and variables #}
+{# --------------------------------------- #}
+
+{% set id = "vacancies" %}
+{% set section = "Work for us" %}
+{% set title = "Current vacancies" %}
+{% set excerpt = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor assumenda consequuntur maiores asperiores deserunt ratione nesciunt inventore quia esse nemo, recusandae non doloremque totam odio expedita modi id quo placeat!" %}
+{% set image_name = "content-image1.jpg" %}
+
+{% set breadcrumbs_parent = "Work for us" %}
+{% set breadcrumbs_child = "Vacancies" %}
+
+{# --------------------------------------- #}
+{# 3. Add models and macros #}
+{# --------------------------------------- #}
+
+{% model 'cards', as="card" %}
+{% model 'form-jobs', as="form" %}
+
+{% import 'macros/button.html' as buttons %}
+{% import 'macros/icon.html' as icons %}
+
+
+{# --------------------------------------- #}
+{#
+   4. Add page content into relevant areas
+      Add/Delete blocks as necessary
+#}
+{# --------------------------------------- #}
+
+{% block body %}
+    {% include 'heroes/hero.html' %}
+
+    <section class="section">
+        <div class="row row--narrow">
+            {% include 'partials/breadcrumbs.html' %}
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <div class="l-2up-3up">
+                {% for item in card.job_listing %}
+                    {% include 'cards/card-job.html' %}
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <h2 class="section__heading">Sign up for vacancy alerts</h2>
+            <div class="is-typeset max-meter">
+                <p>Do you want to know when new vacancies become available in your chosen field?</p>
+                <p>Subscribe to vacancy alerts!</p>
+            </div>
+            <span class="alert alert--success"><i role="presentation" aria-hidden="true" class="ico ico-success-success"></i>Thanks for subscribing to updates</span>
+            <span class="alert alert--error"><i role="presentation" aria-hidden="true" class="ico ico-error-error"></i>Validation error message</span>
+            <form class="form">
+                <fieldset class="form-section">
+                    {% for item in form.input %}
+                        {% include 'forms/partials/input-types.html' %}
+                    {% endfor %}
+                    {% for item in form.checkbox %}
+                        {% include 'forms/partials/checkbox-type.html' %}
+                    {% endfor %}
+                    {% for item in form.gdpr %}
+                        {% include 'forms/partials/checkbox-type.html' %}
+                    {% endfor %}
+                    <div class="form-field form-field--spaced">
+                        <input class="button" type="submit" value="Sign up for alerts">
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </section>
+{% endblock %}

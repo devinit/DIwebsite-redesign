@@ -1,0 +1,84 @@
+// ------------------------------------------------------------
+// Colours
+// ------------------------------------------------------------
+
+// Brand colours
+// https://bitbucket.org/fffunction/wiki/wiki/Design%20styles
+// ------------------------------------------------------------
+
+$slate                              : #443e42;
+$cloud                              : #f3f3f3;
+$poppy                              : #e84439;
+$sunflower                          : #f49b21;
+$marigold                           : #eb642b;
+$rose                               : #c2135b;
+$lavendar                           : #893190;
+$bluebell                           : #0089cc;
+$leaf                               : #109e68;
+
+// Tones of colour palette
+// ------------------------------------------------------------
+$poppy-light                        : #f0826d;
+$poppy-dark                         : #8f1b13;
+$sunflower-light                    : #f9b865;
+$sunflower-dark                     : #e48a00;
+$marigold-light                     : #f18e5e;
+$marigold-dark                      : #d85b31;
+$rose-light                         : #d64278;
+$rose-dark                          : #ad1257;
+$lavendar-light                     : #a45ea1;
+$lavendar-dark                      : #7b3b89;
+$bluebell-light                     : #5da3d9;
+$bluebell-dark                      : #0071b1;
+$leaf-light                         : #5ab88a;
+$leaf-dark                          : #007851;
+$cloud-dark                         : darken($cloud, 5%);
+
+// Social shit
+// ------------------------------------------------------------
+
+$facebook-color 					: #3B5998;
+$twitter-color 						: #4099FF;
+$linkedin-color						: #007bb6;
+$youtube-color						: #e52d27;
+$pinterest-color					: #C92228;
+$instagram-color 					: #517fa4;
+$tumblr-color 						: #32506d;
+$foursquare-color 					: #0072b1;
+$google-color 						: #dd4b39;
+$flickr-color 						: #ff0084;
+
+
+// Colors assigned to roles
+// Replace assignments with brand colours
+// ------------------------------------------------------------
+
+// Defaults
+$body-color 						: $cloud;
+$base-color							: $slate;
+$heading-color						: $slate;
+
+// Actions
+$action								: $poppy-dark;
+$action-respond						: $slate;
+
+// Borders
+$default-border-color 				: #ddd;
+
+// Forms
+$form-label-color					: $heading-color;
+$form-legend-color					: $heading-color;
+$form-placeholder-color				: #ddd;
+$form-checkbox-color				: $heading-color;
+$form-radio-color					: $heading-color;
+
+// Navigation
+$nav-toggle-color					: #fff;
+$nav-toggle-color-active			: #fff;
+
+
+// Responses
+// Often good to keep these 'off–brand' for UX clairty
+$warning 							: #b2a216;					// Careful now
+$error 								: #f25111;					// Down with that sort of thing
+$success 							: #41b38e;					// Good bunch of lads

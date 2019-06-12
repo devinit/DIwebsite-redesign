@@ -1,0 +1,94 @@
+// Basic responsive videos
+// ------------------------------------------------------------
+
+.media-video-wrapper,
+.media-wrapper {
+	position: relative;
+	@include maintain-ratio(16 9);
+	object,embed,iframe  {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+	.is-typeset & {
+		margin: 2em 0;
+	}
+}
+
+.media-figure {
+	position: relative;
+	.is-typeset & {
+		margin: 2em 0;
+		@include respond-to($d-vp) {
+			margin-bottom: 4em;
+		}
+	}
+	img {
+		display: block;
+		margin-bottom: 0.5em;
+		width: 100%;
+		height: auto;
+	}
+	&__caption {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		z-index: 2;
+		background-color: $slate;
+		color: #fff;
+		@include font-size($para - 3);
+		display: block;
+		padding: 1em 1.5em;
+		max-width: 500px;
+		@include respond-to($d-vp) {
+			bottom: -2em;
+			left: -2em;
+		}
+	}
+}
+
+.media-figure__credit {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    @include font-size($zeta);
+    color: #fff;
+    @include rgba(#000, 0.75);
+    padding: 0.25em 0.5em;
+    a {
+        color: #fff;
+        text-decoration: underline;
+    }
+}
+
+.media-map {
+	position: relative;
+	@include maintain-ratio(16 9);
+	margin-bottom: 1em;
+	&__location {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+}
+
+.media-caption {
+	@include font-size($para - 2);
+	border-left: 3px solid $action;
+	padding-left: 1em;
+	margin-top: 1em;
+	a {
+		@extend %font-heading;
+		text-decoration: underline;
+	}
+	.is-typeset & {
+		ul {
+			list-style: none;
+			padding-left: 0;
+		}
+	}
+}

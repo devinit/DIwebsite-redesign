@@ -1,0 +1,84 @@
+// ------------------------------------------------------------
+// Banner
+// ------------------------------------------------------------
+
+.banner {
+    position: relative;
+    background-color: $slate;
+    margin-top: 6em;
+    .is-typeset {
+        h1,h2,h3,h4,h5,p {
+            color: #fff;
+        }
+        color: #fff;
+    }
+    .button {
+        margin-right: 1em;
+    }
+    &--light {
+        background-color: $cloud-dark;
+    }
+}
+
+.banner__media {
+    position: relative;
+    transform: translate(-2em, -2em);
+    img {
+        @extend %max-width;
+    }
+}
+
+.banner__credit {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    @include font-size($zeta);
+    color: #fff;
+    @include rgba(#000, 0.75);
+    padding: 0.25em 0.5em;
+    a {
+        color: #fff;
+        text-decoration: underline;
+    }
+}
+
+.banner__heading {
+    @include font-size($gamma);
+    color: #fff;
+    margin-bottom: 1em;
+    .banner--light & {
+        color: $heading-color;
+    }
+}
+
+.banner__excerpt {
+    @include font-size($para);
+    color: #fff;
+    margin-bottom: 1em;
+    .banner--light & {
+        color: $base-color;
+    }
+}
+
+.banner__list {
+    @include font-size($para);
+    color: #fff;
+    li {
+        margin-bottom: 1em;
+        &:last-child {
+            margin-bottom: 2em;
+        }
+    }
+    .banner__subeading {
+        @extend %font-heading;
+        color: #fff;
+    }
+}
+
+.banner__meta {
+    @include font-size($eta);
+    color: #fff;
+    display: block;
+    text-transform: uppercase;
+    margin-bottom: 1.5em;
+}

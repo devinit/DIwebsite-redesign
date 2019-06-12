@@ -1,0 +1,201 @@
+// ------------------------------------------------------------
+// Publications
+// Colour variations
+// ------------------------------------------------------------
+
+
+// Blue
+// ------------------------------------------------------------
+body.body--bluebell {
+    .header {
+        background-color: $bluebell;
+    	&:after {
+    		background-color: $bluebell;
+    	}
+    	@include respond-to($menu-respond) {
+    		background-color: $body-color;
+    	}
+    }
+    .branding {
+
+    }
+    .hero {
+        background-color: $bluebell;
+    }
+    .hero__image {
+        &:after {
+            background-color: $bluebell;
+        }
+    }
+    .hero__flourish {
+        background: $bluebell;
+    }
+    .navigation-primary__item {
+        a {
+            @include link-active-styles {
+                border-bottom: 2px solid $bluebell;
+            }
+        }
+        &--active a {
+            border-bottom: 2px solid $bluebell;
+        }
+    }
+    .is-typeset {
+        a:not(.button) {
+            color: $bluebell;
+            &:hover {
+                border-color: $bluebell;
+            }
+        }
+    }
+    .section-chapter__link {
+        color: $bluebell;
+    }
+    .media-caption {
+        a {
+            color: $bluebell;
+        }
+        border-color: $bluebell;
+    }
+    .is-typeset table,
+    .table-styled,
+    .table-styled table {
+        th {
+            background-color: $bluebell;
+        }
+    }
+    .footer .button {
+        background-color: $bluebell;
+        border-color: $bluebell;
+    }
+    .m-downloads {
+        &:after {
+            background-color: $bluebell;
+        }
+        &:before {
+            @include rgba($bluebell, 0.5%);
+        }
+    }
+    .m-downloads__list a {
+        color: $bluebell;
+    }
+    .share {
+        .button {
+            background-color: $bluebell;
+            border-color: $bluebell;
+        }
+    }
+    .download__link {
+        color: $bluebell;
+    }
+    .orderReport__content .button {
+        color: $bluebell;
+        border-color: $bluebell;
+    }
+}
+
+// Green
+// ------------------------------------------------------------
+body.body--leaf {
+    .header {
+        background-color: $leaf;
+    	&:after {
+    		background-color: $leaf;
+    	}
+    	@include respond-to($menu-respond) {
+    		background-color: $body-color;
+    	}
+    }
+    .branding {
+
+    }
+    .hero {
+        background-color: $leaf;
+    }
+    .hero__image {
+        &:after {
+            background-color: $leaf;
+        }
+    }
+    .hero__flourish {
+        background: $leaf;
+    }
+    .navigation-primary__item {
+        a {
+            @include link-active-styles {
+                border-bottom: 2px solid $leaf;
+            }
+        }
+        &--active a {
+            border-bottom: 2px solid $leaf;
+        }
+    }
+    .is-typeset {
+        a:not(.button) {
+            color: $bluebell;
+            &:hover {
+                border-color: $leaf;
+            }
+        }
+    }
+    .section-chapter {
+        &:before {
+            background-color: $leaf;
+        }
+    }
+    .section-chapter__link {
+        color: $leaf;
+    }
+    .section-chapter__number {
+        color: $leaf;
+        border-color: $leaf;
+    }
+    .media-caption {
+        a {
+            color: $leaf;
+        }
+        border-color: $leaf;
+    }
+    .pullout {
+        background-color: $leaf;
+        &:before {
+            background-color: $leaf;
+        }
+    }
+    .is-typeset table,
+    .table-styled,
+    .table-styled table {
+        th {
+            background-color: $leaf;
+        }
+    }
+    .footer .button {
+        background-color: $leaf;
+        border-color: $leaf;
+    }
+    .m-downloads {
+        &:after {
+            background-color: $leaf;
+        }
+        &:before {
+            @include rgba($leaf, 0.5%);
+        }
+    }
+    .m-downloads__list a {
+        color: $leaf;
+    }
+    .share {
+        background-color: $leaf;
+        .button {
+            background-color: $leaf;
+            border-color: $leaf;
+        }
+    }
+    .download__link {
+        color: $leaf;
+    }
+    .orderReport__content .button {
+        color: $leaf;
+        border-color: $leaf;
+    }
+}

@@ -1,0 +1,100 @@
+// ------------------------------------------------------------
+// Responsive graphs
+// ------------------------------------------------------------
+
+// .responsive-graph {
+
+// }
+
+.responsive-graph__image {
+	display: none;
+	max-width: 100%;
+	padding: 2em;
+	background-color: #fff;
+}
+
+
+// accessible hide
+//  source: https://webaim.org/techniques/css/invisiblecontent/
+//  and: https://medium.com/@jessebeach/beware-smushed-off-screen-accessible-text-5952a4c2cbfe
+%accessible-hide {
+  clip: rect(1px 1px 1px 1px);
+  clip: rect(1px, 1px, 1px, 1px);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+// note that we can't actually use an extend within a media query (for reasons)
+//  so this is just here for reference really
+%show-accessible-hidden-thing {
+	position: static;
+	width: auto;
+	height: auto;
+	overflow: visible;
+	white-space: normal;
+}
+
+.responsive-graph__description-wrapper {
+	@extend %accessible-hide;
+}
+
+
+.responsive-graph__long-description {
+	@include font-size($para - 2);
+	margin-bottom: 0.5em;
+}
+
+// show at breakpoints
+@include respond-to-max($b-vp) {
+	.responsive-graph__image--visible-narrow {
+		display: block;
+	}
+
+	.responsive-graph__description-wrapper--visible-narrow {
+		position: static;
+		width: auto;
+		height: auto;
+		overflow: visible;
+		white-space: normal;
+	}
+}
+
+@include respond-to-min-max($b-vp, $c-vp) {
+	.responsive-graph__image--visible-medium {
+		display: block;
+	}
+
+	.responsive-graph__description-wrapper--visible-medium {
+		position: static;
+		width: auto;
+		height: auto;
+		overflow: visible;
+		white-space: normal;
+	}
+}
+
+@include respond-to($c-vp) {
+	.responsive-graph__image--visible-wide {
+		display: block;
+	}
+
+	.responsive-graph__description-wrapper--visible-wide {
+		position: static;
+		width: auto;
+		height:auto;
+		overflow: visible;
+		white-space: normal;
+	}
+}
+
+@include respond-to($d-vp) {
+	.responsive-graph.max-meter {
+		max-width: 96%;
+	}
+}
+
+.responsive-graph .table-styled {
+	overflow-x: auto;
+}

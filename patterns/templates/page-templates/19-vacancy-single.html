@@ -1,0 +1,128 @@
+{# 1. Extend the relevant layout #}
+{# --------------------------------------- #}
+
+{% extends 'sidebar.html' %}
+
+
+{# --------------------------------------- #}
+{# 2. Assign Settings and variables #}
+{# --------------------------------------- #}
+
+{% set id = "vacancy" %}
+{% set section = "Work for us" %}
+{% set title = "Communications officer" %}
+{% set excerpt = "" %}
+{% set image_name = "content-image1.jpg" %}
+
+{% set breadcrumbs_parent = "Work with us" %}
+{% set breadcrumbs_child = "Vacancies" %}
+
+{# --------------------------------------- #}
+{# 3. Add models and macros #}
+{# --------------------------------------- #}
+
+{% model 'cards', as="card" %}
+
+{% import 'macros/button.html' as buttons %}
+{% import 'macros/icon.html' as icons %}
+
+
+{# --------------------------------------- #}
+{#
+   4. Add page content into relevant areas
+      Add/Delete blocks as necessary
+#}
+{# --------------------------------------- #}
+
+{% block hero %}
+    {% include 'heroes/hero.html' %}
+{% endblock %}
+
+{% block main %}
+    <section class="section">
+        {% include 'partials/breadcrumbs.html' %}
+        <div class="highlight">
+            <span class="highlight__flag">Full-time, permanent</span>
+            <ul class="highlight__list">
+                <li><span>Salary scale:</span>&pound;25,000 - &pound;30,00 per annum, dependant on experience</li>
+                <li><span>Closing date:</span>2 December 2018</li>
+                <li><span>First interview:</span>December 2018</li>
+                <li><span>Start date:</span>January 2019</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="is-typeset is-typeset--additionals wysiwyg">
+            {% include 'content/longform.html' %}
+        </div>
+    </section>
+{% endblock %}
+
+{% block aside %}
+    <div class="aside aside--clipping">
+        <h2 class="aside__heading">Apply for this position</h2>
+        <p class="aside__excerpt">Please read the full role profile and apply by emailing your CV and cover letter to <a href="#">HR@devinit.org</a>.</p>
+        <div class="button button--faux button--icon">
+            {{ icons.icon('ico-download-poppy', '24') }}
+            <span class="button--faux__meta">Download</span>
+            <h3 class="button--faux__heading">Recruitment pack</h3>
+            <ul class="button--faux__list">
+                <li><a href="#">PDF 1.8mb</a></li>
+                <li><a href="#">Docx 1.8mb</a></li>
+            </ul>
+        </div>
+        <div class="button button--faux button--icon">
+            {{ icons.icon('ico-download-poppy', '24') }}
+            <span class="button--faux__meta">Download</span>
+            <h3 class="button--faux__heading">Diversity monitoring form</h3>
+            <ul class="button--faux__list">
+                <li><a href="#">PDF 1.8mb</a></li>
+                <li><a href="#">Docx 1.8mb</a></li>
+            </ul>
+        </div>
+        <div class="button button--faux button--icon">
+            {{ icons.icon('ico-download-poppy', '24') }}
+            <span class="button--faux__meta">Download</span>
+            <h3 class="button--faux__heading">Guaranteed interview form</h3>
+            <ul class="button--faux__list">
+                <li><a href="#">PDF 1.8mb</a></li>
+                <li><a href="#">Docx 1.8mb</a></li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}
+
+{% block after_content %}
+    <section class="section">
+        <div class="row row--narrow">
+            <div class="banner">
+                <div class="l-banner">
+                    <div class="l-banner__aside">
+                        <div class="banner__media">
+                            <div class="media-wrapper">
+                                <iframe src="https://player.vimeo.com/video/71385845?color=c9ff23&title=0&byline=0&portrait=0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="l-banner__main">
+                        <p class="banner__excerpt">"The driving force behind our work is a passion for ending poverty. We want every penny intended to end poverty and build resilience to be directed and spent effectively so that every person has the opportunity to make meaningful choices that can improve their life in a lasting way."</p>
+                        <span class="banner__meta">Communications team, Bristol</span>
+                        <a href="#" class="button button--reverse">Read more</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <h2 class="section__heading">Learn more about Developement Initiatives</h2>
+            <div class="l-4up">
+                {% for item in card.job_info %}
+                    {% include 'cards/card-cta.html' %}
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

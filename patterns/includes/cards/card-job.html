@@ -1,0 +1,12 @@
+<a href="#" class="card card--simple">
+    <div class="card__body">
+        <span class="card__flag">Full time</span>
+        <h3 class="card__title"><span>{{ item.title }}</span></h3>
+        <span class="card__meta">{{ item.meta }}</span>
+        <ul class="card__list">
+            {% for option in item.options %}
+                <li>{{ option.label }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</a>

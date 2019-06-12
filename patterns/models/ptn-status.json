@@ -1,0 +1,82 @@
+[
+	{
+		"name": "e1-error",
+		"stage": "review"
+	},
+	{
+		"name": "e2-500",
+		"stage": "approved"
+	},
+	{
+		"name": "01-general-page",
+		"stage": "review"
+	},
+	{
+		"name": "01b-general-with-accounts-module",
+		"stage": "review"
+	},
+	{
+		"name": "03-who-we-are",
+		"stage": "Template"
+	},
+	{
+		"name": "04-our-story",
+		"stage": "Template"
+	},
+	{
+		"name": "05-our-team",
+		"stage": "review"
+	},
+	{
+		"name": "07-what-we-do",
+		"stage": "review"
+	},
+	{
+		"name": "08-focus-areas",
+		"stage": "review"
+	},
+	{
+		"name": "08-1-focus-country-project",
+		"stage": "review"
+	},
+	{
+		"name": "11-blog-listing",
+		"stage": "review"
+	},
+	{
+		"name": "11a-news-listing",
+		"stage": "review"
+	},
+	{
+		"name": "11b-events-listing",
+		"stage": "review"
+	},
+	{
+		"name": "12-blog-single",
+		"stage": "review"
+	},
+	{
+		"name": "12a-news-single",
+		"stage": "review"
+	},
+	{
+		"name": "12b-event-single",
+		"stage": "review"
+	},
+	{
+		"name": "14-1-publication-long-form",
+		"stage": "Template"
+	},
+	{
+		"name": "16-work-with-us",
+		"stage": "Template"
+	},
+	{
+		"name": "18-vacancy-listing",
+		"stage": "review"
+	},
+	{
+		"name": "19-vacancy-single",
+		"stage": "review"
+	}
+]

@@ -1,0 +1,385 @@
+// ------------------------------------------------------------
+// Layout
+// Defing layouts rather than using a set grid system
+// Only define the scaffolding, not modules
+// Prefix with 'l'
+// ------------------------------------------------------------
+
+%l {
+	position: relative;
+	display: block;
+	@extend %pie-clearfix;
+}
+
+// For flexbox layouts
+%l-flexbox {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+// ------------------------------------------------------------
+// Standard
+// ------------------------------------------------------------
+
+.l-standard {
+	@extend %l;
+}
+
+.l-error {
+	@extend %l;
+	padding-top: 2em;
+}
+
+// ------------------------------------------------------------
+// Sidebar
+// ------------------------------------------------------------
+
+.l-sidebar {
+	@extend %l;
+	&__aside {
+		margin-bottom: 2em;
+		@include respond-to($sidebar-respond) {
+			float: right;
+			display: inline-block;
+			width: $sidebar-aside-width;
+		}
+	}
+	&__body {
+		margin-bottom: 2em;
+		@include respond-to($sidebar-respond) {
+			float: left;
+			display: inline-block;
+			width: $sidebar-body-width;
+			margin-bottom: 0;
+			padding-right: 5em;
+		}
+	}
+}
+
+// ------------------------------------------------------------
+// Highlight
+// ------------------------------------------------------------
+
+.l-highlight {
+	@extend %l;
+	&__main {
+        margin-bottom: 2em;
+        @include respond-to($c-vp) {
+            margin-bottom: 0;
+            float: left;
+            width: 60%;
+        }
+    }
+    &__aside {
+        @include respond-to($c-vp) {
+            float: right;
+            width: 35%;
+        }
+    }
+}
+
+// ------------------------------------------------------------
+// Banner
+// ------------------------------------------------------------
+
+.l-banner {
+	@extend %l;
+	&__main {
+		padding: 3em;
+        @include respond-to($c-vp) {
+            float: right;
+            width: 55%;
+			padding-left: 0;
+			.l-banner--reverse & {
+				float: left;
+				padding-left: 3em;
+				padding-right: 0;
+			}
+        }
+    }
+    &__aside {
+		margin-bottom: 2em;
+        @include respond-to($c-vp) {
+			margin-bottom: 0;
+            float: left;
+            width: 40%;
+			.l-banner--reverse & {
+				float: right;
+			}
+        }
+    }
+}
+
+// ------------------------------------------------------------
+// 2 columns
+// ------------------------------------------------------------
+
+.l-2up {
+	@extend %l;
+	@include respond-to($c-vp) {
+		@supports (display: grid) {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			grid-column-gap: 40px;
+			grid-row: inherit;
+		}
+		@supports (display: -ms-grid) {
+			display: block;
+		}
+	}
+	&__col, .card {
+		margin-bottom: 3em;
+		@include respond-to($c-vp) {
+			float: left;
+			width: 47.5%;
+			margin-right: 5%;
+			&:nth-child(2n) {
+				margin-right: 0;
+			}
+			@supports (display: grid) {
+				width: auto;
+				margin-right: 0;
+			}
+			@supports (display: -ms-grid) {
+				float: left;
+				width: 47.5%;
+				margin-right: 5%;
+				&:nth-child(2n) {
+					margin-right: 0;
+				}
+			}
+		}
+	}
+}
+
+// ------------------------------------------------------------
+// 2 to 3 columns
+// ------------------------------------------------------------
+
+.l-2up-3up {
+	@extend %l;
+	@include respond-to($c-vp) {
+		@supports (display: grid) {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			grid-column-gap: 40px;
+			grid-row: inherit;
+		}
+		@supports (display: -ms-grid) {
+			display: block;
+		}
+	}
+	&__col, .card {
+		margin-bottom: 3em;
+		@include respond-to($c-vp) {
+			float: left;
+			width: 47.5%;
+			margin-right: 5%;
+			&:nth-child(2n) {
+				margin-right: 0;
+			}
+			@supports (display: grid) {
+				width: auto;
+				margin-right: 0;
+			}
+			@supports (display: -ms-grid) {
+				float: left;
+				width: 47.5%;
+				margin-right: 5%;
+				&:nth-child(2n) {
+					margin-right: 0;
+				}
+			}
+		}
+	}
+	// 3 column
+	@include respond-to($d-vp) {
+		@supports (display: grid) {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr;
+			grid-column-gap: 40px;
+			grid-row: inherit;
+		}
+		@supports (display: -ms-grid) {
+			display: block;
+		}
+	}
+	&__col, .card {
+		margin-bottom: 3em;
+		@include respond-to($d-vp) {
+			float: left;
+			width: 30%;
+			margin-right: 5%;
+			&:nth-child(2n) {
+				margin-right: 0;
+			}
+			@supports (display: grid) {
+				width: auto;
+				margin-right: 0;
+			}
+			@supports (display: -ms-grid) {
+				float: left;
+				width: 30%;
+				margin-right: 5%;
+				&:nth-child(2n) {
+					margin-right: 0;
+				}
+			}
+		}
+	}
+}
+
+// ------------------------------------------------------------
+// 3 columns
+// ------------------------------------------------------------
+
+.l-3up {
+	@extend %l;
+	@include respond-to($c-vp) {
+		@supports (display: grid) {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr;
+			grid-column-gap: 40px;
+			grid-row: inherit;
+		}
+		@supports (display: -ms-grid) {
+			display: block;
+		}
+	}
+	&__col, .card {
+		margin-bottom: 3em;
+		@include respond-to($c-vp) {
+			float: left;
+			width: 30%;
+			margin-right: 5%;
+			&:nth-child(2n) {
+				margin-right: 0;
+			}
+			@supports (display: grid) {
+				width: auto;
+				margin-right: 0;
+			}
+			@supports (display: -ms-grid) {
+				float: left;
+				width: 30%;
+				margin-right: 5%;
+				&:nth-child(2n) {
+					margin-right: 0;
+				}
+			}
+		}
+	}
+}
+
+// ------------------------------------------------------------
+// Footer
+// ------------------------------------------------------------
+
+.l-footer {
+	@extend %l;
+	&__col {
+		display: block;
+		margin-bottom: 2em;
+		@include respond-to($b-vp) {
+			float: left;
+			width: 25%;
+			margin-right: 5%;
+			&:last-child {
+				margin-right: 0;
+			}
+			&:first-child {
+				width: 100%;
+			}
+		}
+		@include respond-to($d-vp) {
+			float: left;
+			width: 18.33%;
+			margin-bottom: 0;
+			&:first-child {
+				width: 30%;
+			}
+		}
+	}
+}
+
+// ------------------------------------------------------------
+// 4 columns
+// ------------------------------------------------------------
+
+.l-4up {
+	@extend %l;
+	@include respond-to($c-vp) {
+		@supports (display: grid) {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			grid-column-gap: 40px;
+			grid-row: inherit;
+		}
+		@supports (display: -ms-grid) {
+			display: block;
+		}
+	}
+	@include respond-to($d-vp) {
+		grid-template-columns: 1fr 1fr 1fr 1fr;
+	}
+	&__col, .card, .location {
+		margin-bottom: 3em;
+		@include respond-to($c-vp) {
+			float: left;
+			width: 47.5%;
+			margin-right: 5%;
+			&:nth-child(2n) {
+				margin-right: 0;
+			}
+			@supports (display: grid) {
+				width: auto;
+				margin-right: 0;
+			}
+			@supports (display: -ms-grid) {
+				float: left;
+				width: 47.5%;
+				margin-right: 5%;
+				&:nth-child(2n) {
+					margin-right: 0;
+				}
+			}
+		}
+		@include respond-to($d-vp) {
+			float: left;
+			width: 21.25%;
+			margin-right: 5%;
+			&:nth-child(2n) {
+				margin-right: 5%;
+			}
+			&:nth-child(4n) {
+				margin-right: 0;
+			}
+			@supports (display: grid) {
+				width: auto;
+				margin-right: 0;
+				&:nth-child(2n) {
+					margin-right: 0;
+				}
+			}
+			@supports (display: -ms-grid) {
+				float: left;
+				width: 21.25%;
+				margin-right: 5%;
+				&:nth-child(2n) {
+					margin-right: 5%;
+				}
+				&:nth-child(4n) {
+					margin-right: 0;
+				}
+			}
+		}
+	}
+}
+
+// ------------------------------------------------------------
+// Listings
+// ------------------------------------------------------------
+
+.l-listing {
+	@extend %l;
+}

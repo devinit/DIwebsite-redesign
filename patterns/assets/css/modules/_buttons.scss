@@ -1,0 +1,144 @@
+// ------------------------------------------------------------
+// Button styles
+// ------------------------------------------------------------
+
+.button {
+	background: transparent; // // Reset button and reset elements
+	border: none; // Reset button and reset elements
+	// ------- //
+	display: inline-block;
+	text-align: left;
+	padding: 1em;
+	@include font-size($para - 1);
+	line-height: 1;
+	color: $action;
+	border: 1px solid $action;
+	text-decoration: none;
+	position: relative;
+	vertical-align: middle;
+	cursor: pointer;
+	transition: all, ease-in-out, 0.3s;
+	@include link-active-styles {
+		//color: #fff;
+		//background-color: $action;
+		border-left-width: 5px;
+		border-color: $action-respond;
+	}
+}
+
+// Give actual buttons some love
+button.button {
+	background-color: $poppy-dark;
+	color: #fff;
+	@include link-active-styles {
+		background-color: $slate;
+	};
+}
+
+// ------------------------------------------------------------
+// Accessible labels
+// ------------------------------------------------------------
+
+.button-a11y {
+	position: relative;
+	overflow: hidden;
+	span {
+		top: -10em;
+		position: absolute;
+		display: inline-block;
+	}
+	&:after {
+		 content: attr(title);
+		 display: inline-block;
+		 color: inherit;
+	}
+}
+
+// We want this available as a BEM to extend .button, as well as being stand alone
+.button--a11y {
+	@extend .button-a11y;
+}
+
+// ------------------------------------------------------------
+// Variation styles
+// ------------------------------------------------------------
+
+.button--block {
+	display: block;
+	width: 100%;
+}
+
+.button--faux {
+	.aside &, .l-3up & {
+		display: block;
+		width: 100%;
+	}
+	&:hover {
+		border-left-width: 1px;
+	}
+	&__meta {
+		color: $slate;
+		@include font-size($eta);
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		margin-bottom: 1.25em;
+		display: block;
+	}
+	&__heading {
+		@extend %font-heading;
+		margin-bottom: 0.75em;
+		display: block;
+	}
+	&__list {
+		li {
+			margin-bottom: 0.5em;
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
+	}
+	.aside & {
+		margin-top: 1em;
+	}
+}
+
+.button--icon {
+	position: relative;
+	padding-right: 5em;
+	.ico {
+		position: absolute;
+		top: 14px;
+		right: 14px;
+	}
+}
+
+.button--reverse {
+	border-color: #fff;
+	color: #fff;
+	@include link-active-styles {
+		border-color: #fff;
+		color: #fff;
+	}
+	.button--faux__meta {
+		color: #fff;
+	}
+	.button--faux__heading {
+		color: #fff;
+	}
+	.button--faux__list a {
+		color: #fff;
+	}
+}
+
+.button--secondary {
+	background-color: $action-respond;
+	@include link-active-styles {
+		background-color: $action;
+	}
+}
+
+.button--disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+	filter: grayscale(100%);
+}

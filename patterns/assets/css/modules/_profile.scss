@@ -1,0 +1,33 @@
+// ------------------------------------------------------------
+// Profile
+// ------------------------------------------------------------
+
+.profile {
+    position: relative;
+}
+
+.profile__media {
+    img {
+        @extend %max-width;
+    }
+}
+
+.profile__caption {
+    background-color: $slate;
+    padding: 1.5em;
+    @include respond-to($c-vp) {
+        transform:translate(-10px,-20px);
+    }
+}
+
+.profile__title {
+    @include font-size($delta + 1);
+    line-height: 1.2;
+    color: #fff;
+    margin-bottom: 0.5em;
+}
+
+.profile__meta {
+    color: #fff;
+    @include font-size($epsilon - 1);
+}

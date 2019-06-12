@@ -7,6 +7,10 @@ import mNav from './utils/mNav';
 import initGmaps from './utils/gmaps';
 import accordion from './utils/accordion';
 import initSVGmap from './utils/svgmap';
+import setupSharing from './utils/social';
+import sectionSharing from './utils/sectionSharing';
+import copyText from './utils/copyText';
+import chapterNav from './utils/chapterNav';
 
 function globals () {
 
@@ -24,6 +28,9 @@ function globals () {
         'navigation-primary--active'
     );
 
+    // Chapter nav
+    chapterNav();
+
     // gmaps
     initGmaps('#map', 'AIzaSyAZAIjZtkBlsF0ZqvrlkvyLfVn6Bju6bJ4');
 
@@ -34,6 +41,14 @@ function globals () {
         '.accordion__content',
         'accordion__content--active'
     );
+
+    // social
+    setupSharing();
+    copyText(
+        '.js-copy-field',
+        '.js-copy-trigger'
+    );
+    sectionSharing();
 
     // svgmap
     initSVGmap();

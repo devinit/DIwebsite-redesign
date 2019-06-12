@@ -184,11 +184,8 @@
 		}
 	}
 
-	a:not(.button) {
-		border-bottom: 1px solid $action-respond;
-		@include link-active-styles {
-			border-color: $poppy;
-		}
+	a {
+		text-decoration: underline;
 	}
 
 	p {

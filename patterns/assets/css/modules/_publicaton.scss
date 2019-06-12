@@ -79,7 +79,7 @@ body.body--bluebell {
     .m-downloads__list a {
         color: $bluebell;
     }
-    .share {
+    .share, .share__wrapper {
         .button {
             background-color: $bluebell;
             border-color: $bluebell;
@@ -91,6 +91,15 @@ body.body--bluebell {
     .orderReport__content .button {
         color: $bluebell;
         border-color: $bluebell;
+    }
+    .footnotes__text a {
+        color: $bluebell;
+    }
+    .footnotes__link {
+        color: $bluebell;
+    }
+    .footnotes__return {
+        color: $bluebell;
     }
 }
 
@@ -184,7 +193,7 @@ body.body--leaf {
     .m-downloads__list a {
         color: $leaf;
     }
-    .share {
+    .share, .share__wrapper {
         background-color: $leaf;
         .button {
             background-color: $leaf;
@@ -197,5 +206,14 @@ body.body--leaf {
     .orderReport__content .button {
         color: $leaf;
         border-color: $leaf;
+    }
+    .footnotes__text a {
+        color: $leaf;
+    }
+    .footnotes__link {
+        color: $leaf;
+    }
+    .footnotes__return {
+        color: $leaf;
     }
 }

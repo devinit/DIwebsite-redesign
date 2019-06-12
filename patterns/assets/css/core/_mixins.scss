@@ -9,22 +9,22 @@
 
 // Mixins for list style types
 @mixin unordered {
-	 list-style-position: outside; 
+	 list-style-position: outside;
 	 list-style-type: disc;
 }
 
 @mixin unordered-inside {
-	 list-style-position: inside; 
+	 list-style-position: inside;
 	 list-style-type: disc;
 }
 
 @mixin ordered {
-	list-style-position: outside; 
+	list-style-position: outside;
 	list-style-type: decimal;
 }
 
 @mixin ordered-inside {
-	list-style-position: inside; 
+	list-style-position: inside;
 	list-style-type: decimal;
 }
 
@@ -90,12 +90,12 @@
 
 @mixin link-active-styles {
 	&:hover, &:focus, &:active {
-		@content; 
+		@content;
 	}
 }
-	
-	
-// Align things vertically 
+
+
+// Align things vertically
 // (http://zerosixthree.se/vertical-align-anything-with-just-3-lines-of-css/)
 // -------------------------------------------------------
 
@@ -200,7 +200,7 @@
 }
 
 
-// Swatches 
+// Swatches
 // (Used in style guide)
 // -------------------------------------------------------
 
@@ -215,6 +215,11 @@
 	}
 }
 
+@mixin transition($property) {
+	// base defined in settings with other transitions
+    transition: $property $transition-base;
+}
+
 
 // Grid
 // -------------------------------------------------------
@@ -224,31 +229,31 @@
 // Perfect for use in breakpoints to use different columns
 
 @mixin grid_columns($columns){
-	
+
 	// Columns
 	@for $i from 1 through $columns{
 		.colspan#{$columns}-#{$i}{
-			width: ((100% / $columns)*$i);		
+			width: ((100% / $columns)*$i);
 		}
 	}
-	
+
 	// Pushes
 	//@for $i from 1 through $columns{
 		//.push#{$columns}-#{$i}{
-			//margin-left: ((100% / $columns)*$i);		
+			//margin-left: ((100% / $columns)*$i);
 		//}
 		//.push-disable#{$columns}{
-			//margin-left: 0;		
+			//margin-left: 0;
 		//}
 	//}
-	
+
 	// Pulls
 	//@for $i from 1 through $columns{
 		//.pull#{$columns}-#{$i}{
-			//margin-right: ((100% / $columns)*$i);		
+			//margin-right: ((100% / $columns)*$i);
 		//}
 		//.pull-disable#{$columns}{
-			//margin-right: 0;		
+			//margin-right: 0;
 		//}
 	//}
 
@@ -263,7 +268,7 @@
 		display: inline;
 		display: inline-block;
 	}
-	
+
 	// Specific spacing
 	.with-trailer#{$columns}{
 		@include trailer($internal-spacing);
@@ -271,7 +276,7 @@
 	.with-leader#{$columns}{
 		@include leader($internal-spacing);
 	}
-	
+
 	// Specific spacing disables
 	.leader-disable#{$columns} {
 		margin-top: 0;
@@ -281,10 +286,10 @@
 	}
 }
 
-@mixin grid {	
+@mixin grid {
 	// Widths
 	*[class*="colspan"] {
-		width: 100%; 
+		width: 100%;
 		display: block;
 	}
 	// Floats
@@ -301,7 +306,7 @@
 	}
 	// Gutters
 	*[class*="with-gutter"] {
-		padding-left: $internal-spacing-percent; 
+		padding-left: $internal-spacing-percent;
 	}
 	.hide-at-root {
 		display: none;
@@ -317,15 +322,15 @@
 @mixin grid__row {
 	.row {
 		@extend %pie-clearfix;
-		min-width: auto; 
+		min-width: auto;
 		position: relative;
 		margin-left: auto;
 		margin-right: auto;
 	}
 	.row__colspaced {
 		position: relative;
-		@extend %pie-clearfix;		
-		min-width: (100% + $internal-spacing-percent); 	
-		left: -$internal-spacing-percent; 	
+		@extend %pie-clearfix;
+		min-width: (100% + $internal-spacing-percent);
+		left: -$internal-spacing-percent;
 	}
 }

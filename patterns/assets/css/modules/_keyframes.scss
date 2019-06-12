@@ -31,3 +31,14 @@
     from { opacity: 0; }
     to   { opacity: 0.2; }
 }
+
+@keyframes slidein {
+  0% {
+    transform: translateY(100%);
+    -webkit-transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0%);
+    -webkit-transform: translateY(0%);
+  }
+}

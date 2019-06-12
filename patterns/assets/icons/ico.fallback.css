@@ -6,6 +6,34 @@
 
 
 
+.ico-arrow-down-blank {
+	background-image: url('png/arrow-down-blank.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-arrow-down-slate {
+	background-image: url('png/arrow-down-slate.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-arrow-left-blank {
+	background-image: url('png/arrow-left-blank.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-arrow-left-slate {
+	background-image: url('png/arrow-left-slate.png');
+	background-repeat: no-repeat;
+}
+
+
+
 .ico-arrow-poppy {
 	background-image: url('png/arrow-poppy.png');
 	background-repeat: no-repeat;
@@ -20,8 +48,36 @@
 
 
 
+.ico-arrow-right-blank {
+	background-image: url('png/arrow-right-blank.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-arrow-right-slate {
+	background-image: url('png/arrow-right-slate.png');
+	background-repeat: no-repeat;
+}
+
+
+
 .ico-arrow-slate {
 	background-image: url('png/arrow-slate.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-arrow-up-blank {
+	background-image: url('png/arrow-up-blank.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-arrow-up-slate {
+	background-image: url('png/arrow-up-slate.png');
 	background-repeat: no-repeat;
 }
 

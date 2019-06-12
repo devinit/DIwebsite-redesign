@@ -85,3 +85,12 @@ $form-legend-size	: $gamma;		// Form legend size
 // --------------------------------
 $rembase 			: 10;			// What do we want our units to calculate from. 10 is nice and easy
 $base-rhythm		: 28;			// Vertical rhythm
+
+
+// transitions
+// --------------------------------
+$transition: all 200ms cubic-bezier(0.550, 0.085, 0.680, 0.530);
+$transition-fast: all 100ms cubic-bezier(0.550, 0.085, 0.680, 0.530);
+$transition-slow: all 350ms cubic-bezier(0.550, 0.085, 0.680, 0.530);
+// for transition mixin
+$transition-base: 200ms cubic-bezier(0.550, 0.085, 0.680, 0.530);

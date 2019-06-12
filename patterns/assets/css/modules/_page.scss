@@ -1,0 +1,168 @@
+// page action ------------------------------------------------
+// action
+.page__action {
+    position: fixed;
+    z-index: 30;
+    right: 0;
+    bottom: 0;
+    transform: translateY(0);
+    -webkit-transform: translateY(0);
+    transition: $transition;
+    max-height: 43px;
+    @include respond-to($b-vp) {
+        max-height: 58px;
+    }
+    &.fix {
+        position: fixed;
+    }
+    &.stop {
+        bottom: 0px;
+        right: 0;
+        position: absolute;
+        &.bottom {
+            // height of footer
+            transform: translateY(586px);
+            -webkit-transform: translateY(586px);
+            @include respond-to($b-vp) {
+                transform: translateY(516px);
+                -webkit-transform: translateY(516px);
+            }
+            @include respond-to($d-vp) {
+                transform: translateY(333px);
+                -webkit-transform: translateY(333px);
+            }
+        }
+    }
+    html.no-js & {
+        display: none;
+    }
+    // reveal in
+    html.js & {
+        transform: translateY(100%);
+        -webkit-transform: translateY(100%);
+        animation-duration: 350ms;
+        animation-delay: 600ms;
+        animation-name: slidein;
+        animation-fill-mode: forwards;
+    }
+}
+
+.page__action__previous, .page__action__next, .page-action__section, .page__action_text, .page__action__burgerWrapper {
+    float: left;
+    background: $action;
+    padding: 15px 10px;
+    @include respond-to($c-vp) {
+        padding: 20px 20px;
+    }
+}
+
+.page__action__menu {
+    float: left;
+    &:hover {
+        cursor: pointer;
+        .page__action__burgerWrapper, .page__action_text {
+            background: $action-respond;
+        }
+    }
+}
+
+.page__action__burgerWrapper {
+    transition: $transition;
+    padding: 11px 10px 10px 0;
+    @include respond-to($c-vp) {
+        padding: 17px 20px 17px 0;
+    }
+    .burger {
+        margin: 0;
+    }
+}
+
+.page__action__previous, .page__action__next {
+    transition: $transition;
+    padding: 14px 10px;
+    @include respond-to($c-vp) {
+        padding: 20px 20px;
+    }
+    &:hover {
+        background: $action-respond;
+    }
+}
+
+.page-action__section {
+    //@extend .heading;
+}
+
+.page__action__pagination {
+    float: left;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #fff;
+    @include font-size($eta / 1.25);
+    @include respond-to($c-vp) {
+        @include font-size($eta);
+    }
+}
+
+.page__action__previous {
+    border-right: 1px solid $body-color;
+    background: $action;
+    transition: $transition;
+    .ico {
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+    }
+}
+
+.page__action__next {
+    border-right: 1px solid $body-color;
+    border-left: 1px solid $body-color;
+    background: $action;
+    transition: $transition;
+    .ico {
+        transform: translateX(0);
+        -webkit-transform: translateX(0);
+    }
+}
+
+.page__action__index {
+    padding: 2rem;
+    @include respond-to($c-vp) {
+        padding: 2rem 3rem;
+    }
+    html.no-js & {
+        display: none;
+    }
+}
+
+.page__action_text {
+    float: left;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #fff;
+    transition: $transition;
+    @include font-size($eta / 1.25);
+    @include respond-to($c-vp) {
+        @include font-size($eta);
+    }
+}
+
+.page-icon-adjust {
+    position: relative;
+    top: 4px;
+}
+
+
+.page__action__no-js-link {
+    color: $body-color;
+    display: none;
+    html.no-js & {
+        display: inline-block;
+    }
+}
+
+.page__action__js-text {
+    display: none;
+    html.js & {
+        display: inline-block;
+    }
+}

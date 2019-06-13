@@ -12,7 +12,7 @@
         bottom: -85px;
         left: $internal-spacing;
         @include respond-to($menu-respond) {
-    		left: $internal-spacing*8;
+    		left: $internal-spacing*4;
             bottom: -35px;
     	}
     }
@@ -59,11 +59,31 @@
     .ico {
         margin-bottom: 1em;
     }
+    &--simple {
+        border-top: none;
+        padding-top: 0;
+    }
+}
+
+.m-stat__icon {
+    width: auto;
+    margin-bottom: 2em;
+    img {
+        @extend %max-width;
+        height: 100px;
+        vertical-align: bottom;
+        margin-left: auto;
+        margin-right: auto;
+    }
 }
 
 .m-stat__title {
     @include font-size($gamma);
     margin-bottom: 0.5em;
+    line-height: 1.3;
+    &--center {
+        text-align: center;
+    }
 }
 
 .m-stat__excerpt {

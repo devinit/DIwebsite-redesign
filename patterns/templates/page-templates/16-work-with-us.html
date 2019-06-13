@@ -9,7 +9,7 @@
 {# --------------------------------------- #}
 
 {% set id = "vacancies" %}
-{% set section = "vacancy" %}
+{% set section = "Work for us" %}
 {% set title = "Work with us" %}
 {% set excerpt = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque commodi repudiandae illum corporis expedita, autem nam! Nostrum ab voluptate, doloremque obcaecati, sint velit tempore facere officia quod repellat est ullam?" %}
 {% set button = "View current vacancies" %}
@@ -47,13 +47,14 @@
 
     <section class="section">
         <div class="row row--narrow">
+            <h2 class="section__heading">Benefits of working at DI</h2>
             <div class="l-sidebar">
-                <aside class="l-sidebar__aside">
-
-                </aside>
                 <div class="l-sidebar__body">
 
                 </div>
+                <aside class="l-sidebar__aside">
+
+                </aside>
             </div>
         </div>
     </section>
@@ -64,50 +65,7 @@
             <div class="is-typeset">
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo alias quia facere, animi dignissimos commodi repellendus.</p>
             </div>
-            <div class="l-3up">
-                <div class="l-3up__col">
-                    <div class="m-stat">
-                        {{ icons.icon('ico-star-poppy', '30') }}
-                        <h3 class="m-stat__title">Empowering</h3>
-                        <p class="m-stat__excerpt">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-                </div>
-                <div class="l-3up__col">
-                    <div class="m-stat">
-                        {{ icons.icon('ico-star-poppy', '30') }}
-                        <h3 class="m-stat__title">Transparent</h3>
-                        <p class="m-stat__excerpt">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-                </div>
-                <div class="l-3up__col">
-                    <div class="m-stat">
-                        {{ icons.icon('ico-star-poppy', '30') }}
-                        <h3 class="m-stat__title">Innovative</h3>
-                        <p class="m-stat__excerpt">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-                </div>
-                <div class="l-3up__col">
-                    <div class="m-stat">
-                        {{ icons.icon('ico-star-poppy', '30') }}
-                        <h3 class="m-stat__title">Agile</h3>
-                        <p class="m-stat__excerpt">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-                </div>
-                <div class="l-3up__col">
-                    <div class="m-stat">
-                        {{ icons.icon('ico-star-poppy', '30') }}
-                        <h3 class="m-stat__title">Impartial</h3>
-                        <p class="m-stat__excerpt">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-                </div>
-                <div class="l-3up__col">
-                    <div class="m-stat">
-                        {{ icons.icon('ico-star-poppy', '30') }}
-                        <h3 class="m-stat__title">Quality</h3>
-                        <p class="m-stat__excerpt">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-                </div>
-            </div>
+            {% include 'partials/values.html' %}
         </div>
     </section>
 
@@ -117,6 +75,7 @@
             <div class="is-typeset max-meter">
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
             </div>
+            {% include 'partials/team-stories.html' %}
         </div>
     </section>
 

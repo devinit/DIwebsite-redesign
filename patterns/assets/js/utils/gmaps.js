@@ -16,19 +16,60 @@ export default function initGmaps (selector = '.media-map__location', APIKey = u
 
     // Set up your styles here
     const styles = [
-        {
-            "featureType": "administrative.country",
-            "elementType": "geometry",
-            "stylers": [
-                {
-                    "visibility": "simplified"
-                },
-                {
-                    "hue": "#ff0000"
-                }
-            ]
-        }
-    ]
+    {
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "visibility": "simplified"
+            },
+            {
+                "hue": "#ff0000"
+            }
+        ]
+    },
+    {
+        "featureType": "road",
+        "elementType": "labels.icon",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "transit.station",
+        "elementType": "labels.icon",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "poi",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "administrative",
+        "stylers": [
+            {
+                "visibility": "simplified"
+            }
+        ]
+    },
+    {
+        "featureType": "water",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    }
+]
 
     gmaps.load(google => {
         const opts = {

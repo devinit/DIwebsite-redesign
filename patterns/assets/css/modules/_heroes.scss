@@ -18,6 +18,9 @@
             height: 60px;
             background-color: $cloud;
         }
+        &--minor {
+            padding: 16em 0 7em 0;
+        }
     }
 }
 
@@ -44,13 +47,18 @@
         right: 0;
         width: 60px;
         height: 60px;
-        background-color: $poppy-dark;
+        background-color: $poppy;
     }
     @include respond-to($menu-respond) {
         top: 5%;
         left: 50px;
         width: 90%;
         height: 95%;
+    }
+    .hero--alt & {
+        &:before {
+            content: none;
+        }
     }
 }
 
@@ -84,14 +92,29 @@
     line-height: 1.3;
     margin-bottom: 0.25em;
     color: #fff;
+    display: inline-block;
     @include respond-to($menu-respond) {
         @include font-size($alpha-papa);
+    }
+    span {
+        display: block;
+        @include rgba($poppy-dark, 0.75);
+        padding: 0.25em;
+    }
+    .hero--alt & {
+        margin-bottom: 0;
     }
 }
 
 .hero__excerpt {
     @include font-size($para);
     color: #fff;
+    display: inline-block;
+    span {
+        display: inline-block;
+        @include rgba($poppy-dark, 0.75);
+        padding: 0.25em 0.5em;
+    }
 }
 
 .hero__meta {
@@ -141,7 +164,7 @@
     }
     &:nth-child(3) {
         top: 200px;
-        left: 700px;
+        right: 435px;
         width: 80px;
         height: 80px;
         animation: herofade3 1s;
@@ -150,7 +173,7 @@
     }
     &:nth-child(4) {
         top: 140px;
-        left: 780px;
+        right: 375px;
         width: 60px;
         height: 60px;
         animation: herofade4 1s;
@@ -159,7 +182,7 @@
     }
     &:nth-child(5) {
         top: 30px;
-        left: 950px;
+        right: 220px;
         width: 40px;
         height: 40px;
         animation: herofade5 1s;
@@ -176,13 +199,17 @@
         animation-fill-mode: forwards;
     }
     &:nth-child(7) {
-        bottom: 90px;
-        right: -30px;
-        width: 30px;
-        height: 30px;
-        animation: herofade6 1s;
-        animation-delay: 2s;
-        animation-fill-mode: forwards;
+        display: none;
+        @include respond-to($menu-respond) {
+            display: block;
+            bottom: 90px;
+            right: -30px;
+            width: 30px;
+            height: 30px;
+            animation: herofade6 1s;
+            animation-delay: 2s;
+            animation-fill-mode: forwards;
+        }
     }
     &:nth-child(8) {
         bottom: -50px;

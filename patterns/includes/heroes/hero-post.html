@@ -1,4 +1,4 @@
-<section class="hero" >
+<section class="hero hero--minor" >
     {% if image_name %}
         <div class="hero__image" style="background-image: url('{{ global.assets_root }}/img/{{ image_name }}');"></div>
         <span class="hero__credit">Image by <a href="#">Credit name</a></span>
@@ -17,7 +17,7 @@
                 <li class="hero__meta-item hero__meta-item--block">Blog</li>
                 <li class="hero__meta-item">25th Oct 2018</li>
             </ul>
-            <h1 class="hero__title">{{ title }}</h1>
+            <h1 class="hero__title"><span>{{ title }}</span></h1>
             {% if excerpt %}
                 <p class="hero__excerpt">{{ excerpt }}</p>
             {% endif %}

@@ -3,10 +3,6 @@
 // ------------------------------------------------------------
 
 .aside {
-	margin-top: 3em;
-	&:first-of-type {
-		margin-top: $internal-spacing*1.2;
-	}
 	&--clipping {
 		background-color: #fff;
 		padding: 2em;
@@ -15,6 +11,15 @@
 				margin-top: -150px;
 			}
 		}
+	}
+	+ .aside {
+		margin-top: 3em;
+	}
+}
+
+.aside__media {
+	img {
+		@extend %max-width;
 	}
 }
 

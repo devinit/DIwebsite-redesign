@@ -73,7 +73,7 @@
         <div class="row row--narrow">
             <div class="section-chapter">
                 <div class="max-meter max-meter--center">
-                    <span class="section-chapter__number">2-1.1</span>
+                    <!-- <span class="section-chapter__number">2-1.1</span> -->
                     <a href="#" id="2-1.1" class="section-chapter__link">{{ icons.icon('ico-link-bluebell', '16') }}Share section</a>
                     <h2 class="section-chapter__heading">Global data for most of the global nutrition targets</h2>
                 </div>
@@ -204,7 +204,7 @@
             </div>
             <div class="space-section-both">
                 <div class="download">
-                    <h2 class="type-m type-s--trailer">Chapter downloads</h2>
+                    <h2 class="type-m type-s--trailer">Publication downloads</h2>
                     <ul class="download__list">
                         <li class="download__item">
                             <span class="download__label">English</span>
@@ -237,7 +237,7 @@
         </div>
     </section>
 
-    <section class="section">
+    <section class="section section--alt">
         <div class="row row--narrow">
             <div class="footnotes">
                 <h2 class="heading type-l type-l--trailer">Footnotes</h2>
@@ -283,6 +283,17 @@
                         <a class="footnotes__return" href="#note-212-1" data-id="note-212-1" data-js="share-section-trigger">Share footnote</a>
                     </li>
                 </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <h2 class="section__heading">Related content</h2>
+            <div class="l-2up-3up">
+                {% for item in card.news_related %}
+                    {% include 'cards/card-related.html' %}
+                {% endfor %}
             </div>
         </div>
     </section>

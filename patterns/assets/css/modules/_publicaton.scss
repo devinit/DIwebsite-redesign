@@ -101,6 +101,27 @@ body.body--bluebell {
     .footnotes__return {
         color: $bluebell;
     }
+    .card__tag {
+        background-color: $bluebell;
+    }
+    .card__title {
+        a, span {
+            border-color: $bluebell;
+        }
+    }
+    .section__heading {
+        &:after {
+            background-color: $bluebell;
+        }
+    }
+    blockquote {
+        &:before, &:after {
+            background-color: $bluebell;
+        }
+        p, cite {
+            color: $bluebell;
+        }
+    }
 }
 
 // Green
@@ -215,5 +236,26 @@ body.body--leaf {
     }
     .footnotes__return {
         color: $leaf;
+    }
+    .card__tag {
+        background-color: $leaf;
+    }
+    .card__title {
+        a, span {
+            border-color: $leaf;
+        }
+    }
+    .section__heading {
+        &:after {
+            background-color: $leaf;
+        }
+    }
+    blockquote {
+        &:before, &:after {
+            background-color: $leaf;
+        }
+        p, cite {
+            color: $leaf;
+        }
     }
 }

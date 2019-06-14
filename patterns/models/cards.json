@@ -254,5 +254,31 @@
                {"label": "<span>Closing date:</span> 9 December 2018"}
            ]
        }
-    ]
+   ],
+   "job_related": [
+       {
+           "title": "Senior Project Manager",
+           "meta": "Permanent, Bristol UK",
+           "options": [
+               {"label": "<span>Salary scale:</span> Up to £40,000 per anunum"},
+               {"label": "<span>Closing date:</span> 9 December 2018"}
+           ]
+       },
+       {
+          "title": "Senior Project Manager",
+          "meta": "Permanent, Bristol UK",
+           "options": [
+               {"label": "<span>Salary scale:</span> Up to £40,000 per anunum"},
+               {"label": "<span>Closing date:</span> 9 December 2018"}
+           ]
+      },
+      {
+          "title": "Senior Project Manager",
+          "meta": "Permanent, Bristol UK",
+          "options": [
+              {"label": "<span>Salary scale:</span> Up to £40,000 per anunum"},
+              {"label": "<span>Closing date:</span> 9 December 2018"}
+          ]
+      }
+   ]
 }

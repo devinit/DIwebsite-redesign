@@ -1,4 +1,4 @@
-<section class="hero" >
+<section class="hero {% if image_name %} hero--image{% endif %}">
     {% if image_name %}
         <div class="hero__image" style="background-image: url('{{ global.assets_root }}/img/{{ image_name }}');"></div>
         <span class="hero__credit">Image by <a href="#">Credit name</a></span>
@@ -17,9 +17,9 @@
                 <li class="hero__meta-item hero__meta-item--block">Publication title which could be very long</li>
                 <li class="hero__meta-item hero__meta-item--block hero__meta-item--block--alt">Chapter 2</li>
             </ul>
-            <h1 class="hero__title">{{ title }}</h1>
+            <h1 class="hero__title"><span>{{ title }}</span></h1>
             {% if excerpt %}
-                <p class="hero__excerpt">{{ excerpt }}</p>
+                <p class="hero__excerpt"><span>{{ excerpt }}</span></p>
             {% endif %}
         </div>
     </div>

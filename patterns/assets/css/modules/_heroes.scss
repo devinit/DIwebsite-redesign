@@ -55,11 +55,6 @@
         width: 90%;
         height: 95%;
     }
-    .hero--alt & {
-        &:before {
-            content: none;
-        }
-    }
 }
 
 .hero__credit {
@@ -101,8 +96,11 @@
         @include rgba($poppy-dark, 0.75);
         padding: 0.25em;
     }
-    .hero--alt & {
-        margin-bottom: 0;
+    .hero--image & {
+        span {
+            padding: 0;
+            background-color: transparent;
+        }
     }
 }
 
@@ -114,6 +112,12 @@
         display: inline-block;
         @include rgba($poppy-dark, 0.75);
         padding: 0.25em 0.5em;
+    }
+    .hero--image & {
+        span {
+            padding: 0;
+            background-color: transparent;
+        }
     }
 }
 

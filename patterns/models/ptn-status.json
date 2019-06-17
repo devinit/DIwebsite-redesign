@@ -64,6 +64,10 @@
 		"stage": "review"
 	},
 	{
+		"name": "13-publications",
+		"stage": "Template"
+	},
+	{
 		"name": "14-publication-summary",
 		"stage": "Template"
 	},
@@ -73,6 +77,10 @@
 	},
 	{
 		"name": "14-1a-publication-short-form",
+		"stage": "Template"
+	},
+	{
+		"name": "14-2-publication-appendix",
 		"stage": "Template"
 	},
 	{

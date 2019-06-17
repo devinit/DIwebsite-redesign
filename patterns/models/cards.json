@@ -183,6 +183,71 @@
 		    "excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi."
 		}
     ],
+    "publication_list": [
+	    {
+            "content": "Report",
+            "img_name": "content-image4",
+		    "title": "Lorem ipsum dolor sit amet consectetur.",
+		    "date": "16th March 2019",
+		    "excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."
+		},
+        {
+            "content": "Background Paper",
+            "img_name": "content-image1",
+		    "title": "Lorem ipsum dolor sit amet consectetur.",
+		    "date": "16th March 2019",
+		    "excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."
+		},
+        {
+            "content": "Briefing",
+            "img_name": "fallback-image",
+		    "title": "Lorem ipsum dolor sit amet consectetur.",
+		    "date": "16th March 2019",
+		    "excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."
+		},
+        {
+            "content": "Factsheet",
+            "img_name": "content-image2",
+		    "title": "Lorem ipsum dolor sit amet consectetur.",
+		    "date": "16th March 2019",
+		    "excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."
+		},
+        {
+            "content": "Case Study",
+            "img_name": "fallback-image",
+		    "title": "Lorem ipsum dolor sit amet consectetur.",
+		    "date": "16th March 2019",
+		    "excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."
+		},
+        {
+            "content": "Consultation Paper",
+            "img_name": "content-image3",
+		    "title": "Lorem ipsum dolor sit amet consectetur.",
+		    "date": "16th March 2019",
+		    "excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."
+		},
+        {
+            "content": "Report",
+            "img_name": "content-image4",
+		    "title": "Lorem ipsum dolor sit amet consectetur.",
+		    "date": "16th March 2019",
+		    "excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."
+		},
+        {
+            "content": "Background Paper",
+            "img_name": "content-image1",
+		    "title": "Lorem ipsum dolor sit amet consectetur.",
+		    "date": "16th March 2019",
+		    "excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."
+		},
+        {
+            "content": "Briefing",
+            "img_name": "fallback-image",
+		    "title": "Lorem ipsum dolor sit amet consectetur.",
+		    "date": "16th March 2019",
+		    "excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."
+		}
+    ],
     "job_info": [
 	    {
             "img_name": "content-image1",

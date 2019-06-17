@@ -146,6 +146,18 @@ body.body--bluebell {
             }
         }
     }
+    .pagination__item-link {
+        color: $bluebell;
+    }
+    .pagination__item-prev-link,
+    .pagination__item-next-link {
+        background-color: $bluebell;
+        border-color: $bluebell;
+    }
+    .form-field .button {
+        background-color: $bluebell;
+        border-color: $bluebell;
+    }
 }
 
 // Green
@@ -305,5 +317,17 @@ body.body--leaf {
                 border-color: $leaf;
             }
         }
+    }
+    .pagination__item-link {
+        color: $leaf;
+    }
+    .pagination__item-prev-link,
+    .pagination__item-next-link {
+        background-color: $leaf;
+        border-color: $leaf;
+    }
+    .form-field .button {
+        background-color: $leaf;
+        border-color: $leaf;
     }
 }

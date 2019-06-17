@@ -64,7 +64,15 @@
 		"stage": "review"
 	},
 	{
+		"name": "14-publication-summary",
+		"stage": "Template"
+	},
+	{
 		"name": "14-1-publication-long-form",
+		"stage": "Template"
+	},
+	{
+		"name": "14-1a-publication-short-form",
 		"stage": "Template"
 	},
 	{

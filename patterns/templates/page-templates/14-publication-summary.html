@@ -1,0 +1,264 @@
+{# 1. Extend the relevant layout #}
+{# --------------------------------------- #}
+
+{% extends 'publication.html' %}
+
+
+{# --------------------------------------- #}
+{# 2. Assign Settings and variables #}
+{# --------------------------------------- #}
+
+{% set colour = "bluebell" %}
+{% set id = "publication" %}
+{% set section = "Publications" %}
+{% set title = "Publication title" %}
+{% set excerpt = "" %}
+{% set image_name = "content-image3.jpg" %}
+
+{# --------------------------------------- #}
+{# 3. Add models and macros #}
+{# --------------------------------------- #}
+
+{% model 'cards', as="card" %}
+
+{% import 'macros/button.html' as buttons %}
+{% import 'macros/icon.html' as icons %}
+
+
+{# --------------------------------------- #}
+{#
+   4. Add page content into relevant areas
+      Add/Delete blocks as necessary
+#}
+{# --------------------------------------- #}
+
+{% block body %}
+    {% include 'heroes/hero.html' %}
+
+    <section class="section section--large">
+        <div class="chapter-block-wrapper">
+            <div class="chapter-block_image" style="background-image: url({{ global.assets_root }}/img/content-image1.jpg);"></div>
+            <div class="row row--narrow">
+                <div class="larger-center">
+                    <div class="chapter-block__item">
+                        <div class="chapter-block_content">
+                            <h2 class="chapter-block__heading">Module title</h2>
+                            <p class="chapter-block__excerpt">Ait amet, consecLorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper sus agna aliquam era.</p>
+                            <a href="#" id="" class="button button--a11y" title="Read the summary"><span>Read the Summary</span></a>
+                            <div class="button download-button">
+                                Download the summary {{ icons.icon('ico-arrow-down-slate', '14') }}
+                                <ul>
+                                    <li>
+                                        <a href="">English<span class="downloadSize">PDF, 1.8Mb</span></a>
+                                    </li>
+                                    <li>
+                                        <a href="">French<span class="downloadSize">PDF, 1.8Mb</span></a>
+                                    </li>
+                                    <li>
+                                        <a href="">German<span class="downloadSize">PDF, 1.8Mb</span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <a href="/page-templates/02-1-current-report-chapter" id="" class="button button--secondary button--a11y" title="Download data"><span>Download data for chapter 2</span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section--large">
+        <div class="chapter-block-wrapper chapter-block-wrapper--alt">
+            <div class="chapter-block_image" style="background-image: url({{ global.assets_root }}/img/content-image2.jpg);"></div>
+            <div class="row row--narrow">
+                <div class="larger-center">
+                    <div class="chapter-block__item">
+                        <div class="chapter-block_content">
+                            <p class="chapter-title reverse-text">Chapter one</p>
+                            <h2 class="chapter-block__heading">Module title</h2>
+                            <p class="chapter-block__excerpt">Ait amet, consecLorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper sust dolore.</p>
+                            <a href="#" id="" class="button button--reverse button--a11y" title="Read chapter one"><span>Read chapter one</span></a>
+                            <div class="button download-button download-button--reverse">
+                                <span>Download chapter one {{ icons.icon('ico-arrow-down-blank', '10') }}</span>
+                                <ul>
+                                    <li>
+                                        <a href="">English<span class="downloadSize">PDF, 1.8Mb</span></a>
+                                    </li>
+                                    <li>
+                                        <a href="">French<span class="downloadSize">PDF, 1.8Mb</span></a>
+                                    </li>
+                                    <li>
+                                        <a href="">German<span class="downloadSize">PDF, 1.8Mb</span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <a href="/page-templates/02-1-current-report-chapter" id="" class="button button--reverse button--a11y" title="Download data"><span>Download data for chapter 2</span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section--large">
+        <div class="chapter-block-wrapper">
+            <div class="chapter-block_image" style="background-image: url({{ global.assets_root }}/img/content-image1.jpg);"></div>
+            <div class="row row--narrow">
+                <div class="larger-center">
+                    <div class="chapter-block__item">
+                        <div class="chapter-block_content">
+                            <p class="chapter-title">Chapter two</p>
+                            <h2 class="chapter-block__heading">Module title</h2>
+                            <p class="chapter-block__excerpt">Ait amet, consecLorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper sus agna aliquam era.</p>
+                            <a href="#" id="" class="button button--a11y" title="Read chapter 2"><span>Read chapter 2</span></a>
+                            <div class="button download-button">
+                                Download chapter 2 {{ icons.icon('ico-arrow-down-slate', '14') }}
+                                <ul>
+                                    <li>
+                                        <a href="">English<span class="downloadSize">PDF, 1.8Mb</span></a>
+                                    </li>
+                                    <li>
+                                        <a href="">French<span class="downloadSize">PDF, 1.8Mb</span></a>
+                                    </li>
+                                    <li>
+                                        <a href="">German<span class="downloadSize">PDF, 1.8Mb</span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <a href="/page-templates/02-1-current-report-chapter" id="" class="button button--secondary button--a11y" title="Download data"><span>Download data for chapter 2</span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section--large">
+        <div class="chapter-block-wrapper chapter-block-wrapper--alt">
+            <div class="chapter-block_image" style="background-image: url({{ global.assets_root }}/img/content-image2.jpg);"></div>
+            <div class="row row--narrow">
+                <div class="larger-center">
+                    <div class="chapter-block__item">
+                        <div class="chapter-block_content">
+                            <p class="chapter-title">Chapter three</p>
+                            <h2 class="chapter-block__heading">Module title</h2>
+                            <p class="chapter-block__excerpt">Ait amet, consecLorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper sust dolore.</p>
+                            <a href="#" id="" class="button button--reverse button--a11y" title="Read chapter 3"><span>Read chapter 3</span></a>
+                            <div class="button download-button download-button--reverse">
+                                <span>Download chapter 3 {{ icons.icon('ico-arrow-down-blank', '10') }}</span>
+                                <ul>
+                                    <li>
+                                        <a href="">English<span class="downloadSize">PDF, 1.8Mb</span></a>
+                                    </li>
+                                    <li>
+                                        <a href="">French<span class="downloadSize">PDF, 1.8Mb</span></a>
+                                    </li>
+                                    <li>
+                                        <a href="">German<span class="downloadSize">PDF, 1.8Mb</span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <a href="/page-templates/02-1-current-report-chapter" id="" class="button button--reverse button--a11y" title="Download data"><span>Download data for chapter 3</span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="chapter-block-wrapper">
+        <div class="row row--narrow">
+            <div class="l-2up">
+                <div class="l-2up__col">
+                    <div class="chapter-block_content">
+                        <h2 class="chapter-block__heading">Report data and metadata</h2>
+                        <p class="para">Ait amet, consecLorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper sus agna aliquam era.</p>
+                        <a href="#" id="" class="button button--a11y" title="Read report data and metadata"><span>Read report data and metadata</span></a>
+                    </div>
+                </div>
+                <div class="l-2up__col">
+                    <div class="chapter-block_content">
+                        <h2 class="chapter-block__heading">2018 Global Nutrition Report methodology</h2>
+                        <p class="para">Ait amet, consecLorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper sus agna aliquam era.</p>
+                        <a href="#" id="" class="button button--a11y" title="Read Report methodology"><span>2018 Global Nutrition Report methodology</span></a>
+                    </div>
+                </div>
+                <div class="l-2up__col">
+                    <div class="chapter-block_content">
+                        <p class="chapter-title">Appendix A</p>
+                        <h2 class="chapter-block__heading">Alice swims through her own tears and meets a Mouse</h2>
+                        <p class="para">Ait amet, consecLorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper sus agna aliquam era.</p>
+                        <a href="#" id="" class="button button--a11y" title="Read Appendix A"><span>Read Appendix A</span></a>
+                    </div>
+                </div>
+                <div class="l-2up__col">
+                    <div class="chapter-block_content">
+                        <p class="chapter-title">Appendix B</p>
+                        <h2 class="chapter-block__heading">Alice hears the voices of animals</h2>
+                        <p class="para">Ait amet, consecLorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper sus agna aliquam era.</p>
+                        <a href="#" id="" class="button button--a11y" title="Read Appendix B"><span>Read Appendix B</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <div class="share space-section-bottom-med">
+                <div class="share__content">
+                    <h2 class="type-m type-s--trailer">Share chapter two</h2>
+                    <div class="share__wrapper">
+                        <ul class="share__media">
+                            <li class="share__item">
+                                <img src="{{ global.assets_root }}/svg/source/facebook.svg" alt="facebook">
+                            </li>
+                            <li class="share__item">
+                                <img src="{{ global.assets_root }}/svg/source/twitter.svg" alt="twitter">
+                            </li>
+                            <li class="share__item">
+                                <img src="{{ global.assets_root }}/svg/source/linkedin.svg" alt="linkedin">
+                            </li>
+                        </ul>
+                        <div class="share__copy">
+                            <input readonly class="js-copy-field" type="text" value="http://development-initiatives.org/[Short URL]" title="Short URL for sharing">
+                            <button class="button js-copy-trigger">Copy</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="space-section-both">
+                <div class="download">
+                    <h2 class="type-m type-s--trailer">Publication downloads</h2>
+                    <ul class="download__list">
+                        <li class="download__item">
+                            <span class="download__label">English</span>
+                            <a href="" class="download__link">Chapter 2: The global impact of malnutrition (PDF, 1.2Mb)</a>
+                            <a href="" class="download__link">Global Nutrition Report 2018 (PDF, 4.2Mb)</a>
+                        </li>
+                        <li class="download__item">
+                            <span class="download__label">Spanish</span>
+                            <a href="" class="download__link">Chapter 2: The global impact of malnutrition (PDF, 1.2Mb)</a>
+                            <a href="" class="download__link">Global Nutrition Report 2018 (PDF, 4.2Mb)</a>
+                        </li>
+                    </ul>
+                    <h2 class="type-m type-s--trailer space-section-top--small">Data downloads</h2>
+                    <ul class="download__list">
+                        <li class="download__item">
+                            <span class="download__label">Data</span>
+                            <a href="" class="download__link">Chapter 2 data (XLSX, 1.2Mb)</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="orderReport">
+                    <div class="orderReport__img" style="background-image: url({{ global.assets_root }}/img/content-image1.jpg);"></div>
+                    <div class="orderReport__content">
+                        <h2 class="type-m type-s--trailer">Download this report</h2>
+                        <p class="para type-l--trailer">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+                        <a href="#" id="" class="button button--a11y" title="Download now"><span>Download now</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

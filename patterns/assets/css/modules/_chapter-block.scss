@@ -1,0 +1,161 @@
+// ------------------------------------------------------------
+// chapter-block
+// ------------------------------------------------------------
+
+.chapter-block-wrapper {
+    @extend %pie-clearfix;
+	position: relative;
+    padding: 2rem 0;
+    @include respond-to($c-vp) {
+    	padding: 3rem 0;
+    }
+    .para {
+        margin-bottom: 1.5rem;
+    }
+	.l-2up__col {
+		border: 1px solid $default-border-color;
+		padding: 3em;
+	}
+}
+
+
+.chapter-block_content {
+    .chapter-block-wrapper--alt & {
+        color: #fff;
+    }
+	.button {
+		margin-bottom: 1.5em;
+		margin-right: 0;
+		display: block;
+		i {
+			float: right;
+		}
+	}
+	.download-button {
+		padding-left: 1.25rem
+	}
+	@include respond-to($b-vp + 60px) {
+		.button {
+			display: inline-block;
+			margin-right: 2rem;
+			&:last-child {
+				margin-right: 0;
+			}
+		}
+	}
+	@include respond-to($c-vp) {
+    	width: 65%;
+    	float: left;
+		.chapter-block-wrapper--switch & {
+			float: right;
+		}
+		.l-2up & {
+			width: 100%;
+		}
+	}
+}
+
+.chapter-block__heading {
+    @include font-size($alpha);
+    margin-bottom: 0.75em;
+	line-height: 1.3;
+}
+
+.chapter-block__excerpt {
+    @include font-size($para);
+    margin-bottom: 1em;
+}
+
+.chapter-block_image {
+	background-size: 150%;
+	background-position: center;
+	position: relative;
+	background-repeat: no-repeat;
+	z-index: 1;
+	width: calc(100% - 4rem);
+	height: 150px;
+	margin-bottom: 2.5rem;
+	@include respond-to($b-vp) {
+		height: 200px;
+	}
+	@include respond-to($c-vp) {
+		margin-bottom: 0;
+		position: absolute;
+		right: 0;
+		top: -30px;
+		height: calc(100% + 60px);
+		width: 33%;
+		.chapter-block-wrapper--switch & {
+			right: auto;
+			left: 0;
+		}
+	}
+}
+
+.chapter-block-wrapper--alt {
+	position: relative;
+	background: $slate;
+	padding: 4rem 0;
+	@include respond-to($c-vp) {
+		padding: 10rem 0;
+	}
+	.chapter-block_content {
+		padding-left: 2rem;
+		@include respond-to($c-vp) {
+	    	float: right;
+		}
+	}
+	.chapter-block_image {
+		float: right;
+		@include respond-to($c-vp) {
+			float: none;
+			left: 0;
+			right: auto;
+			top: 30px;
+			height: calc(100% - 60px);
+			width: 33%;
+		}
+	}
+	.chapter-block__heading {
+		color: #fff;
+	}
+	&:after {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 1px;
+		width: 2rem;
+		height: 100%;
+		background: $action;
+		// override clearfix
+		visibility: initial;
+		@include respond-to($c-vp) {
+			top: 1px;
+			width: 150px;
+			height: 100%;
+			background: $action;
+		}
+	}
+	&:before {
+		content: '';
+		@include respond-to($d-vp) {
+			position: absolute;
+			display: block;
+			right: 0;
+			top: 0;
+			height: 100%;
+			width: 7%;
+			background: $body-color;
+		}
+	}
+}
+
+.chapter-title {
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	opacity: 0.5;
+	@include font-size($eta);
+	@include respond-to($c-vp) {
+		@include font-size($eta / 1.25);
+	}
+}

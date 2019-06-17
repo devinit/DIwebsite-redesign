@@ -122,6 +122,30 @@ body.body--bluebell {
             color: $bluebell;
         }
     }
+    .chapter-block-wrapper {
+        .button {
+            border-color: $bluebell;
+            color: $bluebell;
+        }
+        .download-button {
+            &:hover, &:focus {
+                border-color: $slate;
+                color: #fff;
+            }
+        }
+    }
+    .chapter-block-wrapper--alt {
+        .button {
+            border-color: #fff;
+            color: #fff;
+        }
+        .download-button {
+            &:hover, &:focus {
+                background-color: $bluebell;
+                border-color: $bluebell;
+            }
+        }
+    }
 }
 
 // Green
@@ -256,6 +280,30 @@ body.body--leaf {
         }
         p, cite {
             color: $leaf;
+        }
+    }
+    .chapter-block-wrapper {
+        .button {
+            border-color: $leaf;
+            color: $leaf;
+        }
+        .download-button {
+            &:hover, &:focus {
+                border-color: $slate;
+                color: #fff;
+            }
+        }
+    }
+    .chapter-block-wrapper--alt {
+        .button {
+            border-color: #fff;
+            color: #fff;
+        }
+        .download-button {
+            &:hover, &:focus {
+                background-color: $leaf;
+                border-color: $leaf;
+            }
         }
     }
 }

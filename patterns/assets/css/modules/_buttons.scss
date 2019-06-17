@@ -131,9 +131,11 @@ button.button {
 }
 
 .button--secondary {
-	background-color: $action-respond;
+	border-color: $action-respond;
+	color: $action-respond;
 	@include link-active-styles {
-		background-color: $action;
+		border-color: $action;
+		color: $action;
 	}
 }
 
@@ -141,4 +143,133 @@ button.button {
 	opacity: 0.5;
 	cursor: not-allowed;
 	filter: grayscale(100%);
+}
+
+// ------------------------------------------------------------
+// Download button
+// ------------------------------------------------------------
+.download-button {
+	position: relative;
+	padding: 1.5rem 1.75rem 1.3rem;
+	.ico {
+		margin-left: 10px;
+	}
+	ul {
+		position: absolute;
+		z-index: 100;
+		zoom: 1;
+		left: -1px;
+		top: calc(100% + 1px);
+		width: calc(100% + 2px);
+		background: #fff;
+		border: 1px solid $slate;
+		border-top: 0;
+		// transform: translateY(50px);
+		transition: $transition;
+		pointer-events: none;
+		opacity: 0;
+		html.no-js & {
+			opacity: 1;
+			transform: translateY(0);
+			-webkit-transform: translateY(0);
+			pointer-events: auto;
+		}
+	}
+	li {
+		color: $slate;
+		padding: 1rem 1.5rem;
+		a {
+			color: $slate;
+			display: block;
+			&:hover {
+				color: $action;
+				span {
+					&:after {
+						background: $action;
+					}
+				}
+			}
+		}
+	}
+	&:hover, &:focus, &:focus-within {
+		border-left-width: 1px;
+		background-color: $slate;
+		color: #fff;
+		ul {
+			opacity: 1;
+			transform: translateY(0);
+			-webkit-transform: translateY(0);
+			pointer-events: auto;
+		}
+	}
+	// ie
+	&:hover {
+		ul {
+			opacity: 1;
+			transform: translateY(0);
+			-webkit-transform: translateY(0);
+			pointer-events: auto;
+		}
+	}
+	&.show {
+		ul {
+			opacity: 1;
+			transform: translateY(0);
+			-webkit-transform: translateY(0);
+			pointer-events: auto;
+		}
+	}
+}
+
+.downloadSize {
+	position: relative;
+	margin-left: 5px;
+	padding-left: 8px;
+	&:after {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 5%;
+		height: 90%;
+		width: 1px;
+		background: rgba($slate, 0.75);
+		transition: $transition;
+	}
+}
+
+.download-button--reverse {
+    border-color: #fff;
+    color: #fff;
+    background-blend-mode: multiply;
+    ul {
+    	border-color: $action;
+    }
+    &:hover {
+        border-color: $action;
+        background: $action;
+    }
+}
+
+.download-button--white {
+	background: #fff;
+	color: $slate;
+	border-color: #fff;
+	ul {
+		border-color: $action;
+	}
+	&:hover {
+		border-color: $action;
+	}
+}
+
+.download-button--action {
+	background: $action;
+	color: #fff;
+	border-color: #action;
+	ul {
+		border-color: $action;
+	}
+	&:hover {
+		border-color: $action;
+	}
 }

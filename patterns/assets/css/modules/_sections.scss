@@ -27,6 +27,9 @@
         padding-top: $internal-spacing*1.5;
         padding-bottom: $internal-spacing*1.5;
     }
+    &--large {
+        margin: $internal-spacing*3 0;
+    }
 }
 
 .section__highlight {

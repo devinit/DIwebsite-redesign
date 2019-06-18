@@ -286,6 +286,34 @@
 
 
 
+.ico-play-blank {
+	background-image: url('png/play-blank.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-play-poppy {
+	background-image: url('png/play-poppy.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-play-poppydark {
+	background-image: url('png/play-poppydark.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-play-slate {
+	background-image: url('png/play-slate.png');
+	background-repeat: no-repeat;
+}
+
+
+
 .ico-plus-blank {
 	background-image: url('png/plus-blank.png');
 	background-repeat: no-repeat;

@@ -16,6 +16,10 @@
 		"stage": "review"
 	},
 	{
+		"name": "02-homepage",
+		"stage": "review"
+	},
+	{
 		"name": "03-who-we-are",
 		"stage": "review"
 	},
@@ -29,7 +33,7 @@
 	},
 	{
 		"name": "06-team-member",
-		"stage": "Template"
+		"stage": "review"
 	},
 	{
 		"name": "07-what-we-do",

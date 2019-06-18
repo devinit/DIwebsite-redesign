@@ -79,10 +79,16 @@
     .button {
         margin-top: 1.5em;
     }
-    .hero--image & {
+    @include respond-to($c-vp) {
+        max-width: 500px;
+    }
+    @include respond-to($d-vp + 175px) {
+        max-width: 650px;
+    }
+    .hero--profile & {
         @include respond-to($b-vp + 75px) {
             width: 75%;
-            float: right;
+            float: left;
         }
     }
 }
@@ -210,6 +216,13 @@
         color: #fff;
         background-color: $slate;
     }
+}
+
+.hero__button {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 4em;
 }
 
 // Heroe flourishes

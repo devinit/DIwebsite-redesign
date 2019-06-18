@@ -230,6 +230,62 @@
 
 
 
+.ico-mail-blank {
+	background-image: url('png/mail-blank.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-mail-poppy {
+	background-image: url('png/mail-poppy.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-mail-poppydark {
+	background-image: url('png/mail-poppydark.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-mail-slate {
+	background-image: url('png/mail-slate.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-phone-blank {
+	background-image: url('png/phone-blank.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-phone-poppy {
+	background-image: url('png/phone-poppy.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-phone-poppydark {
+	background-image: url('png/phone-poppydark.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-phone-slate {
+	background-image: url('png/phone-slate.png');
+	background-repeat: no-repeat;
+}
+
+
+
 .ico-plus-blank {
 	background-image: url('png/plus-blank.png');
 	background-repeat: no-repeat;

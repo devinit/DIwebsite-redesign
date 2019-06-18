@@ -1,0 +1,25 @@
+{% import 'macros/icon.html' as icons %}
+
+<section class="hero hero--profile">
+    <span class="hero__flourish"></span>
+    <span class="hero__flourish"></span>
+    <span class="hero__flourish"></span>
+    <span class="hero__flourish"></span>
+    <span class="hero__flourish"></span>
+    <span class="hero__flourish"></span>
+    <span class="hero__flourish"></span>
+    <span class="hero__flourish"></span>
+    <div class="row row--narrow">
+        <div class="hero__profile">
+            <img src="{{ global.assets_root }}/img/profile2sq.jpg" alt="alt tag">
+        </div>
+        <div class="hero__content">
+            <h1 class="hero__title"><span>{{ title }}</span></h1>
+            <h2 class="hero__subtitle"><span>Executive Director</span></h2>
+            <ul class="hero__list">
+                <li>{{ icons.icon('ico-phone-blank', '16') }} 0117 942 1198</li>
+                <li>{{ icons.icon('ico-mail-blank', '16') }} <a href="#">Harpinder.Collacott@devinit.org</a></li>
+            </ul>
+        </div>
+    </div>
+</section>

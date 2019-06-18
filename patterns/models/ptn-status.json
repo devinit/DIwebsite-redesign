@@ -28,6 +28,10 @@
 		"stage": "review"
 	},
 	{
+		"name": "06-team-member",
+		"stage": "Template"
+	},
+	{
 		"name": "07-what-we-do",
 		"stage": "review"
 	},

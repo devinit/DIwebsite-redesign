@@ -79,6 +79,47 @@
     .button {
         margin-top: 1.5em;
     }
+    .hero--image & {
+        @include respond-to($b-vp + 75px) {
+            width: 75%;
+            float: right;
+        }
+    }
+}
+
+.hero__profile {
+    position: relative;
+    margin-bottom: 1em;
+    img {
+        @extend %max-width;
+    }
+    &:before {
+        content: "";
+        position: absolute;
+        top: -10px;
+        left: -10px;
+        height: 30px;
+        width: 30px;
+        background-color: #fff;
+    }
+    &:after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        right: -10px;
+        height: 30px;
+        width: 30px;
+        background-color: lighten($poppy, 5%);
+    }
+    @include respond-to($b-vp + 75px) {
+        width: 20%;
+        float: left;
+        margin-right: 5%;
+        margin-bottom: 3em;
+    }
+    @include respond-to($c-vp) {
+        margin-bottom: 0;
+    }
 }
 
 .hero__title {
@@ -87,12 +128,12 @@
     line-height: 1.3;
     margin-bottom: 0.25em;
     color: #fff;
-    display: inline-block;
+    display: block;
     @include respond-to($menu-respond) {
         @include font-size($alpha-papa);
     }
     span {
-        display: block;
+        display: inline-block;
         @include rgba($poppy-dark, 0.75);
         padding: 0.25em;
     }
@@ -100,6 +141,34 @@
         span {
             padding: 0;
             background-color: transparent;
+        }
+    }
+}
+
+.hero__subtitle {
+    @include font-size($delta);
+    line-height: 1.3;
+    margin-bottom: 0.25em;
+    color: #fff;
+    display: block;
+    span {
+        display: inline-block;
+        @include rgba($poppy-dark, 0.75);
+        padding: 0.25em;
+    }
+}
+
+.hero__list {
+    @include font-size($para);
+    color: #fff;
+    margin-top: 1em;
+    li {
+        a {
+            color: #fff;
+            text-decoration: underline;
+        }
+        .ico {
+            margin-right: 5px;
         }
     }
 }

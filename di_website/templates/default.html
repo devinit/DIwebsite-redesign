@@ -1,3 +1,4 @@
+{% load wagtailuserbar %}
 <!doctype html>
 <!--[if IE 9]> <html lang="en-GB" class="no-js ie9"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--><html lang="en-GB" class="no-js"><!--<![endif]-->
@@ -10,6 +11,7 @@
     {% endblock %}
 </head>
 <body class="body body--{{ id }}" id="body-{{ id }}">
+	{% wagtailuserbar %}
 	<div class="ui-base">
 		<a href="#pagecontent" class="skiplink" data-js="skiplink">Skip to main content</a>
 		{% block header %}

@@ -1,20 +1,13 @@
-{# Place button where needed in the DOM. The might mean moving it from this include #}
+{% load wagtailcore_tags %}
+
 <button role="button" class="navigation-primary-toggle" id="navigation-primary-toggle"><span>Menu</span></button>
 
 <nav class="navigation-primary" role="navigation" id="navigation-primary">
 	<ul class="navigation-primary__items">
-		{% for item in global.primary_menu %}
-			{% if item.hidden == False %}
-				{% if item.page.url in page.url %}
-					<li class="navigation-primary__item navigation-primary__item--active">
-						<a href="{{ item.page.url }}">{{ item.label }}</a>
-					</li>
-				{% else %}
-					<li class="navigation-primary__item">
-						<a href="{{ item.page.url }}">{{ item.label }}</a>
-					</li>
-				{% endif %}
-			{% endif %}
+		{% for item in menu_items %}
+			<li class="navigation-primary__item {% if item.active %}navigation-primary__item--active{% endif %}">
+				<a href="{% pageurl item %}">{{ item.title }}</a>
+			</li>
 		{% endfor %}
 	</ul>
 </nav>

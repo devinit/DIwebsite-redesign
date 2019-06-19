@@ -1,6 +1,9 @@
+{% load navigation_tags wagtailcore_tags %}
+{% get_site_root as site_root %}
+
 <header role="banner" class="header">
 	<div class="row">
 		<a href="/" class="branding">Development Initiatives</a>
-		{% include 'includes/navigation/primary.html' %}
+		{% primary_menu parent=site_root calling_page=self %}
 	</div>
 </header>

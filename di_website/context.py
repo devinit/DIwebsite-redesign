@@ -1,6 +1,6 @@
 import os
 from django.conf import settings
-from navigation.models import PrimaryMenu
+from settings.models import PrimaryMenu
 
 def globals(request):
 

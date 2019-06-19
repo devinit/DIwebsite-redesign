@@ -246,13 +246,13 @@
 			display: block;
 		}
 	}
-	&__col, .card {
+	&__col, .card, .m-service {
 		margin-bottom: 3em;
 		@include respond-to($c-vp) {
 			float: left;
 			width: 30%;
 			margin-right: 5%;
-			&:nth-child(2n) {
+			&:nth-child(3n) {
 				margin-right: 0;
 			}
 			@supports (display: grid) {
@@ -263,7 +263,7 @@
 				float: left;
 				width: 30%;
 				margin-right: 5%;
-				&:nth-child(2n) {
+				&:nth-child(3n) {
 					margin-right: 0;
 				}
 			}

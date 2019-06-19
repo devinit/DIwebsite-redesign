@@ -15,6 +15,10 @@ body {
 	color: $base-color;
 }
 
+.pagecontent {
+	overflow-x: hidden;
+}
+
 .ui-base {
 	width: $ie-fixed-vp;
 	margin-left: auto;

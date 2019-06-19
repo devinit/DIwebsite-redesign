@@ -23,5 +23,9 @@
             {% endif %}
         </div>
     </div>
-    {% include 'partials/author.html' %}
+    {% if id == 'blog-guest' %}
+        {% include 'partials/author-guest.html' %}
+    {% else %}
+        {% include 'partials/author-link.html' %}
+    {% endif %}
 </section>

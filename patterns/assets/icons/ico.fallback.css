@@ -139,6 +139,34 @@
 
 
 
+.ico-document-blank {
+	background-image: url('png/document-blank.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-document-poppy {
+	background-image: url('png/document-poppy.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-document-poppydark {
+	background-image: url('png/document-poppydark.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-document-slate {
+	background-image: url('png/document-slate.png');
+	background-repeat: no-repeat;
+}
+
+
+
 .ico-download-blank {
 	background-image: url('png/download-blank.png');
 	background-repeat: no-repeat;

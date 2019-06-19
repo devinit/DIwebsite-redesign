@@ -1,0 +1,115 @@
+{# 1. Extend the relevant layout #}
+{# --------------------------------------- #}
+
+{% extends 'default.html' %}
+
+
+{# --------------------------------------- #}
+{# 2. Assign Settings and variables #}
+{# --------------------------------------- #}
+
+{% set id = "contact" %}
+{% set section = "Contact" %}
+{% set title = "Contact us" %}
+{% set excerpt = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis commodo mattis nisi eu adipiscing." %}
+{% set image_name = "" %}
+
+{# --------------------------------------- #}
+{# 3. Add models and macros #}
+{# --------------------------------------- #}
+
+{% model 'form-contact', as="form" %}
+{% model 'navigation', as="navigation" %}
+
+{% import 'macros/icon.html' as icons %}
+{% import 'macros/secondary-navigation.html' as secondary_navigation %}
+
+
+{# --------------------------------------- #}
+{#
+   4. Add page content into relevant areas
+      Add/Delete blocks as necessary
+#}
+{# --------------------------------------- #}
+
+{% block body %}
+    {% include 'heroes/hero.html' %}
+
+    <section class="section">
+        <div class="row row--narrow">
+            <div class="max-meter">
+                <div class="is-typeset">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                </div>
+                <form class="form">
+                    {% for item in form.input %}
+                        {% include 'forms/partials/input-types.html' %}
+                    {% endfor %}
+                    {% for item in form.textarea %}
+                        {% include 'forms/partials/textarea-type.html' %}
+                    {% endfor %}
+                    <div class="form-field form-field--spaced">
+                        <input class="button" type="submit" value="Send message">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <h2 class="section__heading">Where we are based</h2>
+            <div class="l-4up">
+                <div class="location">
+                    <h3 class="location__heading">UK</h3>
+                    <p class="location__copy">North Quay House Quay Side, Temple Back Bristol, BS1 6FL, UK</p>
+                    <span class="location__contact">+44 (0) 1179 272 505</span>
+                </div>
+                <div class="location">
+                    <h3 class="location__heading">Kenya</h3>
+                    <p class="location__copy">Shelter Afrique Building 4th Floor, Mamlaka Road Nairobi, Kenya PO Box 102802-00101 </p>
+                    <span class="location__contact">+254 (0) 20 272 5346</span>
+                </div>
+                <div class="location">
+                    <h3 class="location__heading">Uganda</h3>
+                    <p class="location__copy">Ggaba Road, Mutesasira Zone, Kansanga PO Box 22459 Kampala, Uganda</p>
+                    <span class="location__contact">+266 (0) 312 26629/30</span>
+                </div>
+                <div class="location">
+                    <h3 class="location__heading">United States</h3>
+                    <p class="location__copy">1110 Vermont Ave NW, Suite 500, Washington DC 20005, USA</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <h2 class="section__heading">Registered addresses</h2>
+            <div class="l-2up">
+                <div class="l-2up__col">
+                    <p class="para para--typeset">Development Initiatives Poverty Research Ltd (Registered in England and Wales, Company No. 06368740) and DI International Ltd (Registered in England Wales, Company No. 5802543)</p>
+                    <ul class="nobullet-list">
+                        <li>North Quay House</li>
+                        <li>Quay side</li>
+                        <li>Temple Back</li>
+                        <li>Bristol</li>
+                        <li>BS1 6FL</li>
+                        <li>UK</li>
+                    </ul>
+                </div>
+                <div class="l-2up__col">
+                    <p class="para para--typeset">Development Initiatives Poverty Research America Inc. (a 501(C)3 company registered in the state of Delaware with registration number 5737757)</p>
+                    <ul class="nobullet-list">
+                        <li>1209 Orange Street</li>
+                        <li>Wilmington</li>
+                        <li>New Castle County</li>
+                        <li>Delaware 19801</li>
+                        <li>USA</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

@@ -44,6 +44,10 @@
 		"stage": "review"
 	},
 	{
+		"name": "09-services",
+		"stage": "review"
+	},
+	{
 		"name": "11-blog-listing",
 		"stage": "review"
 	},
@@ -60,6 +64,10 @@
 		"stage": "review"
 	},
 	{
+		"name": "12a-blog-single-guest",
+		"stage": "review"
+	},
+	{
 		"name": "12a-news-single",
 		"stage": "review"
 	},
@@ -69,11 +77,11 @@
 	},
 	{
 		"name": "13-publications",
-		"stage": "Template"
+		"stage": "review"
 	},
 	{
 		"name": "14-publication-summary",
-		"stage": "Template"
+		"stage": "review"
 	},
 	{
 		"name": "14-1-publication-long-form",
@@ -85,7 +93,7 @@
 	},
 	{
 		"name": "14-2-publication-appendix",
-		"stage": "Template"
+		"stage": "review"
 	},
 	{
 		"name": "16-work-for-us",
@@ -97,6 +105,10 @@
 	},
 	{
 		"name": "19-vacancy-single",
+		"stage": "review"
+	},
+	{
+		"name": "20-contact",
 		"stage": "review"
 	}
 ]

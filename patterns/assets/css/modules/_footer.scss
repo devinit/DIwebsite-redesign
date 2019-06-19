@@ -60,3 +60,16 @@
     color: lighten($slate, 50%);
     max-width: 75%;
 }
+
+.footer__social {
+    @extend %pie-clearfix;
+    margin-top: 1.5em;
+    li {
+        width: 30px;
+        display: inline-block;
+        margin-right: 5px;
+        img {
+            @extend %max-width;
+        }
+    }
+}

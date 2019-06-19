@@ -22,6 +22,16 @@
     }
 }
 
+a.m-author {
+    transition: all, ease-in-out, 0.3s;
+    @include link-active-styles {
+        background-color: darken($poppy-dark, 5%);
+        .m-author__title {
+            text-decoration: underline;
+        }
+    }
+}
+
 .m-author__image {
     float: left;
     width: 27%;
@@ -131,6 +141,26 @@
     }
     @include respond-to($c-vp) {
         columns: 2;
+    }
+}
+
+.m-service {
+    position: relative;
+    margin-top: 1em;
+    background-color: #fff;
+    padding: 2em;
+    .ico {
+        position: absolute;
+        top: 2.5em;
+        left: 1.75em;
+    }
+}
+
+.m-service__copy {
+    @include font-size($epsilon);
+    padding-left: 30px;
+    a:hover {
+        text-decoration: underline;
     }
 }
 

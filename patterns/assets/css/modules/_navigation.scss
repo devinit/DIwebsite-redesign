@@ -120,6 +120,9 @@
 				color: #fff;
 				padding: 0.75em 0;
 				border-bottom: $default-border-width solid #fff;
+				@include link-active-styles {
+					border-bottom: 2px solid #fff;
+				}
 			}
 			@include respond-to($menu-respond) {
 				@include link-active-styles {

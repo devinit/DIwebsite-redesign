@@ -101,8 +101,9 @@ textarea.form-item {
 
 .form-field__radio-buttons,
 .form-field__checkboxes {
+	@extend %pie-clearfix;
 	&--columns {
-		@include respond-to($b-vp) {
+		@include respond-to($b-vp + 100px) {
 			columns: 2;
 		}
 		@include respond-to($c-vp) {
@@ -113,6 +114,7 @@ textarea.form-item {
 		position: relative;
 		top: 0;
 		vertical-align: middle;
+		padding-left: 30px;
 		&:after {
 			clear: left;
 			content: "";
@@ -122,7 +124,7 @@ textarea.form-item {
 	}
 	input {
 		float: left;
-		margin-right: $internal-spacing-pixel/2;
+		margin-right: 15px;
 		vertical-align: middle;
 		&:after {
 			clear: left;

@@ -1,0 +1,53 @@
+{
+    "input": [
+		{
+		    "field_spacing": false,
+		    "field_error": false,
+		    "item_id": "name",
+		    "item_label": "Name",
+		    "item_label_type": "",
+		    "item_type": "text",
+		    "item_placeholder": "Your name",
+		    "item_extras": ""
+		},
+        {
+		    "field_spacing": true,
+		    "field_error": false,
+		    "item_id": "organisation",
+		    "item_label": "Organisation",
+		    "item_label_type": "",
+		    "item_type": "text",
+		    "item_placeholder": "Your organisation",
+		    "item_extras": ""
+		},
+        {
+		    "field_spacing": true,
+		    "field_error": false,
+		    "item_id": "email",
+		    "item_label": "Email address",
+		    "item_label_type": "",
+		    "item_type": "email",
+		    "item_placeholder": "Your email",
+		    "item_extras": ""
+		},
+        {
+		    "field_spacing": true,
+		    "field_error": false,
+		    "item_id": "phone",
+		    "item_label": "Telephone",
+		    "item_label_type": "",
+		    "item_type": "text",
+		    "item_placeholder": "Your phone number",
+		    "item_extras": ""
+		}
+    ],
+    "textarea": [
+	    { 
+		    "field_spacing": true,
+		    "field_error": false,
+		    "item_id": "message",
+		    "item_label": "Message",
+		    "item_label_type": ""
+		}
+	]
+}

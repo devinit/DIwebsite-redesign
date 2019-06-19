@@ -4,7 +4,7 @@
 
 .alert {
 	padding: 15px;
-	padding-left: 40px;
+	padding-left: 50px;
 	overflow: hidden;
 	display: block;
 	position: relative;
@@ -18,8 +18,7 @@
 		background-size: 18px 18px;
 		display: inline-block;
 		position: absolute;
-		top: 50%;
-		transform: translateY(-50%);
+		top: 1.5em;
 		left: 15px;
 		margin-top: -1px;
 	}

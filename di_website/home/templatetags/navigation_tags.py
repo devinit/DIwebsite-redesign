@@ -2,6 +2,8 @@ from django import template
 
 from wagtail.core.models import Page
 
+from di_website.home.models import NewsLetter
+
 register = template.Library()
 
 
@@ -32,3 +34,8 @@ def primary_menu(context, parent, calling_page=None):
         # required by the pageurl tag that we want to use within this template
         'request': context['request'],
     }
+
+
+@register.inclusion_tag('includes/scaffold/newsletter.html', takes_context=True)
+def subscribe_to_newsletter(context):
+    return { 'newsletters': NewsLetter.objects.all() }

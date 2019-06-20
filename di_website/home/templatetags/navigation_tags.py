@@ -45,6 +45,7 @@ def useful_links(context, parent, calling_page=None):
     menu_items = get_menu_items(parent, calling_page)
     other_links = UsefulLink.objects.all()
     return {
+        'title': 'Useful Links',
         'calling_page': calling_page,
         'menu_items': menu_items,
         'other_links': other_links,
@@ -52,7 +53,22 @@ def useful_links(context, parent, calling_page=None):
     }
 
 
-
 @register.inclusion_tag('includes/scaffold/newsletter.html', takes_context=True)
 def subscribe_to_newsletter(context):
     return { 'newsletters': NewsLetter.objects.all() }
+
+
+@register.inclusion_tag('includes/scaffold/useful_links.html', takes_context=True)
+def page_footer_links(context, parent, calling_page=None):
+    footer_links = parent.footer_links.all()
+    title = parent.specific.footer_links_title
+    if (calling_page and calling_page.footer_links.first()):
+        footer_links = calling_page.footer_links.all()
+        title = calling_page.specific.footer_links_title
+
+    return {
+        'title': title,
+        'other_links': footer_links,
+        'calling_page': calling_page,
+        'request': context['request'],
+    }

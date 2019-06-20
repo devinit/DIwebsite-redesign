@@ -1,12 +1,15 @@
 from django.db import models
 
-from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel, PageChooserPanel
+from wagtail.admin.edit_handlers import (
+    FieldPanel,
+    InlinePanel,
+    MultiFieldPanel,
+    PageChooserPanel
+)
 from wagtail.core.models import Orderable, Page
 from wagtail.snippets.models import register_snippet
 
-
-class HomePage(Page):
-    pass
+from modelcluster.fields import ParentalKey
 
 
 class AbstractLink(models.Model):
@@ -67,3 +70,33 @@ class UsefulLink(AbstractLink):
     class Meta:
         verbose_name = 'useful link'
         verbose_name_plural = 'useful links'
+
+
+class PageFooterLink(Orderable, AbstractLink):
+    related_page = ParentalKey('wagtailcore.Page', on_delete=models.CASCADE, related_name="footer_links")
+
+    def __str__(self):
+        return (self.page.title if self.page else self.label)
+
+    class Meta:
+        verbose_name = "footer link"
+        verbose_name_plural = "footer links"
+
+
+class StandardPage(Page):
+    class Meta:
+        abstract = True
+
+    footer_links_title = models.CharField(
+        max_length=255,
+        blank=True,
+        default=''
+    )
+    content_panels = Page.content_panels + [
+        FieldPanel('footer_links_title'),
+        InlinePanel('footer_links', label='Footer Links')
+    ]
+
+
+class HomePage(StandardPage):
+    pass

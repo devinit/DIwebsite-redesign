@@ -1,0 +1,6 @@
+{% if newsletters %}
+    {% for newsletter in newsletters %}
+        <h4 class="footer__title">{{ newsletter.caption }}</h4>
+        <a href="{{ newsletter.link_url }}" class="button">{{ newsletter.link_label }}</a>
+    {% endfor %}
+{% endif %}

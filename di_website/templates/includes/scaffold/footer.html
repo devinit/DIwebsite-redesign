@@ -1,9 +1,10 @@
+{% load navigation_tags %}
+
 <footer role="contentinfo" class="footer">
 	<div class="row">
 		<div class="l-footer">
 			<div class="l-footer__col">
-				<h4 class="footer__title">Sign up for our newsletter to receive regular news and updates</h4>
-				<a href="#" class="button">Subsbribe here</a>
+				{% subscribe_to_newsletter %}
 			</div>
 			<div class="l-footer__col">
 				<h4 class="footer__title">Get around</h4>
@@ -37,7 +38,13 @@
 			</div>
 		</div>
 		<div class="footer__meta">
-			<p class="footer__meta-copy">&copy; Development Initiatives 2019. Development Initiatives is the trading name of Development Initiatives Poverty Research Ltd, registered in England and Wales, Company No. 06368740; DI International Ltd, registered in England and Wales, Company No. 5802543, Registered Address: North Quay House, Quay Side, Temple Back, Bristol, BS1 6FL, UK; and Development Initiatives Poverty Research America Inc. (a 501(C)3 company registered in the state of Delaware with the registration number 5737757), Registered Address: 1209 Orange Street, Wilmington, New Castle County, Delaware 19801.</p>
+			<p class="footer__meta-copy">&copy; Development Initiatives 2019. Development Initiatives is the trading
+				name of Development Initiatives Poverty Research Ltd, registered in England and Wales, Company No.
+				06368740; DI International Ltd, registered in England and Wales, Company No. 5802543, Registered
+				Address: North Quay House, Quay Side, Temple Back, Bristol, BS1 6FL, UK; and Development Initiatives
+				Poverty Research America Inc. (a 501(C)3 company registered in the state of Delaware with the
+				registration number 5737757), Registered Address: 1209 Orange Street, Wilmington, New Castle County,
+				Delaware 19801.</p>
 		</div>
 	</div>
 </footer>

@@ -7,6 +7,7 @@ from wagtail.admin.edit_handlers import (
     PageChooserPanel
 )
 from wagtail.core.models import Orderable, Page
+from wagtail.core.fields import RichTextField
 from wagtail.snippets.models import register_snippet
 
 from modelcluster.fields import ParentalKey
@@ -81,6 +82,21 @@ class PageFooterLink(Orderable, AbstractLink):
     class Meta:
         verbose_name = "footer link"
         verbose_name_plural = "footer links"
+
+
+@register_snippet
+class FooterText(models.Model):
+    body = RichTextField()
+
+    panels = [
+        FieldPanel('body'),
+    ]
+
+    def __str__(self):
+        return "Footer Text"
+
+    class Meta:
+        verbose_name_plural = 'Footer Text'
 
 
 class StandardPage(Page):

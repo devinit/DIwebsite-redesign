@@ -2,7 +2,7 @@ from django import template
 
 from wagtail.core.models import Page
 
-from di_website.home.models import NewsLetter, UsefulLink
+from di_website.home.models import FooterText, NewsLetter, UsefulLink
 
 register = template.Library()
 
@@ -71,4 +71,15 @@ def page_footer_links(context, parent, calling_page=None):
         'other_links': footer_links,
         'calling_page': calling_page,
         'request': context['request'],
+    }
+
+
+@register.inclusion_tag('includes/scaffold/footer_text.html', takes_context=True)
+def get_footer_text(context):
+    footer_text = ""
+    if FooterText.objects.first() is not None:
+        footer_text = FooterText.objects.first().body
+
+    return {
+        'footer_text': footer_text,
     }

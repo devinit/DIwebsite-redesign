@@ -12,7 +12,7 @@ Pattern library available online at [http://development-initiatives.surge.sh/](h
     cd patterns
     nvm install 6.13.0
     nvm exec 6.13.0 npm i
-    nvm exec 6.13.0 npm build
+    nvm exec 6.13.0 npm run build
 
 ## Dev Setup
 

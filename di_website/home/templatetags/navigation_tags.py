@@ -2,7 +2,7 @@ from django import template
 
 from wagtail.core.models import Page
 
-from di_website.home.models import FooterText, NewsLetter, UsefulLink
+from di_website.home.models import CommunicationLink, FooterText, NewsLetter, SocialLink, UsefulLink
 
 register = template.Library()
 
@@ -82,4 +82,17 @@ def get_footer_text(context):
 
     return {
         'footer_text': footer_text,
+    }
+
+@register.inclusion_tag('includes/scaffold/useful_links.html', takes_context=True)
+def get_communication_links(context):
+    other_links = CommunicationLink.objects.all()
+    social_links = SocialLink.objects.all()
+    for social_link in social_links:
+        social_link.image_url = 'svg/source/' + social_link.label + '.svg'
+    return {
+        'title': 'Get in Touch',
+        'other_links': other_links,
+        'social_links': social_links,
+        'request': context['request'],
     }

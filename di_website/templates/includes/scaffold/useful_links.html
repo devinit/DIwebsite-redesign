@@ -1,16 +1,31 @@
-{% load wagtailcore_tags %}
+{% load static wagtailcore_tags %}
 
 <h4 class="footer__title">{{ title }}</h4>
-<ul class="footer__list">
-    {% for menu_item in menu_items %}
-        <li><a href="{% pageurl menu_item %}">{{ menu_item.title }}</a></li>
-    {% endfor %}
 
-    {% for other_link in other_links %}
-        {% if other_link.page %}
-            <li><a href="{% pageurl other_link.page %}">{{ other_link.page.title }}</a></li>
-        {% elif other_link.link_url %}
-            <li><a href="{{ other_link.link_url }}">{{ other_link.label }}</a></li>
-        {% endif %}
-    {% endfor %}
-</ul>
+{% if menu_items or other_links  %}
+    <ul class="footer__list">
+        {% for menu_item in menu_items %}
+            <li><a href="{% pageurl menu_item %}">{{ menu_item.title }}</a></li>
+        {% endfor %}
+
+        {% for other_link in other_links %}
+            {% if other_link.page %}
+                <li><a href="{% pageurl other_link.page %}">{{ other_link.page.title }}</a></li>
+            {% elif other_link.link_url %}
+                <li><a href="{{ other_link.link_url }}">{{ other_link.label }}</a></li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+{% endif %}
+
+{% if social_links  %}
+    <ul class="footer__social">
+        {% for social_link in social_links %}
+            <li>
+                <a href="{{ social_link.link_url }}">
+                    <img src="{% static social_link.image_url %}" alt="Share with {{ social_link.label|title }}"/>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}

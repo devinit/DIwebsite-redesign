@@ -85,6 +85,37 @@ class PageFooterLink(Orderable, AbstractLink):
 
 
 @register_snippet
+class CommunicationLink(AbstractLink):
+    def __str__(self):
+        return (self.page.title if self.page else self.label)
+
+    class Meta:
+        verbose_name = 'communication link'
+        verbose_name_plural = 'communication links'
+
+
+@register_snippet
+class SocialLink(AbstractLink):
+    def __str__(self):
+        return self.label
+
+    class Meta:
+        verbose_name = 'social link'
+        verbose_name_plural = 'social links'
+
+    label = models.CharField(
+        max_length=255,
+        blank=True,
+        help_text ='Enter "facebook" or "twitter"'
+    )
+
+    panels = [
+        FieldPanel('label'),
+        FieldPanel('link_url')
+    ]
+
+
+@register_snippet
 class FooterText(models.Model):
     body = RichTextField()
 

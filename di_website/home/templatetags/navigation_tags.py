@@ -41,7 +41,7 @@ def primary_menu(context, parent, calling_page=None):
 
 
 @register.inclusion_tag('includes/scaffold/useful_links.html', takes_context=True)
-def useful_links(context, parent, calling_page=None):
+def get_useful_links(context, parent, calling_page=None):
     menu_items = get_menu_items(parent, calling_page)
     other_links = UsefulLink.objects.all()
     return {
@@ -59,7 +59,7 @@ def subscribe_to_newsletter(context):
 
 
 @register.inclusion_tag('includes/scaffold/useful_links.html', takes_context=True)
-def page_footer_links(context, parent, calling_page=None):
+def get_page_footer_links(context, parent, calling_page=None):
     footer_links = parent.footer_links.all()
     title = parent.specific.footer_links_title
     if (calling_page and calling_page.footer_links.first()):

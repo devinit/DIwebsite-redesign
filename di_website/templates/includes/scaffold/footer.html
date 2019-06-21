@@ -8,10 +8,10 @@
 				{% subscribe_to_newsletter %}
 			</div>
 			<div class="l-footer__col">
-				{% useful_links parent=site_root calling_page=self %}
+				{% get_useful_links parent=site_root calling_page=self %}
 			</div>
 			<div class="l-footer__col">
-				{% page_footer_links parent=site_root calling_page=self %}
+				{% get_page_footer_links parent=site_root calling_page=self %}
 			</div>
 			<div class="l-footer__col">
 				<h4 class="footer__title">Get in touch</h4>

@@ -1,27 +1,56 @@
-# Use an official Python runtime as a parent image
-FROM python:3.7
-LABEL maintainer="hello@wagtail.io"
+
+FROM alpine:3.10.0 
+LABEL maintainer="Napho <naphlin.akena@devinit.org>"
+
+RUN apk add postgresql-client && \
+    set -ex \
+	&& apk add gcc \
+		g++ \
+		make \
+		libc-dev \
+		musl-dev \
+		linux-headers \
+		pcre-dev \
+		postgresql-dev \
+		git 
+
+RUN apk add python3-dev
+
+RUN apk add --no-cache python3 && \
+ if [ ! -e /usr/bin/pip ]; then ln -s pip3 /usr/bin/pip ; fi && \
+ if [[ ! -e /usr/bin/python ]]; then ln -sf /usr/bin/python3 /usr/bin/python; fi
+
+#Require to compile pygcog2
+RUN apk add --no-cache jpeg-dev zlib-dev
+RUN apk add --no-cache postgresql-dev
+RUN apk add --no-cache libmemcached-dev zlib-dev 
 
 # Set environment varibles
 ENV PYTHONUNBUFFERED 1
 ENV DJANGO_ENV dev
 
+
 COPY ./requirements.txt /code/requirements.txt
-RUN pip install --upgrade pip
-# Install any needed packages specified in requirements.txt
-RUN pip install -r /code/requirements.txt
-RUN pip install gunicorn
+
+RUN apk add --no-cache --virtual .build-deps build-base linux-headers \  
+    && pip install pip --upgrade \
+    && pip install -r /code/requirements.txt \
+    && apk del .build-deps
+
+#RUN pip install gunicorn
 
 # Copy the current directory contents into the container at /code/
 COPY . /code/
 # Set the working directory to /code/
 WORKDIR /code/
 
-RUN python manage.py migrate
-
-RUN useradd wagtail
+RUN addgroup -S wagtail && adduser -S wagtail -G wagtail
 RUN chown -R wagtail /code
 USER wagtail
 
-EXPOSE 8000
-CMD exec gunicorn di_website.wsgi:application --bind 0.0.0.0:8000 --workers 3
+#Install nvm to be used by user wagail
+EXPOSE 8090
+
+# start uWSGI, using a wrapper script to allow us to easily add more commands to container startup:
+ENTRYPOINT ["/code/docker-entrypoint.sh"]
+CMD ["gunicorn","di_website.wsgi:application","--bind","0.0.0.0:8090","--workers","3"]

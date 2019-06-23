@@ -23,4 +23,9 @@ Pattern library available online at [http://development-initiatives.surge.sh/](h
 5. Install python dependencies: `pip install -r requirements.txt`
 6. Migrate `python3 manage.py migrate`
 7. Build static assets - refer to *Pattern library* section, then in the project root: `python3 manage.py collectstatic`
-8. Migrate `python3 manage.py runserver`
+8. Migrate `python3 manage.py runserver
+
+## Run with Docker Compose
+1. Create docker volume diwebsite_db
+    docker volume create --name=diwebsite_db
+2. Run command docker-compose up

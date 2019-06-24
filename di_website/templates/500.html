@@ -1,13 +1,10 @@
-<!DOCTYPE html>
-<html class="no-js">
-    <head>
-        <meta charset="utf-8" />
-        <title>Internal server error</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-    </head>
-    <body>
-        <h1>Internal server error</h1>
+{% extends 'default.html' %}
 
-        <h2>Sorry, there seems to be an error. Please try again soon.</h2>
-    </body>
-</html>
+{% block body %}
+<div class="l-error">
+	<div class="row">
+		<h1 class="type-xl type-xl--trailer heading">500 error</h1>
+		<p class="para">Something technical has gone wrong. It's not your fault. We've been notified and this page will be back soon.</p>
+	</div>
+</div>
+{% endblock %}

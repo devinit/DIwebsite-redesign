@@ -1,8 +1,8 @@
+"""
+    Holds the custom template tags responsible for rendering the navigation menu
+"""
+
 from django import template
-
-from wagtail.core.models import Page
-
-from di_website.home.models import CommunicationLink, FooterText, NewsLetter, SocialLink, UsefulLink
 
 register = template.Library()
 
@@ -21,7 +21,7 @@ def has_children(page):
 
 
 def is_active(page, current_page):
-    return (current_page.url_path.startswith(page.url_path) if current_page else False)
+    return current_page.url_path.startswith(page.url_path) if current_page else False
 
 def get_menu_items(page, calling_page):
     menu_items = page.get_children().live().in_menu()

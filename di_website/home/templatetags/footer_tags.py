@@ -2,65 +2,50 @@ from django import template
 
 from wagtail.core.models import Page
 
-from di_website.home.models import CommunicationLink, FooterText, NewsLetter, SocialLink, UsefulLink
+from di_website.home.models import (
+    FooterLink,
+    FooterText,
+    FooterSection,
+    NewsLetter,
+    SocialLink
+)
 from di_website.home.templatetags.navigation_tags import get_menu_items
 
 register = template.Library()
 
 
 @register.inclusion_tag('includes/scaffold/useful_links.html', takes_context=True)
-def get_useful_links(context, parent, calling_page=None):
-    menu_items = get_menu_items(parent, calling_page)
-    other_links = UsefulLink.objects.all()
+def get_footer_sections(context, parent, calling_page=None):
+    footer_sections = FooterSection.objects.all()
+    for footer_section in footer_sections:
+        footer_section.links = footer_section.footer_section_links.all()
+
+        footer_section.social_links = footer_section.footer_social_links.all()
+        for social_link in footer_section.social_links:
+            social_link.image_url = 'svg/source/' + social_link.social_platform + '.svg'
+
+        if footer_section.show_navigation_links:
+            footer_section.menu_items = get_menu_items(parent, calling_page)
+
     return {
-        'title': 'Useful Links',
-        'calling_page': calling_page,
-        'menu_items': menu_items,
-        'other_links': other_links,
+        'footer_sections': footer_sections,
         'request': context['request'],
     }
 
 
-@register.inclusion_tag('includes/scaffold/newsletter.html', takes_context=True)
-def subscribe_to_newsletter(context):
-    return { 'newsletters': NewsLetter.objects.all() }
-
-
-@register.inclusion_tag('includes/scaffold/useful_links.html', takes_context=True)
-def get_page_footer_links(context, parent, calling_page=None):
-    footer_links = parent.footer_links.all()
-    title = parent.specific.footer_links_title
-    if (calling_page and calling_page.footer_links.first()):
-        footer_links = calling_page.footer_links.all()
-        title = calling_page.specific.footer_links_title
-
+@register.inclusion_tag('includes/scaffold/newsletter.html')
+def subscribe_to_newsletter():
     return {
-        'title': title,
-        'other_links': footer_links,
-        'calling_page': calling_page,
-        'request': context['request'],
+        'newsletters': NewsLetter.objects.all()
     }
 
 
-@register.inclusion_tag('includes/scaffold/footer_text.html', takes_context=True)
-def get_footer_text(context):
+@register.inclusion_tag('includes/scaffold/footer_text.html')
+def get_footer_text():
     footer_text = ""
     if FooterText.objects.first() is not None:
         footer_text = FooterText.objects.first().body
 
     return {
         'footer_text': footer_text,
-    }
-
-@register.inclusion_tag('includes/scaffold/useful_links.html', takes_context=True)
-def get_communication_links(context):
-    other_links = CommunicationLink.objects.all()
-    social_links = SocialLink.objects.all()
-    for social_link in social_links:
-        social_link.image_url = 'svg/source/' + social_link.label + '.svg'
-    return {
-        'title': 'Get in Touch',
-        'other_links': other_links,
-        'social_links': social_links,
-        'request': context['request'],
     }

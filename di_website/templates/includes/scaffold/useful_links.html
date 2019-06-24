@@ -1,31 +1,37 @@
 {% load static wagtailcore_tags %}
 
-<h4 class="footer__title">{{ title }}</h4>
+{% if footer_sections %}
+    {% for section in footer_sections %}
+        <div class="l-footer__col">
+            <h4 class="footer__title">{{ section.title }}</h4>
 
-{% if menu_items or other_links  %}
-    <ul class="footer__list">
-        {% for menu_item in menu_items %}
-            <li><a href="{% pageurl menu_item %}">{{ menu_item.title }}</a></li>
-        {% endfor %}
+            {% if section.menu_items or section.links %}
+                <ul class="footer__list">
+                    {% for menu_item in section.menu_items %}
+                        <li><a href="{% pageurl menu_item %}">{{ menu_item.title }}</a></li>
+                    {% endfor %}
 
-        {% for other_link in other_links %}
-            {% if other_link.page %}
-                <li><a href="{% pageurl other_link.page %}">{{ other_link.page.title }}</a></li>
-            {% elif other_link.link_url %}
-                <li><a href="{{ other_link.link_url }}">{{ other_link.label }}</a></li>
+                    {% for link in section.links %}
+                        {% if link.page %}
+                            <li><a href="{% pageurl link.page %}">{{ link.page.title }}</a></li>
+                        {% elif link.link_url %}
+                            <li><a href="{{ link.link_url }}">{{ link.label }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
             {% endif %}
-        {% endfor %}
-    </ul>
-{% endif %}
 
-{% if social_links  %}
-    <ul class="footer__social">
-        {% for social_link in social_links %}
-            <li>
-                <a href="{{ social_link.link_url }}">
-                    <img src="{% static social_link.image_url %}" alt="Share with {{ social_link.label|title }}"/>
-                </a>
-            </li>
-        {% endfor %}
-    </ul>
+            {% if section.social_links  %}
+                <ul class="footer__social">
+                    {% for social_link in section.social_links %}
+                        <li>
+                            <a href="{{ social_link.link_url }}">
+                                <img src="{% static social_link.image_url %}" alt="Share with {{ social_link.social_platform|title }}"/>
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    {% endfor %}
 {% endif %}

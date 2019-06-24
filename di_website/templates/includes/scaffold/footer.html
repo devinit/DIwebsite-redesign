@@ -7,15 +7,7 @@
 			<div class="l-footer__col">
 				{% subscribe_to_newsletter %}
 			</div>
-			<div class="l-footer__col">
-				{% get_useful_links parent=site_root calling_page=self %}
-			</div>
-			<div class="l-footer__col">
-				{% get_page_footer_links parent=site_root calling_page=self %}
-			</div>
-			<div class="l-footer__col">
-				{% get_communication_links %}
-			</div>
+			{% get_footer_sections parent=site_root calling_page=self %}
 		</div>
 		{% get_footer_text %}
 	</div>

@@ -11,6 +11,7 @@ from wagtail.core.fields import RichTextField
 from wagtail.snippets.models import register_snippet
 
 from modelcluster.fields import ParentalKey
+from modelcluster.models import ClusterableModel
 
 
 class AbstractLink(models.Model):
@@ -64,17 +65,28 @@ class NewsLetter(models.Model):
 
 
 @register_snippet
-class UsefulLink(AbstractLink):
+class FooterSection(Orderable, ClusterableModel):
+    title = models.CharField(max_length=255)
+    show_navigation_links = models.BooleanField(default=False)
+
+    panels = [
+        FieldPanel('title'),
+        FieldPanel('show_navigation_links'),
+        InlinePanel('footer_section_links', label='Section Links'),
+        InlinePanel('footer_social_links', label='Social Links')
+    ]
+
     def __str__(self):
-        return (self.page.title if self.page else self.label)
+        return self.title
 
     class Meta:
-        verbose_name = 'useful link'
-        verbose_name_plural = 'useful links'
+        verbose_name = "footer section"
+        verbose_name_plural = "footer sections"
 
 
-class PageFooterLink(Orderable, AbstractLink):
-    related_page = ParentalKey('wagtailcore.Page', on_delete=models.CASCADE, related_name="footer_links")
+
+class FooterLink(Orderable, AbstractLink):
+    section = ParentalKey('FooterSection', on_delete=models.CASCADE, related_name="footer_section_links")
 
     def __str__(self):
         return (self.page.title if self.page else self.label)
@@ -84,35 +96,30 @@ class PageFooterLink(Orderable, AbstractLink):
         verbose_name_plural = "footer links"
 
 
-@register_snippet
-class CommunicationLink(AbstractLink):
+class SocialLink(Orderable, models.Model):
+    SOCIAL_CHOICES = [
+        ('twitter', 'Twitter'),
+        ('facebook', 'Facebook'),
+    ]
+
+    social_platform = models.CharField(
+        max_length=100,
+        choices=SOCIAL_CHOICES
+    )
+    link_url = models.CharField(max_length=255, default='')
+    section = ParentalKey('FooterSection', on_delete=models.CASCADE, related_name="footer_social_links")
+
+    panels = [
+        FieldPanel('social_platform'),
+        FieldPanel('link_url')
+    ]
+
     def __str__(self):
-        return (self.page.title if self.page else self.label)
-
-    class Meta:
-        verbose_name = 'communication link'
-        verbose_name_plural = 'communication links'
-
-
-@register_snippet
-class SocialLink(AbstractLink):
-    def __str__(self):
-        return self.label
+        return self.social_platform
 
     class Meta:
         verbose_name = 'social link'
         verbose_name_plural = 'social links'
-
-    label = models.CharField(
-        max_length=255,
-        blank=True,
-        help_text ='Enter "facebook" or "twitter"'
-    )
-
-    panels = [
-        FieldPanel('label'),
-        FieldPanel('link_url')
-    ]
 
 
 @register_snippet
@@ -133,16 +140,6 @@ class FooterText(models.Model):
 class StandardPage(Page):
     class Meta:
         abstract = True
-
-    footer_links_title = models.CharField(
-        max_length=255,
-        blank=True,
-        default=''
-    )
-    content_panels = Page.content_panels + [
-        FieldPanel('footer_links_title'),
-        InlinePanel('footer_links', label='Footer Links')
-    ]
 
 
 class HomePage(StandardPage):

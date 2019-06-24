@@ -7,7 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>{% block title %}{{ global.site_name }}{% endblock %}</title>
     {% block html_header %}
-		{% include 'scaffold/header-assets.html' %}
+		{% include 'includes/scaffold/header-assets.html' %}
     {% endblock %}
 </head>
 <body class="body body--{{ id }}" id="body-{{ id }}">
@@ -15,7 +15,7 @@
 	<div class="ui-base">
 		<a href="#pagecontent" class="skiplink" data-js="skiplink">Skip to main content</a>
 		{% block header %}
-			{% include 'scaffold/header.html' %}
+			{% include 'includes/scaffold/header.html' %}
 		{% endblock %}
 		<!-- ID and -nofocus required for proper skiplink operation -->
 		<main id="pagecontent" class="pagecontent -nofocus" role="main" tabindex="-1">
@@ -24,10 +24,10 @@
 			{% block after_content %}{% endblock %}
 		</main>
 		{% block footer %}
-			{% include 'scaffold/footer.html' %}
+			{% include 'includes/scaffold/footer.html' %}
 		{% endblock %}
 	</div>
-	{% include 'scaffold/footer-assets.html' %}
+	{% include 'includes/scaffold/footer-assets.html' %}
 	{% block html_footer %}
 	{% endblock %}
 </body>

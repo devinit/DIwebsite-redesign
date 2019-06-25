@@ -1,0 +1,37 @@
+{% load static wagtailcore_tags %}
+
+{% if footer_sections %}
+    {% for section in footer_sections %}
+        <div class="l-footer__col">
+            <h4 class="footer__title">{{ section.title }}</h4>
+
+            {% if section.menu_items or section.links %}
+                <ul class="footer__list">
+                    {% for menu_item in section.menu_items %}
+                        <li><a href="{% pageurl menu_item %}">{{ menu_item.title }}</a></li>
+                    {% endfor %}
+
+                    {% for link in section.links %}
+                        {% if link.page %}
+                            <li><a href="{% pageurl link.page %}">{{ link.page.title }}</a></li>
+                        {% elif link.link_url %}
+                            <li><a href="{{ link.link_url }}">{{ link.label }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            {% if section.social_links  %}
+                <ul class="footer__social">
+                    {% for social_link in section.social_links %}
+                        <li>
+                            <a href="{{ social_link.link_url }}">
+                                <img src="{% static social_link.image_url %}" alt="Share with {{ social_link.social_platform|title }}"/>
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    {% endfor %}
+{% endif %}

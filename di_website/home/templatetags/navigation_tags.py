@@ -1,6 +1,8 @@
-from django import template
+"""
+    Holds the custom template tags responsible for rendering the navigation menu
+"""
 
-from wagtail.core.models import Page
+from django import template
 
 register = template.Library()
 
@@ -19,13 +21,17 @@ def has_children(page):
 
 
 def is_active(page, current_page):
-    return (current_page.url_path.startswith(page.url_path) if current_page else False)
+    return current_page.url_path.startswith(page.url_path) if current_page else False
+
+def get_menu_items(page, calling_page):
+    menu_items = page.get_children().live().in_menu()
+    for menu_item in menu_items:
+        menu_item.active = is_active(menu_item, calling_page)
+    return menu_items
 
 @register.inclusion_tag('includes/navigation/primary.html', takes_context=True)
 def primary_menu(context, parent, calling_page=None):
-    menu_items = parent.get_children().live().in_menu()
-    for menu_item in menu_items:
-        menu_item.active = is_active(menu_item, calling_page)
+    menu_items = get_menu_items(parent, calling_page)
     return {
         'calling_page': calling_page,
         'menu_items': menu_items,

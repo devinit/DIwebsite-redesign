@@ -10,6 +10,5 @@ def globals(request):
         'global': {
             'DEBUG': bool(os.getenv('DEBUG', False)),
             'site_name': request.site.site_name or settings.WAGTAIL_SITE_NAME,
-            'assets_root': '/assets',
         },
     }

@@ -6,6 +6,7 @@ from wagtail.admin.edit_handlers import (
     MultiFieldPanel,
     PageChooserPanel
 )
+from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.core.models import Orderable, Page
 from wagtail.core.fields import RichTextField
 from wagtail.snippets.models import register_snippet
@@ -141,6 +142,46 @@ class StandardPage(Page):
     class Meta:
         abstract = True
 
+    hero_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        help_text='Hero Image'
+    )
+    hero_text = RichTextField(
+        null=True,
+        blank=True,
+        help_text='A description of the page content'
+    )
+    hero_link = models.ForeignKey(
+        'wagtailcore.Page',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        verbose_name='Hero link',
+        help_text='Choose a page to link to for the Call to Action'
+    )
+    hero_link_caption = models.CharField(
+        max_length=255,
+        blank=True,
+        help_text='Text to display on the link button'
+    )
+
 
 class HomePage(StandardPage):
-    pass
+    content_panels = StandardPage.content_panels + [
+        MultiFieldPanel([
+            ImageChooserPanel('hero_image'),
+            FieldPanel('hero_text', classname="hero_excerpt"),
+            MultiFieldPanel([
+                FieldPanel('hero_link_caption'),
+                PageChooserPanel('hero_link')
+            ])
+        ], heading="Hero section")
+    ]
+
+    def __str__(self):
+        return self.title

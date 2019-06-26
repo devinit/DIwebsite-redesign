@@ -4,7 +4,7 @@
 {# Settings, models, library variables #}
 {# --------------------------------------- #}
 
-{% model 'ptn-fffunction', as="fffunction" %}
+{% model 'ptn-bteam', as="bteam" %}
 {% set ui_title = "Pattern library" %}
 
 {% block ui_description %}
@@ -92,7 +92,7 @@
 				{% else %}
 					<p><a href="{{ global.spreadsheet_link }}">Read the documentation</a></p>
 				{% endif %}
-				
+
 				{% if global.functional_spec_link == "Blank" %}
 				{% else %}
 					<p><a href="{{ global.functional_spec_link }}">Read the functional spec</a></p>
@@ -107,7 +107,7 @@
 	<!-- Contacts -->
 	<div class="ui-section ui-section--normalise">
 		<div class="ui-section__team">
-			{% for item in fffunction %}
+			{% for item in bteam %}
 			<div class="ui-section__team__member">
 				{% if item.image_url == "" %}
 				{% else %}

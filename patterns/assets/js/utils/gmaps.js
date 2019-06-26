@@ -16,60 +16,60 @@ export default function initGmaps (selector = '.media-map__location', APIKey = u
 
     // Set up your styles here
     const styles = [
-    {
-        "elementType": "geometry",
-        "stylers": [
-            {
-                "visibility": "simplified"
-            },
-            {
-                "hue": "#ff0000"
-            }
-        ]
-    },
-    {
-        "featureType": "road",
-        "elementType": "labels.icon",
-        "stylers": [
-            {
-                "visibility": "off"
-            }
-        ]
-    },
-    {
-        "featureType": "transit.station",
-        "elementType": "labels.icon",
-        "stylers": [
-            {
-                "visibility": "off"
-            }
-        ]
-    },
-    {
-        "featureType": "poi",
-        "stylers": [
-            {
-                "visibility": "off"
-            }
-        ]
-    },
-    {
-        "featureType": "administrative",
-        "stylers": [
-            {
-                "visibility": "simplified"
-            }
-        ]
-    },
-    {
-        "featureType": "water",
-        "stylers": [
-            {
-                "visibility": "off"
-            }
-        ]
-    }
-]
+        {
+            "elementType": "geometry",
+            "stylers": [
+                {
+                    "visibility": "simplified"
+                },
+                {
+                    "hue": "#ff0000"
+                }
+            ]
+        },
+        {
+            "featureType": "road",
+            "elementType": "labels.icon",
+            "stylers": [
+                {
+                    "visibility": "off"
+                }
+            ]
+        },
+        {
+            "featureType": "transit.station",
+            "elementType": "labels.icon",
+            "stylers": [
+                {
+                    "visibility": "off"
+                }
+            ]
+        },
+        {
+            "featureType": "poi",
+            "stylers": [
+                {
+                    "visibility": "off"
+                }
+            ]
+        },
+        {
+            "featureType": "administrative",
+            "stylers": [
+                {
+                    "visibility": "simplified"
+                }
+            ]
+        },
+        {
+            "featureType": "water",
+            "stylers": [
+                {
+                    "visibility": "off"
+                }
+            ]
+        }
+    ]
 
     gmaps.load(google => {
         const opts = {
@@ -110,7 +110,6 @@ export default function initGmaps (selector = '.media-map__location', APIKey = u
             .get();
 
         const map = new google.maps.Map(el, opts);
-        const infoWindow = new google.maps.InfoWindow();
 
         // Based on https://www.aspsnippets.com/Articles/Google-Maps-API-V3-Center-and-Zoom-to-fit-all-markers-on-Google-Maps.aspx
 
@@ -128,14 +127,7 @@ export default function initGmaps (selector = '.media-map__location', APIKey = u
                 tel: data.tel,
                 email: data.email,
                 web: data.web,
-                animation: google.maps.Animation.DROP
             });
-            (function (location, data) {
-                google.maps.event.addListener(location, "click", function (e) {
-                    infoWindow.setContent('<div style="min-width:60px;">' + data.title + '</div>');
-                    infoWindow.open(map, location);
-                });
-            })(location, data);
             latlngbounds.extend(location.position);
         }
 

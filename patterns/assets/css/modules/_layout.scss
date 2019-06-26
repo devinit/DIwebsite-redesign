@@ -158,7 +158,7 @@
 
 .l-2up-3up {
 	@extend %l;
-	@include respond-to($c-vp) {
+	@include respond-to($b-vp) {
 		@supports (display: grid) {
 			display: grid;
 			grid-template-columns: 1fr 1fr;

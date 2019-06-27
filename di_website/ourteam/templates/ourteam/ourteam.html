@@ -1,0 +1,10 @@
+{% extends "default.html" %}
+
+{% load static wagtailcore_tags %}
+
+
+{% block body %}
+    {% for block in page.team %}
+        {% include_block block %}
+    {% endfor %}
+{% endblock %}

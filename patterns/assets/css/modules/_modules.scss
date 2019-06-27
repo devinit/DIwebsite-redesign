@@ -16,6 +16,12 @@
             bottom: -35px;
     	}
     }
+    .hero--image & {
+        @include respond-to($menu-respond) {
+            left: auto;
+    		right: $internal-spacing;
+    	}
+    }
     .card & {
         margin-top: 2em;
         background-color: #fff;

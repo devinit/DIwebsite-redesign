@@ -8,6 +8,9 @@ include
 lib
 .Python
 
+# Wagtail storage for uploads
+storage/*
+
 media
 regression/
 

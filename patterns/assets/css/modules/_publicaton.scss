@@ -79,7 +79,7 @@ body.body--bluebell {
     .m-downloads__list a {
         color: $bluebell;
     }
-    .share, .share__wrapper {
+    .share {
         .button {
             background-color: $bluebell;
             border-color: $bluebell;
@@ -126,9 +126,14 @@ body.body--bluebell {
         .button {
             border-color: $bluebell;
             color: $bluebell;
+            &:hover, &:focus {
+                background-color: $bluebell;
+                color: #fff;
+            }
         }
         .download-button {
             &:hover, &:focus {
+                background-color: $slate;
                 border-color: $slate;
                 color: #fff;
             }
@@ -138,12 +143,23 @@ body.body--bluebell {
         .button {
             border-color: #fff;
             color: #fff;
+            &:hover, &:focus {
+                background-color: #fff;
+                color: $heading-color;
+            }
         }
         .download-button {
             &:hover, &:focus {
                 background-color: $bluebell;
                 border-color: $bluebell;
+                color: #fff;
             }
+        }
+    }
+    .orderReport .button {
+        &:hover, &:focus {
+            background-color: $bluebell;
+            color: #fff;
         }
     }
     .pagination__item-link {
@@ -250,7 +266,7 @@ body.body--leaf {
     .m-downloads__list a {
         color: $leaf;
     }
-    .share, .share__wrapper {
+    .share {
         background-color: $leaf;
         .button {
             background-color: $leaf;
@@ -298,9 +314,14 @@ body.body--leaf {
         .button {
             border-color: $leaf;
             color: $leaf;
+            &:hover, &:focus {
+                background-color: $leaf;
+                color: #fff;
+            }
         }
         .download-button {
             &:hover, &:focus {
+                background-color: $slate;
                 border-color: $slate;
                 color: #fff;
             }
@@ -310,12 +331,23 @@ body.body--leaf {
         .button {
             border-color: #fff;
             color: #fff;
+            &:hover, &:focus {
+                background-color: #fff;
+                color: $heading-color;
+            }
         }
         .download-button {
             &:hover, &:focus {
                 background-color: $leaf;
                 border-color: $leaf;
+                color: #fff;
             }
+        }
+    }
+    .orderReport .button {
+        &:hover, &:focus {
+            background-color: $leaf;
+            color: #fff;
         }
     }
     .pagination__item-link {

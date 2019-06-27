@@ -49,9 +49,6 @@ function globals () {
         '.js-copy-trigger'
     );
     sectionSharing();
-
-    // svgmap
-    initSVGmap();
 }
 
 $(function run () {

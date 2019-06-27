@@ -73,7 +73,6 @@
 		display: inline-block;
 		width: 24.5%;
 		.button {
-			margin-top: -3px;
 			display: block;
 		}
 	}
@@ -178,7 +177,7 @@ textarea.form-item {
 		padding-left: $form-padding/2;
 		padding-right: $form-padding/2;
 		vertical-align: middle;
-		border: $default-border-width solid transparent;
+		border: $default-border-width solid $default-border-color;
 		appearance: none;
 		background: url(../svg/png/sort-dark.png) #fff no-repeat right 50%;
 		background: url(../svg/source/sort-dark.svg) #fff no-repeat right 50%;

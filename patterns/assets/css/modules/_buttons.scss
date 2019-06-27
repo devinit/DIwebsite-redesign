@@ -19,10 +19,9 @@
 	cursor: pointer;
 	transition: all, ease-in-out, 0.3s;
 	@include link-active-styles {
-		//color: #fff;
-		//background-color: $action;
-		border-left-width: 5px;
-		border-color: $action-respond;
+		background-color: $action;
+		border-color: $action;
+		color: #fff;
 	}
 }
 
@@ -117,7 +116,8 @@ button.button {
 	color: #fff;
 	@include link-active-styles {
 		border-color: #fff;
-		color: #fff;
+		background-color: #fff;
+		color: $heading-color;
 	}
 	.button--faux__meta {
 		color: #fff;
@@ -135,7 +135,8 @@ button.button {
 	color: $action-respond;
 	@include link-active-styles {
 		border-color: $action;
-		color: $action;
+		background-color: $action;
+		color: #fff;
 	}
 }
 

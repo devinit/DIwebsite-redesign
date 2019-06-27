@@ -344,7 +344,6 @@ a.m-author {
 }
 
 .footnotes__list {
-    list-style: decimal;
     margin-bottom: 1rem;
     padding-left: 1rem;
     @include respond-to($c-vp) {

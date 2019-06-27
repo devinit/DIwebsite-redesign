@@ -34,3 +34,4 @@ class TeamProfileBlock(StructBlock):
         icon="placeholder"
         template="streams/staff_profile.html"
         label="Our Team"
+        

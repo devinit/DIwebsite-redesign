@@ -1,27 +1,21 @@
-from django.db import models
-
-# Create your models here.
+from django.shortcuts import render
 from wagtail.core.models import Page
 
-from wagtail.admin.edit_handlers import  StreamFieldPanel
-from wagtail.core.fields import StreamField
-from di_website.streams import blocks
+from di_website.users.models import UserProfile
+
 
 class OurTeam(Page):
-    
+
     """ List of Team Members Page """
 
     template = "ourteam/ourteam.html"
 
-    team = StreamField(
-        [
-            ("profiles",blocks.TeamProfileBlock())
-        ]
-    )
-
-    content_panels = Page.content_panels + [
-        StreamFieldPanel("team"),
-    ]
+    def serve(self, request):
+        profiles = UserProfile.objects.filter(active=True)
+        return render(request, self.template, {
+            'page': self,
+            'profiles': profiles,
+        })
 
     class Meta:
         verbose_name = "Our Team"

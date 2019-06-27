@@ -26,8 +26,8 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 
 INSTALLED_APPS = [
     'di_website.home',
+    'di_website.users',
     'di_website.search',
-    'di_website.streams',
     'di_website.ourteam',
 
     'wagtail.contrib.forms',
@@ -166,3 +166,6 @@ WAGTAIL_SITE_NAME = "di_website"
 BASE_URL = 'http://devinit.org'
 
 INTERNAL_IPS = ["127.0.0.1"]
+
+# Custom user model
+AUTH_USER_MODEL = 'users.User'

@@ -40,6 +40,11 @@ body.body--bluebell {
             border-bottom: 2px solid $bluebell;
         }
     }
+    .m-authors {
+        a {
+            color: $bluebell
+        }
+    }
     .is-typeset {
         a:not(.button) {
             color: $bluebell;
@@ -210,6 +215,11 @@ body.body--leaf {
         }
         &--active a {
             border-bottom: 2px solid $leaf;
+        }
+    }
+    .m-authors {
+        a {
+            color: $leaf;
         }
     }
     .is-typeset {

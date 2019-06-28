@@ -6,6 +6,15 @@ from wagtail.admin.edit_handlers import (
     PageChooserPanel
 )
 from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.snippets.edit_handlers import SnippetChooserPanel
+
+
+@register_snippet
+class JobTitle(models.Model):
+    name = models.CharField(max_length=255, unique=True)
+
+    def __str__(self):
+        return self.name
 
 
 @register_snippet
@@ -32,7 +41,13 @@ class UserProfile(models.Model):
         on_delete=models.SET_NULL,
         related_name='+'
     )
-    position = models.CharField(max_length=255, null=True, blank=True)
+    position = models.ForeignKey(
+        JobTitle,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
     department = models.ForeignKey(
         Department,
         null=True,
@@ -52,8 +67,8 @@ class UserProfile(models.Model):
     panels = [
         FieldPanel('user'),
         ImageChooserPanel('image'),
-        FieldPanel('position'),
-        FieldPanel('department'),
+        SnippetChooserPanel('position'),
+        SnippetChooserPanel('department'),
         PageChooserPanel('page'),
         FieldPanel('active')
     ]

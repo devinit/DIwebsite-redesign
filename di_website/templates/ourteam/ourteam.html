@@ -1,9 +1,24 @@
 {% extends "default.html" %}
 
-{% load static wagtailcore_tags  wagtailimages_tags %}
+{% load navigation_tags static wagtailcore_tags  wagtailimages_tags %}
+{% get_site_root as site_root %}
 
+{% block hero %}
+    {% include 'includes/heroes/hero.html' %}
+{% endblock hero %}
 
 {% block body %}
+<section class="section">
+    <div class="row row--narrow">
+        <div class="l-sidebar">
+            <aside class="l-sidebar__aside">
+                <div class="aside aside--clipping">
+                    {% secondary_menu parent=self %}
+                </div>
+            </aside>
+        </div>
+    </div>
+</section>
 
 <section class="section">
     {% for profile in profiles %}
@@ -25,5 +40,4 @@
         </div>
     {% endfor %}
 </section>
-
 {% endblock %}

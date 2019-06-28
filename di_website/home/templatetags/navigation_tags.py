@@ -29,7 +29,7 @@ def get_menu_items(page, calling_page):
         menu_item.active = is_active(menu_item, calling_page)
     return menu_items
 
-@register.inclusion_tag('includes/navigation/primary.html', takes_context=True)
+@register.inclusion_tag('tags/navigation/primary.html', takes_context=True)
 def primary_menu(context, parent, calling_page=None):
     menu_items = get_menu_items(parent, calling_page)
     return {

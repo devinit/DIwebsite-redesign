@@ -14,7 +14,7 @@ from di_website.home.templatetags.navigation_tags import get_menu_items
 register = template.Library()
 
 
-@register.inclusion_tag('includes/scaffold/useful_links.html', takes_context=True)
+@register.inclusion_tag('tags/footer/useful_links.html', takes_context=True)
 def get_footer_sections(context, parent, calling_page=None):
     footer_sections = FooterSection.objects.all()
     for footer_section in footer_sections:
@@ -33,14 +33,14 @@ def get_footer_sections(context, parent, calling_page=None):
     }
 
 
-@register.inclusion_tag('includes/scaffold/newsletter.html')
+@register.inclusion_tag('tags/footer/newsletter.html')
 def subscribe_to_newsletter():
     return {
         'newsletters': NewsLetter.objects.all()
     }
 
 
-@register.inclusion_tag('includes/scaffold/footer_text.html')
+@register.inclusion_tag('tags/footer/footer_text.html')
 def get_footer_text():
     footer_text = ""
     if FooterText.objects.first() is not None:

@@ -13,6 +13,7 @@
 {% set section = "Publications" %}
 {% set title = "Publication title" %}
 {% set excerpt = "" %}
+{% set button = "Publication downloads" %}
 {% set image_name = "content-image3.jpg" %}
 
 {# --------------------------------------- #}
@@ -42,6 +43,7 @@
                 <div class="larger-center">
                     <div class="chapter-block__item">
                         <div class="chapter-block_content">
+                            {% include 'partials/author-multiple.html' %}
                             <h2 class="chapter-block__heading">Module title</h2>
                             <p class="chapter-block__excerpt">Ait amet, consecLorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper sus agna aliquam era.</p>
                             <a href="#" id="" class="button button--a11y" title="Read the summary"><span>Read the Summary</span></a>
@@ -227,7 +229,7 @@
                     </div>
                 </div>
             </div>
-            <div class="space-section-both">
+            <div class="space-section-both" id="downloads">
                 <div class="download">
                     <h2 class="type-m type-s--trailer">Publication downloads</h2>
                     <ul class="download__list">

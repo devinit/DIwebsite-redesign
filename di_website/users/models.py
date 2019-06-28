@@ -8,20 +8,12 @@ from wagtail.admin.edit_handlers import (
 from wagtail.images.edit_handlers import ImageChooserPanel
 
 
-DEPARTMENTS = [
-    ("LEA", "Leadership Team"),
-    ("DAT", "Data Science & Information Architecture"),
-    ("REA", "Research & Analysis"),
-    ("PRO", "Project Management"),
-    ("HRF", "HR, Facilities, IT & Finance"),
-    ("STR", "Strategic Partnerships"),
-    ("COM", "Communications"),
-    ("POL", "Policy & Engagement"),
-    ("NON", "Non-Executive Directors"),
-    ("BOA", "Board Members"),
-    ("CON", "Consultants"),
-    ("FEL", "Fellow")
-]
+@register_snippet
+class Department(models.Model):
+    name = models.CharField(max_length=255, unique=True)
+
+    def __str__(self):
+        return self.name
 
 
 @register_snippet
@@ -41,7 +33,13 @@ class UserProfile(models.Model):
         related_name='+'
     )
     position = models.CharField(max_length=255, null=True, blank=True)
-    department = models.CharField(max_length=3, choices=DEPARTMENTS, null=True, blank=True)
+    department = models.ForeignKey(
+        Department,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
     page = models.ForeignKey(
         'wagtailcore.Page',
         null=True,

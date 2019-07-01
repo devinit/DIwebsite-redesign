@@ -72,9 +72,6 @@ button.button {
 		display: block;
 		width: 100%;
 	}
-	&:hover {
-		border-left-width: 1px;
-	}
 	&__meta {
 		color: $slate;
 		@include font-size($eta);
@@ -96,6 +93,9 @@ button.button {
 			}
 		}
 	}
+	&:hover {
+		background-color: transparent;
+	}
 	.aside & {
 		margin-top: 1em;
 	}
@@ -114,11 +114,6 @@ button.button {
 .button--reverse {
 	border-color: #fff;
 	color: #fff;
-	@include link-active-styles {
-		border-color: #fff;
-		background-color: #fff;
-		color: $heading-color;
-	}
 	.button--faux__meta {
 		color: #fff;
 	}
@@ -127,6 +122,16 @@ button.button {
 	}
 	.button--faux__list a {
 		color: #fff;
+	}
+	@include link-active-styles {
+		border-color: #fff;
+		background-color: #fff;
+		color: $heading-color;
+	}
+	&.button--faux {
+		&:hover {
+			background-color: transparent;
+		}
 	}
 }
 

@@ -116,28 +116,24 @@
 
 .l-2up {
 	@extend %l;
-	@include respond-to($c-vp) {
+	@include respond-to($b-vp) {
+		@supports (display: -ms-grid) {
+			display: block;
+		}
 		@supports (display: grid) {
 			display: grid;
 			grid-template-columns: 1fr 1fr;
 			grid-column-gap: 40px;
 			grid-row: inherit;
 		}
-		@supports (display: -ms-grid) {
-			display: block;
-		}
 	}
 	&__col, .card {
 		margin-bottom: 3em;
-		@include respond-to($c-vp) {
+		@include respond-to($b-vp) {
 			float: left;
 			width: 47.5%;
 			margin-right: 5%;
 			&:nth-child(2n) {
-				margin-right: 0;
-			}
-			@supports (display: grid) {
-				width: auto;
 				margin-right: 0;
 			}
 			@supports (display: -ms-grid) {
@@ -147,6 +143,10 @@
 				&:nth-child(2n) {
 					margin-right: 0;
 				}
+			}
+			@supports (display: grid) {
+				width: auto;
+				margin-right: 0;
 			}
 		}
 	}
@@ -159,14 +159,14 @@
 .l-2up-3up {
 	@extend %l;
 	@include respond-to($b-vp) {
+		@supports (display: -ms-grid) {
+			display: block;
+		}
 		@supports (display: grid) {
 			display: grid;
 			grid-template-columns: 1fr 1fr;
 			grid-column-gap: 40px;
 			grid-row: inherit;
-		}
-		@supports (display: -ms-grid) {
-			display: block;
 		}
 	}
 	&__col, .card {
@@ -178,10 +178,6 @@
 			&:nth-child(2n) {
 				margin-right: 0;
 			}
-			@supports (display: grid) {
-				width: auto;
-				margin-right: 0;
-			}
 			@supports (display: -ms-grid) {
 				float: left;
 				width: 47.5%;
@@ -190,18 +186,22 @@
 					margin-right: 0;
 				}
 			}
+			@supports (display: grid) {
+				width: auto;
+				margin-right: 0;
+			}
 		}
 	}
 	// 3 column
 	@include respond-to($d-vp) {
+		@supports (display: -ms-grid) {
+			display: block;
+		}
 		@supports (display: grid) {
 			display: grid;
 			grid-template-columns: 1fr 1fr 1fr;
 			grid-column-gap: 40px;
 			grid-row: inherit;
-		}
-		@supports (display: -ms-grid) {
-			display: block;
 		}
 	}
 	&__col, .card {
@@ -213,10 +213,6 @@
 			&:nth-child(2n) {
 				margin-right: 0;
 			}
-			@supports (display: grid) {
-				width: auto;
-				margin-right: 0;
-			}
 			@supports (display: -ms-grid) {
 				float: left;
 				width: 30%;
@@ -224,6 +220,10 @@
 				&:nth-child(2n) {
 					margin-right: 0;
 				}
+			}
+			@supports (display: grid) {
+				width: auto;
+				margin-right: 0;
 			}
 		}
 	}
@@ -236,14 +236,14 @@
 .l-3up {
 	@extend %l;
 	@include respond-to($c-vp) {
+		@supports (display: -ms-grid) {
+			display: block;
+		}
 		@supports (display: grid) {
 			display: grid;
 			grid-template-columns: 1fr 1fr 1fr;
 			grid-column-gap: 40px;
 			grid-row: inherit;
-		}
-		@supports (display: -ms-grid) {
-			display: block;
 		}
 	}
 	&__col, .card, .m-service {
@@ -255,10 +255,6 @@
 			&:nth-child(3n) {
 				margin-right: 0;
 			}
-			@supports (display: grid) {
-				width: auto;
-				margin-right: 0;
-			}
 			@supports (display: -ms-grid) {
 				float: left;
 				width: 30%;
@@ -266,6 +262,52 @@
 				&:nth-child(3n) {
 					margin-right: 0;
 				}
+			}
+			@supports (display: grid) {
+				width: auto;
+				margin-right: 0;
+			}
+		}
+	}
+}
+
+// ------------------------------------------------------------
+// 5 columns
+// ------------------------------------------------------------
+
+.l-5up {
+	@extend %l;
+	@include respond-to($c-vp) {
+		@supports (display: -ms-grid) {
+			display: block;
+		}
+		@supports (display: grid) {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+			grid-column-gap: 40px;
+			grid-row: inherit;
+		}
+	}
+	&__col, .card {
+		margin-bottom: 3em;
+		@include respond-to($c-vp) {
+			float: left;
+			width: 16%;
+			margin-right: 5%;
+			&:nth-child(3n) {
+				margin-right: 0;
+			}
+			@supports (display: -ms-grid) {
+				float: left;
+				width: 16%;
+				margin-right: 5%;
+				&:nth-child(3n) {
+					margin-right: 0;
+				}
+			}
+			@supports (display: grid) {
+				width: auto;
+				margin-right: 0;
 			}
 		}
 	}

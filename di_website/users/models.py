@@ -16,6 +16,10 @@ class JobTitle(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name = 'Job Title'
+        verbose_name_plural = 'Job Titles'
+
 
 @register_snippet
 class Department(models.Model):
@@ -75,6 +79,10 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return "{} ({})".format(self.name if self.name else self.user.username, "Active" if self.active else "Inactive")
+
+    class Meta:
+        verbose_name = 'User Profile'
+        verbose_name_plural = 'User Profiles'
 
 
 class User(AbstractUser):

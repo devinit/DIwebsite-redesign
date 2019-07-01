@@ -24,10 +24,13 @@ def is_active(page, current_page):
     return current_page.url_path.startswith(page.url_path) if current_page else False
 
 def get_menu_items(page, calling_page):
-    menu_items = page.get_children().live().in_menu()
-    for menu_item in menu_items:
-        menu_item.active = is_active(menu_item, calling_page)
-    return menu_items
+    if (hasattr(page, 'get_children')):
+        menu_items = page.get_children().live().in_menu()
+        for menu_item in menu_items:
+            menu_item.active = is_active(menu_item, calling_page)
+        return menu_items
+
+    return []
 
 @register.inclusion_tag('tags/navigation/primary.html', takes_context=True)
 def primary_menu(context, parent, calling_page=None):
@@ -44,10 +47,9 @@ def secondary_menu(context, parent, calling_page=None):
     """
     Returns the children of the specified menu
     """
-    secondary_menu_items = parent.get_children().live().in_menu()
+    secondary_menu_items = get_menu_items(parent, calling_page)
     for menu_item in secondary_menu_items:
         menu_item.has_dropdown = has_menu_children(menu_item)
-        menu_item.active = is_active(menu_item, calling_page)
         menu_item.children = menu_item.get_children().live().in_menu()
     return {
         'parent': parent,

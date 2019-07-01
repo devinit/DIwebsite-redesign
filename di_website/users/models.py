@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.utils.text import slugify
 from wagtail.snippets.models import register_snippet
 from wagtail.admin.edit_handlers import (
     FieldPanel,
@@ -24,9 +25,20 @@ class JobTitle(models.Model):
 @register_snippet
 class Department(models.Model):
     name = models.CharField(max_length=255, unique=True)
+    slug = models.SlugField(max_length=255, blank=True, null=True, help_text="Optional. Will be auto-generated from name if left blank.")
+
+    panels = [
+        FieldPanel('name'),
+        FieldPanel('slug'),
+    ]
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super(Department, self).save(*args, **kwargs)
 
 
 @register_snippet
@@ -70,6 +82,7 @@ class UserProfile(models.Model):
 
     panels = [
         FieldPanel('user'),
+        FieldPanel('name'),
         ImageChooserPanel('image'),
         SnippetChooserPanel('position'),
         SnippetChooserPanel('department'),

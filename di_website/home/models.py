@@ -81,8 +81,8 @@ class FooterSection(Orderable, ClusterableModel):
         return self.title
 
     class Meta:
-        verbose_name = "footer section"
-        verbose_name_plural = "footer sections"
+        verbose_name = "Footer Section"
+        verbose_name_plural = "Footer Sections"
 
 
 
@@ -93,8 +93,8 @@ class FooterLink(Orderable, AbstractLink):
         return (self.page.title if self.page else self.label)
 
     class Meta:
-        verbose_name = "footer link"
-        verbose_name_plural = "footer links"
+        verbose_name = "Footer Link"
+        verbose_name_plural = "Footer Links"
 
 
 class SocialLink(Orderable, models.Model):
@@ -119,8 +119,8 @@ class SocialLink(Orderable, models.Model):
         return self.social_platform
 
     class Meta:
-        verbose_name = 'social link'
-        verbose_name_plural = 'social links'
+        verbose_name = 'Social Link'
+        verbose_name_plural = 'Social Links'
 
 
 @register_snippet
@@ -180,7 +180,7 @@ class HomePage(StandardPage):
                 FieldPanel('hero_link_caption'),
                 PageChooserPanel('hero_link')
             ])
-        ], heading="Hero section")
+        ], heading="Hero Section")
     ]
 
     def __str__(self):

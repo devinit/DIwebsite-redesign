@@ -59,6 +59,10 @@
     @include font-size($zeta);
     color: lighten($slate, 50%);
     max-width: 75%;
+    &--major {
+        @include font-size($epsilon);
+        margin-bottom: 0.5em;
+    }
 }
 
 .footer__social {

@@ -16,7 +16,19 @@
 		"stage": "review"
 	},
 	{
+		"name": "01d-media-center",
+		"stage": "review"
+	},
+	{
 		"name": "02-homepage",
+		"stage": "review"
+	},
+	{
+		"name": "02b-homepage-2-publications",
+		"stage": "review"
+	},
+	{
+		"name": "02c-homepage-1-publication",
 		"stage": "review"
 	},
 	{
@@ -89,11 +101,11 @@
 	},
 	{
 		"name": "14-1-publication-long-form",
-		"stage": "Template"
+		"stage": "review"
 	},
 	{
 		"name": "14-1a-publication-short-form",
-		"stage": "Template"
+		"stage": "review"
 	},
 	{
 		"name": "14-2-publication-appendix",

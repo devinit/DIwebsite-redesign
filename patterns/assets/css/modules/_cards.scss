@@ -14,10 +14,12 @@
                 float: left;
                 width: 40%;
                 transform:translate(-2em,-2em);
+                transition: all, ease-in-out, 0.3s;
             }
             .card__body {
                 float: left;
                 width: 60%;
+                transition: all, ease-in-out, 0.3s;
             }
         }
     }
@@ -51,7 +53,7 @@ a.card {
             }
         }
     }
-    &--offset {
+    &--offset, &--duo {
         &:hover {
             .card__media {
                 transform:translate(0,0);
@@ -87,6 +89,10 @@ a.card {
     .card--feature & {
         @include maintain-ratio(16 9);
         width: 60%;
+    }
+    .card--duo & {
+        padding-bottom: 0;
+        height: auto;
     }
 }
 

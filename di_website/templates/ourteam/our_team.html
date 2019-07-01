@@ -1,6 +1,6 @@
 {% extends "default.html" %}
 
-{% load navigation_tags static wagtailcore_tags  wagtailimages_tags %}
+{% load navigation_tags static wagtailcore_tags users_tags wagtailimages_tags %}
 {% get_site_root as site_root %}
 
 {% block hero %}
@@ -13,7 +13,7 @@
         <div class="l-sidebar">
             <aside class="l-sidebar__aside">
                 <div class="aside aside--clipping">
-                    {% secondary_menu parent=page %}
+                    {% secondary_menu parent=self %}
                 </div>
             </aside>
         </div>
@@ -21,6 +21,7 @@
 </section>
 
 <section class="section">
+    {% get_user_profiles as profiles %}
     {% for profile in profiles %}
         {% image profile.image max-260x260 as img %}
         <div class="row row--narrow">

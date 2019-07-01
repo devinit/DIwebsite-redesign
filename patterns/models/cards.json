@@ -294,27 +294,96 @@
 		    "excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."
 		}
     ],
+    "publication_home_two": [
+	    {
+            "content": "Report",
+            "img_name": "content-image4",
+		    "title": "Lorem ipsum dolor sit amet consectetur.",
+		    "date": "16th March 2019",
+		    "excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."
+		},
+        {
+            "content": "Background Paper",
+            "img_name": "content-image1",
+		    "title": "Lorem ipsum dolor sit amet consectetur.",
+		    "date": "16th March 2019",
+		    "excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."
+		}
+    ],
+    "publication_home_one": [
+	    {
+            "content": "Report",
+            "img_name": "content-image4",
+		    "title": "Lorem ipsum dolor sit amet consectetur.",
+		    "date": "16th March 2019",
+		    "excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."
+		}
+    ],
+    "press_list": [
+	    {
+            "content": "Report",
+            "img_name": "content-image4",
+		    "title": "Lorem ipsum dolor sit amet consectetur.",
+		    "date": "16th March 2019",
+		    "excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."
+		},
+        {
+            "content": "Background Paper",
+            "img_name": "content-image1",
+		    "title": "Lorem ipsum dolor sit amet consectetur.",
+		    "date": "16th March 2019",
+		    "excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."
+		},
+        {
+            "content": "Briefing",
+            "img_name": "fallback-image",
+		    "title": "Lorem ipsum dolor sit amet consectetur.",
+		    "date": "16th March 2019",
+		    "excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."
+		},
+        {
+            "content": "Factsheet",
+            "img_name": "content-image2",
+		    "title": "Lorem ipsum dolor sit amet consectetur.",
+		    "date": "16th March 2019",
+		    "excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."
+		},
+        {
+            "content": "Case Study",
+            "img_name": "fallback-image",
+		    "title": "Lorem ipsum dolor sit amet consectetur.",
+		    "date": "16th March 2019",
+		    "excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."
+		},
+        {
+            "content": "Consultation Paper",
+            "img_name": "content-image3",
+		    "title": "Lorem ipsum dolor sit amet consectetur.",
+		    "date": "16th March 2019",
+		    "excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."
+		}
+    ],
     "job_info": [
 	    {
-        "img_name": "Pin-at-Open-Up-conference-2-400x250",
+            "img_name": "Pin-at-Open-Up-conference-2-400x250",
 		    "title": "Who we are",
 		    "excerpt": ""
-		  },
-      {
-        "img_name": "Judith-Randall-panel-photo-400x250",
+		},
+        {
+            "img_name": "Judith-Randall-panel-photo-400x250",
 		    "title": "Our Story",
 		    "excerpt": ""
-		  },
-      {
-        "img_name": "20180323-JonCraig_Photos-07778606070-33-400x250",
+		},
+        {
+            "img_name": "20180323-JonCraig_Photos-07778606070-33-400x250",
 		    "title": "Meet the team",
 		    "excerpt": ""
-		  },
-      {
-        "img_name": "P1077725-400x250",
+		},
+        {
+            "img_name": "P1077725-400x250",
 		    "title": "What we do",
 		    "excerpt": ""
-		  }
+		}
     ],
     "job_listing": [
 	    {
@@ -391,8 +460,8 @@
               {"label": "<span>Closing date:</span> 9 December 2018"}
           ]
       }
-  ],
-  "member_content": [
+    ],
+    "member_content": [
       {
           "tag": "Report",
           "title": "Development cooperation for improved data",

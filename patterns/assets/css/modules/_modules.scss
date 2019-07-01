@@ -16,6 +16,12 @@
             bottom: -35px;
     	}
     }
+    .hero--image & {
+        @include respond-to($menu-respond) {
+            left: auto;
+    		right: $internal-spacing;
+    	}
+    }
     .card & {
         margin-top: 2em;
         background-color: #fff;
@@ -59,6 +65,42 @@ a.m-author {
     color: #fff;
     .card & {
         color: $base-color;
+    }
+}
+
+// Multiple authors //
+
+.m-authors {
+    position: relative;
+    background-color: #fff;
+    padding: 2em;
+    margin-bottom: 3em;
+    .chapter-block_content & {
+        background-color: transparent;
+        padding: 0;
+        padding-left: 2em;
+        border-left: 2px solid $default-border-color;
+    }
+    &__title {
+        @extend %font-heading;
+        @include font-size($eta);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 0.5em;
+    }
+    &__list {
+        @include font-size($epsilon);
+        li {
+            display: inline-block;
+            margin-right: 3px;
+            &:after {
+                content: ","
+            }
+            a {
+                font-size: inherit;
+                text-decoration: underline;
+            }
+        }
     }
 }
 
@@ -344,7 +386,6 @@ a.m-author {
 }
 
 .footnotes__list {
-    list-style: decimal;
     margin-bottom: 1rem;
     padding-left: 1rem;
     @include respond-to($c-vp) {

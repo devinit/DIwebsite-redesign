@@ -13,6 +13,7 @@
 {% set section = "Publications" %}
 {% set title = "Title of chapter" %}
 {% set excerpt = "" %}
+{% set button = "Publication downloads" %}
 {% set image_name = "content-image3.jpg" %}
 
 {# --------------------------------------- #}
@@ -33,11 +34,27 @@
 {# --------------------------------------- #}
 
 {% block body %}
-    {% include 'heroes/hero-publication.html' %}
+    {% include 'heroes/hero.html' %}
+
+    <div class="js-chapter-nav">
+        <div class="page__action">
+            <div class="page__action__menu">
+                <p class="page__action_text">
+                    <a href="" class="page__action__no-js-link">Jump to section</a>
+                    <span class="page__action__js-text">Jump to section</span>
+                </p>
+                <div class="page__action__burgerWrapper">
+                    <div class="burger burger--reverse"><span></span></div>
+                </div>
+            </div>
+        </div>
+        {% include 'navigation/chapter-nav-simple.html' %}
+    </div>
 
     <section class="section section--post">
         <div class="row row--narrow">
             <div class="max-meter max-meter--center">
+                {% include 'partials/author-multiple.html' %}
                 <div class="is-typeset is-typeset--additionals wysiwyg">
                     {% include 'content/longform.html' %}
                 </div>
@@ -154,7 +171,7 @@
         </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="downloads">
         <div class="row row--narrow">
             <div class="share space-section-bottom-med">
                 <div class="share__content">
@@ -179,34 +196,32 @@
                 </div>
             </div>
             <div class="space-section-both">
-                <div class="download">
-                    <h2 class="type-m type-s--trailer">Publication downloads</h2>
-                    <ul class="download__list">
-                        <li class="download__item">
-                            <span class="download__label">English</span>
-                            <a href="" class="download__link">Chapter 2: The global impact of malnutrition (PDF, 1.2Mb)</a>
-                            <a href="" class="download__link">Global Nutrition Report 2018 (PDF, 4.2Mb)</a>
-                        </li>
-                        <li class="download__item">
-                            <span class="download__label">Spanish</span>
-                            <a href="" class="download__link">Chapter 2: The global impact of malnutrition (PDF, 1.2Mb)</a>
-                            <a href="" class="download__link">Global Nutrition Report 2018 (PDF, 4.2Mb)</a>
-                        </li>
-                    </ul>
-                    <h2 class="type-m type-s--trailer space-section-top--small">Data downloads</h2>
-                    <ul class="download__list">
-                        <li class="download__item">
-                            <span class="download__label">Data</span>
-                            <a href="" class="download__link">Chapter 2 data (XLSX, 1.2Mb)</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="orderReport">
-                    <div class="orderReport__img" style="background-image: url({{ global.assets_root }}/img/content-image1.jpg);"></div>
-                    <div class="orderReport__content">
-                        <h2 class="type-m type-s--trailer">Download this report</h2>
-                        <p class="para type-l--trailer">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-                        <a href="#" id="" class="button button--a11y" title="Download now"><span>Download now</span></a>
+                <div class="l-2up">
+                    <div class="l-2up__col">
+                        <h2 class="type-m type-s--trailer">Downloads</h2>
+                        <ul class="download__list">
+                            <li class="download__item">
+                                <span class="download__label">English</span>
+                                <a href="" class="download__link">Filename (PDF, 1.2Mb)</a>
+                                <a href="" class="download__link">Filename (PDF, 4.2Mb)</a>
+                            </li>
+                            <li class="download__item">
+                                <span class="download__label">Spanish</span>
+                                <a href="" class="download__link">Filename (PDF, 1.2Mb)</a>
+                                <a href="" class="download__link">Filename (PDF, 4.2Mb)</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="l-2up__col">
+                        <h2 class="type-m type-s--trailer">Data downloads</h2>
+                        <ul class="download__list">
+                            <li class="download__item">
+                                <span class="download__label">Data</span>
+                                <a href="" class="download__link">Filename (XLSX, 1.2Mb)</a>
+                                <a href="" class="download__link">Filename (PDF, 1.2Mb)</a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>

@@ -9,6 +9,7 @@
     @include respond-to($menu-respond) {
         padding: 22em 0 10em 0;
         width: 95%;
+        min-height: 500px;
         &:after {
             content: "";
             position: absolute;

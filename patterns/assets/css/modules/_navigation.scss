@@ -108,9 +108,9 @@
 			}
 		}
 		a {
-			display: block;
 			position: relative;
 			color: $heading-color;
+			outline-offset: -2px;
 			span {
 				font-size: inherit;
 				position: relative;

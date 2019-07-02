@@ -19,9 +19,6 @@ body.body--bluebell {
     		background-color: $body-color;
     	}
     }
-    .branding {
-
-    }
     .hero {
         background-color: $bluebell;
     }
@@ -34,13 +31,15 @@ body.body--bluebell {
         background: $bluebell;
     }
     .navigation-primary__item {
-        a {
-            @include link-active-styles {
+        @include respond-to($menu-respond) {
+            a {
+                @include link-active-styles {
+                    border-bottom: 2px solid $bluebell;
+                }
+            }
+            &--active a {
                 border-bottom: 2px solid $bluebell;
             }
-        }
-        &--active a {
-            border-bottom: 2px solid $bluebell;
         }
     }
     .m-authors {
@@ -199,9 +198,6 @@ body.body--leaf {
     		background-color: $body-color;
     	}
     }
-    .branding {
-
-    }
     .hero {
         background-color: $leaf;
     }
@@ -214,13 +210,15 @@ body.body--leaf {
         background: $leaf;
     }
     .navigation-primary__item {
-        a {
-            @include link-active-styles {
+        @include respond-to($menu-respond) {
+            a {
+                @include link-active-styles {
+                    border-bottom: 2px solid $leaf;
+                }
+            }
+            &--active a {
                 border-bottom: 2px solid $leaf;
             }
-        }
-        &--active a {
-            border-bottom: 2px solid $leaf;
         }
     }
     .m-authors {
@@ -410,13 +408,15 @@ body.body--sunflower {
         background: $sunflower;
     }
     .navigation-primary__item {
-        a {
-            @include link-active-styles {
+        @include respond-to($menu-respond) {
+            a {
+                @include link-active-styles {
+                    border-bottom: 2px solid $sunflower;
+                }
+            }
+            &--active a {
                 border-bottom: 2px solid $sunflower;
             }
-        }
-        &--active a {
-            border-bottom: 2px solid $sunflower;
         }
     }
     .m-authors {
@@ -591,9 +591,6 @@ body.body--marigold {
     		background-color: $body-color;
     	}
     }
-    .branding {
-
-    }
     .hero {
         background-color: $marigold;
     }
@@ -606,13 +603,15 @@ body.body--marigold {
         background: $marigold;
     }
     .navigation-primary__item {
-        a {
-            @include link-active-styles {
+        @include respond-to($menu-respond) {
+            a {
+                @include link-active-styles {
+                    border-bottom: 2px solid $marigold;
+                }
+            }
+            &--active a {
                 border-bottom: 2px solid $marigold;
             }
-        }
-        &--active a {
-            border-bottom: 2px solid $marigold;
         }
     }
     .m-authors {
@@ -787,9 +786,6 @@ body.body--rose {
     		background-color: $body-color;
     	}
     }
-    .branding {
-
-    }
     .hero {
         background-color: $rose;
     }
@@ -802,13 +798,15 @@ body.body--rose {
         background: $rose;
     }
     .navigation-primary__item {
-        a {
-            @include link-active-styles {
+        @include respond-to($menu-respond) {
+            a {
+                @include link-active-styles {
+                    border-bottom: 2px solid $rose;
+                }
+            }
+            &--active a {
                 border-bottom: 2px solid $rose;
             }
-        }
-        &--active a {
-            border-bottom: 2px solid $rose;
         }
     }
     .m-authors {
@@ -983,9 +981,6 @@ body.body--lavendar {
     		background-color: $body-color;
     	}
     }
-    .branding {
-
-    }
     .hero {
         background-color: $lavendar;
     }
@@ -998,13 +993,15 @@ body.body--lavendar {
         background: $lavendar;
     }
     .navigation-primary__item {
-        a {
-            @include link-active-styles {
+        @include respond-to($menu-respond) {
+            a {
+                @include link-active-styles {
+                    border-bottom: 2px solid $lavendar;
+                }
+            }
+            &--active a {
                 border-bottom: 2px solid $lavendar;
             }
-        }
-        &--active a {
-            border-bottom: 2px solid $lavendar;
         }
     }
     .m-authors {

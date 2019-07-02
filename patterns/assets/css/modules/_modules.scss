@@ -41,14 +41,22 @@ a.m-author {
 .m-author__image {
     float: left;
     width: 27%;
+    margin-right: 15px;
     img {
         @extend .max-width;
     }
 }
 
 .m-author__body {
-    padding-left: 32%;
+    float: left;
     padding-top: 10px;
+}
+
+.m-author__meta {
+    @include font-size($eta);
+    color: lighten($base-color, 5%);
+    margin-bottom: 5px;
+    display: block;
 }
 
 .m-author__title {

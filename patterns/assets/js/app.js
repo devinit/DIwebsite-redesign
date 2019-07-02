@@ -1,6 +1,7 @@
 import fastClick from 'fastclick';
 import $ from 'jquery';
 
+import childTabIndex from './utils/childTabIndex';
 import skipLinks from './utils/skipLinks';
 import iframer from './utils/iframer';
 import mNav from './utils/mNav';
@@ -26,6 +27,14 @@ function globals () {
         'navigation-primary-toggle--active',
         '#navigation-primary',
         'navigation-primary--active'
+    );
+
+    // Set child tab index for nav
+    childTabIndex(
+        '#navigation-primary-toggle',
+        '#navigation-primary',
+        'navigation-primary--active',
+        960
     );
 
     // Chapter nav

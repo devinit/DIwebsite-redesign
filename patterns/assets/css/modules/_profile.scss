@@ -4,6 +4,14 @@
 
 .profile {
     position: relative;
+    &:hover {
+        .profile__caption {
+            background-color: $poppy-dark;
+            @include respond-to($c-vp) {
+                transform: translate(0,-20px);
+            }
+        }
+    }
 }
 
 .profile__media {
@@ -15,8 +23,9 @@
 .profile__caption {
     background-color: $slate;
     padding: 1.5em;
+    transition: all, ease-in-out, 0.3s;
     @include respond-to($c-vp) {
-        transform:translate(-10px,-20px);
+        transform: translate(-10px,-20px);
     }
 }
 

@@ -5,9 +5,9 @@
 a {
 	color: $action;
 	text-decoration: none;
-	@include link-active-styles { 
+	&:hover { 
 		color: $action-respond;
-	}	
+	}
 }
 
 a[href^="tel"] {
@@ -15,7 +15,7 @@ a[href^="tel"] {
     text-decoration: none;
 }
 
-.skiplink 	{ 
+.skiplink 	{
 	background: #fff;
 	color: $action;
 	border: $default-border-width solid $default-border-color;
@@ -29,7 +29,7 @@ a[href^="tel"] {
 	transition: all ease-in-out 0.1s;
 	&:focus,
 	&:active {
-		top: 0;	
+		top: 0;
 		z-index: 80;
 	}
 }
@@ -44,7 +44,7 @@ svg { max-height: 10000px; }
 // ------------------------------------------------------------
 
 h1,h2,h3,h4,h5,h6 	{ color: $heading-color; }
-ul, ol 				{ @include nobullet; } 					
+ul, ol 				{ @include nobullet; }
 strong, b 			{ font-weight: 600; }
 em, i, q 			{ font-style: italic; }
 a 					{ font-size: inherit;}

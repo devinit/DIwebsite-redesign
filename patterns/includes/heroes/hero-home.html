@@ -1,4 +1,4 @@
-<section class="hero hero--alt">
+<section class="hero {% if image_name %}hero--image{% endif %}">
     {% if image_name %}
         <div class="hero__image" style="background-image: url('{{ global.assets_root }}/img/{{ image_name }}');"></div>
         <span class="hero__credit">Image by <a href="#">Credit name</a></span>
@@ -13,11 +13,9 @@
     <span class="hero__flourish"></span>
     <div class="row row--narrow">
         <div class="hero__content">
-            {% if id == 'vacancy' %}
-                <ul class="hero__meta">
-                    <li class="hero__meta-item hero__meta-item--block">Bristol, UK</li>
-                </ul>
-            {% endif %}
+            <ul class="hero__meta">
+                <li class="hero__meta-item hero__meta-item--block">Report</li>
+            </ul>
             <h1 class="hero__title"><span>{{ title }}</span></h1>
             {% if excerpt %}
                 <p class="hero__excerpt"><span>{{ excerpt }}</span></p>

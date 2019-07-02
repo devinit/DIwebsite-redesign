@@ -1,4 +1,4 @@
-version: '3.7'
+version: '2.2'
 
 services:
 
@@ -11,8 +11,6 @@ services:
     restart: always
     volumes:
       - diwebsite_db:/var/lib/postgresql/data
-    expose:
-      - "5432"
 
   web:
     depends_on:
@@ -22,7 +20,7 @@ services:
     env_file: .env
     build:
       context: .
-  
+
   nginx:
     image: nginx:latest
     ports:

@@ -13,7 +13,7 @@ from wagtail.snippets.models import register_snippet
 
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
-from common.base import StandardPage
+from di_website.common.base import StandardPage
 
 
 class AbstractLink(models.Model):
@@ -139,16 +139,6 @@ class FooterText(models.Model):
         verbose_name_plural = 'Footer Text'
 
 class HomePage(StandardPage):
-    content_panels = StandardPage.content_panels + [
-        MultiFieldPanel([
-            ImageChooserPanel('hero_image'),
-            FieldPanel('hero_text', classname="hero_excerpt"),
-            MultiFieldPanel([
-                FieldPanel('hero_link_caption'),
-                PageChooserPanel('hero_link')
-            ])
-        ], heading="Hero Section")
-    ]
-
+    
     def __str__(self):
         return self.title

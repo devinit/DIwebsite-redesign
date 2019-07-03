@@ -1,6 +1,6 @@
 {% extends "default.html" %}
 
-{% load navigation_tags static wagtailcore_tags users_tags wagtailimages_tags %}
+{% load navigation_tags static wagtailcore_tags users_tags wagtailimages_tags other_pages%}
 {% get_site_root as site_root %}
 
 {% block hero %}
@@ -63,5 +63,9 @@
           </div>
       {% endfor %}
     {% endwith %}
+</section>
+
+<section class="section">
+    {% get_other_pages %}
 </section>
 {% endblock %}

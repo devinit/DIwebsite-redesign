@@ -12,14 +12,16 @@
         display: inline-block;
         margin-bottom: 1em;
         @include font-size($beta);
-        &:after {
-            content: "";
-            position: absolute;
-            top: 20px;
-            right: -4em;
-            height: 1px;
-            width: 3em;
-            background-color: $poppy;
+        @include respond-to($menu-respond) {
+            &:after {
+                content: "";
+                position: absolute;
+                top: 20px;
+                right: -4em;
+                height: 1px;
+                width: 3em;
+                background-color: $poppy;
+            }
         }
     }
     &--alt {

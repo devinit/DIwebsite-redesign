@@ -28,9 +28,6 @@
         height: 50px;
         background-color: $body-color;
     }
-    .button {
-        margin-top: 1em;
-    }
 }
 
 .highlight__heading {
@@ -57,6 +54,7 @@
 
 .highlight__list {
     @include font-size($para);
+    margin-bottom: 1em;
     li {
         margin-bottom: 0.5em;
         &:last-child {

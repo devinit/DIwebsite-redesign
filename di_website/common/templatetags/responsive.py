@@ -2,7 +2,7 @@ from django import template
 from wagtail.images.models import SourceImageIOError
 from wagtail.images.templatetags.wagtailimages_tags import ImageNode
 from django.utils.safestring import mark_safe
-from common.templatetags.string_utils import uid
+from di_website.common.templatetags.string_utils import uid
 
 register = template.Library()
 

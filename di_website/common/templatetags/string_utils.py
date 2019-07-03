@@ -7,7 +7,7 @@ from django.utils.safestring import mark_safe
 from django.template.defaultfilters import force_escape, stringfilter
 from django.utils.text import slugify, Truncator
 from wagtail.core.rich_text import expand_db_html, RichText
-from content.fields import RichText as RichTextBlock
+from wagtail.core.blocks import  RichTextBlock
 
 register = template.Library()
 

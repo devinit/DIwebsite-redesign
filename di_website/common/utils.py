@@ -1,7 +1,6 @@
 from django.db import models
 from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.contrib.modeladmin.helpers import ButtonHelper
-from dashboard.edit_handlers import MultiFieldPanel
 
 
 def ForeignKeyField(model=None, required=False, on_delete=models.SET_NULL, related_name='+', **kwargs) -> models.ForeignKey:

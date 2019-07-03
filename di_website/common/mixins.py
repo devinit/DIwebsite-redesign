@@ -4,7 +4,7 @@ from django.db import models
 from wagtail.core.models import Page
 from wagtail.contrib.redirects.models import Redirect
 from wagtail.search import index
-from common.templatetags.string_utils import uid
+from di_website.common.templatetags.string_utils import uid
 
 
 class UniquePageMixin(object):

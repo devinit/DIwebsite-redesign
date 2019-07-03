@@ -4,7 +4,17 @@
 <section class="hero {% if image %}hero--image{% endif %}">
     {% if image %}
         <div class="hero__image" style="background-image: url('{{ image.url }}');"></div>
+        {% if self.hero_image_credit_name %}
+            <span class="hero__credit">Image by 
+            {% if self.hero_image_credit_url %}
+                <a href="{{self.hero_image_credit_url}}" target="_blank">{{self.hero_image_credit_name}}</a>
+            {% else %}
+               {{self.hero_image_credit_name}}
+            {% endif %}
+            </span>
+        {% endif%}
     {% endif %}
+    
     <span class="hero__flourish"></span>
     <span class="hero__flourish"></span>
     <span class="hero__flourish"></span>

@@ -28,6 +28,20 @@ class StandardPage(Page):
         related_name='+',
         help_text='Hero Image'
     )
+
+    hero_image_credit_name = models.CharField(
+        max_length=50,
+        null=True,
+        blank=True,
+        help_text='Name of source of image used in hero if any'
+    )
+
+    hero_image_credit_url = models.URLField(
+        null=True,
+        blank=True,
+        help_text='A Link to the original source of the image if any'
+    )
+
     hero_text = RichTextField(
         null=True,
         blank=True,
@@ -48,9 +62,12 @@ class StandardPage(Page):
         help_text='Text to display on the link button'
     )
 
+
     content_panels = Page.content_panels + [
         MultiFieldPanel([
             ImageChooserPanel('hero_image'),
+            FieldPanel('hero_image_credit_name'),
+            FieldPanel('hero_image_credit_url'),
             FieldPanel('hero_text', classname="hero_excerpt"),
             MultiFieldPanel([
                 FieldPanel('hero_link_caption'),

@@ -3,6 +3,7 @@
 // ------------------------------------------------------------
 
 .form {
+	@extend %pie-clearfix;
 	position: relative;
 }
 
@@ -47,20 +48,36 @@
 }
 
 .form-field--inline {
-	display: inline-block;
-	width: 47.5%;
-	.button {
-		margin-top: -3px;
-		display: block;
+	position: relative;
+	z-index: 1;
+	display: block;
+	margin-top: 1em;
+	@include respond-to($c-vp - 100px) {
+		display: inline-block;
+		width: 47.5%;
+		float: left;
+		.button {
+			margin-top: 1px;
+			margin-left: 2px;
+			display: block;
+		}
 	}
 }
 
 .form-field--inline-three {
-	display: inline-block;
-	width: 32.5%;
-	.button {
-		margin-top: -3px;
-		display: block;
+	position: relative;
+	z-index: 1;
+	display: block;
+	margin-top: 1em;
+	@include respond-to($c-vp - 100px) {
+		display: inline-block;
+		width: 32.5%;
+		float: left;
+		.button {
+			margin-top: 1px;
+			margin-left: 2px;
+			display: block;
+		}
 	}
 }
 
@@ -72,7 +89,10 @@
 	@include respond-to($c-vp - 100px) {
 		display: inline-block;
 		width: 24.5%;
+		float: left;
 		.button {
+			margin-top: 1px;
+			margin-left: 2px;
 			display: block;
 		}
 	}
@@ -118,10 +138,12 @@ textarea.form-item {
 	@extend %pie-clearfix;
 	&--columns {
 		@include respond-to($b-vp + 100px) {
-			columns: 2;
+			column-count: 2;
+			column-width: 50%;
 		}
 		@include respond-to($c-vp) {
-			columns: 3;
+			column-count: 3;
+			column-width: 33.33%;
 		}
 	}
 	label {
@@ -175,13 +197,12 @@ textarea.form-item {
 		height: $form-item-height;
 		background-color: transparent;
 		padding-left: $form-padding/2;
-		padding-right: $form-padding/2;
+		padding-right: 25px;
 		vertical-align: middle;
 		border: $default-border-width solid $default-border-color;
 		appearance: none;
-		background: url(../svg/png/sort-dark.png) #fff no-repeat right 50%;
-		background: url(../svg/source/sort-dark.svg) #fff no-repeat right 50%;
-		background-origin: content-box;
+		background: url(../svg/png/sort-dark.png) #fff no-repeat 99% 50%;
+		background: url(../svg/source/sort-dark.svg) #fff no-repeat 99% 50%;
 		background-color: #fff;
 		background-size: 14px 14px;
 		&:hover, &:focus {

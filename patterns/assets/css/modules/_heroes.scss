@@ -230,81 +230,85 @@
 // ------------------------------------------------------------
 
 .hero__flourish {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 120px;
-    height: 120px;
-    opacity: 0;
-    background: $poppy-dark;
-    animation: herofade 1s;
-    animation-delay: 1.5s;
-    animation-fill-mode: forwards;
-    mix-blend-mode: color;
-    &:nth-child(2) {
-        left: 50px;
-        width: 100px;
-        height: 100px;
-        animation: herofade2 1s;
-        animation-delay: 1s;
+    display: none;
+    @include respond-to($menu-respond) {
+        position: absolute;
+        display: block;
+        bottom: 0;
+        right: 0;
+        width: 120px;
+        height: 120px;
+        opacity: 0;
+        background: $poppy-dark;
+        animation: herofade 1s;
+        animation-delay: 1.5s;
         animation-fill-mode: forwards;
-    }
-    &:nth-child(3) {
-        top: 200px;
-        right: 435px;
-        width: 80px;
-        height: 80px;
-        animation: herofade3 1s;
-        animation-delay: 0.75s;
-        animation-fill-mode: forwards;
-    }
-    &:nth-child(4) {
-        top: 140px;
-        right: 375px;
-        width: 60px;
-        height: 60px;
-        animation: herofade4 1s;
-        animation-delay: 0.5s;
-        animation-fill-mode: forwards;
-    }
-    &:nth-child(5) {
-        top: 30px;
-        right: 220px;
-        width: 40px;
-        height: 40px;
-        animation: herofade5 1s;
-        animation-delay: 1.6s;
-        animation-fill-mode: forwards;
-    }
-    &:nth-child(6) {
-        top: 60px;
-        left: 250px;
-        width: 70px;
-        height: 70px;
-        animation: herofade6 1s;
-        animation-delay: 2s;
-        animation-fill-mode: forwards;
-    }
-    &:nth-child(7) {
-        display: none;
-        @include respond-to($menu-respond) {
-            display: block;
-            bottom: 90px;
-            right: -30px;
-            width: 30px;
-            height: 30px;
+        mix-blend-mode: color;
+        &:nth-child(2) {
+            left: 50px;
+            width: 100px;
+            height: 100px;
+            animation: herofade2 1s;
+            animation-delay: 1s;
+            animation-fill-mode: forwards;
+        }
+        &:nth-child(3) {
+            top: 200px;
+            right: 435px;
+            width: 80px;
+            height: 80px;
+            animation: herofade3 1s;
+            animation-delay: 0.75s;
+            animation-fill-mode: forwards;
+        }
+        &:nth-child(4) {
+            top: 140px;
+            right: 375px;
+            width: 60px;
+            height: 60px;
+            animation: herofade4 1s;
+            animation-delay: 0.5s;
+            animation-fill-mode: forwards;
+        }
+        &:nth-child(5) {
+            top: 30px;
+            right: 220px;
+            width: 40px;
+            height: 40px;
+            animation: herofade5 1s;
+            animation-delay: 1.6s;
+            animation-fill-mode: forwards;
+        }
+        &:nth-child(6) {
+            top: 60px;
+            left: 250px;
+            width: 70px;
+            height: 70px;
             animation: herofade6 1s;
             animation-delay: 2s;
             animation-fill-mode: forwards;
         }
-    }
-    &:nth-child(8) {
-        bottom: -50px;
-        right: 70px;
-        width: 50px;
-        height: 50px;
-        animation: herofade2 1s;
-        animation-delay: 2s;
-        animation-fill-mode: forwards;
+        &:nth-child(7) {
+            display: none;
+            @include respond-to($menu-respond) {
+                display: block;
+                bottom: 90px;
+                right: -30px;
+                width: 30px;
+                height: 30px;
+                animation: herofade6 1s;
+                animation-delay: 2s;
+                animation-fill-mode: forwards;
+            }
+        }
+        &:nth-child(8) {
+            bottom: -50px;
+            right: 70px;
+            width: 50px;
+            height: 50px;
+            animation: herofade2 1s;
+            animation-delay: 2s;
+            animation-fill-mode: forwards;
+        }
     }
 }

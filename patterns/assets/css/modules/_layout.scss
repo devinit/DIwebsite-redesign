@@ -178,12 +178,18 @@
 			&:nth-child(2n) {
 				margin-right: 0;
 			}
+			&:nth-child(2n+1) {
+				clear: left;
+			}
 			@supports (display: -ms-grid) {
 				float: left;
 				width: 47.5%;
 				margin-right: 5%;
 				&:nth-child(2n) {
 					margin-right: 0;
+				}
+				&:nth-child(2n+1) {
+					clear: left;
 				}
 			}
 			@supports (display: grid) {
@@ -205,20 +211,37 @@
 		}
 	}
 	&__col, .card {
-		margin-bottom: 3em;
 		@include respond-to($d-vp) {
 			float: left;
 			width: 30%;
 			margin-right: 5%;
 			&:nth-child(2n) {
+				margin-right: 5%;
+			}
+			&:nth-child(2n+1) {
+				clear: none;
+			}
+			&:nth-child(3n) {
 				margin-right: 0;
+			}
+			&:nth-child(3n+1) {
+				clear: left;
 			}
 			@supports (display: -ms-grid) {
 				float: left;
 				width: 30%;
 				margin-right: 5%;
 				&:nth-child(2n) {
+					margin-right: 5%;
+				}
+				&:nth-child(2n+1) {
+					clear: none;
+				}
+				&:nth-child(3n) {
 					margin-right: 0;
+				}
+				&:nth-child(3n+1) {
+					clear: left;
 				}
 			}
 			@supports (display: grid) {
@@ -294,14 +317,14 @@
 			float: left;
 			width: 16%;
 			margin-right: 5%;
-			&:nth-child(3n) {
+			&:nth-child(5n) {
 				margin-right: 0;
 			}
 			@supports (display: -ms-grid) {
 				float: left;
 				width: 16%;
 				margin-right: 5%;
-				&:nth-child(3n) {
+				&:nth-child(5n) {
 					margin-right: 0;
 				}
 			}
@@ -350,15 +373,15 @@
 
 .l-4up {
 	@extend %l;
-	@include respond-to($c-vp) {
+	@include respond-to($b-vp) {
+		@supports (display: -ms-grid) {
+			display: block;
+		}
 		@supports (display: grid) {
 			display: grid;
 			grid-template-columns: 1fr 1fr;
 			grid-column-gap: 40px;
 			grid-row: inherit;
-		}
-		@supports (display: -ms-grid) {
-			display: block;
 		}
 	}
 	@include respond-to($d-vp) {
@@ -366,15 +389,11 @@
 	}
 	&__col, .card, .location {
 		margin-bottom: 3em;
-		@include respond-to($c-vp) {
+		@include respond-to($b-vp) {
 			float: left;
 			width: 47.5%;
 			margin-right: 5%;
 			&:nth-child(2n) {
-				margin-right: 0;
-			}
-			@supports (display: grid) {
-				width: auto;
 				margin-right: 0;
 			}
 			@supports (display: -ms-grid) {
@@ -384,6 +403,10 @@
 				&:nth-child(2n) {
 					margin-right: 0;
 				}
+			}
+			@supports (display: grid) {
+				width: auto;
+				margin-right: 0;
 			}
 		}
 		@include respond-to($d-vp) {
@@ -396,13 +419,6 @@
 			&:nth-child(4n) {
 				margin-right: 0;
 			}
-			@supports (display: grid) {
-				width: auto;
-				margin-right: 0;
-				&:nth-child(2n) {
-					margin-right: 0;
-				}
-			}
 			@supports (display: -ms-grid) {
 				float: left;
 				width: 21.25%;
@@ -411,6 +427,13 @@
 					margin-right: 5%;
 				}
 				&:nth-child(4n) {
+					margin-right: 0;
+				}
+			}
+			@supports (display: grid) {
+				width: auto;
+				margin-right: 0;
+				&:nth-child(2n) {
 					margin-right: 0;
 				}
 			}

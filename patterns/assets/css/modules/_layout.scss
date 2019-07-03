@@ -222,18 +222,6 @@
 			&:nth-child(2n) {
 				margin-right: 5%;
 			}
-<<<<<<< HEAD
-			&:nth-child(2n+1) {
-				clear: none;
-			}
-			&:nth-child(3n) {
-				margin-right: 0;
-			}
-			&:nth-child(3n+1) {
-				clear: left;
-			}
-=======
->>>>>>> 817e9de3fc5ab3fcfde7209c3c2592b55395690b
 			@supports (display: -ms-grid) {
 				float: left;
 				width: 30%;
@@ -328,11 +316,7 @@
 			float: left;
 			width: 16%;
 			margin-right: 5%;
-<<<<<<< HEAD
 			&:nth-child(5n) {
-=======
-			&:nth-child(3n) {
->>>>>>> 817e9de3fc5ab3fcfde7209c3c2592b55395690b
 				margin-right: 0;
 			}
 			@supports (display: -ms-grid) {

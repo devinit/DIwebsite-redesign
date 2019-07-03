@@ -1,7 +1,6 @@
 from django import template
 
 from wagtail.core.models import Page
-from di_website.home.models import HomePage
 
 
 register = template.Library()

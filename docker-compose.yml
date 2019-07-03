@@ -7,7 +7,11 @@ services:
     environment:
       POSTGRES_DB: di_website
       POSTGRES_USER: di_website
+<<<<<<< HEAD
       POSTGRES_PASSWORD: chemical_ali!123!
+=======
+      POSTGRES_PASSWORD: di_website_pw
+>>>>>>> 817e9de3fc5ab3fcfde7209c3c2592b55395690b
     restart: always
     volumes:
       - diwebsite_db:/var/lib/postgresql/data

@@ -98,6 +98,20 @@
 	}
 }
 
+.form-field--inline-four {
+	position: relative;
+	z-index: 1;
+	display: block;
+	margin-top: 1em;
+	@include respond-to($c-vp - 100px) {
+		display: inline-block;
+		width: 24.5%;
+		.button {
+			display: block;
+		}
+	}
+}
+
 // Standard form elements
 .form-item {
 	padding: 0 $form-padding/2;

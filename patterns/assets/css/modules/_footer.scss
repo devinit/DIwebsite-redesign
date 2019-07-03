@@ -58,13 +58,20 @@
 .footer__meta-copy {
     @include font-size($zeta);
     color: lighten($slate, 50%);
+<<<<<<< HEAD
+=======
+    max-width: 75%;
+>>>>>>> 817e9de3fc5ab3fcfde7209c3c2592b55395690b
     &--major {
         @include font-size($epsilon);
         margin-bottom: 0.5em;
     }
+<<<<<<< HEAD
     @include respond-to($menu-respond) {
         max-width: 75%;
     }
+=======
+>>>>>>> 817e9de3fc5ab3fcfde7209c3c2592b55395690b
 }
 
 .footer__social {

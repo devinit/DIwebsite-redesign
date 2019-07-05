@@ -144,6 +144,15 @@ a.m-author {
     &--center {
         text-align: center;
     }
+    a {
+        color: $heading-color;
+        position: relative;
+        border-bottom: 0 solid $poppy;
+        transition: all, ease-in-out, 0.3s;
+        &:hover {
+            border-bottom-width: 2px;
+        }
+    }
 }
 
 .m-stat__excerpt {

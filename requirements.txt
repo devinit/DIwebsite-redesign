@@ -5,9 +5,5 @@ psycopg2==2.8.2
 gunicorn==19.9.0
 django-dotenv==1.4.2
 django-debug-toolbar==2.0
-<<<<<<< HEAD
-=======
-bleach==3.1.0
 codecov==2.0.15
 coverage==4.5.3
->>>>>>> Coverage

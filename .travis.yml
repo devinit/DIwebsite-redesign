@@ -7,7 +7,6 @@ services:
   - docker
 before_install:
   - pip install codecov
-  - mkdir shared
   - echo "DATABASE_URL=postgresql://di_website:di_website_pw@db/di_website" > .env
   - docker volume create --name=diwebsite_db
   - docker-compose up --build -d

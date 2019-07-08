@@ -20,6 +20,8 @@ services:
     env_file: .env
     build:
       context: .
+    volumes:
+      - ./shared:./shared
 
   nginx:
     image: nginx:latest

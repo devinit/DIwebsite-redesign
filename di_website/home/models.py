@@ -102,6 +102,10 @@ class SocialLink(Orderable, models.Model):
     SOCIAL_CHOICES = [
         ('twitter', 'Twitter'),
         ('facebook', 'Facebook'),
+        ('linkedin', 'Linked In'),
+        ('facebook', 'Facebook'),
+        ('youtube', 'YouTube'),
+        ('flickr', 'Flickr'),
     ]
 
     social_platform = models.CharField(

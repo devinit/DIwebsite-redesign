@@ -6,6 +6,7 @@ python:
 services:
 - docker
 before_install:
+- openssl aes-256-cbc -K $encrypted_5acf24e37bbb_key -iv $encrypted_5acf24e37bbb_iv -in deploy_key.enc -out deploy_key -d
 - pip install codecov
 - echo "DATABASE_URL=postgresql://di_website:di_website_pw@db/di_website" > .env
 - docker volume create --name=diwebsite_db
@@ -15,6 +16,6 @@ script:
 deploy:
  provider: script
  skip_cleanup: true
- script: openssl aes-256-cbc -K $encrypted_5acf24e37bbb_key -iv $encrypted_5acf24e37bbb_iv -in ./deploy_key.enc -out ./deploy_key -d && chmod 600 ./deploy_key && ssh -o StrictHostKeyChecking=no -i ./deploy_key di_website@178.128.102.213 ./deploy.sh
+ script: cd .. && chmod 600 ./deploy_key && ssh -o StrictHostKeyChecking=no -i ./deploy_key di_website@178.128.102.213 ./deploy.sh
  on:
    branch: fix/travis_autodeploy

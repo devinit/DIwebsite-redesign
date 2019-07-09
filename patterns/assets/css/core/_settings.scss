@@ -35,7 +35,7 @@ $max-vp								: $e-vp + $internal-spacing-pixel*2;	// Max viewport
 // Set assignments
 // --------------------------
 $table-respond						: $c-vp;								// Responsive tables
-$menu-respond						: 980px;								// If using ss/non ss navigation
+$menu-respond						: 1000px;								// If using ss/non ss navigation
 $sidebar-respond					: $c-vp;								// Sidebar switch point
 $sidebar-aside-width				: 30%;								    // Sidebar column default
 $sidebar-body-width					: 65%;								    // Sidebar body default

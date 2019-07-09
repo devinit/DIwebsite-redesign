@@ -16,13 +16,11 @@
 	text-decoration: none;
 	position: relative;
 	vertical-align: middle;
-	cursor: pointer;
 	transition: all, ease-in-out, 0.3s;
 	@include link-active-styles {
-		//color: #fff;
-		//background-color: $action;
-		border-left-width: 5px;
-		border-color: $action-respond;
+		background-color: $action;
+		border-color: $action;
+		color: #fff;
 	}
 }
 
@@ -73,9 +71,6 @@ button.button {
 		display: block;
 		width: 100%;
 	}
-	&:hover {
-		border-left-width: 1px;
-	}
 	&__meta {
 		color: $slate;
 		@include font-size($eta);
@@ -97,6 +92,9 @@ button.button {
 			}
 		}
 	}
+	&:hover {
+		background-color: transparent;
+	}
 	.aside & {
 		margin-top: 1em;
 	}
@@ -115,10 +113,6 @@ button.button {
 .button--reverse {
 	border-color: #fff;
 	color: #fff;
-	@include link-active-styles {
-		border-color: #fff;
-		color: #fff;
-	}
 	.button--faux__meta {
 		color: #fff;
 	}
@@ -128,6 +122,16 @@ button.button {
 	.button--faux__list a {
 		color: #fff;
 	}
+	@include link-active-styles {
+		border-color: #fff;
+		background-color: #fff;
+		color: $heading-color;
+	}
+	&.button--faux {
+		&:hover {
+			background-color: transparent;
+		}
+	}
 }
 
 .button--secondary {
@@ -135,7 +139,8 @@ button.button {
 	color: $action-respond;
 	@include link-active-styles {
 		border-color: $action;
-		color: $action;
+		background-color: $action;
+		color: #fff;
 	}
 }
 

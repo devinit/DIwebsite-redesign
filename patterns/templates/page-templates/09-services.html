@@ -8,25 +8,21 @@
 {# 2. Assign Settings and variables #}
 {# --------------------------------------- #}
 
-{% set id = "focus" %}
+{% set id = "who-we-are" %}
 {% set section = "What we do" %}
-{% set title = "Our work in Uganda" %}
-{% set excerpt = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." %}
-{% set image_name = "27150960902_8854a564fb_o-1600x780.jpg" %}
-{% set active_page = "Focus areas" %}
-
-{% set breadcrumbs_parent = "What we do" %}
-{% set breadcrumbs_child = "Uganda" %}
+{% set title = "Consultancy services" %}
+{% set image_name = "42900842442_cc4630d48a_o-1600x780.jpg" %}
+{% set excerpt = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." %}
+{% set active_page = "Consultancy services" %}
 
 {# --------------------------------------- #}
 {# 3. Add models and macros #}
 {# --------------------------------------- #}
 
 {% model 'cards', as="card" %}
-{% model 'form-jobs', as="form" %}
+{% model 'service', as="service" %}
 {% model 'navigation', as="navigation" %}
 
-{% import 'macros/button.html' as buttons %}
 {% import 'macros/icon.html' as icons %}
 {% import 'macros/secondary-navigation.html' as secondary_navigation %}
 
@@ -49,13 +45,8 @@
                     </div>
                 </aside>
                 <div class="l-sidebar__body">
-                    {% include 'partials/breadcrumbs.html' %}
                     <div class="is-typeset wysiwyg">
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                        <div class="media-figure">
-                        	<img src="{{ global.assets_root }}/img/Red-shaded-index-map-of-Uganda-with-regions-800x500.jpg" alt="Inline image">
-                        	<figcaption class="media-figure__credit">Image by <a href="#">Credit name</a></figcaption>
-                        </div>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
                     </div>
                 </div>
@@ -65,27 +56,20 @@
 
     <section class="section">
         <div class="row row--narrow">
-            <div class="banner">
-                <div class="l-banner l-banner--reverse">
-                    <div class="l-banner__aside">
-                        <div class="banner__media">
-                            <img src="{{ global.assets_root }}/img/Primary-leaving-exam-performance-index-map-of-Uganda-800x500.jpg" alt="alt tag">
-                        </div>
-                    </div>
-                    <div class="l-banner__main">
-                        <h3 class="banner__heading">Development Data Hub Spotlight for Uganda</h3>
-                        <ul class="banner__list">
-                            <li>
-                                <h4 class="banner__subeading">Explore</h4>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                            </li>
-                            <li>
-                                <h4 class="banner__subeading">Poverty in Uganda</h4>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                            </li>
-                        </ul>
-                        <a href="#" class="button button--reverse">Spotlight on Uganda</a>
-                    </div>
+            <h2 class="section__heading">We specialise in a number of areas, inluding:</h2>
+            <div class="l-3up">
+                {% for item in card.work_feature %}
+                    {% include 'cards/card-feature-simple.html' %}
+                {% endfor %}
+            </div>
+            <div class="l-2up space-section-top">
+                <div class="l-2up__col">
+                    <h3 class="type-m type-m--trailer">Our principles</h3>
+                    <p class="para">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                </div>
+                <div class="l-2up__col">
+                    <h3 class="type-m type-m--trailer">How we work</h3>
+                    <p class="para">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
                 </div>
             </div>
         </div>
@@ -93,10 +77,11 @@
 
     <section class="section">
         <div class="row row--narrow">
-            <h2 class="section__heading">Related content</h2>
-            <div class="l-2up-3up">
-                {% for item in card.news_related_t8_1 %}
-                    {% include 'cards/card-related.html' %}
+            <h2 class="section__heading">Examples of our work</h2>
+            {% include 'forms/service-filter.html' %}
+            <div class="l-3up space-section-top">
+                {% for item in service.service_list %}
+                    {% include 'partials/service.html' %}
                 {% endfor %}
             </div>
         </div>

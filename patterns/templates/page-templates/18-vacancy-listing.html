@@ -61,8 +61,15 @@
                 <p>Do you want to know when new vacancies become available in your chosen field?</p>
                 <p>Subscribe to vacancy alerts!</p>
             </div>
-            <span class="alert alert--success"><i role="presentation" aria-hidden="true" class="ico ico-success-success"></i>Thanks for subscribing to updates</span>
-            <span class="alert alert--error"><i role="presentation" aria-hidden="true" class="ico ico-error-error"></i>Validation error message</span>
+            <div class="alert alert--success"><i role="presentation" aria-hidden="true" class="ico ico-success-success"></i>
+                <p><strong>Thank you - a verification email has been sent.</strong></p>
+                <p>You have signed up for vacancy alerts for Leadership, Data Science, HR, IT and Policy and Engagement.</p>
+                <p><strong>Please click on the link in the verification email we have sent to confirm your subscription</strong></p>
+            </div>
+            <div class="alert alert--error"><i role="presentation" aria-hidden="true" class="ico ico-error-error"></i>
+                <p>Sorry, there appears to be an issue.</p>
+                <p><strong>Please check you have entered a valid email address and have consented to us collecting the data you submit.</strong></p>
+            </div>
             <form class="form">
                 <fieldset class="form-section">
                     {% for item in form.input %}

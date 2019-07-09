@@ -38,7 +38,6 @@
 		position: relative;
 	}
 	&:focus {
-		outline: none;
 		span {
 
 		}
@@ -108,18 +107,23 @@
 			}
 		}
 		a {
-			display: block;
 			position: relative;
 			color: $heading-color;
+			outline-offset: -2px;
 			span {
 				font-size: inherit;
 				position: relative;
 				z-index: 1;
 			}
 			@include respond-to-max($menu-respond) {
+				display: block;
 				color: #fff;
 				padding: 0.75em 0;
 				border-bottom: $default-border-width solid #fff;
+				text-align: center;
+				@include link-active-styles {
+					border-bottom: 2px solid #fff;
+				}
 			}
 			@include respond-to($menu-respond) {
 				@include link-active-styles {
@@ -135,6 +139,11 @@
 			}
 		}
 		&--active {
+			@include respond-to-max($menu-respond) {
+				a {
+					border-bottom: 2px solid #fff;
+				}
+			}
 			@include respond-to($menu-respond) {
 				a {
 					border-bottom: 2px solid $poppy;

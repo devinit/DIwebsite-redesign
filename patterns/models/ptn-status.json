@@ -16,6 +16,22 @@
 		"stage": "review"
 	},
 	{
+		"name": "01d-media-center",
+		"stage": "review"
+	},
+	{
+		"name": "02-homepage",
+		"stage": "review"
+	},
+	{
+		"name": "02b-homepage-2-publications",
+		"stage": "review"
+	},
+	{
+		"name": "02c-homepage-1-publication",
+		"stage": "review"
+	},
+	{
 		"name": "03-who-we-are",
 		"stage": "review"
 	},
@@ -29,7 +45,7 @@
 	},
 	{
 		"name": "06-team-member",
-		"stage": "Template"
+		"stage": "review"
 	},
 	{
 		"name": "07-what-we-do",
@@ -40,7 +56,19 @@
 		"stage": "review"
 	},
 	{
-		"name": "08-1-focus-country-project",
+		"name": "08a-places-we-work",
+		"stage": "review"
+	},
+	{
+		"name": "08-1-project",
+		"stage": "review"
+	},
+	{
+		"name": "08-1a-place",
+		"stage": "review"
+	},
+	{
+		"name": "09-services",
 		"stage": "review"
 	},
 	{
@@ -60,6 +88,10 @@
 		"stage": "review"
 	},
 	{
+		"name": "12a-blog-single-guest",
+		"stage": "review"
+	},
+	{
 		"name": "12a-news-single",
 		"stage": "review"
 	},
@@ -69,23 +101,23 @@
 	},
 	{
 		"name": "13-publications",
-		"stage": "Template"
+		"stage": "review"
 	},
 	{
 		"name": "14-publication-summary",
-		"stage": "Template"
+		"stage": "review"
 	},
 	{
 		"name": "14-1-publication-long-form",
-		"stage": "Template"
+		"stage": "review"
 	},
 	{
 		"name": "14-1a-publication-short-form",
-		"stage": "Template"
+		"stage": "review"
 	},
 	{
 		"name": "14-2-publication-appendix",
-		"stage": "Template"
+		"stage": "review"
 	},
 	{
 		"name": "16-work-for-us",
@@ -97,6 +129,10 @@
 	},
 	{
 		"name": "19-vacancy-single",
+		"stage": "review"
+	},
+	{
+		"name": "20-contact",
 		"stage": "review"
 	}
 ]

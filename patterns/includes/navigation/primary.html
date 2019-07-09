@@ -8,9 +8,9 @@
 		{% for item in navigation.primary %}
 			{% if item.hidden == false %}
 				{% if section == item.in_section %}
-					<li id="section-{{ item.in_section }}" class='navigation-primary__item navigation-primary__item--active'><a href="">{{ item.label }}</a></li>
+					<li id="section-{{ item.in_section }}" class='navigation-primary__item navigation-primary__item--active'><a href="#">{{ item.label }}</a></li>
 				{% else %}
-					<li id="section-{{ item.in_section }}" class='navigation-primary__item'><a href="">{{ item.label }}</a></li>
+					<li id="section-{{ item.in_section }}" class='navigation-primary__item'><a href="#">{{ item.label }}</a></li>
 				{% endif %}
 			{% endif %}
 		{% endfor %}

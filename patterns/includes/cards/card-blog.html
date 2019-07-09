@@ -4,6 +4,10 @@
         <span class="card__meta">{{ item.date }}</span>
         <h3 class="card__title"><span>{{ item.title }}</span></h3>
         <p class="card__excerpt">{{ item.excerpt }}</p>
-        {% include 'partials/author.html' %}
+        {% if item.guest == true %}
+            {% include 'partials/author-guest-no-image.html' %}
+        {% else %}
+            {% include 'partials/author.html' %}
+        {% endif %}
     </div>
 </a>

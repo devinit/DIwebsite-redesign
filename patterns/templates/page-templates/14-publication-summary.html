@@ -13,7 +13,8 @@
 {% set section = "Publications" %}
 {% set title = "Publication title" %}
 {% set excerpt = "" %}
-{% set image_name = "content-image3.jpg" %}
+{% set button = "Publication downloads" %}
+{% set image_name = "14422080551_9d7e466a31_o-1600x780.jpg" %}
 
 {# --------------------------------------- #}
 {# 3. Add models and macros #}
@@ -33,15 +34,16 @@
 {# --------------------------------------- #}
 
 {% block body %}
-    {% include 'heroes/hero.html' %}
+    {% include 'heroes/hero-publication-alt.html' %}
 
     <section class="section section--large">
         <div class="chapter-block-wrapper">
-            <div class="chapter-block_image" style="background-image: url({{ global.assets_root }}/img/content-image1.jpg);"></div>
+            <div class="chapter-block_image" style="background-image: url({{ global.assets_root }}/img/42900842442_cc4630d48a_o-600x375.jpg);"></div>
             <div class="row row--narrow">
                 <div class="larger-center">
                     <div class="chapter-block__item">
                         <div class="chapter-block_content">
+                            {% include 'partials/author-multiple.html' %}
                             <h2 class="chapter-block__heading">Module title</h2>
                             <p class="chapter-block__excerpt">Ait amet, consecLorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper sus agna aliquam era.</p>
                             <a href="#" id="" class="button button--a11y" title="Read the summary"><span>Read the Summary</span></a>
@@ -69,7 +71,7 @@
 
     <section class="section section--large">
         <div class="chapter-block-wrapper chapter-block-wrapper--alt">
-            <div class="chapter-block_image" style="background-image: url({{ global.assets_root }}/img/content-image2.jpg);"></div>
+            <div class="chapter-block_image" style="background-image: url({{ global.assets_root }}/img/5520009236_fcbf74d793_o-600x375.jpg);"></div>
             <div class="row row--narrow">
                 <div class="larger-center">
                     <div class="chapter-block__item">
@@ -102,7 +104,7 @@
 
     <section class="section section--large">
         <div class="chapter-block-wrapper">
-            <div class="chapter-block_image" style="background-image: url({{ global.assets_root }}/img/content-image1.jpg);"></div>
+            <div class="chapter-block_image" style="background-image: url({{ global.assets_root }}/img/34301158651_2500a029c5_o-600x375.jpg);"></div>
             <div class="row row--narrow">
                 <div class="larger-center">
                     <div class="chapter-block__item">
@@ -135,7 +137,7 @@
 
     <section class="section section--large">
         <div class="chapter-block-wrapper chapter-block-wrapper--alt">
-            <div class="chapter-block_image" style="background-image: url({{ global.assets_root }}/img/content-image2.jpg);"></div>
+            <div class="chapter-block_image" style="background-image: url({{ global.assets_root }}/img/27634474642_e47d75c1f8_o-600x375.jpg);"></div>
             <div class="row row--narrow">
                 <div class="larger-center">
                     <div class="chapter-block__item">
@@ -227,7 +229,7 @@
                     </div>
                 </div>
             </div>
-            <div class="space-section-both">
+            <div class="space-section-both" id="downloads">
                 <div class="download">
                     <h2 class="type-m type-s--trailer">Publication downloads</h2>
                     <ul class="download__list">

@@ -16,23 +16,47 @@
             bottom: -35px;
     	}
     }
+    .hero--image & {
+        @include respond-to($menu-respond) {
+            left: auto;
+    		right: $internal-spacing;
+    	}
+    }
     .card & {
         margin-top: 2em;
         background-color: #fff;
     }
 }
 
+a.m-author {
+    transition: all, ease-in-out, 0.3s;
+    @include link-active-styles {
+        background-color: darken($poppy-dark, 5%);
+        .m-author__title {
+            text-decoration: underline;
+        }
+    }
+}
+
 .m-author__image {
     float: left;
     width: 27%;
+    margin-right: 15px;
     img {
         @extend .max-width;
     }
 }
 
 .m-author__body {
-    padding-left: 32%;
+    float: left;
     padding-top: 10px;
+}
+
+.m-author__meta {
+    @include font-size($eta);
+    color: lighten($base-color, 5%);
+    margin-bottom: 5px;
+    display: block;
 }
 
 .m-author__title {
@@ -49,6 +73,42 @@
     color: #fff;
     .card & {
         color: $base-color;
+    }
+}
+
+// Multiple authors //
+
+.m-authors {
+    position: relative;
+    background-color: #fff;
+    padding: 2em;
+    margin-bottom: 3em;
+    .chapter-block_content & {
+        background-color: transparent;
+        padding: 0;
+        padding-left: 2em;
+        border-left: 2px solid $default-border-color;
+    }
+    &__title {
+        @extend %font-heading;
+        @include font-size($eta);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 0.5em;
+    }
+    &__list {
+        @include font-size($epsilon);
+        li {
+            display: inline-block;
+            margin-right: 3px;
+            &:after {
+                content: ","
+            }
+            a {
+                font-size: inherit;
+                text-decoration: underline;
+            }
+        }
     }
 }
 
@@ -83,6 +143,15 @@
     line-height: 1.3;
     &--center {
         text-align: center;
+    }
+    a {
+        color: $heading-color;
+        position: relative;
+        border-bottom: 0 solid $poppy;
+        transition: all, ease-in-out, 0.3s;
+        &:hover {
+            border-bottom-width: 2px;
+        }
     }
 }
 
@@ -131,6 +200,26 @@
     }
     @include respond-to($c-vp) {
         columns: 2;
+    }
+}
+
+.m-service {
+    position: relative;
+    margin-top: 1em;
+    background-color: #fff;
+    padding: 2em;
+    .ico {
+        position: absolute;
+        top: 2.5em;
+        left: 1.75em;
+    }
+}
+
+.m-service__copy {
+    @include font-size($epsilon);
+    padding-left: 30px;
+    a:hover {
+        text-decoration: underline;
     }
 }
 
@@ -202,15 +291,14 @@
 }
 
 .orderReport__img {
-    display: block;
-    max-width: 250px;
-    width: 100%;
-    height: 350px;
-    background-size: cover;
-    background-position: center;
-    margin-bottom: 2rem;
+    display: none;
     @include respond-to($d-vp) {
-        margin-bottom: 0;
+        display: block;
+        max-width: 250px;
+        width: 100%;
+        height: 350px;
+        background-size: cover;
+        background-position: center;
     }
     &-standardAction {
         width: 100%;
@@ -226,8 +314,8 @@
 
 .orderReport__content {
     background: #fff;
+    padding: 3rem;
     @include respond-to($d-vp) {
-        padding: 3rem;
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
@@ -314,7 +402,6 @@
 }
 
 .footnotes__list {
-    list-style: decimal;
     margin-bottom: 1rem;
     padding-left: 1rem;
     @include respond-to($c-vp) {

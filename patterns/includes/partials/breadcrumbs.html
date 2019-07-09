@@ -1,4 +1,5 @@
 <ul class="breadcrumbs">
-    <li class="breadcrumbs__item"><a href="#">{{ breadcrumbs_parent}}</a></li>
+    <li class="breadcrumbs__item"><a href="#">{{ breadcrumbs_parent }}</a></li>
+    {% if breadcrumbs_middle_parent %}<li class="breadcrumbs__item"><a href="#">{{ breadcrumbs_middle_parent }}</a></li>{% endif %}
     <li class="breadcrumbs__item"><a href="#">{{ breadcrumbs_child }}</a></li>
 </ul>

@@ -28,14 +28,16 @@
 	display: inline-block;
 	margin-bottom: 1em;
 	@include font-size($gamma);
-	&:after {
-		content: "";
-		position: absolute;
-		top: 18px;
-		right: -4em;
-		height: 1px;
-		width: 3em;
-		background-color: $poppy;
+	@include respond-to($menu-respond) {
+		&:after {
+			content: "";
+			position: absolute;
+			top: 18px;
+			right: -4em;
+			height: 1px;
+			width: 3em;
+			background-color: $poppy;
+		}
 	}
 }
 
@@ -54,10 +56,8 @@
 	@include font-size($para);
 	&__item {
 		margin-bottom: 1em;
-		padding-left: 1em;
-		border-left: 2px solid $default-border-color;
 	}
-	a {
-		display: block;
+	span {
+		@extend %font-heading;
 	}
 }

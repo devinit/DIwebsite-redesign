@@ -27,7 +27,7 @@
 // Specific sizes
 // ------------------------------------------------------------
 
-$icon-sizes: 10, 14, 16, 20, 24, 30;
+$icon-sizes: 10, 14, 16, 20, 24, 30, 36;
 
 @each $icon-size in $icon-sizes {
     .ico--#{$icon-size} {

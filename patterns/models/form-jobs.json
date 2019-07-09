@@ -17,7 +17,7 @@
 		    "field_spacing": true,
 		    "field_error": false,
 		    "item_id": "checkbox1",
-		    "item_label": "Choose departments",
+		    "item_label": "Choose departments (optional)",
 		    "item_label_type": "",
 		     "options": [
                 { "id": "leadership", "label": "Leadership" },
@@ -44,7 +44,7 @@
 		    "item_label": "",
 		    "item_label_type": "form-label--hidden",
 		     "options": [
-                { "id": "gdpr", "label": "We manage our mailing list through Mailchimp. We collect only the information you give us via the subscription form, as well as IP address (your computer's unique ID number) which Mailchimp automatically collects. You can view our <a href='#'>Privacy Policy</a>, and also <a href='#'>Mailchimp's Privacy Policy</a> to find out more about privacy and what we do with your data. You can also read about our <a href='#'>Recruitment Policy</a>." }
+                { "id": "gdpr", "label": "By checking this box you consent to us collecting the data submitted. We manage our mailing list through Mailchimp. We collect only the information you give us via the subscription form, as well as IP address (your computer's unique ID number) which Mailchimp automatically collects. You can view our <a href='#'>Privacy Policy</a>, and also <a href='#'>Mailchimp's Privacy Policy</a> to find out more about privacy and what we do with your data. You can also read about our <a href='#'>Recruitment Policy</a>." }
 		    ]
 		}
 	]

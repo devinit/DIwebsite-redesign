@@ -6,7 +6,7 @@ from wagtail.core.models import Page
 register = template.Library()
 
 
-@register.inclusion_tag('includes/cards/other_pages.html', takes_context=True)
+@register.inclusion_tag('tags/cards/other_pages.html', takes_context=True)
 def get_other_pages(context, calling_page=None):
     """
     Get all the other pages that make up part of the menu

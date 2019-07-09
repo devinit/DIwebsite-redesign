@@ -139,7 +139,8 @@ class FooterText(models.Model):
         verbose_name_plural = 'Footer Text'
 
 class HomePage(StandardPage):
-    
     def __str__(self):
         return self.title
 
+    class Meta():
+        verbose_name = 'Home Page'

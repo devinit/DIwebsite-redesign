@@ -1,20 +1,17 @@
 from django.db import models
 
 from wagtail.core.models import Orderable, Page
-
 from wagtail.core.fields import RichTextField
-
 from wagtail.admin.edit_handlers import (
     FieldPanel,
     InlinePanel,
     MultiFieldPanel,
     PageChooserPanel
 )
-
 from wagtail.images.edit_handlers import ImageChooserPanel
 
 """
-Most pages have a hero section, StandardPage defines contents of hero that can be inherited by other pages that need it
+StandardPage contains properties that are shared across multiple pages
 """
 class StandardPage(Page):
     class Meta:
@@ -33,12 +30,14 @@ class StandardPage(Page):
         max_length=50,
         null=True,
         blank=True,
+        verbose_name='Image credit name',
         help_text='Name of source of image used in hero if any'
     )
 
     hero_image_credit_url = models.URLField(
         null=True,
         blank=True,
+        verbose_name='Image credit url',
         help_text='A Link to the original source of the image if any'
     )
 
@@ -75,4 +74,3 @@ class StandardPage(Page):
             ])
         ], heading="Hero Section"),
     ]
-

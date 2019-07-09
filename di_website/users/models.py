@@ -1,6 +1,8 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import User
 from django.utils.text import slugify
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from wagtail.snippets.models import register_snippet
 from wagtail.admin.edit_handlers import (
     FieldPanel,
@@ -44,7 +46,7 @@ class Department(models.Model):
 @register_snippet
 class UserProfile(models.Model):
     user = models.OneToOneField(
-        'users.User',
+        User,
         on_delete=models.SET_NULL,
         null=True,
         blank=True
@@ -98,9 +100,9 @@ class UserProfile(models.Model):
         verbose_name_plural = 'User Profiles'
 
 
-class User(AbstractUser):
-    def save(self, *args, **kwargs):
-        super(User, self).save(*args, **kwargs)
-        profile, _ = UserProfile.objects.get_or_create(user=self)
-        profile.name = self.get_full_name()
-        profile.save()
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    """Create a new user profile on a post-save."""
+    profile, _ = UserProfile.objects.get_or_create(user=instance)
+    profile.name = instance.get_full_name()
+    profile.save()

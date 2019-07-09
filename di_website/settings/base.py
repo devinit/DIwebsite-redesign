@@ -26,7 +26,10 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 
 INSTALLED_APPS = [
     'di_website.home',
+    'di_website.users',
     'di_website.search',
+    'di_website.ourteam',
+    'di_website.common',
 
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
@@ -63,6 +66,7 @@ MIDDLEWARE = [
 
     'wagtail.core.middleware.SiteMiddleware',
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'di_website.urls'
@@ -161,3 +165,8 @@ WAGTAIL_SITE_NAME = "di_website"
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 BASE_URL = 'http://devinit.org'
+
+INTERNAL_IPS = ["127.0.0.1"]
+
+# Custom user model
+AUTH_USER_MODEL = 'users.User'

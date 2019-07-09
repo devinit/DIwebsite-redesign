@@ -1,0 +1,42 @@
+{% load wagtailimages_tags wagtailcore_tags responsive%}
+
+{% responsiveimage page.hero_image fill-1200x778 srcset=global.hero_srcs as image %}
+<section class="hero {% if image %}hero--image{% endif %}">
+    {% if image %}
+        <div class="hero__image" style="background-image: url('{{ image.url }}');"></div>
+        {% if self.hero_image_credit_name %}
+            <span class="hero__credit">Image by 
+            {% if self.hero_image_credit_url %}
+                <a href="{{self.hero_image_credit_url}}" target="_blank">{{self.hero_image_credit_name}}</a>
+            {% else %}
+                {{self.hero_image_credit_name}}
+            {% endif %}
+            </span>
+        {% endif%}
+    {% endif %}
+
+    <span class="hero__flourish"></span>
+    <span class="hero__flourish"></span>
+    <span class="hero__flourish"></span>
+    <span class="hero__flourish"></span>
+    <span class="hero__flourish"></span>
+    <span class="hero__flourish"></span>
+    <span class="hero__flourish"></span>
+    <span class="hero__flourish"></span>
+    <div class="row row--narrow">
+        <div class="hero__content">
+            {% if id == 'vacancy' %}
+                <ul class="hero__meta">
+                    <li class="hero__meta-item hero__meta-item--block">Bristol, UK</li>
+                </ul>
+            {% endif %}
+            <h1 class="hero__title"><span>{{ page.title }}</span></h1>
+            {% if page.hero_text %}
+                <div class="hero__excerpt"><span>{{ page.hero_text|richtext }}</span></div>
+            {% endif %}
+            {% if page.hero_link and page.hero_link_caption %}
+                <a href="{% pageurl page.hero_link %}" class="button button--reverse">{{ page.hero_link_caption }}</a>
+            {% endif %}
+        </div>
+    </div>
+</section>

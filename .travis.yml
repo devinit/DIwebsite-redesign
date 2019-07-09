@@ -1,0 +1,14 @@
+sudo: required
+dist: trusty
+language: python
+python:
+  - "3.5"
+services:
+  - docker
+before_install:
+  - pip install codecov
+  - echo "DATABASE_URL=postgresql://di_website:di_website_pw@db/di_website" > .env
+  - docker volume create --name=diwebsite_db
+  - docker-compose up --build -d
+script:
+  - docker-compose exec web /bin/sh -c "python3 -m coverage run manage.py test && python3 -m coverage xml && mv coverage.xml shared" && cd shared && python3 -m codecov

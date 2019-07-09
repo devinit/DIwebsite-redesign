@@ -1,3 +1,6 @@
+.coverage
+coverage.xml
+
 venv/*
 __pycache__
 /assets
@@ -7,6 +10,9 @@ bin
 include
 lib
 .Python
+
+# Wagtail storage for uploads
+storage/*
 
 media
 regression/
@@ -106,3 +112,4 @@ $RECYCLE.BIN/
 .fabricrc
 
 .env
+storage/

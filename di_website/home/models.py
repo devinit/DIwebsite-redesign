@@ -6,12 +6,14 @@ from wagtail.admin.edit_handlers import (
     MultiFieldPanel,
     PageChooserPanel
 )
+from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.core.models import Orderable, Page
 from wagtail.core.fields import RichTextField
 from wagtail.snippets.models import register_snippet
 
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
+from di_website.common.base import StandardPage
 
 
 class AbstractLink(models.Model):
@@ -80,8 +82,8 @@ class FooterSection(Orderable, ClusterableModel):
         return self.title
 
     class Meta:
-        verbose_name = "footer section"
-        verbose_name_plural = "footer sections"
+        verbose_name = "Footer Section"
+        verbose_name_plural = "Footer Sections"
 
 
 
@@ -92,8 +94,8 @@ class FooterLink(Orderable, AbstractLink):
         return (self.page.title if self.page else self.label)
 
     class Meta:
-        verbose_name = "footer link"
-        verbose_name_plural = "footer links"
+        verbose_name = "Footer Link"
+        verbose_name_plural = "Footer Links"
 
 
 class SocialLink(Orderable, models.Model):
@@ -118,8 +120,8 @@ class SocialLink(Orderable, models.Model):
         return self.social_platform
 
     class Meta:
-        verbose_name = 'social link'
-        verbose_name_plural = 'social links'
+        verbose_name = 'Social Link'
+        verbose_name_plural = 'Social Links'
 
 
 @register_snippet
@@ -136,11 +138,9 @@ class FooterText(models.Model):
     class Meta:
         verbose_name_plural = 'Footer Text'
 
-
-class StandardPage(Page):
-    class Meta:
-        abstract = True
-
-
 class HomePage(StandardPage):
-    pass
+    def __str__(self):
+        return self.title
+
+    class Meta():
+        verbose_name = 'Home Page'

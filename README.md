@@ -48,6 +48,10 @@ Pattern library available online at [http://development-initiatives.surge.sh/](h
 
         python3 manage.py runserver
 
+9. Test
+
+        python3 manage.py test
+
 ## Run with Docker Compose
 1. Create docker volume diwebsite_db
     docker volume create --name=diwebsite_db

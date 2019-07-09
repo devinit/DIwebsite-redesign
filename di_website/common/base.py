@@ -17,6 +17,11 @@ class StandardPage(Page):
     class Meta:
         abstract = True
 
+    hero_title = models.CharField(
+        blank=True,
+        max_length=255,
+        help_text='Leave blank if you want it to match the page title'
+    )
     hero_image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -25,7 +30,6 @@ class StandardPage(Page):
         related_name='+',
         help_text='Hero Image'
     )
-
     hero_image_credit_name = models.CharField(
         max_length=50,
         null=True,
@@ -33,14 +37,12 @@ class StandardPage(Page):
         verbose_name='Image credit name',
         help_text='Name of source of image used in hero if any'
     )
-
     hero_image_credit_url = models.URLField(
         null=True,
         blank=True,
         verbose_name='Image credit url',
         help_text='A Link to the original source of the image if any'
     )
-
     hero_text = RichTextField(
         null=True,
         blank=True,
@@ -64,6 +66,7 @@ class StandardPage(Page):
 
     content_panels = Page.content_panels + [
         MultiFieldPanel([
+            FieldPanel('hero_title'),
             ImageChooserPanel('hero_image'),
             FieldPanel('hero_image_credit_name'),
             FieldPanel('hero_image_credit_url'),

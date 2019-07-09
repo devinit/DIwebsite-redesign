@@ -167,6 +167,3 @@ WAGTAIL_SITE_NAME = "di_website"
 BASE_URL = 'http://devinit.org'
 
 INTERNAL_IPS = ["127.0.0.1"]
-
-# Custom user model
-AUTH_USER_MODEL = 'users.User'

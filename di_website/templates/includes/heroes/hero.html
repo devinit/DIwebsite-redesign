@@ -25,12 +25,9 @@
     <span class="hero__flourish"></span>
     <div class="row row--narrow">
         <div class="hero__content">
-            {% if id == 'vacancy' %}
-                <ul class="hero__meta">
-                    <li class="hero__meta-item hero__meta-item--block">Bristol, UK</li>
-                </ul>
-            {% endif %}
-            <h1 class="hero__title"><span>{{ page.title }}</span></h1>
+            <h1 class="hero__title">
+                <span>{% if page.hero_title %} {{ page.hero_title }} {% else %} {{ page.title }} {% endif %}</span>
+            </h1>
             {% if page.hero_text %}
                 <div class="hero__excerpt"><span>{{ page.hero_text|richtext }}</span></div>
             {% endif %}

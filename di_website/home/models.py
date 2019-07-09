@@ -148,3 +148,5 @@ class HomePage(StandardPage):
 
     class Meta():
         verbose_name = 'Home Page'
+
+    parent_page_types = [] # prevent from being a child page

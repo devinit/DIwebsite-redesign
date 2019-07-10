@@ -2,7 +2,7 @@
 
 
 <div class="row row--narrow">
-    <h2 class="section__heading">Other pages in this section</h2>
+    <h2 class="section__heading">{{ heading }}</h2>
     <div class="l-4up">
         {% for published_page in published_pages %}
             <a href="{{published_page.url_path}}" class="card">
@@ -17,4 +17,3 @@
 
     </div>
 </div>
-

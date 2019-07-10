@@ -7,7 +7,7 @@ register = template.Library()
 
 
 @register.inclusion_tag('tags/cards/other_pages.html', takes_context=True)
-def get_other_pages(context, calling_page=None):
+def get_other_pages(context, calling_page=None, heading='Other pages in this section'):
     """
     Get all the other pages that make up part of the menu
     """
@@ -20,5 +20,6 @@ def get_other_pages(context, calling_page=None):
 
     published_pages = Page.objects.live().exclude(pk__in=exclude_pks).specific()
     return {
+        'heading': heading,
         'published_pages': published_pages
     }

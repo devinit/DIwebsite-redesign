@@ -37,8 +37,6 @@ RUN apk add --no-cache --virtual .build-deps build-base linux-headers \
     && pip install -r /code/requirements.txt \
     && apk del .build-deps
 
-#RUN pip install gunicorn
-
 # Copy the current directory contents into the container at /code/
 COPY . /code/
 # Set the working directory to /code/

@@ -4,12 +4,12 @@ LABEL maintainer="Napho <naphlin.akena@devinit.org>"
 
 RUN apk add  --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/v3.4/main/ nodejs=6.7.0-r1
 
-WORKDIR /code/patterns
+#WORKDIR /code/patterns
 #Compile skelly libary
-COPY ./patterns ./
-RUN npm install
-RUN npm rebuild node-sass
-RUN npm run build
+#COPY ./patterns ./
+#RUN npm install
+#RUN npm rebuild node-sass
+#RUN npm run build
 
 RUN apk add postgresql-client && \
     set -ex \

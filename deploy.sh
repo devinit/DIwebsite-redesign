@@ -26,7 +26,7 @@ volume_status=$(docker volume ls)
 
 printf $volume_status
 
-if [ grep $docker_volume_name $volume_status ];then
+if [ $(grep $docker_volume_name $volume_status) -ne 0 ];then
     printf  "Volume already exists, skipping creation of new volume\n\n"
 else
    printf  "No docker volume found, creating new volume for deployment\n\n"

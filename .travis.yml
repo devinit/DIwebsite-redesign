@@ -18,4 +18,4 @@ deploy:
  skip_cleanup: true
  script: cd .. && chmod 600 ./deploy_key && ssh -o StrictHostKeyChecking=no -i ./deploy_key di_website@178.128.102.213 ./deploy.sh
  on:
-   branch: fix/travis_autodeploy
+   branch: develop

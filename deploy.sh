@@ -1,6 +1,6 @@
 #!/bin/bash
 app_dir="DIwebsite-redesign"
-deploy_branch="fix/travis_autodeploy"
+deploy_branch="develop"
 docker_volume_name="diwebsite_db"
 
 printf "Tearing currently deployed images \n\n"

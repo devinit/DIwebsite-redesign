@@ -1,0 +1,37 @@
+{% extends 'layouts/sidebar.html' %}
+
+{% load navigation_tags card_tags%}
+{% get_site_root as site_root %}
+
+{% block hero %}
+    {% include 'includes/heroes/hero.html' %}
+{% endblock hero %}
+
+
+{% block main %}
+    <section class="section">
+        <div class="highlight">
+            <span class="highlight__flag">{{ page.duration }}</span>
+            <ul class="highlight__list">
+                <li><span>Location:</span>{{ page.location }}</li>
+                <li><span>Salary scale:</span>{{ page.salary_scale }}</li>
+                <li><span>Closing date:</span>{{ page.application_close_date }}</li>
+                <li><span>First interview:</span>{{ page.first_interview_date }}</li>
+                <li><span>Start date:</span>{{ page.job_start_date }}</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="is-typeset is-typeset--additionals wysiwyg">
+            {{ page.body }}
+        </div>
+    </section>
+{% endblock main %}
+
+
+{% block after_content %}
+    <section class="section">
+        {% get_other_pages calling_page=site_root heading='Learn more about Developement Initiatives' %}
+    </section>
+{% endblock after_content %}

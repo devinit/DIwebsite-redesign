@@ -36,3 +36,4 @@ fi
 echo "DATABASE_URL=postgresql://di_website:di_website_pw@db/di_website" > .env
 
 docker-compose up -d --build
+

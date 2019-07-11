@@ -11,6 +11,8 @@ from wagtail.admin.edit_handlers import (
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
+from di_website.ourteam.models import TeamMemberPage
+
 
 @register_snippet
 class JobTitle(models.Model):
@@ -45,6 +47,7 @@ class Department(models.Model):
 
 @register_snippet
 class UserProfile(models.Model):
+    # TODO: add paragraph when added to common
     user = models.OneToOneField(
         User,
         on_delete=models.SET_NULL,
@@ -80,6 +83,11 @@ class UserProfile(models.Model):
         on_delete=models.SET_NULL,
         related_name='+'
     )
+    email = models.EmailField(
+        null=True,
+        blank=True
+    )
+    telephone = models.CharField(max_length=255, null=True, blank=True)
     active = models.BooleanField(default=False, help_text="Should this user's profile be displayed as staff?")
 
     panels = [
@@ -89,6 +97,8 @@ class UserProfile(models.Model):
         SnippetChooserPanel('position'),
         SnippetChooserPanel('department'),
         PageChooserPanel('page'),
+        FieldPanel('email'),
+        FieldPanel('telephone'),
         FieldPanel('active')
     ]
 
@@ -105,4 +115,6 @@ def create_user_profile(sender, instance, created, **kwargs):
     """Create a new user profile on a post-save."""
     profile, _ = UserProfile.objects.get_or_create(user=instance)
     profile.name = instance.get_full_name()
+    if not profile.email:
+        profile.email = instance.email
     profile.save()

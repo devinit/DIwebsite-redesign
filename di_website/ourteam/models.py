@@ -2,7 +2,6 @@ from django.db import models
 from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.core.models import Page
 from di_website.common.base import StandardPage
-from di_website.users.models import UserProfile
 
 
 class OurTeamPage(StandardPage):
@@ -16,10 +15,10 @@ class OurTeamPage(StandardPage):
 class TeamMemberPage(Page):
     """Individual team member page. Autocreated when profile is."""
     user_profile = models.ForeignKey(
-        UserProfile,
+        'users.UserProfile',
         null=True,
         blank=True,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         related_name='+'
     )
 

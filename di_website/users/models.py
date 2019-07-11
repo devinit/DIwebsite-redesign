@@ -11,7 +11,7 @@ from wagtail.admin.edit_handlers import (
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
-from di_website.ourteam.models import TeamMemberPage
+from di_website.ourteam.models import OurTeamPage, TeamMemberPage
 
 
 @register_snippet
@@ -119,6 +119,11 @@ def create_user_profile(sender, instance, created, **kwargs):
         profile.email = instance.email
     profile.save()
 
-    team_member_page, _ = TeamMemberPage.objects.get_or_create(title=profile.name, user_profile=profile)
-    profile.page = team_member_page
-    profile.save()
+    team_page = OurTeamPage.objects.all().live().first()
+    if team_page:
+        if not profile.page:
+            team_member_page = TeamMemberPage(title=profile.name, slug=slugify(profile.name), user_profile=profile)
+            team_page.add_child(instance=team_member_page)
+            team_member_page.save_revision().publish()
+            profile.page = team_member_page
+            profile.save()

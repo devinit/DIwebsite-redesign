@@ -15,20 +15,18 @@
     <span class="hero__flourish"></span>
     <div class="row row--narrow">
         <div class="hero__profile">
-            {% image user_profile.image max-260x260 as img %}
-            {% if img %}
-              <img src="{{img.url}}" alt="{{user_profile.name}} photograph">
-            [% endif %}
+            {% image self.user_profile.image max-260x260 as img %}
+            <img src="{{img.url}}" alt="{{self.user_profile.name}} photograph">
         </div>
         <div class="hero__content">
-            <h1 class="hero__title"><span>{{user_profile.name|default_if_none:""}}</span></h1>
-            <h2 class="hero__subtitle"><span>{{user_profile.position|default_if_none:""}}</span></h2>
+            <h1 class="hero__title"><span>{{self.user_profile.name|default_if_none:""}}</span></h1>
+            <h2 class="hero__subtitle"><span>{{self.user_profile.position|default_if_none:""}}</span></h2>
             <ul class="hero__list">
-              {% if user_profile.telephone %}
-                <li><i role="presentation" aria-hidden="true" class="ico ico--16 ico-phone-blank"></i><a href="tel:{{user_profile.telephone}}">{{user_profile.telephone}}</a></li>
+              {% if self.user_profile.telephone %}
+                <li><i role="presentation" aria-hidden="true" class="ico ico--16 ico-phone-blank"></i><a href="tel:{{self.user_profile.telephone}}">{{self.user_profile.telephone}}</a></li>
               {% endif %}
-              {% if user_profile.email %}
-                <li><i role="presentation" aria-hidden="true" class="ico ico--16 ico-mail-blank"></i><a href="mailto:{{user_profile.email}}">{{user_profile.email}}</a></li>
+              {% if self.user_profile.email %}
+                <li><i role="presentation" aria-hidden="true" class="ico ico--16 ico-mail-blank"></i><a href="mailto:{{self.user_profile.email}}">{{self.user_profile.email}}</a></li>
               {% endif %}
             </ul>
         </div>
@@ -61,29 +59,28 @@
     </div>
   </div>
 </section>
-{% with user_owned_pages user_profile.user as user_pages %}
-  {% if user_owned_pages %}
-    <section class="section">
-      <div class="row row--narrow">
-        <h2 class="section__heading">Content by {{user_profile.name}}:</h2>
-          <div class="l-2up-3up">
+{% user_owned_pages self.user_profile.user as user_pages %}
+{% if user_owned_pages %}
+  <section class="section">
+    <div class="row row--narrow">
+      <h2 class="section__heading">Content by {{self.user_profile.name}}:</h2>
+        <div class="l-2up-3up">
 
-          {% for user_page in user_pages %}
-            <a href="{% pageurl user_page %}" class="card card--simple">
-              <div class="card__body">
-                <!-- TODO: Decide what type of page to show here and filter -->
-                <!-- <span class="card__flag">Report</span> -->
-                <span class="card__meta">{{user_page.date|default_if_none:""}}</span>
-                <h3 class="card__title"><span>{{user_page.title|default_if_none:""}}</span></h3>
-              </div>
-            </a>
-          {% endfor %}
+        {% for user_page in user_pages %}
+          <a href="{% pageurl user_page %}" class="card card--simple">
+            <div class="card__body">
+              <!-- TODO: Decide what type of page to show here and filter -->
+              <!-- <span class="card__flag">Report</span> -->
+              <span class="card__meta">{{user_page.date|default_if_none:""}}</span>
+              <h3 class="card__title"><span>{{user_page.title|default_if_none:""}}</span></h3>
+            </div>
+          </a>
+        {% endfor %}
 
-          </div>
-      </div>
-    </section>
-  {% endif %}
-{% endwith %}
+        </div>
+    </div>
+  </section>
+{% endif %}
 
 <section class="section">
     {% get_other_pages calling_page=self%}

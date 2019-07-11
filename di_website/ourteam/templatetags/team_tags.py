@@ -6,4 +6,4 @@ register = template.Library()
 
 @register.simple_tag
 def user_owned_pages(user):
-    return Page.objects.get(owner=user).live()
+    return Page.objects.filter(owner=user).live()

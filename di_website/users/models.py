@@ -118,3 +118,7 @@ def create_user_profile(sender, instance, created, **kwargs):
     if not profile.email:
         profile.email = instance.email
     profile.save()
+
+    team_member_page, _ = TeamMemberPage.objects.get_or_create(title=profile.name, user_profile=profile)
+    profile.page = team_member_page
+    profile.save()

@@ -1,15 +1,16 @@
 from django.forms.utils import pretty_name
 from django.utils.html import format_html
 from django.utils.translation import ugettext_lazy as _
-from wagtail.wagtailadmin.edit_handlers import EditHandler
-
+from wagtail.admin.edit_handlers import EditHandler
+from django.utils.html import mark_safe
 
 class BaseReadOnlyPanel(EditHandler):
+
     def render(self):
-        value = getattr(self.instance, self.attr)
+        value = getattr(self.instance, self.field_name)
         if callable(value):
             value = value()
-        return format_html('<div style="padding-top: 1.2em;">{}</div>', value)
+        return format_html('<div style="padding-top: 1.2em;">{}</div>', mark_safe(value))
 
     def render_as_object(self):
         return format_html(
@@ -32,13 +33,20 @@ Custom implementation of readonly panel, refer to issue on from wagtail
 https://github.com/wagtail/wagtail/issues/2893
 
 """
-class ReadOnlyPanel:
-    def __init__(self, attr, heading=None, classname=''):
-        self.attr = attr
-        self.heading = pretty_name(self.attr) if heading is None else heading
-        self.classname = classname
+class ReadOnlyPanel(BaseReadOnlyPanel):
+    
+    def __init__(self,field_name,*args,**kwargs):
+        super().__init__(*args, **kwargs)
+        self.field_name = field_name
+
+    def clone_kwargs(self):
+        kwargs = super().clone_kwargs()
+        kwargs.update(
+            field_name=self.field_name
+        )
+        return kwargs
 
     def bind_to_model(self, model):
         return type(str(_('ReadOnlyPanel')), (BaseReadOnlyPanel,),
-                    {'attr': self.attr, 'heading': self.heading,
+                    {'model': self.model, 'heading': self.heading,
                      'classname': self.classname})

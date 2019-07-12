@@ -27,7 +27,7 @@
                                 </label>
                                 <div class="form-field__select-dropdown">
                                     <select name="team-filter" id="team-filter">
-                                        <option value="" id="filter-by-depertment">Fitler by department</option>
+                                        <option value="" id="filter-by-depertment">Filter by department</option>
                                         {% for dept in departments %}
                                             <option value="{{dept.slug}}" id="{{dept.slug}}" {% if dept.slug == selected_team %}selected{% endif %}>
                                                 {{dept.name}}
@@ -47,9 +47,8 @@
     </div>
 </section>
 
-<section class="section">
-   
-    {% if profiles %}
+{% if profiles %}
+    <section class="section">
         {% for profile in profiles %}
             {% image profile.image max-260x260 as img %}
             <div class="row row--narrow">
@@ -70,8 +69,8 @@
                 </div>
             </div>
         {% endfor %}
-    {% endif %}
-</section>
+    </section>
+{% endif %}
 
 <section class="section">
     {% get_other_pages calling_page=self%}

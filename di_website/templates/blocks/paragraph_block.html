@@ -1,1 +1,19 @@
-{{ self }}
+{% load wagtailcore_tags %}
+
+{% if self.is_section %}
+    <section class="section">
+        {% if self.is_typeset %}
+            <div class="is-typeset wysiwyg {{ self.classname }}">
+                {% include_block self.text %}
+            </div>
+        {% else %}
+            {{ self.text }}
+        {% endif %}
+    </section>
+{% elif self.is_typeset %}
+    <div class="is-typeset wysiwyg {{ self.classname }}">
+        {% include_block self.text %}
+    </div>
+{% else %}
+    {{ self.text }}
+{% endif %}

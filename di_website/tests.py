@@ -28,7 +28,7 @@ class TestUserProfileCreation(WagtailPageTests):
             email="Test.User@Devinit.org",
             telephone="555-867-5309"
         )
-        self.team_page.add_child(self.team_member_page)
+        self.team_page.add_child(instance=self.team_member_page)
 
     def test_team_page_200(self):
         response = self.client.get(self.team_page.url)

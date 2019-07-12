@@ -49,26 +49,26 @@
 
 {% if profiles %}
     <section class="section">
+      <div class="row row--narrow">
         {% for profile in profiles %}
             {% image profile.image max-260x260 as img %}
-            <div class="row row--narrow">
-                <div class="l-4up">
-                    <div class="l-4up__col">
-                        <a href="{% pageurl profile %}">
-                          <div class="profile">
-                              <div class="profile__media">
-                                  <img src="{{img.url}}" alt="alt">
-                              </div>
-                              <div class="profile__caption">
-                                  <h3 class="profile__title">{{profile.name|default_if_none:""}}</h3>
-                                  <p class="profile__meta">{{profile.position.name|default_if_none:""}}</p>
-                              </div>
-                          </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
+              <div class="l-4up">
+                  <div class="l-4up__col">
+                      <a href="{% pageurl profile %}">
+                        <div class="profile">
+                            <div class="profile__media">
+                                <img src="{{img.url}}" alt="alt">
+                            </div>
+                            <div class="profile__caption">
+                                <h3 class="profile__title">{{profile.name|default_if_none:""}}</h3>
+                                <p class="profile__meta">{{profile.position.name|default_if_none:""}}</p>
+                            </div>
+                        </div>
+                      </a>
+                  </div>
+              </div>
         {% endfor %}
+        </div>
     </section>
 {% endif %}
 

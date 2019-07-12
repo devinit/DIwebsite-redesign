@@ -1,6 +1,4 @@
 from django.db import models
-from django.shortcuts import render
-from django.utils.text import slugify
 from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.core.models import Page
 from di_website.common.base import StandardPage
@@ -68,7 +66,7 @@ class TeamMemberPage(Page):
     )
     telephone = models.CharField(max_length=255, null=True, blank=True)
 
-    content_panels = [
+    content_panels = Page.content_panels + [
         FieldPanel('user'),
         FieldPanel('name'),
         ImageChooserPanel('image'),
@@ -82,5 +80,5 @@ class TeamMemberPage(Page):
         verbose_name = "Team Member Page"
 
     parent_page_types = [
-        'OurTeamIndexPage'
+        'OurTeamPage'
     ]

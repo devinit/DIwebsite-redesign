@@ -34,10 +34,10 @@ class TestUserProfileCreation(WagtailPageTests):
         response = self.client.get(self.team_page.url)
         self.assertEqual(response.status_code, 200)
 
-    def test_user_profile_appears(self):
+    def test_team_page_renders(self):
         response = self.client.get(self.team_page.url)
         self.assertTrue("Test User" in str(response.content))
 
-    def test_user_page_renders(self):
+    def test_team_member_page_renders(self):
         response = self.client.get(self.team_member_page.url)
         self.assertTrue("Test User" in str(response.content))

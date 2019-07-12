@@ -10,7 +10,7 @@ from wagtail.core.fields import StreamField
 from wagtail.snippets.models import register_snippet
 
 from di_website.common.base import StandardPage
-from .blocks import VacancyStreamBlock
+from di_website.common.blocks import BaseStreamBlock
 
 
 @register_snippet
@@ -97,7 +97,7 @@ class VacancyPage(StandardPage):
         auto_now_add=False
     )
     body = StreamField(
-        VacancyStreamBlock(),
+        BaseStreamBlock(),
         verbose_name="Page Body",
         blank=True
     )

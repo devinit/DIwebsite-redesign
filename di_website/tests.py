@@ -3,6 +3,7 @@ from wagtail.tests.utils import WagtailPageTests
 from di_website.home.models import HomePage
 from django.contrib.auth.models import User
 from di_website.ourteam.models import OurTeamPage, TeamMemberPage
+from di_website.users.models import Department
 
 
 @override_settings(STATICFILES_STORAGE='django.contrib.staticfiles.storage.StaticFilesStorage')
@@ -21,9 +22,16 @@ class TestUserProfileCreation(WagtailPageTests):
             last_name="User"
         )
 
+        self.department = Department(name="Data Science")
+        self.department.save()
+
+        self.dummy_department = Department(name="A red herring")
+        self.dummy_department.save()
+
         self.team_member_page = TeamMemberPage(
             title="Test user",
             user=self.user,
+            department=self.department,
             name="Test User",
             email="Test.User@Devinit.org",
             telephone="555-867-5309"
@@ -36,8 +44,16 @@ class TestUserProfileCreation(WagtailPageTests):
 
     def test_team_page_renders(self):
         response = self.client.get(self.team_page.url)
-        self.assertTrue("Test User" in str(response.content))
+        self.assertTrue(self.team_member_page.name in str(response.content))
 
     def test_team_member_page_renders(self):
         response = self.client.get(self.team_member_page.url)
-        self.assertTrue("Test User" in str(response.content))
+        self.assertTrue(self.team_member_page.name in str(response.content))
+
+    def test_department_filter_positive(self):
+        response = self.client.get(self.team_page.url+"?team-filter="+self.department.slug)
+        self.assertTrue(self.team_member_page.name in str(response.content))
+
+    def test_department_filter_negative(self):
+        response = self.client.get(self.team_page.url+"?team-filter="+self.dummy_department.slug)
+        self.assertTrue(self.team_member_page.name not in str(response.content))

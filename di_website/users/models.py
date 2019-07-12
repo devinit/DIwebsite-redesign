@@ -12,7 +12,10 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
 from di_website.ourteam.models import OurTeamPage, TeamMemberPage
+from di_website.common.edit_handlers import ReadOnlyPanel
 
+import logging
+logger = logging.getLogger('django')
 
 @register_snippet
 class JobTitle(models.Model):
@@ -92,7 +95,7 @@ class UserProfile(models.Model):
 
     panels = [
         FieldPanel('user'),
-        FieldPanel('name'),
+        ReadOnlyPanel('name',heading='name',help_text='To edit, change firstname and lastname in user settings'),
         ImageChooserPanel('image'),
         SnippetChooserPanel('position'),
         SnippetChooserPanel('department'),
@@ -114,6 +117,7 @@ class UserProfile(models.Model):
 def create_user_profile(sender, instance, created, **kwargs):
     """Create a new user profile on a post-save."""
     profile, _ = UserProfile.objects.get_or_create(user=instance)
+    
     profile.name = instance.get_full_name()
     if not profile.email:
         profile.email = instance.email
@@ -127,3 +131,27 @@ def create_user_profile(sender, instance, created, **kwargs):
             team_member_page.save_revision().publish()
             profile.page = team_member_page
             profile.save()
+        else:
+            team_member_page = TeamMemberPage.objects.get(user_profile_id=profile.id)
+            if team_member_page:
+                team_member_page.slug=slugify(profile.name)
+                team_member_page.save()
+        
+
+@receiver(post_save, sender=UserProfile)
+def manage_memeber_page(sender, instance, created, **kwargs):
+    try:
+        if instance.page and not instance.active:
+            teammemberpage = TeamMemberPage.objects.get(slug=slugify(instance.name))
+            teammemberpage.live = instance.active
+            teammemberpage.save()
+
+        if instance.page and instance.active:
+            teammemberpage = TeamMemberPage.objects.get(slug=slugify(instance.name))
+            teammemberpage.live = instance.active 
+            teammemberpage.save()
+    except:
+        # Exception expected from double save
+        pass
+   
+

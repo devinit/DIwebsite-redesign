@@ -10,6 +10,8 @@ from wagtail.admin.edit_handlers import (
 )
 from wagtail.images.edit_handlers import ImageChooserPanel
 
+from modelcluster.fields import ParentalKey
+
 """
 StandardPage contains properties that are shared across multiple pages
 """
@@ -64,9 +66,27 @@ class StandardPage(Page):
             FieldPanel('hero_image_credit_name'),
             FieldPanel('hero_image_credit_url'),
             FieldPanel('hero_text', classname="hero_excerpt"),
-            MultiFieldPanel([
-                FieldPanel('hero_link_caption'),
-                PageChooserPanel('hero_link')
-            ])
+            FieldPanel('hero_link_caption'),
+            PageChooserPanel('hero_link')
         ], heading="Hero Section"),
+    ]
+
+
+class OtherPage(Orderable, models.Model):
+    page = ParentalKey(
+        Page, related_name='other_pages', on_delete=models.CASCADE
+    )
+
+    other_page = models.ForeignKey(
+        'wagtailcore.Page',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        verbose_name='Other Page',
+        help_text='Choose a page to link to in the "Other Pages" section'
+    )
+
+    panels = [
+        PageChooserPanel('other_page')
     ]

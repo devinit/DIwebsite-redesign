@@ -1,6 +1,11 @@
 from django.db import models
 
-from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, StreamFieldPanel
+from wagtail.admin.edit_handlers import (
+    FieldPanel,
+    InlinePanel,
+    MultiFieldPanel,
+    StreamFieldPanel
+)
 from wagtail.core.fields import StreamField
 from wagtail.snippets.models import register_snippet
 
@@ -96,6 +101,12 @@ class VacancyPage(StandardPage):
         verbose_name="Page Body",
         blank=True
     )
+    other_pages_heading = models.CharField(
+        blank=True,
+        max_length=255,
+        verbose_name='Heading',
+        default='Other pages in this section'
+    )
 
     content_panels = StandardPage.content_panels + [
         MultiFieldPanel([
@@ -109,7 +120,11 @@ class VacancyPage(StandardPage):
             FieldPanel('first_interview_date'),
             FieldPanel('job_start_date')
         ], heading='Dates'),
-        StreamFieldPanel('body')
+        StreamFieldPanel('body'),
+        MultiFieldPanel([
+            FieldPanel('other_pages_heading'),
+            InlinePanel('other_pages', label='Other Pages')
+        ], heading='Other Pages')
     ]
 
     parent_page_types = [

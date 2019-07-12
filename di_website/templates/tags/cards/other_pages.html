@@ -1,16 +1,16 @@
-{% load wagtailcore_tags %}
-
+{% load wagtailimages_tags wagtailcore_tags %}
 
 <div class="row row--narrow">
     <h2 class="section__heading">{{ heading }}</h2>
     <div class="l-4up">
-        {% for published_page in published_pages %}
-            <a href="{{published_page.url_path}}" class="card">
+        {% for page in other_pages %}
+            {% image page.hero_image fill-400x250 as image %}
+            <a href="{% pageurl page %}" class="card">
                 <div class="card__media"
-                    style="background-image: url(/assets/img/Pin-at-Open-Up-conference-2-400x250.jpg);">
+                    style="background-image: url('{% if page.hero_image %}{{ image.url }}{% endif %}');">
                 </div>
                 <div class="card__body">
-                    <h3 class="card__title"><span>{{published_page.title}}</span></h3>
+                    <h3 class="card__title"><span>{{ page.title }}</span></h3>
                 </div>
             </a>
         {% endfor %}

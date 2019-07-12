@@ -1,6 +1,6 @@
 {% extends "default.html" %}
 
-{% load navigation_tags static wagtailcore_tags users_tags wagtailimages_tags card_tags%}
+{% load navigation_tags static wagtailcore_tags wagtailimages_tags card_tags%}
 {% get_site_root as site_root %}
 
 {% block hero %}
@@ -17,48 +17,45 @@
                 </div>
             </aside>
 
-            {% get_user_profiles as profile_dict %}
-            {% with departments=profile_dict.departments selected_team=profile_dict.selected_team %}
-                {% if departments %}
-                    <div class="l-sidebar__body">
-                        <div class="highlight">
-                            <form method="get" action="{{self.pageurl}}" class="form">
-                                <div class="form-field form-field--inline">
-                                    <label for="team-filter" class="form-label form-label--hidden">
-                                        Fitler by department
-                                    </label>
-                                    <div class="form-field__select-dropdown">
-                                        <select name="team-filter" id="team-filter">
-                                            <option value="" id="filter-by-depertment">Fitler by department</option>
-                                            {% for dept in departments %}
-                                                <option value="{{dept.slug}}" id="{{dept.slug}}" {% if dept.slug == selected_team %}selected{% endif %}>
-                                                    {{dept.name}}
-                                                </option>
-                                            {% endfor %}
-                                        </select>
-                                    </div>
+            {% if departments %}
+                <div class="l-sidebar__body">
+                    <div class="highlight">
+                        <form method="get" action="{{self.pageurl}}" class="form">
+                            <div class="form-field form-field--inline">
+                                <label for="team-filter" class="form-label form-label--hidden">
+                                    Fitler by department
+                                </label>
+                                <div class="form-field__select-dropdown">
+                                    <select name="team-filter" id="team-filter">
+                                        <option value="" id="filter-by-depertment">Fitler by department</option>
+                                        {% for dept in departments %}
+                                            <option value="{{dept.slug}}" id="{{dept.slug}}" {% if dept.slug == selected_team %}selected{% endif %}>
+                                                {{dept.name}}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
                                 </div>
-                                <div class="form-field form-field--inline">
-                                    <button type="submit" class="button">Filter</button>
-                                </div>
-                            </form>
-                        </div>
+                            </div>
+                            <div class="form-field form-field--inline">
+                                <button type="submit" class="button">Filter</button>
+                            </div>
+                        </form>
                     </div>
-                {% endif %}
-            {% endwith %}
+                </div>
+            {% endif %}
         </div>
     </div>
 </section>
 
 <section class="section">
-    {% get_user_profiles as profile_dict %}
-    {% with profile_dict.profiles as profiles %}
+   
+    {% if profiles %}
         {% for profile in profiles %}
             {% image profile.image max-260x260 as img %}
             <div class="row row--narrow">
                 <div class="l-4up">
                     <div class="l-4up__col">
-                        <a href="{% pageurl profile.page %}">
+                        <a href="{% pageurl profile %}">
                           <div class="profile">
                               <div class="profile__media">
                                   <img src="{{img.url}}" alt="alt">
@@ -73,7 +70,7 @@
                 </div>
             </div>
         {% endfor %}
-    {% endwith %}
+    {% endif %}
 </section>
 
 <section class="section">

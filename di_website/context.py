@@ -11,6 +11,7 @@ def globals(request):
             'DEBUG': bool(os.getenv('DEBUG', False)),
             'site_name': request.site.site_name or settings.WAGTAIL_SITE_NAME,
             'large_hero_srcs': 'fill-1000x700 780w, fill-1350x700 1000w, fill-1800x700 1350w',
-            'hero_srcs': 'fill-400x300 1w, fill-500x280 400w, fill-780x230 500w, fill-1000x435 780w, fill-1350x435 1000w, fill-1800x430 1350w',
+            'hero_srcs': 'fill-400x200 1w, fill-500x280 400w, fill-780x230 500w, fill-1000x435 780w, fill-1350x435 1000w, fill-1800x430 1350w',
+            'banner_srcs': 'fill-460x260 460w'
         },
     }

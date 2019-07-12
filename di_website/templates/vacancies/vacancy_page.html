@@ -1,6 +1,6 @@
 {% extends 'layouts/sidebar.html' %}
 
-{% load navigation_tags card_tags%}
+{% load wagtailcore_tags navigation_tags card_tags%}
 {% get_site_root as site_root %}
 
 {% block hero %}
@@ -22,15 +22,21 @@
         </div>
     </section>
 
-    <section class="section">
-        <div class="is-typeset is-typeset--additionals wysiwyg">
-            {{ page.body }}
-        </div>
-    </section>
+    {% for block in page.body %}
+        {% if block.block_type == 'paragraph_block' or block.block_type == 'block_quote' %}
+            {% include_block block %}
+        {% endif %}
+    {% endfor %}
 {% endblock main %}
 
 
 {% block after_content %}
+    {% for block in page.body %}
+        {% if block.block_type == 'banner_block' %}
+            {% include_block block %}
+        {% endif %}
+    {% endfor %}
+
     <section class="section">
         {% get_other_pages calling_page=self heading='Learn more about Developement Initiatives' %}
     </section>

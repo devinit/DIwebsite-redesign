@@ -50,3 +50,4 @@ class ReadOnlyPanel(BaseReadOnlyPanel):
         return type(str(_('ReadOnlyPanel')), (BaseReadOnlyPanel,),
                     {'model': self.model, 'heading': self.heading,
                      'classname': self.classname})
+                     

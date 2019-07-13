@@ -12,6 +12,7 @@ import setupSharing from './utils/social';
 import sectionSharing from './utils/sectionSharing';
 import copyText from './utils/copyText';
 import chapterNav from './utils/chapterNav';
+import './libs/slick';
 
 function globals () {
 
@@ -58,9 +59,73 @@ function globals () {
         '.js-copy-trigger'
     );
     sectionSharing();
+
+    // Slick
+    $('#timeline-slide').slick({
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        arrows: false,
+        fade: false,
+        asNavFor: '#timeline-control',
+        infinite: false,
+    });
+    $('#timeline-control').slick({
+        slidesToShow: 10,
+        slidesToScroll: 1,
+        asNavFor: '#timeline-slide',
+        dots: false,
+        centerMode: false,
+        focusOnSelect: true,
+        infinite: false,
+        mobileFirst: true,
+        responsive: [
+            {
+                breakpoint: 300,
+                settings: { slidesToShow: 3 }
+            },
+            {
+                breakpoint: 400,
+                settings: { slidesToShow: 4 }
+            }
+            ,
+            {
+                breakpoint: 500,
+                settings: { slidesToShow: 5 }
+            },
+            {
+                breakpoint: 600,
+                settings: { slidesToShow: 6 }
+            },
+            {
+                breakpoint: 700,
+                settings: { slidesToShow: 7 }
+            },
+            {
+                breakpoint: 800,
+                settings: { slidesToShow: 8 }
+            },
+            {
+                breakpoint: 900,
+                settings: { slidesToShow: 9 }
+            },
+            {
+                breakpoint: 1000,
+                settings: { slidesToShow: 10 }
+            },
+            {
+                breakpoint: 1100,
+                settings: { slidesToShow: 11 }
+            },
+            {
+                breakpoint: 1200,
+                settings: { slidesToShow: 12 }
+            }
+        ]
+    });
 }
 
 $(function run () {
     console.log('ᕕ( ᐛ )ᕗ Running...');
     globals();
 });
+

@@ -11,6 +11,7 @@ from wagtail.snippets.models import register_snippet
 
 from di_website.common.base import StandardPage
 from di_website.common.blocks import BaseStreamBlock
+from di_website.users.models import Department
 
 
 @register_snippet
@@ -44,6 +45,7 @@ class VacanciesPage(StandardPage):
         context = super().get_context(request)
 
         context['vacancies'] = VacancyPage.objects.live()
+        context['departments'] = Department.objects.all()
 
         return context
 

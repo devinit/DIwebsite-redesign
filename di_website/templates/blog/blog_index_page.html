@@ -29,12 +29,14 @@
     <div class="row row--narrow">
     <h2 class="section__heading">Latest blog posts</h2>
     <div class="l-2up-3up">
-      <a href="#" class="card card--offset">
-        <div class="card__media" style="background-image: url(/assets/img/8229628377_0e981f586f_o-400x250.jpg);"></div>
+      {% for article in articles %}
+      <a href="{% pageurl article %}" class="card card--offset">
+        {% image article.hero_image max-260x260 as hero_img %}
+        <div class="card__media" style="background-image: url({{hero_img.url}});"></div>
         <div class="card__body">
-          <span class="card__meta">10 October 2018</span>
-          <h3 class="card__title"><span>Data to leave no one behind: Development cooperation and the P20</span></h3>
-          <p class="card__excerpt">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi.</p>
+          <span class="card__meta">{{article.first_published_at}}</span>
+          <h3 class="card__title"><span>{{article.title}}</span></h3>
+          <p class="card__excerpt">{{article.hero_text}}</p>
 
           <div class="m-author">
             <div class="m-author__image">
@@ -48,6 +50,7 @@
           </div>
         </div>
       </a>
+      {% endfor %}
     </div>
     {% include "includes/scaffold/pagination-links.html" with children=articles %}
     </div>

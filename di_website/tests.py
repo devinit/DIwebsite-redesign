@@ -34,7 +34,8 @@ class TestUserProfileCreation(WagtailPageTests):
             department=self.department,
             name="Test User",
             email="Test.User@Devinit.org",
-            telephone="555-867-5309"
+            telephone="555-867-5309",
+            my_story="This is Naphlin Peter Akena",
         )
         self.team_page.add_child(instance=self.team_member_page)
 

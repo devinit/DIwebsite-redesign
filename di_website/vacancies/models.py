@@ -14,23 +14,6 @@ from di_website.common.blocks import BaseStreamBlock
 
 
 @register_snippet
-class JobDuration(models.Model):
-    duration = models.CharField(
-        blank=False,
-        max_length=100,
-        help_text='e.g. Permanent, Full Time, 6 Months, Temp'
-    )
-
-    class Meta():
-        db_table = 'job_duration'
-        verbose_name = 'Job Duration'
-        verbose_name_plural = 'Job Durations'
-
-    def __str__(self):
-        return self.duration
-
-
-@register_snippet
 class OfficeLocation(models.Model):
     location = models.CharField(
         blank=False,
@@ -73,12 +56,7 @@ class VacancyPage(StandardPage):
         on_delete=models.SET_NULL,
         related_name='+'
     )
-    duration = models.ForeignKey(
-        JobDuration,
-        null=True,
-        on_delete=models.SET_NULL,
-        related_name='+'
-    )
+    duration = models.CharField(null=True, max_length=255)
     location = models.ForeignKey(
         OfficeLocation,
         null=True,

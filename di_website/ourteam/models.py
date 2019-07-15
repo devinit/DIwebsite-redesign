@@ -6,6 +6,7 @@ from di_website.users.models import Department, JobTitle
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from django.contrib.auth.models import User
 from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.core.fields import RichTextField
 
 
 class OurTeamPage(StandardPage):
@@ -65,6 +66,7 @@ class TeamMemberPage(Page):
         blank=True
     )
     telephone = models.CharField(max_length=255, null=True, blank=True)
+    my_story=RichTextField(blank=True,null=True,help_text="Please say something about team member ")
 
     content_panels = Page.content_panels + [
         FieldPanel('user'),
@@ -73,7 +75,8 @@ class TeamMemberPage(Page):
         SnippetChooserPanel('position'),
         SnippetChooserPanel('department'),
         FieldPanel('email'),
-        FieldPanel('telephone')
+        FieldPanel('telephone'),
+        FieldPanel('my_story', classname="full"),
     ]
 
     class Meta:

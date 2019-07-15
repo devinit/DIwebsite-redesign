@@ -4,7 +4,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
-from di_website.common.base import StandardPage
+from di_website.common.base import StandardPage, get_paginator_range
 
 
 @register_snippet
@@ -42,6 +42,7 @@ class BlogIndexPage(StandardPage):
             context['articles'] = paginator.page(paginator.num_pages)
         context['topics'] = BlogTopic.objects.all()
         context['selected_topic'] = topic_filter
+        context['paginator_range'] = get_paginator_range(paginator)
 
         return context
 

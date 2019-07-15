@@ -5,7 +5,6 @@ from wagtail.core.models import Orderable, Page
 from wagtail.core.fields import RichTextField
 from wagtail.admin.edit_handlers import (
     FieldPanel,
-    InlinePanel,
     MultiFieldPanel,
     PageChooserPanel
 )
@@ -15,10 +14,11 @@ from wagtail.snippets.models import register_snippet
 
 from modelcluster.fields import ParentalKey
 
-"""
-StandardPage contains properties that are shared across multiple pages
-"""
+
 class StandardPage(Page):
+    """
+    StandardPage contains properties that are shared across multiple pages
+    """
     class Meta:
         abstract = True
     hero_image = models.ForeignKey(
@@ -61,7 +61,6 @@ class StandardPage(Page):
         blank=True,
         help_text='Text to display on the link button'
     )
-
 
     content_panels = Page.content_panels + [
         MultiFieldPanel([
@@ -127,3 +126,10 @@ class Download(BaseDownload):
         DocumentChooserPanel('file'),
         FieldPanel('title')
     ]
+
+
+def get_paginator_range(paginator):
+    """Return a 3 elements long list containing a range of page numbers (int)."""
+    range_start = max(paginator.number - 3, 1)
+    range_end = min(paginator.number + 2, paginator.num_pages)
+    return [i for i in range(range_start, range_end + 1)]

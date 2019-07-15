@@ -4,11 +4,10 @@
     <div class="card__body">
         <span class="card__flag">{{ vacancy.duration }}</span>
         <h3 class="card__title"><span>{{ vacancy.title }}</span></h3>
-        <span class="card__meta">{{ vacancy.location.location }}</span>
+        <span class="card__meta">{{ vacancy.location }}</span>
         <ul class="card__list">
-            {% for option in vacancy.options %}
-                <li>{{ option.label }}</li>
-            {% endfor %}
+            <li><span>Salary scale: </span>{{ vacancy.salary_scale }}</li>
+            <li><span>Closing date: </span>{{ vacancy.application_close_date }}</li>
         </ul>
     </div>
 </a>

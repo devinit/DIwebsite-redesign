@@ -1,12 +1,14 @@
 from django.db import models
+from django.contrib.auth.models import User
+
 from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.core.models import Page
-from di_website.common.base import StandardPage
-from di_website.users.models import Department, JobTitle
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
-from django.contrib.auth.models import User
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.core.fields import RichTextField
+
+from di_website.common.base import StandardPage
+from di_website.users.models import Department, JobTitle
 
 
 class OurTeamPage(StandardPage):

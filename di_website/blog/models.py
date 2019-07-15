@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
@@ -25,11 +26,20 @@ class BlogIndexPage(StandardPage):
 
     def get_context(self, request):
         context = super(BlogIndexPage, self).get_context(request)
+        page = request.GET.get('page', None)
         topic_filter = request.GET.get('topic', None)
         if topic_filter:
-            context['articles'] = BlogArticlePage.objects.live().filter(topic__slug=topic_filter)
+            articles = BlogArticlePage.objects.live().filter(topic__slug=topic_filter)
         else:
-            context['articles'] = BlogArticlePage.objects.live()
+            articles = BlogArticlePage.objects.live()
+
+        paginator = Paginator(articles, 10)
+        try:
+            context['articles'] = paginator.page(page)
+        except PageNotAnInteger:
+            context['articles'] = paginator.page(1)
+        except EmptyPage:
+            context['articles'] = paginator.page(paginator.num_pages)
         context['topics'] = BlogTopic.objects.all()
         context['selected_topic'] = topic_filter
 

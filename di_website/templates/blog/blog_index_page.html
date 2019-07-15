@@ -8,4 +8,66 @@
 {% endblock hero %}
 
 {% block body %}
+  <section class="section">
+    <div class="row row--narrow">
+      <div class="filter">
+        <h3 class="filter__title">View blogs by topic:</h3>
+        <ul class="filter__list">
+          {% for topic in topics %}
+            {% if topic.slug == selected_topic %}
+              <li class="filter__list__item filter__list__item--active"><a href="{% pageurl self %}">{{topic.name}}</a></li>
+            {% else %}
+              <li class="filter__list__item"><a href="{% pageurl self %}?topic={{topic.slug}}">{{topic.name}}</a></li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="row row--narrow">
+    <h2 class="section__heading">Latest blog posts</h2>
+    <div class="l-2up-3up">
+      <a href="#" class="card card--offset">
+        <div class="card__media" style="background-image: url(/assets/img/8229628377_0e981f586f_o-400x250.jpg);"></div>
+        <div class="card__body">
+          <span class="card__meta">10 October 2018</span>
+          <h3 class="card__title"><span>Data to leave no one behind: Development cooperation and the P20</span></h3>
+          <p class="card__excerpt">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi.</p>
+
+          <div class="m-author">
+            <div class="m-author__image">
+              <img src="/assets/img/profile2sq.jpg" alt="alt tag">
+            </div>
+            <div class="m-author__body">
+              <span class="m-author__meta">Guest author</span>
+              <h3 class="m-author__title">Written by [Author name]</h3>
+              <p class="m-author__job">[Company name]</p>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+    <!-- TODO: Implement pagination -->
+    <ul class="pagination">
+      <li class="pagination__item pagination__item--prev">
+        <a class="pagination__item-prev-link" href="#none">Prev</a>
+      </li>
+      <li class="pagination__item">
+        <a class="pagination__item-link" href="#none">1</a>
+      </li>
+      <li class="pagination__item">
+        <a class="pagination__item-link pagination__item-link--active" href="#none">2</a>
+      </li>
+      <li class="pagination__item">
+        <a class="pagination__item-link" href="#none">3</a>
+      </li>
+      <li class="pagination__item pagination__item--next">
+        <a class="pagination__item-next-link" href="">Next</a>
+      </li>
+    </ul>
+
+    </div>
+  </section>
 {% endblock %}

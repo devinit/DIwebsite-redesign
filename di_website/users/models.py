@@ -1,7 +1,5 @@
 from django.db import models
 from django.utils.text import slugify
-from django.db.models.signals import post_save
-from django.dispatch import receiver
 from wagtail.snippets.models import register_snippet
 from wagtail.admin.edit_handlers import (
     FieldPanel,

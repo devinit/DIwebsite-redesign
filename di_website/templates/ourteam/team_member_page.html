@@ -1,6 +1,6 @@
 {% extends "default.html" %}
 
-{% load navigation_tags static wagtailcore_tags users_tags wagtailimages_tags card_tags team_tags %}
+{% load navigation_tags static wagtailcore_tags wagtailimages_tags card_tags team_tags %}
 {% get_site_root as site_root %}
 
 {% block hero %}
@@ -15,18 +15,18 @@
     <span class="hero__flourish"></span>
     <div class="row row--narrow">
         <div class="hero__profile">
-            {% image self.user_profile.image max-260x260 as img %}
-            <img src="{{img.url}}" alt="{{self.user_profile.name}} photograph">
+            {% image self.image max-260x260 as img %}
+            <img src="{{img.url}}" alt="{{self.name}} photograph">
         </div>
         <div class="hero__content">
-            <h1 class="hero__title"><span>{{self.user_profile.name|default_if_none:""}}</span></h1>
-            <h2 class="hero__subtitle"><span>{{self.user_profile.position|default_if_none:""}}</span></h2>
+            <h1 class="hero__title"><span>{{self.name|default_if_none:""}}</span></h1>
+            <h2 class="hero__subtitle"><span>{{self.position|default_if_none:""}}</span></h2>
             <ul class="hero__list">
-              {% if self.user_profile.telephone %}
-                <li><i role="presentation" aria-hidden="true" class="ico ico--16 ico-phone-blank"></i><a href="tel:{{self.user_profile.telephone}}">{{self.user_profile.telephone}}</a></li>
+              {% if self.telephone %}
+                <li><i role="presentation" aria-hidden="true" class="ico ico--16 ico-phone-blank"></i><a href="tel:{{self.telephone}}">{{self.telephone}}</a></li>
               {% endif %}
-              {% if self.user_profile.email %}
-                <li><i role="presentation" aria-hidden="true" class="ico ico--16 ico-mail-blank"></i><a href="mailto:{{self.user_profile.email}}">{{self.user_profile.email}}</a></li>
+              {% if self.email %}
+                <li><i role="presentation" aria-hidden="true" class="ico ico--16 ico-mail-blank"></i><a href="mailto:{{self.email}}">{{self.email}}</a></li>
               {% endif %}
             </ul>
         </div>
@@ -41,29 +41,22 @@
     <div class="l-sidebar">
       <aside class="l-sidebar__aside">
         <div class="aside aside--clipping">
-          <h2 class="aside__heading">More in: Who we are</h2>
-          <nav class="navigation-secondary">
-            <ul>
-              <li class="navigation-secondary__item "><a href="#">Our story</a></li>
-              <li class="navigation-secondary__item navigation-secondary__item--active"><a href="#">Team</a></li>
-              <li class="navigation-secondary__item "><a href="#">2020 strategy</a></li>
-              <li class="navigation-secondary__item "><a href="#">Our funding</a></li>
-              <li class="navigation-secondary__item "><a href="#">Finances</a></li>
-            </ul>
-          </nav>
+          {% secondary_menu parent=self %}
         </div>
       </aside>
       <div class="l-sidebar__body">
-        <!-- TODO: Paragraph here -->
+        <div class="is-typeset wysiwyg">
+          {{self.my_story|richtext}}
+        </div>
       </div>
     </div>
   </div>
 </section>
-{% user_owned_pages self.user_profile.user as user_pages %}
+{% user_owned_pages self.user as user_pages %}
 {% if user_owned_pages %}
   <section class="section">
     <div class="row row--narrow">
-      <h2 class="section__heading">Content by {{self.user_profile.name}}:</h2>
+      <h2 class="section__heading">Content by {{self.name}}:</h2>
         <div class="l-2up-3up">
 
         {% for user_page in user_pages %}

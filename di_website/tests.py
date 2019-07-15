@@ -2,8 +2,8 @@ from django.test import override_settings
 from wagtail.tests.utils import WagtailPageTests
 from di_website.home.models import HomePage
 from django.contrib.auth.models import User
-from di_website.users.models import UserProfile
-from di_website.ourteam.models import OurTeamPage
+from di_website.ourteam.models import OurTeamPage, TeamMemberPage
+from di_website.users.models import Department
 
 
 @override_settings(STATICFILES_STORAGE='django.contrib.staticfiles.storage.StaticFilesStorage')
@@ -21,24 +21,40 @@ class TestUserProfileCreation(WagtailPageTests):
             first_name="Test",
             last_name="User"
         )
-        self.userprofile = UserProfile.objects.get(user=self.user)
 
-    def test_user_profile_created(self):
-        self.assertEqual(self.userprofile.name, "Test User")
+        self.department = Department(name="Data Science")
+        self.department.save()
 
-    def test_user_profile_200(self):
+        self.dummy_department = Department(name="A red herring")
+        self.dummy_department.save()
+
+        self.team_member_page = TeamMemberPage(
+            title="Test user",
+            user=self.user,
+            department=self.department,
+            name="Test User",
+            email="Test.User@Devinit.org",
+            telephone="555-867-5309",
+            my_story="This is Naphlin Peter Akena",
+        )
+        self.team_page.add_child(instance=self.team_member_page)
+
+    def test_team_page_200(self):
         response = self.client.get(self.team_page.url)
         self.assertEqual(response.status_code, 200)
 
-    def test_user_profile_appears(self):
-        self.userprofile.active = True
-        self.userprofile.save()
+    def test_team_page_renders(self):
         response = self.client.get(self.team_page.url)
-        self.assertTrue("Test User" in str(response.content))
+        self.assertTrue(self.team_member_page.name in str(response.content))
 
-    def test_user_page_created(self):
-        self.assertEqual(self.userprofile.page.title, self.userprofile.name)
+    def test_team_member_page_renders(self):
+        response = self.client.get(self.team_member_page.url)
+        self.assertTrue(self.team_member_page.name in str(response.content))
 
-    def test_user_page_renders(self):
-        response = self.client.get(self.userprofile.page.url)
-        self.assertTrue("Test User" in str(response.content))
+    def test_department_filter_positive(self):
+        response = self.client.get(self.team_page.url+"?team-filter="+self.department.slug)
+        self.assertTrue(self.team_member_page.name in str(response.content))
+
+    def test_department_filter_negative(self):
+        response = self.client.get(self.team_page.url+"?team-filter="+self.dummy_department.slug)
+        self.assertTrue(self.team_member_page.name not in str(response.content))

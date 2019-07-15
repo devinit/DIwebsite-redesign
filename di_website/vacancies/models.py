@@ -57,6 +57,14 @@ class VacanciesPage(StandardPage):
     ]
     subpage_types = [ 'VacancyPage' ]
 
+    def get_context(self, request):
+        context = super().get_context(request)
+
+        context['vacancies'] = VacancyPage.objects.live()
+
+        return context
+
+
 
 class VacancyPage(StandardPage):
     vacancy = models.ForeignKey(

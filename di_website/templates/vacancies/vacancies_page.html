@@ -1,0 +1,18 @@
+{% extends 'layouts/default.html' %}
+
+{% block hero %}
+    {% include 'includes/heroes/hero.html' %}
+{% endblock hero %}
+
+
+{% block body %}
+    <section class="section">
+        <div class="row row--narrow">
+            <div class="l-2up-3up">
+                {% for vacancy in vacancies %}
+                    {% include 'includes/cards/card-job.html' %}
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock body %}

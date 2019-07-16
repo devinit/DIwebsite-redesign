@@ -17,6 +17,9 @@ from di_website.users.models import Department
 
 @register_snippet
 class OfficeLocation(models.Model):
+    """
+    Keeps things uniform; better than freetext
+    """
     location = models.CharField(
         blank=False,
         max_length=100,
@@ -33,14 +36,15 @@ class OfficeLocation(models.Model):
 
 
 class VacanciesPage(StandardPage):
+    """
+    Shows a list of available vacancies
+    """
     class Meta:
         db_table = 'vacancies_page'
         verbose_name = 'Vacancies Page'
 
-    parent_page_types = [
-        'home.HomePage'
-    ]
-    subpage_types = [ 'VacancyPage' ]
+    parent_page_types = ['home.HomePage']
+    subpage_types = ['VacancyPage']
 
     def get_context(self, request):
         context = super().get_context(request)
@@ -54,12 +58,12 @@ class VacanciesPage(StandardPage):
             'label': 'Email address',
             'placeholder': 'Your email address'
         }
-        if (request.method == 'POST'):
+        if request.method == 'POST':
             data = request.POST.copy()
             email_address = data.get('email_address', None)
             email['value'] = email_address
             try:
-                if (email_address):
+                if email_address:
                     validate_email(email_address)
                 else:
                     email['field_error'] = 'This field is required'
@@ -68,10 +72,10 @@ class VacanciesPage(StandardPage):
 
             monitored_departments = []
             for department in departments:
-                if (data.get(department.slug, None) == 'on'):
+                if data.get(department.slug, None) == 'on':
                     monitored_departments.append(department)
 
-        context['form'] = { 'email': email }
+        context['form'] = {'email': email}
 
         return context
 

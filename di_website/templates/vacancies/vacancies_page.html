@@ -24,9 +24,14 @@
                 <p>Do you want to know when new vacancies become available in your chosen field?</p>
                 <p>Subscribe to vacancy alerts!</p>
             </div>
-            <form class="form" method="post" action="{{self.pageurl}}">
-                <fieldset class="form-section">
-                    {% if form %}
+            {% if form %}
+                {% if form.success %}
+                    <div class="alert alert--success"><i role="presentation" aria-hidden="true" class="ico ico-success-success"></i>
+                        <p><strong>{{ form.alert_message }}</strong></p>
+                    </div>
+                {% endif %}
+                <form class="form" method="post" action="{{self.pageurl}}">
+                    <fieldset class="form-section">
                         {% with form.email as email %}
                             <div class="form-field {% if email.field_error %}form-field--error{% else %}{% endif %}">
                                 <label for="{{ email.label }}" id="{{ email.id }}_label" class="form-label">
@@ -52,13 +57,13 @@
                                 </div>
                             </div>
                         </div>
-                    {% endif %}
-                    <div class="form-field form-field--spaced">
-                        <input class="button" type="submit" value="Sign up for alerts">
-                    </div>
-                    {% csrf_token %}
-                </fieldset>
-            </form>
+                        <div class="form-field form-field--spaced">
+                            <input class="button" type="submit" value="Sign up for alerts">
+                        </div>
+                        {% csrf_token %}
+                    </fieldset>
+                </form>
+            {% endif %}
         </div>
     </section>
 {% endblock body %}

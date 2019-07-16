@@ -1,0 +1,78 @@
+{% extends "default.html" %}
+
+{% load navigation_tags static wagtailcore_tags wagtailimages_tags card_tags%}
+{% get_site_root as site_root %}
+
+{% block hero %}
+{% include 'includes/heroes/hero.html' %}
+{% endblock hero %}
+
+{% block body %}
+<section class="section">
+    <div class="row row--narrow">
+        <div class="l-sidebar">
+            <aside class="l-sidebar__aside">
+                <div class="aside aside--clipping">
+                    {% secondary_menu parent=self %}
+                </div>
+            </aside>
+
+            {% if departments %}
+                <div class="l-sidebar__body">
+                    <div class="highlight">
+                        <form method="get" action="{{self.pageurl}}" class="form">
+                            <div class="form-field form-field--inline">
+                                <label for="team-filter" class="form-label form-label--hidden">
+                                    Fitler by department
+                                </label>
+                                <div class="form-field__select-dropdown">
+                                    <select name="team-filter" id="team-filter">
+                                        <option value="" id="filter-by-depertment">Filter by department</option>
+                                        {% for dept in departments %}
+                                            <option value="{{dept.slug}}" id="{{dept.slug}}" {% if dept.slug == selected_team %}selected{% endif %}>
+                                                {{dept.name}}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-field form-field--inline">
+                                <button type="submit" class="button">Filter</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+{% if profiles %}
+    <section class="section">
+        <div class="row row--narrow">
+            {% for profile in profiles %}
+                {% image profile.image max-260x260 as img %}
+                <div class="l-4up">
+                    <div class="l-4up__col">
+                        <a href="{% pageurl profile %}">
+                            <div class="profile">
+                                <div class="profile__media">
+                                    <img src="{{img.url}}" alt="alt">
+                                </div>
+                                <div class="profile__caption">
+                                    <h3 class="profile__title">{{profile.name|default_if_none:""}}</h3>
+                                    <p class="profile__meta">{{profile.position.name|default_if_none:""}}</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+{% endif %}
+
+<section class="section">
+    {% get_other_pages calling_page=self%}
+</section>
+{% endblock %}

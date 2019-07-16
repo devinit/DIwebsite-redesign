@@ -9,7 +9,9 @@ register = template.Library()
 
 @register.simple_tag(takes_context=True)
 def get_site_root(context):
-    return context['request'].site.root_page
+    if 'request' in context.__dict__:
+        return context['request'].site.root_page
+    return None
 
 
 def has_menu_children(page):
@@ -22,6 +24,7 @@ def has_children(page):
 
 def is_active(page, current_page):
     return current_page.url_path.startswith(page.url_path) if current_page else False
+
 
 def get_menu_items(page, calling_page):
     if (hasattr(page, 'get_children')):
@@ -39,7 +42,7 @@ def primary_menu(context, parent, calling_page=None):
         'calling_page': calling_page,
         'menu_items': menu_items,
         # required by the pageurl tag that we want to use within this template
-        'request': context['request'],
+        'request': context.get('request'),
     }
 
 @register.inclusion_tag('tags/navigation/secondary.html', takes_context=True)
@@ -55,5 +58,5 @@ def secondary_menu(context, parent, calling_page=None):
         'parent': parent,
         'menu_items': secondary_menu_items,
         # required by the pageurl tag that we want to use within this template
-        'request': context['request'],
+        'request': context.get('request'),
     }

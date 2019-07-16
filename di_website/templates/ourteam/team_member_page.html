@@ -1,0 +1,81 @@
+{% extends "default.html" %}
+
+{% load navigation_tags static wagtailcore_tags wagtailimages_tags card_tags team_tags %}
+{% get_site_root as site_root %}
+
+{% block hero %}
+<section class="hero hero--profile">
+    <span class="hero__flourish"></span>
+    <span class="hero__flourish"></span>
+    <span class="hero__flourish"></span>
+    <span class="hero__flourish"></span>
+    <span class="hero__flourish"></span>
+    <span class="hero__flourish"></span>
+    <span class="hero__flourish"></span>
+    <span class="hero__flourish"></span>
+    <div class="row row--narrow">
+        <div class="hero__profile">
+            {% image self.image max-260x260 as img %}
+            <img src="{{img.url}}" alt="{{self.name}} photograph">
+        </div>
+        <div class="hero__content">
+            <h1 class="hero__title"><span>{{self.name|default_if_none:""}}</span></h1>
+            <h2 class="hero__subtitle"><span>{{self.position|default_if_none:""}}</span></h2>
+            <ul class="hero__list">
+              {% if self.telephone %}
+                <li><i role="presentation" aria-hidden="true" class="ico ico--16 ico-phone-blank"></i><a href="tel:{{self.telephone}}">{{self.telephone}}</a></li>
+              {% endif %}
+              {% if self.email %}
+                <li><i role="presentation" aria-hidden="true" class="ico ico--16 ico-mail-blank"></i><a href="mailto:{{self.email}}">{{self.email}}</a></li>
+              {% endif %}
+            </ul>
+        </div>
+    </div>
+</section>
+{% endblock hero %}
+
+{% block body %}
+
+<section class="section">
+  <div class="row row--narrow">
+    <div class="l-sidebar">
+      <aside class="l-sidebar__aside">
+        <div class="aside aside--clipping">
+          {% secondary_menu parent=self %}
+        </div>
+      </aside>
+      <div class="l-sidebar__body">
+        <div class="is-typeset wysiwyg">
+          {{self.my_story|richtext}}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% user_owned_pages self.user as user_pages %}
+{% if user_owned_pages %}
+  <section class="section">
+    <div class="row row--narrow">
+      <h2 class="section__heading">Content by {{self.name}}:</h2>
+        <div class="l-2up-3up">
+
+        {% for user_page in user_pages %}
+          <a href="{% pageurl user_page %}" class="card card--simple">
+            <div class="card__body">
+              <!-- TODO: Decide what type of page to show here and filter -->
+              <!-- <span class="card__flag">Report</span> -->
+              <span class="card__meta">{{user_page.date|default_if_none:""}}</span>
+              <h3 class="card__title"><span>{{user_page.title|default_if_none:""}}</span></h3>
+            </div>
+          </a>
+        {% endfor %}
+
+        </div>
+    </div>
+  </section>
+{% endif %}
+
+<section class="section">
+    {% get_other_pages calling_page=self%}
+</section>
+{% endblock %}

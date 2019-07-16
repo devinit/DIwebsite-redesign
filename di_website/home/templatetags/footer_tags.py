@@ -27,7 +27,7 @@ def get_footer_sections(context, parent, calling_page=None):
 
     return {
         'footer_sections': footer_sections,
-        'request': context['request'],
+        'request': context.get('request'),
     }
 
 

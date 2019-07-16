@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import validate_email
 
 from wagtail.admin.edit_handlers import (
     FieldPanel,
@@ -44,11 +45,35 @@ class VacanciesPage(StandardPage):
     def get_context(self, request):
         context = super().get_context(request)
 
+        departments = Department.objects.all()
         context['vacancies'] = VacancyPage.objects.live()
-        context['departments'] = Department.objects.all()
+        context['departments'] = departments
+
+        email = {
+            'id': 'email_address',
+            'label': 'Email address',
+            'placeholder': 'Your email address'
+        }
+        if (request.method == 'POST'):
+            data = request.POST.copy()
+            email_address = data.get('email_address', None)
+            email['value'] = email_address
+            try:
+                if (email_address):
+                    validate_email(email_address)
+                else:
+                    email['field_error'] = 'This field is required'
+            except validate_email.ValidationError:
+                email['field_error'] = 'Invalid email'
+
+            monitored_departments = []
+            for department in departments:
+                if (data.get(department.slug, None) == 'on'):
+                    monitored_departments.append(department)
+
+        context['form'] = { 'email': email }
 
         return context
-
 
 
 class VacancyPage(StandardPage):

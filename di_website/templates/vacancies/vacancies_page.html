@@ -1,4 +1,5 @@
 {% extends 'layouts/default.html' %}
+{% load wagtailcore_tags %}
 
 {% block hero %}
     {% include 'includes/heroes/hero.html' %}
@@ -13,6 +14,51 @@
                     {% include 'includes/cards/card-job.html' %}
                 {% endfor %}
             </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <h2 class="section__heading">Sign up for vacancy alerts</h2>
+            <div class="is-typeset max-meter">
+                <p>Do you want to know when new vacancies become available in your chosen field?</p>
+                <p>Subscribe to vacancy alerts!</p>
+            </div>
+            <form class="form" method="post" action="{{self.pageurl}}">
+                <fieldset class="form-section">
+                    {% if form %}
+                        {% with form.email as email %}
+                            <div class="form-field {% if email.field_error %}form-field--error{% else %}{% endif %}">
+                                <label for="{{ email.label }}" id="{{ email.id }}_label" class="form-label">
+                                    {{ email.label }}
+                                </label>
+                                <input id="{{ email.id }}" class="form-item" name="{{ email.id }}" type="email" placeholder="{{email.placeholder}}" value={{email.value}}>
+                                {% if email.field_error %}
+                                    <span class="form-message">{{ email.field_error }}</span>
+                                {% endif %}
+                            </div>
+                        {% endwith %}
+
+                        <div class="form-field form-field--spaced">
+                            <div for="choose_departments" class="form-label ">Choose departments (optional)</div>
+                            <div id="choose_departments">
+                                <div class="form-field__checkboxes form-field__checkboxes--columns">
+                                    {% for department in departments %}
+                                        <div class="form-checkbox-group cp-form-checkbox-group-{{ department.slug}}">
+                                            <input class="form-checkbox" type="checkbox" name="{{ department.slug }}" id="{{ department.slug }}"/>
+                                            <label class="form-label" for="{{ department.slug}}">{{ department.name }}</label>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                    <div class="form-field form-field--spaced">
+                        <input class="button" type="submit" value="Sign up for alerts">
+                    </div>
+                    {% csrf_token %}
+                </fieldset>
+            </form>
         </div>
     </section>
 {% endblock body %}

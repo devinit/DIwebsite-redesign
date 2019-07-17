@@ -46,6 +46,11 @@ class BlogIndexPage(StandardPage):
 
         return context
 
+# TODO:
+# yes we will have guest blogs
+# so we will need custom fields
+# where it is a guest it would be ideal to have the option of not linking or hyperlinking to an online profile they have elsewhere, but if that's a pain, then just don't link it to anywhere at all and we can make reference to them in a short bio in the blog body itself and link from there
+# where it is DI staff we want it to link to their profile
 
 class BlogArticlePage(StandardPage):
     topic = models.ForeignKey(

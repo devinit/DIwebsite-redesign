@@ -159,7 +159,6 @@ textarea.form-item {
 		}
 	}
 	input {
-		float: left;
 		margin-right: 15px;
 		vertical-align: middle;
 		&:after {
@@ -173,12 +172,17 @@ textarea.form-item {
 	input[type="checkbox"] {
 		width: 16px;
 		height: 16px;
-		position: relative;
+		position: absolute;
 		top: 0px; // Usually needs a wiggle
 	}
 	input[type="radio"] {
 		border-radius: 50%;
 	}
+}
+
+.form-checkbox-group,
+.form-radio-group {
+	position: relative;
 }
 
 // For enhanced style (off by default)

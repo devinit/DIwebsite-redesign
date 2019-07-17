@@ -16,12 +16,6 @@ StandardPage contains properties that are shared across multiple pages
 class StandardPage(Page):
     class Meta:
         abstract = True
-
-    hero_title = models.CharField(
-        blank=True,
-        max_length=255,
-        help_text='Leave blank if you want it to match the page title'
-    )
     hero_image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -66,7 +60,6 @@ class StandardPage(Page):
 
     content_panels = Page.content_panels + [
         MultiFieldPanel([
-            FieldPanel('hero_title'),
             ImageChooserPanel('hero_image'),
             FieldPanel('hero_image_credit_name'),
             FieldPanel('hero_image_credit_url'),

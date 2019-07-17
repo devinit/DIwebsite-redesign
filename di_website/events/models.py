@@ -33,6 +33,7 @@ class EventPage(StandardPage):
             FieldPanel('other_pages_heading'),
             InlinePanel('other_pages', label='Other Pages')
         ], heading='Other Pages')
+       
     ]
 
     parent_page_types = [

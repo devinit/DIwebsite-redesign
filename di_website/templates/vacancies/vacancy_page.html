@@ -33,7 +33,7 @@
 {% block aside %}
     <div class="aside aside--clipping">
         <h2 class="aside__heading">{{ page.downloads_title }}</h2>
-        <p class="aside__excerpt">{{ page.downloads_description|richtext }}</p>
+        <div class="aside__excerpt">{{ page.downloads_description|richtext }}</div>
 
         {% if page.page_downloads %}
             {% for item in page.get_page_downloads %}

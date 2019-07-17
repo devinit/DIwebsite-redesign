@@ -1,6 +1,7 @@
 from django.db import models, DataError
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
+from django.utils.functional import cached_property
 
 from wagtail.admin.edit_handlers import (
     FieldPanel,
@@ -8,7 +9,7 @@ from wagtail.admin.edit_handlers import (
     MultiFieldPanel,
     StreamFieldPanel
 )
-from wagtail.core.fields import StreamField
+from wagtail.core.fields import RichTextField, StreamField
 from wagtail.snippets.models import register_snippet
 
 from di_website.common.base import StandardPage
@@ -152,6 +153,18 @@ class VacancyPage(StandardPage):
         verbose_name='Heading',
         default='Other pages in this section'
     )
+    downloads_title = models.CharField(
+        blank=True,
+        max_length=255,
+        default='Apply for this position',
+        verbose_name='Title',
+        help_text='Title for the downloads section on a vacancy page'
+    )
+    downloads_description = RichTextField(
+        blank=True,
+        verbose_name='Description',
+        help_text='Optional: a brief description of what to do in this section',
+    )
 
     content_panels = StandardPage.content_panels + [
         MultiFieldPanel([
@@ -167,6 +180,11 @@ class VacancyPage(StandardPage):
         ], heading='Dates'),
         StreamFieldPanel('body'),
         MultiFieldPanel([
+            FieldPanel('downloads_title'),
+            FieldPanel('downloads_description'),
+            InlinePanel('page_downloads', label='Download', max_num=None)
+        ], heading='Downloads'),
+        MultiFieldPanel([
             FieldPanel('other_pages_heading'),
             InlinePanel('other_pages', label='Other Pages')
         ], heading='Other Pages')
@@ -175,6 +193,11 @@ class VacancyPage(StandardPage):
     parent_page_types = [
         'VacanciesPage'
     ]
+
+
+    @cached_property
+    def get_page_downloads(self):
+        return self.page_downloads.all()
 
     class Meta():
         db_table = 'vacancy_page'

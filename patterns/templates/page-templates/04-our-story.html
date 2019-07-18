@@ -21,6 +21,7 @@
 
 {% model 'cards', as="card" %}
 {% model 'navigation', as="navigation" %}
+{% model 'timeline', as="timeline" %}
 
 {% import 'macros/icon.html' as icons %}
 {% import 'macros/secondary-navigation.html' as secondary_navigation %}
@@ -60,44 +61,40 @@
                 <p>Here is our story so far...</p>
             </div>
             <div class="carousel">
-                <div class="timeline">
-                    <button class="timeline__nav timeline__nav--prev" type="button">{{ icons.icon('ico-arrow-poppy', '24') }}</button>
-                    <div class="timeline__item"><span>1993</span></div>
-                    <div class="timeline__item"><span>1994</span></div>
-                    <div class="timeline__item"><span>2000</span></div>
-                    <div class="timeline__item"><span>2007</span></div>
-                    <div class="timeline__item"><span>2008</span></div>
-                    <div class="timeline__item timeline__item--active"><span>2009</span></div>
-                    <div class="timeline__item"><span>2011</span></div>
-                    <div class="timeline__item"><span>2012</span></div>
-                    <div class="timeline__item"><span>2013</span></div>
-                    <div class="timeline__item"><span>2018</span></div>
-                    <button class="timeline__nav timeline__nav--next" type="button">{{ icons.icon('ico-arrow-poppy', '24') }}</button>
+                <div class="slider timeline" id="timeline-control">
+                    {% for item in timeline.timeline_list %}
+                        <a href="#{{ item.date }}" class="timeline__item"><span><span>{{ item.date }}</span></span></a>
+                    {% endfor %}
                 </div>
-                <div class="highlight">
-                    <div class="l-highlight">
-                        <div class="l-highlight__main">
-                            <span class="highlight__flag">2009</span>
-                            <h3 class="highlight__heading">The International Aid Transparency Initiative (IATI) is agreed</h3>
-                            <div class="is-typeset">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                <div class="slider highlight" id="timeline-slide">
+                    {% for item in timeline.timeline_list %}
+                        <div class="l-highlight" id="{{ item.date }}">
+                            <div class="l-highlight__main">
+                                <span class="highlight__flag">{{ item.date }}</span>
+                                <h3 class="highlight__heading">{{ item.title }}</h3>
+                                <div class="is-typeset">
+                                    <p>{{ item.content }}</p>
+                                </div>
+                                <div class="button button--faux button--icon">
+                                    {{ icons.icon('ico-download-poppy', '24') }}
+                                    <span class="button--faux__meta">Download</span>
+                                    {% for download in item.downloads %}
+                                        <h3 class="button--faux__heading">{{ download.download_title }}</h3>
+                                        <ul class="button--faux__list">
+                                            {% for file in download.download_files %}
+                                                <li><a href="#">{{ file.file_label }}</a></li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% endfor %}
+                                </div>
                             </div>
-                            <div class="button button--faux button--icon">
-                                {{ icons.icon('ico-download-poppy', '24') }}
-                                <span class="button--faux__meta">Download</span>
-                                <h3 class="button--faux__heading">IATI factsheet</h3>
-                                <ul class="button--faux__list">
-                                    <li><a href="#">PDF 1.8mb</a></li>
-                                    <li><a href="#">Docx 1.8mb</a></li>
-                                </ul>
+                            <div class="l-highlight__aside">
+                                <div class="highlight__media">
+                                    <img src="{{ global.assets_root }}/img/{{ item.image }}" alt="alt tag">
+                                </div>
                             </div>
                         </div>
-                        <div class="l-highlight__aside">
-                            <div class="highlight__media">
-                                <img src="{{ global.assets_root }}/img/IATI-logo1-400x250.jpg" alt="alt tag">
-                            </div>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>

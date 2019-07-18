@@ -44,8 +44,9 @@
                 appendDots: $(element),
                 arrows: true,
                 asNavFor: null,
-                prevArrow: '<button class="slick-prev" aria-label="Previous" type="button"><svg width="45px" height="45px" viewBox="0 0 45 45" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect id="Rectangle" stroke="#4B509A" fill="#4B509A" transform="translate(22.500000, 22.500000) scale(-1, 1) translate(-22.500000, -22.500000) " x="0.5" y="0.5" width="44" height="44" rx="4"></rect><g id="Group" transform="translate(23.000000, 23.000000) scale(-1, 1) translate(-23.000000, -23.000000) translate(17.000000, 12.000000)" stroke="#FFFFFF" stroke-linecap="round" stroke-width="2"><path d="M0.614013672,0.614013672 L11,11" id="Line"></path><path d="M0.614013672,11.6140137 L11,22" id="Line" transform="translate(6.000000, 16.500000) scale(1, -1) translate(-6.000000, -16.500000) "></path></g></g></svg></button>',
-                nextArrow: '<button class="slick-next" aria-label="Next" type="button"><svg width="45px" height="45px" viewBox="0 0 45 45" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect id="Rectangle" stroke="#4B509A" fill="#4B509A" x="0.5" y="0.5" width="44" height="44" rx="4"></rect><g id="Group" transform="translate(17.000000, 12.000000)" stroke="#FFFFFF" stroke-linecap="round" stroke-width="2"><path d="M0.614013672,0.614013672 L11,11" id="Line"></path><path d="M0.614013672,11.6140137 L11,22" id="Line" transform="translate(6.000000, 16.500000) scale(1, -1) translate(-6.000000, -16.500000) "></path></g></g></svg></button>',
+                prevArrow: '<button class="timeline__nav timeline__nav--prev" type="button" tabindex="0"><i role="presentation" aria-hidden="true" class="ico ico--24 ico-arrow-poppy"></i></button>',
+                nextArrow: '<button class="timeline__nav timeline__nav--next" type="button" tabindex="0"><i role="presentation" aria-hidden="true" class="ico ico--24 ico-arrow-poppy"></i></button>',
+
                 autoplay: false,
                 autoplaySpeed: 3000,
                 centerMode: false,

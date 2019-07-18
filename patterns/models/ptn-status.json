@@ -37,15 +37,15 @@
 	},
 	{
 		"name": "04-our-story",
-		"stage": "Template"
+		"stage": "review"
 	},
 	{
 		"name": "05-our-team",
-		"stage": "review"
+		"stage": "approved"
 	},
 	{
 		"name": "06-team-member",
-		"stage": "review"
+		"stage": "approved"
 	},
 	{
 		"name": "07-what-we-do",
@@ -73,31 +73,31 @@
 	},
 	{
 		"name": "11-blog-listing",
-		"stage": "review"
+		"stage": "approved"
 	},
 	{
 		"name": "11a-news-listing",
-		"stage": "review"
+		"stage": "approved"
 	},
 	{
 		"name": "11b-events-listing",
-		"stage": "review"
+		"stage": "approved"
 	},
 	{
 		"name": "12-blog-single",
-		"stage": "review"
+		"stage": "approved"
 	},
 	{
 		"name": "12a-blog-single-guest",
-		"stage": "review"
+		"stage": "approved"
 	},
 	{
 		"name": "12a-news-single",
-		"stage": "review"
+		"stage": "approved"
 	},
 	{
 		"name": "12b-event-single",
-		"stage": "review"
+		"stage": "approved"
 	},
 	{
 		"name": "13-publications",
@@ -125,11 +125,11 @@
 	},
 	{
 		"name": "18-vacancy-listing",
-		"stage": "review"
+		"stage": "approved"
 	},
 	{
 		"name": "19-vacancy-single",
-		"stage": "review"
+		"stage": "approved"
 	},
 	{
 		"name": "20-contact",

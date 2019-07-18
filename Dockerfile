@@ -31,6 +31,8 @@ ENV DJANGO_ENV dev
 
 WORKDIR /code/
 
+COPY ./requirements.txt /code/
+
 RUN apk add --no-cache --virtual .build-deps build-base linux-headers \
     && pip install pip --upgrade \
     && pip install -r /code/requirements.txt \

@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.functional import cached_property
 
 from wagtail.core.models import Orderable, Page
 from wagtail.core.fields import RichTextField
@@ -8,7 +9,11 @@ from wagtail.admin.edit_handlers import (
     MultiFieldPanel,
     PageChooserPanel
 )
+from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.snippets.models import register_snippet
+
+from modelcluster.fields import ParentalKey
 
 """
 StandardPage contains properties that are shared across multiple pages
@@ -64,9 +69,61 @@ class StandardPage(Page):
             FieldPanel('hero_image_credit_name'),
             FieldPanel('hero_image_credit_url'),
             FieldPanel('hero_text', classname="hero_excerpt"),
-            MultiFieldPanel([
-                FieldPanel('hero_link_caption'),
-                PageChooserPanel('hero_link')
-            ])
+            FieldPanel('hero_link_caption'),
+            PageChooserPanel('hero_link')
         ], heading="Hero Section"),
+    ]
+
+
+class OtherPage(Orderable, models.Model):
+    page = ParentalKey(
+        Page, related_name='other_pages', on_delete=models.CASCADE
+    )
+
+    other_page = models.ForeignKey(
+        'wagtailcore.Page',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        verbose_name='Other Page',
+        help_text='Choose a page to link to in the "Other Pages" section'
+    )
+
+    panels = [
+        PageChooserPanel('other_page')
+    ]
+
+
+class BaseDownload(models.Model):
+
+    class Meta:
+        abstract = True
+
+    page = ParentalKey(
+        Page, related_name='page_downloads', on_delete=models.CASCADE
+    )
+    file = models.ForeignKey(
+        'wagtaildocs.Document',
+        on_delete=models.CASCADE,
+    )
+    title = models.CharField(
+        max_length=255,
+        blank=True,
+        help_text='Optional: document title, defaults to the file name if left blank',
+    )
+
+    @cached_property
+    def get_title(self):
+        return self.title if self.title else self.file.title
+
+    def __str__(self):
+        return self.title if self.title else self.file.title
+
+
+@register_snippet
+class Download(BaseDownload):
+    panels = [
+        DocumentChooserPanel('file'),
+        FieldPanel('title')
     ]

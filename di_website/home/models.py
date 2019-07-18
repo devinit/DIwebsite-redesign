@@ -3,7 +3,6 @@ from django.db import models
 from wagtail.admin.edit_handlers import (
     FieldPanel,
     InlinePanel,
-    MultiFieldPanel,
     PageChooserPanel
 )
 from wagtail.images.edit_handlers import ImageChooserPanel
@@ -148,3 +147,5 @@ class HomePage(StandardPage):
 
     class Meta():
         verbose_name = 'Home Page'
+
+    parent_page_types = [] # prevent from being a child page

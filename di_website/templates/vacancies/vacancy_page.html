@@ -1,0 +1,71 @@
+{% extends 'layouts/sidebar.html' %}
+
+{% load wagtailcore_tags navigation_tags card_tags string_utils %}
+{% get_site_root as site_root %}
+
+{% block hero %}
+    {% include 'includes/heroes/hero.html' %}
+{% endblock hero %}
+
+
+{% block main %}
+    <section class="section">
+        <div class="highlight">
+            <span class="highlight__flag">{{ page.duration }}</span>
+            <ul class="highlight__list">
+                <li><span>Location:</span>{{ page.location }}</li>
+                <li><span>Salary scale:</span>{{ page.salary_scale }}</li>
+                <li><span>Closing date:</span>{{ page.application_close_date }}</li>
+                <li><span>First interview:</span>{{ page.first_interview_date }}</li>
+                <li><span>Start date:</span>{{ page.job_start_date }}</li>
+            </ul>
+        </div>
+    </section>
+
+    {% for block in page.body %}
+        {% if block.block_type == 'paragraph_block' or block.block_type == 'block_quote' %}
+            {% include_block block %}
+        {% endif %}
+    {% endfor %}
+{% endblock main %}
+
+
+{% block aside %}
+    <div class="aside aside--clipping">
+        <h2 class="aside__heading">{{ page.downloads_title }}</h2>
+        <div class="aside__excerpt">{{ page.downloads_description|richtext }}</div>
+
+        {% if page.page_downloads %}
+            {% for item in page.get_page_downloads %}
+                <div class="button button--faux button--icon">
+                    <i role="presentation" aria-hidden="true" class="ico ico--24 ico-download-poppy"></i>
+                    <span class="button--faux__meta">Download</span>
+                    <h3 class="button--faux__heading">{{ item.title }}</h3>
+                    <ul class="button--faux__list">
+                        <li>
+                            <a
+                                href="{{ item.file.url }}"
+                                class="js-ga-download-click"
+                                data-event-label="Download {{ item.file }} / vacancy / {{ page.title }}"
+                                title="Download {{ item.file | file_label }}"
+                            >{{ item.file|file_info }}</a>
+                        </li>
+                    </ul>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock aside %}
+
+
+{% block after_content %}
+    {% for block in page.body %}
+        {% if block.block_type == 'banner_block' %}
+            {% include_block block %}
+        {% endif %}
+    {% endfor %}
+
+    <section class="section">
+        {% get_other_pages calling_page=self heading='Learn more about Developement Initiatives' %}
+    </section>
+{% endblock after_content %}

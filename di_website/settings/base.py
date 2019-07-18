@@ -30,10 +30,12 @@ INSTALLED_APPS = [
     'di_website.search',
     'di_website.ourteam',
     'di_website.common',
+    'di_website.vacancies',
 
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
     'wagtail.contrib.settings',
+    'wagtail.contrib.styleguide',
     'wagtail.embeds',
     'wagtail.sites',
     'wagtail.users',
@@ -46,6 +48,7 @@ INSTALLED_APPS = [
 
     'modelcluster',
     'taggit',
+    'wagtailfontawesome',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -167,3 +170,14 @@ WAGTAIL_SITE_NAME = "di_website"
 BASE_URL = 'http://devinit.org'
 
 INTERNAL_IPS = ["127.0.0.1"]
+
+# Email settings
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST = os.getenv('EMAIL_HOST')
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL')
+SERVER_EMAIL = DEFAULT_FROM_EMAIL

@@ -29,18 +29,14 @@ RUN apk add --no-cache libmemcached-dev zlib-dev
 ENV PYTHONUNBUFFERED 1
 ENV DJANGO_ENV dev
 
+WORKDIR /code/
 
-COPY ./requirements.txt /code/requirements.txt
+COPY ./requirements.txt /code/
 
 RUN apk add --no-cache --virtual .build-deps build-base linux-headers \
     && pip install pip --upgrade \
     && pip install -r /code/requirements.txt \
     && apk del .build-deps
-
-# Copy the current directory contents into the container at /code/
-COPY . /code/
-# Set the working directory to /code/
-WORKDIR /code/
 
 #Install nvm to be used by user wagail
 EXPOSE 8090

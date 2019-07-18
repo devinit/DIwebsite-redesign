@@ -21,7 +21,7 @@ services:
     build:
       context: .
     volumes:
-      - ./shared:/code/shared
+      - ./:/code/
 
   nginx:
     image: nginx:latest

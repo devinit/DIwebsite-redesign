@@ -114,4 +114,4 @@ $RECYCLE.BIN/
 .env
 storage/
 deploy_key
-
+.vscode

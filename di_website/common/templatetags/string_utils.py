@@ -5,6 +5,7 @@ from django import template
 from django.utils.safestring import mark_safe
 
 from wagtail.core.rich_text import expand_db_html, RichText
+from django.utils import formats
 
 register = template.Library()
 
@@ -50,3 +51,15 @@ def richtext_strip_wrapper(value):
         html = expand_db_html(value)
 
     return mark_safe(html)
+@register.filter(expects_localtime=True, is_safe=False)
+def event_date(start, end=None):
+    
+    """Check that years are not the same and format event date field."""
+
+    if start in (None, '') or end in (None, ''):
+        return ''
+
+    if formats.date_format(start,'Y') == formats.date_format(end,'Y'):
+        return formats.date_format(start,"d F") +" - "+ formats.date_format(end,"d F, Y")
+    else:
+        return formats.date_format(start,"d F, Y") +" - "+ formats.date_format(end,"d F, Y")

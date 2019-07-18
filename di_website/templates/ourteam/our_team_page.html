@@ -52,13 +52,15 @@
         <div class="row row--narrow">
             <div class="l-4up">
               {% for profile in profiles %}
-                {% image profile.image max-260x260 as img %}
                 <div class="l-4up__col">
                     <a href="{% pageurl profile %}">
                         <div class="profile">
+                          {% if profile.image %}
+                            {% image profile.image max-260x260 as img %}
                             <div class="profile__media">
                                 <img src="{{img.url}}" alt="alt">
                             </div>
+                          {% endif %}
                             <div class="profile__caption">
                                 <h3 class="profile__title">{{profile.name|default_if_none:""}}</h3>
                                 <p class="profile__meta">{{profile.position.name|default_if_none:""}}</p>
@@ -66,6 +68,7 @@
                         </div>
                     </a>
                 </div>
+
               {% endfor %}
             </div>
         </div>

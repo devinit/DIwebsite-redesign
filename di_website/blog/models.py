@@ -3,6 +3,8 @@ from django.utils.text import slugify
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
+from wagtail.admin.edit_handlers import PageChooserPanel, FieldPanel
+from wagtail.images.edit_handlers import ImageChooserPanel
 
 from di_website.common.base import StandardPage, get_paginator_range
 
@@ -46,11 +48,6 @@ class BlogIndexPage(StandardPage):
 
         return context
 
-# TODO:
-# yes we will have guest blogs
-# so we will need custom fields
-# where it is a guest it would be ideal to have the option of not linking or hyperlinking to an online profile they have elsewhere, but if that's a pain, then just don't link it to anywhere at all and we can make reference to them in a short bio in the blog body itself and link from there
-# where it is DI staff we want it to link to their profile
 
 class BlogArticlePage(StandardPage):
     topic = models.ForeignKey(
@@ -60,8 +57,34 @@ class BlogArticlePage(StandardPage):
         related_name='+'
     )
 
+    internal_author_page = models.ForeignKey(
+        'wagtailcore.Page',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        help_text="The author's page if the author has an internal profile. Photograph, job title, and page link will be drawn from this."
+    )
+    external_author_name = models.CharField(max_length=255, null=True, blank=True, help_text="Only fill out for guest authors.")
+    external_author_title = models.CharField(max_length=255, null=True, blank=True, help_text="Only fill out for guest authors.")
+    external_author_photograph = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        help_text="Only fill out for guest authors."
+    )
+    external_author_page = models.URLField(max_length=1000, null=True, blank=True, help_text="Only fill out for guest authors.")
+
     content_panels = StandardPage.content_panels + [
-        SnippetChooserPanel('topic')
+        SnippetChooserPanel('topic'),
+        FieldPanel('author'),
+        PageChooserPanel('internal_author_page'),
+        FieldPanel('external_author_name'),
+        FieldPanel('external_author_title'),
+        ImageChooserPanel('external_author_photograph'),
+        FieldPanel('external_author_page')
     ]
 
     parent_page_types = [

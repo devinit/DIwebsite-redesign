@@ -37,13 +37,13 @@ class OfficeLocation(models.Model):
         return self.location
 
 
-class VacanciesPage(StandardPage):
+class VacancyIndexPage(StandardPage):
     """
     Shows a list of available vacancies
     """
     class Meta:
         db_table = 'vacancies_page'
-        verbose_name = 'Vacancies Page'
+        verbose_name = 'Vacancy Index Page'
 
     parent_page_types = ['home.HomePage']
     subpage_types = ['VacancyPage']
@@ -191,7 +191,7 @@ class VacancyPage(StandardPage):
     ]
 
     parent_page_types = [
-        'VacanciesPage'
+        'VacancyIndexPage'
     ]
 
 

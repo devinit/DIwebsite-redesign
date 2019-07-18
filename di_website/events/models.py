@@ -12,6 +12,8 @@ from di_website.common.blocks import BaseStreamBlock
 
 class EventPage(StandardPage):
 
+    template = "events/events_page.html"
+
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
     location = models.CharField(
@@ -50,10 +52,17 @@ class EventPage(StandardPage):
 
 
 class EventIndexPage(StandardPage):
+    
+    template = "events/events_index_page.html"
 
     subpage_types = ['EventPage']
 
     def get_context(self,request):
         context = super().get_context(request)
+        context['events'] = EventPage.objects.live().all()
+        context['active_page'] = self.title
+
+        return context
+        
     class Meta:
         verbose_name = "List of Events"

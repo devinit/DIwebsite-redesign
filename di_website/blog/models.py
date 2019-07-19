@@ -3,10 +3,17 @@ from django.utils.text import slugify
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
-from wagtail.admin.edit_handlers import PageChooserPanel, FieldPanel
+from wagtail.admin.edit_handlers import (
+    PageChooserPanel,
+    FieldPanel,
+    StreamFieldPanel,
+    MultiFieldPanel
+)
 from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.core.fields import StreamField
 
 from di_website.common.base import StandardPage, get_paginator_range
+from di_website.common.blocks import BaseStreamBlock
 
 
 @register_snippet
@@ -76,15 +83,24 @@ class BlogArticlePage(StandardPage):
         help_text="Only fill out for guest authors."
     )
     external_author_page = models.URLField(max_length=1000, null=True, blank=True, help_text="Only fill out for guest authors.")
+    body = StreamField(
+        BaseStreamBlock(),
+        verbose_name="Page Body",
+        blank=True
+    )
 
     content_panels = StandardPage.content_panels + [
-        SnippetChooserPanel('topic'),
-        FieldPanel('author'),
-        PageChooserPanel('internal_author_page'),
-        FieldPanel('external_author_name'),
-        FieldPanel('external_author_title'),
-        ImageChooserPanel('external_author_photograph'),
-        FieldPanel('external_author_page')
+        MultiFieldPanel([
+            PageChooserPanel('internal_author_page'),
+            FieldPanel('external_author_name'),
+            FieldPanel('external_author_title'),
+            ImageChooserPanel('external_author_photograph'),
+            FieldPanel('external_author_page'),
+        ], heading="Author information"),
+        MultiFieldPanel([
+            SnippetChooserPanel('topic'),
+            StreamFieldPanel('body'),
+        ], heading="Content")
     ]
 
     parent_page_types = [

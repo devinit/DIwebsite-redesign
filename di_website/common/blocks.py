@@ -73,3 +73,4 @@ class BaseStreamBlock(StreamBlock):
     paragraph_block = ParagraphBlock()
     block_quote = BlockQuote()
     banner_block = BannerBlock()
+    required = False

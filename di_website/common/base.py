@@ -128,8 +128,8 @@ class Download(BaseDownload):
     ]
 
 
-def get_paginator_range(paginator):
+def get_paginator_range(paginator, page):
     """Return a 3 elements long list containing a range of page numbers (int)."""
-    range_start = max(paginator.number - 3, 1)
-    range_end = min(paginator.number + 2, paginator.num_pages)
+    range_start = max(page.number - 3, 1)
+    range_end = min(page.number + 2, paginator.num_pages)
     return [i for i in range(range_start, range_end + 1)]

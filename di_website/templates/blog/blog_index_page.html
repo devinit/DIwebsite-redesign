@@ -1,4 +1,4 @@
-{% extends "default.html" %}
+{% extends "layouts/default.html" %}
 
 {% load navigation_tags static wagtailcore_tags wagtailimages_tags card_tags %}
 {% get_site_root as site_root %}
@@ -42,15 +42,15 @@
 
           <div class="m-author">
             {% if article.internal_author_page %}
-              {% if article.internal_author_page.image %}
-                {% image article.internal_author_page.image fill-80x80-c100 as author_img %}
+              {% if article.internal_author_page.specific.image %}
+                {% image article.internal_author_page.specific.image fill-80x80-c100 as author_img %}
                 <div class="m-author__image">
                   <img src="{{author_img.url}}" alt="{{author_img.alt}}">
                 </div>
               {% endif %}
               <div class="m-author__body">
-                <h3 class="m-author__title">Written by {{article.internal_author_page.name|default_if_none:""}}</h3>
-                <p class="m-author__job">{{article.internal_author_page.position|default_if_none:""}}</p>
+                <h3 class="m-author__title">Written by {{article.internal_author_page.specific.name|default_if_none:""}}</h3>
+                <p class="m-author__job">{{article.internal_author_page.specific.position|default_if_none:""}}</p>
               </div>
             {% else %}
               {% if article.external_author_photograph %}

@@ -45,30 +45,29 @@
     {% if self.get_verbose_name == 'Blog article page' %}
       {% if self.internal_author_page %}
         <a href="{% pageurl self.internal_author_page %}" class="m-author">
-        {% if article.internal_author_page.image %}
-          {% image article.internal_author_page.image fill-80x80-c100 as author_img %}
+        {% if self.internal_author_page.specific.image %}
+          {% image self.internal_author_page.specific.image fill-80x80-c100 as author_img %}
           <div class="m-author__image">
             <img src="{{author_img.url}}" alt="{{author_img.alt}}">
           </div>
         {% endif %}
           <div class="m-author__body">
-            <h3 class="m-author__title">Written by {{article.internal_author_page.name|default_if_none:""}}</h3>
-            <p class="m-author__job">{{article.internal_author_page.position|default_if_none:""}}</p>
+            <h3 class="m-author__title">Written by {{self.internal_author_page.specific.name|default_if_none:""}}</h3>
+            <p class="m-author__job">{{self.internal_author_page.specific.position|default_if_none:""}}</p>
           </div>
         </a>
       {% else %}
-      {% if self.internal_author_page %}
         <a href="{% pageurl self.internal_author_page %}" class="m-author">
-        {% if article.external_author_photograph %}
-          {% image article.external_author_photograph fill-80x80-c100 as author_img %}
+        {% if self.external_author_photograph %}
+          {% image self.external_author_photograph fill-80x80-c100 as author_img %}
           <div class="m-author__image">
             <img src="{{author_img.url}}" alt="{{author_img.alt}}">
           </div>
         {% endif %}
           <div class="m-author__body">
             <span class="m-author__meta">Guest author</span>
-            <h3 class="m-author__title">Written by {{article.external_author_name|default_if_none:""}}</h3>
-            <p class="m-author__job">{{article.external_author_title|default_if_none:""}}</p>
+            <h3 class="m-author__title">Written by {{self.external_author_name|default_if_none:""}}</h3>
+            <p class="m-author__job">{{self.external_author_title|default_if_none:""}}</p>
           </div>
         </a>
       {% endif %}

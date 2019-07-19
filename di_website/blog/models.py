@@ -6,14 +6,18 @@ from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.admin.edit_handlers import (
     PageChooserPanel,
     FieldPanel,
-    StreamFieldPanel,
-    MultiFieldPanel
+    InlinePanel,
+    MultiFieldPanel,
+    StreamFieldPanel
 )
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.core.fields import StreamField
+from wagtail.core.models import Orderable
+from modelcluster.fields import ParentalKey
 
 from di_website.common.base import StandardPage, get_paginator_range
 from di_website.common.blocks import BaseStreamBlock
+from di_website.ourteam.models import TeamMemberPage
 
 
 @register_snippet
@@ -51,7 +55,7 @@ class BlogIndexPage(StandardPage):
             context['articles'] = paginator.page(paginator.num_pages)
         context['topics'] = BlogTopic.objects.all()
         context['selected_topic'] = topic_filter
-        context['paginator_range'] = get_paginator_range(paginator)
+        context['paginator_range'] = get_paginator_range(paginator, context['articles'])
 
         return context
 
@@ -60,6 +64,7 @@ class BlogArticlePage(StandardPage):
     topic = models.ForeignKey(
         BlogTopic,
         null=True,
+        blank=True,
         on_delete=models.SET_NULL,
         related_name='+'
     )
@@ -86,12 +91,13 @@ class BlogArticlePage(StandardPage):
     body = StreamField(
         BaseStreamBlock(),
         verbose_name="Page Body",
+        null=True,
         blank=True
     )
 
     content_panels = StandardPage.content_panels + [
         MultiFieldPanel([
-            PageChooserPanel('internal_author_page'),
+            PageChooserPanel('internal_author_page', TeamMemberPage),
             FieldPanel('external_author_name'),
             FieldPanel('external_author_title'),
             ImageChooserPanel('external_author_photograph'),
@@ -100,9 +106,25 @@ class BlogArticlePage(StandardPage):
         MultiFieldPanel([
             SnippetChooserPanel('topic'),
             StreamFieldPanel('body'),
-        ], heading="Content")
+        ], heading="Content"),
+        InlinePanel('related_links', label="Related links")
     ]
 
     parent_page_types = [
         'BlogIndexPage'
+    ]
+
+
+class BlogPageRelatedLink(Orderable):
+    page = ParentalKey(BlogArticlePage, on_delete=models.CASCADE, related_name='related_links')
+    related_link = models.ForeignKey(
+        'wagtailcore.Page',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
+    panels = [
+        PageChooserPanel('related_link', BlogArticlePage)
     ]

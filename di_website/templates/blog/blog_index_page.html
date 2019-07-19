@@ -49,7 +49,6 @@
                 </div>
               {% endif %}
               <div class="m-author__body">
-                <span class="m-author__meta">{{article.internal_author_page.name|default_if_none:""}}</span>
                 <h3 class="m-author__title">Written by {{article.internal_author_page.name|default_if_none:""}}</h3>
                 <p class="m-author__job">{{article.internal_author_page.position|default_if_none:""}}</p>
               </div>
@@ -61,7 +60,7 @@
                 </div>
               {% endif %}
               <div class="m-author__body">
-                <span class="m-author__meta">{{article.external_author_name|default_if_none:""}}</span>
+                <span class="m-author__meta">Guest author</span>
                 <h3 class="m-author__title">Written by {{article.external_author_name|default_if_none:""}}</h3>
                 <p class="m-author__job">{{article.external_author_title|default_if_none:""}}</p>
               </div>

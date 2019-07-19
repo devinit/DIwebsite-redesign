@@ -31,22 +31,41 @@
     <div class="l-2up-3up">
       {% for article in articles %}
       <a href="{% pageurl article %}" class="card card--offset">
-        {% image article.hero_image max-260x260 as hero_img %}
-        <div class="card__media" style="background-image: url({{hero_img.url}});"></div>
+        {% if article.hero_image %}
+          {% image article.hero_image max-400x250 as hero_img %}
+          <div class="card__media" style="background-image: url({{hero_img.url}});"></div>
+        {% endif %}
         <div class="card__body">
           <span class="card__meta">{{article.first_published_at}}</span>
           <h3 class="card__title"><span>{{article.title}}</span></h3>
           <p class="card__excerpt">{{article.hero_text}}</p>
 
           <div class="m-author">
-            <div class="m-author__image">
-              <img src="/assets/img/profile2sq.jpg" alt="alt tag">
-            </div>
-            <div class="m-author__body">
-              <span class="m-author__meta">Guest author</span>
-              <h3 class="m-author__title">Written by [Author name]</h3>
-              <p class="m-author__job">[Company name]</p>
-            </div>
+            {% if article.internal_author_page %}
+              {% if article.internal_author_page.image %}
+                {% image article.internal_author_page.image fill-80x80-c100 as author_img %}
+                <div class="m-author__image">
+                  <img src="{{author_img.url}}" alt="{{author_img.alt}}">
+                </div>
+              {% endif %}
+              <div class="m-author__body">
+                <span class="m-author__meta">{{article.internal_author_page.name|default_if_none:""}}</span>
+                <h3 class="m-author__title">Written by {{article.internal_author_page.name|default_if_none:""}}</h3>
+                <p class="m-author__job">{{article.internal_author_page.position|default_if_none:""}}</p>
+              </div>
+            {% else %}
+              {% if article.external_author_photograph %}
+                {% image article.external_author_photograph fill-80x80-c100 as author_img %}
+                <div class="m-author__image">
+                  <img src="{{author_img.url}}" alt="{{author_img.alt}}">
+                </div>
+              {% endif %}
+              <div class="m-author__body">
+                <span class="m-author__meta">{{article.external_author_name|default_if_none:""}}</span>
+                <h3 class="m-author__title">Written by {{article.external_author_name|default_if_none:""}}</h3>
+                <p class="m-author__job">{{article.external_author_title|default_if_none:""}}</p>
+              </div>
+            {% endif %}
           </div>
         </div>
       </a>

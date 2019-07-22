@@ -1,0 +1,29 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<a href="{% pageurl blog %}" class="card card--offset">
+    {% image blog.hero_image max-400x250 as hero_img %}
+    <div class="card__media" style="background-image: url({{hero_img.url}});"></div>
+    <div class="card__body">
+        <span class="card__meta">{{ blog.first_published_at }}</span>
+        <h3 class="card__title"><span>{{ blog.title }}</span></h3>
+        <div class="card__excerpt">{{ blog.hero_text|richtext }}</div>
+
+        {% if blog.internal_author_page %}
+
+            {% with blog.internal_author_page.specific as internal %}
+                {% with page=internal img=internal.image name=internal.name position=internal.position %}
+                    {% include 'includes/partials/author.html' %}
+                {% endwith %}
+            {% endwith %}
+
+        {% endif %}
+
+        {% if blog.external_author_photograph %}
+
+            {% with link=blog.external_author_page img=blog.external_author_photograph name=blog.external_author_name position=blog.external_author_title %}
+                {% include 'includes/partials/author.html' %}
+            {% endwith %}
+
+        {% endif %}
+    </div>
+</a>

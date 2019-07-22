@@ -1,19 +1,18 @@
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db import models
 from django.utils.text import slugify
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from wagtail.snippets.models import register_snippet
-from wagtail.snippets.edit_handlers import SnippetChooserPanel
+
+from modelcluster.fields import ParentalKey
+
 from wagtail.admin.edit_handlers import (
-    PageChooserPanel,
-    FieldPanel,
-    InlinePanel,
-    MultiFieldPanel,
-    StreamFieldPanel
-)
-from wagtail.images.edit_handlers import ImageChooserPanel
+    FieldPanel, InlinePanel,
+    MultiFieldPanel, PageChooserPanel,
+    StreamFieldPanel)
 from wagtail.core.fields import StreamField
 from wagtail.core.models import Orderable
-from modelcluster.fields import ParentalKey
+from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.snippets.edit_handlers import SnippetChooserPanel
+from wagtail.snippets.models import register_snippet
 
 from di_website.common.base import StandardPage, get_paginator_range
 from di_website.common.blocks import BaseStreamBlock
@@ -36,6 +35,9 @@ class BlogTopic(models.Model):
 
 class BlogIndexPage(StandardPage):
     subpage_types = ['BlogArticlePage']
+
+    class Meta():
+        verbose_name = 'Blog Index Page'
 
     def get_context(self, request):
         context = super(BlogIndexPage, self).get_context(request)
@@ -77,8 +79,18 @@ class BlogArticlePage(StandardPage):
         related_name='+',
         help_text="The author's page if the author has an internal profile. Photograph, job title, and page link will be drawn from this."
     )
-    external_author_name = models.CharField(max_length=255, null=True, blank=True, help_text="Only fill out for guest authors.")
-    external_author_title = models.CharField(max_length=255, null=True, blank=True, help_text="Only fill out for guest authors.")
+    external_author_name = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True,
+        help_text="Only fill out for guest authors."
+    )
+    external_author_title = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True,
+        help_text="Only fill out for guest authors."
+    )
     external_author_photograph = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -87,7 +99,12 @@ class BlogArticlePage(StandardPage):
         related_name='+',
         help_text="Only fill out for guest authors."
     )
-    external_author_page = models.URLField(max_length=1000, null=True, blank=True, help_text="Only fill out for guest authors.")
+    external_author_page = models.URLField(
+        max_length=1000,
+        null=True,
+        blank=True,
+        help_text="Only fill out for guest authors."
+    )
     body = StreamField(
         BaseStreamBlock(),
         verbose_name="Page Body",
@@ -103,10 +120,8 @@ class BlogArticlePage(StandardPage):
             ImageChooserPanel('external_author_photograph'),
             FieldPanel('external_author_page'),
         ], heading="Author information"),
-        MultiFieldPanel([
-            SnippetChooserPanel('topic'),
-            StreamFieldPanel('body'),
-        ], heading="Content"),
+        SnippetChooserPanel('topic'),
+        StreamFieldPanel('body'),
         InlinePanel('related_links', label="Related links")
     ]
 

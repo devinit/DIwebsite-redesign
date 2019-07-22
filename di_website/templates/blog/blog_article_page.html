@@ -4,16 +4,22 @@
 {% get_site_root as site_root %}
 
 {% block hero %}
-{% include 'includes/heroes/article_hero.html' %}
+  {% include 'includes/heroes/hero-post.html' with tag='Blog' %}
 {% endblock hero %}
 
 {% block body %}
   <section class="section section--post">
-    {% for block in page.body %}
-        {% if block.block_type == 'paragraph_block' or block.block_type == 'block_quote' %}
-            {% include_block block %}
-        {% endif %}
-    {% endfor %}
+    <div class="row row--narrow">
+        <div class="max-meter max-meter--center">
+            <div class="is-typeset is-typeset--additionals wysiwyg">
+              {% for block in page.body %}
+                  {% if block.block_type == 'paragraph_block' or block.block_type == 'block_quote' %}
+                      {% include_block block %}
+                  {% endif %}
+              {% endfor %}
+            </div>
+        </div>
+    </div>
   </section>
 
   {% if page.related_links %}

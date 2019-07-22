@@ -25,6 +25,7 @@
     <span class="hero__flourish"></span>
     <div class="row row--narrow">
         <div class="hero__content">
+            {% block hero_meta %}{% endblock hero_meta %}
             <h1 class="hero__title">
                 <span>{{ page.title }}</span>
             </h1>
@@ -36,4 +37,6 @@
             {% endif %}
         </div>
     </div>
+
+    {% block hero-author %}{% endblock hero-author %}
 </section>

@@ -1,7 +1,8 @@
+from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db import models
-from django.utils.text import slugify
 
+from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 
 from wagtail.admin.edit_handlers import (
@@ -11,26 +12,16 @@ from wagtail.admin.edit_handlers import (
 from wagtail.core.fields import StreamField
 from wagtail.core.models import Orderable
 from wagtail.images.edit_handlers import ImageChooserPanel
-from wagtail.snippets.edit_handlers import SnippetChooserPanel
-from wagtail.snippets.models import register_snippet
+
+from taggit.models import Tag, TaggedItemBase
 
 from di_website.common.base import StandardPage, get_paginator_range
 from di_website.common.blocks import BaseStreamBlock
 from di_website.ourteam.models import TeamMemberPage
 
 
-@register_snippet
-class BlogTopic(models.Model):
-    name = models.CharField(max_length=255, unique=True)
-    slug = models.SlugField(max_length=255, blank=True, null=True, help_text="Optional. Will be auto-generated from name if left blank.")
-
-    def __str__(self):
-        return self.name
-
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.name)
-        super(BlogTopic, self).save(*args, **kwargs)
+class BlogTopic(TaggedItemBase):
+    content_object = ParentalKey('blog.BlogArticlePage', on_delete=models.CASCADE, related_name='blog_topics')
 
 
 class BlogIndexPage(StandardPage):
@@ -44,7 +35,7 @@ class BlogIndexPage(StandardPage):
         page = request.GET.get('page', None)
         topic_filter = request.GET.get('topic', None)
         if topic_filter:
-            articles = BlogArticlePage.objects.live().filter(topic__slug=topic_filter)
+            articles = BlogArticlePage.objects.live().filter(topics__slug=topic_filter)
         else:
             articles = BlogArticlePage.objects.live()
 
@@ -55,7 +46,11 @@ class BlogIndexPage(StandardPage):
             context['articles'] = paginator.page(1)
         except EmptyPage:
             context['articles'] = paginator.page(paginator.num_pages)
-        context['topics'] = BlogTopic.objects.all()
+
+        blog_content_type = ContentType.objects.get_for_model(BlogArticlePage)
+        context['topics'] = Tag.objects.filter(
+            blog_blogtopic_items__content_object__content_type=blog_content_type
+        )
         context['selected_topic'] = topic_filter
         context['paginator_range'] = get_paginator_range(paginator, context['articles'])
 
@@ -63,13 +58,7 @@ class BlogIndexPage(StandardPage):
 
 
 class BlogArticlePage(StandardPage):
-    topic = models.ForeignKey(
-        BlogTopic,
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+'
-    )
+    topics = ClusterTaggableManager(through=BlogTopic, blank=True)
 
     internal_author_page = models.ForeignKey(
         'wagtailcore.Page',
@@ -120,7 +109,7 @@ class BlogArticlePage(StandardPage):
             ImageChooserPanel('external_author_photograph'),
             FieldPanel('external_author_page'),
         ], heading="Author information"),
-        SnippetChooserPanel('topic'),
+        FieldPanel('topics'),
         StreamFieldPanel('body'),
         InlinePanel('related_links', label="Related links")
     ]

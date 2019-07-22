@@ -14,9 +14,9 @@
         <ul class="filter__list">
           {% for topic in topics %}
             {% if topic.slug == selected_topic %}
-              <li class="filter__list__item filter__list__item--active"><a href="{% pageurl self %}">{{topic.name}}</a></li>
+              <li class="filter__list__item filter__list__item--active"><a href="{% pageurl self %}">{{topic}}</a></li>
             {% else %}
-              <li class="filter__list__item"><a href="{% pageurl self %}?topic={{topic.slug}}">{{topic.name}}</a></li>
+              <li class="filter__list__item"><a href="{% pageurl self %}?topic={{topic.slug}}">{{topic}}</a></li>
             {% endif %}
           {% endfor %}
         </ul>

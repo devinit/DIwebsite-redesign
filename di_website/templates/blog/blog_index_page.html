@@ -4,7 +4,7 @@
 {% get_site_root as site_root %}
 
 {% block hero %}
-{% include 'includes/heroes/hero.html' %}
+  {% include 'includes/heroes/hero.html' %}
 {% endblock hero %}
 
 {% block body %}
@@ -29,45 +29,8 @@
     <div class="row row--narrow">
     <h2 class="section__heading">Latest blog posts</h2>
     <div class="l-2up-3up">
-      {% for article in articles %}
-      <a href="{% pageurl article %}" class="card card--offset">
-        {% if article.hero_image %}
-          {% image article.hero_image max-400x250 as hero_img %}
-          <div class="card__media" style="background-image: url({{hero_img.url}});"></div>
-        {% endif %}
-        <div class="card__body">
-          <span class="card__meta">{{article.first_published_at}}</span>
-          <h3 class="card__title"><span>{{article.title}}</span></h3>
-          <p class="card__excerpt">{{article.hero_text}}</p>
-
-          <div class="m-author">
-            {% if article.internal_author_page %}
-              {% if article.internal_author_page.specific.image %}
-                {% image article.internal_author_page.specific.image fill-80x80-c100 as author_img %}
-                <div class="m-author__image">
-                  <img src="{{author_img.url}}" alt="{{author_img.alt}}">
-                </div>
-              {% endif %}
-              <div class="m-author__body">
-                <h3 class="m-author__title">Written by {{article.internal_author_page.specific.name|default_if_none:""}}</h3>
-                <p class="m-author__job">{{article.internal_author_page.specific.position|default_if_none:""}}</p>
-              </div>
-            {% else %}
-              {% if article.external_author_photograph %}
-                {% image article.external_author_photograph fill-80x80-c100 as author_img %}
-                <div class="m-author__image">
-                  <img src="{{author_img.url}}" alt="{{author_img.alt}}">
-                </div>
-              {% endif %}
-              <div class="m-author__body">
-                <span class="m-author__meta">Guest author</span>
-                <h3 class="m-author__title">Written by {{article.external_author_name|default_if_none:""}}</h3>
-                <p class="m-author__job">{{article.external_author_title|default_if_none:""}}</p>
-              </div>
-            {% endif %}
-          </div>
-        </div>
-      </a>
+      {% for blog in articles %}
+          {% include 'includes/cards/card-blog.html' %}
       {% endfor %}
     </div>
     {% include "includes/scaffold/pagination-links.html" with children=articles %}

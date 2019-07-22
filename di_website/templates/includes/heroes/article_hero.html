@@ -57,7 +57,7 @@
           </div>
         </a>
       {% else %}
-        <a href="{% pageurl self.internal_author_page %}" class="m-author">
+        <a href="{{ self.external_author_page }}" class="m-author">
         {% if self.external_author_photograph %}
           {% image self.external_author_photograph fill-80x80-c100 as author_img %}
           <div class="m-author__image">

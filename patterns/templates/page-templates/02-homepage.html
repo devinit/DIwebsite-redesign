@@ -37,27 +37,24 @@
 
     <section class="section">
         <div class="row row--narrow">
-            <div class="is-typeset is-typeset--additionals max-meter">
-                <p>Development Initiatives is a not-for-profit company dedicated to end extremem poverty by 2030</p>
-                <p>We believe data is the backbone of efforts to realise a world without poverty that invest in human security and where everyone shares the benefits of opportunity and growth.</p>
+            <div class="l-2up">
+                <div class="l-2up__col">
+                    <h2 class="section__heading">Who we are</h2>
+                    <div class="is-typeset max-meter">
+                        <p>Development Initiatives is a not-for-profit company dedicated to end extreme poverty by 2030</p>
+                        <p>We believe data is the backbone of efforts to realise a world without poverty that invest in human security and where everyone shares the benefits of opportunity and growth.</p>
+                    </div>
+                    <a href="#" class="button">More about who we are</a>
+                </div>
+                <div class="l-2up__col">
+                    <h2 class="section__heading">What we do</h2>
+                    <div class="is-typeset max-meter">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
+                    </div>
+                    <a href="#" class="button">More about what we do</a>
+                </div>
             </div>
-            <a href="#" class="button">Who we are</a>
-        </div>
-    </section>
 
-    <section class="section">
-        <div class="row row--narrow">
-            <h2 class="section__heading">What we do</h2>
-            <div class="is-typeset max-meter">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
-            </div>
-            <a href="#" class="button">What we do</a>
-            <div class="l-3up space-section-top">
-                {% for item in card.work_feature %}
-                    {% include 'cards/card-feature-simple.html' %}
-                {% endfor %}
-            </div>
-            <a href="#" class="button">What we do</a>
         </div>
     </section>
 

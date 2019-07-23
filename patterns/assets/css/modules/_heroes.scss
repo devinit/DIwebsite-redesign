@@ -7,7 +7,7 @@
     background-color: $poppy;
     padding: 8em 0 5em 0;
     @include respond-to($menu-respond) {
-        padding: 22em 0 10em 0;
+        padding: 10em 0 10em 0;
         width: 95%;
         min-height: 500px;
         &:after {
@@ -20,8 +20,11 @@
             background-color: $cloud;
         }
         &--minor {
-            padding: 16em 0 7em 0;
+            padding: 8em 0 5em 0;
         }
+    }
+    @include respond-to($max-vp) {
+        padding: 22em 0 12em 0;
     }
 }
 

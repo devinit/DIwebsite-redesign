@@ -25,23 +25,6 @@ class BlockQuote(StructBlock):
         template = 'blocks/blockquote.html'
 
 
-class ParagraphBlock(StructBlock):
-    text = RichTextBlock(
-        icon='fa-paragraph',
-        features=RICHTEXT_FEATURES
-    )
-    is_typeset = BooleanBlock(required=False)
-    is_section = BooleanBlock(required=False)
-    classname = CharBlock(
-        required=False,
-        help_text='e.g. vacancy pages have a "is-typeset--additionals" class that customises particular areas'
-    )
-
-    class Meta():
-        template = 'blocks/paragraph_block.html'
-        icon="fa-paragraph"
-
-
 class BannerBlock(StructBlock):
     image = ImageChooserBlock(required=False)
     video = EmbedBlock(
@@ -70,7 +53,10 @@ class BaseStreamBlock(StreamBlock):
     """
     Define the custom blocks that `StreamField` will utilize
     """
-    paragraph_block = ParagraphBlock()
+    paragraph_block = RichTextBlock(
+        icon="fa-paragraph",
+        template="blocks/paragraph_block.html"
+    )
     block_quote = BlockQuote()
     banner_block = BannerBlock()
     required = False

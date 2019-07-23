@@ -50,7 +50,7 @@ class BlogIndexPage(StandardPage):
         blog_content_type = ContentType.objects.get_for_model(BlogArticlePage)
         context['topics'] = Tag.objects.filter(
             blog_blogtopic_items__content_object__content_type=blog_content_type
-        )
+        ).distinct()
         context['selected_topic'] = topic_filter
         context['paginator_range'] = get_paginator_range(paginator, context['articles'])
 

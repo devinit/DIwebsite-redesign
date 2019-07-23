@@ -30,6 +30,8 @@ class BlogIndexPage(HeroMixin, Page):
     class Meta():
         verbose_name = 'Blog Index Page'
 
+    parent_page_types = ['home.HomePage']
+
     def get_context(self, request):
         context = super(BlogIndexPage, self).get_context(request)
         page = request.GET.get('page', None)

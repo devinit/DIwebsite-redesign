@@ -301,6 +301,27 @@
 			"title": "Lorem ipsum dolor sit amet consectetur.",
 			"date": "16 March 2019",
 			"excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."
+		},
+		{
+			"content": "Report",
+			"img_name": "7610079352_6ec9708735_o-400x250",
+			"title": "Lorem ipsum dolor sit amet consectetur.",
+			"date": "16 March 2019",
+			"excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."
+		},
+		{
+			"content": "Background Paper",
+			"img_name": "18087237344_4a1e3f904a_o-400x250",
+			"title": "Lorem ipsum dolor sit amet consectetur.",
+			"date": "16 March 2019",
+			"excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."
+		},
+		{
+			"content": "Briefing",
+			"img_name": "fallback-image",
+			"title": "Lorem ipsum dolor sit amet consectetur.",
+			"date": "16 March 2019",
+			"excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."
 		}
 	],
 	"publication_home_two": [

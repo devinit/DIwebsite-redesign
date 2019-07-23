@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'di_website.ourteam',
     'di_website.common',
     'di_website.vacancies',
+    'di_website.blog',
 
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',

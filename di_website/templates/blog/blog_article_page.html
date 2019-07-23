@@ -4,7 +4,7 @@
 {% get_site_root as site_root %}
 
 {% block hero %}
-  {% include 'includes/heroes/hero-post.html' with tag='Blog' %}
+  {% include 'includes/heroes/hero-post.html' with tags=page.topics.all %}
 {% endblock hero %}
 
 {% block body %}

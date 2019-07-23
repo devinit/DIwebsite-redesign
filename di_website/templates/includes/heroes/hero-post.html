@@ -3,7 +3,11 @@
 
 {% block hero_meta %}
   <ul class="hero__meta">
-    <li class="hero__meta-item hero__meta-item--block">{{tag}}</li>
+    {% if tags %}
+      {% for tag in tags %}
+        <li class="hero__meta-item hero__meta-item--block">{{tag}}</li>
+      {% endfor %}
+    {% endif %}
     <li class="hero__meta-item">{{ page.first_published_at }}</li>
   </ul>
 {% endblock hero_meta %}

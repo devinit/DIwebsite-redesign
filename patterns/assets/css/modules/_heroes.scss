@@ -7,9 +7,9 @@
     background-color: $poppy;
     padding: 8em 0 5em 0;
     @include respond-to($menu-respond) {
-        padding: 10em 0 10em 0;
+        padding: 10em 0 8em 0;
         width: 95%;
-        min-height: 500px;
+        min-height: 400px;
         &:after {
             content: "";
             position: absolute;
@@ -23,8 +23,8 @@
             padding: 8em 0 5em 0;
         }
     }
-    @include respond-to($max-vp) {
-        padding: 22em 0 12em 0;
+    @include respond-to($e-vp) {
+        padding: 20em 0 15em 0;
     }
 }
 

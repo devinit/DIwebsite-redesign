@@ -13,11 +13,11 @@
 	},
 	{
 		"name": "01b-general-with-accounts-module",
-		"stage": "review"
+		"stage": "approved"
 	},
 	{
 		"name": "01d-media-center",
-		"stage": "review"
+		"stage": "approved"
 	},
 	{
 		"name": "02-homepage",
@@ -53,7 +53,7 @@
 	},
 	{
 		"name": "08-focus-areas",
-		"stage": "review"
+		"stage": "approved"
 	},
 	{
 		"name": "08a-places-we-work",
@@ -61,11 +61,11 @@
 	},
 	{
 		"name": "08-1-project",
-		"stage": "review"
+		"stage": "approved"
 	},
 	{
 		"name": "08-1a-place",
-		"stage": "review"
+		"stage": "approved"
 	},
 	{
 		"name": "09-services",
@@ -101,27 +101,27 @@
 	},
 	{
 		"name": "13-publications",
-		"stage": "review"
+		"stage": "approved"
 	},
 	{
 		"name": "14-publication-summary",
-		"stage": "review"
+		"stage": "approved"
 	},
 	{
 		"name": "14-1-publication-long-form",
-		"stage": "review"
+		"stage": "approved"
 	},
 	{
 		"name": "14-1a-publication-short-form",
-		"stage": "review"
+		"stage": "approved"
 	},
 	{
 		"name": "14-2-publication-appendix",
-		"stage": "review"
+		"stage": "approved"
 	},
 	{
 		"name": "16-work-for-us",
-		"stage": "review"
+		"stage": "approved"
 	},
 	{
 		"name": "18-vacancy-listing",
@@ -133,6 +133,6 @@
 	},
 	{
 		"name": "20-contact",
-		"stage": "review"
+		"stage": "approved"
 	}
 ]

@@ -48,6 +48,7 @@
 
 .accordion__content {
     background-color: #fff;
+    border: 1px solid $cloud;
 	padding: 2em;
 	display: none;
 	.accordion__list-item--active &,

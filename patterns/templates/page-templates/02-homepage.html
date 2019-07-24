@@ -44,17 +44,16 @@
                         <p>Development Initiatives is a not-for-profit company dedicated to end extreme poverty by 2030</p>
                         <p>We believe data is the backbone of efforts to realise a world without poverty that invest in human security and where everyone shares the benefits of opportunity and growth.</p>
                     </div>
-                    <a href="#" class="button">More about who we are</a>
+                    <a href="#" class="button">Find out more about who we are</a>
                 </div>
                 <div class="l-2up__col">
                     <h2 class="section__heading">What we do</h2>
                     <div class="is-typeset max-meter">
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
                     </div>
-                    <a href="#" class="button">More about what we do</a>
+                    <a href="#" class="button">Find out more about what we do</a>
                 </div>
             </div>
-
         </div>
     </section>
 
@@ -64,6 +63,9 @@
             <div class="l-2up-3up">
                 {% for item in card.publication_home %}
                     {% include 'cards/card-related.html' %}
+                {% endfor %}
+                {% for item in card.event_home %}
+                    {% include 'cards/card-events.html' %}
                 {% endfor %}
             </div>
         </div>

@@ -3,9 +3,9 @@
 // ------------------------------------------------------------
 
 .aside {
+	background-color: #fff;
+	padding: 2em;
 	&--clipping {
-		background-color: #fff;
-		padding: 2em;
 		@include respond-to($c-vp) {
 			&:first-of-type {
 				margin-top: -150px;
@@ -33,9 +33,9 @@
 			content: "";
 			position: absolute;
 			top: 18px;
-			right: -4em;
+			right: -1.5em;
 			height: 1px;
-			width: 3em;
+			width: 1em;
 			background-color: $poppy;
 		}
 	}

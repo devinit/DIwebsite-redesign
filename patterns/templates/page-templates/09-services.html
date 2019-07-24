@@ -43,6 +43,10 @@
                     <div class="aside aside--clipping">
                         {{ secondary_navigation.active(active_page, section, navigation.secondary_what_we_do) }}
                     </div>
+                    <div class="aside">
+                        <p class="aside__excerpt">Find out more about our consultancy services and what we can do for you</p>
+                        <a href="#" class="button">Get in touch</a>
+                    </div>
                 </aside>
                 <div class="l-sidebar__body">
                     <div class="is-typeset wysiwyg">
@@ -56,21 +60,39 @@
 
     <section class="section">
         <div class="row row--narrow">
-            <h2 class="section__heading">We specialise in a number of areas, inluding:</h2>
+            <h2 class="section__heading">We specialise in</h2>
             <div class="l-3up">
                 {% for item in card.work_feature %}
-                    {% include 'cards/card-feature-simple-linked.html' %}
+                    {% include 'cards/card-service.html' %}
                 {% endfor %}
             </div>
-            <div class="l-2up space-section-top">
+        </div>
+    </section>
+
+    <section class="section section--alt">
+        <div class="row row--narrow">
+            <h2 class="section__heading">Our skills</h2>
+            <div class="is-typeset max-meter">
+                <p>Our range of skills and expertise enables us to deliver our work:</p>
+            </div>
+            <div class="l-2up">
                 <div class="l-2up__col">
-                    <h3 class="type-m type-m--trailer">Our principles</h3>
-                    <p class="para">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                    {% include 'partials/accordion.html' %}
                 </div>
                 <div class="l-2up__col">
-                    <h3 class="type-m type-m--trailer">How we work</h3>
-                    <p class="para">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    {% include 'partials/accordion-alt.html' %}
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <h2 class="section__heading">Related content</h2>
+            <div class="l-2up-3up">
+                {% for item in card.news_related %}
+                    {% include 'cards/card-related.html' %}
+                {% endfor %}
             </div>
         </div>
     </section>
@@ -83,6 +105,45 @@
                 {% for item in service.service_list %}
                     {% include 'partials/service.html' %}
                 {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <div class="l-2up">
+                <div class="l-2up__col">
+                    <h3 class="type-m type-m--trailer">Our principles</h3>
+                    <p class="para">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                </div>
+                <div class="l-2up__col">
+                    <h3 class="type-m type-m--trailer">How we work</h3>
+                    <p class="para">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <div class="banner">
+                <div class="l-banner">
+                    <div class="l-banner__aside">
+                        <div class="banner__media">
+                            <img src="{{ global.assets_root }}/img/pin.jpg" alt="alt tag">
+                            <span class="banner__credit">Image by <a href="#">Credit name</a></span>
+                        </div>
+                    </div>
+                    <div class="l-banner__main">
+                        <h3 class="banner__heading">Find out how we can help you</h3>
+                        <p class="banner__excerpt">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                        <ul class="banner__list">
+                            <h4 class="banner__subeading">Firstname Lastname</h4>
+                            <li>Telephone: +44(0) 754 566 8378</li>
+                            <li>Email: <a href="mailto:">hellonewbusiness@devinit.org</a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </section>

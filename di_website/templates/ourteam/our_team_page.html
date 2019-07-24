@@ -1,6 +1,6 @@
 {% extends "layouts/default.html" %}
 
-{% load navigation_tags static wagtailcore_tags wagtailimages_tags card_tags %}
+{% load navigation_tags static wagtailcore_tags wagtailimages_tags card_tags static %}
 
 {% block hero %}
     {% include 'includes/heroes/hero.html' %}
@@ -54,12 +54,14 @@
                 <div class="l-4up__col">
                     <a href="{% pageurl profile %}">
                         <div class="profile">
+                          <div class="profile__media">
                             {% if profile.image %}
-                                {% image profile.image max-260x260 as img %}
-                                <div class="profile__media">
-                                    <img src="{{img.url}}" alt="alt">
-                                </div>
+                              {% image profile.image fill-402x402-c100 as img %}
+                              <img src="{{img.url}}" alt="{{img.alt}}">
+                            {% else %}
+                              <img height="402px" width="402px" src="{% static 'images/profile-fallback.jpg' %}" alt="Placeholder profile picture">
                             {% endif %}
+                            </div>
                             <div class="profile__caption">
                                 <h3 class="profile__title">{{profile.name|default_if_none:""}}</h3>
                                 <p class="profile__meta">{{profile.position.name|default_if_none:""}}</p>

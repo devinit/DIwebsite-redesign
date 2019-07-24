@@ -78,14 +78,19 @@
     @include font-size($para);
     color: #fff;
     li {
-        margin-bottom: 1em;
+        margin-bottom: 0.75em;
         &:last-child {
             margin-bottom: 2em;
+        }
+        a {
+            color: #fff;
+            text-decoration: underline;
         }
     }
     .banner__subeading {
         @extend %font-heading;
         color: #fff;
+        margin-bottom: 0.5em;
     }
 }
 

@@ -129,6 +129,15 @@
 			"location": "Kisumu County at the Jumia Hotel"
 		}
 	],
+	"event_home": [
+		{
+			"img_name": "43521357710_cfb5999abb_o-400x250",
+			"title": "County spending on climate change and disaster risk reduction: Evidence from the budgets of four counties",
+			"date": "10 December - 12 December 2019",
+			"time": "9am - 4pm",
+			"location": "Kisumu County at the Jumia Hotel"
+		}
+	],
 	"blog_related": [
 		{
 			"img_name": "43521357710_cfb5999abb_o-600x375",
@@ -152,20 +161,32 @@
 	"work_feature": [
 		{
 			"img_name": "2766433972_0e76af2b3a_o-600x375",
-			"title": "Poverty",
-			"meta": "Measuring the progress of people out of poverty",
+			"title": "Data analysis",
 			"excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
 		},
 		{
 			"img_name": "9918645274_95e022b2ce_o-600x375",
-			"title": "Resources",
-			"meta": "Investments to end poverty and build resilience",
+			"title": "Data science and technology",
 			"excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."
 		},
 		{
 			"img_name": "5520009236_fcbf74d793_o-600x375",
-			"title": "Data Use",
-			"meta": "Improving data use for sustainable development",
+			"title": "Data communication",
+			"excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi."
+		},
+		{
+			"img_name": "14279715726_ef9da4106c_o-600x375",
+			"title": "Policy analysis",
+			"excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi."
+		},
+		{
+			"img_name": "18087237344_4a1e3f904a_o-600x375",
+			"title": "Assessments and evaluations",
+			"excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi."
+		},
+		{
+			"img_name": "8428296281_4c730c0db4_o-600x375",
+			"title": "Capacity building",
 			"excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi."
 		}
 	],
@@ -289,7 +310,7 @@
 			"excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."
 		},
 		{
-			"content": "Background Paper",
+			"content": "Publication",
 			"img_name": "18087237344_4a1e3f904a_o-400x250",
 			"title": "Lorem ipsum dolor sit amet consectetur.",
 			"date": "16 March 2019",
@@ -303,22 +324,15 @@
 			"excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."
 		},
 		{
-			"content": "Report",
-			"img_name": "7610079352_6ec9708735_o-400x250",
+			"content": "News",
+			"img_name": "27634474642_e47d75c1f8_o-600x375",
 			"title": "Lorem ipsum dolor sit amet consectetur.",
 			"date": "16 March 2019",
 			"excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."
 		},
 		{
-			"content": "Background Paper",
-			"img_name": "18087237344_4a1e3f904a_o-400x250",
-			"title": "Lorem ipsum dolor sit amet consectetur.",
-			"date": "16 March 2019",
-			"excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."
-		},
-		{
-			"content": "Briefing",
-			"img_name": "fallback-image",
+			"content": "Project",
+			"img_name": "37042485971_759cc47a71_o-400x250",
 			"title": "Lorem ipsum dolor sit amet consectetur.",
 			"date": "16 March 2019",
 			"excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."

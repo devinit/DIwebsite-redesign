@@ -173,6 +173,9 @@ $slick-opacity-not-active: 0.25 !default;
             transform: scale(1.5);
             background-color: $poppy-dark;
         }
+        &:hover{
+            cursor: pointer;
+        }
     }
 }
 
@@ -187,4 +190,9 @@ $slick-opacity-not-active: 0.25 !default;
         right: 0;
         left: auto;
     }
+}
+
+
+.no-js & .slider .l-highlight {
+    margin-bottom: 50px;
 }

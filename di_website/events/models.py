@@ -38,9 +38,6 @@ class EventPage(StandardPage):
 
     ]
 
-    parent_page_types = [
-        'VacanciesPage'
-    ]
     parent_page_types = ['EventIndexPage']
 
     class Meta:

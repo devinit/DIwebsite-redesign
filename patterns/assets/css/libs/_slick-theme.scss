@@ -142,7 +142,6 @@ $slick-opacity-not-active: 0.25 !default;
     > span {
         transform: scale(1);
         transition: all, ease-in-out, 0.3s;
-        text-align: center;
         background-color: $slate;
         color: #fff;
         width: 45px;
@@ -151,9 +150,20 @@ $slick-opacity-not-active: 0.25 !default;
         border-radius: 50%;
         display: block;
         margin: 0 auto;
-        span {
+        .timeline__item__month,
+        .timeline__item__year {
+            text-align: center;
             display: block;
+            line-height: 1em;
+            font-size: 1em;
             padding-top: 10px;
+        }
+        .timeline__item__month{
+            text-transform: uppercase;
+            font-size: .8em;
+        }
+        .timeline__item__year {
+            padding-top: 2px;
         }
         @include link-active-styles {
             transform: scale(1.5);
@@ -162,6 +172,9 @@ $slick-opacity-not-active: 0.25 !default;
         .slick-current & {
             transform: scale(1.5);
             background-color: $poppy-dark;
+        }
+        &:hover{
+            cursor: pointer;
         }
     }
 }
@@ -177,4 +190,9 @@ $slick-opacity-not-active: 0.25 !default;
         right: 0;
         left: auto;
     }
+}
+
+
+.no-js & .slider .l-highlight {
+    margin-bottom: 50px;
 }

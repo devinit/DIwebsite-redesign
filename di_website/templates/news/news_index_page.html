@@ -1,6 +1,6 @@
 {% extends "layouts/default.html" %}
 
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags string_utils %}
 
 {% block hero %}
     {% include 'includes/heroes/hero.html' %}
@@ -17,7 +17,7 @@
                 </aside>
                 <div class="l-sidebar__body">
                     <div class="is-typeset wysiwyg">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                        {{page.intro|richtext_strip_wrapper}}
                     </div>
                     <a href="#" class="button">Sign up to our newsletter</a>
                 </div>

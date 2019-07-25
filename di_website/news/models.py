@@ -6,7 +6,7 @@ from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, PageChooserPanel, StreamFieldPanel
-from wagtail.core.fields import StreamField
+from wagtail.core.fields import StreamField, RichTextField
 from wagtail.core.models import Orderable
 
 from taggit.models import Tag, TaggedItemBase
@@ -20,6 +20,12 @@ class NewsTopic(TaggedItemBase):
 
 
 class NewsIndexPage(StandardPage):
+    intro = RichTextField(blank=True, null=True, help_text="Something about our newsletters")
+
+    content_panels = StandardPage.content_panels + [
+        FieldPanel('intro')
+    ]
+
     subpage_types = ['NewsStoryPage']
     parent_page_types = ['home.HomePage']
 

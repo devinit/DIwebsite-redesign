@@ -2,8 +2,12 @@
 
 <div class="m-author">
     <div class="m-author__image">
-        {% image img fill-80x80-c100 as image %}
-        <img src="{{ image.url }}" alt="alt tag">
+        {% if img %}
+            {% image img fill-80x80-c100 as image %}
+            <img src="{{ image.url }}" alt="{{ image.alt }}">
+        {% else %}
+            <img height="80px" width="80px" src="{% static 'images/profile-fallback.jpg' %}" alt="Placeholder profile picture">
+        {% endif %}
     </div>
     <div class="m-author__body">
         <h3 class="m-author__title">Written by {{name|default_if_none:""}}</h3>

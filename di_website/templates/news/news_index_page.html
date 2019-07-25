@@ -3,7 +3,7 @@
 {% load wagtailcore_tags %}
 
 {% block hero %}
-{% include 'includes/heroes/hero.html' %}
+    {% include 'includes/heroes/hero.html' %}
 {% endblock hero %}
 
 {% block body %}
@@ -27,13 +27,12 @@
 
     <section class="section">
         <div class="row row--narrow">
-            <h2 class="section__heading">Latest blog posts</h2>
             <div class="l-2up-3up">
-                {% for blog in articles %}
-                    {% include 'includes/cards/card-blog.html' %}
+                {% for item in stories %}
+                    {% include 'includes/cards/card-news.html' %}
                 {% endfor %}
             </div>
-            {% include "includes/scaffold/pagination-links.html" with children=articles %}
+            {% include "includes/scaffold/pagination-links.html" with children=stories %}
         </div>
     </section>
 {% endblock %}

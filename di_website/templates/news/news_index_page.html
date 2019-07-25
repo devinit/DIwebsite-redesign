@@ -1,0 +1,39 @@
+{% extends "layouts/default.html" %}
+
+{% load wagtailcore_tags %}
+
+{% block hero %}
+{% include 'includes/heroes/hero.html' %}
+{% endblock hero %}
+
+{% block body %}
+    <section class="section">
+        <div class="row row--narrow">
+            <div class="l-sidebar">
+                <aside class="l-sidebar__aside">
+                    <div class="aside aside--clipping">
+                        <!-- TODO: include sidebar pages with links for what we do -->
+                    </div>
+                </aside>
+                <div class="l-sidebar__body">
+                    <div class="is-typeset wysiwyg">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                    </div>
+                    <a href="#" class="button">Sign up to our newsletter</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <h2 class="section__heading">Latest blog posts</h2>
+            <div class="l-2up-3up">
+                {% for blog in articles %}
+                    {% include 'includes/cards/card-blog.html' %}
+                {% endfor %}
+            </div>
+            {% include "includes/scaffold/pagination-links.html" with children=articles %}
+        </div>
+    </section>
+{% endblock %}

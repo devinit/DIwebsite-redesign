@@ -3,11 +3,7 @@
 
 {% block hero_meta %}
     <ul class="hero__meta">
-        {% if tags %}
-        {% for tag in tags %}
-            <li class="hero__meta-item hero__meta-item--block">{{tag}}</li>
-        {% endfor %}
-        {% endif %}
+        <li class="hero__meta-item hero__meta-item--block">Blog</li>
         <li class="hero__meta-item">{{ page.first_published_at }}</li>
     </ul>
 {% endblock hero_meta %}
@@ -17,9 +13,9 @@
     {% if page.internal_author_page %}
 
         {% with page.internal_author_page.specific as internal %}
-        {% with page=internal img=internal.image name=internal.name position=internal.position %}
-            {% include 'includes/partials/author-link.html' %}
-        {% endwith %}
+            {% with page=internal img=internal.image name=internal.name position=internal.position %}
+                {% include 'includes/partials/author-link.html' %}
+            {% endwith %}
         {% endwith %}
 
     {% endif %}

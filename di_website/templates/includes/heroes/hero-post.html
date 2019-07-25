@@ -2,33 +2,33 @@
 {% load wagtailcore_tags %}
 
 {% block hero_meta %}
-  <ul class="hero__meta">
-    {% if tags %}
-      {% for tag in tags %}
-        <li class="hero__meta-item hero__meta-item--block">{{tag}}</li>
-      {% endfor %}
-    {% endif %}
-    <li class="hero__meta-item">{{ page.first_published_at }}</li>
-  </ul>
+    <ul class="hero__meta">
+        {% if tags %}
+        {% for tag in tags %}
+            <li class="hero__meta-item hero__meta-item--block">{{tag}}</li>
+        {% endfor %}
+        {% endif %}
+        <li class="hero__meta-item">{{ page.first_published_at }}</li>
+    </ul>
 {% endblock hero_meta %}
 
 {% block hero-author %}
 
-  {% if page.internal_author_page %}
+    {% if page.internal_author_page %}
 
-    {% with page.internal_author_page.specific as internal %}
-      {% with page=internal img=internal.image name=internal.name position=internal.position %}
-        {% include 'includes/partials/author-link.html' %}
-      {% endwith %}
-    {% endwith %}
+        {% with page.internal_author_page.specific as internal %}
+        {% with page=internal img=internal.image name=internal.name position=internal.position %}
+            {% include 'includes/partials/author-link.html' %}
+        {% endwith %}
+        {% endwith %}
 
-  {% endif %}
+    {% endif %}
 
-  {% if page.external_author_name %}
+    {% if page.external_author_name %}
 
-    {% with link=page.external_author_page img=page.external_author_photograph name=page.external_author_name position=page.external_author_title %}
-      {% include 'includes/partials/author-link.html' %}
-    {% endwith %}
+        {% with link=page.external_author_page img=page.external_author_photograph name=page.external_author_name position=page.external_author_title %}
+            {% include 'includes/partials/author-link.html' %}
+        {% endwith %}
 
-  {% endif %}
+    {% endif %}
 {% endblock hero-author %}

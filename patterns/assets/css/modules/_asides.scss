@@ -18,16 +18,10 @@
 }
 
 .aside__media {
+	background-color: #fff;
+	padding: 3em;
 	img {
 		@extend %max-width;
-	}
-	&--logo {
-		background-size: contain;
-	    background-position: 50% 50%;
-	    background-repeat: no-repeat;
-	    min-height: 150px;
-	    padding: 60px 80px;
-	    display: block;
 	}
 }
 

@@ -6,7 +6,7 @@
             {% image img fill-80x80-c100 as image %}
             <img src="{{ image.url }}" alt="{{ image.alt }}">
         {% else %}
-            <img height="80px" width="80px" src="{% static 'images/profile-fallback.jpg' %}" alt="Placeholder profile picture">
+            <img height="80px" width="80px" src="{% static 'img/profile-fallback.jpg' %}" alt="Placeholder profile picture">
         {% endif %}
     </div>
     <div class="m-author__body">

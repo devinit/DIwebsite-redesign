@@ -4,8 +4,8 @@
 <div class="form-field {% if item.field_error == true %}form-field--error{% else %}{% endif %}">
 {% endif %}
 	<label for="{{ item.item_id }}" id="{{ item.id }}" class="form-label {{ item.item_label_type }}">{{ item.item_label }}</label>
-	<input id="{{ item.item_id }}" class="form-item" name="{{ item.item_id }}" {{ item.item_extras }} type="{{ item.item_type }}" placeholder="{{ item.item_placeholder }}">
-	{% if item.field_error == true %} 
+	<input id="{{ item.item_id }}" class="form-item" name="{{ item.item_id }}" {{ item.item_extras }} type="{{ item.item_type }}" placeholder="{{ item.item_placeholder }}" {% if item.required == true %} required {% endif %}>
+	{% if item.field_error == true %}
 		<span class="form-message">Error message</span>
 	{% else %}
 	{% endif %}

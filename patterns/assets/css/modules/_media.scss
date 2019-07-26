@@ -74,6 +74,9 @@
 		width: 100%;
 		height: 100%;
 	}
+	&--minor {
+		@include maintain-ratio(16 6);
+	}
 }
 
 .media-caption {

@@ -131,6 +131,7 @@
 	],
 	"event_home": [
 		{
+			"content": "Event",
 			"img_name": "43521357710_cfb5999abb_o-400x250",
 			"title": "County spending on climate change and disaster risk reduction: Evidence from the budgets of four counties",
 			"date": "10 December - 12 December 2019",
@@ -161,32 +162,32 @@
 	"work_feature": [
 		{
 			"img_name": "2766433972_0e76af2b3a_o-600x375",
-			"title": "Data analysis",
+			"title": "Measuring progress of the poorest people",
 			"excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
 		},
 		{
 			"img_name": "9918645274_95e022b2ce_o-600x375",
-			"title": "Data science and technology",
+			"title": "Revolutionizing Data to Leave No-one Behind",
 			"excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."
 		},
 		{
 			"img_name": "5520009236_fcbf74d793_o-600x375",
-			"title": "Data communication",
+			"title": "Increasing transparency and effectiveness of humanitarian financing",
 			"excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi."
 		},
 		{
 			"img_name": "14279715726_ef9da4106c_o-600x375",
-			"title": "Policy analysis",
+			"title": "Increasing transparency and effectiveness of development finance",
 			"excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi."
 		},
 		{
 			"img_name": "18087237344_4a1e3f904a_o-600x375",
-			"title": "Assessments and evaluations",
+			"title": "Increasing transparency and effectiveness of domestic financing",
 			"excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi."
 		},
 		{
 			"img_name": "8428296281_4c730c0db4_o-600x375",
-			"title": "Capacity building",
+			"title": "Building Data Savvy Partners",
 			"excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi."
 		}
 	],
@@ -233,6 +234,29 @@
 			"img_name": "37042485971_759cc47a71_o-600x375",
 			"title": "Data to leave no one behind: Development cooperation and the P20",
 			"date": "9am - 4pm, December 10 - December 12, 2019",
+			"excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi."
+		}
+	],
+	"service_related": [
+		{
+			"content": "News",
+			"img_name": "4479564824_ccb5519a5e_o-600x375",
+			"title": "Is using ODA for blending a good use of scarce concessional resources",
+			"date": "10 October 2018",
+			"excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+		},
+		{
+			"content": "News",
+			"img_name": "8428296281_4c730c0db4_o-600x375",
+			"title": "How can data really be transformative?",
+			"date": "10 October 2018",
+			"excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."
+		},
+		{
+			"content": "News",
+			"img_name": "37042485971_759cc47a71_o-600x375",
+			"title": "Data to leave no one behind: Development cooperation and the P20",
+			"date": "10 October 2018",
 			"excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi."
 		}
 	],

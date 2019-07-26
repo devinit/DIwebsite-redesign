@@ -8,7 +8,8 @@
 		    "item_label_type": "",
 		    "item_type": "email",
 		    "item_placeholder": "Your email address",
-		    "item_extras": ""
+		    "item_extras": "",
+		    "required" : true
 		}
     ],
 	"checkbox": [

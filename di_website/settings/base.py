@@ -148,6 +148,7 @@ STATICFILES_FINDERS = [
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'patterns/converted-html/assets'),
+    os.path.join(BASE_DIR, 'di_website/static'),
 ]
 
 # ManifestStaticFilesStorage is recommended in production, to prevent outdated

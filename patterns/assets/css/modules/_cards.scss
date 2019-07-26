@@ -81,7 +81,7 @@ a.card {
 .card__media {
     @include maintain-ratio(4 3);
     @extend .background-cover;
-    background-color: $cloud;
+    background-color: #fff;
     img {
         max-width: 100%;
         display: block;

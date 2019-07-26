@@ -125,6 +125,20 @@ a.m-author {
     }
 }
 
+a.m-stat {
+    span {
+        color: $heading-color;
+        position: relative;
+        border-bottom: 0 solid $poppy;
+        transition: all, ease-in-out, 0.3s;
+    }
+    &:hover {
+        span {
+            border-bottom-width: 2px;
+        }
+    }
+}
+
 .m-stat__icon {
     width: auto;
     margin-bottom: 2em;

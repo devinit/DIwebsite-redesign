@@ -17,7 +17,7 @@
 <link rel="icon" type="image/png" href="/assets/assets/favicons/favicon-16x16.png" sizes="16x16">
     
 </head>
-<body class="body body--contact" id="body-contact">
+<body class="body body--focus" id="body-focus">
 	<div class="ui-base">
 		<a href="#pagecontent" class="skiplink" data-js="skiplink">Skip to main content</a>
 		
@@ -40,7 +40,7 @@
 		
 			
 				
-					<li id="section-What we do" class='navigation-primary__item'><a href="#">What we do</a></li>
+					<li id="section-What we do" class='navigation-primary__item navigation-primary__item--active'><a href="#">What we do</a></li>
 				
 			
 		
@@ -79,7 +79,10 @@
 		<main id="pagecontent" class="pagecontent -nofocus" role="main" tabindex="-1">
 			
 			
-    <section class="hero ">
+    <section class="hero hero--image">
+    
+        <div class="hero__image" style="background-image: url('/assets/img/map-hero.png');"></div>
+        <span class="hero__credit">Image by <a href="#">Credit name</a></span>
     
     <span class="hero__flourish"></span>
     <span class="hero__flourish"></span>
@@ -91,9 +94,9 @@
     <span class="hero__flourish"></span>
     <div class="row row--narrow">
         <div class="hero__content">
-            <h1 class="hero__title"><span>Contact us</span></h1>
+            <h1 class="hero__title"><span>Where we work</span></h1>
             
-                <p class="hero__excerpt"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis commodo mattis nisi eu adipiscing.</span></p>
+                <p class="hero__excerpt"><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span></p>
             
             
         </div>
@@ -103,131 +106,142 @@
 
     <section class="section">
         <div class="row row--narrow">
-            <div class="max-meter">
-                <div class="is-typeset">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                </div>
-                <div class="alert alert--success"><i role="presentation" aria-hidden="true" class="ico ico-success-success"></i>
-                    <p><strong>Thank you - your message has been sent.</strong></p>
-                    <p>Name: [name]</p>
-                    <p>Organisation: [organisation]</p>
-                    <p>Email: [email]</p>
-                    <p>Telephone: [telephone]</p>
-                    <p>Message</p>
-                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.</p>
-                </div>
-                <div class="alert alert--error"><i role="presentation" aria-hidden="true" class="ico ico-error-error"></i>
-                    <p><strong>Sorry, there appears to be an issue.</strong></p>
-                    <p>Please check you have entered a valid email address.</p>
-                </div>
-                <form class="form">
-                    
+            <div class="l-sidebar">
+                <aside class="l-sidebar__aside">
+                    <div class="aside aside--clipping">
                         
-<div class="form-field ">
+<h2 class="aside__heading">More about: What we do</h2>
+<nav class="navigation-secondary">
+    <ul>
+    	
+			<li class="navigation-secondary__item "><a href="#">Focus areas</a></li>
+    	
+			<li class="navigation-secondary__item navigation-secondary__item--active"><a href="#">Where we work</a></li>
+    	
+			<li class="navigation-secondary__item "><a href="#">Consultancy services</a></li>
+    	
+			<li class="navigation-secondary__item "><a href="#">Data support services</a></li>
+    	
+			<li class="navigation-secondary__item "><a href="#">News</a></li>
+    	
+			<li class="navigation-secondary__item "><a href="#">Events</a></li>
+    	
+    </ul>
+</nav>
 
-	<label for="name" id="" class="form-label ">Name</label>
-	<input id="name" class="form-item" name="name"  type="text" placeholder="Your name"  required >
-	
-	
-</div>
-                    
-                        
-<div class="form-field form-field--spaced ">
-
-	<label for="organisation" id="" class="form-label ">Organisation (optional)</label>
-	<input id="organisation" class="form-item" name="organisation"  type="text" placeholder="Your organisation" >
-	
-	
-</div>
-                    
-                        
-<div class="form-field form-field--spaced ">
-
-	<label for="email" id="" class="form-label email">Email address</label>
-	<input id="email" class="form-item" name="email"  type="email" placeholder="Your email"  required >
-	
-	
-</div>
-                    
-                        
-<div class="form-field form-field--spaced ">
-
-	<label for="phone" id="" class="form-label ">Telephone (optional)</label>
-	<input id="phone" class="form-item" name="phone"  type="text" placeholder="Your phone number" >
-	
-	
-</div>
-                    
-                    
-                        
-<div class="form-field form-field--spaced ">
-
-	<label for="message" class="form-label ">Message</label>
-	<textarea id="message" class="form-item" name="message" ></textarea>
-	
-	
-</div>
-                    
-                    <div class="form-field form-field--spaced">
-                        <input class="button" type="submit" value="Send message">
                     </div>
-                </form>
+                </aside>
+                <div class="l-sidebar__body">
+                    <div class="is-typeset wysiwyg">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <section class="section">
         <div class="row row--narrow">
-            <h2 class="section__heading">Where we are based</h2>
+            <div class="project">
+                <div class="project__main">
+                    <div class="project__header">
+                        <div class="project__media">
+                            <img src="/assets/img/hero-project-800x500.jpg" alt="alt">
+                        </div>
+                        <h2 class="project__heading">Kenya</h2>
+                        <h3 class="project__subheading">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h3>
+                    </div>
+                    <div class="is-typeset">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    </div>
+                </div>
+                <div class="project__aside">
+                    <a href="#" class="button">Find out more about our work in Kenya</a>
+                </div>
+            </div>
+
+            <div class="project">
+                <div class="project__main">
+                    <div class="project__header">
+                        <div class="project__media">
+                            <img src="/assets/img/4Ben5-800x500.jpg" alt="alt">
+                        </div>
+                        <h2 class="project__heading">Eastern Africa</h2>
+                        <h3 class="project__subheading">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h3>
+                    </div>
+                    <div class="is-typeset">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    </div>
+                </div>
+                <div class="project__aside">
+                    <h3 class="project__subheading para--typeset">Find out more about our work in:</h3>
+                    <ul class="nobullet-list">
+                        <li><a href="#" class="button">Kenya</a></li>
+                        <li><a href="#" class="button">Uganda</a></li>
+                        <li><a href="#" class="button">Somalia</a></li>
+                    </ul>
+
+                </div>
+            </div>
+
+            <div class="project">
+                <div class="project__main">
+                    <div class="project__header">
+                        <div class="project__media">
+                            <img src="/assets/img/4Ben4-800x500.jpg" alt="alt">
+                        </div>
+                        <h2 class="project__heading">Nepal</h2>
+                        <h3 class="project__subheading">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h3>
+                    </div>
+                    <div class="is-typeset">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    </div>
+                </div>
+                <div class="project__aside">
+                    <a href="#" class="button">Find out more about our work in Nepal</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <h2 class="section__heading">More about</h2>
             <div class="l-4up">
-                <div class="location">
-                    <h3 class="location__heading">UK</h3>
-                    <p class="location__copy">North Quay House Quay Side, Temple Back Bristol, BS1 6FL, UK</p>
-                    <span class="location__contact">+44 (0) 1179 272 505</span>
-                </div>
-                <div class="location">
-                    <h3 class="location__heading">Kenya</h3>
-                    <p class="location__copy">Shelter Afrique Building 4th Floor, Mamlaka Road Nairobi, Kenya PO Box 102802-00101 </p>
-                    <span class="location__contact">+254 (0) 20 272 5346</span>
-                </div>
-                <div class="location">
-                    <h3 class="location__heading">Uganda</h3>
-                    <p class="location__copy">Ggaba Road, Mutesasira Zone, Kansanga PO Box 22459 Kampala, Uganda</p>
-                    <span class="location__contact">+266 (0) 312 26629/30</span>
-                </div>
-                <div class="location">
-                    <h3 class="location__heading">United States</h3>
-                    <p class="location__copy">1110 Vermont Ave NW, Suite 500, Washington DC 20005, USA</p>
-                </div>
-            </div>
-        </div>
-    </section>
+                
+                    <a href="#" class="card">
+    <div class="card__media" style="background-image: url(/assets/img/Pin-at-Open-Up-conference-2-400x250.jpg);"></div>
+    <div class="card__body">
+        <h3 class="card__title"><span>Who we are</span></h3>
+    </div>
+</a>
 
-    <section class="section">
-        <div class="row row--narrow">
-            <h2 class="section__heading">Registered addresses</h2>
-            <div class="l-2up">
-                <div class="l-2up__col">
-                    <p class="para para--typeset">Development Initiatives Poverty Research Ltd (Registered in England and Wales, Company No. 06368740) and DI International Ltd (Registered in England Wales, Company No. 5802543)</p>
-                    <ul class="nobullet-list">
-                        <li>North Quay House</li>
-                        <li>Quay side</li>
-                        <li>Temple Back</li>
-                        <li>Bristol</li>
-                        <li>BS1 6FL</li>
-                        <li>UK</li>
-                    </ul>
-                </div>
-                <div class="l-2up__col">
-                    <p class="para para--typeset">Development Initiatives Poverty Research America Inc. (a 501(C)3 company registered in the state of Delaware with registration number 5737757)</p>
-                    <ul class="nobullet-list">
-                        <li>1209 Orange Street</li>
-                        <li>Wilmington</li>
-                        <li>New Castle County</li>
-                        <li>Delaware 19801</li>
-                        <li>USA</li>
-                    </ul>
-                </div>
+                
+                    <a href="#" class="card">
+    <div class="card__media" style="background-image: url(/assets/img/Still-400x250.jpg);"></div>
+    <div class="card__body">
+        <h3 class="card__title"><span>Our Story</span></h3>
+    </div>
+</a>
+
+                
+                    <a href="#" class="card">
+    <div class="card__media" style="background-image: url(/assets/img/20180323-JonCraig_Photos-07778606070-33-400x250.jpg);"></div>
+    <div class="card__body">
+        <h3 class="card__title"><span>Meet the team</span></h3>
+    </div>
+</a>
+
+                
+                    <a href="#" class="card">
+    <div class="card__media" style="background-image: url(/assets/img/P1077725-400x250.jpg);"></div>
+    <div class="card__body">
+        <h3 class="card__title"><span>What we do</span></h3>
+    </div>
+</a>
+
+                
             </div>
         </div>
     </section>

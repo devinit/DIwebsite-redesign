@@ -112,6 +112,22 @@
 		"stage": "approved"
 	},
 	{
+		"name": "14-1b-publication-long-form-pink",
+		"stage": "approved"
+	},
+	{
+		"name": "14-1c-publication-long-form-yellow",
+		"stage": "approved"
+	},
+	{
+		"name": "14-1d-publication-long-form-orange",
+		"stage": "approved"
+	},
+	{
+		"name": "14-1e-publication-long-form-purple",
+		"stage": "approved"
+	},
+	{
 		"name": "14-1a-publication-short-form",
 		"stage": "approved"
 	},

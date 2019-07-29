@@ -11,8 +11,7 @@ from wagtail.core.models import Orderable
 
 from taggit.models import Tag, TaggedItemBase
 
-from di_website.common.base import StandardPage, get_paginator_range
-from di_website.common.blocks import BaseStreamBlock
+from di_website.common.base import BaseStreamBody, StandardPage, get_paginator_range
 from di_website.common.constants import MAX_RELATED_LINKS
 
 
@@ -60,15 +59,8 @@ class NewsIndexPage(StandardPage):
         return context
 
 
-class NewsStoryPage(StandardPage):
+class NewsStoryPage(StandardPage, BaseStreamBody):
     topics = ClusterTaggableManager(through=NewsTopic, blank=True)
-
-    body = StreamField(
-        BaseStreamBlock(),
-        verbose_name="Page Body",
-        null=True,
-        blank=True
-    )
 
     content_panels = StandardPage.content_panels + [
         FieldPanel('topics'),

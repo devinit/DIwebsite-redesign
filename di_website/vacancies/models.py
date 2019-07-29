@@ -12,8 +12,7 @@ from wagtail.admin.edit_handlers import (
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.snippets.models import register_snippet
 
-from di_website.common.base import StandardPage
-from di_website.common.blocks import BaseStreamBlock
+from di_website.common.base import BaseStreamBody, StandardPage
 from di_website.users.models import Department, Subscription
 
 
@@ -109,7 +108,7 @@ class VacancyIndexPage(StandardPage):
         return context
 
 
-class VacancyPage(StandardPage):
+class VacancyPage(StandardPage, BaseStreamBody):
     vacancy = models.ForeignKey(
         'users.JobTitle',
         null=True,
@@ -141,11 +140,6 @@ class VacancyPage(StandardPage):
         null=True,
         auto_now=False,
         auto_now_add=False
-    )
-    body = StreamField(
-        BaseStreamBlock(),
-        verbose_name="Page Body",
-        blank=True
     )
     other_pages_heading = models.CharField(
         blank=True,

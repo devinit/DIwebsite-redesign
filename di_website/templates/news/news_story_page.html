@@ -30,8 +30,8 @@
             <div class="row row--narrow">
                 <h2 class="section__heading">Related content</h2>
                 <div class="l-2up-3up">
-                    {% for page_link in page.related_links.all %}
-                        {% with item=page_link.related_link.specific %}
+                    {% for related_page in related_pages %}
+                        {% with item=related_page.specific %}
                             {% include 'includes/cards/card-related.html' with tag='News' %}
                         {% endwith %}
                     {% endfor %}

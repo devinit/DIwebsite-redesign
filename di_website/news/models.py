@@ -13,6 +13,7 @@ from taggit.models import Tag, TaggedItemBase
 
 from di_website.common.base import StandardPage, get_paginator_range
 from di_website.common.blocks import BaseStreamBlock
+from di_website.common.constants import MAX_RELATED_LINKS
 
 
 class NewsTopic(TaggedItemBase):
@@ -81,6 +82,23 @@ class NewsStoryPage(StandardPage):
 
     class Meta():
         verbose_name = 'News Story Page'
+
+    def get_context(self, request):
+        context = super().get_context(request)
+
+        related_links = self.related_links.all()
+        related_links_count = len(related_links)
+
+        if related_links_count < MAX_RELATED_LINKS:
+            difference = MAX_RELATED_LINKS - related_links_count
+            news_pages = [link.page for link in related_links]
+            id_list = [page.id for page in news_pages]
+            news_objects = NewsStoryPage.objects
+            related_links = news_objects.filter(id__in=id_list) | news_objects.exclude(id__in=id_list)[:difference]
+
+        context['related_pages'] = related_links
+
+        return context
 
 
 class NewsPageRelatedLink(Orderable):

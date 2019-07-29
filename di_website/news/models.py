@@ -72,7 +72,7 @@ class NewsStoryPage(StandardPage):
     content_panels = StandardPage.content_panels + [
         FieldPanel('topics'),
         StreamFieldPanel('body'),
-        InlinePanel('related_links', label="Related links")
+        InlinePanel('related_links', label="Related links", max_num=3)
     ]
 
     parent_page_types = [

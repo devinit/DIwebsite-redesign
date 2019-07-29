@@ -4,8 +4,12 @@ from wagtail.admin.edit_handlers import (FieldPanel, InlinePanel,
 from wagtail.core.fields import StreamField
 from wagtail.core.models import Page
 
-from di_website.common.base import OtherPage, StandardPage
+from di_website.common.base import OtherPage, StandardPage, get_paginator_range
 from di_website.common.blocks import BaseStreamBlock
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.contrib.contenttypes.models import ContentType
+
+from taggit.models import Tag, TaggedItemBase
 
 """ Content of each Event that makes up events list """
 
@@ -44,22 +48,41 @@ class EventPage(StandardPage):
         verbose_name = "Event"
         verbose_name_plural = "Events"
 
-
 """ List of all events that have been created from events page """
+class EventIndexPage(StandardPage):    
+    body = StreamField(BaseStreamBlock(), verbose_name="Page Body", blank=True)    
 
-
-class EventIndexPage(StandardPage):
-    
-    template = "events/events_index_page.html"
-
-    subpage_types = ['EventPage']
+    content_panels = StandardPage.content_panels + [
+        StreamFieldPanel('body'),        
+    ]
 
     def get_context(self,request):
-        context = super().get_context(request)
-        context['events'] = EventPage.objects.live().all()
-        context['active_page'] = self.title
+        context = super(EventIndexPage, self).get_context(request)
+        page = request.GET.get('page', None)
+        topic_filter = request.GET.get('topic', None)
+        if topic_filter:
+            events = EventPage.objects.live().filter(topics__slug=topic_filter)
+        else:
+            events = EventPage.objects.live()
+
+        paginator = Paginator(events, 10)
+        try:
+            context['events'] = paginator.page(page)
+        except PageNotAnInteger:
+            context['events'] = paginator.page(1)
+        except EmptyPage:
+            context['events'] = paginator.page(paginator.num_pages)
+
+        blog_content_type = ContentType.objects.get_for_model(EventPage)
+        context['topics'] = Tag.objects.filter(
+            blog_blogtopic_items__content_object__content_type=blog_content_type
+        ).distinct()
+        context['selected_topic'] = topic_filter
+        context['paginator_range'] = get_paginator_range(paginator, context['events'])
 
         return context
-        
+
     class Meta:
         verbose_name = "List of Events"
+
+    subpage_types = ['EventPage']

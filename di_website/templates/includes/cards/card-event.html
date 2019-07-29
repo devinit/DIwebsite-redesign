@@ -1,0 +1,15 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<a href="#" class="card card--offset">
+    {% image event.hero_image max-400x250 as hero_img %}
+    <div class="card__media" style="background-image: url({{hero_img.url}});"></div>
+    <div class="card__body">
+      <h3 class="card__title"><span>{{ event.title }}</span></h3>
+      <ul class="card__list">
+          <li>
+              <i role="presentation" aria-hidden="true" class="ico ico--14 ico-calendar-slate"></i> {{ event.start_time }}</li>
+          <li><i role="presentation" aria-hidden="true" class="ico ico--14 ico-clock-slate"></i> {{ event.start_time.time }} - {{ event.end_time.time }}</li>
+          <li><i role="presentation" aria-hidden="true" class="ico ico--14 ico-location-slate"></i> {{ event.location }}</li>
+      </ul>
+    </div>
+    </a>

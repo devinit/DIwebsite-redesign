@@ -85,7 +85,7 @@ class NewsStoryPage(StandardPage, BaseStreamBody):
             difference = MAX_RELATED_LINKS - related_links_count
             news_pages = [link.page for link in related_links]
             id_list = [page.id for page in news_pages]
-            news_objects = NewsStoryPage.objects
+            news_objects = NewsStoryPage.objects.live()
             related_links = news_objects.filter(id__in=id_list) | news_objects.exclude(id__in=id_list)[:difference]
 
         context['related_pages'] = related_links

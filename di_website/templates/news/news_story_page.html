@@ -31,9 +31,11 @@
                 <h2 class="section__heading">Related content</h2>
                 <div class="l-2up-3up">
                     {% for related_page in related_pages %}
-                        {% with item=related_page.specific %}
-                            {% include 'includes/cards/card-related.html' with tag='News' %}
-                        {% endwith %}
+                        {% if related_page.pk != page.pk %}
+                            {% with item=related_page.specific %}
+                                {% include 'includes/cards/card-related.html' with tag='News' %}
+                            {% endwith %}
+                        {% endif %}
                     {% endfor %}
                 </div>
             </div>

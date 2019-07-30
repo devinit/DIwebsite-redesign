@@ -1,0 +1,8 @@
+{% extends 'includes/heroes/hero.html' %}
+
+{% block hero_meta %}
+    <ul class="hero__meta">
+        <li class="hero__meta-item hero__meta-item--block">News</li>
+        <li class="hero__meta-item">{{ page.first_published_at }}</li>
+    </ul>
+{% endblock hero_meta %}

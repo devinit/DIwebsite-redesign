@@ -13,3 +13,4 @@ RICHTEXT_FEATURES = [
     'embed',
     'blockquote'
 ]
+MAX_RELATED_LINKS = 3

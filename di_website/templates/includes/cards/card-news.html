@@ -1,0 +1,11 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<a href="{% pageurl item %}" class="card card--offset">
+    {% image item.hero_image max-400x250 as hero_img %}
+    <div class="card__media" style="background-image: url({{hero_img.url}});"></div>
+    <div class="card__body">
+        <span class="card__meta">{{ item.first_published_at }}</span>
+        <h3 class="card__title"><span>{{ item.title }}</span></h3>
+        <div class="card__excerpt">{{ item.body|first|truncatewords:40 }}</div>
+    </div>
+</a>

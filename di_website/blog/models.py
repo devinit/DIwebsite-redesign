@@ -15,8 +15,7 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 
 from taggit.models import Tag, TaggedItemBase
 
-from di_website.common.base import StandardPage, get_paginator_range
-from di_website.common.blocks import BaseStreamBlock
+from di_website.common.base import BaseStreamBody, StandardPage, get_paginator_range
 from di_website.ourteam.models import TeamMemberPage
 
 
@@ -57,7 +56,7 @@ class BlogIndexPage(StandardPage):
         return context
 
 
-class BlogArticlePage(StandardPage):
+class BlogArticlePage(StandardPage, BaseStreamBody):
     topics = ClusterTaggableManager(through=BlogTopic, blank=True)
 
     internal_author_page = models.ForeignKey(
@@ -93,12 +92,6 @@ class BlogArticlePage(StandardPage):
         null=True,
         blank=True,
         help_text="Only fill out for guest authors."
-    )
-    body = StreamField(
-        BaseStreamBlock(),
-        verbose_name="Page Body",
-        null=True,
-        blank=True
     )
 
     content_panels = StandardPage.content_panels + [

@@ -2,7 +2,7 @@ from django.db import models
 from django.utils.functional import cached_property
 
 from wagtail.core.models import Orderable, Page
-from wagtail.core.fields import RichTextField
+from wagtail.core.fields import RichTextField, StreamField
 from wagtail.admin.edit_handlers import (
     FieldPanel,
     MultiFieldPanel,
@@ -14,6 +14,8 @@ from wagtail.snippets.models import register_snippet
 
 from modelcluster.fields import ParentalKey
 
+from .blocks import BaseStreamBlock
+
 
 class StandardPage(Page):
     """
@@ -21,6 +23,7 @@ class StandardPage(Page):
     """
     class Meta:
         abstract = True
+
     hero_image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -93,6 +96,17 @@ class OtherPage(Orderable, models.Model):
         PageChooserPanel('other_page')
     ]
 
+
+class BaseStreamBody(models.Model):
+    body = StreamField(
+        BaseStreamBlock(),
+        verbose_name="Page Body",
+        null=True,
+        blank=True
+    )
+
+    class Meta:
+        abstract = True
 
 class BaseDownload(models.Model):
 

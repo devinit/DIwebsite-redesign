@@ -3,58 +3,59 @@
 {% load wagtailcore_tags %}
 
 {% block hero %}
-  {% include 'includes/heroes/hero.html' %}
+{% include 'includes/heroes/hero.html' %}
 {% endblock hero %}
 
 {% block body %}
 
+<!-- TODO: Create dynamic content for this page -->
 <section class="section">
   <div class="row row--narrow">
-      <div class="l-sidebar">
-          <aside class="l-sidebar__aside">
-              <div class="aside aside--clipping">
-                  
-<h2 class="aside__heading">More in: What we do</h2>
-<nav class="navigation-secondary">
-<ul>
+    <div class="l-sidebar">
+      <aside class="l-sidebar__aside">
+        <div class="aside aside--clipping">
 
-<li class="navigation-secondary__item "><a href="#">Focus areas</a></li>
+          <h2 class="aside__heading">More in: What we do</h2>
+          <nav class="navigation-secondary">
+            <ul>
 
-<li class="navigation-secondary__item "><a href="#">Places we work</a></li>
+              <li class="navigation-secondary__item "><a href="#">Focus areas</a></li>
 
-<li class="navigation-secondary__item "><a href="#">Consultancy services</a></li>
+              <li class="navigation-secondary__item "><a href="#">Places we work</a></li>
 
-<li class="navigation-secondary__item "><a href="#">Data support services</a></li>
+              <li class="navigation-secondary__item "><a href="#">Consultancy services</a></li>
 
-<li class="navigation-secondary__item "><a href="#">News</a></li>
+              <li class="navigation-secondary__item "><a href="#">Data support services</a></li>
 
-<li class="navigation-secondary__item navigation-secondary__item--active"><a href="#">Events</a></li>
+              <li class="navigation-secondary__item "><a href="#">News</a></li>
 
-</ul>
-</nav>
+              <li class="navigation-secondary__item navigation-secondary__item--active"><a href="#">Events</a></li>
 
-              </div>
-          </aside>
-          <div class="l-sidebar__body">
-              <div class="is-typeset wysiwyg">
-                  <p>{{ page.body }}</p>
-              </div>
-          </div>
+            </ul>
+          </nav>
+
+        </div>
+      </aside>
+      <div class="l-sidebar__body">
+        <div class="is-typeset wysiwyg">
+          <p>{{ page.body }}</p>
+        </div>
       </div>
+    </div>
   </div>
 </section>
 
 <section class="section">
   <div class="row row--narrow">
-      <div class="l-2up-3up">
+    <div class="l-2up-3up">
 
-{% for event in events %}
-  {% include 'includes/cards/card-event.html' %}
-{% endfor %}
-          
-      </div>
-     
-{% include "includes/scaffold/pagination-links.html" with children=events %}
+      {% for event in events %}
+      {% include 'includes/cards/card-event.html' %}
+      {% endfor %}
+
+    </div>
+
+    {% include "includes/scaffold/pagination-links.html" with children=events %}
 
   </div>
 </section>
@@ -63,5 +64,5 @@
 
 
 {% block footer %}
-			{% include 'includes/scaffold/footer.html' %}
+{% include 'includes/scaffold/footer.html' %}
 {% endblock %}

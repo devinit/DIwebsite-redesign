@@ -7,11 +7,11 @@ from modelcluster.fields import ParentalKey
 
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, PageChooserPanel, StreamFieldPanel
 from wagtail.core.fields import StreamField, RichTextField
-from wagtail.core.models import Orderable
+from wagtail.core.models import Page
 
 from taggit.models import Tag, TaggedItemBase
 
-from di_website.common.base import BaseStreamBody, StandardPage, get_paginator_range
+from di_website.common.base import BaseStreamBody, OtherPage, StandardPage, get_paginator_range
 from di_website.common.constants import MAX_RELATED_LINKS
 
 
@@ -65,7 +65,7 @@ class NewsStoryPage(StandardPage, BaseStreamBody):
     content_panels = StandardPage.content_panels + [
         FieldPanel('topics'),
         StreamFieldPanel('body'),
-        InlinePanel('related_links', label="Related links", max_num=3)
+        InlinePanel('news_related_links', label="Related links", max_num=3)
     ]
 
     parent_page_types = [
@@ -93,16 +93,9 @@ class NewsStoryPage(StandardPage, BaseStreamBody):
         return context
 
 
-class NewsPageRelatedLink(Orderable):
-    page = ParentalKey(NewsStoryPage, on_delete=models.CASCADE, related_name='related_links')
-    related_link = models.ForeignKey(
-        'wagtailcore.Page',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+'
-    )
+class NewsPageRelatedLink(OtherPage):
+    page = ParentalKey(Page, related_name='news_related_links', on_delete=models.CASCADE)
 
     panels = [
-        PageChooserPanel('related_link', NewsStoryPage)
+        PageChooserPanel('other_page', ['news.NewsStoryPage', 'blog.BlogArticlePage'])
     ]

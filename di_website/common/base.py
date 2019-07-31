@@ -77,24 +77,19 @@ class StandardPage(Page):
     ]
 
 
-class OtherPage(Orderable, models.Model):
-    page = ParentalKey(
-        Page, related_name='other_pages', on_delete=models.CASCADE
-    )
-
+class OtherPage(Orderable):
     other_page = models.ForeignKey(
         'wagtailcore.Page',
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
         related_name='+',
-        verbose_name='Other Page',
-        help_text='Choose a page to link to in the "Other Pages" section'
+        verbose_name='Page',
+        help_text='A page to link to in the "Other Pages or Related Links" section'
     )
 
-    panels = [
-        PageChooserPanel('other_page')
-    ]
+    class Meta():
+        abstract = True
 
 
 class BaseStreamBody(models.Model):
@@ -109,7 +104,6 @@ class BaseStreamBody(models.Model):
         abstract = True
 
 class BaseDownload(models.Model):
-
     class Meta:
         abstract = True
 

@@ -1,69 +1,71 @@
 {% extends "layouts/default.html" %}
 
-{% load navigation_tags static wagtailcore_tags wagtailimages_tags card_tags %}
-{% get_site_root as site_root %}
+{% load static wagtailcore_tags wagtailimages_tags card_tags %}
 
 {% block hero %}
-{% include 'includes/heroes/hero-post.html' with tags=page.topics.all %}
+    {% include 'includes/heroes/hero-post.html' with tags=page.topics.all %}
 {% endblock hero %}
 
 {% block body %}
 
-<div class="row row--narrow">
-  <div class="l-sidebar">
-    <div class="l-sidebar__body">
+    <div class="row row--narrow">
+        <div class="l-sidebar">
+            <div class="l-sidebar__body">
 
-      <section class="section">
-        <div class="highlight">
-          <ul class="highlight__list">
-            <li><i role="presentation" aria-hidden="true" class="ico ico--14 ico-calendar-slate"></i>
-              {% if page.start_date == page.end_date %}
-              {{ page.start_date|date:"d F Y" }}
-              {% elif page.start_date.year == page.end_date.year %}
-              {{ page.start_date|date:"d F" }} - {{ page.end_date|date:"d F Y" }}
-              {% else %}
-              {{ page.start_date|date:"d F Y" }} - {{ page.end_date|date:"d F Y" }}
-              {% endif %}
-            </li>
-            <li><i role="presentation" aria-hidden="true" class="ico ico--14 ico-clock-slate"></i>
-              {{ page.start_time }} - {{ page.end_time }}
-            </li>
-            <li><i role="presentation" aria-hidden="true" class="ico ico--14 ico-location-slate"></i>
-              {{ page.location }}
-            </li>
-          </ul>
-          <a href="#" class="button">Register</a>
+                <section class="section">
+                    <div class="highlight">
+                        <ul class="highlight__list">
+                            <li>
+                                <i role="presentation" aria-hidden="true" class="ico ico--14 ico-calendar-slate"></i>
+                                {% if page.start_date == page.end_date %}
+                                    {{ page.start_date|date:"d F Y" }}
+                                {% elif page.start_date.year == page.end_date.year %}
+                                    {{ page.start_date|date:"d F" }} - {{ page.end_date|date:"d F Y" }}
+                                {% else %}
+                                    {{ page.start_date|date:"d F Y" }} - {{ page.end_date|date:"d F Y" }}
+                                {% endif %}
+                            </li>
+                            <li>
+                                <i role="presentation" aria-hidden="true" class="ico ico--14 ico-clock-slate"></i>
+                                {{ page.start_time }} - {{ page.end_time }}
+                            </li>
+                            <li>
+                                <i role="presentation" aria-hidden="true" class="ico ico--14 ico-location-slate"></i>
+                                {{ page.location }}
+                            </li>
+                        </ul>
+                        <a href="#" class="button">Register</a>
+                    </div>
+                </section>
+
+                <section class="section section--post">
+                    <div class="is-typeset is-typeset--additionals wysiwyg">
+                        {% for block in page.body %}
+                            {% if block.block_type == 'paragraph_block' or block.block_type == 'block_quote' %}
+                                {% include_block block %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </section>
+
+            </div>
+            <!-- TODO: add what we do section when approved -->
         </div>
-      </section>
-
-      <section class="section section--post">
-        <div class="is-typeset is-typeset--additionals wysiwyg">
-          {% for block in page.body %}
-          {% if block.block_type == 'paragraph_block' or block.block_type == 'block_quote' %}
-          {% include_block block %}
-          {% endif %}
-          {% endfor %}
-        </div>
-      </section>
-
     </div>
-    <!-- TODO: add what we do section when approved -->
-  </div>
-</div>
 
 
-{% if page.related_links %}
-<section class="section">
-  <div class="row row--narrow">
-    <h2 class="section__heading">Related content</h2>
-    <div class="l-2up-3up">
-      {% for page_link in page.related_links.all %}
-      {% with blog=page_link.related_link.specific %}
-      {% include 'includes/cards/card-blog.html' %}
-      {% endwith %}
-      {% endfor %}
-    </div>
-  </div>
-</section>
-{% endif %}
+    {% if page.related_links %}
+        <section class="section">
+            <div class="row row--narrow">
+                <h2 class="section__heading">Related content</h2>
+                <div class="l-2up-3up">
+                    {% for page_link in page.related_links.all %}
+                        {% with blog=page_link.related_link.specific %}
+                            {% include 'includes/cards/card-blog.html' %}
+                        {% endwith %}
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    {% endif %}
 {% endblock %}

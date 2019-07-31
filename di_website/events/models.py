@@ -2,6 +2,8 @@ from django.db import models
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.contrib.contenttypes.models import ContentType
 
+from datetime import datetime
+
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel, StreamFieldPanel
 from wagtail.core.fields import StreamField
 from wagtail.core.models import Page
@@ -15,8 +17,10 @@ from taggit.models import Tag, TaggedItemBase
 class EventPage(StandardPage):
     """ Content of each event """
 
-    start_time = models.DateTimeField()
-    end_time = models.DateTimeField()
+    start_date = models.DateField(default=datetime.now)
+    end_date = models.DateField(default=datetime.now)
+    start_time = models.TimeField()
+    end_time = models.TimeField()
     location = models.CharField(max_length=100, help_text='Physical location of event')
 
     body = StreamField(BaseStreamBlock(), verbose_name="Page Body", blank=True)
@@ -29,6 +33,8 @@ class EventPage(StandardPage):
 
     content_panels = StandardPage.content_panels + [
         MultiFieldPanel([
+            FieldPanel('start_date'),
+            FieldPanel('end_date'),
             FieldPanel('start_time'),
             FieldPanel('end_time'),
             FieldPanel('location')

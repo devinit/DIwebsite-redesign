@@ -77,7 +77,7 @@ class StandardPage(Page):
     ]
 
 
-class OtherPage(Orderable, models.Model):
+class OtherPage(Orderable):
     page = ParentalKey(
         Page, related_name='other_pages', on_delete=models.CASCADE
     )

@@ -1,6 +1,6 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
-<a href="#" class="card card--offset">
+<a href="{% pageurl event %}" class="card card--offset">
     {% image event.hero_image max-400x250 as hero_img %}
     <div class="card__media" style="background-image: url({{hero_img.url}});"></div>
     <div class="card__body">
@@ -8,11 +8,22 @@
         <ul class="card__list">
             <li>
                 <i role="presentation" aria-hidden="true" class="ico ico--14 ico-calendar-slate"></i>
-                {{ event.start_time }}</li>
-            <li><i role="presentation" aria-hidden="true" class="ico ico--14 ico-clock-slate"></i>
-                {{ event.start_time.time }} - {{ event.end_time.time }}</li>
-            <li><i role="presentation" aria-hidden="true" class="ico ico--14 ico-location-slate"></i>
-                {{ event.location }}</li>
+                {% if event.start_date == event.end_date %}
+                    {{ event.start_date|date:"d F Y" }}
+                {% elif event.start_date.year == event.end_date.year %}
+                    {{ event.start_date|date:"d F" }} - {{ event.end_date|date:"d F Y" }}
+                {% else %}
+                    {{ event.start_date|date:"d F Y" }} - {{ event.end_date|date:"d F Y" }}
+                {% endif %}
+            </li>
+            <li>
+                <i role="presentation" aria-hidden="true" class="ico ico--14 ico-clock-slate"></i>
+                {{ event.start_time }} - {{ event.end_time }}
+            </li>
+            <li>
+                <i role="presentation" aria-hidden="true" class="ico ico--14 ico-location-slate"></i>
+                {{ event.location }}
+            </li>
         </ul>
     </div>
 </a>

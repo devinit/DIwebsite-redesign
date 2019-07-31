@@ -28,15 +28,11 @@
     <section class="section">
         <div class="row row--narrow">
             <div class="l-2up-3up">
-
                 {% for event in events %}
                     {% include 'includes/cards/card-event.html' %}
                 {% endfor %}
-
             </div>
-
-            {% include "includes/scaffold/pagination-links.html" with children=events %}
-
+            {% include "includes/scaffold/pagination.html" with children=events %}
         </div>
     </section>
 

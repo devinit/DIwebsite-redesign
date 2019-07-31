@@ -231,7 +231,6 @@ a.m-stat {
 
 .m-service__copy {
     @include font-size($epsilon);
-    padding-left: 30px;
     a:hover {
         text-decoration: underline;
     }

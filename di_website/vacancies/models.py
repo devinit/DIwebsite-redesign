@@ -12,9 +12,12 @@ from wagtail.admin.edit_handlers import (
 )
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.snippets.models import register_snippet
+from wagtail.core.models import Page
 
 from di_website.common.base import BaseStreamBody, OtherPage, StandardPage
 from di_website.users.models import Department, Subscription
+
+from modelcluster.fields import ParentalKey
 
 
 @register_snippet
@@ -200,6 +203,8 @@ class VacancyPage(StandardPage, BaseStreamBody):
 
 
 class VacancyRelatedLink(OtherPage):
+    page = ParentalKey(Page, related_name='other_pages', on_delete=models.CASCADE)
+
     panels = [
         PageChooserPanel('other_page')
     ]

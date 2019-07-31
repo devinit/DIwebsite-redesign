@@ -10,12 +10,12 @@ from wagtail.admin.edit_handlers import (
     MultiFieldPanel, PageChooserPanel,
     StreamFieldPanel)
 from wagtail.core.fields import StreamField
-from wagtail.core.models import Orderable
+from wagtail.core.models import Orderable, Page
 from wagtail.images.edit_handlers import ImageChooserPanel
 
 from taggit.models import Tag, TaggedItemBase
 
-from di_website.common.base import BaseStreamBody, StandardPage, get_paginator_range
+from di_website.common.base import BaseStreamBody, OtherPage, StandardPage, get_paginator_range
 from di_website.ourteam.models import TeamMemberPage
 
 
@@ -104,24 +104,20 @@ class BlogArticlePage(StandardPage, BaseStreamBody):
         ], heading="Author information"),
         FieldPanel('topics'),
         StreamFieldPanel('body'),
-        InlinePanel('related_links', label="Related links")
+        InlinePanel('blog_related_links', label="Related links", max_num=3)
     ]
 
     parent_page_types = [
         'BlogIndexPage'
     ]
 
+    class Meta():
+        verbose_name = 'Blog Article Page'
 
-class BlogPageRelatedLink(Orderable):
-    page = ParentalKey(BlogArticlePage, on_delete=models.CASCADE, related_name='related_links')
-    related_link = models.ForeignKey(
-        'wagtailcore.Page',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+'
-    )
+
+class BlogPageRelatedLink(OtherPage):
+    page = ParentalKey(Page, related_name='blog_related_links', on_delete=models.CASCADE)
 
     panels = [
-        PageChooserPanel('related_link', BlogArticlePage)
+        PageChooserPanel('other_page', ['blog.BlogArticlePage', 'news.NewsStoryPage'])
     ]

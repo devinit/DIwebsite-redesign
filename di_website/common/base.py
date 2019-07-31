@@ -92,9 +92,8 @@ class OtherPage(Orderable, models.Model):
         help_text='Choose a page to link to in the "Other Pages" section'
     )
 
-    panels = [
-        PageChooserPanel('other_page')
-    ]
+    class Meta():
+        abstract = True
 
 
 class BaseStreamBody(models.Model):
@@ -109,7 +108,6 @@ class BaseStreamBody(models.Model):
         abstract = True
 
 class BaseDownload(models.Model):
-
     class Meta:
         abstract = True
 

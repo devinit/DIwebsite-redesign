@@ -7,12 +7,13 @@ from wagtail.admin.edit_handlers import (
     FieldPanel,
     InlinePanel,
     MultiFieldPanel,
+    PageChooserPanel,
     StreamFieldPanel
 )
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.snippets.models import register_snippet
 
-from di_website.common.base import BaseStreamBody, StandardPage
+from di_website.common.base import BaseStreamBody, OtherPage, StandardPage
 from di_website.users.models import Department, Subscription
 
 
@@ -196,3 +197,9 @@ class VacancyPage(StandardPage, BaseStreamBody):
     class Meta():
         db_table = 'vacancy_page'
         verbose_name = 'Vacancy Page'
+
+
+class VacancyRelatedLink(OtherPage):
+    panels = [
+        PageChooserPanel('other_page')
+    ]

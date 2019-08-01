@@ -1,5 +1,5 @@
 {% extends 'layouts/default.html' %}
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags navigation_tags %}
 
 {% block hero %}
     {% include 'includes/heroes/hero.html' %}
@@ -7,6 +7,12 @@
 
 
 {% block body %}
+    <section class="section">
+        <div class="row row--narrow">
+            {% breadcrumbs %}
+        </div>
+    </section>
+
     <section class="section">
         <div class="row row--narrow">
             <div class="l-2up-3up">

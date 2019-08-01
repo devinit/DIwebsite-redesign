@@ -78,7 +78,7 @@ class NewsStoryPage(StandardPage, BaseStreamBody):
     def get_context(self, request):
         context = super().get_context(request)
 
-        related_links = self.related_links.all()
+        related_links = self.news_related_links.all()
         related_links_count = len(related_links)
 
         if related_links_count < MAX_RELATED_LINKS:

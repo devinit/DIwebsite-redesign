@@ -163,31 +163,62 @@
 		{
 			"img_name": "2766433972_0e76af2b3a_o-600x375",
 			"title": "Measuring progress of the poorest people",
-			"excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+			"excerpt": ""
 		},
 		{
 			"img_name": "9918645274_95e022b2ce_o-600x375",
 			"title": "Revolutionizing Data to Leave No-one Behind",
-			"excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."
+			"excerpt": ""
 		},
 		{
 			"img_name": "5520009236_fcbf74d793_o-600x375",
 			"title": "Increasing transparency and effectiveness of humanitarian financing",
-			"excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi."
+			"excerpt": ""
 		},
 		{
 			"img_name": "14279715726_ef9da4106c_o-600x375",
 			"title": "Increasing transparency and effectiveness of development finance",
-			"excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi."
+			"excerpt": ""
 		},
 		{
 			"img_name": "18087237344_4a1e3f904a_o-600x375",
 			"title": "Increasing transparency and effectiveness of domestic financing",
-			"excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi."
+			"excerpt": ""
 		},
 		{
 			"img_name": "8428296281_4c730c0db4_o-600x375",
 			"title": "Building Data Savvy Partners",
+			"excerpt": ""
+		}
+	],"consultancy_specialisms": [
+		{
+			"img_name": "2766433972_0e76af2b3a_o-600x375",
+			"title": "Consultancy service specialism title goes here",
+			"excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+		},
+		{
+			"img_name": "9918645274_95e022b2ce_o-600x375",
+			"title": "Consultancy service specialism title goes here",
+			"excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."
+		},
+		{
+			"img_name": "5520009236_fcbf74d793_o-600x375",
+			"title": "Consultancy service specialism title goes here",
+			"excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi."
+		},
+		{
+			"img_name": "14279715726_ef9da4106c_o-600x375",
+			"title": "Consultancy service specialism title goes here",
+			"excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi."
+		},
+		{
+			"img_name": "18087237344_4a1e3f904a_o-600x375",
+			"title": "Consultancy service specialism title goes here",
+			"excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi."
+		},
+		{
+			"img_name": "8428296281_4c730c0db4_o-600x375",
+			"title": "Consultancy service specialism title goes here",
 			"excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi."
 		}
 	],

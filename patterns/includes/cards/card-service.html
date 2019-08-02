@@ -2,6 +2,8 @@
     <div class="card__media" style="background-image: url({{ global.assets_root }}/img/{{ item.img_name }}.jpg);"></div>
     <div class="card__body">
         <h3 class="card__title"><span>{{ item.title }}</span></h3>
-        <p class="card__excerpt">{{ item.excerpt }}</p>
+        {% if item.excerpt != '' %}
+        	<p class="card__excerpt">{{ item.excerpt }}</p>
+        {% endif %}
     </div>
 </div>

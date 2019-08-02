@@ -12,7 +12,8 @@ from wagtail.snippets.models import register_snippet
 
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
-from di_website.common.base import StandardPage
+from di_website.common.base import hero_panels
+from di_website.common.mixins import HeroMixin
 
 
 class AbstractLink(models.Model):
@@ -141,7 +142,7 @@ class FooterText(models.Model):
     class Meta:
         verbose_name_plural = 'Footer Text'
 
-class HomePage(StandardPage):
+class HomePage(HeroMixin, Page):
     def __str__(self):
         return self.title
 
@@ -149,3 +150,5 @@ class HomePage(StandardPage):
         verbose_name = 'Home Page'
 
     parent_page_types = [] # prevent from being a child page
+
+    content_panels = Page.content_panels + [hero_panels()]

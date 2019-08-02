@@ -14,7 +14,8 @@ from wagtail.core.fields import RichTextField, StreamField
 from wagtail.snippets.models import register_snippet
 from wagtail.core.models import Page
 
-from di_website.common.base import BaseStreamBody, OtherPage, StandardPage
+from di_website.common.base import hero_panels
+from di_website.common.mixins import BaseStreamBodyMixin, OtherPageMixin, HeroMixin
 from di_website.users.models import Department, Subscription
 
 from modelcluster.fields import ParentalKey
@@ -40,7 +41,7 @@ class OfficeLocation(models.Model):
         return self.location
 
 
-class VacancyIndexPage(StandardPage):
+class VacancyIndexPage(HeroMixin, Page):
     """
     Shows a list of available vacancies
     """
@@ -111,8 +112,10 @@ class VacancyIndexPage(StandardPage):
 
         return context
 
+    content_panels = Page.content_panels + [hero_panels()]
 
-class VacancyPage(StandardPage, BaseStreamBody):
+
+class VacancyPage(BaseStreamBodyMixin, HeroMixin, Page):
     vacancy = models.ForeignKey(
         'users.JobTitle',
         null=True,
@@ -164,7 +167,8 @@ class VacancyPage(StandardPage, BaseStreamBody):
         help_text='Optional: a brief description of what to do in this section',
     )
 
-    content_panels = StandardPage.content_panels + [
+    content_panels = Page.content_panels + [
+        hero_panels(),
         MultiFieldPanel([
             FieldPanel('vacancy'),
             FieldPanel('duration'),
@@ -202,7 +206,7 @@ class VacancyPage(StandardPage, BaseStreamBody):
         verbose_name = 'Vacancy Page'
 
 
-class VacancyRelatedLink(OtherPage):
+class VacancyRelatedLink(OtherPageMixin):
     page = ParentalKey(Page, related_name='other_pages', on_delete=models.CASCADE)
 
     panels = [

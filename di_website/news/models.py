@@ -11,7 +11,8 @@ from wagtail.core.models import Page
 
 from taggit.models import Tag, TaggedItemBase
 
-from di_website.common.base import BaseStreamBody, OtherPage, StandardPage, get_paginator_range
+from di_website.common.base import hero_panels, get_paginator_range
+from di_website.common.mixins import BaseStreamBodyMixin, OtherPageMixin, HeroMixin
 from di_website.common.constants import MAX_RELATED_LINKS
 
 
@@ -19,10 +20,11 @@ class NewsTopic(TaggedItemBase):
     content_object = ParentalKey('news.NewsStoryPage', on_delete=models.CASCADE, related_name='news_topics')
 
 
-class NewsIndexPage(StandardPage):
+class NewsIndexPage(HeroMixin, Page):
     intro = RichTextField(blank=True, null=True, help_text="Something about our newsletters")
 
-    content_panels = StandardPage.content_panels + [
+    content_panels = Page.content_panels + [
+        hero_panels(),
         FieldPanel('intro')
     ]
 
@@ -59,10 +61,11 @@ class NewsIndexPage(StandardPage):
         return context
 
 
-class NewsStoryPage(StandardPage, BaseStreamBody):
+class NewsStoryPage(BaseStreamBodyMixin, HeroMixin, Page):
     topics = ClusterTaggableManager(through=NewsTopic, blank=True)
 
-    content_panels = StandardPage.content_panels + [
+    content_panels = Page.content_panels + [
+        hero_panels(),
         FieldPanel('topics'),
         StreamFieldPanel('body'),
         InlinePanel('news_related_links', label="Related links", max_num=3)
@@ -93,7 +96,7 @@ class NewsStoryPage(StandardPage, BaseStreamBody):
         return context
 
 
-class NewsPageRelatedLink(OtherPage):
+class NewsPageRelatedLink(OtherPageMixin):
     page = ParentalKey(Page, related_name='news_related_links', on_delete=models.CASCADE)
 
     panels = [

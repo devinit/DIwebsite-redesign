@@ -25,6 +25,12 @@ class BlockQuote(StructBlock):
         template = 'blocks/blockquote.html'
 
 
+class LinkBlock(StructBlock):
+    caption = CharBlock(required=False)
+    url = URLBlock(required=False)
+    page = PageChooserBlock(required=False)
+
+
 class BannerBlock(StructBlock):
     image = ImageChooserBlock(required=False)
     video = EmbedBlock(
@@ -38,14 +44,20 @@ class BannerBlock(StructBlock):
         required=False,
         help_text='Anything from a name, location e.t.c - usually to provide credit for the text'
     )
-    button_caption = CharBlock(required=False)
-    button_link = URLBlock(required=False)
-    button_page = PageChooserBlock(required=False)
-    is_section = BooleanBlock(required=False, default=False)
+    buttons = StreamBlock([('button', LinkBlock())], required=False)
 
     class Meta():
         icon = 'fa-flag'
         template = 'blocks/banner_block.html'
+
+
+class SectionParagraphBlock(StructBlock):
+    text = RichTextBlock()
+    center = BooleanBlock(default=False, required=False)
+
+    class Meta():
+        icon = 'fa-paragraph'
+        template = 'blocks/section_paragraph_block.html'
 
 
 # StreamBlocks
@@ -54,9 +66,10 @@ class BaseStreamBlock(StreamBlock):
     Define the custom blocks that `StreamField` will utilize
     """
     paragraph_block = RichTextBlock(
-        icon="fa-paragraph",
-        template="blocks/paragraph_block.html"
+        icon='fa-paragraph',
+        template='blocks/paragraph_block.html'
     )
+    section_paragraph_block = SectionParagraphBlock()
     block_quote = BlockQuote()
     banner_block = BannerBlock()
     required = False

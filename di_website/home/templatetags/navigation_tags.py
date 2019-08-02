@@ -37,6 +37,7 @@ def get_menu_items(page, calling_page):
 
     return []
 
+
 @register.inclusion_tag('tags/navigation/primary.html', takes_context=True)
 def primary_menu(context, parent, calling_page=None):
     menu_items = get_menu_items(parent, calling_page)
@@ -46,6 +47,7 @@ def primary_menu(context, parent, calling_page=None):
         # required by the pageurl tag that we want to use within this template
         'request': context.get('request'),
     }
+
 
 @register.inclusion_tag('tags/navigation/secondary.html', takes_context=True)
 def secondary_menu(context, parent, calling_page=None):
@@ -71,7 +73,8 @@ def breadcrumbs(context):
         # When on the home page, displaying breadcrumbs is irrelevant.
         ancestors = ()
     else:
-        ancestors = Page.objects.ancestor_of(self, inclusive=True).filter(depth__gt=1)
+        ancestors = Page.objects.live().ancestor_of(
+            self, inclusive=True).filter(depth__gt=1)
     return {
         'ancestors': ancestors,
         'request': context['request'],

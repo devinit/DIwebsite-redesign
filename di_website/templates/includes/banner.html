@@ -6,11 +6,11 @@
             <div class="banner__media">
                 <div class="media-wrapper">
                     {% if self.video %}
-                        {{ self.video }}
+                    {{ self.video }}
                     {% endif %}
 
                     {% if self.image %}
-                        {% responsiveimage self.image fill-460x260 srcset=global.banner_srcs alt='alt image' %}
+                    {% responsiveimage self.image fill-460x260 srcset=global.banner_srcs alt='alt image' %}
                     {% endif %}
                 </div>
             </div>
@@ -19,18 +19,22 @@
             <p class="banner__excerpt">{{ self.text }}</p>
             <span class="banner__meta">{{ self.meta }}</span>
 
-            {% if self.button_page %}
-                <a href="{% pageurl self.button_page %}" class="button button--reverse">
-                    {% if self.button_caption %}
-                        {{ self.button_caption }}
-                    {% else %}
-                        {{ self.button_page.title }}
-                    {% endif %}
-                </a>
-            {% elif self.button_link %}
-                <a href="{{ self.button_link }}" class="button button--reverse">
-                    {{ self.button_caption }}
-                </a>
+            {% if self.buttons %}
+            {% for button in self.buttons %}
+            {% if button.value.page %}
+            <a href="{% pageurl button.value.page %}" class="button button--reverse">
+                {% if button.value.caption %}
+                {{ button.value.caption }}
+                {% else %}
+                {{ button.value.page.title }}
+                {% endif %}
+            </a>
+            {% elif button.value.url %}
+            <a href="{{ button.value.url }}" class="button button--reverse">
+                {{ button.value.caption }}
+            </a>
+            {% endif %}
+            {% endfor %}
             {% endif %}
         </div>
     </div>

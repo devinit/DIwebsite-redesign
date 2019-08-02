@@ -4,36 +4,36 @@
 {% get_site_root as site_root %}
 
 {% block hero %}
-    {% include 'includes/heroes/hero-post.html' %}
+{% include 'includes/heroes/hero-post.html' %}
 {% endblock hero %}
 
 {% block body %}
-    <section class="section section--post">
-        <div class="row row--narrow">
-            <div class="max-meter max-meter--center">
-                <div class="is-typeset is-typeset--additionals wysiwyg">
-                    {% for block in page.body %}
-                        {% if block.block_type == 'paragraph_block' or block.block_type == 'block_quote' %}
-                            {% include_block block %}
-                        {% endif %}
-                    {% endfor %}
-                </div>
+<section class="section section--post">
+    <div class="row row--narrow">
+        <div class="max-meter max-meter--center">
+            <div class="is-typeset is-typeset--additionals wysiwyg">
+                {% for block in page.body %}
+                {% if block.block_type == 'paragraph_block' or block.block_type == 'block_quote' %}
+                {% include_block block %}
+                {% endif %}
+                {% endfor %}
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    {% if page.blog_related_links %}
-        <section class="section">
-            <div class="row row--narrow">
-                <h2 class="section__heading">Related content</h2>
-                <div class="l-2up-3up">
-                {% for page_link in page.blog_related_links.all %}
-                    {% with blog=page_link.other_page.specific %}
-                        {% include 'includes/cards/card-blog.html' %}
-                    {% endwith %}
-                {% endfor %}
-                </div>
-            </div>
-        </section>
-    {% endif %}
+{% if page.blog_related_links %}
+<section class="section">
+    <div class="row row--narrow">
+        <h2 class="section__heading">Related content</h2>
+        <div class="l-2up-3up">
+            {% for page_link in page.blog_related_links.all %}
+            {% with blog=page_link.other_page.specific %}
+            {% include 'includes/cards/card-blog.html' %}
+            {% endwith %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
 {% endblock %}

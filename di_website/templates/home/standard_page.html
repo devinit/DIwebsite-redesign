@@ -1,0 +1,29 @@
+{% extends 'layouts/default.html' %}
+{% load navigation_tags wagtailcore_tags %}
+
+{% block body %}
+
+{% include 'includes/heroes/hero.html' %}
+
+<section class="section">
+    <div class="row row--narrow">
+        <div class="l-sidebar">
+            {% if self.depth > 3 %}
+            <aside class="l-sidebar__aside">
+                <div class="aside aside--clipping">
+                    {% secondary_menu self.get_parent.get_parent %}
+                </div>
+            </aside>
+            {% endif %}
+            <div class="l-sidebar__body">
+                <!-- TODO: add breadcrumbs -->
+            </div>
+        </div>
+    </div>
+</section>
+
+{% for block in page.body %}
+{% include_block block %}
+{% endfor %}
+
+{% endblock body %}

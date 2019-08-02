@@ -3,7 +3,8 @@ from django.db import models
 from wagtail.admin.edit_handlers import (
     FieldPanel,
     InlinePanel,
-    PageChooserPanel
+    PageChooserPanel,
+    StreamFieldPanel
 )
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.core.models import Orderable, Page
@@ -12,8 +13,9 @@ from wagtail.snippets.models import register_snippet
 
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
+
 from di_website.common.base import hero_panels
-from di_website.common.mixins import HeroMixin
+from di_website.common.mixins import BaseStreamBodyMixin, HeroMixin, OtherPageMixin
 
 
 class AbstractLink(models.Model):
@@ -152,3 +154,27 @@ class HomePage(HeroMixin, Page):
     parent_page_types = [] # prevent from being a child page
 
     content_panels = Page.content_panels + [hero_panels()]
+
+
+class StandardPage(BaseStreamBodyMixin, HeroMixin, Page):
+    """
+    A generic content page. It could be used for any type of page content that only needs a hero,
+    streamfield content, and related fields
+    """
+
+    content_panels = Page.content_panels + [
+        hero_panels(),
+        StreamFieldPanel('body'),
+        InlinePanel('standard_related_links', label="Related links", max_num=3)
+    ]
+
+    class Meta():
+        verbose_name = 'Standard Page'
+
+
+class StandarPageRelatedLink(OtherPageMixin):
+    page = ParentalKey(Page, related_name='standard_related_links', on_delete=models.CASCADE)
+
+    panels = [
+        PageChooserPanel('other_page')
+    ]

@@ -52,7 +52,7 @@ class BannerBlock(StructBlock):
 
 
 class SectionParagraphBlock(StructBlock):
-    text = RichTextBlock()
+    text = RichTextBlock(features=RICHTEXT_FEATURES)
     center = BooleanBlock(default=False, required=False)
 
     class Meta():
@@ -67,7 +67,8 @@ class BaseStreamBlock(StreamBlock):
     """
     paragraph_block = RichTextBlock(
         icon='fa-paragraph',
-        template='blocks/paragraph_block.html'
+        template='blocks/paragraph_block.html',
+        features=RICHTEXT_FEATURES
     )
     section_paragraph_block = SectionParagraphBlock()
     block_quote = BlockQuote()

@@ -418,15 +418,15 @@ a.m-stat {
     margin-bottom: 1rem;
     padding-left: 1rem;
     @include respond-to($c-vp) {
-        padding-left: 2rem;
+        padding-left: 3rem;
     }
 }
 
 .footnotes__sub {
-    position: relative;
-    display: inline-block;
+    position: absolute;
+    top: -5px;
+    left: -1.5em;
     padding-top: 1.5rem;
-    margin-bottom: 2rem;
     &:after {
         content: '';
         position: absolute;
@@ -439,6 +439,7 @@ a.m-stat {
 }
 
 .footnotes__item {
+    position: relative;
     margin-bottom: 2rem
 }
 

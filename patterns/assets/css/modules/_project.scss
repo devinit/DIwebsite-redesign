@@ -35,6 +35,11 @@
         bottom: 15px;
         z-index: 2;
     }
+    &--full {
+        &:before, &:after {
+            content: none;
+        }
+    }
     &__main {
         padding: 3em;
         @include respond-to($c-vp) {
@@ -58,8 +63,9 @@
     @extend %pie-clearfix;
     position: relative;
     margin-bottom: 2em;
+    display: block;
     @include respond-to($b-vp + 150px) {
-        margin-bottom: 0;
+        margin-bottom: 1em;
     }
 }
 
@@ -76,6 +82,7 @@
 
 .project__heading {
     @include font-size($beta);
+    line-height: 1.3;
 }
 
 .project__subheading {

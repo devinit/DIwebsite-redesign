@@ -202,6 +202,34 @@
 
 
 
+.ico-focus-blank {
+	background-image: url('png/focus-blank.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-focus-poppy {
+	background-image: url('png/focus-poppy.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-focus-poppydark {
+	background-image: url('png/focus-poppydark.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-focus-slate {
+	background-image: url('png/focus-slate.png');
+	background-repeat: no-repeat;
+}
+
+
+
 .ico-link-blank {
 	background-image: url('png/link-blank.png');
 	background-repeat: no-repeat;

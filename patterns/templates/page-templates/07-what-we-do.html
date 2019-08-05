@@ -54,11 +54,7 @@
     <section class="section">
         <div class="row row--narrow">
             <h2 class="section__heading">Our focus areas</h2>
-            <div class="l-3up">
-                {% for item in card.work_feature %}
-                    {% include 'cards/card-service.html' %}
-                {% endfor %}
-            </div>
+            {% include 'partials/focus.html' %}
             <a href="#" class="button">Find out more about our Focus Areas</a>
         </div>
     </section>

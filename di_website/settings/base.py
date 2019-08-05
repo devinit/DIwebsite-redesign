@@ -32,12 +32,12 @@ INSTALLED_APPS = [
     'di_website.common',
     'di_website.vacancies',
     'di_website.blog',
-    'di_website.news',
     'di_website.events',
     'di_website.place',
     'di_website.contactus',
     'di_website.about',
     'di_website.general',
+    'di_website.project',
 
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',

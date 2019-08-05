@@ -46,8 +46,10 @@ class Command(BaseCommand):
                 staff_datasets = json.load(staff_file)
                 for staff_dataset in staff_datasets:
                     staff_name = staff_dataset["name"]
+                    img_title = "{} profile picture".format(staff_name)
+                    img_check = Image.objects.filter(title=img_title)
 
-                    if staff_dataset["img"] != "":
+                    if staff_dataset["img"] != "" and not img_check:
                         img_filename = staff_dataset["img"].split('/')[-1]
                         _, img_ext = os.path.splitext(img_filename)
                         if img_ext.lower() == ".jpg":
@@ -57,7 +59,7 @@ class Command(BaseCommand):
                         pil_img = PIL.Image.open(img_path)
                         pil_img.save(f, img_ext[1:])
                         img = Image(
-                            title="{} profile picture".format(staff_name),
+                            title=img_title,
                             file=ImageFile(f, name=img_filename)
                         )
                         img.save()
@@ -83,6 +85,32 @@ class Command(BaseCommand):
                         )
                         our_team_page.add_child(instance=staff_page)
                         staff_page.save_revision().publish()
+
+        if blog_index_page is not None:
+            with open(options['blogs_file']) as blogs_file:
+                blog_datasets = json.load(blogs_file)
+                for blog_dataset in blog_datasets:
+                    blog_check = BlogArticlePage.objects.filter(title=blog_dataset['title'])
+                    if not blog_check:
+                        blog_page = BlogArticlePage(
+                            title=blog_dataset['title'],
+                            hero_text=blog_dataset['description'],
+                            body=json.dumps([{'type': 'paragraph', 'value': blog_dataset['body']}]),
+                        )
+                        author_names = blog_dataset["author"]
+                        if author_names:
+                            author_name = author_names[0]
+                        else:
+                            author_name = None
+                        internal_author_page_qs = TeamMemberPage.objects.filter(name=author_name)
+                        if internal_author_page_qs:
+                            blog_page.internal_author_page = internal_author_page_qs.first()
+                        else:
+                            blog_page.external_author_name = author_name
+                        blog_index_page.add_child(instance=blog_page)
+                        blog_page.save_revision().publish()
+                        blog_page.first_published_at = datetime.datetime.strptime(blog_dataset['date'], "%d %b %Y")
+                        blog_page.save()
         # if news_index_page is not None and event_index_page is not None:
         #     with open(options['json_file'][0]) as json_file:
         #         json_data = json.load(json_file)

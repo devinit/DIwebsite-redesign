@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'di_website.common',
     'di_website.vacancies',
     'di_website.blog',
+    'di_website.news',
     'di_website.events',
     'di_website.place',
     'di_website.contactus',

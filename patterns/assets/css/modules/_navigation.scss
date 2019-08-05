@@ -318,6 +318,7 @@
 		}
 	}
 	&--simple {
+		background-color: $slate;
 		right: 0;
 		left: auto;
 		@include respond-to($menu-respond) {
@@ -497,6 +498,15 @@
 	}
 	html.no-js & {
 		padding: 0;
+	}
+	.chapter-nav-wrapper--simple & {
+		color: #fff !important;
+		&:hover, &:active, &:visited {
+			color: #fff;
+		}
+		&:after {
+			background: $slate;
+		}
 	}
 }
 

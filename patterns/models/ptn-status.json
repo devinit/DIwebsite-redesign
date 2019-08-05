@@ -104,6 +104,10 @@
 		"stage": "approved"
 	},
 	{
+		"name": "13a-publications-filtered",
+		"stage": "review"
+	},
+	{
 		"name": "14-publication-summary",
 		"stage": "approved"
 	},

@@ -7,6 +7,11 @@ from .mixins import BaseDownloadMixin
 
 
 def hero_panels():
+    """
+    Called when creating page content_panels for pages that require a Hero
+    Returns:
+        MultiFieldPanel -- Hero content for a page
+    """
     return MultiFieldPanel([
         ImageChooserPanel('hero_image'),
         FieldPanel('hero_image_credit_name'),

@@ -25,6 +25,18 @@ class BlockQuote(StructBlock):
         template = 'blocks/blockquote.html'
 
 
+class SectionBlockQuote(StructBlock):
+    """
+    Custom `StructBlock` that allows render text in a blockquote element
+    """
+    text = TextBlock()
+    center = BooleanBlock(default=False, required=False)
+
+    class Meta:
+        icon = 'fa-quote-right'
+        template = 'blocks/section_blockquote.html'
+
+
 class LinkBlock(StructBlock):
     caption = CharBlock(required=False)
     url = URLBlock(required=False)
@@ -72,5 +84,6 @@ class BaseStreamBlock(StreamBlock):
     )
     section_paragraph_block = SectionParagraphBlock()
     block_quote = BlockQuote()
+    section_block_quote = SectionBlockQuote()
     banner_block = BannerBlock()
     required = False

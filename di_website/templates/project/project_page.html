@@ -3,7 +3,7 @@
 {% load navigation_tags static wagtailcore_tags wagtailimages_tags card_tags %}
 
 {% block hero %}
-    {% include 'includes/heroes/hero-post.html' with tags=page.topics.all %}
+    {% include 'includes/heroes/hero.html' %}
 {% endblock hero %}
 
 {% block body %}
@@ -12,18 +12,8 @@
     <div class="row row--narrow">
         <div class="l-sidebar">
             <div class="l-sidebar__body">
-                <ul class="breadcrumbs">
-                    {% for page in self.get_ancestors %}
-                        {% if page.is_root == False %}
-                            <li class="breadcrumbs__item">
-                                <a href="{% pageurl page %}">{{ page.title }}</a>
-                            </li>
-                        {% endif %}
-                    {% endfor %}
-                    <li class="breadcrumbs__item">
-                        <a href="{% pageurl page %}">{{ page.title }}</a>
-                    </li>
-                </ul>
+
+                {% breadcrumbs %}
 
                 <div class="is-typeset wysiwyg">
                     {% for block in page.body %}

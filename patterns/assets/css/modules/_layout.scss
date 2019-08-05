@@ -251,10 +251,9 @@
 			@supports (display: grid) {
 				width: auto;
 				margin-right: 0;
-			}
-			@supports (display: grid) {
-				width: auto;
-				margin-right: 0;
+				&:nth-child(2n) {
+					margin-right: 0;
+				}
 			}
 		}
 	}
@@ -297,6 +296,9 @@
 			@supports (display: grid) {
 				width: auto;
 				margin-right: 0;
+				&:nth-child(3n) {
+					margin-right: 0;
+				}
 			}
 		}
 	}
@@ -393,23 +395,31 @@
 		}
 	}
 	@include respond-to($d-vp) {
-		grid-template-columns: 1fr 1fr 1fr 1fr;
+		@supports (display: -ms-grid) {
+			display: block;
+		}
+		@supports (display: grid) {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr 1fr;
+		}
 	}
 	&__col, .card, .location {
 		margin-bottom: 3em;
 		@include respond-to($b-vp) {
 			float: left;
 			width: 47.5%;
-			margin-right: 5%;
-			&:nth-child(2n) {
-				margin-right: 0;
+			margin-left: 5%;
+			&:nth-child(2n+1) {
+				margin-left: 0;
+				clear: left;
 			}
 			@supports (display: -ms-grid) {
 				float: left;
 				width: 47.5%;
-				margin-right: 5%;
-				&:nth-child(2n) {
-					margin-right: 0;
+				margin-left: 5%;
+				&:nth-child(2n+1) {
+					margin-left: 0;
+					clear: left;
 				}
 			}
 			@supports (display: grid) {
@@ -420,29 +430,33 @@
 		@include respond-to($d-vp) {
 			float: left;
 			width: 21.25%;
-			margin-right: 5%;
-			&:nth-child(2n) {
-				margin-right: 5%;
+			&:nth-child(2n+1) {
+				margin-left: 5%;
+				clear: none
 			}
-			&:nth-child(4n) {
-				margin-right: 0;
+			&:nth-child(4n+1) {
+				margin-left: 0;
+				clear: left;
 			}
 			@supports (display: -ms-grid) {
 				float: left;
 				width: 21.25%;
-				margin-right: 5%;
-				&:nth-child(2n) {
-					margin-right: 5%;
+				&:nth-child(2n+1) {
+					margin-left: 5%;
+					clear: none;
 				}
-				&:nth-child(4n) {
-					margin-right: 0;
+				&:nth-child(4n+1) {
+					margin-left: 0;
 				}
 			}
 			@supports (display: grid) {
 				width: auto;
-				margin-right: 0;
-				&:nth-child(2n) {
-					margin-right: 0;
+				margin-left: 0;
+				&:nth-child(2n+1) {
+					margin-left: 0;
+				}
+				&:nth-child(4n+1) {
+					margin-left: 0;
 				}
 			}
 		}

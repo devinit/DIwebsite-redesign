@@ -3,7 +3,7 @@
 // ------------------------------------------------------------
 
 .project {
-    @extend %pie-clearfix;
+    overflow: hidden;
     position: relative;
     background-color: $cloud-dark;
     margin-bottom: 5em;
@@ -45,7 +45,9 @@
         @include respond-to($c-vp) {
             width: 65%;
             float: left;
-            flex: auto;
+            @supports (display: flex) {
+                flex: auto;
+            }
         }
     }
     &__aside {
@@ -54,7 +56,9 @@
         @include respond-to($c-vp) {
             width: 30%;
             float: right;
-            flex: auto;
+            @supports (display: flex) {
+                flex: auto;
+            }
         }
     }
 }

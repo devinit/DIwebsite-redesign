@@ -34,7 +34,7 @@ https://github.com/wagtail/wagtail/issues/2893
 
 """
 class ReadOnlyPanel(BaseReadOnlyPanel):
-    
+
     def __init__(self,field_name,*args,**kwargs):
         super().__init__(*args, **kwargs)
         self.field_name = field_name
@@ -48,6 +48,4 @@ class ReadOnlyPanel(BaseReadOnlyPanel):
 
     def bind_to_model(self, model):
         return type(str(_('ReadOnlyPanel')), (BaseReadOnlyPanel,),
-                    {'model': self.model, 'heading': self.heading,
-                     'classname': self.classname})
-                     
+                    {'model': self.model, 'heading': self.heading, 'classname': self.classname})

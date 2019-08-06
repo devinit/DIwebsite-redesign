@@ -1,6 +1,8 @@
 from wagtail.core.blocks import (
     BooleanBlock,
     CharBlock,
+    ChoiceBlock,
+    ListBlock,
     PageChooserBlock,
     RichTextBlock,
     StreamBlock,
@@ -51,16 +53,30 @@ class BannerBlock(StructBlock):
         template='blocks/embed_block.html',
         required=False
     )
-    text = TextBlock()
+    text = StreamBlock([
+        ('text', TextBlock(template='blocks/banner/text.html')),
+        ('list', ListBlock(StructBlock([
+            ('title', TextBlock()),
+            ('content', TextBlock(required=False)),
+        ], template='blocks/banner/list_item.html'), template='blocks/banner/list.html'))
+    ])
     meta = CharBlock(
         required=False,
         help_text='Anything from a name, location e.t.c - usually to provide credit for the text'
     )
     buttons = StreamBlock([('button', LinkBlock())], required=False)
+    media_orientation = ChoiceBlock(
+        required=False,
+        default='left',
+        choices=(
+            ('left', 'Left'),
+            ('right', 'Right'),
+        )
+    )
 
     class Meta():
         icon = 'fa-flag'
-        template = 'blocks/banner_block.html'
+        template = 'blocks/banner/banner_block.html'
 
 
 class SectionParagraphBlock(StructBlock):

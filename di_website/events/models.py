@@ -1,6 +1,5 @@
 from django.db import models
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
-from django.contrib.contenttypes.models import ContentType
 
 from datetime import datetime
 

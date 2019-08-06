@@ -3,7 +3,7 @@
 // ------------------------------------------------------------
 
 .project {
-    overflow: hidden;
+    @extend %pie-clearfix;
     position: relative;
     background-color: $cloud-dark;
     margin-bottom: 5em;
@@ -15,7 +15,7 @@
             display: flex;
         }
     }
-    &:after {
+    &:before {
         content: "";
         position: absolute;
         width: 30px;
@@ -25,18 +25,8 @@
         bottom: -15px;
         z-index: 1;
     }
-    &:before {
-        content: "";
-        position: absolute;
-        width: 20px;
-        height: 20px;
-        @include rgba($poppy, 0.5%);
-        right: 15px;
-        bottom: 15px;
-        z-index: 2;
-    }
     &--full {
-        &:before, &:after {
+        &:before {
             content: none;
         }
     }

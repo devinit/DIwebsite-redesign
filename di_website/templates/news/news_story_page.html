@@ -32,8 +32,8 @@
                 <div class="l-2up-3up">
                     {% for related_page in related_pages %}
                         {% if related_page.pk != page.pk %}
-                            {% with item=related_page.specific %}
-                                {% include 'includes/cards/card-related.html' with tag='News' %}
+                            {% with item=related_page.specific show_tag=True %}
+                                {% include 'includes/cards/card-news.html' %}
                             {% endwith %}
                         {% endif %}
                     {% endfor %}

@@ -29,7 +29,7 @@
         <div class="row row--narrow">
             <div class="l-2up-3up">
                 {% for item in stories %}
-                    {% include 'includes/cards/card-news.html' %}
+                    {% include 'includes/cards/card-news.html' with show_tag=True %}
                 {% endfor %}
             </div>
             {% include "includes/scaffold/pagination.html" with children=stories %}

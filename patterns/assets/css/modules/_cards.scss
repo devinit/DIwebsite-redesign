@@ -9,7 +9,7 @@
     margin-top: 2em;
     display: block;
     &--duo {
-        @include respond-to($menu-respond) {
+        @include respond-to($c-vp) {
             .card__media {
                 float: left;
                 width: 40%;

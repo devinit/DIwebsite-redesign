@@ -148,7 +148,7 @@ class Command(BaseCommand):
                         try:
                             Redirect.objects.create(
                                 site=news_page.get_site(),
-                                old_path="/post/{}".format(slug),
+                                old_path="/post/{}".format(news_dataset['url'].split('/')[-2]),
                                 redirect_page=news_page
                             )
                         except IntegrityError:

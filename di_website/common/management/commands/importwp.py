@@ -10,13 +10,14 @@ import pytz
 from django.conf import settings
 from django.core.files.images import ImageFile
 from django.core.management.base import BaseCommand
-from django.utils.text import slugify
+from django.db.utils import IntegrityError
 
 from di_website.blog.models import BlogArticlePage, BlogIndexPage
 from di_website.news.models import NewsIndexPage, NewsStoryPage
 from di_website.ourteam.models import OurTeamPage, TeamMemberPage
 from di_website.users.models import Department, JobTitle
 
+from wagtail.contrib.redirects.models import Redirect
 from wagtail.images.models import Image
 
 
@@ -44,6 +45,7 @@ class Command(BaseCommand):
             with open(options['staff_file']) as staff_file:
                 staff_datasets = json.load(staff_file)
                 for staff_dataset in staff_datasets:
+                    slug = staff_dataset['url'].split('/')[-2]
                     staff_name = staff_dataset["name"]
                     img_title = "{} profile picture".format(staff_name)
                     img_check = Image.objects.filter(title=img_title)
@@ -71,11 +73,11 @@ class Command(BaseCommand):
                     job_title_name = staff_dataset["position"]
                     job_title, _ = JobTitle.objects.get_or_create(name=job_title_name)
 
-                    page_check = TeamMemberPage.objects.filter(title=staff_name)
+                    page_check = TeamMemberPage.objects.filter(slug=slug)
                     if not page_check:
                         staff_page = TeamMemberPage(
                             title=staff_name,
-                            slug=slugify(staff_name),
+                            slug=slug,
                             name=staff_name,
                             image=img,
                             department=department,
@@ -84,6 +86,11 @@ class Command(BaseCommand):
                         )
                         our_team_page.add_child(instance=staff_page)
                         staff_page.save_revision().publish()
+                        Redirect.objects.create(
+                            site=staff_page.get_site(),
+                            old_path="/post/people/{}".format(slug),
+                            redirect_page=staff_page
+                        )
         self.stdout.write(self.style.SUCCESS('Successfully imported staff profiles.'))
 
         if blog_index_page is not None:
@@ -113,6 +120,11 @@ class Command(BaseCommand):
                         blog_page.save_revision().publish()
                         blog_page.first_published_at = pytz.utc.localize(datetime.datetime.strptime(blog_dataset['date'], "%d %b %Y"))
                         blog_page.save_revision().publish()
+                        Redirect.objects.create(
+                            site=blog_page.get_site(),
+                            old_path="/post/{}".format(slug),
+                            redirect_page=blog_page
+                        )
 
         self.stdout.write(self.style.SUCCESS('Successfully imported blogs.'))
 
@@ -133,5 +145,13 @@ class Command(BaseCommand):
                         news_page.save_revision().publish()
                         news_page.first_published_at = pytz.utc.localize(datetime.datetime.strptime(news_dataset['date'], "%d %b %Y"))
                         news_page.save_revision().publish()
+                        try:
+                            Redirect.objects.create(
+                                site=news_page.get_site(),
+                                old_path="/post/{}".format(slug),
+                                redirect_page=news_page
+                            )
+                        except IntegrityError:
+                            pass  # Sometimes a post was simultaneously news and a blog. In these cases retain both but don't have two redirects
 
         self.stdout.write(self.style.SUCCESS('Successfully imported news.'))

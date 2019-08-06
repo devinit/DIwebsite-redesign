@@ -13,7 +13,8 @@ from wagtail.admin.edit_handlers import (
 from wagtail.core.fields import StreamField
 from wagtail.core.models import Page
 
-from di_website.common.base import OtherPage, StandardPage, get_paginator_range
+from di_website.common.base import hero_panels, get_paginator_range
+from di_website.common.mixins import OtherPageMixin, HeroMixin
 from di_website.common.blocks import BaseStreamBlock
 
 from taggit.models import Tag, TaggedItemBase
@@ -21,7 +22,7 @@ from taggit.models import Tag, TaggedItemBase
 from modelcluster.fields import ParentalKey
 
 
-class EventPage(StandardPage):
+class EventPage(HeroMixin, Page):
     """ Content of each event """
 
     start_date = models.DateField(default=datetime.now)
@@ -38,7 +39,8 @@ class EventPage(StandardPage):
         default='Related content',
     )
 
-    content_panels = StandardPage.content_panels + [
+    content_panels = Page.content_panels + [
+        hero_panels(),
         MultiFieldPanel([
             FieldPanel('start_date'),
             FieldPanel('end_date'),
@@ -59,11 +61,12 @@ class EventPage(StandardPage):
         verbose_name = "Event Page"
 
 
-class EventIndexPage(StandardPage):
+class EventIndexPage(HeroMixin, Page):
     """ List of all events that have been created from events page """
     body = StreamField(BaseStreamBlock(), verbose_name="Page Body", blank=True)
 
-    content_panels = StandardPage.content_panels + [
+    content_panels = Page.content_panels + [
+        hero_panels(),
         StreamFieldPanel('body'),
     ]
 
@@ -90,7 +93,7 @@ class EventIndexPage(StandardPage):
     subpage_types = ['EventPage']
 
 
-class EventPageRelatedLink(OtherPage):
+class EventPageRelatedLink(OtherPageMixin):
     page = ParentalKey(Page, related_name='event_related_links', on_delete=models.CASCADE)
 
     panels = [

@@ -27,4 +27,19 @@
     </div>
 </section>
 
+    {% if page.blog_related_links %}
+        <section class="section">
+            <div class="row row--narrow">
+                <h2 class="section__heading">{{ page.other_pages_heading }}</h2>
+                <div class="l-2up-3up">
+                {% for page_link in page.project_related_links.all %}
+                    {% with item=page_link.other_page.specific %}
+                        {% include 'includes/cards/card-related.html' %}
+                    {% endwith %}
+                {% endfor %}
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
 {% endblock %}

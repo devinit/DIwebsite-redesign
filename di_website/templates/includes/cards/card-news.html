@@ -6,6 +6,6 @@
     <div class="card__body">
         <span class="card__meta">{{ item.first_published_at }}</span>
         <h3 class="card__title"><span>{{ item.title }}</span></h3>
-        <div class="card__excerpt">{{ item.body|first|truncatewords:40 }}</div>
+        <div class="card__excerpt">{{ item.body|first|striptags|truncatewords:40 }}</div>
     </div>
 </a>

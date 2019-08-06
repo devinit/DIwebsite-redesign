@@ -54,27 +54,8 @@
 
 
     {% if page.event_related_links %}
-        <section class="section">
-            <div class="row row--narrow">
-                <h2 class="section__heading">{{page.other_pages_heading}}</h2>
-                <div class="l-2up-3up">
-                    {% for page in page.event_related_links.all %}
-                    {% if page.other_page.specific|classname == 'BlogArticlePage' %}
-                        {% with blog=page.other_page.specific show_tag=True %}
-                            {% include 'includes/cards/card-blog.html' %}
-                        {% endwith %}
-                    {% elif page.other_page.specific|classname == 'EventPage' %}
-                        {% with event=page.other_page.specific show_tag=True %}
-                            {% include 'includes/cards/card-event.html' %}
-                        {% endwith %}
-                    {% elif page.other_page.specific|classname == 'NewsStoryPage' %}
-                        {% with item=page.other_page.specific show_tag=True %}
-                            {% include 'includes/cards/card-news.html' %}
-                        {% endwith %}
-                    {% endif %}
-                    {% endfor %}
-                </div>
-            </div>
-        </section>
+        {% with related_pages=page.event_related_links.all heading=page.other_pages_heading  %}
+            {% include 'includes/partials/related_content.html' %}
+        {% endwith %}
     {% endif %}
 {% endblock %}

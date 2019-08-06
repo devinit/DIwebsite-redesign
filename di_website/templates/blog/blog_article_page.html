@@ -22,18 +22,9 @@
     </div>
 </section>
 
-{% if page.blog_related_links %}
-<section class="section">
-    <div class="row row--narrow">
-        <h2 class="section__heading">Related content</h2>
-        <div class="l-2up-3up">
-            {% for page_link in page.blog_related_links.all %}
-            {% with blog=page_link.other_page.specific %}
-            {% include 'includes/cards/card-blog.html' %}
-            {% endwith %}
-            {% endfor %}
-        </div>
-    </div>
-</section>
-{% endif %}
+    {% if page.blog_related_links %}
+        {% with related_pages=page.blog_related_links.all heading='Related content'  %}
+            {% include 'includes/partials/related_content.html' %}
+        {% endwith %}
+    {% endif %}
 {% endblock %}

@@ -1,5 +1,6 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
+{% if event %}
 <a href="{% pageurl event %}" class="card card--offset">
     {% if show_tag %}
         <span class="card__tag">Event</span>
@@ -30,3 +31,4 @@
         </ul>
     </div>
 </a>
+{% endif %}

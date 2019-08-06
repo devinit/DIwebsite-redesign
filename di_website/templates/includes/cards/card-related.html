@@ -1,6 +1,10 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
+{% if item %}
 <a href="{% pageurl item %}" class="card card--offset">
+    {% if tag %}
+        <span class="card__tag">{{tag}}</span>
+    {% endif %}
     {% image item.hero_image max-400x250 as hero_img %}
     <span class="card__tag">{{ tag }}</span>
     <div class="card__media" style="background-image: url({{hero_img.url}});"></div>
@@ -10,3 +14,4 @@
         <div class="card__excerpt">{{ item.hero_text|richtext }}</div>
     </div>
 </a>
+{% endif %}

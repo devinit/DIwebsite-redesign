@@ -9,7 +9,6 @@ from wagtail.admin.edit_handlers import (
     MultiFieldPanel,
     FieldPanel
 )
-
 from wagtail.core.fields import StreamField
 from wagtail.core.models import Orderable, Page
 

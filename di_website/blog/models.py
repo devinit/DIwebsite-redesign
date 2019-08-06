@@ -15,7 +15,8 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 
 from taggit.models import Tag, TaggedItemBase
 
-from di_website.common.base import BaseStreamBody, OtherPage, StandardPage, get_paginator_range
+from di_website.common.base import hero_panels, get_paginator_range
+from di_website.common.mixins import BaseStreamBodyMixin, OtherPageMixin, HeroMixin
 from di_website.ourteam.models import TeamMemberPage
 
 
@@ -23,7 +24,7 @@ class BlogTopic(TaggedItemBase):
     content_object = ParentalKey('blog.BlogArticlePage', on_delete=models.CASCADE, related_name='blog_topics')
 
 
-class BlogIndexPage(StandardPage):
+class BlogIndexPage(HeroMixin, Page):
     subpage_types = ['BlogArticlePage']
 
     class Meta():
@@ -55,8 +56,10 @@ class BlogIndexPage(StandardPage):
 
         return context
 
+    content_panels = Page.content_panels + [hero_panels()]
 
-class BlogArticlePage(StandardPage, BaseStreamBody):
+
+class BlogArticlePage(BaseStreamBodyMixin, HeroMixin, Page):
     topics = ClusterTaggableManager(through=BlogTopic, blank=True)
 
     internal_author_page = models.ForeignKey(
@@ -94,7 +97,8 @@ class BlogArticlePage(StandardPage, BaseStreamBody):
         help_text="Only fill out for guest authors."
     )
 
-    content_panels = StandardPage.content_panels + [
+    content_panels = Page.content_panels + [
+        hero_panels(),
         MultiFieldPanel([
             PageChooserPanel('internal_author_page', TeamMemberPage),
             FieldPanel('external_author_name'),
@@ -115,7 +119,7 @@ class BlogArticlePage(StandardPage, BaseStreamBody):
         verbose_name = 'Blog Article Page'
 
 
-class BlogPageRelatedLink(OtherPage):
+class BlogPageRelatedLink(OtherPageMixin):
     page = ParentalKey(Page, related_name='blog_related_links', on_delete=models.CASCADE)
 
     panels = [

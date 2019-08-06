@@ -1,6 +1,8 @@
 from wagtail.core.blocks import (
     BooleanBlock,
     CharBlock,
+    ChoiceBlock,
+    ListBlock,
     PageChooserBlock,
     RichTextBlock,
     StreamBlock,
@@ -25,6 +27,24 @@ class BlockQuote(StructBlock):
         template = 'blocks/blockquote.html'
 
 
+class SectionBlockQuote(StructBlock):
+    """
+    Custom `StructBlock` that allows render text in a blockquote element
+    """
+    text = TextBlock()
+    center = BooleanBlock(default=False, required=False)
+
+    class Meta:
+        icon = 'fa-quote-right'
+        template = 'blocks/section_blockquote.html'
+
+
+class LinkBlock(StructBlock):
+    caption = CharBlock(required=False)
+    url = URLBlock(required=False)
+    page = PageChooserBlock(required=False)
+
+
 class BannerBlock(StructBlock):
     image = ImageChooserBlock(required=False)
     video = EmbedBlock(
@@ -33,19 +53,39 @@ class BannerBlock(StructBlock):
         template='blocks/embed_block.html',
         required=False
     )
-    text = TextBlock()
+    text = StreamBlock([
+        ('text', TextBlock(template='blocks/banner/text.html')),
+        ('list', ListBlock(StructBlock([
+            ('title', TextBlock()),
+            ('content', TextBlock(required=False)),
+        ], template='blocks/banner/list_item.html'), template='blocks/banner/list.html'))
+    ])
     meta = CharBlock(
         required=False,
         help_text='Anything from a name, location e.t.c - usually to provide credit for the text'
     )
-    button_caption = CharBlock(required=False)
-    button_link = URLBlock(required=False)
-    button_page = PageChooserBlock(required=False)
-    is_section = BooleanBlock(required=False, default=False)
+    buttons = StreamBlock([('button', LinkBlock())], required=False)
+    media_orientation = ChoiceBlock(
+        required=False,
+        default='left',
+        choices=(
+            ('left', 'Left'),
+            ('right', 'Right'),
+        )
+    )
 
     class Meta():
         icon = 'fa-flag'
-        template = 'blocks/banner_block.html'
+        template = 'blocks/banner/banner_block.html'
+
+
+class SectionParagraphBlock(StructBlock):
+    text = RichTextBlock(features=RICHTEXT_FEATURES)
+    center = BooleanBlock(default=False, required=False)
+
+    class Meta():
+        icon = 'fa-paragraph'
+        template = 'blocks/section_paragraph_block.html'
 
 
 # StreamBlocks
@@ -54,9 +94,12 @@ class BaseStreamBlock(StreamBlock):
     Define the custom blocks that `StreamField` will utilize
     """
     paragraph_block = RichTextBlock(
-        icon="fa-paragraph",
-        template="blocks/paragraph_block.html"
+        icon='fa-paragraph',
+        template='blocks/paragraph_block.html',
+        features=RICHTEXT_FEATURES
     )
+    section_paragraph_block = SectionParagraphBlock()
     block_quote = BlockQuote()
+    section_block_quote = SectionBlockQuote()
     banner_block = BannerBlock()
     required = False

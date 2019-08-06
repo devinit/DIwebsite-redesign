@@ -7,11 +7,12 @@ from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.core.fields import RichTextField
 
-from di_website.common.base import StandardPage
+from di_website.common.base import hero_panels
+from di_website.common.mixins import HeroMixin
 from di_website.users.models import Department, JobTitle
 
 
-class OurTeamPage(StandardPage):
+class OurTeamPage(HeroMixin, Page):
 
     """ List of Team Members Page """
 
@@ -31,6 +32,8 @@ class OurTeamPage(StandardPage):
         verbose_name = "Our Team Page"
 
     subpage_types = ['TeamMemberPage']
+
+    content_panels = Page.content_panels + [hero_panels()]
 
 
 class TeamMemberPage(Page):
@@ -68,7 +71,11 @@ class TeamMemberPage(Page):
         blank=True
     )
     telephone = models.CharField(max_length=255, null=True, blank=True)
-    my_story=RichTextField(blank=True,null=True,help_text="Please say something about team member ")
+    my_story = RichTextField(
+        blank=True,
+        null=True,
+        help_text="Please say something about team member"
+    )
 
     content_panels = Page.content_panels + [
         FieldPanel('user'),

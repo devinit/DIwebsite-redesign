@@ -111,7 +111,7 @@ class Command(BaseCommand):
                             blog_page.external_author_name = author_name
                         blog_index_page.add_child(instance=blog_page)
                         blog_page.save_revision().publish()
-                        blog_page.first_published_at = datetime.datetime.strptime(blog_dataset['date'], "%d %b %Y", tzinfo=pytz.UTC)
+                        blog_page.first_published_at = pytz.utc.localize(datetime.datetime.strptime(blog_dataset['date'], "%d %b %Y"))
                         blog_page.save_revision().publish()
 
         self.stdout.write(self.style.SUCCESS('Successfully imported blogs.'))
@@ -120,7 +120,7 @@ class Command(BaseCommand):
             with open(options['news_file']) as news_file:
                 news_datasets = json.load(news_file)
                 for news_dataset in news_datasets:
-                    slug = news_dataset['url'].split('/')[-2]
+                    slug = news_dataset['url'].split('/')[-2].replace("%e2%88%92", "-")
                     news_check = NewsStoryPage.objects.filter(slug=slug)
                     if not news_check and news_dataset['body'] != "":
                         news_page = NewsStoryPage(
@@ -131,7 +131,7 @@ class Command(BaseCommand):
                         )
                         news_index_page.add_child(instance=news_page)
                         news_page.save_revision().publish()
-                        news_page.first_published_at = datetime.datetime.strptime(news_dataset['date'], "%d %b %Y", tzinfo=pytz.UTC)
+                        news_page.first_published_at = pytz.utc.localize(datetime.datetime.strptime(news_dataset['date'], "%d %b %Y"))
                         news_page.save_revision().publish()
 
         self.stdout.write(self.style.SUCCESS('Successfully imported news.'))

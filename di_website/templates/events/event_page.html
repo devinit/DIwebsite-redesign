@@ -1,5 +1,4 @@
 {% extends "layouts/default.html" %}
-
 {% load static wagtailcore_tags wagtailimages_tags card_tags %}
 
 {% block hero %}
@@ -54,13 +53,13 @@
     </div>
 
 
-    {% if page.related_links %}
+    {% if page.event_related_links %}
         <section class="section">
             <div class="row row--narrow">
                 <h2 class="section__heading">Related content</h2>
                 <div class="l-2up-3up">
-                    {% for page_link in page.related_links.all %}
-                        {% with blog=page_link.related_link.specific %}
+                    {% for page_link in page.event_related_links.all %}
+                        {% with blog=page_link.other_page.specific %}
                             {% include 'includes/cards/card-blog.html' %}
                         {% endwith %}
                     {% endfor %}

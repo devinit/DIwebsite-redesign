@@ -4,7 +4,13 @@ from django.contrib.contenttypes.models import ContentType
 
 from datetime import datetime
 
-from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel, StreamFieldPanel
+from wagtail.admin.edit_handlers import (
+    FieldPanel,
+    InlinePanel,
+    MultiFieldPanel,
+    PageChooserPanel,
+    StreamFieldPanel
+)
 from wagtail.core.fields import StreamField
 from wagtail.core.models import Page
 
@@ -12,6 +18,8 @@ from di_website.common.base import OtherPage, StandardPage, get_paginator_range
 from di_website.common.blocks import BaseStreamBlock
 
 from taggit.models import Tag, TaggedItemBase
+
+from modelcluster.fields import ParentalKey
 
 
 class EventPage(StandardPage):
@@ -27,8 +35,8 @@ class EventPage(StandardPage):
     other_pages_heading = models.CharField(
         blank=True,
         max_length=255,
-        verbose_name='Heading',
-        default='Other pages in this section'
+        verbose_name='Section Heading',
+        default='Related content',
     )
 
     content_panels = StandardPage.content_panels + [
@@ -42,7 +50,7 @@ class EventPage(StandardPage):
         StreamFieldPanel('body'),
         MultiFieldPanel([
             FieldPanel('other_pages_heading'),
-            InlinePanel('other_pages', label='Other Pages')
+            InlinePanel('event_related_links', label='Related Pages', max_num=3)
         ], heading='Other Pages')
     ]
 
@@ -81,3 +89,15 @@ class EventIndexPage(StandardPage):
         verbose_name = "Event Index Page"
 
     subpage_types = ['EventPage']
+
+
+class EventPageRelatedLink(OtherPage):
+    page = ParentalKey(Page, related_name='event_related_links', on_delete=models.CASCADE)
+
+    panels = [
+        PageChooserPanel('other_page', [
+            'events.EventPage',
+            'blog.BlogArticlePage',
+            'news.NewsStoryPage'
+        ])
+    ]

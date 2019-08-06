@@ -8,9 +8,8 @@ import PIL.Image
 import pytz
 
 from django.conf import settings
-from django.core.exceptions import ValidationError
 from django.core.files.images import ImageFile
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 from django.utils.text import slugify
 
 from di_website.blog.models import BlogArticlePage, BlogIndexPage
@@ -85,17 +84,20 @@ class Command(BaseCommand):
                         )
                         our_team_page.add_child(instance=staff_page)
                         staff_page.save_revision().publish()
+        self.stdout.write(self.style.SUCCESS('Successfully imported staff profiles.'))
 
         if blog_index_page is not None:
             with open(options['blogs_file']) as blogs_file:
                 blog_datasets = json.load(blogs_file)
                 for blog_dataset in blog_datasets:
-                    blog_check = BlogArticlePage.objects.filter(title=blog_dataset['title'])
-                    if not blog_check:
+                    slug = blog_dataset['url'].split('/')[-2]
+                    blog_check = BlogArticlePage.objects.filter(slug=slug)
+                    if not blog_check and blog_dataset['body'] != "":
                         blog_page = BlogArticlePage(
                             title=blog_dataset['title'],
+                            slug=slug,
                             hero_text=blog_dataset['description'],
-                            body=json.dumps([{'type': 'paragraph', 'value': blog_dataset['body']}]),
+                            body=json.dumps([{'type': 'paragraph_block', 'value': blog_dataset['body']}]),
                         )
                         author_names = blog_dataset["author"]
                         if author_names:
@@ -109,50 +111,27 @@ class Command(BaseCommand):
                             blog_page.external_author_name = author_name
                         blog_index_page.add_child(instance=blog_page)
                         blog_page.save_revision().publish()
-                        blog_page.first_published_at = datetime.datetime.strptime(blog_dataset['date'], "%d %b %Y")
-                        blog_page.save()
-        # if news_index_page is not None and event_index_page is not None:
-        #     with open(options['json_file'][0]) as json_file:
-        #         json_data = json.load(json_file)
-        #
-        #         for page_data in json_data:
-        #             page_slug = page_data['link'].split("/")[-1]
-        #             if page_data["type"] == "news":
-        #                 try:
-        #                     news_page = NewsPage(
-        #                         title_en=page_data["title"],
-        #                         slug_en=page_slug,
-        #                         heading_en=page_data["title"],
-        #                         content_editor_en=json.dumps([{'type': 'paragraph', 'value': page_data["content"]}]),
-        #                         title=page_data["title"],
-        #                         slug=page_slug,
-        #                         heading=page_data["title"],
-        #                         content_editor=json.dumps([{'type': 'paragraph', 'value': page_data["content"]}]),
-        #                         date=datetime.datetime.strptime(page_data["date"], "%Y-%m-%d").date()
-        #                     )
-        #                     news_index_page.add_child(instance=news_page)
-        #                     news_page.save_revision().publish()
-        #                     self.stdout.write(self.style.SUCCESS("News: " + page_data["title"]))
-        #                 except ValidationError:
-        #                     self.stdout.write(self.style.NOTICE("News: " + page_data["title"]))
-        #             else:
-        #                 try:
-        #                     event_page = EventPage(
-        #                         title_en=page_data["title"],
-        #                         slug_en=page_slug,
-        #                         heading_en=page_data["title"],
-        #                         content_editor_en=json.dumps([{'type': 'paragraph', 'value': page_data["content"]}]),
-        #                         title=page_data["title"],
-        #                         slug=page_slug,
-        #                         heading=page_data["title"],
-        #                         content_editor=json.dumps([{'type': 'paragraph', 'value': page_data["content"]}]),
-        #                         date_start=datetime.datetime.strptime(page_data["date"], "%Y-%m-%d").replace(tzinfo=pytz.UTC),
-        #                         date_end=datetime.datetime.strptime(page_data["date"], "%Y-%m-%d").replace(tzinfo=pytz.UTC)
-        #                     )
-        #                     event_index_page.add_child(instance=event_page)
-        #                     event_page.save_revision().publish()
-        #                     self.stdout.write(self.style.SUCCESS("Event: " + page_data["title"]))
-        #                 except ValidationError:
-        #                     self.stdout.write(self.style.NOTICE("Event: " + page_data["title"]))
-        #
-        #     self.stdout.write(self.style.SUCCESS('Successfully imported news and events.'))
+                        blog_page.first_published_at = datetime.datetime.strptime(blog_dataset['date'], "%d %b %Y", tzinfo=pytz.UTC)
+                        blog_page.save_revision().publish()
+
+        self.stdout.write(self.style.SUCCESS('Successfully imported blogs.'))
+
+        if news_index_page is not None:
+            with open(options['news_file']) as news_file:
+                news_datasets = json.load(news_file)
+                for news_dataset in news_datasets:
+                    slug = news_dataset['url'].split('/')[-2]
+                    news_check = NewsStoryPage.objects.filter(slug=slug)
+                    if not news_check and news_dataset['body'] != "":
+                        news_page = NewsStoryPage(
+                            title=news_dataset['title'],
+                            slug=slug,
+                            hero_text=news_dataset['description'],
+                            body=json.dumps([{'type': 'paragraph_block', 'value': news_dataset['body']}]),
+                        )
+                        news_index_page.add_child(instance=news_page)
+                        news_page.save_revision().publish()
+                        news_page.first_published_at = datetime.datetime.strptime(news_dataset['date'], "%d %b %Y", tzinfo=pytz.UTC)
+                        news_page.save_revision().publish()
+
+        self.stdout.write(self.style.SUCCESS('Successfully imported news.'))

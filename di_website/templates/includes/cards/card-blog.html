@@ -6,7 +6,13 @@
     <div class="card__body">
         <span class="card__meta">{{ blog.first_published_at }}</span>
         <h3 class="card__title"><span>{{ blog.title }}</span></h3>
-        <div class="card__excerpt">{{ blog.hero_text|richtext }}</div>
+        <div class="card__excerpt">
+            {% if blog.hero_text %}
+                {{blog.hero_text|richtext}}
+            {% else %}
+                {{ blog.body|first|striptags|truncatewords:40 }}
+            {% endif %}
+        </div>
 
         {% if blog.internal_author_page %}
 

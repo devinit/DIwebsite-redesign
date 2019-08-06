@@ -6,13 +6,18 @@
     <div class="card__body">
         <h3 class="card__title"><span>{{item.title}}</span></h3>
         <ul class="card__list">
-            <li><i role="presentation" aria-hidden="true" class="ico ico--14 ico-calendar-slate"></i> 
-                   {{item.start_time|event_date:item.end_time}}
+            <li>
+                <i role="presentation" aria-hidden="true" class="ico ico--14 ico-calendar-slate"></i>
+                {{item.start_time|format_date:item.end_time}}
             </li>
-            <li><i role="presentation" aria-hidden="true" class="ico ico--14 ico-clock-slate"></i> 
+            <li>
+                <i role="presentation" aria-hidden="true" class="ico ico--14 ico-clock-slate"></i>
                 {{item.start_time|date:"h A"}} - {{item.end_time|date:"h A"}}
             </li>
-            <li><i role="presentation" aria-hidden="true" class="ico ico--14 ico-location-slate"></i> {{item.location}}</li>
+            <li>
+                <i role="presentation" aria-hidden="true" class="ico ico--14 ico-location-slate"></i>
+                {{item.location}}
+            </li>
         </ul>
     </div>
 </a>

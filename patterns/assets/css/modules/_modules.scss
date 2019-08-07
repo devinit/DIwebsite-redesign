@@ -151,6 +151,34 @@ a.m-stat {
     }
 }
 
+.m-stat__flourish {
+    position: relative;
+    display: block;
+    width: 30px;
+    height: 30px;
+    margin-bottom: 2em;
+    &:before {
+        content: "";
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        background-color: $poppy;
+        top: 0;
+        left: 0;
+        z-index: 1;
+    }
+    &:after {
+        content: "";
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background-color: lighten($poppy, 15%);
+        top: 15px;
+        left: 15px;
+        z-index: 2;
+    }
+}
+
 .m-stat__title {
     @include font-size($gamma);
     margin-bottom: 0.5em;

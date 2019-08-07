@@ -25,7 +25,7 @@
 <!-- TODO: include sidebar links from what we do once they're approved -->
 
 {% block after_content %}
-    {% if page.news_related_links %}
+    {% if page.news_related_links.count %}
         {% with related_pages=page.news_related_links.all heading='Related content'  %}
             {% include 'includes/partials/related_content.html' %}
         {% endwith %}

@@ -53,7 +53,7 @@
     </div>
 
 
-    {% if page.event_related_links %}
+    {% if page.event_related_links.count %}
         {% with related_pages=page.event_related_links.all heading=page.other_pages_heading  %}
             {% include 'includes/partials/related_content.html' %}
         {% endwith %}

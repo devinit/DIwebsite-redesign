@@ -5,7 +5,7 @@ from wagtail.tests.utils import WagtailPageTests
 
 from di_website.blog.models import BlogIndexPage, BlogArticlePage
 from di_website.home.models import HomePage
-from di_website.ourteam.models import OurTeamPage, TeamMemberPage
+from di_website.ourteam.models import OurTeamPage, TeamMemberPage, TeamMemberPageDepartment
 from di_website.users.models import Department
 
 
@@ -34,13 +34,16 @@ class TestUserProfileCreation(WagtailPageTests):
         self.team_member_page = TeamMemberPage(
             title="Test user",
             user=self.user,
-            department=self.department,
             name="Test User",
             email="Test.User@Devinit.org",
             telephone="555-867-5309",
             my_story="This is Naphlin Peter Akena",
         )
         self.team_page.add_child(instance=self.team_member_page)
+        TeamMemberPageDepartment.objects.create(
+            page=self.team_member_page,
+            department=self.department
+        )
 
     def test_team_page_200(self):
         response = self.client.get(self.team_page.url)

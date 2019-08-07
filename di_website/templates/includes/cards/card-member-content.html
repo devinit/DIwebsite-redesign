@@ -1,0 +1,12 @@
+{% load wagtailcore_tags generic_tags %}
+
+<a href="{% pageurl item %}" class="card card--simple">
+    <div class="card__body">
+        <span class="card__flag">
+            {% if item|classname == global.blog_classname %}Blog{% endif %}
+            <!-- TODO: add condition for publication - when implemented -->
+        </span>
+        <span class="card__meta">{{ item.first_published_at|default_if_none:"" }}</span>
+        <h3 class="card__title"><span>{{ item.title }}</span></h3>
+    </div>
+</a>

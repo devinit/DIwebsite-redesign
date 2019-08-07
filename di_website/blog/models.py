@@ -17,6 +17,7 @@ from taggit.models import Tag, TaggedItemBase
 
 from di_website.common.base import hero_panels, get_paginator_range
 from di_website.common.mixins import BaseStreamBodyMixin, OtherPageMixin, HeroMixin
+from di_website.common.constants import MAX_PAGE_SIZE, MAX_RELATED_LINKS
 from di_website.ourteam.models import TeamMemberPage
 
 
@@ -41,7 +42,7 @@ class BlogIndexPage(HeroMixin, Page):
         else:
             articles = BlogArticlePage.objects.live()
 
-        paginator = Paginator(articles, 10)
+        paginator = Paginator(articles, MAX_PAGE_SIZE)
         try:
             context['articles'] = paginator.page(page)
         except PageNotAnInteger:
@@ -110,7 +111,7 @@ class BlogArticlePage(BaseStreamBodyMixin, HeroMixin, Page):
         ], heading="Author information"),
         FieldPanel('topics'),
         StreamFieldPanel('body'),
-        InlinePanel('blog_related_links', label="Related links", max_num=3)
+        InlinePanel('blog_related_links', label="Related links", max_num=MAX_RELATED_LINKS)
     ]
 
     parent_page_types = [

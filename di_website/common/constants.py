@@ -14,3 +14,4 @@ RICHTEXT_FEATURES = [
     'blockquote'
 ]
 MAX_RELATED_LINKS = 3
+MAX_PAGE_SIZE = 9

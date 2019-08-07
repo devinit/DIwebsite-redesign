@@ -14,7 +14,7 @@ from django.db.utils import IntegrityError
 
 from di_website.blog.models import BlogArticlePage, BlogIndexPage
 from di_website.news.models import NewsIndexPage, NewsStoryPage
-from di_website.ourteam.models import OurTeamPage, TeamMemberPage
+from di_website.ourteam.models import OurTeamPage, TeamMemberPage, TeamMemberPageDepartment
 from di_website.users.models import Department, JobTitle
 
 from wagtail.contrib.redirects.models import Redirect
@@ -67,9 +67,6 @@ class Command(BaseCommand):
                     else:
                         img = None
 
-                    department_name = staff_dataset["department"].replace("-", " ").capitalize()
-                    department, _ = Department.objects.get_or_create(name=department_name)
-
                     job_title_name = staff_dataset["position"]
                     job_title, _ = JobTitle.objects.get_or_create(name=job_title_name)
 
@@ -80,7 +77,6 @@ class Command(BaseCommand):
                             slug=slug,
                             name=staff_name,
                             image=img,
-                            department=department,
                             position=job_title,
                             my_story=staff_dataset["body"]
                         )
@@ -91,6 +87,15 @@ class Command(BaseCommand):
                             old_path="/post/people/{}".format(slug),
                             redirect_page=staff_page
                         )
+
+                        departments = staff_dataset["department"].split()
+                        department_names = [dept.replace("-", " ").capitalize() for dept in departments]
+                        for department_name in department_names:
+                            department, _ = Department.objects.get_or_create(name=department_name)
+                            TeamMemberPageDepartment.objects.create(
+                                page=staff_page,
+                                department=department
+                            )
         self.stdout.write(self.style.SUCCESS('Successfully imported staff profiles.'))
 
         if blog_index_page is not None:

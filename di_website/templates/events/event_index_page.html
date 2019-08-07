@@ -1,25 +1,25 @@
 {% extends "layouts/default.html" %}
 
-{% load wagtailcore_tags string_utils %}
+{% load wagtailcore_tags %}
 
 {% block hero %}
     {% include 'includes/heroes/hero.html' %}
 {% endblock hero %}
 
 {% block body %}
+
     <section class="section">
         <div class="row row--narrow">
             <div class="l-sidebar">
-                <aside class="l-sidebar__aside">
-                    <div class="aside aside--clipping">
-                        <!-- TODO: include sidebar pages with links for what we do -->
-                    </div>
-                </aside>
+                <!-- TODO: add what we do section when approved -->
                 <div class="l-sidebar__body">
                     <div class="is-typeset wysiwyg">
-                        {{page.intro|richtext_strip_wrapper}}
+                        {% for block in page.body %}
+                            {% if block.block_type == 'paragraph_block' or block.block_type == 'block_quote' %}
+                                {% include_block block %}
+                            {% endif %}
+                        {% endfor %}
                     </div>
-                    <a href="#" class="button">Sign up to our newsletter</a>
                 </div>
             </div>
         </div>
@@ -28,11 +28,12 @@
     <section class="section">
         <div class="row row--narrow">
             <div class="l-2up-3up">
-                {% for item in stories %}
-                    {% include 'includes/cards/card-news.html' with show_tag=True %}
+                {% for event in events %}
+                    {% include 'includes/cards/card-event.html' %}
                 {% endfor %}
             </div>
-            {% include "includes/scaffold/pagination.html" with children=stories %}
+            {% include "includes/scaffold/pagination.html" with children=events %}
         </div>
     </section>
+
 {% endblock %}

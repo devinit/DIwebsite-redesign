@@ -5,7 +5,6 @@ from wagtail.admin.edit_handlers import EditHandler
 from django.utils.html import mark_safe
 
 class BaseReadOnlyPanel(EditHandler):
-
     def render(self):
         value = getattr(self.instance, self.field_name)
         if callable(value):
@@ -27,15 +26,13 @@ class BaseReadOnlyPanel(EditHandler):
             '</div>',
             self.heading, _(':'), self.render())
 
-
-"""
-Custom implementation of readonly panel, refer to issue on from wagtail
-https://github.com/wagtail/wagtail/issues/2893
-
-"""
 class ReadOnlyPanel(BaseReadOnlyPanel):
+    """
+    Custom implementation of readonly panel, refer to issue on from wagtail
+    https://github.com/wagtail/wagtail/issues/2893
+    """
 
-    def __init__(self,field_name,*args,**kwargs):
+    def __init__(self, field_name, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.field_name = field_name
 

@@ -26,19 +26,8 @@
 
 {% block after_content %}
     {% if page.news_related_links %}
-        <section class="section">
-            <div class="row row--narrow">
-                <h2 class="section__heading">Related content</h2>
-                <div class="l-2up-3up">
-                    {% for related_page in related_pages %}
-                        {% if related_page.pk != page.pk %}
-                            {% with item=related_page.specific %}
-                                {% include 'includes/cards/card-related.html' with tag='News' %}
-                            {% endwith %}
-                        {% endif %}
-                    {% endfor %}
-                </div>
-            </div>
-        </section>
+        {% with related_pages=page.news_related_links.all heading='Related content'  %}
+            {% include 'includes/partials/related_content.html' %}
+        {% endwith %}
     {% endif %}
 {% endblock %}

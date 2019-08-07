@@ -1,0 +1,61 @@
+{% extends "layouts/default.html" %}
+{% load static wagtailcore_tags wagtailimages_tags card_tags generic_tags %}
+
+{% block hero %}
+    {% include 'includes/heroes/hero-event.html' %}
+{% endblock hero %}
+
+{% block body %}
+
+    <div class="row row--narrow">
+        <div class="l-sidebar">
+            <div class="l-sidebar__body">
+
+                <section class="section">
+                    <div class="highlight">
+                        <ul class="highlight__list">
+                            <li>
+                                <i role="presentation" aria-hidden="true" class="ico ico--14 ico-calendar-slate"></i>
+                                {% if page.start_date == page.end_date %}
+                                    {{ page.start_date|date:"d F Y" }}
+                                {% elif page.start_date.year == page.end_date.year %}
+                                    {{ page.start_date|date:"d F" }} - {{ page.end_date|date:"d F Y" }}
+                                {% else %}
+                                    {{ page.start_date|date:"d F Y" }} - {{ page.end_date|date:"d F Y" }}
+                                {% endif %}
+                            </li>
+                            <li>
+                                <i role="presentation" aria-hidden="true" class="ico ico--14 ico-clock-slate"></i>
+                                {{ page.start_time }} - {{ page.end_time }}
+                            </li>
+                            <li>
+                                <i role="presentation" aria-hidden="true" class="ico ico--14 ico-location-slate"></i>
+                                {{ page.location }}
+                            </li>
+                        </ul>
+                        <a href="#" class="button">Register</a>
+                    </div>
+                </section>
+
+                <section class="section section--post">
+                    <div class="is-typeset is-typeset--additionals wysiwyg">
+                        {% for block in page.body %}
+                            {% if block.block_type == 'paragraph_block' or block.block_type == 'block_quote' %}
+                                {% include_block block %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </section>
+
+            </div>
+            <!-- TODO: add what we do section when approved -->
+        </div>
+    </div>
+
+
+    {% if page.event_related_links %}
+        {% with related_pages=page.event_related_links.all heading=page.other_pages_heading  %}
+            {% include 'includes/partials/related_content.html' %}
+        {% endwith %}
+    {% endif %}
+{% endblock %}

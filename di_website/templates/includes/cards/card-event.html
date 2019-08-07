@@ -1,0 +1,34 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% if event %}
+<a href="{% pageurl event %}" class="card card--offset">
+    {% if show_tag %}
+        <span class="card__tag">Event</span>
+    {% endif %}
+    {% image event.hero_image max-400x250 as hero_img %}
+    <div class="card__media" style="background-image: url({{hero_img.url}});"></div>
+    <div class="card__body">
+        <h3 class="card__title"><span>{{ event.title }}</span></h3>
+        <ul class="card__list">
+            <li>
+                <i role="presentation" aria-hidden="true" class="ico ico--14 ico-calendar-slate"></i>
+                {% if event.start_date == event.end_date %}
+                    {{ event.start_date|date:"d F Y" }}
+                {% elif event.start_date.year == event.end_date.year %}
+                    {{ event.start_date|date:"d F" }} - {{ event.end_date|date:"d F Y" }}
+                {% else %}
+                    {{ event.start_date|date:"d F Y" }} - {{ event.end_date|date:"d F Y" }}
+                {% endif %}
+            </li>
+            <li>
+                <i role="presentation" aria-hidden="true" class="ico ico--14 ico-clock-slate"></i>
+                {{ event.start_time }} - {{ event.end_time }}
+            </li>
+            <li>
+                <i role="presentation" aria-hidden="true" class="ico ico--14 ico-location-slate"></i>
+                {{ event.location }}
+            </li>
+        </ul>
+    </div>
+</a>
+{% endif %}

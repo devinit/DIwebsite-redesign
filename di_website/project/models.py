@@ -43,3 +43,34 @@ class ProjectPageRelatedLink(OtherPageMixin):
     panels = [
         PageChooserPanel('other_page')
     ]
+
+# class FocusAreasPage(StandardPage):
+#     subpage_types = ['ProjectPage']
+
+#     class Meta():
+#         verbose_name = 'Focus Areas Page'
+
+#     def get_context(self, request):
+#         context = super(FocusAreasPage, self).get_context(request)
+#         page = request.GET.get('page', None)
+
+        # articles = BlogArticlePage.objects.live()
+
+
+
+        # # paginator = Paginator(articles, 10)
+        # # try:
+        # #     context['articles'] = paginator.page(page)
+        # # except PageNotAnInteger:
+        # #     context['articles'] = paginator.page(1)
+        # # except EmptyPage:
+        # #     context['articles'] = paginator.page(paginator.num_pages)
+
+        # # blog_content_type = ContentType.objects.get_for_model(BlogArticlePage)
+        # # context['topics'] = Tag.objects.filter(
+        # #     blog_blogtopic_items__content_object__content_type=blog_content_type
+        # # ).distinct()
+        # # context['selected_topic'] = topic_filter
+        # # context['paginator_range'] = get_paginator_range(paginator, context['articles'])
+
+        # # return context

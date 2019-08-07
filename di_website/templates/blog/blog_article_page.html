@@ -22,7 +22,7 @@
     </div>
 </section>
 
-    {% if page.blog_related_links %}
+    {% if page.blog_related_links.count %}
         {% with related_pages=page.blog_related_links.all heading='Related content'  %}
             {% include 'includes/partials/related_content.html' %}
         {% endwith %}

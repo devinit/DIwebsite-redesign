@@ -1,5 +1,7 @@
 {% load wagtailimages_tags wagtailcore_tags %}
 
+{% if other_pages %}
+
 <div class="row row--narrow">
     <h2 class="section__heading">{{ heading }}</h2>
     <div class="l-4up">
@@ -17,3 +19,5 @@
 
     </div>
 </div>
+
+{% endif %}

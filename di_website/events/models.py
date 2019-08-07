@@ -16,6 +16,7 @@ from wagtail.core.models import Page
 from di_website.common.base import hero_panels, get_paginator_range
 from di_website.common.mixins import OtherPageMixin, HeroMixin
 from di_website.common.blocks import BaseStreamBlock
+from di_website.common.constants import MAX_PAGE_SIZE, MAX_RELATED_LINKS
 
 from taggit.models import Tag, TaggedItemBase
 
@@ -51,7 +52,7 @@ class EventPage(HeroMixin, Page):
         StreamFieldPanel('body'),
         MultiFieldPanel([
             FieldPanel('other_pages_heading'),
-            InlinePanel('event_related_links', label='Related Pages', max_num=3)
+            InlinePanel('event_related_links', label='Related Pages', max_num=MAX_RELATED_LINKS)
         ], heading='Other Pages')
     ]
 
@@ -75,7 +76,7 @@ class EventIndexPage(HeroMixin, Page):
         page = request.GET.get('page', None)
         events = EventPage.objects.live()
 
-        paginator = Paginator(events, 10)
+        paginator = Paginator(events, MAX_PAGE_SIZE)
         try:
             context['events'] = paginator.page(page)
         except PageNotAnInteger:

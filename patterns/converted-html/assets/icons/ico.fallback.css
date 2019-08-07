@@ -398,6 +398,34 @@
 
 
 
+.ico-share-blank {
+	background-image: url('png/share-blank.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-share-poppy {
+	background-image: url('png/share-poppy.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-share-poppydark {
+	background-image: url('png/share-poppydark.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-share-slate {
+	background-image: url('png/share-slate.png');
+	background-repeat: no-repeat;
+}
+
+
+
 .ico-star-blank {
 	background-image: url('png/star-blank.png');
 	background-repeat: no-repeat;

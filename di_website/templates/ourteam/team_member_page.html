@@ -15,7 +15,7 @@
         <div class="hero__profile">
             {% if self.image %}
             {% image self.image fill-260x260-c100 as img %}
-            <img src="{{img.url}}" alt="{{self.name}} photograph">
+            <img height="260px" width="260px" src="{{img.url}}" alt="{{self.name}} photograph">
             {% else %}
             <img height="260px" width="260px" src="{% static 'img/profile-fallback.jpg' %}"
                 alt="Placeholder profile picture">

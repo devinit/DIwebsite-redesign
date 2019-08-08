@@ -50,7 +50,9 @@ class Command(BaseCommand):
                     img_title = "{} profile picture".format(staff_name)
                     img_check = Image.objects.filter(title=img_title)
 
-                    if staff_dataset["img"] != "" and not img_check:
+                    if img_check:
+                        img = img_check.first()
+                    elif staff_dataset["img"] != "":
                         img_filename = staff_dataset["img"].split('/')[-1]
                         _, img_ext = os.path.splitext(img_filename)
                         if img_ext.lower() == ".jpg":

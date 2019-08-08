@@ -1,8 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-from wagtail.admin.edit_handlers import FieldPanel
-from wagtail.core.models import Page
+from modelcluster.fields import ParentalKey
+
+from wagtail.admin.edit_handlers import FieldPanel, InlinePanel
+from wagtail.core.models import Page, Orderable
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.core.fields import RichTextField
@@ -20,7 +22,7 @@ class OurTeamPage(HeroMixin, Page):
         context = super(OurTeamPage, self).get_context(request)
         team_filter = request.GET.get('team-filter', None)
         if team_filter:
-            context['profiles'] = TeamMemberPage.objects.live().filter(department__slug=team_filter)
+            context['profiles'] = TeamMemberPage.objects.live().filter(teammember_departments__department__slug=team_filter)
         else:
             context['profiles'] = TeamMemberPage.objects.live()
         context['departments'] = Department.objects.all()
@@ -59,13 +61,6 @@ class TeamMemberPage(Page):
         on_delete=models.SET_NULL,
         related_name='+'
     )
-    department = models.ForeignKey(
-        Department,
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+'
-    )
     email = models.EmailField(
         null=True,
         blank=True
@@ -82,7 +77,7 @@ class TeamMemberPage(Page):
         FieldPanel('name'),
         ImageChooserPanel('image'),
         SnippetChooserPanel('position'),
-        SnippetChooserPanel('department'),
+        InlinePanel('teammember_departments', label="Departments"),
         FieldPanel('email'),
         FieldPanel('telephone'),
         FieldPanel('my_story', classname="full"),
@@ -94,3 +89,19 @@ class TeamMemberPage(Page):
     parent_page_types = [
         'OurTeamPage'
     ]
+
+
+class TeamMemberPageDepartment(Orderable, models.Model):
+    page = ParentalKey('ourteam.TeamMemberPage', on_delete=models.CASCADE, related_name='teammember_departments')
+    department = models.ForeignKey('users.Department', on_delete=models.CASCADE, related_name='+')
+
+    class Meta:
+        verbose_name = "team member department"
+        verbose_name_plural = "team member departments"
+
+    panels = [
+        SnippetChooserPanel('department'),
+    ]
+
+    def __str__(self):
+        return self.page.title + " -> " + self.department.name

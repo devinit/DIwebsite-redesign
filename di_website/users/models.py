@@ -30,6 +30,9 @@ class Department(ClusterableModel):
         FieldPanel('slug'),
     ]
 
+    class Meta:
+        ordering = ["name"]
+
     def __str__(self):
         return self.name
 

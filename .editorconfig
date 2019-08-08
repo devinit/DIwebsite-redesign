@@ -10,9 +10,7 @@ insert_final_newline = true
 
 [*.{js,jsx,coffee,html,less,css,json,py}]
 indent_style = space
-
-[*.html]
-indent_size = 4
+indent_size = 2
 
 [*.i18n.json]
 indent_style = space

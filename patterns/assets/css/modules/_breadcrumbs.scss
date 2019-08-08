@@ -22,36 +22,36 @@
         }
         &__item {
             @include font-size($epsilon - 1);
-            background-color: #fff;
+            //background-color: #fff;
             padding: 0.25em 0.75em;
             padding-left: 1.7em;
             position: relative;
             float: left;
             margin-right: 0.25em;
             &:before {
-                content: "";
+                content: "/";
                 position: absolute;
                 z-index: 1;
-                top: 0;
+                top: 2px;
                 left: 0;
                 width: 0;
                 height: 0;
-                border-top: 16px solid transparent;
-                border-bottom: 16px solid transparent;
-                border-left: 16px solid $body-color;
+                // border-top: 16px solid transparent;
+                // border-bottom: 16px solid transparent;
+                // border-left: 16px solid $body-color;
             }
-            &:after {
-                content: "";
-                position: absolute;
-                z-index: 2;
-                top: 0;
-                right: -16px;
-                width: 0;
-                height: 0;
-                border-top: 16px solid transparent;
-                border-bottom: 16px solid transparent;
-                border-left: 16px solid #fff;
-            }
+            // &:after {
+            //     content: "";
+            //     position: absolute;
+            //     z-index: 2;
+            //     top: 0;
+            //     right: -16px;
+            //     width: 0;
+            //     height: 0;
+            //     border-top: 16px solid transparent;
+            //     border-bottom: 16px solid transparent;
+            //     border-left: 16px solid #fff;
+            // }
             &:first-child {
                 padding-left: 0.75em;
                 a {

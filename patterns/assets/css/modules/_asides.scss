@@ -18,6 +18,8 @@
 }
 
 .aside__media {
+	background-color: #fff;
+	padding: 3em;
 	img {
 		@extend %max-width;
 	}

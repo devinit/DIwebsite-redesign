@@ -129,18 +129,17 @@
         </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="vacancies">
         <div class="row row--narrow">
             <h2 class="section__heading">Latest vacancies</h2>
             <div class="is-typeset max-meter">
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
             </div>
             <div class="l-2up-3up">
-                {% for item in card.job_related %}
+                {% for item in card.job_listing %}
                     {% include 'cards/card-job.html' %}
                 {% endfor %}
             </div>
-            <a href="#" class="button">View all vacancies</a>
         </div>
     </section>
 {% endblock %}

@@ -202,6 +202,34 @@
 
 
 
+.ico-focus-blank {
+	background-image: url('png/focus-blank.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-focus-poppy {
+	background-image: url('png/focus-poppy.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-focus-poppydark {
+	background-image: url('png/focus-poppydark.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-focus-slate {
+	background-image: url('png/focus-slate.png');
+	background-repeat: no-repeat;
+}
+
+
+
 .ico-link-blank {
 	background-image: url('png/link-blank.png');
 	background-repeat: no-repeat;
@@ -365,6 +393,34 @@
 
 .ico-plus-slate {
 	background-image: url('png/plus-slate.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-share-blank {
+	background-image: url('png/share-blank.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-share-poppy {
+	background-image: url('png/share-poppy.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-share-poppydark {
+	background-image: url('png/share-poppydark.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-share-slate {
+	background-image: url('png/share-slate.png');
 	background-repeat: no-repeat;
 }
 

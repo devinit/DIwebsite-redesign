@@ -1,7 +1,7 @@
 [
 	{
 		"name": "e1-error",
-		"stage": "review"
+		"stage": "approved"
 	},
 	{
 		"name": "e2-500",
@@ -9,7 +9,7 @@
 	},
 	{
 		"name": "01-general-page",
-		"stage": "review"
+		"stage": "approved"
 	},
 	{
 		"name": "01b-general-with-accounts-module",
@@ -21,23 +21,23 @@
 	},
 	{
 		"name": "02-homepage",
-		"stage": "review"
+		"stage": "approved"
 	},
 	{
 		"name": "02b-homepage-2-publications",
-		"stage": "review"
+		"stage": "approved"
 	},
 	{
 		"name": "02c-homepage-1-publication",
-		"stage": "review"
+		"stage": "approved"
 	},
 	{
 		"name": "03-who-we-are",
-		"stage": "review"
+		"stage": "approved"
 	},
 	{
 		"name": "04-our-story",
-		"stage": "review"
+		"stage": "approved"
 	},
 	{
 		"name": "05-our-team",
@@ -49,15 +49,15 @@
 	},
 	{
 		"name": "07-what-we-do",
-		"stage": "review"
+		"stage": "approved"
 	},
 	{
 		"name": "08-focus-areas",
 		"stage": "approved"
 	},
 	{
-		"name": "08a-places-we-work",
-		"stage": "review"
+		"name": "08a-where-we-work",
+		"stage": "approved"
 	},
 	{
 		"name": "08-1-project",
@@ -68,8 +68,8 @@
 		"stage": "approved"
 	},
 	{
-		"name": "09-services",
-		"stage": "review"
+		"name": "09-consultancy-services",
+		"stage": "approved"
 	},
 	{
 		"name": "11-blog-listing",
@@ -104,11 +104,31 @@
 		"stage": "approved"
 	},
 	{
+		"name": "13a-publications-filtered",
+		"stage": "approved"
+	},
+	{
 		"name": "14-publication-summary",
 		"stage": "approved"
 	},
 	{
 		"name": "14-1-publication-long-form",
+		"stage": "approved"
+	},
+	{
+		"name": "14-1b-publication-long-form-pink",
+		"stage": "approved"
+	},
+	{
+		"name": "14-1c-publication-long-form-yellow",
+		"stage": "approved"
+	},
+	{
+		"name": "14-1d-publication-long-form-orange",
+		"stage": "approved"
+	},
+	{
+		"name": "14-1e-publication-long-form-purple",
 		"stage": "approved"
 	},
 	{

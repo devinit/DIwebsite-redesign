@@ -54,22 +54,18 @@
     <section class="section">
         <div class="row row--narrow">
             <h2 class="section__heading">Our focus areas</h2>
-            <div class="l-3up">
-                {% for item in card.work_feature %}
-                    {% include 'cards/card-feature.html' %}
-                {% endfor %}
-            </div>
+            {% include 'partials/focus.html' %}
             <a href="#" class="button">Find out more about our Focus Areas</a>
         </div>
     </section>
 
     <section class="section section--alt">
         <div class="row row--narrow">
-            <h2 class="section__heading">Places we work</h2>
+            <h2 class="section__heading">Where we work</h2>
             <div class="is-typeset max-meter">
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
             </div>
-            <div class="media-map">
+            <div class="media-map media-map--minor">
                 <div id="map" class="media-map__location" data-latlng="25.453669,-55.585922">
                     <div class="media-map__location__point" data-latlng="33.93911,67.709953" data-title="Afghanistan" data-desc="" data-tel="" data-email="" data-web=""></div>
                     <div class="media-map__location__point" data-latlng="23.684994,90.356331" data-title="Bangladesh" data-desc="" data-tel="" data-email="" data-web=""></div>
@@ -107,7 +103,7 @@
                     <div class="media-map__location__point" data-latlng="15.552727,48.516388" data-title="Yemen" data-desc="" data-tel="" data-email="" data-web=""></div>
                 </div>
             </div>
-            <a href="#" class="button">Find out more about the places we work in</a>
+            <a href="#" class="button">Find out more about where we work</a>
         </div>
     </section>
 

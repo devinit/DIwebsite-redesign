@@ -9,7 +9,7 @@
     margin-top: 2em;
     display: block;
     &--duo {
-        @include respond-to($menu-respond) {
+        @include respond-to($c-vp) {
             .card__media {
                 float: left;
                 width: 40%;
@@ -38,6 +38,9 @@
     &--alt {
         background-color: $cloud;
         margin-top: 4em;
+    }
+    &--reverse {
+        background-color: $slate;
     }
     &:last-of-type {
         margin-bottom: 0;
@@ -136,12 +139,20 @@ a.card {
         border-bottom: 0 solid $poppy;
         transition: all, ease-in-out, 0.3s;
     }
+    .card--reverse & {
+        a, span {
+            color: #fff;
+        }
+    }
 }
 
 .card__excerpt {
     @include font-size($epsilon);
     line-height: 1.6;
     color: $heading-color;
+    .card--reverse & {
+        color: #fff;
+    }
 }
 
 .card__list {

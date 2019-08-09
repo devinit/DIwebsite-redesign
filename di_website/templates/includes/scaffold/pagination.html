@@ -13,7 +13,7 @@
       </li>
       {% if 2 not in paginator_range %}
         <li class="pagination__item">
-            <a href="#" class="pagination__item-link">...</a>
+            <a class="pagination__item-link">...</a>
         </li>
       {% endif %}
     {% endif %}
@@ -28,7 +28,7 @@
     {% if children.paginator.num_pages not in paginator_range %}
       {% if children.paginator.num_pages|add:"-1" not in paginator_range %}
         <li class="pagination__item">
-            <a href="#" class="pagination__item-link">...</a>
+            <a class="pagination__item-link">...</a>
         </li>
       {% endif %}
       <li class="pagination__item">

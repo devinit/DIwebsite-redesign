@@ -1,40 +1,44 @@
-{% load wagtailcore_tags wagtailimages_tags generic_tags %}
+{% load wagtailcore_tags wagtailimages_tags generic_tags static %}
 
 {% if blog %}
-<a href="{% pageurl blog %}" class="card card--offset">
+  <a href="{% pageurl blog %}" class="card card--offset">
     {% if show_tag %}
-        <span class="card__tag">Blog</span>
+      <span class="card__tag">Blog</span>
     {% endif %}
-    {% image blog.hero_image max-400x250 as hero_img %}
-    <div class="card__media" style="background-image: url({{hero_img.url}});"></div>
+    {% if blog.hero_image %}
+      {% image blog.hero_image max-400x250 as hero_img %}
+      <div class="card__media" style="background-image: url({{hero_img.url}});"></div>
+    {% else %}
+      <div class="card__media" style="background-image: url({% static 'img/fallback-image.jpg' %});"></div>
+    {% endif %}
     <div class="card__body">
-        <span class="card__meta">{{ blog.first_published_at }}</span>
-        <h3 class="card__title"><span>{{ blog.title }}</span></h3>
-        <div class="card__excerpt">
-            {% if blog.hero_text %}
-                {{blog.hero_text|richtext}}
-            {% else %}
-                {{ blog.body|first|striptags|truncatewords:40 }}
-            {% endif %}
-        </div>
-
-        {% if blog.internal_author_page %}
-
-            {% with blog.internal_author_page.specific as internal %}
-                {% with page=internal img=internal.image name=internal.name position=internal.position %}
-                    {% include 'includes/partials/author.html' %}
-                {% endwith %}
-            {% endwith %}
-
+      <span class="card__meta">{{ blog.first_published_at }}</span>
+      <h3 class="card__title"><span>{{ blog.title }}</span></h3>
+      <div class="card__excerpt">
+        {% if blog.hero_text %}
+          {{blog.hero_text|richtext}}
+        {% else %}
+          {{ blog.body|first|striptags|truncatewords:40 }}
         {% endif %}
+      </div>
 
-        {% if blog.external_author_photograph %}
+      {% if blog.internal_author_page %}
 
-            {% with link=blog.external_author_page img=blog.external_author_photograph name=blog.external_author_name position=blog.external_author_title %}
-                {% include 'includes/partials/author.html' %}
-            {% endwith %}
+        {% with blog.internal_author_page.specific as internal %}
+          {% with page=internal img=internal.image name=internal.name position=internal.position %}
+            {% include 'includes/partials/author.html' %}
+          {% endwith %}
+        {% endwith %}
 
-        {% endif %}
+      {% endif %}
+
+      {% if blog.external_author_photograph %}
+
+        {% with link=blog.external_author_page img=blog.external_author_photograph name=blog.external_author_name position=blog.external_author_title %}
+          {% include 'includes/partials/author.html' %}
+        {% endwith %}
+
+      {% endif %}
     </div>
-</a>
+  </a>
 {% endif %}

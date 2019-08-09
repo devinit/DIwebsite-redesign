@@ -21,6 +21,7 @@ def hero_panels():
         PageChooserPanel('hero_link')
     ], heading="Hero Section")
 
+
 @register_snippet
 class Download(BaseDownloadMixin):
     panels = [
@@ -30,7 +31,7 @@ class Download(BaseDownloadMixin):
 
 
 def get_paginator_range(paginator, page):
-    """Return a 3 elements long list containing a range of page numbers (int)."""
-    range_start = max(page.number - 3, 1)
+    """Return a 4 elements long list (two before and two after current page) containing a range of page numbers (int)."""
+    range_start = max(page.number - 2, 1)
     range_end = min(page.number + 2, paginator.num_pages)
     return [i for i in range(range_start, range_end + 1)]

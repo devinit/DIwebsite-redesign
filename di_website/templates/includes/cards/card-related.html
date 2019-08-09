@@ -14,7 +14,9 @@
     {% endif %}
     <div class="card__media" style="background-image: url({{hero_img.url}});"></div>
     <div class="card__body">
-        <span class="card__meta">{{ item.first_published_at }}</span>
+      {% if item.first_published_at %}
+        <span class="card__meta">{{ item.first_published_at|date:"j F Y" }}</span>
+      {% endif %}
         <h3 class="card__title"><span>{{ item.title }}</span></h3>
         <div class="card__excerpt">{{ item.hero_text|richtext }}</div>
     </div>

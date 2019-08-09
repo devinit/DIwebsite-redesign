@@ -6,7 +6,9 @@
             {% if item|classname == global.blog_classname %}Blog{% endif %}
             <!-- TODO: add condition for publication - when implemented -->
         </span>
-        <span class="card__meta">{{ item.first_published_at|default_if_none:"" }}</span>
+        {% if item.first_published_at %}
+          <span class="card__meta">{{ item.first_published_at|date:"j F Y" }}</span>
+        {% endif %}
         <h3 class="card__title"><span>{{ item.title }}</span></h3>
     </div>
 </a>

@@ -4,7 +4,9 @@
 {% block hero_meta %}
     <ul class="hero__meta">
         <li class="hero__meta-item hero__meta-item--block">Blog</li>
-        <li class="hero__meta-item">{{ page.first_published_at }}</li>
+        {% if page.first_published_at %}
+          <li class="hero__meta-item">{{ page.first_published_at|date:"j F Y" }}</li>
+        {% endif %}
     </ul>
 {% endblock hero_meta %}
 

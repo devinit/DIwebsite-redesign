@@ -71,6 +71,6 @@
     {% endfor %}
 
     <section class="section">
-        {% get_other_pages calling_page=self heading='Learn more about Developement Initiatives' %}
+        {% get_other_pages calling_page=self heading=page.other_pages_heading %}
     </section>
 {% endblock after_content %}

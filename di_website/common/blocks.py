@@ -10,10 +10,29 @@ from wagtail.core.blocks import (
     TextBlock,
     URLBlock
 )
+from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.blocks import ImageChooserBlock
 
 from di_website.common.constants import RICHTEXT_FEATURES
+
+
+class DocumentBoxBlock(StructBlock):
+    """
+    A block for holding a document box, with a single header and multiple documents.
+    """
+
+    document_box_heading = CharBlock(icon="title", required=False)
+    documents = StreamBlock([
+        ('document', DocumentChooserBlock()),
+    ])
+    dark_mode = BooleanBlock(default=False, required=False, help_text="Red on white if true. White on dark grey if false.")
+
+    DocumentChooserBlock(icon="doc-full-inverse", required=False)
+
+    class Meta:
+        icon = 'doc-full-inverse'
+        template = 'blocks/documentbox_block.html'
 
 
 class BlockQuote(StructBlock):

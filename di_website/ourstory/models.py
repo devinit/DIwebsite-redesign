@@ -1,29 +1,41 @@
 from django.db import models
 
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, PageChooserPanel, StreamFieldPanel
-from wagtail.core.fields import StreamField, RichTextField
+from wagtail.core.fields import StreamField
 from wagtail.core.models import Page
 from wagtail.core.blocks import (
-    BooleanBlock,
     CharBlock,
-    ChoiceBlock,
-    ListBlock,
-    PageChooserBlock,
     RichTextBlock,
-    StreamBlock,
     StructBlock,
-    TextBlock,
-    URLBlock
+    StreamBlock,
 )
-from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.blocks import ImageChooserBlock
 
 from di_website.common.base import hero_panels
-from di_website.common.constants import RICHTEXT_FEATURES
+from di_website.common.blocks import DocumentBoxBlock
 from di_website.common.mixins import BaseStreamBodyMixin, HeroMixin
 
 
+class TimelineItemBlock(StructBlock):
+    month = CharBlock(required=False, help_text="Month abbreviation E.g. Apr")
+    year = CharBlock(required=False, help_text="Year E.g. 2008")
+    title = CharBlock(required=False)
+    image = ImageChooserBlock(required=False)
+    text = RichTextBlock(required=False)
+    documents = DocumentBoxBlock(required=False)
+
+
+class TimelineCarouselStreamBlock(StreamBlock):
+    items = TimelineItemBlock()
+    required = False
+
+    class Meta():
+        template = 'blocks/timeline_carousel.html'
+
+
 class OurStoryPage(BaseStreamBodyMixin, HeroMixin, Page):
+
+    timeline_items = StreamField(TimelineCarouselStreamBlock)
 
     content_panels = Page.content_panels + [
         hero_panels(),

@@ -152,7 +152,7 @@ class VacancyPage(BaseStreamBodyMixin, HeroMixin, Page):
         blank=True,
         max_length=255,
         verbose_name='Heading',
-        default='Other pages in this section'
+        default='Learn more about Developement Initiatives'
     )
     downloads_title = models.CharField(
         blank=True,
@@ -204,11 +204,3 @@ class VacancyPage(BaseStreamBodyMixin, HeroMixin, Page):
     class Meta():
         db_table = 'vacancy_page'
         verbose_name = 'Vacancy Page'
-
-
-class VacancyRelatedLink(OtherPageMixin):
-    page = ParentalKey(Page, related_name='other_pages', on_delete=models.CASCADE)
-
-    panels = [
-        PageChooserPanel('other_page')
-    ]

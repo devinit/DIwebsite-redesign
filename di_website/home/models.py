@@ -7,6 +7,7 @@ from wagtail.admin.edit_handlers import (
     StreamFieldPanel
 )
 from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.admin.edit_handlers import MultiFieldPanel
 from wagtail.core.models import Orderable, Page
 from wagtail.core.fields import RichTextField
 from wagtail.snippets.models import register_snippet
@@ -163,11 +164,20 @@ class StandardPage(BaseStreamBodyMixin, HeroMixin, Page):
     A generic content page. It could be used for any type of page content that only needs a hero,
     streamfield content, and related fields
     """
+    other_pages_heading = models.CharField(
+        blank=True,
+        max_length=255,
+        verbose_name='Heading',
+        default='Related content'
+    )
 
     content_panels = Page.content_panels + [
         hero_panels(),
         StreamFieldPanel('body'),
-        InlinePanel('standard_related_links', label="Related links", max_num=3)
+        MultiFieldPanel([
+            FieldPanel('other_pages_heading'),
+            InlinePanel('other_pages', label='Related links')
+        ], heading='Other Pages/Related Links')
     ]
 
     class Meta():
@@ -176,7 +186,7 @@ class StandardPage(BaseStreamBodyMixin, HeroMixin, Page):
 
 class StandarPageRelatedLink(OtherPageMixin):
     page = ParentalKey(
-        Page, related_name='standard_related_links', on_delete=models.CASCADE)
+        Page, related_name='other_pages', on_delete=models.CASCADE)
 
     panels = [
         PageChooserPanel('other_page')

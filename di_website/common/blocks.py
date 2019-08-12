@@ -25,8 +25,8 @@ class DocumentBoxBlock(StructBlock):
     document_box_heading = CharBlock(icon="title", required=False)
     documents = StreamBlock([
         ('document', DocumentChooserBlock()),
-    ])
-    dark_mode = BooleanBlock(default=False, required=False, help_text="Red on white if true. White on dark grey if false.")
+    ], required=False)
+    dark_mode = BooleanBlock(default=False, required=False, help_text="Red on white if unchecked. White on dark grey if checked.")
 
     DocumentChooserBlock(icon="doc-full-inverse", required=False)
 

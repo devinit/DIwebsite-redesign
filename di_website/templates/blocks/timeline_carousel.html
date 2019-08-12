@@ -25,7 +25,9 @@
                             <div class="is-typeset">
                                 {{ item.value.text|richtext }}
                             </div>
-                            {{ item.value.documents }}
+                            {% if item.value.documents.documents %}
+                              {% include_block item.value.documents %}
+                            {% endif %}
                         </div>
                         {% if item.value.image %}
                           <div class="l-highlight__aside">

@@ -1,6 +1,4 @@
-from django.db import models
-
-from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, PageChooserPanel, StreamFieldPanel
+from wagtail.admin.edit_handlers import StreamFieldPanel
 from wagtail.core.fields import StreamField
 from wagtail.core.models import Page
 from wagtail.core.blocks import (
@@ -39,7 +37,8 @@ class OurStoryPage(BaseStreamBodyMixin, HeroMixin, Page):
 
     content_panels = Page.content_panels + [
         hero_panels(),
-        StreamFieldPanel('body')
+        StreamFieldPanel('body'),
+        StreamFieldPanel('timeline_items'),
     ]
 
     class Meta():

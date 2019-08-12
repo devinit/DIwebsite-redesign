@@ -12,7 +12,6 @@
     {% else %}
       <div class="card__media" style="background-image: url({% static 'img/fallback-image.jpg' %});"></div>
     {% endif %}
-    <div class="card__media" style="background-image: url({{hero_img.url}});"></div>
     <div class="card__body">
       {% if item.first_published_at %}
         <span class="card__meta">{{ item.first_published_at|date:"j F Y" }}</span>

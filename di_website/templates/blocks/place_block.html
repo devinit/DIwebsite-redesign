@@ -1,0 +1,27 @@
+{% extends 'includes/partials/project.html' %}
+{% load wagtailcore_tags %}
+
+{% block project_aside %}
+  <h3 class="project__subheading para--typeset">{{self.side_section_title}}</h3>
+  {% if self.links %}
+    <ul class="nobullet-list">
+      {% for link in self.links %}
+        <li>
+          {% if link.value.page %}
+            <a href="{% pageurl link.value.page %}" class="button">
+                {% if link.value.caption %}
+                  {{ link.value.caption }}
+                {% else %}
+                  {{ link.value.page.title }}
+                {% endif %}
+            </a>
+          {% elif link.value.url %}
+              <a href="{{ link.value.url }}" class="button">
+                  {{ link.value.caption }}
+              </a>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endblock project_aside %}

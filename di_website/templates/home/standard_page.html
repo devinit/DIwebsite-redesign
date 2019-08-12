@@ -3,27 +3,33 @@
 
 {% block body %}
 
-{% include 'includes/heroes/hero.html' %}
+  {% include 'includes/heroes/hero.html' %}
 
-<section class="section">
+  <section class="section">
     <div class="row row--narrow">
-        <div class="l-sidebar">
-            {% if self.depth > 3 %}
-            <aside class="l-sidebar__aside">
-                <div class="aside aside--clipping">
-                    {% secondary_menu self.get_parent.get_parent %}
-                </div>
-            </aside>
-            {% endif %}
-            <div class="l-sidebar__body">
-                {% breadcrumbs %}
+      <div class="l-sidebar">
+        {% if self.depth > 3 %}
+          <aside class="l-sidebar__aside">
+            <div class="aside aside--clipping">
+              {% secondary_menu self.get_parent.get_parent %}
             </div>
+          </aside>
+        {% endif %}
+        <div class="l-sidebar__body">
+          {% breadcrumbs %}
         </div>
+      </div>
     </div>
-</section>
+  </section>
 
-{% for block in page.body %}
-{% include_block block %}
-{% endfor %}
+  {% for block in page.body %}
+    {% include_block block %}
+  {% endfor %}
+
+  {% if page.other_pages.count %}
+    {% with related_pages=page.other_pages.all heading='Related content'  %}
+      {% include 'includes/partials/related_content.html' %}
+    {% endwith %}
+  {% endif %}
 
 {% endblock body %}

@@ -44,6 +44,9 @@ class LinkBlock(StructBlock):
     url = URLBlock(required=False)
     page = PageChooserBlock(required=False)
 
+    class Meta:
+        icon = 'fa-link'
+
 
 class BannerBlock(StructBlock):
     image = ImageChooserBlock(required=False)

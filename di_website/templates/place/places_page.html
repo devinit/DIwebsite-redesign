@@ -1,0 +1,40 @@
+{% extends 'layouts/default.html' %}
+{% comment %} Based on the 08a-where-we-work.html pattern library template {% endcomment %}
+{% load navigation_tags wagtailcore_tags card_tags %}
+
+{% block body %}
+  {% include 'includes/heroes/hero.html' %}
+
+  <section class="section">
+    <div class="row row--narrow">
+      <div class="l-sidebar">
+        <aside class="l-sidebar__aside">
+          <div class="aside aside--clipping">
+            {% secondary_menu page.get_parent %}
+          </div>
+        </aside>
+        <div class="l-sidebar__body">
+          <div class="is-typeset wysiwyg">
+            {% for block in page.body %}
+              {% if block.block_type == 'paragraph_block' or block.block_type == 'block_quote' %}
+                {% include_block block %}
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="row row--narrow">
+      {% for place in page.places %}
+        {% include_block place %}
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="section">
+    {% get_other_pages calling_page=self heading=page.other_pages_heading %}
+  </section>
+{% endblock body %}

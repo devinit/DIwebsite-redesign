@@ -1,6 +1,6 @@
 {% extends 'layouts/default.html' %}
 {% comment %} Based on the 08a-where-we-work.html pattern library template {% endcomment %}
-{% load navigation_tags wagtailcore_tags %}
+{% load navigation_tags wagtailcore_tags card_tags %}
 
 {% block body %}
   {% include 'includes/heroes/hero.html' %}
@@ -32,5 +32,9 @@
         {% include_block place %}
       {% endfor %}
     </div>
+  </section>
+
+  <section class="section">
+    {% get_other_pages calling_page=self heading=page.other_pages_heading %}
   </section>
 {% endblock body %}

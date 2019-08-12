@@ -44,4 +44,6 @@ class PlacesPage(BaseStreamBodyMixin, HeroMixin, Page):
         ], heading='Other Pages/Related Links')
     ]
 
+    subpage_types = ['home.StandardPage']
+
     # TODO: set Where we Work as parent page

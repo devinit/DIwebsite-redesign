@@ -10,20 +10,28 @@ from wagtail.core.fields import RichTextField
 from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField,AbstractFormSubmission
 from di_website.common.mixins import HeroMixin
 from di_website.common.base import hero_panels
-from .utils import CustomFormBuilder
+
 
 import json
 from django.core.serializers.json import DjangoJSONEncoder
 
 CAPTCHA_FORM_FIELD = 'captcha'
-
-
+  
 class CustomFormSubmission(AbstractFormSubmission):
     spam_post = models.BooleanField(default=False,)
 
 class FormFields(AbstractFormField): 
     page = ParentalKey('ContactPage', on_delete=models.CASCADE, related_name='form_fields')
 
+    placeholder = models.CharField(
+        blank=True,
+        max_length=255,
+        help_text='Optional placeholder for the field'
+    )
+
+    panels = AbstractFormField.panels + [
+        FieldPanel('placeholder'),
+    ]
 
 class ContactPage(HeroMixin,AbstractEmailForm):
     
@@ -32,8 +40,6 @@ class ContactPage(HeroMixin,AbstractEmailForm):
     """
 
     template = "contactus/contact_page.html"
-
-    form_builder = CustomFormBuilder
 
     intro = RichTextField(blank=True)
     thank_you_text = RichTextField(blank=True)
@@ -61,7 +67,13 @@ class ContactPage(HeroMixin,AbstractEmailForm):
             form_data=json.dumps(form.cleaned_data, cls=DjangoJSONEncoder),
             page=self,
         )
-    
+
+    def get_placeholder_for_field(self, label):
+        try:
+            return self.form_fields.filter(label=label).first().placeholder
+        except Exception:
+            return None
+
     def serve(self, request, *args, **kwargs):
         if request.method == 'POST':
             form = self.get_form(request.POST, request.FILES, page=self, user=request.user)

@@ -35,6 +35,23 @@ class DocumentBoxBlock(StructBlock):
         template = 'blocks/documentbox_block.html'
 
 
+class DocumentBoxSectionBlock(StructBlock):
+    """
+    A block for holding a document box, with a single header and multiple documents.
+    """
+    section_heading = TextBlock(required=False)
+    section_sub_heading = TextBlock(required=False)
+    document_box_heading = CharBlock(icon="title", required=False)
+    document_boxes = StreamBlock([
+        ('document_box', DocumentBoxBlock()),
+    ], required=False)
+
+
+    class Meta:
+        icon = 'doc-full-inverse'
+        template = 'blocks/documentboxsection_block.html'
+
+
 class BlockQuote(StructBlock):
     """
     Custom `StructBlock` that allows render text in a blockquote element

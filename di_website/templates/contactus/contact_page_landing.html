@@ -12,46 +12,18 @@
     <div class="row row--narrow">
         <div class="max-meter">
             <div class="is-typeset">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                {% if page.intro %}
+                    <p>{{page.intro|richtext}}</p>
+                {% endif %}
             </div>
-            <form action="{% pageurl page %}" method="POST">
-                {% csrf_token %}
-                <input type="submit">
-            </form>
+            <div class="alert alert--success"><i role="presentation" aria-hidden="true" class="ico ico-success-success"></i>
+                <p><strong>{{page.success_alert}}</strong></p>
+                {% for attribute,value in form_submission.items %}
+                    <p>{{attribute|title}}: [ {{value}} ]</p>
+                {% endfor %}
+            </div>
         </div>
     </div>
 </section>
-
-<section class="section">
-        <div class="row row--narrow">
-            <h2 class="section__heading">Where we are based</h2>
-            <div class="l-4up">
-                <div class="location">
-                    <h3 class="location__heading">UK</h3>
-                    <p class="location__copy">North Quay House Quay Side, Temple Back Bristol, BS1 6FL, UK</p>
-                    <span class="location__contact">+44 (0) 1179 272 505</span>
-                </div>
-                
-            </div>
-        </div>
-    </section>
-
-<section class="section">
-    <div class="row row--narrow">
-        <h2 class="section__heading">Registered addresses</h2>
-        <div class="l-2up">
-            <div class="l-2up__col">
-                <p class="para para--typeset">Development Initiatives Poverty Research Ltd (Registered in England and Wales, Company No. 06368740) and DI International Ltd (Registered in England Wales, Company No. 5802543)</p>
-                <ul class="nobullet-list">
-                    <li>North Quay House</li>
-                    <li>Quay side</li>
-                    <li>Temple Back</li>
-                    <li>Bristol</li>
-                    <li>BS1 6FL</li>
-                    <li>UK</li>
-                </ul>
-            </div>
-            </div>
-    </div>
-</section>
+{% include 'contactus/includes/contact_details.html' %}
 {% endblock %}

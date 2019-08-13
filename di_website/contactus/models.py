@@ -21,6 +21,9 @@ HONEYPOT_FORM_FIELD = 'captcha'
 class FormFields(AbstractFormField): 
     page = ParentalKey('ContactPage', on_delete=models.CASCADE, related_name='form_fields')
 
+    """
+        Form fields with additional placeholder text that describes what the form fields are meant for
+    """
     placeholder = models.CharField(
         blank=True,
         max_length=255,
@@ -31,24 +34,28 @@ class FormFields(AbstractFormField):
         FieldPanel('placeholder'),
     ]
 
+"""
+    Contact Us form, to inherit the emailing functionality from wagtail, we'll use AbstractEmailForm
+"""
 class ContactPage(HeroMixin,AbstractEmailForm):
-    
-    """ Override get_form to assign custom classes and attributes. Followed guide from 
-        https://stackoverflow.com/questions/48321770/how-to-modify-attributes-of-the-wagtail-form-input-fields 
-    """
 
     template = "contactus/contact_page.html"
 
     form_fields = CustomFormBuilder
 
     intro = RichTextField(blank=True)
-    thank_you_text = RichTextField(blank=True)
+    success_alert = models.CharField(
+        max_length=255,
+        default='Your message was sent successfully',
+        )
+
 
     content_panels = AbstractEmailForm.content_panels + [
         hero_panels(),
         FieldPanel('intro', classname="full"),
         InlinePanel('form_fields', label="Form fields"),
-        FieldPanel('thank_you_text', classname="full"),
+        
+        FieldPanel('success_alert', classname="full"),
         MultiFieldPanel([
             FieldRowPanel([
                 FieldPanel('from_address', classname="col6"),
@@ -64,6 +71,7 @@ class ContactPage(HeroMixin,AbstractEmailForm):
             form_data=json.dumps(form.cleaned_data, cls=DjangoJSONEncoder),
             page=self,
         )
+        return form.cleaned_data
 
     def get_placeholder_for_field(self, label):
         try:

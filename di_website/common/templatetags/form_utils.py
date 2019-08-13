@@ -8,3 +8,4 @@ def placeholder(field, page):
         return page.get_placeholder_for_field(field)
     except Exception:
         return None
+

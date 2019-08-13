@@ -24,21 +24,25 @@
                     <span class="banner__meta">{{ self.meta }}</span>
 
                     {% if self.buttons %}
-                    {% for button in self.buttons %}
-                    {% if button.value.page %}
-                    <a href="{% pageurl button.value.page %}" class="button button--reverse">
-                        {% if button.value.caption %}
-                        {{ button.value.caption }}
+                      {% for button in self.buttons %}
+                        {% if button.block_type == 'document_box' %}
+                          {% include_block button %}
                         {% else %}
-                        {{ button.value.page.title }}
+                          {% if button.value.page %}
+                          <a href="{% pageurl button.value.page %}" class="button button--reverse">
+                              {% if button.value.caption %}
+                                {{ button.value.caption }}
+                              {% else %}
+                                {{ button.value.page.title }}
+                              {% endif %}
+                          </a>
+                          {% elif button.value.url %}
+                          <a href="{{ button.value.url }}" class="button button--reverse">
+                              {{ button.value.caption }}
+                          </a>
+                          {% endif %}
                         {% endif %}
-                    </a>
-                    {% elif button.value.url %}
-                    <a href="{{ button.value.url }}" class="button button--reverse">
-                        {{ button.value.caption }}
-                    </a>
-                    {% endif %}
-                    {% endfor %}
+                      {% endfor %}
                     {% endif %}
                 </div>
             </div>

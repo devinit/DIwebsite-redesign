@@ -86,7 +86,10 @@ class BannerBlock(StructBlock):
         required=False,
         help_text='Anything from a name, location e.t.c - usually to provide credit for the text'
     )
-    buttons = StreamBlock([('button', LinkBlock())], required=False)
+    buttons = StreamBlock([
+        ('button', LinkBlock()),
+        ('document_box', DocumentBoxBlock())
+    ], required=False)
     media_orientation = ChoiceBlock(
         required=False,
         default='left',

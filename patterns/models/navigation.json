@@ -20,6 +20,11 @@
 		    "in_section": "Publications",
 		    "hidden": false
 		},
+        {
+		    "label": "Data",
+		    "in_section": "Data",
+		    "hidden": false
+		},
 		{
 		    "label": "Blog",
 		    "in_section": "Blog",
@@ -45,5 +50,11 @@
         {"label": "Data support services"},
         {"label": "News"},
         {"label": "Events"}
+    ],
+    "secondary_data": [
+        {"label": "Datasets"},
+        {"label": "Approach and methodology"},
+        {"label": "Code of practice"},
+        {"label": "QA process"}
     ]
 }

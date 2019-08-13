@@ -26,22 +26,7 @@
       </div>
   </section>
   {% include_block self.timeline_items %}
-  <section class="section">
-      <div class="row row--narrow">
-          <div class="l-sidebar">
-              <aside class="l-sidebar__aside">
-                  <div class="aside aside--clipping">
-                      {% secondary_menu parent=self %}
-                  </div>
-              </aside>
-              <div class="l-sidebar__body">
-                  <div class="is-typeset wysiwyg">
-                    {% for block in page.post_carousel_body %}
-                      {% include_block block %}
-                    {% endfor %}
-                  </div>
-              </div>
-          </div>
-      </div>
-  </section>
+  {% for block in page.post_carousel_body %}
+    {% include_block block %}
+  {% endfor %}
 {% endblock %}

@@ -76,7 +76,7 @@ class ContactPage(HeroMixin,AbstractEmailForm):
     def get_placeholder_for_field(self, label):
         try:
             return self.form_fields.filter(label=label).first().placeholder
-        except Exception:
+        except RuntimeError:
             return None
 
     def serve(self, request, *args, **kwargs):
@@ -98,7 +98,7 @@ class ContactPage(HeroMixin,AbstractEmailForm):
                         self.get_template(request),
                         context
                     )
-            except:
+            except KeyError:
                 # If honeypot fails, form should be marked as possible spam
                 pass
             

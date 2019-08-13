@@ -112,6 +112,18 @@ a.m-author {
     }
 }
 
+.m-text-major {
+    @extend .heading;
+    @include font-size($alpha);
+    border-left: 3px solid $poppy;
+    padding-left: 0.5em;
+    margin-bottom: 1em;
+    line-height: 1.3;
+    span {
+        font-size: 200%;
+    }
+}
+
 .m-stat {
     border-top: 3px solid darken($cloud, 5%);
     padding-top: 2em;

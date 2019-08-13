@@ -10,7 +10,7 @@ from wagtail.core.blocks import (
 from wagtail.images.blocks import ImageChooserBlock
 
 from di_website.common.base import hero_panels
-from di_website.common.blocks import DocumentBoxBlock
+from di_website.common.blocks import DocumentBoxBlock, BaseStreamBlock
 from di_website.common.mixins import BaseStreamBodyMixin, HeroMixin
 
 
@@ -34,11 +34,18 @@ class TimelineCarouselStreamBlock(StreamBlock):
 class OurStoryPage(BaseStreamBodyMixin, HeroMixin, Page):
 
     timeline_items = StreamField(TimelineCarouselStreamBlock)
+    post_carousel_body = StreamField(
+        BaseStreamBlock(),
+        verbose_name="Page Body",
+        null=True,
+        blank=True
+    )
 
     content_panels = Page.content_panels + [
         hero_panels(),
         StreamFieldPanel('body'),
         StreamFieldPanel('timeline_items'),
+        StreamFieldPanel('post_carousel_body'),
     ]
 
     class Meta():

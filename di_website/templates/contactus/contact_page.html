@@ -15,7 +15,7 @@
             <div class="is-typeset">
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
             </div>
-            <form action="{% pageurl page %}" method="POST">
+            <form novalidate action="{% pageurl page %}" method="POST">
                 {% csrf_token %}
                 
                 {% include 'contactus/includes/form-loop.html'%}
@@ -23,7 +23,7 @@
                 <div class="form-field form-field--spaced" style="display: none !important;">
                     <label class="form-label" for="captcha">Phone number</label>
                     <div class="form-item-inline">
-                      <input type="text" class="form-item" name="phone" tabindex="-1" autocomplete="off" placeholder="(XXX)-XXX-XXXX">
+                      <input type="text" class="form-item" name="captcha" tabindex="-1" autocomplete="off" placeholder="(XXX)-XXX-XXXX">
                     </div>
                   </div>
                 </div>

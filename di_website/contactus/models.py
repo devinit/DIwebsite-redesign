@@ -10,15 +10,13 @@ from wagtail.core.fields import RichTextField
 from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField,AbstractFormSubmission
 from di_website.common.mixins import HeroMixin
 from di_website.common.base import hero_panels
-
+from di_website.contactus.utils import CustomFormBuilder
 
 import json
 from django.core.serializers.json import DjangoJSONEncoder
 
-CAPTCHA_FORM_FIELD = 'captcha'
-  
-class CustomFormSubmission(AbstractFormSubmission):
-    spam_post = models.BooleanField(default=False,)
+HONEYPOT_FORM_FIELD = 'captcha'
+
 
 class FormFields(AbstractFormField): 
     page = ParentalKey('ContactPage', on_delete=models.CASCADE, related_name='form_fields')
@@ -41,6 +39,8 @@ class ContactPage(HeroMixin,AbstractEmailForm):
 
     template = "contactus/contact_page.html"
 
+    form_fields = CustomFormBuilder
+
     intro = RichTextField(blank=True)
     thank_you_text = RichTextField(blank=True)
 
@@ -58,9 +58,6 @@ class ContactPage(HeroMixin,AbstractEmailForm):
         ], "Email"),
     ]
 
-    def get_submission_class(self):
-        return CustomFormSubmission
-
     def process_form_submission(self, form):
        # form_data = json.dumps(form.cleaned_data, cls=DjangoJSONEncoder)
         self.get_submission_class().objects.create(
@@ -77,21 +74,50 @@ class ContactPage(HeroMixin,AbstractEmailForm):
     def serve(self, request, *args, **kwargs):
         if request.method == 'POST':
             form = self.get_form(request.POST, request.FILES, page=self, user=request.user)
+           
+            """
+                Check if hidden field has been filled by robots, if its filled; then its spam, 
+                return the default form page to be refilled
+            """
+            try:
+                if  form.data[HONEYPOT_FORM_FIELD] != '':
+                    form = self.get_form(page=self, user=request.user)
+                    context = self.get_context(request)
+                    context['form'] = form
 
+                    return render(
+                        request,
+                        self.get_template(request),
+                        context
+                    )
+            except:
+                # If honeypot fails, form should be marked as possible spam
+                pass
+            
             errors = form.errors.as_data()
             if form.is_valid():
                 form_submission = self.process_form_submission(form)
+
                 return self.render_landing_page(request, form_submission, *args, **kwargs)
+            else:
+                context = self.get_context(request)
+                context['form'] = form
+
+                return render(
+                    request,
+                    self.get_template(request),
+                    context
+                )
 
         else:
             form = self.get_form(page=self, user=request.user)
 
-        context = self.get_context(request)
-        context['form'] = form
+            context = self.get_context(request)
+            context['form'] = form
 
-        return render(
-            request,
-            self.get_template(request),
-            context
-        )
+            return render(
+                request,
+                self.get_template(request),
+                context
+            )
 

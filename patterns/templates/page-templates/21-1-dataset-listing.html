@@ -20,7 +20,7 @@
 {# --------------------------------------- #}
 
 {% model 'cards', as="card" %}
-{% model 'slip', as="slip" %}
+{% model 'datasets', as="dataset" %}
 {% model 'navigation', as="navigation" %}
 
 {% import 'macros/button.html' as buttons %}
@@ -68,8 +68,8 @@
         <div class="row row--narrow">
             <h2 class="section__heading">Showing 1-16 of 518 datasets</h2>
             <div class="l-3up">
-                {% for item in slip.datasets %}
-                    {% include 'partials/slip.html' %}
+                {% for item in dataset.dataset_list %}
+                    {% include 'partials/dataset.html' %}
                 {% endfor %}
             </div>
             {% include 'partials/pagination.html' %}

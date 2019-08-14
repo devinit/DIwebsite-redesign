@@ -2,6 +2,7 @@ from wagtail.core.blocks import (
     BooleanBlock,
     CharBlock,
     ChoiceBlock,
+    DecimalBlock,
     ListBlock,
     PageChooserBlock,
     RichTextBlock,
@@ -15,6 +16,29 @@ from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.blocks import ImageChooserBlock
 
 from di_website.common.constants import RICHTEXT_FEATURES
+
+
+class LocationBlock(StructBlock):
+    """
+    Block to hold location
+    """
+    heading = CharBlock(required=False, help_text="E.g. 'UK'")
+    copy = CharBlock(required=False, help_text="E.g. 'North Quay House Quay Side, Temple Back Bristol, BS1 6FL, UK'")
+    contact = CharBlock(required=False, help_text="E.g. '+44 (0) 1179 272 505'")
+    longitude = DecimalBlock(required=False, max_digits=9, decimal_places=6)
+    latitude = DecimalBlock(required=False, max_digits=9, decimal_places=6)
+
+
+class ValueBlock(StructBlock):
+    """
+    A block for holding a single value.
+    """
+
+    title = CharBlock(icon="title", required=False)
+    excerpt = TextBlock(required=False)
+
+    class Meta:
+        template = 'blocks/value_block.html'
 
 
 class DocumentBoxBlock(StructBlock):
@@ -37,7 +61,7 @@ class DocumentBoxBlock(StructBlock):
 
 class DocumentBoxSectionBlock(StructBlock):
     """
-    A block for holding a document box, with a single header and multiple documents.
+    A block for holding multiple document boxes.
     """
     section_heading = TextBlock(required=False)
     section_sub_heading = TextBlock(required=False)
@@ -82,6 +106,7 @@ class LinkBlock(StructBlock):
 
     class Meta:
         icon = 'fa-link'
+        template = 'blocks/link_block.html'
 
 
 class BannerBlock(StructBlock):
@@ -144,4 +169,5 @@ class BaseStreamBlock(StreamBlock):
     block_quote = BlockQuote()
     section_block_quote = SectionBlockQuote()
     banner_block = BannerBlock()
+    button = LinkBlock()
     required = False

@@ -1,4 +1,6 @@
-from wagtail.admin.edit_handlers import StreamFieldPanel
+from django.db import models
+
+from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel, StreamFieldPanel
 from wagtail.core.fields import StreamField
 from wagtail.core.models import Page
 from wagtail.core.blocks import (
@@ -10,7 +12,7 @@ from wagtail.core.blocks import (
 from wagtail.images.blocks import ImageChooserBlock
 
 from di_website.common.base import hero_panels
-from di_website.common.blocks import DocumentBoxBlock, BaseStreamBlock
+from di_website.common.blocks import DocumentBoxBlock, BaseStreamBlock, ValueBlock, LocationBlock
 from di_website.common.mixins import BaseStreamBodyMixin, HeroMixin
 
 
@@ -40,13 +42,61 @@ class OurStoryPage(BaseStreamBodyMixin, HeroMixin, Page):
         null=True,
         blank=True
     )
+    other_pages_heading = models.CharField(
+        blank=True,
+        max_length=255,
+        verbose_name='Heading',
+        default='More about'
+    )
 
     content_panels = Page.content_panels + [
         hero_panels(),
         StreamFieldPanel('body'),
         StreamFieldPanel('timeline_items'),
         StreamFieldPanel('post_carousel_body'),
+        MultiFieldPanel([
+            FieldPanel('other_pages_heading'),
+            InlinePanel('other_pages', label='Related pages')
+        ], heading='Other Pages/Related Links')
     ]
 
     class Meta():
         verbose_name = 'Our Story Page'
+
+    parent_page_types = ['WhoWeArePage']
+
+
+class WhoWeArePage(BaseStreamBodyMixin, HeroMixin, Page):
+    subpage_types = ['OurStoryPage']
+
+    value_section_heading = models.CharField(blank=True, max_length=255)
+    value_section_sub_heading = models.TextField(blank=True)
+    values = StreamField([
+        ('value', ValueBlock()),
+    ], null=True, blank=True)
+    locations = StreamField([
+        ('location', LocationBlock()),
+    ], null=True, blank=True)
+
+    other_pages_heading = models.CharField(
+        blank=True,
+        max_length=255,
+        verbose_name='Heading',
+        default='More about'
+    )
+
+    content_panels = Page.content_panels + [
+        hero_panels(),
+        StreamFieldPanel('body'),
+        FieldPanel('value_section_heading'),
+        FieldPanel('value_section_sub_heading'),
+        StreamFieldPanel('values'),
+        StreamFieldPanel('locations'),
+        MultiFieldPanel([
+            FieldPanel('other_pages_heading'),
+            InlinePanel('other_pages', label='Related pages')
+        ], heading='Other Pages/Related Links')
+    ]
+
+    class Meta():
+        verbose_name = 'Who We Are Page'

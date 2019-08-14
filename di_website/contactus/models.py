@@ -7,7 +7,7 @@ from wagtail.admin.edit_handlers import (
     InlinePanel, MultiFieldPanel
 )
 from wagtail.core.fields import RichTextField
-from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField,AbstractFormSubmission
+from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField, AbstractFormSubmission
 from di_website.common.mixins import HeroMixin
 from di_website.common.base import hero_panels
 from di_website.contactus.utils import CustomFormBuilder
@@ -34,11 +34,11 @@ class FormFields(AbstractFormField):
         FieldPanel('placeholder'),
     ]
 
-"""
-    Contact Us form, to inherit the emailing functionality from wagtail, we'll use AbstractEmailForm
-"""
-class ContactPage(HeroMixin,AbstractEmailForm):
 
+class ContactPage(HeroMixin,AbstractEmailForm):
+    """
+        Contact Us form, to inherit the emailing functionality from wagtail, we'll use AbstractEmailForm
+    """
     template = "contactus/contact_page.html"
 
     form_fields = CustomFormBuilder

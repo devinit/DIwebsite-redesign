@@ -13,7 +13,7 @@
         <div class="max-meter">
             <div class="is-typeset">
                 {% if page.intro %}
-                    <p>{{page.intro|richtext}}</p>
+                    {{page.intro|richtext}}
                 {% endif %}
             </div>
             <div class="alert alert--success"><i role="presentation" aria-hidden="true" class="ico ico-success-success"></i>
@@ -27,3 +27,4 @@
 </section>
 {% include 'contactus/includes/contact_details.html' %}
 {% endblock %}
+

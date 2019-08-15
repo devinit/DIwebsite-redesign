@@ -1,6 +1,6 @@
 {% extends 'layouts/default.html' %}
 
-{% load wagtailcore_tags string_utils %}
+{% load static wagtailcore_tags wagtailimages_tags string_utils %}
 
 {% block hero %}
     {% include 'includes/heroes/hero.html' %}
@@ -15,33 +15,41 @@
 
                 <div class="l-sidebar__body">
                     <div class="is-typeset wysiwyg">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                        {% for block in page.body %}
+                            {% include_block block %}
+                        {% endfor %}
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="section">
-        <div class="row row--narrow">
-            <div class="banner">
-                <div class="l-banner">
-                    <div class="l-banner__aside">
-                        <div class="banner__media">
-                            <img src="/assets/img/pin.jpg" alt="alt tag">
+    {% if page.team_member_quote %}
+        <section class="section">
+            <div class="row row--narrow">
+                <div class="banner">
+                    <div class="l-banner">
+                        <div class="l-banner__aside">
+                            <div class="banner__media">
+                                {% if page.quote_owner.image %}
+                                    {% image page.quote_owner.image  fill-512x512-c100 as img %}
+                                        <img height="400px" width="400px" src="{{img.url}}" alt="{{img.alt}}">
+                                    {% else %}
+                                        <img height="400px" width="400px" src="{% static 'img/profile-fallback.jpg' %}" alt="Placeholder profile picture">
+                                {% endif %}
+                            </div>
                         </div>
-                    </div>
-                    <div class="l-banner__main">
-                        <p class="banner__excerpt">"The driving force behind our work is a passion for ending poverty. We want every penny intended to end poverty and build resilience to be directed and spent effectively so that every person has the opportunity to make meaningful choices that can improve their life in a lasting way. We know that finding a sustainable solution is complicated. So we are committed to uncovering evidence that will help all actors, from local to international, find new solutions that will lift vulnerable people permanently out of poverty and promote inclusion."</p>
-                        <span class="banner__meta">- Harpinder Collacott - Executive Director</span>
-                        <a href="#" class="button button--reverse">Meet the team</a>
-                        <a href="#" class="button button--reverse">Team stories</a>
+                        <div class="l-banner__main">
+                            <p class="banner__excerpt">"{{page.team_member_quote}}"</p>
+                            <span class="banner__meta">- {{page.quote_owner}} - {{page.quote_owner.position}}</span>
+                            <a href='{% pageurl page.team_page %}' class="button button--reverse">Meet the team</a>
+                            <a href='{% pageurl page.team_stories %}' class="button button--reverse">Team stories</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    {% endif %}
 
     <section class="section">
         <div class="row row--narrow">

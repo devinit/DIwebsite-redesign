@@ -75,7 +75,7 @@ class NewsIndexPage(HeroMixin, Page):
 
 class NewsStoryPage(BaseStreamBodyMixin, HeroMixin, Page):
     topics = ClusterTaggableManager(through=NewsTopic, blank=True)
-    press_release = models.BooleanField(default=False)
+    press_release = models.BooleanField(default=False, help_text="Should this page appear in the Media Center?")
 
     content_panels = Page.content_panels + [
         hero_panels(),
@@ -127,6 +127,9 @@ class ContactBlock(StructBlock):
 class PersonBlock(StructBlock):
     person = PageChooserBlock(page_type="ourteam.TeamMemberPage", required=False)
 
+    class Meta:
+        template = "blocks/person_block.html"
+
 
 class MediaCenterPage(BaseStreamBodyMixin, HeroMixin, Page):
     contact_box = StreamField([
@@ -156,6 +159,6 @@ class MediaCenterPage(BaseStreamBodyMixin, HeroMixin, Page):
     content_panels = Page.content_panels + [
         hero_panels(),
         StreamFieldPanel('contact_box'),
-        StreamFieldPanel('spokespeople'),
         StreamFieldPanel('body'),
+        StreamFieldPanel('spokespeople'),
     ]

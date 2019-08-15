@@ -6,6 +6,18 @@ from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, PageChooserPanel, StreamFieldPanel
+from wagtail.core.blocks import (
+    BooleanBlock,
+    CharBlock,
+    ChoiceBlock,
+    ListBlock,
+    PageChooserBlock,
+    RichTextBlock,
+    StreamBlock,
+    StructBlock,
+    TextBlock,
+    URLBlock
+)
 from wagtail.core.fields import StreamField, RichTextField
 from wagtail.core.models import Page
 
@@ -63,9 +75,11 @@ class NewsIndexPage(HeroMixin, Page):
 
 class NewsStoryPage(BaseStreamBodyMixin, HeroMixin, Page):
     topics = ClusterTaggableManager(through=NewsTopic, blank=True)
+    press_release = models.BooleanField(default=False)
 
     content_panels = Page.content_panels + [
         hero_panels(),
+        FieldPanel('press_release'),
         FieldPanel('topics'),
         StreamFieldPanel('body'),
         InlinePanel('news_related_links', label="Related links", max_num=MAX_RELATED_LINKS)
@@ -101,4 +115,47 @@ class NewsPageRelatedLink(OtherPageMixin):
 
     panels = [
         PageChooserPanel('other_page', ['news.NewsStoryPage', 'blog.BlogArticlePage'])
+    ]
+
+
+class ContactBlock(StructBlock):
+    name = CharBlock(required=False)
+    telephone = CharBlock(required=False)
+    email = CharBlock(required=False)
+
+
+class PersonBlock(StructBlock):
+    person = PageChooserBlock(page_type="ourteam.TeamMemberPage", required=False)
+
+
+class MediaCenterPage(BaseStreamBodyMixin, HeroMixin, Page):
+    contact_box = StreamField([
+        ('contact', ContactBlock())
+    ], null=True, blank=True)
+    spokespeople = StreamField([
+        ('spokesperson', PersonBlock())
+    ], null=True, blank=True)
+
+    def get_context(self, request):
+        context = super(MediaCenterPage, self).get_context(request)
+        page = request.GET.get('page', None)
+        news_stories = NewsStoryPage.objects.live().filter(press_release=True)
+
+        paginator = Paginator(news_stories, MAX_PAGE_SIZE)
+        try:
+            context['stories'] = paginator.page(page)
+        except PageNotAnInteger:
+            context['stories'] = paginator.page(1)
+        except EmptyPage:
+            context['stories'] = paginator.page(paginator.num_pages)
+
+        context['paginator_range'] = get_paginator_range(paginator, context['stories'])
+
+        return context
+
+    content_panels = Page.content_panels + [
+        hero_panels(),
+        StreamFieldPanel('contact_box'),
+        StreamFieldPanel('spokespeople'),
+        StreamFieldPanel('body'),
     ]

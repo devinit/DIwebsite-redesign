@@ -26,9 +26,13 @@
         margin-top: 2em;
         background-color: #fff;
     }
+    &--spacing {
+        margin-bottom: 1em;
+    }
 }
 
 a.m-author {
+    display: block;
     transition: all, ease-in-out, 0.3s;
     @include link-active-styles {
         background-color: darken($poppy-dark, 5%);

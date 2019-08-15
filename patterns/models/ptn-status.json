@@ -162,5 +162,9 @@
 	{
 		"name": "21-1-dataset-listing",
 		"stage": "Template"
+	},
+	{
+		"name": "21-2-dataset-single",
+		"stage": "Template"
 	}
 ]

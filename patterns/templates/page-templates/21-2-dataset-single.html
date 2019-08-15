@@ -1,0 +1,103 @@
+{# 1. Extend the relevant layout #}
+{# --------------------------------------- #}
+
+{% extends 'default.html' %}
+
+
+{# --------------------------------------- #}
+{# 2. Assign Settings and variables #}
+{# --------------------------------------- #}
+
+{% set id = "data" %}
+{% set section = "Data" %}
+{% set title = "Domestic resources vs international finance flows in developing countries" %}
+{% set excerpt = "(Optional) Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis commodo mattis nisi eu adipiscing." %}
+{% set image_name = "Pin-at-Open-Up-conference-2-1600x780.jpg" %}
+
+{# --------------------------------------- #}
+{# 3. Add models and macros #}
+{# --------------------------------------- #}
+
+{% model 'cards', as="card" %}
+{% model 'navigation', as="navigation" %}
+
+{% import 'macros/icon.html' as icons %}
+{% import 'macros/alert.html' as alerts %}
+{% import 'macros/secondary-navigation.html' as secondary_navigation %}
+
+
+{# --------------------------------------- #}
+{#
+   4. Add page content into relevant areas
+      Add/Delete blocks as necessary
+#}
+{# --------------------------------------- #}
+
+{% block body %}
+    {% include 'heroes/hero-dataset.html' %}
+
+    <section class="section">
+        <div class="row row--narrow">
+            <div class="l-sidebar">
+                <aside class="l-sidebar__aside">
+                    <div class="aside aside--clipping">
+                        {{ secondary_navigation.active(active_page, section, navigation.secondary_data) }}
+                    </div>
+                </aside>
+                <div class="l-sidebar__body">
+                    <div class="is-typeset wysiwyg">
+                        <p><strong>Release date: 1.1.2018</strong></p>
+                        <p>Data in US$ billions. Data is for the most recent available year across all categories.</p>
+                    </div>
+                    <span class="alert alert--notice"><i role="presentation" aria-hidden="true" class="ico ico-warning-warning"></i>There is a more up to date version of this data: <a href="#">Dataset title</a></span>
+
+                    <div class="l-2up space-section-top">
+                        <div class="l-2up__col">
+                            <div class="button button--faux button--icon">
+                                {{ icons.icon('ico-download-poppy', '24') }}
+                                <span class="button--faux__meta">Download</span>
+                                <ul class="button--faux__list">
+                                    <li><a href="#">Filename - XLS 1.8mb</a></li>
+                                    <li><a href="#">Filename - CSV 1.8mb</a></li>
+                                </ul>
+                                <p class="button--faux__note">XLS files contain the dataset, metadata and charts / images</p>
+                                <p class="button--faux__note">CSV files contain the raw dataset</p>
+                            </div>
+                        </div>
+                        <div class="l-2up__col">
+                            <a href="#" class="m-author m-author--spacing">
+                                <div class="m-author__image">
+                                    <img src="{{ global.assets_root }}/img/profile2sq.jpg" alt="alt tag">
+                                </div>
+                                <div class="m-author__body">
+                                    <h3 class="m-author__title">Analysis by Emily Underhill</h3>
+                                    <p class="m-author__job">Senior Analyst</p>
+                                </div>
+                            </a>
+                            <p class="para">Contact <a href="#">data@devinit.org</a> if you have any queries about this dataset or other data related matters.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <h2 class="section__heading">Metadata</h2>
+            {% include 'partials/tabs.html' %}
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <h2 class="section__heading">More about</h2>
+            <div class="l-4up">
+                {% for item in card.data %}
+                    {% include 'cards/card-cta.html' %}
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

@@ -50,7 +50,7 @@
             </div>
         </div>
     </section>
-
+{% if stories %}
     <section class="section">
         <div class="row row--narrow">
           <h2 class="section__heading">Press releases</h2>
@@ -62,4 +62,5 @@
             {% include "includes/scaffold/pagination.html" with children=stories %}
         </div>
     </section>
+  {% endif %}
 {% endblock %}

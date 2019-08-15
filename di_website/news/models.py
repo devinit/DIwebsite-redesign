@@ -7,16 +7,9 @@ from modelcluster.fields import ParentalKey
 
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, PageChooserPanel, StreamFieldPanel
 from wagtail.core.blocks import (
-    BooleanBlock,
     CharBlock,
-    ChoiceBlock,
-    ListBlock,
     PageChooserBlock,
-    RichTextBlock,
-    StreamBlock,
     StructBlock,
-    TextBlock,
-    URLBlock
 )
 from wagtail.core.fields import StreamField, RichTextField
 from wagtail.core.models import Page

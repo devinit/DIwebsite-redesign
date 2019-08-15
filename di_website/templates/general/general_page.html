@@ -1,0 +1,207 @@
+{% extends 'layouts/default.html' %}
+
+{% load wagtailcore_tags string_utils %}
+
+{% block hero %}
+    {% include 'includes/heroes/hero.html' %}
+{% endblock hero %}
+
+{% block body %}
+    <section class="section">
+        <div class="row row--narrow">
+            <div class="l-sidebar">
+                
+                {% include 'includes/partials/side_nav.html'%}
+
+                <div class="l-sidebar__body">
+                    <div class="is-typeset wysiwyg">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <div class="banner">
+                <div class="l-banner">
+                    <div class="l-banner__aside">
+                        <div class="banner__media">
+                            <img src="/assets/img/pin.jpg" alt="alt tag">
+                        </div>
+                    </div>
+                    <div class="l-banner__main">
+                        <p class="banner__excerpt">"The driving force behind our work is a passion for ending poverty. We want every penny intended to end poverty and build resilience to be directed and spent effectively so that every person has the opportunity to make meaningful choices that can improve their life in a lasting way. We know that finding a sustainable solution is complicated. So we are committed to uncovering evidence that will help all actors, from local to international, find new solutions that will lift vulnerable people permanently out of poverty and promote inclusion."</p>
+                        <span class="banner__meta">- Harpinder Collacott - Executive Director</span>
+                        <a href="#" class="button button--reverse">Meet the team</a>
+                        <a href="#" class="button button--reverse">Team stories</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <div class="max-meter">
+                <div class="is-typeset wysiwyg">
+                    <h2>Don't forget:</h2>
+<ol>
+   <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
+   <li>Aliquam tincidunt mauris eu risus.
+    <ol>
+        <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
+        <li>Aliquam tincidunt mauris eu risus.</li>
+    </ol>
+    </li>
+   <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
+   <li>Aliquam tincidunt mauris eu risus.
+</ol>
+<h3>A sub heading which is not as important as the first, but is quite imporant overall</h3>
+<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <div class="duo">
+                <div class="duo__media">
+                    <img src="/assets/img/UNAMID-20140304-Albert-Gonzalez-Farran-WFPNutritionTawilla-0-800x500.jpg" alt="alt tag">
+                    <span class="duo__credit">Image by <a href="#">Credit name</a></span>
+                </div>
+                <div class="duo__main">
+                    <div class="is-typeset">
+                        <h2>Heading</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <h3>Heading</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <div class="duo">
+                <div class="duo__media">
+                    <div class="media-wrapper">
+                        <iframe src="https://player.vimeo.com/video/71385845?color=c9ff23&title=0&byline=0&portrait=0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                    </div>
+                </div>
+                <div class="duo__main">
+                    <div class="is-typeset">
+                        <h2>Heading</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <h3>Heading</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <div class="media-figure">
+                <img src="/assets/img/content-image1.jpg" alt="alt">
+                <span class="media-figure__credit">Image by <a href="#">Credit name</a></span>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section--alt">
+        <div class="row row--narrow">
+            <h2 class="section__heading">Downloads</h2>
+            <div class="is-typeset max-meter">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            </div>
+            <div class="l-3up">
+                <div class="l-3up__col">
+                    <div class="button button--faux button--icon">
+                        <i role="presentation" aria-hidden="true" class="ico ico--24 ico-download-poppy"></i>
+                        <span class="button--faux__meta">Download</span>
+                        <h3 class="button--faux__heading">Impact 2017 report</h3>
+                        <ul class="button--faux__list">
+                            <li><a href="#">PDF 1.8mb</a></li>
+                            <li><a href="#">Docx 1.8mb</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="l-3up__col">
+                    <div class="button button--faux button--icon">
+                        <i role="presentation" aria-hidden="true" class="ico ico--24 ico-download-poppy"></i>
+                        <span class="button--faux__meta">Download</span>
+                        <h3 class="button--faux__heading">Impact 2017 report</h3>
+                        <ul class="button--faux__list">
+                            <li><a href="#">PDF 1.8mb</a></li>
+                            <li><a href="#">Docx 1.8mb</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="l-3up__col">
+                    <div class="button button--faux button--icon">
+                        <i role="presentation" aria-hidden="true" class="ico ico--24 ico-download-poppy"></i>
+                        <span class="button--faux__meta">Download</span>
+                        <h3 class="button--faux__heading">Impact 2017 report</h3>
+                        <ul class="button--faux__list">
+                            <li><a href="#">PDF 1.8mb</a></li>
+                            <li><a href="#">Docx 1.8mb</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <h2 class="section__heading">More about</h2>
+            <div class="l-4up">
+                
+                    <a href="#" class="card">
+    <div class="card__media" style="background-image: url(/assets/img/Pin-at-Open-Up-conference-2-400x250.jpg);"></div>
+    <div class="card__body">
+        <h3 class="card__title"><span>Who we are</span></h3>
+    </div>
+</a>
+
+                
+                    <a href="#" class="card">
+    <div class="card__media" style="background-image: url(/assets/img/Still-400x250.jpg);"></div>
+    <div class="card__body">
+        <h3 class="card__title"><span>Our Story</span></h3>
+    </div>
+</a>
+
+                
+                    <a href="#" class="card">
+    <div class="card__media" style="background-image: url(/assets/img/20180323-JonCraig_Photos-07778606070-33-400x250.jpg);"></div>
+    <div class="card__body">
+        <h3 class="card__title"><span>Meet the team</span></h3>
+    </div>
+</a>
+
+                
+                    <a href="#" class="card">
+    <div class="card__media" style="background-image: url(/assets/img/P1077725-400x250.jpg);"></div>
+    <div class="card__body">
+        <h3 class="card__title"><span>What we do</span></h3>
+    </div>
+</a>
+
+                
+            </div>
+        </div>
+    </section>
+
+
+			
+        </main>
+{% endblock %}

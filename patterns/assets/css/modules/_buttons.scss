@@ -92,6 +92,12 @@ button.button {
 			}
 		}
 	}
+	&__note {
+		color: $base-color;
+		margin-top: 1em;
+		line-height: 1.2;
+		@include font-size($zeta + 1);
+	}
 	&:hover {
 		background-color: transparent;
 	}

@@ -1,0 +1,126 @@
+// ------------------------------------------------------------
+// Accordian / tabs
+// ------------------------------------------------------------
+
+.responsive-tabs {
+	.resp-accordian__heading {
+	    cursor: pointer;
+	    display: none;
+	}
+
+	.js & .resp-tab-content {
+	    display: none;
+	}
+
+	.resp-content-active, .resp-tab-content-active, .resp-accordion-active {
+	    display: block;
+	}
+
+	@include respond-to-max($c-vp) {
+		.resp-tabs-list {
+			display: none;
+		}
+
+		.resp-accordian__heading {
+			display: block;
+		}
+		.resp-accordion-closed {
+			display:none !important;
+		}
+	}
+
+	//tabs
+	.tab__list {
+		@extend %pie-clearfix;
+	}
+
+	.tab__item {
+		a {
+			display:block;
+			padding: $internal-spacing;
+			color: $base-color;
+			text-decoration: none;
+			@include link-active-styles {
+				color: $poppy-dark;
+			}
+		}
+		&.resp-tab-active a {
+			color: $poppy-dark;
+		}
+		@include respond-to($c-vp) {
+			float: left;
+			display:inline-block;
+			a {
+				display: inline-block;
+			}
+		}
+		.no-js & {
+			display: none;
+		}
+	}
+
+	.tab__icon a {
+		&:before {
+			content: ".";
+			text-indent: -9999em;
+			background-size: contain;
+			height: 15px;
+			width: 15px;
+			display: inline-block;
+			float: left;
+			margin-right: $internal-spacing*0.5;
+			padding-top: 1.25em;
+		}
+	}
+
+	.resp-tab-content {
+		padding: $internal-spacing;
+		@extend %pie-clearfix;
+		.as-wysiwyg p:first-of-type{
+			color: $base-color;
+			@include font-size($zeta);
+		}
+	}
+
+	.tab__aside {
+		.js{
+			@include respond-to($c-vp) {
+				float: right;
+				width: 35%;
+			}
+		}
+	}
+
+	//accordian headings
+	.resp-accordian__heading {
+		position: relative;
+		a {
+			display:block;
+			padding: $internal-spacing;
+			color: $base-color;
+			text-decoration: none;
+			@include link-active-styles {
+				color: $poppy-dark;
+			}
+		}
+	}
+
+	.resp-arrow {
+		position: absolute;
+		top: 40%;
+		right: $internal-spacing-percent;
+	    border-left: 6px solid transparent;
+	    border-right: 6px solid transparent;
+	    border-top: 12px solid $slate;
+	}
+
+	.resp-tab-active {
+		background: #fff;
+		& .resp-arrow {
+			border: none;
+			border-left: 6px solid transparent;
+			border-right: 6px solid transparent;
+			border-bottom: 12px solid $slate;
+	    }
+	}
+}

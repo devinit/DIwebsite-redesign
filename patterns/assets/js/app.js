@@ -13,6 +13,7 @@ import sectionSharing from './utils/sectionSharing';
 import copyText from './utils/copyText';
 import chapterNav from './utils/chapterNav';
 import './libs/slick';
+import './libs/jquery.responsiveTabs';
 
 function globals () {
 
@@ -121,6 +122,12 @@ function globals () {
                 settings: { slidesToShow: 12 }
             }
         ]
+    });
+
+    // Tabs
+    // https://github.com/jellekralt/Responsive-Tabs
+    $('#responsive-tabs').responsiveTabs({
+        startCollapsed: 'accordion'
     });
 }
 

@@ -13,7 +13,7 @@ from wagtail.images.blocks import ImageChooserBlock
 
 from di_website.common.base import hero_panels
 from di_website.common.blocks import DocumentBoxBlock, BaseStreamBlock, ValueBlock, LocationBlock
-from di_website.common.mixins import BaseStreamBodyMixin, HeroMixin
+from di_website.common.mixins import BaseStreamBodyMixin, HeroMixin, SectionBodyMixin, TypesetBodyMixin
 
 
 class TimelineItemBlock(StructBlock):
@@ -66,7 +66,7 @@ class OurStoryPage(BaseStreamBodyMixin, HeroMixin, Page):
     parent_page_types = ['WhoWeArePage']
 
 
-class WhoWeArePage(BaseStreamBodyMixin, HeroMixin, Page):
+class WhoWeArePage(SectionBodyMixin, TypesetBodyMixin, HeroMixin, Page):
     subpage_types = ['OurStoryPage']
 
     value_section_heading = models.CharField(blank=True, max_length=255)
@@ -88,6 +88,7 @@ class WhoWeArePage(BaseStreamBodyMixin, HeroMixin, Page):
     content_panels = Page.content_panels + [
         hero_panels(),
         StreamFieldPanel('body'),
+        StreamFieldPanel('sections'),
         FieldPanel('value_section_heading'),
         FieldPanel('value_section_sub_heading'),
         StreamFieldPanel('values'),

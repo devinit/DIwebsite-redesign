@@ -26,6 +26,10 @@
     </div>
   </section>
 
+  {% for section in page.sections %}
+    {% include_block section %}
+  {% endfor %}
+
   <section class="section">
     <div class="row row--narrow">
       <h2 class="section__heading">{{ self.value_section_heading|default_if_none:"" }}</h2>

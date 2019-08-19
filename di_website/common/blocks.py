@@ -184,3 +184,30 @@ class BaseStreamBlock(StreamBlock):
     button_block = ButtonBlock()
     link_block = LinkBlock()
     required = False
+
+
+class TypesetStreamBlock(StreamBlock):
+    """
+    The custom blocks that can be used under an element with the typeset class (not sections)
+    """
+    paragraph_block = RichTextBlock(
+        icon='fa-paragraph',
+        template='blocks/paragraph_block.html',
+        features=RICHTEXT_FEATURES
+    )
+    block_quote = BlockQuote()
+    button_block = ButtonBlock()
+    link_block = LinkBlock()
+
+    required = False
+
+
+class SectionStreamBlock(StreamBlock):
+    """
+    The custom blocks that can be rendered as independent sections on a page
+    """
+    paragraph_block = SectionParagraphBlock()
+    block_quote = SectionBlockQuote()
+    banner_block = BannerBlock()
+
+    required = False

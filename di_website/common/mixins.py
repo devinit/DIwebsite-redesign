@@ -14,7 +14,7 @@ from wagtail.snippets.models import register_snippet
 
 from modelcluster.fields import ParentalKey
 
-from .blocks import BaseStreamBlock
+from .blocks import BaseStreamBlock, SectionStreamBlock, TypesetStreamBlock
 
 
 class HeroMixin(models.Model):
@@ -82,6 +82,30 @@ class BaseStreamBodyMixin(models.Model):
     body = StreamField(
         BaseStreamBlock(),
         verbose_name="Page Body",
+        null=True,
+        blank=True
+    )
+
+    class Meta:
+        abstract = True
+
+
+class TypesetBodyMixin(models.Model):
+    body = StreamField(
+        TypesetStreamBlock(),
+        verbose_name="Page Body",
+        null=True,
+        blank=True
+    )
+
+    class Meta:
+        abstract = True
+
+
+class SectionBodyMixin(models.Model):
+    sections = StreamField(
+        SectionStreamBlock(),
+        verbose_name="Sections",
         null=True,
         blank=True
     )

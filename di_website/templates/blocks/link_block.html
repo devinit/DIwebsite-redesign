@@ -1,0 +1,15 @@
+{% load wagtailcore_tags %}
+
+{% if self.page %}
+  <a href="{% pageurl self.page %}">
+    {% if self.caption %}
+      {{ self.caption }}
+    {% else %}
+      {{ self.page.title }}
+    {% endif %}
+  </a>
+{% elif self.url %}
+    <a href="{{ self.url }}">
+      {{ self.caption }}
+    </a>
+{% endif %}

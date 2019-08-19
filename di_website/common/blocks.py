@@ -99,14 +99,26 @@ class SectionBlockQuote(StructBlock):
         template = 'blocks/section_blockquote.html'
 
 
-class LinkBlock(StructBlock):
+class AbstractLinkBlock(StructBlock):
     caption = CharBlock(required=False)
     url = URLBlock(required=False)
     page = PageChooserBlock(required=False)
 
     class Meta:
         icon = 'fa-link'
+        abstract = True
+
+
+class LinkBlock(AbstractLinkBlock):
+    class Meta:
+        icon = 'fa-link'
         template = 'blocks/link_block.html'
+
+
+class ButtonBlock(AbstractLinkBlock):
+    class Meta:
+        icon = 'fa-link'
+        template = 'blocks/button_block.html'
 
 
 class BannerBlock(StructBlock):
@@ -169,5 +181,6 @@ class BaseStreamBlock(StreamBlock):
     block_quote = BlockQuote()
     section_block_quote = SectionBlockQuote()
     banner_block = BannerBlock()
-    button = LinkBlock()
+    button_block = ButtonBlock()
+    link_block = LinkBlock()
     required = False

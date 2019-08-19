@@ -74,9 +74,6 @@ class WhoWeArePage(SectionBodyMixin, TypesetBodyMixin, HeroMixin, Page):
     values = StreamField([
         ('value', ValueBlock()),
     ], null=True, blank=True)
-    locations = StreamField([
-        ('location', LocationBlock()),
-    ], null=True, blank=True)
 
     other_pages_heading = models.CharField(
         blank=True,
@@ -92,7 +89,6 @@ class WhoWeArePage(SectionBodyMixin, TypesetBodyMixin, HeroMixin, Page):
         FieldPanel('value_section_heading'),
         FieldPanel('value_section_sub_heading'),
         StreamFieldPanel('values'),
-        StreamFieldPanel('locations'),
         MultiFieldPanel([
             FieldPanel('other_pages_heading'),
             InlinePanel('other_pages', label='Related pages')

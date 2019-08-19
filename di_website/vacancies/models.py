@@ -31,6 +31,27 @@ class OfficeLocation(models.Model):
         max_length=100,
         help_text='e.g. Bristol, UK | Kampala, UG | Nairobi, KE'
     )
+    address = models.TextField(
+        blank=True,
+        help_text="E.g. 'North Quay House Quay Side, Temple Back Bristol, BS1 6FL, UK'"
+    )
+    contact = models.CharField(
+        blank=True,
+        max_length=255,
+        help_text="E.g. '+44 (0) 1179 272 505'"
+    )
+    longitude = models.DecimalField(
+        null=True,
+        blank=True,
+        max_digits=9,
+        decimal_places=6
+    )
+    latitude = models.DecimalField(
+        null=True,
+        blank=True,
+        max_digits=9,
+        decimal_places=6
+    )
 
     class Meta():
         db_table = 'office_location'

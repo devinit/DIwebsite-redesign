@@ -30,49 +30,52 @@
     {% include_block section %}
   {% endfor %}
 
-  <section class="section">
-    <div class="row row--narrow">
-      <h2 class="section__heading">{{ self.value_section_heading|default_if_none:"" }}</h2>
-      <div class="is-typeset">
-        <p>{{ self.value_section_sub_heading|default_if_none:"" }}</p>
+  {% if self.values %}
+    <section class="section">
+      <div class="row row--narrow">
+        <h2 class="section__heading">{{ self.value_section_heading|default_if_none:"" }}</h2>
+        <div class="is-typeset">
+          <p>{{ self.value_section_sub_heading|default_if_none:"" }}</p>
+        </div>
+        <div class="l-3up">
+          {% for value in self.values %}
+            <div class="l-3up__col">
+              {% include_block value %}
+            </div>
+          {% endfor %}
+        </div>
       </div>
-      <div class="l-3up">
-        {% for value in self.values %}
-          <div class="l-3up__col">
-            {% include_block value %}
-          </div>
-        {% endfor %}
-      </div>
-    </div>
-  </section>
+    </section>
+  {% endif %}
 
-  {% if self.locations %}
+  {% get_office_locations as locations %}
+  {% if locations %}
     <section class="section">
       <div class="row row--narrow">
         <h2 class="section__heading">Our offices</h2>
         <div class="media-map">
           <div id="map" class="media-map__location" data-latlng="25.453669,-55.585922">
-            {% for location in self.locations %}
-              {% if location.value.latitude %}
+            {% for location in locations %}
+              {% if location.latitude %}
                 <div class="media-map__location__point"
-                  data-latlng="{{ location.value.latitude }}, {{ location.value.longitude }}"
-                  data-title="{{ location.value.heading }}" data-desc="{{ location.value.copy }}"
-                  data-tel="{{ location.value.contact }}" data-email="" data-web=""></div>
+                  data-latlng="{{ location.latitude }}, {{ location.longitude }}"
+                  data-title="{{ location.location }}" data-desc="{{ location.address }}"
+                  data-tel="{{ location.contact }}" data-email="" data-web=""></div>
               {% endif %}
             {% endfor %}
           </div>
         </div>
         <div class="l-4up space-section-top">
-          {% for location in self.locations %}
+          {% for location in locations %}
             <div class="location">
-              {% if location.value.heading %}
-                <h3 class="location__heading">{{ location.value.heading }}</h3>
+              {% if location.location %}
+                <h3 class="location__heading">{{ location.location }}</h3>
               {% endif %}
-              {% if location.value.copy %}
-                <p class="location__copy">{{ location.value.copy }}</p>
+              {% if location.address %}
+                <p class="location__copy">{{ location.address }}</p>
               {% endif %}
-              {% if location.value.contact %}
-                <span class="location__contact">{{ location.value.contact }}</span>
+              {% if location.contact %}
+                <span class="location__contact">{{ location.contact }}</span>
               {% endif %}
             </div>
           {% endfor %}

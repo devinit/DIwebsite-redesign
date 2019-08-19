@@ -1,0 +1,45 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+<section class="section">
+    <div class="row row--narrow">
+        <h2 class="section__heading">DI has achieved much over the past 20 years.</h2>
+        <div class="is-typeset">
+            <p>Here is our story so far...</p>
+        </div>
+        <div class="carousel">
+            <div class="slider timeline" id="timeline-control">
+                {% for item in self %}
+                  <div class="timeline__item">
+                    <span>
+                      <span class="timeline__item__month">{{ item.value.month }}</span><span class="timeline__item__year">{{ item.value.year }}</span>
+                    </span>
+                  </div>
+                {% endfor %}
+
+            </div>
+            <div class="slider highlight" id="timeline-slide">
+                {% for item in self %}
+                    <div class="l-highlight" id="{{ item.value.month }}{{ item.value.year }}">
+                        <div class="l-highlight__main">
+                            <span class="highlight__flag">{{ item.value.month }} {{ item.value.year }}</span>
+                            <h3 class="highlight__heading">{{ item.value.title }}</h3>
+                            <div class="is-typeset">
+                                {{ item.value.text|richtext }}
+                            </div>
+                            {% if item.value.documents.documents %}
+                              {% include_block item.value.documents %}
+                            {% endif %}
+                        </div>
+                        {% if item.value.image %}
+                          <div class="l-highlight__aside">
+                            {% image item.value.image max-400x250 as timeline_img %}
+                              <div class="highlight__media">
+                                  <img src="{{ timeline_img.url }}" alt="{{ timeline_img.alt }}">
+                              </div>
+                          </div>
+                        {% endif %}
+                    </div>
+                  {% endfor %}
+              </div>
+          </div>
+      </div>
+  </section>

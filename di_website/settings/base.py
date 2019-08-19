@@ -36,7 +36,7 @@ INSTALLED_APPS = [
     'di_website.events',
     'di_website.place',
     'di_website.contactus',
-    'widget_tweaks',
+    'di_website.about',
 
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'modelcluster',
     'taggit',
     'wagtailfontawesome',
+    'widget_tweaks',
 
     'django.contrib.admin',
     'django.contrib.auth',

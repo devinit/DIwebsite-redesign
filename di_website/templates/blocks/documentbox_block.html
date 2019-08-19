@@ -1,0 +1,14 @@
+<div class="button {% if self.dark_mode %}button--reverse{% endif %} button--faux button--icon">
+    <i role="presentation" aria-hidden="true" class="ico ico--24 {% if self.dark_mode %}ico-download-blank{% else %}ico-download-poppy{% endif %}"></i>
+    <span class="button--faux__meta">Download</span>
+        <h3 class="button--faux__heading">{{ self.box_heading }}</h3>
+        <ul class="button--faux__list">
+          {% for doc in self.documents %}
+            <li>
+              <a href="{{ doc.value.url }}">
+                {{ doc.value.title }} {{ doc.value.file_extension|upper }} {{ doc.value.file.size|filesizeformat }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+</div>

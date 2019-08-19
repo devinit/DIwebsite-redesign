@@ -1,5 +1,7 @@
 from django import template
 
+from di_website.vacancies.models import OfficeLocation
+
 
 register = template.Library()
 
@@ -17,3 +19,9 @@ def get_other_pages(context, calling_page=None, heading='Other pages in this sec
         'other_pages': other_pages,
         'request': context['request']
     }
+
+
+@register.simple_tag
+def get_office_locations():
+    locations = OfficeLocation.objects.all()
+    return locations

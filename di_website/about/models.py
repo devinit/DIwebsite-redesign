@@ -13,7 +13,7 @@ from wagtail.images.blocks import ImageChooserBlock
 
 from di_website.common.base import hero_panels
 from di_website.common.blocks import DocumentBoxBlock, BaseStreamBlock, ValueBlock, LocationBlock
-from di_website.common.mixins import BaseStreamBodyMixin, HeroMixin, SectionBodyMixin, TypesetBodyMixin
+from di_website.common.mixins import HeroMixin, SectionBodyMixin, TypesetBodyMixin
 
 
 class TimelineItemBlock(StructBlock):
@@ -26,22 +26,16 @@ class TimelineItemBlock(StructBlock):
 
 
 class TimelineCarouselStreamBlock(StreamBlock):
-    items = TimelineItemBlock()
+    item = TimelineItemBlock()
     required = False
 
     class Meta():
         template = 'blocks/timeline_carousel.html'
 
 
-class OurStoryPage(BaseStreamBodyMixin, HeroMixin, Page):
+class OurStoryPage(SectionBodyMixin, TypesetBodyMixin, HeroMixin, Page):
 
     timeline_items = StreamField(TimelineCarouselStreamBlock)
-    post_carousel_body = StreamField(
-        BaseStreamBlock(),
-        verbose_name="Page Body",
-        null=True,
-        blank=True
-    )
     other_pages_heading = models.CharField(
         blank=True,
         max_length=255,
@@ -53,7 +47,7 @@ class OurStoryPage(BaseStreamBodyMixin, HeroMixin, Page):
         hero_panels(),
         StreamFieldPanel('body'),
         StreamFieldPanel('timeline_items'),
-        StreamFieldPanel('post_carousel_body'),
+        StreamFieldPanel('sections'),
         MultiFieldPanel([
             FieldPanel('other_pages_heading'),
             InlinePanel('other_pages', label='Related pages')

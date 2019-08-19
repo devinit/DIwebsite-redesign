@@ -1,14 +1,11 @@
 from django import forms
-from wagtail.contrib.forms.forms import FormBuilder
+
+class HubSpotHelper:
+    """
+        Helper methods to help post forms to HubSpot CRM
+    """
+    pass
 
 
-class CustomFormBuilder(FormBuilder):
-    
-    @property
-    def formfields(self):
-        fields = super().formfields
 
-        fields['captcha'] = forms.CharField()
-
-        return fields
 

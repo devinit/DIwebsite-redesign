@@ -46,11 +46,15 @@ class DocumentBoxBlock(StructBlock):
     A block for holding a document box, with a single header and multiple documents.
     """
 
-    document_box_heading = CharBlock(icon="title", required=False)
+    box_heading = CharBlock(icon="title", required=False)
     documents = StreamBlock([
         ('document', DocumentChooserBlock()),
     ], required=False)
-    dark_mode = BooleanBlock(default=False, required=False, help_text="Red on white if unchecked. White on dark grey if checked.")
+    dark_mode = BooleanBlock(
+        default=False,
+        required=False,
+        help_text="Red on white if unchecked. White on dark grey if checked."
+    )
 
     DocumentChooserBlock(icon="doc-full-inverse", required=False)
 

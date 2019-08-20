@@ -125,6 +125,22 @@ class ButtonBlock(AbstractLinkBlock):
         template = 'blocks/button_block.html'
 
 
+class ImageBlock(StructBlock):
+    image = ImageChooserBlock(required=True)
+    credit_name = CharBlock(
+        required=False,
+        help_text='Name of the image source'
+    )
+    credit_url = URLBlock(
+        required=False,
+        help_text='URL of the image source'
+    )
+
+    class Meta:
+        icon = 'fa-image'
+        template = 'blocks/image_block.html'
+
+
 class BannerBlock(StructBlock):
     image = ImageChooserBlock(required=False)
     video = EmbedBlock(
@@ -202,6 +218,7 @@ class TypesetStreamBlock(StreamBlock):
     block_quote = BlockQuote()
     button_block = ButtonBlock()
     link_block = LinkBlock()
+    image = ImageBlock()
 
     required = False
 

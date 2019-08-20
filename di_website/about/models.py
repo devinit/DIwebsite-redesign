@@ -12,7 +12,7 @@ from wagtail.core.blocks import (
 from wagtail.images.blocks import ImageChooserBlock
 
 from di_website.common.base import hero_panels
-from di_website.common.blocks import DocumentBoxBlock, BaseStreamBlock, ValueBlock, LocationBlock
+from di_website.common.blocks import DocumentBoxBlock, BaseStreamBlock, ValueBlock
 from di_website.common.mixins import HeroMixin, SectionBodyMixin, TypesetBodyMixin
 
 

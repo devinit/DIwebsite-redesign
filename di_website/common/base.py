@@ -2,10 +2,8 @@ from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.snippets.models import register_snippet
 from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, PageChooserPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
-
 from .mixins import BaseDownloadMixin
-
-
+    
 def hero_panels():
     """
     Called when creating page content_panels for pages that require a Hero
@@ -35,3 +33,14 @@ def get_paginator_range(paginator, page):
     range_start = max(page.number - 2, 1)
     range_end = min(page.number + 2, paginator.num_pages)
     return [i for i in range(range_start, range_end + 1)]
+
+def team_member_story_panels():
+    """
+    Call when inheriting from TeamMemberStoriesMixin to add to panels of the extending Page
+    """
+    return MultiFieldPanel([
+            FieldPanel('team_member_quote'),
+            PageChooserPanel('quote_owner','ourteam.TeamMemberPage'),
+            PageChooserPanel('team_page','ourteam.OurTeamPage'),
+            PageChooserPanel('team_stories','blog.BlogIndexPage')
+        ],heading='Team member quote')

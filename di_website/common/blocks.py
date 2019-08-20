@@ -18,17 +18,6 @@ from wagtail.images.blocks import ImageChooserBlock
 from di_website.common.constants import RICHTEXT_FEATURES
 
 
-class LocationBlock(StructBlock):
-    """
-    Block to hold location
-    """
-    heading = CharBlock(required=False, help_text="E.g. 'UK'")
-    copy = CharBlock(required=False, help_text="E.g. 'North Quay House Quay Side, Temple Back Bristol, BS1 6FL, UK'")
-    contact = CharBlock(required=False, help_text="E.g. '+44 (0) 1179 272 505'")
-    longitude = DecimalBlock(required=False, max_digits=9, decimal_places=6)
-    latitude = DecimalBlock(required=False, max_digits=9, decimal_places=6)
-
-
 class ValueBlock(StructBlock):
     """
     A block for holding a single value.
@@ -125,6 +114,22 @@ class ButtonBlock(AbstractLinkBlock):
         template = 'blocks/button_block.html'
 
 
+class ImageBlock(StructBlock):
+    image = ImageChooserBlock(required=True)
+    credit_name = CharBlock(
+        required=False,
+        help_text='Name of the image source'
+    )
+    credit_url = URLBlock(
+        required=False,
+        help_text='URL of the image source'
+    )
+
+    class Meta:
+        icon = 'fa-image'
+        template = 'blocks/image_block.html'
+
+
 class BannerBlock(StructBlock):
     image = ImageChooserBlock(required=False)
     video = EmbedBlock(
@@ -202,6 +207,7 @@ class TypesetStreamBlock(StreamBlock):
     block_quote = BlockQuote()
     button_block = ButtonBlock()
     link_block = LinkBlock()
+    image = ImageBlock()
 
     required = False
 

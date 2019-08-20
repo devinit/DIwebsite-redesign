@@ -24,32 +24,7 @@
         </div>
     </section>
 
-    {% if page.team_member_quote %}
-        <section class="section">
-            <div class="row row--narrow">
-                <div class="banner">
-                    <div class="l-banner">
-                        <div class="l-banner__aside">
-                            <div class="banner__media">
-                                {% if page.quote_owner.image %}
-                                    {% image page.quote_owner.image  fill-512x512-c100 as img %}
-                                        <img height="400px" width="400px" src="{{img.url}}" alt="{{img.alt}}">
-                                    {% else %}
-                                        <img height="400px" width="400px" src="{% static 'img/profile-fallback.jpg' %}" alt="Placeholder profile picture">
-                                {% endif %}
-                            </div>
-                        </div>
-                        <div class="l-banner__main">
-                            <p class="banner__excerpt">"{{page.team_member_quote}}"</p>
-                            <span class="banner__meta">- {{page.quote_owner}} - {{page.quote_owner.position}}</span>
-                            <a href='{% pageurl page.team_page %}' class="button button--reverse">Meet the team</a>
-                            <a href='{% pageurl page.team_stories %}' class="button button--reverse">Team stories</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    {% endif %}
+    {% include './includes/team_member_quote.html'%}
 
     {% for content in page.content %}
         {% include_block content %}

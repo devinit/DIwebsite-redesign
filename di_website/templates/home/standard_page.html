@@ -17,12 +17,17 @@
         {% endif %}
         <div class="l-sidebar__body">
           {% breadcrumbs %}
+          <div class="is-typeset wysiwyg">
+            {% for block in self.body %}
+              {% include_block block %}
+            {% endfor %}
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  {% for block in page.body %}
+  {% for block in self.sections %}
     {% include_block block %}
   {% endfor %}
 

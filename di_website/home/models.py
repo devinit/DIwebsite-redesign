@@ -16,7 +16,7 @@ from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
 
 from di_website.common.base import hero_panels
-from di_website.common.mixins import BaseStreamBodyMixin, HeroMixin, OtherPageMixin
+from di_website.common.mixins import HeroMixin, OtherPageMixin, SectionBodyMixin, TypesetBodyMixin
 
 
 class AbstractLink(models.Model):
@@ -159,7 +159,7 @@ class HomePage(HeroMixin, Page):
     content_panels = Page.content_panels + [hero_panels()]
 
 
-class StandardPage(BaseStreamBodyMixin, HeroMixin, Page):
+class StandardPage(SectionBodyMixin, TypesetBodyMixin, HeroMixin, Page):
     """
     A generic content page. It could be used for any type of page content that only needs a hero,
     streamfield content, and related fields
@@ -174,6 +174,7 @@ class StandardPage(BaseStreamBodyMixin, HeroMixin, Page):
     content_panels = Page.content_panels + [
         hero_panels(),
         StreamFieldPanel('body'),
+        StreamFieldPanel('sections'),
         MultiFieldPanel([
             FieldPanel('other_pages_heading'),
             InlinePanel('other_pages', label='Related links')

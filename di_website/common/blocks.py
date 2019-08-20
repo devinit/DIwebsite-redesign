@@ -18,17 +18,6 @@ from wagtail.images.blocks import ImageChooserBlock
 from di_website.common.constants import RICHTEXT_FEATURES
 
 
-class LocationBlock(StructBlock):
-    """
-    Block to hold location
-    """
-    heading = CharBlock(required=False, help_text="E.g. 'UK'")
-    copy = CharBlock(required=False, help_text="E.g. 'North Quay House Quay Side, Temple Back Bristol, BS1 6FL, UK'")
-    contact = CharBlock(required=False, help_text="E.g. '+44 (0) 1179 272 505'")
-    longitude = DecimalBlock(required=False, max_digits=9, decimal_places=6)
-    latitude = DecimalBlock(required=False, max_digits=9, decimal_places=6)
-
-
 class ValueBlock(StructBlock):
     """
     A block for holding a single value.

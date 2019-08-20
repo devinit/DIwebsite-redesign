@@ -125,10 +125,6 @@ class ImageBlock(StructBlock):
         help_text='URL of the image source'
     )
 
-    class Meta:
-        icon = 'fa-image'
-        template = 'blocks/image_block.html'
-
 
 class BannerBlock(StructBlock):
     image = ImageChooserBlock(required=False)
@@ -194,6 +190,10 @@ class BaseStreamBlock(StreamBlock):
     link_block = LinkBlock()
     required = False
 
+class TypeSetImageBlock(ImageBlock):
+    class Meta:
+        icon = 'fa-image'
+        template = 'blocks/image_block.html'
 
 class TypesetStreamBlock(StreamBlock):
     """
@@ -207,7 +207,7 @@ class TypesetStreamBlock(StreamBlock):
     block_quote = BlockQuote()
     button_block = ButtonBlock()
     link_block = LinkBlock()
-    image = ImageBlock()
+    image = TypeSetImageBlock()
 
     required = False
 
@@ -221,11 +221,6 @@ class SectionStreamBlock(StreamBlock):
     banner_block = BannerBlock()
 
     required = False
-
-class ImageBlock(StructBlock):
-    image = ImageChooserBlock(required=False)
-    image_credit = CharBlock(required=False)
-    image_credit_url = URLBlock( required=False)
 
 class MediaImageBlock(ImageBlock):
     class Meta:

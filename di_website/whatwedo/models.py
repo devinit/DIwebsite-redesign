@@ -14,6 +14,7 @@ from wagtail.images.blocks import ImageChooserBlock
 
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
+from modelcluster.models import ClusterableModel
 
 from taggit.models import Tag, TaggedItemBase
 
@@ -62,7 +63,7 @@ class ExampleTopic(TaggedItemBase):
     content_object = ParentalKey('whatwedo.ServicesPageRelatedExample', on_delete=models.CASCADE, related_name='example_topics')
 
 
-class ServicesPageRelatedExample(OtherPageMixin):
+class ServicesPageRelatedExample(OtherPageMixin, ClusterableModel):
     page = ParentalKey('whatwedo.ServicesPage', related_name='services_related_example', on_delete=models.CASCADE)
     topics = ClusterTaggableManager(through=ExampleTopic, blank=True)
 
@@ -98,7 +99,7 @@ class ServicesPage(TypesetBodyMixin, HeroMixin, Page):
     contact_button_text = models.CharField(blank=True, null=True, max_length=100, default='Get in touch')
     contact_email = models.EmailField(blank=True, null=True)
 
-    specialties = StreamField([
+    specialities = StreamField([
         ('speciality', StructBlock([
             ('image', ImageChooserBlock(required=False)),
             ('heading', CharBlock(required=False)),
@@ -135,7 +136,7 @@ class ServicesPage(TypesetBodyMixin, HeroMixin, Page):
         StreamFieldPanel('skills'),
         InlinePanel('services_related_news', label="Related news"),
         InlinePanel('services_related_example', label="Project examples"),
-        StreamFieldPanel('sections', label="Lower body content")
+        StreamFieldPanel('sections')
 
     ]
 

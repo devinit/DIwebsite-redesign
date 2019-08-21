@@ -9,7 +9,10 @@ from wagtail.admin.edit_handlers import (
     MultiFieldPanel,
     FieldPanel
 )
-from wagtail.core.fields import StreamField
+
+from wagtail.images.edit_handlers import ImageChooserPanel
+
+from wagtail.core.fields import StreamField, RichTextField
 from wagtail.core.models import Orderable, Page
 from wagtail.core.blocks import (
     CharBlock,
@@ -19,7 +22,6 @@ from wagtail.core.blocks import (
     TextBlock,
     URLBlock
 )
-from wagtail.images.blocks import ImageChooserBlock
 
 from di_website.common.base import hero_panels
 from di_website.common.mixins import BaseStreamBodyMixin, HeroMixin, OtherPageMixin
@@ -101,20 +103,38 @@ class FocusAreasPageLink(Orderable):
         verbose_name='Second Project Page',
         help_text='An extra page to link to projects in Focus Area Section'
     )
-    focus_area_text = StreamField([
-            ('title', RichTextBlock(classname="full title")),
-            ('sub_title', RichTextBlock()),
-            ('paragraph', RichTextBlock()),
-            ('image', ImageChooserBlock(required=True)),
-        ],
+    title = models.CharField(
+        max_length=255,
         null=True,
-        blank=True
+        blank=True,
+        verbose_name='Title'
+    )
+    subtitle = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True,
+        verbose_name='Sub Title'
+    )
+    body = RichTextField(
+        blank=True,
+        null=True,
+        help_text="Something about focus areas"
+    )
+    image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        on_delete=models.SET_NULL,
+        verbose_name='Focus Area Image',
+        help_text='Add an image to this focus area'
     )
 
     panels = [
-        StreamFieldPanel('focus_area_text'),
-        PageChooserPanel('first_project_page', ['project.ProjectPage']),
-        PageChooserPanel('second_project_page', ['project.ProjectPage'])
+        FieldPanel('title'),
+        FieldPanel('subtitle'),
+        FieldPanel('body'),
+        ImageChooserPanel('image'),
+        PageChooserPanel('first_project_page'),
+        PageChooserPanel('second_project_page')
     ]
 
 class FocusAreasPageRelatedLink(OtherPageMixin):

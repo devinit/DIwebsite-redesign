@@ -26,7 +26,9 @@
         </div>
     </section>
 
-    {% include './includes/team_member_quote.html'%}
+    {% for section in page.sections %}
+        {% include_block section %}
+    {% endfor %}
 
     {% for content in page.content %}
         {% include_block content %}

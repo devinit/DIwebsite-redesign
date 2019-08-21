@@ -350,54 +350,51 @@
 		}
     ],
     "dataset_tab": [
-		{
-		    "title": "Despite incomes growing for the poorest 20% of people, inequality has increased and the gap is projected to widen",
-		    "date": "Released: 25 Aug 2017",
-		    "publication": "ITEP 2018 - Figure 1.1",
-		    "visibility": "visible"
+        {
+		    "title": "N/A - INFORM",
+		    "date": "Accessed: 26 July 2019",
+		    "visibility": "visible",
+            "button": true
 		},
         {
-		    "title": "Business as usual will leave many poverty-critical sectors like education underfunded particularly in those countries furthest behind",
-		    "date": "Released: 25 Aug 2017",
-		    "publication": "ITEP 2018 - Figure 5.3",
-		    "visibility": "visible"
+		    "title": "World Bank - LSMS",
+		    "date": "Accessed: 26 July 2019",
+		    "visibility": "visible",
+            "button": false
 		},
         {
-		    "title": "Business as usual means uneven and unequal progress for people",
-		    "date": "Released: 25 Aug 2017",
-		    "publication": "ITEP 2018 - Figure 5.1",
-		    "visibility": "visible"
+		    "title": "N/A - DHS",
+		    "date": "Accessed: 26 July 2019",
+		    "visibility": "visible",
+            "button": true
 		},
         {
-		    "title": "Various initiatives are pushing for the opening of domestic and international data sources",
-		    "date": "Released: 25 Aug 2017",
-		    "publication": "ITEP 2018 - Figure 4.1",
-		    "visibility": "visible"
+		    "title": "World Bank - PovCalNet",
+		    "date": "Accessed: 26 July 2019",
+		    "visibility": "visible",
+            "button": false
 		},
         {
-		    "title": "Since 2000, domestic commercial resources have grown substantially but, excluding China, growth has been slowing down",
-		    "date": "Released: 25 Aug 2017",
-		    "publication": "ITEP 2018 - Figure 3.7",
-		    "visibility": "visible"
+		    "title": "UNICEF - MICS",
+		    "date": "Accessed: 26 July 2019",
+		    "visibility": "visible",
+            "button": true
 		}
     ],
     "dataset_related": [
 		{
 		    "title": "Despite incomes growing for the poorest 20% of people, inequality has increased and the gap is projected to widen",
 		    "date": "Released: 25 Aug 2017",
-		    "publication": "ITEP 2018 - Figure 1.1",
 		    "visibility": "visible"
 		},
         {
 		    "title": "Business as usual will leave many poverty-critical sectors like education underfunded particularly in those countries furthest behind",
 		    "date": "Released: 25 Aug 2017",
-		    "publication": "ITEP 2018 - Figure 5.3",
 		    "visibility": "visible"
 		},
         {
 		    "title": "Business as usual means uneven and unequal progress for people",
 		    "date": "Released: 25 Aug 2017",
-		    "publication": "ITEP 2018 - Figure 5.1",
 		    "visibility": "visible"
 		}
     ]

@@ -270,10 +270,17 @@ a.m-stat {
     background-color: #fff;
     padding: 2em;
     border: 1px solid $default-border-color;
+    .button {
+        margin-top: 1em;
+        padding: 0.5em 0.75em;
+    }
     .ico {
         position: absolute;
         top: 1.5em;
         right: 1.75em;
+    }
+    &--alt {
+        background-color: $poppy-dark;
     }
 }
 
@@ -296,12 +303,30 @@ a.m-stat {
     a:hover {
         text-decoration: underline;
     }
+    .m-slip--alt & {
+        a {
+            color: #fff;
+        }
+    }
 }
 
 .m-slip__meta {
     @include font-size($zeta);
     margin-top: 0.75em;
+    display: block;
+    .m-slip--alt & {
+        color: #fff;
+    }
+}
+
+.m-notice {
+    @extend %font-heading;
+    background-color: #fff;
+    padding: 1em;
     display: inline-block;
+    border-left: 2px solid $poppy;
+    margin-bottom: 1em;
+    @include font-size($para);
 }
 
 // downloadChapter --------------------------------------------

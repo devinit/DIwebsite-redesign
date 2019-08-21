@@ -38,8 +38,10 @@
                 <div class="l-2up__col">
                     <div class="is-typeset">
                         <h3>Topics</h3>
-                        <p>Domestic finance</p>
-                        <p>Development finance</p>
+                        <ul>
+                            <li>Domestic finance</li>
+                            <li>Development finance</li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -47,7 +49,7 @@
         <section id="sources" class="tab__content">
             <div class="l-3up">
                 {% for item in dataset.dataset_tab %}
-                    {% include 'partials/dataset.html' %}
+                    {% include 'partials/dataset-alt.html' %}
                 {% endfor %}
             </div>
             <div class="is-typeset max-meter">
@@ -57,11 +59,9 @@
         <section id="legal" class="tab__content">
             <div class="is-typeset max-meter">
                 <h3>Licence</h3>
-                <p>Dataset Title by Development Initiatives Poverty Research Limited is licensed under a Creative Commons Attribution 4.0 International License.</p>
+                <p>Dataset Title by <a href="#">Development Initiatives Poverty Research Limited</a> is licensed under a <a href="#">Creative Commons Attribution 4.0 International License</a>.</p>
                 <p>Based on a work at <a href="#">https://link-to-sources-used</a></p>
                 <p>Permissions beyond the scope of this license may be available at <a href="#">https://devinit.org/data/datasets/dataset-title#licence.</a></p>
-                <p><a href="#">Development Initiatives Poverty Research Limited</a></p>
-                <p><a href="#">Creative Commons Attribution 4.0 International Licen</a></p>
                 <h3>Suggested Citation</h3>
                 <p>Investments to End Poverty, 2018, Development Initiatives Poverry Research Ltd.</p>
             </div>

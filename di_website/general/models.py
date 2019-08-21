@@ -1,7 +1,7 @@
 from django.db import models
 from di_website.common.blocks import DocumentBoxSectionBlock, DuoContentStreamBlock
 from di_website.common.mixins import (
-    TeamMemberStoryMixin,
+    SectionBodyMixin,
     HeroMixin,
     BaseStreamBodyMixin
 )
@@ -10,21 +10,17 @@ from di_website.common.base import team_member_story_panels, hero_panels
 
 from wagtail.admin.edit_handlers import (
     FieldPanel,
-    PageChooserPanel
-)
-
-from wagtail.admin.edit_handlers import (
-    FieldPanel,
     MultiFieldPanel,
     StreamFieldPanel,
     InlinePanel,
+    PageChooserPanel,
 )
 
 from wagtail.core.fields import StreamField
 from wagtail.core.models import Page
 
 
-class General(HeroMixin, TeamMemberStoryMixin, BaseStreamBodyMixin, Page):
+class General(HeroMixin, SectionBodyMixin, BaseStreamBodyMixin, Page):
 
     """
     General page that that can be used with strategy  and accounts pages
@@ -46,7 +42,7 @@ class General(HeroMixin, TeamMemberStoryMixin, BaseStreamBodyMixin, Page):
     content_panels = Page.content_panels + [
         hero_panels(),
         StreamFieldPanel('body'),
-        team_member_story_panels(),
+        StreamFieldPanel('sections'),
         StreamFieldPanel('content'),
         StreamFieldPanel('downloads'),
         MultiFieldPanel([

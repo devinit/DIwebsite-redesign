@@ -280,7 +280,8 @@ a.m-stat {
         right: 1.75em;
     }
     &--alt {
-        background-color: $poppy-dark;
+        // background-color: $poppy-dark;
+        background-color: $cloud-dark
     }
 }
 
@@ -305,7 +306,8 @@ a.m-stat {
     }
     .m-slip--alt & {
         a {
-            color: #fff;
+            // color: #fff;
+            color: $slate;
         }
     }
 }
@@ -315,7 +317,8 @@ a.m-stat {
     margin-top: 0.75em;
     display: block;
     .m-slip--alt & {
-        color: #fff;
+        // color: #fff;
+        color: $slate;
     }
 }
 

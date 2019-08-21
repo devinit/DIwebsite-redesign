@@ -106,6 +106,19 @@
 }
 
 // ------------------------------------------------------------
+// Selectable text
+// Enables selection with a single click
+// https://css-tricks.com/almanac/properties/u/user-select/
+// ------------------------------------------------------------
+
+.selectable {
+	-webkit-user-select: all;  /* Chrome 49+ */
+	-moz-user-select: all;     /* Firefox 43+ */
+	-ms-user-select: all;      /* No support yet */
+	user-select: all;          /* Likely future */
+}
+
+// ------------------------------------------------------------
 // Library CMS control. Delete / Add as required
 // ------------------------------------------------------------
 

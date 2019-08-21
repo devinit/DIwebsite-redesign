@@ -6,7 +6,7 @@ from di_website.common.mixins import (
     BaseStreamBodyMixin
 )
 
-from di_website.common.base import team_member_story_panels, hero_panels
+from di_website.common.base import hero_panels
 
 from wagtail.admin.edit_handlers import (
     FieldPanel,

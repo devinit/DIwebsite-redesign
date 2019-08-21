@@ -33,14 +33,3 @@ def get_paginator_range(paginator, page):
     range_start = max(page.number - 2, 1)
     range_end = min(page.number + 2, paginator.num_pages)
     return [i for i in range(range_start, range_end + 1)]
-
-def team_member_story_panels():
-    """
-    Call when inheriting from TeamMemberStoriesMixin to add to panels of the extending Page
-    """
-    return MultiFieldPanel([
-            FieldPanel('team_member_quote'),
-            PageChooserPanel('quote_owner','ourteam.TeamMemberPage'),
-            PageChooserPanel('team_page','ourteam.OurTeamPage'),
-            PageChooserPanel('team_stories','blog.BlogIndexPage')
-        ],heading='Team member quote')

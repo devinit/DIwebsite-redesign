@@ -71,8 +71,7 @@ class OtherPageMixin(Orderable):
         on_delete=models.SET_NULL,
         related_name='+',
         verbose_name='Page',
-        help_text='A page to link to in the "Other Pages or Related Links" section'
-    )
+        help_text='A page to link to in the "Other Pages or Related Links" section')
 
     class Meta():
         abstract = True
@@ -138,33 +137,33 @@ class BaseDownloadMixin(models.Model):
     def __str__(self):
         return self.title if self.title else self.file.title
 
+
 class TeamMemberStoryMixin(models.Model):
 
     team_member_quote = models.TextField(
-        null=True, 
+        null=True,
         blank=True,
         verbose_name='Quote from team member')
 
-    quote_owner = models.ForeignKey('ourteam.TeamMemberPage',        
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+' )
-
+    quote_owner = models.ForeignKey('ourteam.TeamMemberPage',
+                                    null=True,
+                                    blank=True,
+                                    on_delete=models.SET_NULL,
+                                    related_name='+')
 
     team_page = models.ForeignKey(
-        'ourteam.OurTeamPage',        
+        'ourteam.OurTeamPage',
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+' )
-    
+        related_name='+')
+
     team_stories = models.ForeignKey(
-        'blog.BlogIndexPage',        
+        'blog.BlogIndexPage',
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+' )
+        related_name='+')
 
     class Meta:
-        abstract=True
+        abstract = True

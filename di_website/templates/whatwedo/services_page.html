@@ -85,7 +85,7 @@
         <div class="row row--narrow">
             <h2 class="section__heading">News</h2>
             <div class="l-2up-3up">
-              {% for item in self.services_related_news %}
+              {% for item in self.services_related_news.all %}
                   {% include 'includes/cards/card-news.html' with show_tag=True %}
               {% endfor %}
             </div>
@@ -120,7 +120,7 @@
             <div class="l-3up space-section-top">
               {% for item in examples %}
                 <div class="m-slip ">
-                  <p class="m-slip__copy"><a href="{% pageurl item %}">{{ item.title }}</a></p>
+                  <p class="m-slip__copy"><a href="{% pageurl item.other_page %}">{{ item.other_page.title }}</a></p>
                 </div>
               {% endfor %}
             </div>

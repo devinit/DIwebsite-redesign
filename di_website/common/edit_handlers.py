@@ -4,12 +4,15 @@ from django.utils.translation import ugettext_lazy as _
 from wagtail.admin.edit_handlers import EditHandler
 from django.utils.html import mark_safe
 
+
 class BaseReadOnlyPanel(EditHandler):
     def render(self):
         value = getattr(self.instance, self.field_name)
         if callable(value):
             value = value()
-        return format_html('<div style="padding-top: 1.2em;">{}</div>', mark_safe(value))
+        return format_html(
+            '<div style="padding-top: 1.2em;">{}</div>',
+            mark_safe(value))
 
     def render_as_object(self):
         return format_html(
@@ -25,6 +28,7 @@ class BaseReadOnlyPanel(EditHandler):
             '<div class="field-content">{}</div>'
             '</div>',
             self.heading, _(':'), self.render())
+
 
 class ReadOnlyPanel(BaseReadOnlyPanel):
     """
@@ -44,5 +48,5 @@ class ReadOnlyPanel(BaseReadOnlyPanel):
         return kwargs
 
     def bind_to_model(self, model):
-        return type(str(_('ReadOnlyPanel')), (BaseReadOnlyPanel,),
-                    {'model': self.model, 'heading': self.heading, 'classname': self.classname})
+        return type(str(_('ReadOnlyPanel')), (BaseReadOnlyPanel,), {
+                    'model': self.model, 'heading': self.heading, 'classname': self.classname})

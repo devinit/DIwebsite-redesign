@@ -1,0 +1,18 @@
+{% load responsive wagtailimages_tags wagtailcore_tags %}
+
+<section class="section">
+    <div class="row row--narrow">
+        <div class="media-figure">
+            {% image self.image min-500x200 as image %}
+            <img src='{{ image.url }}' alt="alt">
+
+                <span class="media-figure__credit">Image by 
+            {% if self.credit_url %}
+                <a href="{{self.credit_url}}" target="_blank">{{self.credit_name}}</a>
+            {% else %}
+                {{self.credit_name}}
+            {% endif %}
+            </span>
+        </div>
+    </div>
+</section>

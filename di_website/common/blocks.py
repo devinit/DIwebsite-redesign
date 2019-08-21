@@ -125,10 +125,6 @@ class ImageBlock(StructBlock):
         help_text='URL of the image source'
     )
 
-    class Meta:
-        icon = 'fa-image'
-        template = 'blocks/image_block.html'
-
 
 class BannerBlock(StructBlock):
     image = ImageChooserBlock(required=False)
@@ -194,6 +190,10 @@ class BaseStreamBlock(StreamBlock):
     link_block = LinkBlock()
     required = False
 
+class TypeSetImageBlock(ImageBlock):
+    class Meta:
+        icon = 'fa-image'
+        template = 'blocks/image_block.html'
 
 class TypesetStreamBlock(StreamBlock):
     """
@@ -207,7 +207,7 @@ class TypesetStreamBlock(StreamBlock):
     block_quote = BlockQuote()
     button_block = ButtonBlock()
     link_block = LinkBlock()
-    image = ImageBlock()
+    image = TypeSetImageBlock()
 
     required = False
 
@@ -219,5 +219,50 @@ class SectionStreamBlock(StreamBlock):
     paragraph_block = SectionParagraphBlock()
     block_quote = SectionBlockQuote()
     banner_block = BannerBlock()
+
+    required = False
+
+class MediaImageBlock(ImageBlock):
+    class Meta:
+        template='blocks/media_image_block.html'
+
+class ImageDuoTextBlock(ImageBlock):
+    
+    side_text = RichTextBlock(
+        icon='fa-paragraph',
+        features=RICHTEXT_FEATURES,
+        template='blocks/paragraph_block.html',
+        required=True
+    )
+    class Meta:
+        template='blocks/duo_body_block_img.html'
+
+class VideoDuoTextBlock(StructBlock):
+     
+    video = EmbedBlock(
+        help_text='Insert an embed URL e.g https://www.youtube.com/embed/SGJFWirQ3ks',
+        icon='fa-video-camera',
+        template='blocks/embed_block.html',
+        required=False
+    )
+    side_text = RichTextBlock(
+        icon='fa-paragraph',
+        features=RICHTEXT_FEATURES,
+        template='blocks/paragraph_block.html',
+        required=True
+    )
+    class Meta:
+        template='blocks/duo_body_block_vid.html'
+
+class DuoContentStreamBlock(StreamBlock):
+
+    """
+    Displays with video or image aligned to left with text aligned to the right
+    """
+    image_block=ImageDuoTextBlock()
+    video_block=VideoDuoTextBlock()
+    media_image=MediaImageBlock()
+    text_block=SectionParagraphBlock()
+
 
     required = False

@@ -136,34 +136,3 @@ class BaseDownloadMixin(models.Model):
 
     def __str__(self):
         return self.title if self.title else self.file.title
-
-
-class TeamMemberStoryMixin(models.Model):
-
-    team_member_quote = models.TextField(
-        null=True,
-        blank=True,
-        verbose_name='Quote from team member')
-
-    quote_owner = models.ForeignKey('ourteam.TeamMemberPage',
-                                    null=True,
-                                    blank=True,
-                                    on_delete=models.SET_NULL,
-                                    related_name='+')
-
-    team_page = models.ForeignKey(
-        'ourteam.OurTeamPage',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+')
-
-    team_stories = models.ForeignKey(
-        'blog.BlogIndexPage',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+')
-
-    class Meta:
-        abstract = True

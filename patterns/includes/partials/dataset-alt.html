@@ -1,10 +1,10 @@
 {% if item.visibility == 'visible' %}
 <div class="m-slip m-slip--alt m-slip--icon">
-    {{ icons.icon('ico-data-blank', '24') }}
+    {{ icons.icon('ico-data-slate', '24') }}
     <p class="m-slip__copy"><a href="#">{{ item.title }}</a></p>
     <span class="m-slip__meta">{{ item.date }}</span>
     {% if item.button == true %}
-        <a href="#" class="button button--reverse">View dataset</a>
+        <a href="#" class="button button--reverses">View source dataset</a>
     {% endif %}
 </div>
 {% endif %}

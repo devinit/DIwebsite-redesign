@@ -25,6 +25,9 @@
     }
     @include respond-to($e-vp) {
         padding: 20em 0 15em 0;
+        &--short {
+            padding: 8em 0 15em 0;
+        }
     }
 }
 

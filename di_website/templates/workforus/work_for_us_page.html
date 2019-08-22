@@ -2,8 +2,69 @@
 
 {% load navigation_tags wagtailcore_tags card_tags %}
 
-{% block body %}
+{% block hero %}
     {% include 'includes/heroes/hero.html' %}
+{% endblock hero %}
+
+{% block body %}
+
+    <section class="section">
+        <div class="row row--narrow">
+            <div class="is-typeset is-typeset--additionals max-meter">
+                {% for block in page.body %}
+                    {% if block.block_type == 'paragraph_block' or block.block_type == 'block_quote' %}
+                        {% include_block block %}
+                    {% endif %}
+                {% endfor %}
+
+                <p>
+                {% if page.recruitment_policy %}
+                    View our <a href="{{ page.recruitment_policy }}">Recruitment Policy</a>
+                {% endif %}
+
+                {% if page.gdr_policy %}
+                    and <a href="{{ page.gdr_policy }}">GDPR policy</a></p>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <h2 class="section__heading">Benefits of working at DI</h2>
+            <div class="l-sidebar">
+                <div class="l-sidebar__body">
+
+                    <div class="project">
+                        <div class="project__main">
+                            <div class="project__header">
+                                <div class="project__media">
+                                    <img src="/assets/img/9918645274_95e022b2ce_o-800x500.jpg" alt="alt">
+                                </div>
+                                <h2 class="project__heading">Flexible working</h2>
+                            </div>
+                            <div class="is-typeset">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <aside class="l-sidebar__aside">
+                    <div class="aside">
+                        <div class="aside__media">
+                            <img src="/assets/img/logo-living-wage.jpg" alt="alt">
+                        </div>
+                    </div>
+                    <div class="aside">
+                        <div class="aside__media">
+                            <img src="/assets/img/logo-disability.jpg" alt="alt">
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
 
 
 {% endblock body %}

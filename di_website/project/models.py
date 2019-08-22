@@ -9,9 +9,7 @@ from wagtail.admin.edit_handlers import (
     MultiFieldPanel,
     FieldPanel
 )
-
 from wagtail.images.edit_handlers import ImageChooserPanel
-
 from wagtail.core.fields import StreamField, RichTextField
 from wagtail.core.models import Orderable, Page
 from wagtail.core.blocks import (
@@ -27,6 +25,7 @@ from di_website.common.base import hero_panels
 from di_website.common.mixins import BaseStreamBodyMixin, HeroMixin, OtherPageMixin
 from di_website.common.blocks import BaseStreamBlock
 from di_website.common.constants import MAX_RELATED_LINKS
+
 
 class ProjectPage(BaseStreamBodyMixin, HeroMixin, Page):
     other_pages_heading = models.CharField(
@@ -52,6 +51,7 @@ class ProjectPage(BaseStreamBodyMixin, HeroMixin, Page):
     class Meta():
         verbose_name = 'Project Page'
 
+
 class ProjectPageRelatedLink(OtherPageMixin):
     page = ParentalKey(
         Page,
@@ -61,6 +61,7 @@ class ProjectPageRelatedLink(OtherPageMixin):
     panels = [
         PageChooserPanel('other_page')
     ]
+
 
 class FocusAreasPage(BaseStreamBodyMixin, HeroMixin, Page):
     subpage_types = ['ProjectPage']
@@ -78,6 +79,7 @@ class FocusAreasPage(BaseStreamBodyMixin, HeroMixin, Page):
         ], heading='Focus Areas'),
         InlinePanel('focus_areas_related_links', label="More About Section", max_num=4)
     ]
+
 
 class FocusAreasPageLink(Orderable):
     page = ParentalKey(
@@ -136,6 +138,7 @@ class FocusAreasPageLink(Orderable):
         PageChooserPanel('first_project_page'),
         PageChooserPanel('second_project_page')
     ]
+
 
 class FocusAreasPageRelatedLink(OtherPageMixin):
     page = ParentalKey(

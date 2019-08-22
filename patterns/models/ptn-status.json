@@ -154,5 +154,17 @@
 	{
 		"name": "20-contact",
 		"stage": "approved"
+	},
+	{
+		"name": "21-data-section",
+		"stage": "Template"
+	},
+	{
+		"name": "21-1-dataset-listing",
+		"stage": "Template"
+	},
+	{
+		"name": "21-2-dataset-single",
+		"stage": "Template"
 	}
 ]

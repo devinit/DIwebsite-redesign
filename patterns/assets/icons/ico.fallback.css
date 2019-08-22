@@ -139,6 +139,34 @@
 
 
 
+.ico-data-blank {
+	background-image: url('png/data-blank.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-data-poppy {
+	background-image: url('png/data-poppy.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-data-poppydark {
+	background-image: url('png/data-poppydark.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-data-slate {
+	background-image: url('png/data-slate.png');
+	background-repeat: no-repeat;
+}
+
+
+
 .ico-document-blank {
 	background-image: url('png/document-blank.png');
 	background-repeat: no-repeat;

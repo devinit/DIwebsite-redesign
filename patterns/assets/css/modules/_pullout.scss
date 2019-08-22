@@ -3,7 +3,7 @@
 // ------------------------------------------------------------
 .pullout {
 	position: relative;
-	padding: 3em;
+	padding: 3em 0;
 	margin-bottom: 1rem;
     background-color: $bluebell;
     &:before {
@@ -45,5 +45,41 @@
 	padding: 2rem;
 	@include respond-to($c-vp) {
 		padding: 3rem;
+	}
+	&--first {
+		padding-bottom: 0;
+		h1 {
+			margin-bottom: 0;
+		}
+	}
+	&--media {
+		padding-top: 0;
+		padding-bottom: 0;
+		.media-figure {
+			margin: 0;
+			img {
+				margin: 0;
+			}
+		}
+	}
+	&.is-typeset .rich-text {
+		> h1:first-child,
+		> h2:first-child,
+		> h3:first-child,
+		> h4:first-child,
+		> h5:first-child,
+		> h6:first-child {
+			margin-top: 0;
+		}
+	}
+	&.is-typeset {
+		> h1:first-child,
+		> h2:first-child,
+		> h3:first-child,
+		> h4:first-child,
+		> h5:first-child,
+		> h6:first-child {
+			margin-top: 0;
+		}
 	}
 }

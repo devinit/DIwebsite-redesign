@@ -11,6 +11,7 @@
     &--duo {
         @include respond-to($c-vp) {
             .card__media {
+                position: relative;
                 float: left;
                 width: 40%;
                 transform:translate(-2em,-2em);
@@ -85,6 +86,7 @@ a.card {
     @include maintain-ratio(4 3);
     @extend .background-cover;
     background-color: #fff;
+    position: relative;
     img {
         max-width: 100%;
         display: block;
@@ -96,6 +98,21 @@ a.card {
     .card--duo & {
         padding-bottom: 0;
         height: auto;
+    }
+}
+
+.card__media__caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: rgba($slate, 0.9);
+    color: #fff;
+    padding: 1.5em 2em;
+    .card__title, .card__meta {
+        color: #fff;
+        span {
+            color: #fff;
+        }
     }
 }
 

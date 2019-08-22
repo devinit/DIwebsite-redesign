@@ -4,7 +4,7 @@
 // ------------------------------------------------------------
 
 .m-author {
-    overflow: hidden;
+    @extend %pie-clearfix;
     background-color: $poppy-dark;
     max-width: 300px;
     .hero & {
@@ -26,9 +26,13 @@
         margin-top: 2em;
         background-color: #fff;
     }
+    &--spacing {
+        margin-bottom: 1em;
+    }
 }
 
 a.m-author {
+    display: block;
     transition: all, ease-in-out, 0.3s;
     @include link-active-styles {
         background-color: darken($poppy-dark, 5%);
@@ -41,7 +45,7 @@ a.m-author {
 .m-author__image {
     float: left;
     width: 27%;
-    margin-right: 15px;
+    margin-right: 3%;
     img {
         @extend .max-width;
     }
@@ -49,6 +53,7 @@ a.m-author {
 
 .m-author__body {
     float: left;
+    width: 70%;
     padding-top: 10px;
 }
 
@@ -71,6 +76,7 @@ a.m-author {
 .m-author__job {
     @include font-size($zeta);
     color: #fff;
+    line-height: 1.3;
     .card & {
         color: $base-color;
     }
@@ -109,6 +115,18 @@ a.m-author {
                 text-decoration: underline;
             }
         }
+    }
+}
+
+.m-text-major {
+    @extend .heading;
+    @include font-size($alpha);
+    border-left: 3px solid $poppy;
+    padding-left: 0.5em;
+    margin-bottom: 1em;
+    line-height: 1.3;
+    span {
+        font-size: 200%;
     }
 }
 
@@ -245,23 +263,73 @@ a.m-stat {
     }
 }
 
-.m-service {
+.m-slip {
     position: relative;
     margin-top: 1em;
+    margin-bottom: 1em;
     background-color: #fff;
     padding: 2em;
+    border: 1px solid $default-border-color;
+    .button {
+        margin-top: 1em;
+        padding: 0.5em 0.75em;
+    }
     .ico {
         position: absolute;
-        top: 2.5em;
-        left: 1.75em;
+        top: 1.5em;
+        right: 1.75em;
+    }
+    &--alt {
+        // background-color: $poppy-dark;
+        background-color: $cloud-dark
     }
 }
 
-.m-service__copy {
-    @include font-size($epsilon);
+.m-slip__flag {
+    @include font-size($eta);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background-color: $slate;
+    color: #fff;
+    padding: 0.25em 0.5em;
+    margin-bottom: 1em;
+    display: inline-block;
+    line-height: 1;
+    margin-right: 10px;
+}
+
+.m-slip__copy {
+    @include font-size($para + 1);
+    line-height: 1.5;
     a:hover {
         text-decoration: underline;
     }
+    .m-slip--alt & {
+        a {
+            // color: #fff;
+            color: $slate;
+        }
+    }
+}
+
+.m-slip__meta {
+    @include font-size($zeta);
+    margin-top: 0.75em;
+    display: block;
+    .m-slip--alt & {
+        // color: #fff;
+        color: $slate;
+    }
+}
+
+.m-notice {
+    @extend %font-heading;
+    background-color: #fff;
+    padding: 1em;
+    display: inline-block;
+    border-left: 2px solid $poppy;
+    margin-bottom: 1em;
+    @include font-size($para);
 }
 
 // downloadChapter --------------------------------------------

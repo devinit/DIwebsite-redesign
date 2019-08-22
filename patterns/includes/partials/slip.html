@@ -1,0 +1,12 @@
+<div class="m-slip {% if item.icon == true %}m-slip--icon{% endif %}">
+    {% if item.icon == true %}
+        {{ icons.icon('ico-data-poppydark', '24') }}
+    {% endif %}
+    {% if item.flag %}
+        <span class="m-slip__flag">{{ item.flag }}</span>
+    {% endif %}
+    <p class="m-slip__copy"><a href="#">{{ item.copy }}</a></p>
+    {% if item.meta %}
+        <span class="m-slip__meta">{{ item.meta }}</span>
+    {% endif %}
+</div>

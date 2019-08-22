@@ -20,7 +20,7 @@
 {# --------------------------------------- #}
 
 {% model 'cards', as="card" %}
-{% model 'service', as="service" %}
+{% model 'slip', as="slip" %}
 {% model 'navigation', as="navigation" %}
 
 {% import 'macros/icon.html' as icons %}
@@ -193,8 +193,8 @@
             <h2 class="section__heading">Examples of our work</h2>
             {% include 'forms/service-filter.html' %}
             <div class="l-3up space-section-top">
-                {% for item in service.service_list %}
-                    {% include 'partials/service.html' %}
+                {% for item in slip.service_list %}
+                    {% include 'partials/slip.html' %}
                 {% endfor %}
             </div>
         </div>

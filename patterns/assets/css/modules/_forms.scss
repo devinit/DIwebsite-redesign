@@ -89,11 +89,27 @@
 	@include respond-to($c-vp - 100px) {
 		display: inline-block;
 		width: 24.5%;
+		.button {
+			display: block;
+			margin-left: 2px;
+			margin-top: 1px;
+		}
+	}
+}
+
+.form-field--inline-five {
+	position: relative;
+	z-index: 1;
+	display: block;
+	margin-top: 1em;
+	@include respond-to($c-vp) {
+		display: inline-block;
+		width: 20%;
 		float: left;
 		.button {
-			margin-top: 1px;
-			margin-left: 2px;
 			display: block;
+			margin-left: 2px;
+			margin-top: 1px;
 		}
 	}
 }

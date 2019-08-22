@@ -16,7 +16,7 @@ from django.core.serializers.json import DjangoJSONEncoder
 HONEYPOT_FORM_FIELD = 'captcha'
 
 
-class ContactUs(models.Model): 
+class ContactUs(models.Model):
 
     """
         Form fields for contact us form
@@ -26,16 +26,18 @@ class ContactUs(models.Model):
     email = models.EmailField()
     telephone = models.CharField(max_length=255)
     message = models.TextField()
-    
+
     def __str__(self):
         return self.name
 
-class ContactUsForm(forms.ModelForm): 
+
+class ContactUsForm(forms.ModelForm):
     class Meta:
         model = ContactUs
-        fields = ['name', 'organisation','email','telephone','message']
+        fields = ['name', 'organisation', 'email', 'telephone', 'message']
 
-class ContactPage(HeroMixin,Page):
+
+class ContactPage(HeroMixin, Page):
     """
         Form with pre-built form fields to handle contact us info
     """
@@ -46,8 +48,7 @@ class ContactPage(HeroMixin,Page):
     success_alert = models.CharField(
         max_length=255,
         default='Your message was sent successfully',
-        )
-
+    )
 
     content_panels = Page.content_panels + [
         hero_panels(),
@@ -60,7 +61,12 @@ class ContactPage(HeroMixin,Page):
 
     parent_page_types = ['home.HomePage']
 
-    def render_landing_page(self, request, form_submission=None, *args, **kwargs):
+    def render_landing_page(
+            self,
+            request,
+            form_submission=None,
+            *args,
+            **kwargs):
         """
         Renders the landing page as used in wagtails default form implementation
         """
@@ -75,13 +81,13 @@ class ContactPage(HeroMixin,Page):
     def serve(self, request, *args, **kwargs):
         if request.method == 'POST':
             form = ContactUsForm(request.POST)
-           
+
             """
-                Check if hidden field has been filled by robots, if its filled; then its spam, 
+                Check if hidden field has been filled by robots, if its filled; then its spam,
                 return the default form page to be refilled
             """
             try:
-                if  request.POST.get(HONEYPOT_FORM_FIELD,'') != '':
+                if request.POST.get(HONEYPOT_FORM_FIELD, '') != '':
                     context = self.get_context(request)
                     context['form'] = form
 
@@ -93,13 +99,14 @@ class ContactPage(HeroMixin,Page):
             except KeyError:
                 # If honeypot fails, form should be marked as possible spam
                 pass
-            
+
             if form.is_valid():
                 form_submission = form.save()
-                
+
                 # TODO Post content of form submission to hubspot CRM
 
-                return self.render_landing_page(request, form_submission, *args, **kwargs)
+                return self.render_landing_page(
+                    request, form_submission, *args, **kwargs)
             else:
                 context = self.get_context(request)
                 context['form'] = form
@@ -121,4 +128,3 @@ class ContactPage(HeroMixin,Page):
                 self.get_template(request),
                 context
             )
-

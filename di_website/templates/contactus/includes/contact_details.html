@@ -4,6 +4,7 @@
     <div class="row row--narrow">
         <h2 class="section__heading">Where we are based</h2>
         <div class="l-4up">
+
             {% get_office_locations as locations %}
             {% if locations %}
                 {% for location in locations %}
@@ -20,6 +21,7 @@
                     </div>
                 {% endfor %}
             {% endif %}
+            
         </div>
     </div>
 </section>

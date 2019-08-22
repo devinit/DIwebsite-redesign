@@ -22,7 +22,7 @@ class LocationsMapBlock(StructBlock):
     """
     Renders a map with all the DI office locations
     """
-    heading = CharBlock(icon="fa-heading", required=False)
+    heading = CharBlock(icon='fa-heading', required=False)
     description = RichTextBlock(
         icon='fa-paragraph',
         template='blocks/paragraph_block.html',
@@ -37,3 +37,20 @@ class LocationsMapBlock(StructBlock):
     class Meta():
         icon = 'fa-map-marker'
         template = 'blocks/locations_map.html'
+
+
+class FocusAreasBlock(StructBlock):
+    """
+    Renders the focus areas section
+    """
+    heading = CharBlock(icon='fa-heading', required=False, default='Our focus areas')
+    focus_areas = ListBlock(TextBlock(icon='fa-text'), required=False)
+    button = ButtonBlock()
+    light = BooleanBlock(
+        default=False,
+        required=False,
+        help_text='Applies a lighter background to the section')
+
+    class Meta():
+        icon = 'fa-list'
+        template = 'blocks/focus_areas.html'

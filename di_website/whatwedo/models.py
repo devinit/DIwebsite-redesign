@@ -8,7 +8,7 @@ from wagtail.admin.edit_handlers import (
 from di_website.common.mixins import HeroMixin, TypesetBodyMixin
 from di_website.common.base import hero_panels
 
-from .blocks import LocationsMapBlock
+from .blocks import FocusAreasBlock, LocationsMapBlock
 
 # Create your models here.
 class WhatWeDoPage(TypesetBodyMixin, HeroMixin, Page):
@@ -20,7 +20,8 @@ class WhatWeDoPage(TypesetBodyMixin, HeroMixin, Page):
         verbose_name = 'What We Do Page'
 
     sections = StreamField([
-        ('locations_map', LocationsMapBlock())
+        ('locations_map', LocationsMapBlock()),
+        ('focus_area', FocusAreasBlock())
     ], verbose_name="Sections", null=True, blank=True)
 
     content_panels = Page.content_panels + [

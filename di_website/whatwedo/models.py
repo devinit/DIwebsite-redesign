@@ -1,11 +1,14 @@
 from django.db import models
 
 from wagtail.core.models import Page
-from wagtail.core.fields import RichTextField
-from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, PageChooserPanel
+from wagtail.core.fields import RichTextField, StreamField
+from wagtail.admin.edit_handlers import (
+    FieldPanel, MultiFieldPanel, PageChooserPanel, StreamFieldPanel)
 
 from di_website.common.mixins import HeroMixin, TypesetBodyMixin
 from di_website.common.base import hero_panels
+
+from .blocks import LocationsMapBlock
 
 # Create your models here.
 class WhatWeDoPage(TypesetBodyMixin, HeroMixin, Page):
@@ -16,22 +19,12 @@ class WhatWeDoPage(TypesetBodyMixin, HeroMixin, Page):
     class Meta:
         verbose_name = 'What We Do Page'
 
-    places_heading = models.CharField(
-        blank=True, max_length=250, default='Where We Work', verbose_name='Heading')
-    places_description = RichTextField(blank=True, verbose_name='Description')
-    places_page = models.ForeignKey(
-        'place.PlacesPage',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+',
-    )
+    sections = StreamField([
+        ('locations_map', LocationsMapBlock())
+    ], verbose_name="Sections", null=True, blank=True)
 
     content_panels = Page.content_panels + [
         hero_panels(),
-        MultiFieldPanel([
-            FieldPanel('places_heading'),
-            FieldPanel('places_description'),
-            PageChooserPanel('places_page')
-        ], heading='Where We Work Section')
+        StreamFieldPanel('body'),
+        StreamFieldPanel('sections')
     ]

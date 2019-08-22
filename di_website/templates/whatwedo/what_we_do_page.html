@@ -23,31 +23,7 @@
     </div>
   </section>
 
-
-  {% get_office_locations as locations %}
-  {% if locations %}
-    <section class="section">
-      <div class="row row--narrow">
-        <h2 class="section__heading">{{self.places_heading}}</h2>
-        <div class="is-typeset max-meter">
-            {{self.places_description|richtext_strip_wrapper}}
-        </div>
-        <div class="media-map media-map--minor">
-          <div id="map" class="media-map__location" data-latlng="25.453669,-55.585922">
-            {% for location in locations %}
-              {% if location.latitude %}
-                <div class="media-map__location__point"
-                  data-latlng="{{ location.latitude }}, {{ location.longitude }}"
-                  data-title="{{ location.location }}" data-desc="{{ location.address }}"
-                  data-tel="{{ location.contact }}" data-email="" data-web=""></div>
-              {% endif %}
-            {% endfor %}
-          </div>
-        </div>
-        {% if self.places_page %}
-          <a href="{% pageurl self.places_page %}" class="button">Find out more about {{self.places_page.title|lower}}</a>
-        {% endif %}
-      </div>
-    </section>
-  {% endif %}
+  {% for block in self.sections %}
+    {% include_block block %}
+  {% endfor %}
 {% endblock body %}

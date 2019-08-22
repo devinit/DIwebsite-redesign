@@ -1,95 +1,93 @@
 from django.db import models
 from django.shortcuts import render
 
-from modelcluster.fields import ParentalKey
 from wagtail.admin.edit_handlers import (
-    FieldPanel, FieldRowPanel,
-    InlinePanel, MultiFieldPanel
+    FieldPanel,
+    InlinePanel
 )
 from wagtail.core.fields import RichTextField
-from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField, AbstractFormSubmission
+from wagtail.core.models import Page
 from di_website.common.mixins import HeroMixin
 from di_website.common.base import hero_panels
-from di_website.contactus.utils import CustomFormBuilder
-
+from django import forms
 import json
 from django.core.serializers.json import DjangoJSONEncoder
 
 HONEYPOT_FORM_FIELD = 'captcha'
 
 
-class FormFields(AbstractFormField): 
-    page = ParentalKey('ContactPage', on_delete=models.CASCADE, related_name='form_fields')
+class ContactUs(models.Model):
 
     """
-        Form fields with additional placeholder text that describes what the form fields are meant for
+        Form fields for contact us form
     """
-    placeholder = models.CharField(
-        blank=True,
-        max_length=255,
-        help_text='Optional placeholder for the field'
-    )
+    name = models.CharField(max_length=255)
+    organisation = models.CharField(max_length=255)
+    email = models.EmailField()
+    telephone = models.CharField(max_length=255)
+    message = models.TextField()
 
-    panels = AbstractFormField.panels + [
-        FieldPanel('placeholder'),
-    ]
+    def __str__(self):
+        return self.name
 
 
-class ContactPage(HeroMixin,AbstractEmailForm):
+class ContactUsForm(forms.ModelForm):
+    class Meta:
+        model = ContactUs
+        fields = ['name', 'organisation', 'email', 'telephone', 'message']
+
+
+class ContactPage(HeroMixin, Page):
     """
-        Contact Us form, to inherit the emailing functionality from wagtail, we'll use AbstractEmailForm
+        Form with pre-built form fields to handle contact us info
     """
-    template = "contactus/contact_page.html"
-
-    form_fields = CustomFormBuilder
+    template = 'contactus/contact_page.html'
+    landing_template = 'contactus/contact_page_landing.html'
 
     intro = RichTextField(blank=True)
     success_alert = models.CharField(
         max_length=255,
         default='Your message was sent successfully',
-        )
+    )
 
-
-    content_panels = AbstractEmailForm.content_panels + [
+    content_panels = Page.content_panels + [
         hero_panels(),
         FieldPanel('intro', classname="full"),
-        InlinePanel('form_fields', label="Form fields"),
-        
         FieldPanel('success_alert', classname="full"),
-        MultiFieldPanel([
-            FieldRowPanel([
-                FieldPanel('from_address', classname="col6"),
-                FieldPanel('to_address', classname="col6"),
-            ]),
-            FieldPanel('subject'),
-        ], "Email"),
     ]
 
-    def process_form_submission(self, form):
-       # form_data = json.dumps(form.cleaned_data, cls=DjangoJSONEncoder)
-        self.get_submission_class().objects.create(
-            form_data=json.dumps(form.cleaned_data, cls=DjangoJSONEncoder),
-            page=self,
-        )
-        return form.cleaned_data
+    class Meta():
+        verbose_name = 'Contact Us Page'
 
-    def get_placeholder_for_field(self, label):
-        try:
-            return self.form_fields.filter(label=label).first().placeholder
-        except RuntimeError:
-            return None
+    parent_page_types = ['home.HomePage']
+
+    def render_landing_page(
+            self,
+            request,
+            form_submission=None,
+            *args,
+            **kwargs):
+        """
+        Renders the landing page as used in wagtails default form implementation
+        """
+        context = self.get_context(request)
+        context['form_submission'] = form_submission
+        return render(
+            request,
+            self.landing_template,
+            context
+        )
 
     def serve(self, request, *args, **kwargs):
         if request.method == 'POST':
-            form = self.get_form(request.POST, request.FILES, page=self, user=request.user)
-           
+            form = ContactUsForm(request.POST)
+
             """
-                Check if hidden field has been filled by robots, if its filled; then its spam, 
+                Check if hidden field has been filled by robots, if its filled; then its spam,
                 return the default form page to be refilled
             """
             try:
-                if  form.data[HONEYPOT_FORM_FIELD] != '':
-                    form = self.get_form(page=self, user=request.user)
+                if request.POST.get(HONEYPOT_FORM_FIELD, '') != '':
                     context = self.get_context(request)
                     context['form'] = form
 
@@ -101,12 +99,14 @@ class ContactPage(HeroMixin,AbstractEmailForm):
             except KeyError:
                 # If honeypot fails, form should be marked as possible spam
                 pass
-            
-            errors = form.errors.as_data()
-            if form.is_valid():
-                form_submission = self.process_form_submission(form)
 
-                return self.render_landing_page(request, form_submission, *args, **kwargs)
+            if form.is_valid():
+                form_submission = form.save()
+
+                # TODO Post content of form submission to hubspot CRM
+
+                return self.render_landing_page(
+                    request, form_submission, *args, **kwargs)
             else:
                 context = self.get_context(request)
                 context['form'] = form
@@ -118,7 +118,7 @@ class ContactPage(HeroMixin,AbstractEmailForm):
                 )
 
         else:
-            form = self.get_form(page=self, user=request.user)
+            form = ContactUsForm()
 
             context = self.get_context(request)
             context['form'] = form
@@ -128,4 +128,3 @@ class ContactPage(HeroMixin,AbstractEmailForm):
                 self.get_template(request),
                 context
             )
-

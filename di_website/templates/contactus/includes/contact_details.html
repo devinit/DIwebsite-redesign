@@ -1,28 +1,25 @@
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags card_tags %}
 
 <section class="section">
     <div class="row row--narrow">
         <h2 class="section__heading">Where we are based</h2>
         <div class="l-4up">
-            <div class="location">
-                <h3 class="location__heading">UK</h3>
-                <p class="location__copy">North Quay House Quay Side, Temple Back Bristol, BS1 6FL, UK</p>
-                <span class="location__contact">+44 (0) 1179 272 505</span>
-            </div>
-            <div class="location">
-                <h3 class="location__heading">Kenya</h3>
-                <p class="location__copy">Shelter Afrique Building 4th Floor, Mamlaka Road Nairobi, Kenya PO Box 102802-00101 </p>
-                <span class="location__contact">+254 (0) 20 272 5346</span>
-            </div>
-            <div class="location">
-                <h3 class="location__heading">Uganda</h3>
-                <p class="location__copy">Ggaba Road, Mutesasira Zone, Kansanga PO Box 22459 Kampala, Uganda</p>
-                <span class="location__contact">+266 (0) 312 26629/30</span>
-            </div>
-            <div class="location">
-                <h3 class="location__heading">United States</h3>
-                <p class="location__copy">1110 Vermont Ave NW, Suite 500, Washington DC 20005, USA</p>
-            </div>
+            {% get_office_locations as locations %}
+            {% if locations %}
+                {% for location in locations %}
+                    <div class="location">
+                        {% if location.location %}
+                            <h3 class="location__heading">{{ location.location }}</h3>
+                        {% endif %}
+                        {% if location.address %}
+                            <p class="location__copy">{{ location.address }}</p>
+                        {% endif %}
+                        {% if location.contact %}
+                            <span class="location__contact">{{ location.contact }}</span>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            {% endif %}
         </div>
     </div>
 </section>

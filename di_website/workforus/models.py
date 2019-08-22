@@ -12,6 +12,7 @@ from wagtail.admin.edit_handlers import (
 
 from di_website.common.base import hero_panels
 from di_website.common.mixins import BaseStreamBodyMixin, HeroMixin
+from .blocks import BenefitsStreamBlock
 
 from modelcluster.fields import ParentalKey
 
@@ -20,16 +21,31 @@ class WorkForUsPage(BaseStreamBodyMixin, HeroMixin, Page):
     class Meta():
         verbose_name = 'Work For Us Page'
 
-    other_pages_heading = models.CharField(
+    recruitment_policy = models.URLField(
+        null=True,
         blank=True,
-        max_length=255,
-        verbose_name='Heading',
-        default='More about'
+        verbose_name='Recruitment Policy',
+        help_text='A Link to the recruitment policy if any'
+    )
+
+    gdr_policy = models.URLField(
+        null=True,
+        blank=True,
+        verbose_name='GDPR Policy',
+        help_text='A Link to the GDPR policy if any'
+    )
+
+    benefits = StreamField(
+        BenefitsStreamBlock,
+        verbose_name="Benefits",
+        null=True,
+        blank=True
     )
 
     content_panels = Page.content_panels + [
         hero_panels(),
         StreamFieldPanel('body'),
+        FieldPanel('recruitment_policy'),
+        FieldPanel('gdr_policy'),
+        StreamFieldPanel('benefits')
     ]
-
-    subpage_types = ['home.StandardPage']

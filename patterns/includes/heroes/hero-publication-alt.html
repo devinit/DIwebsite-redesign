@@ -1,4 +1,4 @@
-<section class="hero {% if image_name %} hero--image{% endif %}">
+<section class="hero {% if image_name %}hero--image{% else %}hero--minor{% endif %}">
     {% if image_name %}
         <div class="hero__image" style="background-image: url('{{ global.assets_root }}/img/{{ image_name }}');"></div>
         <span class="hero__credit">Image by <a href="#">Credit name</a></span>

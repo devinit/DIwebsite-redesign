@@ -13,7 +13,7 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.core.fields import StreamField, RichTextField
 from wagtail.core.models import Orderable, Page
 from wagtail.core.blocks import (
-    CharBlock,
+    PageChooserBlock,
     RichTextBlock,
     StructBlock,
     StreamBlock,
@@ -87,23 +87,11 @@ class FocusAreasPageLink(Orderable):
         related_name='focus_areas_page_link',
         on_delete=models.CASCADE
     )
-    first_project_page = models.ForeignKey(
-        'wagtailcore.Page',
+    projects = StreamField(
+        [('page', PageChooserBlock(page_type="project.ProjectPage", required=True))],
+        verbose_name="Projects",
         null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+',
-        verbose_name='First Project Page',
-        help_text='A page to link to projects in Focus Areas Section'
-    )
-    second_project_page = models.ForeignKey(
-        'wagtailcore.Page',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+',
-        verbose_name='Second Project Page',
-        help_text='An extra page to link to projects in Focus Area Section'
+        blank=True
     )
     title = models.CharField(
         max_length=255,
@@ -135,8 +123,18 @@ class FocusAreasPageLink(Orderable):
         FieldPanel('subtitle'),
         FieldPanel('body'),
         ImageChooserPanel('image'),
-        PageChooserPanel('first_project_page'),
-        PageChooserPanel('second_project_page')
+        StreamFieldPanel('projects')
+    ]
+
+
+class FocusAreasProjects(OtherPageMixin):
+    page = ParentalKey(
+        Page,
+        related_name='focus_areas_projects',
+        on_delete=models.CASCADE
+    )
+    panels = [
+        PageChooserPanel('other_page')
     ]
 
 

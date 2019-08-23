@@ -34,7 +34,6 @@ class ProjectPage(BaseStreamBodyMixin, HeroMixin, Page):
         blank=True,
         verbose_name='Section Title'
     )
-
     content_panels = Page.content_panels + [
         hero_panels(),
         StreamFieldPanel('body'),
@@ -43,7 +42,6 @@ class ProjectPage(BaseStreamBodyMixin, HeroMixin, Page):
             InlinePanel('project_related_links', label="Related links", max_num=MAX_RELATED_LINKS)
         ], heading='Other Pages')
     ]
-
     parent_page_types = [
         'FocusAreasPage'
     ]
@@ -70,7 +68,6 @@ class FocusAreasPage(BaseStreamBodyMixin, HeroMixin, Page):
         verbose_name = 'Focus Areas Page'
 
     parent_page_types = ['home.HomePage']
-
     content_panels = Page.content_panels + [
         hero_panels(),
         StreamFieldPanel('body'),
@@ -117,7 +114,6 @@ class FocusAreasPageLink(Orderable):
         verbose_name='Focus Area Image',
         help_text='Add an image to this focus area'
     )
-
     panels = [
         FieldPanel('title'),
         FieldPanel('subtitle'),

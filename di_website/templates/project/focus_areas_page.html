@@ -24,7 +24,6 @@
         <div class="row row--narrow">
             {% if page.focus_areas_page_link.count %}
                 {% with focus_area_pages=page.focus_areas_page_link.all %}
-
                     {% for self in focus_area_pages %}
                         {% include 'includes/partials/focus_areas.html' %}
                     {% endfor %}

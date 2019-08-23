@@ -1,0 +1,13 @@
+{% load wagtailcore_tags string_utils %}
+
+<li class="accordion__list-item">
+  <button type="button" class="accordion__heading">
+    {{item.name}}
+    <i role="presentation" aria-hidden="true" class="ico ico--20 ico-plus-blank"></i>
+  </button>
+  <div class="accordion__content">
+    <div class="is-typeset">
+      {{item.description|richtext_strip_wrapper}}
+    </div>
+  </div>
+</li>

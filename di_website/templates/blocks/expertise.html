@@ -1,0 +1,30 @@
+{% load wagtailcore_tags card_tags string_utils %}
+
+<section class="section">
+  <div class="row row--narrow">
+    <h2 class="section__heading">{{self.heading}}</h2>
+    <div class="is-typeset max-meter">
+        {{self.description|richtext_strip_wrapper}}
+    </div>
+    <div class="l-2up">
+      <div class="l-2up__col">
+        <ul class="accordion">
+          {% for item in self.expertise_list %}
+            {% if forloop.counter|divisibleby:2 %}
+              {% include 'includes/partials/accordion.html' %}
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="l-2up__col">
+        <ul class="accordion">
+          {% for item in self.expertise_list %}
+            {% if forloop.counter|divisibleby:2 is False %}
+              {% include 'includes/partials/accordion.html' %}
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

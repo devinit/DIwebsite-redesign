@@ -1,6 +1,6 @@
 {% extends 'layouts/default.html' %}
 
-{% load navigation_tags wagtailcore_tags card_tags %}
+{% load navigation_tags wagtailcore_tags card_tags wagtailimages_tags wagtailcore_tags %}
 
 {% block hero %}
     {% include 'includes/heroes/hero.html' %}
@@ -35,19 +35,11 @@
             <div class="l-sidebar">
                 <div class="l-sidebar__body">
 
-                    <div class="project">
-                        <div class="project__main">
-                            <div class="project__header">
-                                <div class="project__media">
-                                    <img src="/assets/img/9918645274_95e022b2ce_o-800x500.jpg" alt="alt">
-                                </div>
-                                <h2 class="project__heading">Flexible working</h2>
-                            </div>
-                            <div class="is-typeset">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                            </div>
-                        </div>
-                    </div>
+                    {% for block in page.benefits %}
+                        {% with block.value as val %}
+                            {% include "includes/partials/benefits.html" %}
+                        {% endwith %}
+                    {% endfor %}
 
                 </div>
                 <aside class="l-sidebar__aside">

@@ -23,7 +23,6 @@ from .blocks import ExpertiseBlock, FocusAreasBlock, LocationsMapBlock
 from di_website.common.blocks import BannerBlock, SectionStreamBlock, TestimonialBlock, VideoDuoTextBlock
 from di_website.common.constants import MAX_OTHER_PAGES
 
-# Create your models here.
 class WhatWeDoPage(TypesetBodyMixin, HeroMixin, Page):
     """
     http://development-initiatives.surge.sh/page-templates/07-what-we-do

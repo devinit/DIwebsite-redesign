@@ -65,6 +65,8 @@
                 <div class="l-2up__col">
                     <ul class="accordion">
                       {% for skill in self.skills %}
+                      {% if forloop.counter|divisibleby:2 %}
+                      {% else %}
                       <li class="accordion__list-item">
                           <button type="button" class="accordion__heading">{{ skill.value.heading }} <i role="presentation" aria-hidden="true" class="ico ico--20 ico-plus-blank"></i></button>
                           <div class="accordion__content">
@@ -73,6 +75,23 @@
                               </div>
                           </div>
                       </li>
+                      {% endif %}
+                      {% endfor %}
+                  </ul>
+                </div>
+                <div class="l-2up__col">
+                    <ul class="accordion">
+                      {% for skill in self.skills %}
+                      {% if forloop.counter|divisibleby:2 %}
+                      <li class="accordion__list-item">
+                          <button type="button" class="accordion__heading">{{ skill.value.heading }} <i role="presentation" aria-hidden="true" class="ico ico--20 ico-plus-blank"></i></button>
+                          <div class="accordion__content">
+                              <div class="is-typeset">
+                                  {{ skill.value.body|richtext }}
+                              </div>
+                          </div>
+                      </li>
+                      {% endif %}
                       {% endfor %}
                   </ul>
                 </div>

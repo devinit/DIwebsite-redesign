@@ -18,9 +18,8 @@ class BenefitsBlock(StructBlock):
 
     class Meta():
         icon = 'fa-heart'
-        template = 'includes/partials/project.html'
+
 
 class BenefitsStreamBlock(StreamBlock):
-    body = RichTextBlock(required=False)
-    place = BenefitsBlock()
+    item = BenefitsBlock()
     required = False

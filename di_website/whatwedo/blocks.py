@@ -54,3 +54,30 @@ class FocusAreasBlock(StructBlock):
     class Meta():
         icon = 'fa-list'
         template = 'blocks/focus_areas.html'
+
+
+class ExpertiseBlock(StructBlock):
+    """
+    Renders the 'our expertise' section
+    """
+    heading = CharBlock(icon='fa-heading', required=False, default='Our expertise')
+    description = RichTextBlock(
+        icon='fa-paragraph',
+        template='blocks/paragraph_block.html',
+        features=RICHTEXT_FEATURES,
+        required=False)
+    expertise_list = ListBlock(StructBlock([
+        ('name', TextBlock(icon='fa-text')),
+        ('description', RichTextBlock(
+            icon='fa-paragraph',
+            template='blocks/paragraph_block.html',
+            features=RICHTEXT_FEATURES,
+            required=False))
+    ]), required=False)
+    light = BooleanBlock(
+        default=False,
+        required=False,
+        help_text='Applies a lighter background to the section')
+
+    class Meta():
+        template = 'blocks/expertise.html'

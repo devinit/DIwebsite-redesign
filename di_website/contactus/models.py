@@ -1,23 +1,21 @@
+import json
+
+from django import forms
+from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
 from django.shortcuts import render
 
-from wagtail.admin.edit_handlers import (
-    FieldPanel,
-    InlinePanel
-)
+from wagtail.admin.edit_handlers import FieldPanel, InlinePanel
 from wagtail.core.fields import RichTextField
 from wagtail.core.models import Page
-from di_website.common.mixins import HeroMixin
+
 from di_website.common.base import hero_panels
-from django import forms
-import json
-from django.core.serializers.json import DjangoJSONEncoder
+from di_website.common.mixins import HeroMixin
 
 HONEYPOT_FORM_FIELD = 'captcha'
 
 
 class ContactUs(models.Model):
-
     """
         Form fields for contact us form
     """

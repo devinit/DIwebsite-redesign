@@ -1,19 +1,18 @@
-
 {% load wagtailcore_tags wagtailimages_tags string_utils responsive %}
 
 <section class="section">
-    <div class="row row--narrow">
-        <div class="duo">
-                <div class="duo__media"> 
-                    <div class="media-wrapper">
-                        {{self.video }}
-                    </div>      
-                </div>
-            <div class="duo__main">
-                <div class="is-typeset">
-                    {{self.side_text|richtext_strip_wrapper}}
-                </div>
-            </div>
+  <div class="row row--narrow">
+    <div class="duo">
+      <div class="duo__media">
+        <div class="media-wrapper">
+          {{self.video }}
         </div>
+      </div>
+      <div class="duo__main">
+        <div class="is-typeset">
+          {{self.side_text|richtext_strip_wrapper}}
+        </div>
+      </div>
     </div>
+  </div>
 </section>

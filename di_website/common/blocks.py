@@ -190,6 +190,7 @@ class BaseStreamBlock(StreamBlock):
     link_block = LinkBlock()
     required = False
 
+
 class TypeSetImageBlock(ImageBlock):
     class Meta:
         icon = 'fa-image'
@@ -224,10 +225,10 @@ class SectionStreamBlock(StreamBlock):
 
 class MediaImageBlock(ImageBlock):
     class Meta:
-        template='blocks/media_image_block.html'
+        template = 'blocks/media_image_block.html'
+
 
 class ImageDuoTextBlock(ImageBlock):
-    
     side_text = RichTextBlock(
         icon='fa-paragraph',
         features=RICHTEXT_FEATURES,
@@ -235,10 +236,10 @@ class ImageDuoTextBlock(ImageBlock):
         required=True
     )
     class Meta:
-        template='blocks/duo_body_block_img.html'
+        template = 'blocks/duo_body_block_img.html'
+
 
 class VideoDuoTextBlock(StructBlock):
-     
     video = EmbedBlock(
         help_text='Insert an embed URL e.g https://www.youtube.com/embed/SGJFWirQ3ks',
         icon='fa-video-camera',
@@ -252,17 +253,17 @@ class VideoDuoTextBlock(StructBlock):
         required=True
     )
     class Meta:
-        template='blocks/duo_body_block_vid.html'
+        template = 'blocks/duo_body_block_vid.html'
+
 
 class DuoContentStreamBlock(StreamBlock):
-
     """
     Displays with video or image aligned to left with text aligned to the right
     """
-    image_block=ImageDuoTextBlock()
-    video_block=VideoDuoTextBlock()
-    media_image=MediaImageBlock()
-    text_block=SectionParagraphBlock()
+    image_block = ImageDuoTextBlock()
+    video_block = VideoDuoTextBlock()
+    media_image = MediaImageBlock()
+    text_block = SectionParagraphBlock()
 
 
     required = False

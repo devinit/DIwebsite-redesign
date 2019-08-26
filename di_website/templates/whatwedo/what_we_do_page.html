@@ -26,4 +26,8 @@
   {% for block in self.sections %}
     {% include_block block %}
   {% endfor %}
+
+  <section class="section">
+    {% get_other_pages calling_page=self heading=page.other_pages_heading %}
+  </section>
 {% endblock body %}

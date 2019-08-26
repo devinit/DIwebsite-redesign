@@ -237,11 +237,13 @@ class ImageDuoTextBlock(ImageBlock):
         template='blocks/paragraph_block.html',
         required=True
     )
+
     class Meta:
         template = 'blocks/duo_body_block_img.html'
 
 
 class VideoDuoTextBlock(StructBlock):
+    heading = CharBlock(icon='fa-heading', required=False, help_text='Section heading')
     video = EmbedBlock(
         help_text='Insert an embed URL e.g https://www.youtube.com/embed/SGJFWirQ3ks',
         icon='fa-video-camera',
@@ -254,6 +256,8 @@ class VideoDuoTextBlock(StructBlock):
         template='blocks/paragraph_block.html',
         required=True
     )
+    button = ButtonBlock()
+
     class Meta:
         template = 'blocks/duo_body_block_vid.html'
 
@@ -266,6 +270,5 @@ class DuoContentStreamBlock(StreamBlock):
     video_block = VideoDuoTextBlock()
     media_image = MediaImageBlock()
     text_block = SectionParagraphBlock()
-
 
     required = False

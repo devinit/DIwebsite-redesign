@@ -1,6 +1,6 @@
 {% extends 'layouts/default.html' %}
 
-{% load navigation_tags wagtailcore_tags card_tags wagtailimages_tags wagtailcore_tags %}
+{% load navigation_tags wagtailcore_tags card_tags wagtailimages_tags our_values_tags %}
 
 {% block hero %}
     {% include 'includes/heroes/hero.html' %}
@@ -34,13 +34,11 @@
             <h2 class="section__heading">Benefits of working at DI</h2>
             <div class="l-sidebar">
                 <div class="l-sidebar__body">
-
                     {% for block in page.benefits %}
                         {% with block.value as val %}
                             {% include "includes/partials/benefits.html" %}
                         {% endwith %}
                     {% endfor %}
-
                 </div>
                 <aside class="l-sidebar__aside">
                     {% for block in page.logos %}
@@ -53,5 +51,16 @@
         </div>
     </section>
 
+    <section class="section">
+        <div class="row row--narrow">
+            <h2 class="section__heading">Our values</h2>
+            <div class="is-typeset">
+                <p>{{ page.values_text }}</p>
+            </div>
+            <div class="l-3up">
+                {% values %}
+            </div>
+        </div>
+    </section>
 
 {% endblock body %}

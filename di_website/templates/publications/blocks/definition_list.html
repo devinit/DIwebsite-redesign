@@ -1,0 +1,16 @@
+{% load string_utils %}
+
+<dl class="defintionList padd-section-both">
+    {% uid_url page as short_url %}
+    {% for item in value.definitions %}
+        {% definition_id id item.term as def_id %}
+        <div id="{{ def_id }}" class="defintionList__item">
+            <dt class="definitionList__term__wrapper">
+                <p class="definitionList__term heading type-m">{{ item.term }}:</p>
+            </dt>
+            {% include 'reports/share-block.html' with share_type='definition' title=page.title|add:': '|add:item.term short_url=short_url|add:'#'|add:def_id data_js='share-section' data_id=def_id %}
+            <dd class="definitionList__definition">{{ item.definition }}</dd>
+            <span><a href="#{{ def_id }}" class="definitionList__link" data-id="{{ def_id }}" data-js="share-section-trigger">Share definition</a></span>
+        </div>
+    {% endfor %}
+</dl>

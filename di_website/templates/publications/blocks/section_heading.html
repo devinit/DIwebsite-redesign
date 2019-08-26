@@ -1,0 +1,12 @@
+{% load string_utils %}
+
+{% uid_url page as short_url %}
+{% section_id value.section_id page.chapter_number as section_id %}
+<div class="section-chapter" id="section-{{ section_id }}">
+    <div class="max-meter max-meter--center">
+        <span class="section-chapter__number">{% prepend_with_char value.section_id page.chapter_number %}</span>
+        <a href="#section-{{ section_id }}" data-id="section-{{ section_id }}" data-js="share-section-trigger" class="section-chapter__link">{% include 'macros/icon.html' with file='ico-link-sunset' size=16 %}Share section</a>
+        {% include 'reports/share-block.html' with share_type='section' title=value.heading short_url=short_url|add:'#section-'|add:section_id data_js='share-section' data_id='section-'|add:section_id %}
+        <h2 class="section-chapter__heading">{{ value.heading }}</h2>
+    </div>
+</div>

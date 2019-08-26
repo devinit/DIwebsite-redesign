@@ -1,0 +1,22 @@
+{% load string_utils %}
+
+<div class="max-meter max-meter--center">
+    <div class="m-downloads">
+        <h3 class="m-downloads__heading">Downloads</h3>
+        <ul class="m-downloads__list">
+            {% for item in value.downloads %}
+                {% if item.value.file %}
+                    <li>
+                        <a
+                            href="{{ item.value.file }}"
+                            class="js-ga-download-click"
+                            data-event-label="{{ item.value.file.file }}"
+                        >{{ item.value.file.file }}<span class="downloadSize">{{ item.value.file.file | file_info }}</span></a></li>
+                {% else %}
+                    <li><a href="{{ item.value.url }}">{{ item.value.label }}</a>&nbsp;{% include 'macros/icon.html' with file='ico-external-sunset' size=12 %}</li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+

@@ -20,7 +20,8 @@ from modelcluster.models import ClusterableModel
 from di_website.common.mixins import HeroMixin, TypesetBodyMixin, OtherPageMixin
 from di_website.common.base import hero_panels
 from .blocks import ExpertiseBlock, FocusAreasBlock, LocationsMapBlock
-from di_website.common.blocks import BannerBlock, SectionStreamBlock, TestimonialBlock, VideoDuoTextBlock
+from di_website.common.blocks import (
+    BannerBlock, SectionStreamBlock, TestimonialBlock, VideoDuoTextBlock)
 from di_website.common.constants import MAX_OTHER_PAGES
 
 class WhatWeDoPage(TypesetBodyMixin, HeroMixin, Page):
@@ -60,7 +61,9 @@ class WhatWeDoPage(TypesetBodyMixin, HeroMixin, Page):
 @register_snippet
 class ExampleTopic(ClusterableModel):
     name = models.CharField(max_length=255, unique=True)
-    slug = models.SlugField(max_length=255, blank=True, null=True, help_text="Optional. Will be auto-generated from name if left blank.")
+    slug = models.SlugField(
+        max_length=255, blank=True, null=True,
+        help_text="Optional. Will be auto-generated from name if left blank.")
 
     panels = [
         FieldPanel('name'),
@@ -80,8 +83,12 @@ class ExampleTopic(ClusterableModel):
 
 
 class ServicesPageRelatedExample(OtherPageMixin):
-    page = ParentalKey('whatwedo.ServicesPage', related_name='services_related_example', on_delete=models.CASCADE)
-    topics = models.ForeignKey(ExampleTopic, related_name="+", null=True, blank=True, on_delete=models.SET_NULL)
+    page = ParentalKey(
+        'whatwedo.ServicesPage',
+        related_name='services_related_example',
+        on_delete=models.CASCADE)
+    topics = models.ForeignKey(
+        ExampleTopic, related_name="+", null=True, blank=True, on_delete=models.SET_NULL)
 
     panels = [
         PageChooserPanel('other_page'),  # TODO: Are these meant to be project pages?
@@ -108,8 +115,11 @@ class ServicesPage(TypesetBodyMixin, HeroMixin, Page):
 
         return context
 
-    contact_text = models.CharField(blank=True, null=True, max_length=250, default='Find out more about our consultancy services and what we can do for you')
-    contact_button_text = models.CharField(blank=True, null=True, max_length=100, default='Get in touch')
+    contact_text = models.CharField(
+        blank=True, null=True, max_length=250,
+        default='Find out more about our consultancy services and what we can do for you')
+    contact_button_text = models.CharField(
+        blank=True, null=True, max_length=100, default='Get in touch')
     contact_email = models.EmailField(blank=True, null=True)
 
     specialities = StreamField([
@@ -150,8 +160,9 @@ class ServicesPage(TypesetBodyMixin, HeroMixin, Page):
         InlinePanel('services_related_news', label="Related news"),
         InlinePanel('services_related_example', label="Project examples"),
         StreamFieldPanel('sections')
-
     ]
+
+    parent_page_types = [WhatWeDoPage]
 
 
 class ServicesPageRelatedNews(OtherPageMixin):

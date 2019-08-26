@@ -9,7 +9,7 @@ from di_website.common.mixins import HeroMixin, TypesetBodyMixin
 from di_website.common.base import hero_panels
 
 from .blocks import ExpertiseBlock, FocusAreasBlock, LocationsMapBlock
-from di_website.common.blocks import BannerBlock
+from di_website.common.blocks import BannerBlock, VideoDuoTextBlock
 
 # Create your models here.
 class WhatWeDoPage(TypesetBodyMixin, HeroMixin, Page):
@@ -24,7 +24,8 @@ class WhatWeDoPage(TypesetBodyMixin, HeroMixin, Page):
         ('locations_map', LocationsMapBlock()),
         ('focus_area', FocusAreasBlock()),
         ('expertise', ExpertiseBlock()),
-        ('banner', BannerBlock())
+        ('banner', BannerBlock()),
+        ('duo', VideoDuoTextBlock())
     ], verbose_name="Sections", null=True, blank=True)
 
     content_panels = Page.content_panels + [

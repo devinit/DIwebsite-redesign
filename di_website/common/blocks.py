@@ -157,6 +157,8 @@ class BannerBlock(StructBlock):
             ('right', 'Right'),
         )
     )
+    light = BooleanBlock(
+        required=False, default=False, help_text='Sets the background to a lighter colour')
 
     class Meta():
         icon = 'fa-flag'

@@ -11,8 +11,8 @@ from wagtail.core.blocks import (
     URLBlock,
 )
 from wagtail.snippets.blocks import SnippetChooserBlock
-from common.constants import RICHTEXT_FEATURES, RICHTEXT_FEATURES_NO_FOOTNOTES, FOOTNOTE_RICHTEXT_FEATURES
-from content.infographic import Infographic
+from di_website.common.constants import RICHTEXT_FEATURES, RICHTEXT_FEATURES_NO_FOOTNOTES, FOOTNOTE_RICHTEXT_FEATURES
+from .infographic import Infographic
 
 
 class CaptionedImage(StructBlock):

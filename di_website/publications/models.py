@@ -1,12 +1,16 @@
 from django.db import models
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.contrib.contenttypes.models import ContentType
+from django.utils.text import slugify
 
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
+from modelcluster.models import ClusterableModel
 
 from wagtail.core.models import Page
 from wagtail.admin.edit_handlers import FieldPanel
+from wagtail.snippets.models import register_snippet
+from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
 from di_website.common.base import hero_panels, get_paginator_range
 from di_website.common.mixins import HeroMixin
@@ -22,8 +26,28 @@ class PublicationTopic(TaggedItemBase):
     content_object = ParentalKey('publications.PublicationPage', on_delete=models.CASCADE, related_name='publication_topics')
 
 
-class PublicationCountry(TaggedItemBase):
-    content_object = ParentalKey('publications.PublicationPage', on_delete=models.CASCADE, related_name='publication_countries')
+@register_snippet
+class PublicationCountry(ClusterableModel):
+    name = models.CharField(max_length=255, unique=True)
+    slug = models.SlugField(
+        max_length=255, blank=True, null=True,
+        help_text="Optional. Will be auto-generated from name if left blank.")
+
+    panels = [
+        FieldPanel('name'),
+        FieldPanel('slug'),
+    ]
+
+    class Meta:
+        ordering = ["name"]
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super(PublicationCountry, self).save(*args, **kwargs)
 
 
 class PublicationIndexPage(HeroMixin, Page):
@@ -66,6 +90,8 @@ class PublicationIndexPage(HeroMixin, Page):
             publications_publicationtopic_items__content_object__content_type=pubs_content_type
         ).distinct()
         context['selected_topic'] = topic_filter
+        context['countries'] = PublicationCountry.objects.all()
+        context['selected_country'] = country_filter
         context['paginator_range'] = get_paginator_range(paginator, context['stories'])
 
         return context
@@ -76,7 +102,8 @@ class PublicationIndexPage(HeroMixin, Page):
 
 class PublicationPage(HeroMixin, FlexibleContentMixin, Page):
     topics = ClusterTaggableManager(through=PublicationTopic, blank=True)
-    countries = ClusterTaggableManager(through=PublicationTopic, blank=True)
+    countries = models.ForeignKey(
+        PublicationCountry, related_name="+", null=True, blank=True, on_delete=models.SET_NULL)
 
     content_panels = Page.content_panels + [
         hero_panels(),

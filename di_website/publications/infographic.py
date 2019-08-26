@@ -12,7 +12,7 @@ from wagtail.core.blocks import (
     URLBlock,
 )
 from wagtail.snippets.blocks import SnippetChooserBlock
-from common.constants import FOOTNOTE_RICHTEXT_FEATURES
+from di_website.common.constants import FOOTNOTE_RICHTEXT_FEATURES
 
 HELP_TEXT = '''Content to display an infographic at wide screen widths, and optionally at medium and narrow screen widths. </br>
             A long description and/or tabular data is required to support the graphic. </br>

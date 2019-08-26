@@ -1,5 +1,5 @@
 from django.db import models
-from content.fields import flexible_content_streamfield, content_streamfield
+from .fields import flexible_content_streamfield, content_streamfield
 
 
 class FlexibleContentMixin(models.Model):

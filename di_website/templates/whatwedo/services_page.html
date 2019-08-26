@@ -99,7 +99,7 @@
         </div>
     </section>
 
-{% if self.services_related_news %}
+{% if self.services_related_news.count %}
     <section class="section">
         <div class="row row--narrow">
             <h2 class="section__heading">News</h2>
@@ -112,7 +112,7 @@
     </section>
 {% endif %}
 
-{% if self.services_related_example %}
+{% if self.services_related_example.count %}
 <section class="section">
         <div class="row row--narrow">
             <h2 class="section__heading">Examples of our work</h2>

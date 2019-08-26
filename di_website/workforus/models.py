@@ -9,6 +9,7 @@ from wagtail.admin.edit_handlers import (
     PageChooserPanel,
     StreamFieldPanel
 )
+from wagtail.images.blocks import ImageChooserBlock
 
 from di_website.common.base import hero_panels
 from di_website.common.mixins import BaseStreamBodyMixin, HeroMixin
@@ -42,10 +43,18 @@ class WorkForUsPage(BaseStreamBodyMixin, HeroMixin, Page):
         blank=True
     )
 
+    logos = StreamField(
+        [('image', ImageChooserBlock())],
+        verbose_name="Logos",
+        null=True,
+        blank=True
+    )
+
     content_panels = Page.content_panels + [
         hero_panels(),
         StreamFieldPanel('body'),
         FieldPanel('recruitment_policy'),
         FieldPanel('gdr_policy'),
-        StreamFieldPanel('benefits')
+        StreamFieldPanel('benefits'),
+        StreamFieldPanel('logos'),
     ]

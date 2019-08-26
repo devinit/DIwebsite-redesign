@@ -43,16 +43,11 @@
 
                 </div>
                 <aside class="l-sidebar__aside">
-                    <div class="aside">
-                        <div class="aside__media">
-                            <img src="/assets/img/logo-living-wage.jpg" alt="alt">
-                        </div>
-                    </div>
-                    <div class="aside">
-                        <div class="aside__media">
-                            <img src="/assets/img/logo-disability.jpg" alt="alt">
-                        </div>
-                    </div>
+                    {% for block in page.logos %}
+                        {% with block.value as item %}
+                            {% include "workforus/work_for_us_logos.html" %}
+                        {% endwith %}
+                    {% endfor %}
                 </aside>
             </div>
         </div>

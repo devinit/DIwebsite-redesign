@@ -1,0 +1,8 @@
+{% load wagtailimages_tags %}
+
+<div class="aside">
+    <div class="aside__media">
+        {% image item min-500x200 as image %}
+        <img src='{{ image.url }}' alt="alt">
+    </div>
+</div>

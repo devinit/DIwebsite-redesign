@@ -15,6 +15,7 @@ from di_website.common.constants import MAX_PAGE_SIZE
 from taggit.models import Tag, TaggedItemBase
 
 from .mixins import FlexibleContentMixin
+from .utils import ContentPanel
 
 
 class PublicationTopic(TaggedItemBase):
@@ -81,6 +82,7 @@ class PublicationPage(HeroMixin, FlexibleContentMixin, Page):
         hero_panels(),
         FieldPanel('topics'),
         FieldPanel('countries'),
+        ContentPanel(),
     ]
 
     class Meta():

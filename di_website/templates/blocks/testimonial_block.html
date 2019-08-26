@@ -1,0 +1,15 @@
+{% load wagtailcore_tags wagtailimages_tags string_utils %}
+
+<section class="section">
+  <div class="row row--narrow">
+    <div class="testimonial">
+      <div class="testimonial__main">
+        <div class="testimonial__copy">{{self.body|richtext_strip_wrapper}}</div>
+        <span class="testimonial__cite">{{self.cite}}</span>
+      </div>
+      <aside class="testimonial__aside">
+        {% image self.image fill-600x600 alt='testimonial image' %}
+      </aside>
+    </div>
+  </div>
+</section>

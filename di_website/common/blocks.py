@@ -198,6 +198,21 @@ class TypeSetImageBlock(ImageBlock):
         icon = 'fa-image'
         template = 'blocks/image_block.html'
 
+
+class TestimonialBlock(StructBlock):
+    body = RichTextBlock(
+        icon='fa-paragraph',
+        template='blocks/paragraph_block.html',
+        features=RICHTEXT_FEATURES
+    )
+    cite = TextBlock(help_text='The source of the testimonial')
+    image = ImageChooserBlock(required=False)
+
+    class Meta:
+        icon = 'fa-quote-left'
+        template = 'blocks/testimonial_block.html'
+
+
 class TypesetStreamBlock(StreamBlock):
     """
     The custom blocks that can be used under an element with the typeset class (not sections)

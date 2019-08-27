@@ -1,0 +1,26 @@
+{% load string_utils wagtailcore_tags %}
+
+{% if page.footnotes_list %}
+    <div class="cloud-bg">
+        <section class="section">
+            <div class="row">
+                <div class="footnotes">
+                    <h2 class="heading type-l type-l--trailer">Footnotes</h2>
+                    {% if page.footnotes_list %}
+                        <ol class="footnotes__list">
+                            {% for item in page.footnotes_list %}
+                                <li class="footnotes__item" id="{{ item.footnote_id }}">
+                                    <a name="{{ item.footnote_id }}"></a>
+                                    <div class="footnotes__text">
+                                        {{ item.text | urlize  | autop }}
+                                    </div>
+                                    <a class="footnotes__return" href="#{{ item.source_id }}">Return to source text</a>
+                                </li>
+                            {% endfor %}
+                        </ol>
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+    </div>
+{% endif %}

@@ -1,0 +1,20 @@
+{% load string_utils %}
+
+{% if item.page_downloads %}
+    <div class="button download-button {{ button_class }}">
+        <span>{{ download_title }} {% include 'macros/icon.html' with file=download_icon|default:'ico-arrow-down-slate' size=10 %}</span>
+        <ul>
+            {% for download in item.page_downloads %}
+                {% if download.download.file %}
+                    <li>
+                        <a
+                            href="{{ download.download.file.url }}"
+                            class="js-ga-download-click"
+                            data-event-label="{{ download_title }} / {{ download.download.language }} / {{ page.title }}"
+                        >{{ download.download.language }}<span class="downloadSize">{{ download.download.file|file_info }}</span></a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}

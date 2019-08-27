@@ -301,6 +301,7 @@ a.m-stat {
 .m-slip__copy {
     @include font-size($para + 1);
     line-height: 1.5;
+    max-width: 90%;
     a:hover {
         text-decoration: underline;
     }

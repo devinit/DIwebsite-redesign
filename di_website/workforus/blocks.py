@@ -1,9 +1,12 @@
+from django.db import models
+
 from wagtail.core.blocks import (
     PageChooserBlock,
     RichTextBlock,
     StreamBlock,
     StructBlock,
-    TextBlock
+    TextBlock,
+    URLBlock
 )
 from wagtail.images.blocks import ImageChooserBlock
 
@@ -22,4 +25,18 @@ class BenefitsBlock(StructBlock):
 
 class BenefitsStreamBlock(StreamBlock):
     item = BenefitsBlock()
+    required = False
+
+
+class TeamStoryBlock(StructBlock):
+    title = TextBlock()
+    story_url = URLBlock()
+    image = ImageChooserBlock(required=False)
+
+    class Meta():
+        icon = 'fa-book'
+
+
+class TeamStoryStreamBlock(StreamBlock):
+    item = TeamStoryBlock()
     required = False

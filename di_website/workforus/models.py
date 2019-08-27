@@ -15,7 +15,7 @@ from wagtail.snippets.models import register_snippet
 
 from di_website.common.base import hero_panels
 from di_website.common.mixins import BaseStreamBodyMixin, HeroMixin
-from .blocks import BenefitsStreamBlock
+from .blocks import BenefitsStreamBlock, TeamStoryStreamBlock
 
 from modelcluster.fields import ParentalKey
 
@@ -24,7 +24,6 @@ from modelcluster.fields import ParentalKey
 class Values(models.Model):
     title = models.TextField(null=True, blank=True, verbose_name='Value Name',)
     paragraph = models.TextField(max_length=255, verbose_name='Description',)
-
     panels = [
         FieldPanel('title'),
         FieldPanel('paragraph'),
@@ -48,34 +47,40 @@ class WorkForUsPage(BaseStreamBodyMixin, HeroMixin, Page):
         verbose_name='Recruitment Policy',
         help_text='A Link to the recruitment policy if any'
     )
-
     gdr_policy = models.URLField(
         null=True,
         blank=True,
         verbose_name='GDPR Policy',
         help_text='A Link to the GDPR policy if any'
     )
-
     benefits = StreamField(
         BenefitsStreamBlock,
         verbose_name="Benefits",
         null=True,
         blank=True
     )
-
     logos = StreamField(
         [('image', ImageChooserBlock())],
         verbose_name="Logos",
         null=True,
         blank=True
     )
-
     values_text = models.TextField(
         blank=True,
         max_length=255,
         verbose_name='Brief text for values section',
     )
-
+    team_story_heading = models.TextField(
+        blank=True,
+        max_length=255,
+        verbose_name='Brief descriptive text',
+    )
+    team_story = StreamField(
+        TeamStoryStreamBlock,
+        verbose_name="Team Stories",
+        null=True,
+        blank=True
+    )
     content_panels = Page.content_panels + [
         hero_panels(),
         StreamFieldPanel('body'),
@@ -84,4 +89,8 @@ class WorkForUsPage(BaseStreamBodyMixin, HeroMixin, Page):
         StreamFieldPanel('benefits'),
         StreamFieldPanel('logos'),
         FieldPanel('values_text'),
+        MultiFieldPanel([
+            FieldPanel('team_story_heading'),
+            StreamFieldPanel('team_story'),
+        ], heading='Team Stories')
     ]

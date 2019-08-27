@@ -9,7 +9,7 @@
       <div class="l-sidebar">
         <aside class="l-sidebar__aside">
           <div class="aside aside--clipping">
-            {% secondary_menu parent=self calling_page=self.get_parent %}
+            {% secondary_menu parent=self.get_parent calling_page=self %}
           </div>
           <div class="aside">
               <p class="aside__excerpt">{{ self.contact_text }}</p>

@@ -10,10 +10,13 @@
   <section class="section">
     <div class="row row--narrow">
       <div class="l-sidebar">
+        <aside class="l-sidebar__aside">
+          <div class="aside aside--clipping">
+            {% secondary_menu parent=self.get_parent.get_parent calling_page=self.get_parent %}
+          </div>
+        </aside>
         <div class="l-sidebar__body">
-
           {% breadcrumbs %}
-
           <div class="is-typeset wysiwyg">
             {% for block in page.body %}
               {% if block.block_type == 'paragraph_block' or block.block_type == 'block_quote' %}

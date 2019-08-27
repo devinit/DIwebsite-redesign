@@ -20,7 +20,11 @@
     </section>
 {% endblock %}
 
-<!-- TODO: include sidebar links from what we do once they're approved -->
+{% block aside %}
+  <div class="aside aside--clipping">
+    {% secondary_menu parent=self.get_parent.get_parent calling_page=self.get_parent %}
+  </div>
+{% endblock aside %}
 
 {% block after_content %}
     {% if page.news_related_links.count %}

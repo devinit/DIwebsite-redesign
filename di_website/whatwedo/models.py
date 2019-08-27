@@ -57,6 +57,15 @@ class WhatWeDoPage(TypesetBodyMixin, HeroMixin, Page):
         ], heading='Other Pages/Related Links')
     ]
 
+    subpage_types = [
+        'project.FocusAreasPage',
+        'whatwedo.ServicesPage',
+        'news.NewsIndexPage',
+        'events.EventIndexPage',
+        'place.PlacesPage'
+    ]
+    parent_page_types = ['home.HomePage']
+
 
 @register_snippet
 class ExampleTopic(ClusterableModel):

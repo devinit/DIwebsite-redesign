@@ -23,5 +23,6 @@ def get_other_pages(context, calling_page=None, heading='Other pages in this sec
 
 @register.simple_tag
 def get_office_locations():
-    locations = OfficeLocation.objects.all()
+    locations = OfficeLocation.objects.exclude(
+        latitude__isnull=True).exclude(longitude__isnull=True).all()
     return locations

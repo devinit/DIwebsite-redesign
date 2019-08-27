@@ -1,0 +1,11 @@
+{% load wagtailimages_tags %}
+
+<div class="l-4up__col">
+    <a href="{{ story.story_url }}" class="m-stat m-stat--simple">
+        <div class="m-stat__icon">
+            {% image story.image min-500x200 as image %}
+            <img src='{{ image.url }}' alt="alt">
+        </div>
+        <h3 class="m-stat__title m-stat__title--center"><span>{{ story.title }}</span></h3>
+    </a>
+</div>

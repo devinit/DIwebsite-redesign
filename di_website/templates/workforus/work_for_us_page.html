@@ -63,4 +63,20 @@
         </div>
     </section>
 
+    <section class="section section--alt">
+        <div class="row row--narrow">
+            <h2 class="section__heading">Team stories</h2>
+            <div class="is-typeset max-meter">
+                <p>{{ page.team_story_heading }}</p>
+            </div>
+            <div class="l-4up space-section-top">
+                {% for block in page.team_story %}
+                    {% with block.value as story %}
+                        {% include "workforus/work_for_us_team_stories.html" %}
+                    {% endwith %}
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
 {% endblock body %}

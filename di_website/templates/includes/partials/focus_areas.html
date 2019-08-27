@@ -1,0 +1,17 @@
+{% extends 'includes/partials/project.html' %}
+{% load wagtailimages_tags wagtailcore_tags static %}
+
+{% block project_aside %}
+    <h3 class="project__subheading">Key projects</h3>
+
+    {% for block in self.projects %}
+        {% if block.value.specific.hero_image %}
+            {% image block.value.specific.hero_image max-313x178 as hero_img %}
+            <a href="#" class="project-card" style="background-image: url({{hero_img.url}});">
+        {% else %}
+            <a href="#" class="project-card" style="background-image: url({% static 'img/fallback-image.jpg' %});">
+        {% endif %}
+            <span class="project-card__caption">{{ block.value.title }}</span>
+            </a>
+    {% endfor %}
+{% endblock project_aside %}

@@ -1,0 +1,52 @@
+{% extends "layouts/default.html" %}
+
+{% load navigation_tags static wagtailcore_tags wagtailimages_tags card_tags generic_tags %}
+
+{% block hero %}
+    {% include 'includes/heroes/hero.html' %}
+{% endblock hero %}
+
+{% block body %}
+
+    <section class="section">
+        <div class="row row--narrow">
+            <div class="l-sidebar">
+                <div class="l-sidebar__body">
+                    <div class="is-typeset wysiwyg">
+                        {{ page.body }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            {% if page.focus_areas_page_link.count %}
+                {% with focus_area_pages=page.focus_areas_page_link.all %}
+                    {% for self in focus_area_pages %}
+                        {% include 'includes/partials/focus_areas.html' %}
+                    {% endfor %}
+                {% endwith %}
+            {% endif %}
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            {% if page.focus_areas_related_links.count %}
+                <h2 class="section__heading">More about</h2>
+                <div class="l-4up">
+                    {% with related_pages=page.focus_areas_related_links.all %}
+                        {% for related_page in related_pages %}
+                            {% with more_about_page=related_page.other_page.specific %}
+                                {% include 'includes/cards/card-more-about.html' %}
+                            {% endwith %}
+                        {% endfor %}
+                    {% endwith %}
+                </div>
+            {% endif %}
+        </div>
+    </section>
+
+{% endblock %}

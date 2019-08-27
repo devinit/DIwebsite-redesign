@@ -17,6 +17,7 @@ from modelcluster.models import ClusterableModel
 
 from di_website.common.base import hero_panels
 from di_website.common.mixins import HeroMixin, OtherPageMixin, SectionBodyMixin, TypesetBodyMixin
+from di_website.common.constants import SIMPLE_RICHTEXT_FEATURES
 
 
 class AbstractLink(models.Model):
@@ -134,9 +135,11 @@ class SocialLink(Orderable, models.Model):
 
 @register_snippet
 class FooterText(models.Model):
-    body = RichTextField()
+    major_content = RichTextField(features=SIMPLE_RICHTEXT_FEATURES, blank=True)
+    body = RichTextField(features=SIMPLE_RICHTEXT_FEATURES)
 
     panels = [
+        FieldPanel('major_content'),
         FieldPanel('body'),
     ]
 

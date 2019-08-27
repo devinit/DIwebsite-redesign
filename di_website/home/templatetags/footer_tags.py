@@ -40,10 +40,14 @@ def subscribe_to_newsletter():
 
 @register.inclusion_tag('tags/footer/footer_text.html')
 def get_footer_text():
-    footer_text = ""
-    if FooterText.objects.first() is not None:
-        footer_text = FooterText.objects.first().body
+    footer_text = ''
+    footer_text_major = ''
+    footer = FooterText.objects.first()
+    if footer is not None:
+        footer_text = footer.body
+        footer_text_major = footer.major_content
 
     return {
         'footer_text': footer_text,
+        'footer_text_major': footer_text_major
     }

@@ -1,4 +1,10 @@
-
+SIMPLE_RICHTEXT_FEATURES = [
+    'bold',
+    'italic',
+    'ol',
+    'ul',
+    'link'
+]
 RICHTEXT_FEATURES = [
     'h2',
     'h3',

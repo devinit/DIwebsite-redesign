@@ -1,7 +1,6 @@
 {% load wagtailcore_tags %}
 
 <div class="footer__meta">
-    <div class="footer__meta-copy">
-        {{ footer_text|richtext }}
-    </div>
+  <div class="footer__meta-copy footer__meta-copy--major">{{ footer_text_major|richtext }}</div>
+    <div class="footer__meta-copy">{{ footer_text|richtext }}</div>
 </div>

@@ -1,0 +1,40 @@
+{% load string_utils %}
+
+{% if page.downloads_list or page.data_downloads_list %}
+    <div class="download">
+        {% if page.downloads_list %}
+            <h2 class="type-m type-s--trailer heading">{{ page.downloads_title }}</h2>
+            <ul class="download__list">
+                {% for group, downloads in page.downloads_list %}
+                    <li class="download__item">
+                        <span class="download__label">{{ group }}</span>
+                        {% for item in downloads %}
+                            <a
+                                href="{{ item.download.file.url }}"
+                                class="download__link js-ga-download-click"
+                                data-event-label="{{ item.prefix }}{{ item.download.get_title }} / {{ group }}"
+                            >{{ item.prefix }}{{ item.download.get_title }} ({{ item.download.file | file_info }})</a>
+                        {% endfor %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        {% if page.data_downloads_list %}
+            <h2 class="type-m type-s--trailer heading space-section-top-sml">{{ page.data_downloads_title }}</h2>
+            <ul class="download__list">
+                {% for group, downloads in page.data_downloads_list %}
+                    <li class="download__item">
+                        <span class="download__label">Data</span>
+                        {% for item in downloads %}
+                            <a
+                                href="{{ item.download.file.url }}"
+                                class="download__link js-ga-download-click"
+                                data-event-label="{{ item.prefix }}{{ item.download.get_title }} / Data"
+                            >{{ item.prefix }}{{ item.download.get_title }} ({{ item.download.file | file_info }})</a>
+                        {% endfor %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+{% endif %}

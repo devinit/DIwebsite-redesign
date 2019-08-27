@@ -43,11 +43,13 @@ INSTALLED_APPS = [
     'di_website.whatwedo',
     'di_website.error',
     'di_website.publications',
+    'di_website.downloads',
 
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
     'wagtail.contrib.settings',
     'wagtail.contrib.styleguide',
+    'wagtail.contrib.table_block',
     'wagtail.embeds',
     'wagtail.sites',
     'wagtail.users',

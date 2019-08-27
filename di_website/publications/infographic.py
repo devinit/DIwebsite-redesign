@@ -59,7 +59,7 @@ class Infographic(StructBlock):
         icon = 'form'
         label = 'Infographic'
         form_classname = 'custom__itemlist struct-block'
-        form_template = 'content/block_forms/custom_struct.html'
+        form_template = 'publications/block_forms/custom_struct.html'
 
     heading = CharBlock(
         required=False,
@@ -75,7 +75,7 @@ class Infographic(StructBlock):
                 ],
                 icon='image',
                 label='Wide',
-                form_template='content/block_forms/custom_struct.html',
+                form_template='publications/block_forms/custom_struct.html',
                 help_text='<b>Note:</b> infographics always require a wide image. Medium and narrow images are optional.'
             )),
             ('image_medium', StructBlock(

@@ -101,14 +101,14 @@ class PublicationIndexPage(HeroMixin, Page):
 
 
 class PublicationPage(HeroMixin, FlexibleContentMixin, Page):
-    topics = ClusterTaggableManager(through=PublicationTopic, blank=True)
+    topics = ClusterTaggableManager(through=PublicationTopic, blank=True, verbose_name="Topics")
     countries = models.ForeignKey(
         PublicationCountry, related_name="+", null=True, blank=True, on_delete=models.SET_NULL)
 
     content_panels = Page.content_panels + [
         hero_panels(),
         FieldPanel('topics'),
-        FieldPanel('countries'),
+        SnippetChooserPanel('countries'),
         ContentPanel(),
     ]
 

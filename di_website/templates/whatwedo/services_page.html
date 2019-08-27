@@ -1,0 +1,147 @@
+{% extends 'layouts/default.html' %}
+{% load navigation_tags wagtailcore_tags wagtailimages_tags card_tags string_utils %}
+
+{% block body %}
+  {% include 'includes/heroes/hero.html' %}
+
+  <section class="section">
+    <div class="row row--narrow">
+      <div class="l-sidebar">
+        <aside class="l-sidebar__aside">
+          <div class="aside aside--clipping">
+            {% secondary_menu parent=self.get_parent calling_page=self %}
+          </div>
+          <div class="aside">
+              <p class="aside__excerpt">{{ self.contact_text }}</p>
+              <a href="mailto:{{ self.contact_email }}" class="button">{{ self.contact_button_text }}</a>
+          </div>
+        </aside>
+        <div class="l-sidebar__body">
+          <div class="is-typeset wysiwyg">
+            {% for block in self.body %}
+              {% include_block block %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="row row--narrow">
+      <h2 class="section__heading">We specialise in</h2>
+      <div class="l-2up">
+        {% for speciality in self.specialities %}
+          <div class="l-2up__col">
+            <div class="project project--full">
+              <div class="project__main">
+                <div class="project__header">
+                  <div class="project__media">
+                    {% if speciality.value.image %}
+                      {% image speciality.value.image fill-600x375-c100 as image %}
+                      <img src="{{ image.url }}" alt="{{ image.alt }}">
+                    {% endif %}
+                  </div>
+                  <h2 class="project__heading">{{ speciality.value.heading|default_if_none:"" }}</h2>
+                </div>
+                <div class="is-typeset">{{ speciality.value.body|richtext }}</div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="row row--narrow">
+      <h2 class="section__heading">Our skills</h2>
+      <div class="is-typeset max-meter">
+        <p>Our range of skills and expertise enables us to deliver our work:</p>
+      </div>
+      <div class="l-2up">
+        <div class="l-2up__col">
+          <ul class="accordion">
+            {% for skill in self.skills %}
+              {% if forloop.counter|divisibleby:2 is False %}
+                <li class="accordion__list-item">
+                  <button type="button" class="accordion__heading">
+                    {{ skill.value.heading }} <i role="presentation" aria-hidden="true" class="ico ico--20 ico-plus-blank"></i>
+                  </button>
+                  <div class="accordion__content">
+                    <div class="is-typeset">{{ skill.value.body|richtext }}</div>
+                  </div>
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="l-2up__col">
+          <ul class="accordion">
+            {% for skill in self.skills %}
+              {% if forloop.counter|divisibleby:2 %}
+                <li class="accordion__list-item">
+                  <button type="button" class="accordion__heading">
+                    {{ skill.value.heading }} <i role="presentation" aria-hidden="true" class="ico ico--20 ico-plus-blank"></i>
+                  </button>
+                  <div class="accordion__content">
+                    <div class="is-typeset">{{ skill.value.body|richtext }}</div>
+                  </div>
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% if self.services_related_news.count %}
+  <section class="section">
+    <div class="row row--narrow">
+      <h2 class="section__heading">News</h2>
+      <div class="l-2up-3up">
+        {% for item in self.services_related_news.all %}
+          {% include 'includes/cards/card-news.html' with show_tag=True %}
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+{% endif %}
+
+{% if self.services_related_example.count %}
+  <section class="section">
+    <div class="row row--narrow">
+      <h2 class="section__heading">Examples of our work</h2>
+      <form method="get" action="{{self.pageurl}}" class="form">
+        <div class="form-field form-field--inline">
+          <label for="team-filter" class="form-label form-label--hidden">Filter by service type</label>
+          <div class="form-field__select-dropdown">
+            <select name="topic" id="topic">
+              <option value="">Filter by service type</option>
+              {% for topic in topics %}
+                {% if topic.slug == selected_topic %}
+                  <option value="{{topic.slug}}" id="{{topic.slug}}" selected>{{topic}}</option>
+                {% else %}
+                  <option value="{{topic.slug}}" id="{{topic.slug}}">{{topic}}</option>
+                {% endif %}
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+        <div class="form-field form-field--inline">
+          <button type="submit" class="button">Filter</button>
+        </div>
+      </form>
+      <div class="l-3up space-section-top">
+        {% for item in examples %}
+          <div class="m-slip ">
+            <p class="m-slip__copy"><a href="{% pageurl item.other_page %}">{{ item.other_page.title }}</a></p>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+{% endif %}
+
+{% endblock body %}

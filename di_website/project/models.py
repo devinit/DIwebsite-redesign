@@ -67,7 +67,7 @@ class FocusAreasPage(BaseStreamBodyMixin, HeroMixin, Page):
     class Meta():
         verbose_name = 'Focus Areas Page'
 
-    parent_page_types = ['home.HomePage']
+    parent_page_types = ['whatwedo.WhatWeDoPage']
     content_panels = Page.content_panels + [
         hero_panels(),
         StreamFieldPanel('body'),

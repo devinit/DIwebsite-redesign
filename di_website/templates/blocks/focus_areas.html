@@ -1,0 +1,21 @@
+{% load wagtailcore_tags %}
+
+<section class="section{% if self.light %} section--alt{% endif %}">
+  <div class="row row--narrow">
+      <h2 class="section__heading">{{self.heading}}</h2>
+      <div class="l-3up">
+
+        {% for area in self.focus_areas %}
+          <div class="l-3up__col">
+              <div class="m-stat">
+                <span class="m-stat__flourish"></span>
+                <h3 class="m-stat__title">{{area}}</h3>
+              </div>
+          </div>
+        {% endfor %}
+      </div>
+      {% if self.button %}
+        {% include_block self.button %}
+      {% endif %}
+  </div>
+</section>

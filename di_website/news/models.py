@@ -34,7 +34,7 @@ class NewsIndexPage(HeroMixin, Page):
     ]
 
     subpage_types = ['NewsStoryPage']
-    parent_page_types = ['home.HomePage']
+    parent_page_types = ['whatwedo.WhatWeDoPage']
 
     class Meta():
         verbose_name = 'News Index Page'

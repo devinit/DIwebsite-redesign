@@ -9,16 +9,16 @@
         <li>
           {% if link.value.page %}
             <a href="{% pageurl link.value.page %}" class="button">
-                {% if link.value.caption %}
-                  {{ link.value.caption }}
-                {% else %}
-                  {{ link.value.page.title }}
-                {% endif %}
+              {% if link.value.caption %}
+                {{ link.value.caption }}
+              {% else %}
+                {{ link.value.page.title }}
+              {% endif %}
             </a>
           {% elif link.value.url %}
-              <a href="{{ link.value.url }}" class="button">
-                  {{ link.value.caption }}
-              </a>
+            <a href="{{ link.value.url }}" class="button">
+              {{ link.value.caption }}
+            </a>
           {% endif %}
         </li>
       {% endfor %}

@@ -157,6 +157,8 @@ class BannerBlock(StructBlock):
             ('right', 'Right'),
         )
     )
+    light = BooleanBlock(
+        required=False, default=False, help_text='Sets the background to a lighter colour')
 
     class Meta():
         icon = 'fa-flag'
@@ -190,10 +192,26 @@ class BaseStreamBlock(StreamBlock):
     link_block = LinkBlock()
     required = False
 
+
 class TypeSetImageBlock(ImageBlock):
     class Meta:
         icon = 'fa-image'
         template = 'blocks/image_block.html'
+
+
+class TestimonialBlock(StructBlock):
+    body = RichTextBlock(
+        icon='fa-paragraph',
+        template='blocks/paragraph_block.html',
+        features=RICHTEXT_FEATURES
+    )
+    cite = TextBlock(help_text='The source of the testimonial')
+    image = ImageChooserBlock(required=False)
+
+    class Meta:
+        icon = 'fa-quote-left'
+        template = 'blocks/testimonial_block.html'
+
 
 class TypesetStreamBlock(StreamBlock):
     """
@@ -224,21 +242,23 @@ class SectionStreamBlock(StreamBlock):
 
 class MediaImageBlock(ImageBlock):
     class Meta:
-        template='blocks/media_image_block.html'
+        template = 'blocks/media_image_block.html'
+
 
 class ImageDuoTextBlock(ImageBlock):
-    
     side_text = RichTextBlock(
         icon='fa-paragraph',
         features=RICHTEXT_FEATURES,
         template='blocks/paragraph_block.html',
         required=True
     )
+
     class Meta:
-        template='blocks/duo_body_block_img.html'
+        template = 'blocks/duo_body_block_img.html'
+
 
 class VideoDuoTextBlock(StructBlock):
-     
+    heading = CharBlock(icon='fa-heading', required=False, help_text='Section heading')
     video = EmbedBlock(
         help_text='Insert an embed URL e.g https://www.youtube.com/embed/SGJFWirQ3ks',
         icon='fa-video-camera',
@@ -251,18 +271,19 @@ class VideoDuoTextBlock(StructBlock):
         template='blocks/paragraph_block.html',
         required=True
     )
+    button = ButtonBlock()
+
     class Meta:
-        template='blocks/duo_body_block_vid.html'
+        template = 'blocks/duo_body_block_vid.html'
+
 
 class DuoContentStreamBlock(StreamBlock):
-
     """
     Displays with video or image aligned to left with text aligned to the right
     """
-    image_block=ImageDuoTextBlock()
-    video_block=VideoDuoTextBlock()
-    media_image=MediaImageBlock()
-    text_block=SectionParagraphBlock()
-
+    image_block = ImageDuoTextBlock()
+    video_block = VideoDuoTextBlock()
+    media_image = MediaImageBlock()
+    text_block = SectionParagraphBlock()
 
     required = False

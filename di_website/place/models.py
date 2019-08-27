@@ -45,5 +45,6 @@ class PlacesPage(BaseStreamBodyMixin, HeroMixin, Page):
     ]
 
     subpage_types = ['home.StandardPage']
+    parent_page_types = ['whatwedo.WhatWeDoPage']
 
     # TODO: set Where we Work as parent page

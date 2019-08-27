@@ -11,7 +11,7 @@ class DownloadAdmin(ModelAdmin):
     menu_icon = 'download'
     menu_order = 100
     menu_label = 'Downloads'
-    list_display = ('file', 'title',)
+    list_display = ('file', 'title', 'language', )
     search_fields = ('file__title', 'title', )
 
 

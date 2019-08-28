@@ -3,40 +3,39 @@
 
 {% load wagtailcore_tags %}
 
-
 {% block hero %}
     {% include 'includes/heroes/hero.html' %}
 {% endblock hero %}
 
 {% block body %}
-<section class="section">
+  <section class="section">
     <div class="row row--narrow">
-        <div class="max-meter">
-             <div class="is-typeset">
-                {% if page.intro %}
-                    <p>{{page.intro|richtext}}</p>
-                {% endif %}
-            </div>
-            <form novalidate action="{% pageurl page %}" method="POST">
-                {% csrf_token %}
-                
-                {% include 'contactus/includes/form-loop.html'%}
-                 
-                <div class="form-field form-field--spaced" style="display: none !important;">
-                    <label class="form-label" for="captcha">Phone number</label>
-                    <div class="form-item-inline">
-                      <input type="text" class="form-item" name="captcha" tabindex="-1" autocomplete="off" placeholder="(XXX)-XXX-XXXX">
-                    </div>
-                  </div>
-                </div>
-
-                <div class="form-field form-field--spaced">
-                    <input class="button" type="submit" value="Send message">
-                </div>
-            </form>
+      <div class="max-meter">
+        <div class="is-typeset">
+          {% if page.intro %}
+            {{page.intro|richtext}}
+          {% endif %}
         </div>
-    </div>
-</section>
-{% include 'contactus/includes/contact_details.html' %}
-{% endblock %}
+        <form novalidate action="{% pageurl page %}" method="POST">
+          {% csrf_token %}
 
+          {% include 'contactus/includes/form-loop.html'%}
+
+          <div class="form-field form-field--spaced" style="display: none !important;">
+            <label class="form-label" for="captcha">Phone number</label>
+            <div class="form-item-inline">
+              <input type="text" class="form-item" name="captcha" tabindex="-1" autocomplete="off"
+                placeholder="(XXX)-XXX-XXXX">
+            </div>
+          </div>
+
+          <div class="form-field form-field--spaced">
+            <input class="button" type="submit" value="Send message">
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  {% include 'contactus/includes/contact_details.html' %}
+{% endblock body %}

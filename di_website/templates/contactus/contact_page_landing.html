@@ -12,9 +12,9 @@
     <div class="row row--narrow">
       <div class="max-meter">
         <div class="is-typeset">
-          {% if page.intro %}
-            {{page.intro|richtext}}
-          {% endif %}
+          {% for block in page.body %}
+            {% include_block block %}
+          {% endfor %}
         </div>
         <div class="alert alert--success">
           <i role="presentation" aria-hidden="true" class="ico ico-success-success"></i>

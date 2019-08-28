@@ -50,6 +50,30 @@ class PublicationCountry(ClusterableModel):
         super(PublicationCountry, self).save(*args, **kwargs)
 
 
+@register_snippet
+class PublicationType(ClusterableModel):
+    name = models.CharField(max_length=255, unique=True)
+    slug = models.SlugField(
+        max_length=255, blank=True, null=True,
+        help_text="Optional. Will be auto-generated from name if left blank.")
+
+    panels = [
+        FieldPanel('name'),
+        FieldPanel('slug'),
+    ]
+
+    class Meta:
+        ordering = ["name"]
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super(PublicationType, self).save(*args, **kwargs)
+
+
 class PublicationIndexPage(HeroMixin, Page):
 
     content_panels = Page.content_panels + [
@@ -101,6 +125,8 @@ class PublicationIndexPage(HeroMixin, Page):
 
 
 class PublicationPage(HeroMixin, FlexibleContentMixin, Page):
+    publication_type = models.ForeignKey(
+        PublicationType, related_name="+", null=True, blank=True, on_delete=models.SET_NULL)
     topics = ClusterTaggableManager(through=PublicationTopic, blank=True, verbose_name="Topics")
     countries = models.ForeignKey(
         PublicationCountry, related_name="+", null=True, blank=True, on_delete=models.SET_NULL)

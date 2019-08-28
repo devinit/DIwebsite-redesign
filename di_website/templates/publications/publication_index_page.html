@@ -1,0 +1,67 @@
+{% extends "layouts/default.html" %}
+
+{% load navigation_tags static wagtailcore_tags wagtailimages_tags card_tags static %}
+
+{% block hero %}
+    {% include 'includes/heroes/hero.html' %}
+{% endblock hero %}
+
+{% block body %}
+    <section class="section">
+        <div class="row row--narrow">
+                    <div class="highlight">
+                        <form method="get" action="{{self.pageurl}}" class="form">
+                            <div class="form-field form-field--inline-four">
+                                <label for="topic" class="form-label form-label--hidden">
+                                    Filter by topic
+                                </label>
+                                <div class="form-field__select-dropdown">
+                                    <select name="topic" id="topic">
+                                        <option value="" id="filter-by-topic">Filter by topic</option>
+                                        {% for topic in topics %}
+                                        <option value="{{topic.slug}}" id="{{topic.slug}}" {% if topic.slug == selected_topic %}selected{% endif %}>
+                                            {{topic}}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-field form-field--inline-four">
+                                <label for="country" class="form-label form-label--hidden">
+                                    Filter by country
+                                </label>
+                                <div class="form-field__select-dropdown">
+                                    <select name="country" id="country">
+                                        <option value="" id="filter-by-country">Filter by country</option>
+                                        {% for country in countries %}
+                                        <option value="{{country.slug}}" id="{{country.slug}}" {% if country.slug == selected_country %}selected{% endif %}>
+                                            {{country}}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-field form-field--inline-four">
+                              <label for="q" class="form-label form-label--hidden">Search by keyword</label>
+                              <input class="form-item" type="text" name="q" placeholder="Search...">
+                          </div>
+                            <div class="form-field form-field--inline-four">
+                                <button type="submit" class="button">Filter</button>
+                            </div>
+                        </form>
+                    </div>
+        </div>
+    </section>
+
+  <section class="section">
+      <div class="row row--narrow">
+          <div class="l-2up-3up">
+              {% for item in stories %}
+                  {% include 'includes/cards/card-pubs.html' %}
+              {% endfor %}
+          </div>
+          {% include "includes/scaffold/pagination.html" with children=stories %}
+      </div>
+  </section>
+
+{% endblock %}

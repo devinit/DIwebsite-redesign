@@ -20,9 +20,9 @@ class ContactUs(models.Model):
         Form fields for contact us form
     """
     name = models.CharField(max_length=255)
-    organisation = models.CharField(max_length=255)
+    organisation = models.CharField(max_length=255, blank=True)
     email = models.EmailField()
-    telephone = models.CharField(max_length=255)
+    telephone = models.CharField(max_length=255, blank=True)
     message = models.TextField()
 
     def __str__(self):

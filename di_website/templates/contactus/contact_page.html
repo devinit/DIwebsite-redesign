@@ -12,9 +12,9 @@
     <div class="row row--narrow">
       <div class="max-meter">
         <div class="is-typeset">
-          {% if page.intro %}
-            {{page.intro|richtext}}
-          {% endif %}
+          {% for block in page.body %}
+            {% include_block block %}
+          {% endfor %}
         </div>
         <form novalidate action="{% pageurl page %}" method="POST">
           {% csrf_token %}

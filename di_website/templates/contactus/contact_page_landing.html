@@ -4,32 +4,33 @@
 {% load wagtailcore_tags string_utils %}
 
 {% block hero %}
-    {% include 'includes/heroes/hero.html' %}
+  {% include 'includes/heroes/hero.html' %}
 {% endblock hero %}
 
 {% block body %}
-<section class="section">
+  <section class="section">
     <div class="row row--narrow">
-        <div class="max-meter">
-            <div class="is-typeset">
-                {% if page.intro %}
-                    {{page.intro|richtext}}
-                {% endif %}
-            </div>
-            <div class="alert alert--success"><i role="presentation" aria-hidden="true" class="ico ico-success-success"></i>
-                <p><strong>{{page.success_alert}}</strong></p>
-                {% with form_submission as content %}
-                    <p>Name: [ {{content.name | default:""}} ]</p>
-                    <p>Organisation: [ {{content.organisation | default:""}} ]</p>
-                    <p>Email: [ {{content.email|default:""}} ]</p>
-                    <p>Telephone: [ {{content.telephone | default:""}} ]</p>
-                    <p>Message:</p>
-                    <p>{{content.message | richtext}}</p>
-                {% endwith %}
-            </div>
+      <div class="max-meter">
+        <div class="is-typeset">
+          {% if page.intro %}
+            {{page.intro|richtext}}
+          {% endif %}
         </div>
+        <div class="alert alert--success">
+          <i role="presentation" aria-hidden="true" class="ico ico-success-success"></i>
+          <p><strong>{{page.success_alert}}</strong></p>
+          {% with form_submission as content %}
+            <p>Name: [ {{content.name | default:""}} ]</p>
+            <p>Organisation: [ {{content.organisation | default:""}} ]</p>
+            <p>Email: [ {{content.email|default:""}} ]</p>
+            <p>Telephone: [ {{content.telephone | default:""}} ]</p>
+            <p>Message:</p>
+            <p>{{content.message | richtext}}</p>
+          {% endwith %}
+        </div>
+      </div>
     </div>
-</section>
-{% include 'contactus/includes/contact_details.html' %}
-{% endblock %}
+  </section>
 
+  {% include 'contactus/includes/contact_details.html' %}
+{% endblock %}

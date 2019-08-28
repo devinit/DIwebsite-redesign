@@ -17,7 +17,7 @@ from wagtail.core.models import Page
 from taggit.models import Tag, TaggedItemBase
 
 from di_website.common.base import hero_panels, get_paginator_range
-from di_website.common.mixins import BaseStreamBodyMixin, OtherPageMixin, HeroMixin
+from di_website.common.mixins import BaseStreamBodyMixin, OtherPageMixin, HeroMixin, TypesetBodyMixin
 from di_website.common.constants import MAX_PAGE_SIZE, MAX_RELATED_LINKS
 
 
@@ -68,7 +68,8 @@ class NewsIndexPage(HeroMixin, Page):
 
 class NewsStoryPage(BaseStreamBodyMixin, HeroMixin, Page):
     topics = ClusterTaggableManager(through=NewsTopic, blank=True)
-    press_release = models.BooleanField(default=False, help_text="Should this page appear in the Media Center?")
+    press_release = models.BooleanField(
+        default=False, help_text="Should this page appear in the Media Center?")
 
     content_panels = Page.content_panels + [
         hero_panels(),
@@ -124,12 +125,12 @@ class PersonBlock(StructBlock):
         template = "blocks/person_block.html"
 
 
-class MediaCenterPage(BaseStreamBodyMixin, HeroMixin, Page):
+class MediaCenterPage(TypesetBodyMixin, HeroMixin, Page):
     contact_box = StreamField([
         ('contact', ContactBlock())
     ], null=True, blank=True)
     spokespeople = StreamField([
-        ('spokesperson', PersonBlock())
+        ('person', PersonBlock())
     ], null=True, blank=True)
 
     def get_context(self, request):
@@ -155,3 +156,6 @@ class MediaCenterPage(BaseStreamBodyMixin, HeroMixin, Page):
         StreamFieldPanel('body'),
         StreamFieldPanel('spokespeople'),
     ]
+
+    class Meta():
+        verbose_name = 'Media Center Page'

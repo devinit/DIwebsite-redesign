@@ -15,6 +15,7 @@ from wagtail.snippets.models import register_snippet
 
 from di_website.common.base import hero_panels
 from di_website.common.mixins import BaseStreamBodyMixin, HeroMixin
+from di_website.vacancies.models import VacancyPage
 from .blocks import BenefitsStreamBlock, TeamStoryStreamBlock
 
 from modelcluster.fields import ParentalKey
@@ -81,6 +82,11 @@ class WorkForUsPage(BaseStreamBodyMixin, HeroMixin, Page):
         null=True,
         blank=True
     )
+    vacancy_heading = models.TextField(
+        blank=True,
+        max_length=255,
+        verbose_name='Brief descriptive text for vacancies',
+    )
     content_panels = Page.content_panels + [
         hero_panels(),
         StreamFieldPanel('body'),
@@ -92,5 +98,11 @@ class WorkForUsPage(BaseStreamBodyMixin, HeroMixin, Page):
         MultiFieldPanel([
             FieldPanel('team_story_heading'),
             StreamFieldPanel('team_story'),
-        ], heading='Team Stories')
+        ], heading='Team Stories'),
+        FieldPanel('vacancy_heading')
     ]
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        context['vacancies'] = VacancyPage.objects.live()
+        return context

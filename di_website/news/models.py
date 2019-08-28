@@ -17,8 +17,7 @@ from wagtail.core.models import Page
 from taggit.models import Tag, TaggedItemBase
 
 from di_website.common.base import hero_panels, get_paginator_range
-from di_website.common.mixins import (
-    BaseStreamBodyMixin, OtherPageMixin, HeroMixin, TypesetBodyMixin)
+from di_website.common.mixins import OtherPageMixin, HeroMixin, TypesetBodyMixin
 from di_website.common.constants import MAX_PAGE_SIZE, MAX_RELATED_LINKS
 from di_website.home.models import NewsLetter
 
@@ -69,7 +68,7 @@ class NewsIndexPage(HeroMixin, Page):
         return context
 
 
-class NewsStoryPage(BaseStreamBodyMixin, HeroMixin, Page):
+class NewsStoryPage(TypesetBodyMixin, HeroMixin, Page):
     topics = ClusterTaggableManager(through=NewsTopic, blank=True)
     press_release = models.BooleanField(
         default=False, help_text="Should this page appear in the Media Center?")

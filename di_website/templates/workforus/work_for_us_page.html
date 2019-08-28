@@ -79,4 +79,20 @@
         </div>
     </section>
 
+    <section class="section" id="vacancies">
+        <div class="row row--narrow">
+            {% if vacancies %}
+                <h2 class="section__heading">Latest vacancies</h2>
+                <div class="is-typeset max-meter">
+                    <p>{{ page.vacancy_heading }}</p>
+                </div>
+                <div class="l-2up-3up">
+                    {% for vacancy in vacancies %}
+                        {% include 'includes/cards/card-job.html' %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </section>
+
 {% endblock body %}

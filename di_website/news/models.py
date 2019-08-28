@@ -17,8 +17,10 @@ from wagtail.core.models import Page
 from taggit.models import Tag, TaggedItemBase
 
 from di_website.common.base import hero_panels, get_paginator_range
-from di_website.common.mixins import BaseStreamBodyMixin, OtherPageMixin, HeroMixin, TypesetBodyMixin
+from di_website.common.mixins import (
+    BaseStreamBodyMixin, OtherPageMixin, HeroMixin, TypesetBodyMixin)
 from di_website.common.constants import MAX_PAGE_SIZE, MAX_RELATED_LINKS
+from di_website.home.models import NewsLetter
 
 
 class NewsTopic(TaggedItemBase):
@@ -62,6 +64,7 @@ class NewsIndexPage(HeroMixin, Page):
         ).distinct()
         context['selected_topic'] = topic_filter
         context['paginator_range'] = get_paginator_range(paginator, context['stories'])
+        context['newsletter'] = NewsLetter.objects.first()
 
         return context
 

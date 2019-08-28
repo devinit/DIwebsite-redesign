@@ -19,7 +19,9 @@
                     <div class="is-typeset wysiwyg">
                         {{page.intro|richtext_strip_wrapper}}
                     </div>
-                    <a href="#" class="button">Sign up to our newsletter</a>
+                    {% if newsletter %}
+                      <a href="{{newsletter.link_url}}" class="button">Sign up to our newsletter</a>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -29,7 +31,7 @@
         <div class="row row--narrow">
             <div class="l-2up-3up">
                 {% for item in stories %}
-                    {% include 'includes/cards/card-news.html' with show_tag=True %}
+                    {% include 'includes/cards/card-news.html' with show_tag=False %}
                 {% endfor %}
             </div>
             {% include "includes/scaffold/pagination.html" with children=stories %}

@@ -11,13 +11,14 @@ from wagtail.admin.edit_handlers import (
 )
 
 from di_website.common.base import hero_panels
-from di_website.common.mixins import BaseStreamBodyMixin, HeroMixin
+from di_website.common.mixins import HeroMixin, TypesetBodyMixin
 from .blocks import PlaceStreamBlock
+from di_website.common.constants import MAX_OTHER_PAGES
 
 from modelcluster.fields import ParentalKey
 
 
-class PlacesPage(BaseStreamBodyMixin, HeroMixin, Page):
+class PlacesPage(TypesetBodyMixin, HeroMixin, Page):
     class Meta():
         verbose_name = 'Places Page'
 
@@ -40,7 +41,7 @@ class PlacesPage(BaseStreamBodyMixin, HeroMixin, Page):
         StreamFieldPanel('places'),
         MultiFieldPanel([
             FieldPanel('other_pages_heading'),
-            InlinePanel('other_pages', label='Related pages')
+            InlinePanel('other_pages', label='Related pages', max_num=MAX_OTHER_PAGES)
         ], heading='Other Pages/Related Links')
     ]
 

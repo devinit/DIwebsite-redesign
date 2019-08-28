@@ -18,6 +18,11 @@
         </div>
         <form novalidate action="{% pageurl page %}" method="POST">
           {% csrf_token %}
+          {% if form.non_field_errors %}
+            {% for error in form.non_field_errors %}
+              {% include 'includes/partials/alert.html' with variation='alert--error' ico_name='error-error' message=error %}
+            {% endfor %}
+          {% endif %}
 
           {% include 'contactus/includes/contact_form.html'%}
 

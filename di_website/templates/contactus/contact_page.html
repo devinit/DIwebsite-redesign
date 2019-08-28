@@ -19,7 +19,7 @@
         <form novalidate action="{% pageurl page %}" method="POST">
           {% csrf_token %}
 
-          {% include 'contactus/includes/form-loop.html'%}
+          {% include 'contactus/includes/contact_form.html'%}
 
           <div class="form-field form-field--spaced" style="display: none !important;">
             <label class="form-label" for="captcha">Phone number</label>

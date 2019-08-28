@@ -1,0 +1,58 @@
+{% load widget_tweaks form_utils %}
+
+{% for field in form %}
+  <div class="form-field{% if forloop.counter0 %} form-field--spaced{% endif %}{% if field.errors %} form-field--error{% endif %}{% if field.field.widget.attrs.is_hidden %} form-field--hidden{% endif %}">
+
+    {% with field.label|placeholder:page as placeholder_text %}
+      {% with "placeholder:"|add:placeholder_text as placeholder %}
+
+        {% if field.field.required %}
+          {% if 'hiddeninput' not in field|widget_type %}
+            <label for="{{ field.id_for_label }}" class="form-label ">{{ field.label }}</label>
+          {% endif %}
+          {% if field|widget_type == 'textarea' %}
+            {{ field | add_class:'form-item' | attr:'required' | attr:"rows:" | attr:"cols:" | attr:placeholder }}
+          {% elif field|widget_type == 'select' %}
+            <div class="form-field__select-dropdown">
+              {{ field | add_class:'form-item' | attr:'required' | attr:placeholder }}
+            </div>
+          {% elif field|widget_type == 'checkboxselectmultiple' or field|widget_type == 'checkboxinput' %}
+            <div class="form-field__checkboxes">
+              {{ field | add_class:'form-checkbox-group' | attr:'required' }}
+            </div>
+          {% elif field|widget_type == 'radioselect' %}
+            <div class="form-field__radio-buttons">
+              {{ field | add_class:'form-radio-group' | attr:'required' }}
+            </div>
+          {% else %}
+            {{ field | add_class:'form-item' | attr:'required' | attr:placeholder }}
+          {% endif %}
+        {% else %}
+          {% if 'hiddeninput' not in field|widget_type %}
+            <label for="{{ field.id_for_label }}" class="form-label ">{{ field.label }} [Optional]</label>
+          {% endif %}
+          {% if field|widget_type == 'select' %}
+            <div class="form-field__select-dropdown">
+              {{ field | add_class:'form-item' | attr:placeholder }}
+            </div>
+          {% elif field|widget_type == 'checkboxselectmultiple' or field|widget_type == 'checkboxinput' %}
+            <div class="form-field__checkboxes">
+              {{ field | add_class:'form-checkbox-group' }}
+            </div>
+          {% elif field|widget_type == 'radioselect' %}
+            <div class="form-field__radio-buttons">
+              {{ field | add_class:'form-radio-group' }}
+            </div>
+          {% else %}
+              {{ field | add_class:'form-item' | attr:placeholder }}
+          {% endif %}
+        {% endif %}
+
+      {% endwith %}
+    {% endwith %}
+
+    {% for error in field.errors %}
+      <span class="form-message">{{ error }}</span>
+    {% endfor %}
+  </div>
+{% endfor %}

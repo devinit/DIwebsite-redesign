@@ -373,12 +373,12 @@
 		overflow: inherit;
 		position: absolute;
 		left: 5%;
-		top: 50%;
-		transform: translateY(-50%);
-		-webkit-transform: translateY(-50%);
+		top: 20%;
+		// transform: translateY(-50%);
+		// -webkit-transform: translateY(-50%);
 		width: 50%;
 		left: 0;
-		padding: 10% 0;
+		padding: 0;
 		.chapter-nav-wrapper--simple & {
 			top: 0;
 			transform: translateY(0);
@@ -559,18 +559,18 @@
 	padding: 1em 0;
 	//
 	@include respond-to($menu-respond) {
-		padding: 2rem 0;
+		padding: 0;
 		background: transparent;
 		display: block;
 		padding-bottom: 0;
 		position: absolute;
 		z-index: 1;
-		top: 45%;
-		transform: translateY(-50%);
-		-webkit-transform: translateY(-50%);
+		top: -6%;
+		// transform: translateY(-50%);
+		// -webkit-transform: translateY(-50%);
 		transition: $transition;
-		transition-delay: 0ms;
-		max-height: calc(100vh - 4rem);
+		// transition-delay: 0ms;
+		// max-height: calc(100vh - 4rem);
 		opacity: 0;
 		pointer-events: none;
 		left: 100%;

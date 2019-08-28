@@ -5,23 +5,23 @@
         <h2 class="section__heading">{{heading}}</h2>
         <div class="l-2up-3up">
             {% for page in related_pages %}
-            {% if page.other_page.specific|classname == global.blog_classname %}
-                {% with blog=page.other_page.specific show_tag=True %}
-                    {% include 'includes/cards/card-blog.html' %}
-                {% endwith %}
-            {% elif page.other_page.specific|classname == global.event_classname %}
-                {% with event=page.other_page.specific show_tag=True %}
-                    {% include 'includes/cards/card-event.html' %}
-                {% endwith %}
-            {% elif page.other_page.specific|classname == global.news_classname %}
-                {% with item=page.other_page.specific show_tag=True %}
-                    {% include 'includes/cards/card-news.html' %}
-                {% endwith %}
-            {% else %}
-                {% with item=page.other_page.specific tag=tag %}
-                    {% include 'includes/cards/card-related.html' %}
-                {% endwith %}
-            {% endif %}
+              {% if page.other_page.specific|classname == global.blog_classname %}
+                  {% with blog=page.other_page.specific show_tag=True %}
+                      {% include 'includes/cards/card-blog.html' %}
+                  {% endwith %}
+              {% elif page.other_page.specific|classname == global.event_classname %}
+                  {% with event=page.other_page.specific show_tag=True %}
+                      {% include 'includes/cards/card-event.html' %}
+                  {% endwith %}
+              {% elif page.other_page.specific|classname == global.news_classname %}
+                  {% with item=page.other_page.specific show_tag=True %}
+                      {% include 'includes/cards/card-news.html' %}
+                  {% endwith %}
+              {% else %}
+                  {% with item=page.other_page.specific tag=tag %}
+                      {% include 'includes/cards/card-related.html' %}
+                  {% endwith %}
+              {% endif %}
             {% endfor %}
         </div>
     </div>

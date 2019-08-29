@@ -13,7 +13,7 @@ from wagtail.admin.edit_handlers import (
 from wagtail.core.fields import StreamField
 from wagtail.core.models import Page
 
-from di_website.common.base import hero_panels, get_paginator_range
+from di_website.common.base import hero_panels, get_paginator_range, get_related_pages
 from di_website.common.mixins import OtherPageMixin, HeroMixin
 from di_website.common.blocks import BaseStreamBlock
 from di_website.common.constants import MAX_PAGE_SIZE, MAX_RELATED_LINKS
@@ -58,25 +58,11 @@ class EventPage(HeroMixin, Page):
 
     parent_page_types = ['EventIndexPage']
 
-    def get_related_pages(self):
-        related_links = self.event_related_links.all()
-        related_links_count = len(related_links)
-
-        if related_links_count < MAX_RELATED_LINKS:
-            difference = MAX_RELATED_LINKS - related_links_count
-            related_pages = [link.other_page for link in related_links]
-            id_list = [page.id for page in related_pages]
-            event_objects = EventPage.objects.live()
-            related_links = list(related_pages) + list(event_objects.exclude(id__in=id_list)[:difference])
-        else:
-            related_links = list([link.other_page for link in related_links])
-
-        return related_links
-
     def get_context(self, request):
         context = super().get_context(request)
 
-        context['related_pages'] = self.get_related_pages()
+        context['related_pages'] = get_related_pages(
+            self.event_related_links.all(), EventPage.objects)
 
         return context
 

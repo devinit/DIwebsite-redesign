@@ -16,7 +16,7 @@ from wagtail.core.models import Page
 
 from taggit.models import Tag, TaggedItemBase
 
-from di_website.common.base import hero_panels, get_paginator_range
+from di_website.common.base import hero_panels, get_paginator_range, get_related_pages
 from di_website.common.mixins import OtherPageMixin, HeroMixin, TypesetBodyMixin
 from di_website.common.constants import MAX_PAGE_SIZE, MAX_RELATED_LINKS
 from di_website.home.models import NewsLetter
@@ -88,23 +88,11 @@ class NewsStoryPage(TypesetBodyMixin, HeroMixin, Page):
     class Meta():
         verbose_name = 'News Story Page'
 
-    def get_related_pages(self):
-        related_links = self.news_related_links.all()
-        related_links_count = len(related_links)
-
-        if related_links_count < MAX_RELATED_LINKS:
-            difference = MAX_RELATED_LINKS - related_links_count
-            related_pages = [link.other_page for link in related_links]
-            id_list = [page.id for page in related_pages]
-            news_objects = NewsStoryPage.objects.live()
-            related_links = list(related_pages) + list(news_objects.exclude(id__in=id_list)[:difference])
-
-        return related_links
-
     def get_context(self, request):
         context = super().get_context(request)
 
-        context['related_pages'] = self.get_related_pages()
+        context['related_pages'] = get_related_pages(
+            self.news_related_links.all(), NewsStoryPage.objects)
 
         return context
 

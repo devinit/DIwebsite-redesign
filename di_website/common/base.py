@@ -4,6 +4,7 @@ from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, PageChooser
 from wagtail.images.edit_handlers import ImageChooserPanel
 
 from .mixins import BaseDownloadMixin
+from .constants import MAX_RELATED_LINKS
 
 
 def hero_panels():
@@ -35,3 +36,20 @@ def get_paginator_range(paginator, page):
     range_start = max(page.number - 2, 1)
     range_end = min(page.number + 2, paginator.num_pages)
     return [i for i in range(range_start, range_end + 1)]
+
+
+def get_related_pages(selected_pages, queryset):
+    count = len(selected_pages)
+
+    if count < MAX_RELATED_LINKS:
+        difference = MAX_RELATED_LINKS - count
+        related_pages = [link.other_page for link in selected_pages]
+        if len(related_pages) and queryset:
+            id_list = [page.id for page in related_pages if page]
+            if len(id_list):
+                return list(related_pages) + list(queryset.live().exclude(id__in=id_list)[:difference])
+            return list(queryset.live()[:MAX_RELATED_LINKS])
+        elif queryset:
+            return list(queryset.live()[:MAX_RELATED_LINKS])
+
+    return list([link.other_page for link in selected_pages])

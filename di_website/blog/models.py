@@ -121,6 +121,26 @@ class BlogArticlePage(BaseStreamBodyMixin, HeroMixin, Page):
     class Meta():
         verbose_name = 'Blog Article Page'
 
+    def get_related_pages(self):
+        related_links = self.blog_related_links.all()
+        related_links_count = len(related_links)
+
+        if related_links_count < MAX_RELATED_LINKS:
+            difference = MAX_RELATED_LINKS - related_links_count
+            related_pages = [link.other_page for link in related_links]
+            id_list = [page.id for page in related_pages]
+            blog_pages = BlogArticlePage.objects.live()
+            placeholder_pages = blog_pages.exclude(id__in=id_list).exclude(id=self.id)[:difference]
+            related_links = list(related_pages) + list(placeholder_pages)
+
+        return related_links
+
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+        context['related_pages'] = self.get_related_pages()
+
+        return context
+
 
 class BlogPageRelatedLink(OtherPageMixin):
     page = ParentalKey(Page, related_name='blog_related_links', on_delete=models.CASCADE)

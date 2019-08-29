@@ -58,6 +58,28 @@ class EventPage(HeroMixin, Page):
 
     parent_page_types = ['EventIndexPage']
 
+    def get_related_pages(self):
+        related_links = self.event_related_links.all()
+        related_links_count = len(related_links)
+
+        if related_links_count < MAX_RELATED_LINKS:
+            difference = MAX_RELATED_LINKS - related_links_count
+            related_pages = [link.other_page for link in related_links]
+            id_list = [page.id for page in related_pages]
+            event_objects = EventPage.objects.live()
+            related_links = list(related_pages) + list(event_objects.exclude(id__in=id_list)[:difference])
+        else:
+            related_links = list([link.other_page for link in related_links])
+
+        return related_links
+
+    def get_context(self, request):
+        context = super().get_context(request)
+
+        context['related_pages'] = self.get_related_pages()
+
+        return context
+
     class Meta:
         verbose_name = "Event Page"
 

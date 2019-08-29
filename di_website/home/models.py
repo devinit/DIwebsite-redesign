@@ -15,7 +15,7 @@ from wagtail.snippets.models import register_snippet
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
 
-from di_website.common.base import hero_panels
+from di_website.common.base import hero_panels, get_related_pages
 from di_website.common.mixins import HeroMixin, OtherPageMixin, SectionBodyMixin, TypesetBodyMixin
 from di_website.common.constants import SIMPLE_RICHTEXT_FEATURES
 
@@ -183,6 +183,13 @@ class StandardPage(SectionBodyMixin, TypesetBodyMixin, HeroMixin, Page):
             InlinePanel('other_pages', label='Related links')
         ], heading='Other Pages/Related Links')
     ]
+
+    def get_context(self, request):
+        context = super().get_context(request)
+
+        context['related_pages'] = get_related_pages(self.other_pages.all())
+
+        return context
 
     class Meta():
         verbose_name = 'Standard Page'

@@ -38,7 +38,7 @@ def get_paginator_range(paginator, page):
     return [i for i in range(range_start, range_end + 1)]
 
 
-def get_related_pages(selected_pages, queryset):
+def get_related_pages(selected_pages, queryset=None):
     count = len(selected_pages)
 
     if count < MAX_RELATED_LINKS:

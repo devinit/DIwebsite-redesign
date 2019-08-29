@@ -25,8 +25,8 @@
 {% endblock aside %}
 
 {% block after_content %}
-    {% if page.news_related_links.count %}
-        {% with related_pages=page.news_related_links.all heading='Related content'  %}
+    {% if related_pages %}
+        {% with related_pages=related_pages heading='Related content'  %}
             {% include 'includes/partials/related_content.html' %}
         {% endwith %}
     {% endif %}

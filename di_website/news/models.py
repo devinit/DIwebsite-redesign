@@ -88,20 +88,23 @@ class NewsStoryPage(TypesetBodyMixin, HeroMixin, Page):
     class Meta():
         verbose_name = 'News Story Page'
 
-    def get_context(self, request):
-        context = super().get_context(request)
-
+    def get_related_pages(self):
         related_links = self.news_related_links.all()
         related_links_count = len(related_links)
 
         if related_links_count < MAX_RELATED_LINKS:
             difference = MAX_RELATED_LINKS - related_links_count
-            news_pages = [link.page for link in related_links]
-            id_list = [page.id for page in news_pages]
+            related_pages = [link.other_page for link in related_links]
+            id_list = [page.id for page in related_pages]
             news_objects = NewsStoryPage.objects.live()
-            related_links = news_objects.filter(id__in=id_list) | news_objects.exclude(id__in=id_list)[:difference]
+            related_links = list(related_pages) + list(news_objects.exclude(id__in=id_list)[:difference])
 
-        context['related_pages'] = related_links
+        return related_links
+
+    def get_context(self, request):
+        context = super().get_context(request)
+
+        context['related_pages'] = self.get_related_pages()
 
         return context
 

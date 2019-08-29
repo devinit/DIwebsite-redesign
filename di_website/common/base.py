@@ -2,8 +2,10 @@ from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.snippets.models import register_snippet
 from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, PageChooserPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
+
 from .mixins import BaseDownloadMixin
-    
+
+
 def hero_panels():
     """
     Called when creating page content_panels for pages that require a Hero

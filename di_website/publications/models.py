@@ -1,6 +1,10 @@
+from num2words import num2words
+
+from django import forms
 from django.db import models
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.contrib.contenttypes.models import ContentType
+from django.utils.functional import cached_property
 from django.utils.text import slugify
 
 from modelcluster.contrib.taggit import ClusterTaggableManager
@@ -8,18 +12,23 @@ from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
 
 from wagtail.core.models import Page
+from wagtail.core.fields import RichTextField
 from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
+from wagtail.contrib.redirects.models import Redirect
+from wagtail.images.edit_handlers import ImageChooserPanel
 
 from di_website.common.base import hero_panels, get_paginator_range
 from di_website.common.mixins import HeroMixin
 from di_website.common.constants import MAX_PAGE_SIZE
+from di_website.downloads.utils import DownloadsPanel, DownloadGroupsPanel
 
 from taggit.models import Tag, TaggedItemBase
 
-from .mixins import FlexibleContentMixin
-from .utils import ContentPanel
+from .mixins import FlexibleContentMixin, UniquePageMixin, PageSearchMixin, PublishedDateMixin, UUIDMixin, ReportChildMixin
+from .utils import ContentPanel, PublishedDatePanel, WagtailImageField, UUIDPanel, get_first_child_of_type, get_ordered_children_of_type, get_downloads
+from .edit_handlers import MultiFieldPanel
 
 
 class PublicationTopic(TaggedItemBase):
@@ -80,7 +89,7 @@ class PublicationIndexPage(HeroMixin, Page):
         hero_panels()
     ]
 
-    subpage_types = ['PublicationPage']
+    subpage_types = ['PublicationPage', 'LegacyPublicationPage']
     parent_page_types = ['home.HomePage']
 
     def get_context(self, request):
@@ -124,7 +133,18 @@ class PublicationIndexPage(HeroMixin, Page):
         verbose_name = 'Publication Index Page'
 
 
-class PublicationPage(HeroMixin, FlexibleContentMixin, Page):
+class PublicationPage(HeroMixin, PublishedDateMixin, UUIDMixin, Page):
+
+    class Meta:
+        verbose_name = 'Publication Page'
+
+    parent_page_types = ['PublicationIndexPage']
+    subpage_types = [
+        'PublicationSummaryPage',
+        'PublicationChapterPage',
+        'PublicationAppendixPage',
+    ]
+
     publication_type = models.ForeignKey(
         PublicationType, related_name="+", null=True, blank=True, on_delete=models.SET_NULL)
     topics = ClusterTaggableManager(through=PublicationTopic, blank=True, verbose_name="Topics")
@@ -135,8 +155,262 @@ class PublicationPage(HeroMixin, FlexibleContentMixin, Page):
         hero_panels(),
         FieldPanel('topics'),
         SnippetChooserPanel('countries'),
-        ContentPanel(),
+        PublishedDatePanel(),
+        DownloadsPanel(
+            heading='Downloads',
+            description='Downloads for this report.'
+        ),
+        DownloadsPanel(
+            related_name='data_downloads',
+            heading='Data downloads',
+            description='Optional: data download for this report.',
+            max_num=1,
+        ),
+        UUIDPanel(),
     ]
 
-    class Meta():
-        verbose_name = 'Publication Page'
+    @cached_property
+    def downloads_title(self):
+        return 'Downloads'
+
+    @cached_property
+    def downloads_list(self):
+        return get_downloads(self)
+
+    @cached_property
+    def data_downloads_title(self):
+        return 'Data downloads'
+
+    @cached_property
+    def data_downloads_list(self):
+        return get_downloads(self, with_parent=False, data=True)
+
+    @cached_property
+    def page_downloads(self):
+        return self.downloads.all()
+
+    @cached_property
+    def page_data_downloads(self):
+        return self.data_downloads.all()
+
+    @cached_property
+    def summary(self):
+        return get_first_child_of_type(self, PublicationSummaryPage)
+
+    @cached_property
+    def chapters(self):
+        return get_ordered_children_of_type(self, PublicationChapterPage, 'publicationchapterpage__chapter_number')
+
+    @cached_property
+    def appendices(self):
+        return get_ordered_children_of_type(self, PublicationAppendixPage, 'publicationappendixpage__appendix_number')
+
+    @cached_property
+    def listing(self):
+        children = [self.summary]
+        children += list(self.chapters)
+        return filter(None, children)
+
+    @cached_property
+    def meta_and_appendices(self):
+        children = list()
+        children += list(self.appendices)
+        return filter(None, children)
+
+    def save(self, *args, **kwargs):
+        super(PublicationPage, self).save(*args, **kwargs)
+
+        old_path = '/%s' % self.slug
+        redirect = Redirect.objects.filter(old_path=old_path).first()
+        if not redirect:
+            Redirect(old_path=old_path, redirect_page=self).save()
+
+
+class PublicationSummaryPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin, UniquePageMixin, UUIDMixin, Page):
+
+    class Meta:
+        verbose_name = 'Publication summary'
+        verbose_name_plural = 'Publication summaries'
+
+    parent_page_types = ['PublicationPage']
+    subpage_types = []
+
+    template = 'publications/publication_chapter_page.html'
+
+    content_panels = [
+        hero_panels(),
+        ContentPanel(),
+        DownloadsPanel(
+            heading='Downloads',
+            description='Downloads for this summary.'
+        ),
+        DownloadsPanel(
+            related_name='data_downloads',
+            heading='Data downloads',
+            description='Optional: data download for this summary.',
+            max_num=1,
+        ),
+    ]
+
+    @cached_property
+    def label(self):
+        return 'The summary'
+
+
+class PublicationChapterPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin, UUIDMixin, Page):
+
+    class Meta:
+        verbose_name = 'Publication chapter'
+
+    parent_page_types = ['PublicationPage']
+    subpage_types = []
+
+    chapter_number = models.PositiveIntegerField(
+        choices=[(i, num2words(i).title()) for i in range(1, 21)]
+    )
+
+    content_panels = [
+        hero_panels(),
+        MultiFieldPanel(
+            [
+                FieldPanel('chapter_number', widget=forms.Select),
+            ],
+            heading='Chapter number',
+            description='Chapter number: this should be unique for each chapter of a report.'
+        ),
+        ContentPanel(),
+        DownloadsPanel(
+            heading='Downloads',
+            description='Downloads for this chapter.'
+        ),
+        DownloadsPanel(
+            related_name='data_downloads',
+            heading='Data downloads',
+            description='Optional: data download for this chapter.',
+            max_num=1,
+        ),
+    ]
+
+    @cached_property
+    def chapter_word(self):
+        return num2words(self.chapter_number)
+
+    @cached_property
+    def label(self):
+        return 'chapter %s' % self.chapter_word
+
+    @cached_property
+    def label_num(self):
+        return 'chapter %s' % str(self.chapter_number).zfill(2)
+
+    @cached_property
+    def sections(self):
+        sections = []
+        for block in self.content:
+            if block.block_type == 'section_heading':
+                sections.append(block)
+        return sections
+
+
+class PublicationAppendixPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin, UUIDMixin, Page):
+
+    class Meta:
+        verbose_name = 'Publication appendix'
+        verbose_name_plural = 'Publication appendices'
+
+    parent_page_types = ['PublicationPage']
+    subpage_types = []
+
+    template = 'publications/publication_chapter_page.html'
+
+    appendix_number = models.PositiveIntegerField(
+        choices=[(i, num2words(i).title()) for i in range(1, 21)]
+    )
+
+    content_panels = [
+        hero_panels(),
+        MultiFieldPanel(
+            [
+                FieldPanel('appendix_number', widget=forms.Select),
+            ],
+            heading='Appendix number',
+            description='Appendix number: this should be unique for each appendix of a report.'
+        ),
+        ContentPanel(),
+        DownloadsPanel(
+            heading='Downloads',
+            description='Downloads for this appendix page.'
+        ),
+        DownloadsPanel(
+            related_name='data_downloads',
+            heading='Data downloads',
+            description='Optional: data download for this appendix page.',
+            max_num=1,
+        ),
+    ]
+
+    @cached_property
+    def appendix_word(self):
+        return num2words(self.appendix_number)
+
+    @cached_property
+    def label(self):
+        return 'appendix %s' % self.appendix_word
+
+    @cached_property
+    def label_num(self):
+        return 'appendix %s' % str(self.appendix_number).zfill(2)
+
+
+class LegacyPublicationPage(HeroMixin, PublishedDateMixin, PageSearchMixin, Page):
+
+    class Meta:
+        verbose_name = 'Legacy publication'
+
+    parent_page_types = ['PublicationIndexPage']
+    subpage_types = []
+
+    content = RichTextField(
+        verbose_name='Summary',
+        help_text='Short summary for the legacy report',
+    )
+    summary_image = WagtailImageField(
+        required=False,
+        help_text='Optimal minimum size 800x400px',
+    )
+
+    content_panels = [
+        hero_panels(),
+        PublishedDatePanel(),
+        DownloadsPanel(
+            heading='Reports',
+            description='Report downloads for this legacy report.'
+        ),
+        DownloadsPanel(
+            related_name='data_downloads',
+            heading='Data downloads',
+            description='Optional: data download for this legacy report.',
+            max_num=1,
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel('content'),
+                ImageChooserPanel('summary_image'),
+            ],
+            heading='Summary',
+            description='Summary for the legacy publication.'
+        ),
+        DownloadGroupsPanel(),
+    ]
+
+    @cached_property
+    def page_downloads(self):
+        return self.downloads.all()
+
+    @cached_property
+    def page_data_downloads(self):
+        return self.data_downloads.all()
+
+    @cached_property
+    def groups(self):
+        return self.download_groups.all()

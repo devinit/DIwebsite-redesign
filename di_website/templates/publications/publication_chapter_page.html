@@ -1,15 +1,15 @@
-{% extends 'default.html' %}
+{% extends "layouts/default.html" %}
 
-{% load string_utils wagtailcore_tags %}
+{% load string_utils wagtailcore_tags responsive %}
 
-{% block body_class %}report{% endblock %}
-{% block body_id %}report{% endblock %}
+{% block hero %}
+    {% include 'includes/heroes/hero-news.html' %}
+{% endblock hero %}
 
-{% block body %}
-    {% include 'hero/hero.html' %}
+{% block main %}
 
     {% if page.chapter_number %}
-        {% include 'reports/chapter-nav/nav.html' with page=page.get_parent.specific menu_label='Contents' chapter_number=page.chapter_number %}
+        {% include 'publications/chapter-nav/nav.html' with page=page.get_parent.specific menu_label='Contents' chapter_number=page.chapter_number %}
     {% endif %}
 
     {% for block in page.content %}
@@ -32,13 +32,12 @@
 
     <section class="section">
         <div class="row">
-            {% include 'reports/share.html' %}
+            {% include 'publications/share.html' %}
             <div class="mainAction padd-section-both border-top">
                 {% include 'downloads/download-list.html' %}
-                {% include 'cta/cta.html' with srcs=global.report_srcs %}
             </div>
         </div>
     </section>
 
-    {% include 'reports/footnotes.html' %}
+    {% include 'publications/footnotes.html' %}
 {% endblock %}

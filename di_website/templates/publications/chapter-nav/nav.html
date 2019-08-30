@@ -3,7 +3,7 @@
 {% if page.chapters %}
     <div class="js-chapter-nav">
         <div class="page__action">
-            {% include 'reports/chapter-nav/prev-next.html' %}
+            {% include 'publications/chapter-nav/prev-next.html' %}
             <div class="page__action__menu">
                 <span tabindex="0" class="page__action_text">{{ menu_label|default:'Jump to chapter' }}</span>
                 <div class="page__action__burgerWrapper">
@@ -19,7 +19,7 @@
                         <ul class="chapter-nav__list">
                             {% chapter_nav_slice page.chapters chapter_number as nav_slice %}
                             {% for item in page.chapters|slice:nav_slice %}
-                                {% include 'reports/chapter-nav/nav-item.html' %}
+                                {% include 'publications/chapter-nav/nav-item.html' %}
                             {% endfor %}
                         </ul>
                     </div>

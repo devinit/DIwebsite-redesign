@@ -1,12 +1,12 @@
-{% extends 'default.html' %}
+{% extends "layouts/default.html" %}
 
 {% load string_utils wagtailcore_tags responsive %}
 
-{% block body_class %}historic{% endblock %}
-{% block body_id %}historic{% endblock %}
+{% block hero %}
+    {% include 'includes/heroes/hero-news.html' %}
+{% endblock hero %}
 
-{% block body %}
-    {% include 'hero/hero.html' %}
+{% block main %}
 
     <div class="chapter-block-wrapper space-section-both-med">
 
@@ -23,8 +23,8 @@
                         <div class="is-typeset wysiwyg">
                             {{ page.content | content }}
                         </div>
-                        {% include 'reports/downloads.html' with item=page button_class='download-button--action' download_title='Download the full report' download_icon='ico-arrow-down-blank' %}
-                        {% include 'reports/data-downloads.html' with item=page button_class='button--secondary' download_title='Download data' %}
+                        {% include 'publications/downloads.html' with item=page button_class='download-button--action' download_title='Download the full report' download_icon='ico-arrow-down-blank' %}
+                        {% include 'publications/data-downloads.html' with item=page button_class='button--secondary' download_title='Download data' %}
                     </div>
                 </div>
             </div>

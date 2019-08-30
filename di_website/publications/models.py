@@ -1,7 +1,9 @@
 from num2words import num2words
+from itertools import chain
 
 from django import forms
 from django.db import models
+from django.db.models import Q
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.contrib.contenttypes.models import ContentType
 from django.utils.functional import cached_property
@@ -34,6 +36,10 @@ from .inlines import *
 
 class PublicationTopic(TaggedItemBase):
     content_object = ParentalKey('publications.PublicationPage', on_delete=models.CASCADE, related_name='publication_topics')
+
+
+class LegacyPublicationTopic(TaggedItemBase):
+    content_object = ParentalKey('publications.LegacyPublicationPage', on_delete=models.CASCADE, related_name='legacy_publication_topics')
 
 
 @register_snippet
@@ -102,16 +108,19 @@ class PublicationIndexPage(HeroMixin, Page):
 
         if topic_filter:
             stories = PublicationPage.objects.live().filter(topics__slug=topic_filter)
+            legacy_pubs = LegacyPublicationPage.objects.live().filter(topics__slug=topic_filter)
         else:
             stories = PublicationPage.objects.live()
+            legacy_pubs = LegacyPublicationTopic.objects.live()
 
         if country_filter:
             stories = stories.filter(countries__slug=country_filter)
+            legacy_pubs = legacy_pubs.filter(countries__slug=country_filter)
 
         if search_filter:
-            pass
+            pass  # TODO: Implement keyword search
 
-        paginator = Paginator(stories, MAX_PAGE_SIZE)
+        paginator = Paginator(list(chain(stories, legacy_pubs)), MAX_PAGE_SIZE)
         try:
             context['stories'] = paginator.page(page)
         except PageNotAnInteger:
@@ -120,8 +129,10 @@ class PublicationIndexPage(HeroMixin, Page):
             context['stories'] = paginator.page(paginator.num_pages)
 
         pubs_content_type = ContentType.objects.get_for_model(PublicationPage)
+        leg_pubs_content_type = ContentType.objects.get_for_model(LegacyPublicationPage)
         context['topics'] = Tag.objects.filter(
-            publications_publicationtopic_items__content_object__content_type=pubs_content_type
+            Q(publications_publicationtopic_items__content_object__content_type=pubs_content_type) |
+            Q(publications_legacypublicationtopic_items__content_object__content_type=leg_pubs_content_type)
         ).distinct()
         context['selected_topic'] = topic_filter
         context['countries'] = PublicationCountry.objects.all()
@@ -374,7 +385,7 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, PageSearchMixin, Page
 
     publication_type = models.ForeignKey(
         PublicationType, related_name="+", null=True, blank=True, on_delete=models.SET_NULL)
-    topics = ClusterTaggableManager(through=PublicationTopic, blank=True, verbose_name="Topics")
+    topics = ClusterTaggableManager(through=LegacyPublicationTopic, blank=True, verbose_name="Topics")
     countries = models.ForeignKey(
         PublicationCountry, related_name="+", null=True, blank=True, on_delete=models.SET_NULL)
 

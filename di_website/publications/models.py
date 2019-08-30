@@ -154,6 +154,7 @@ class PublicationPage(HeroMixin, PublishedDateMixin, UUIDMixin, Page):
 
     content_panels = Page.content_panels + [
         hero_panels(),
+        SnippetChooserPanel('publication_type'),
         FieldPanel('topics'),
         SnippetChooserPanel('countries'),
         PublishedDatePanel(),
@@ -371,6 +372,12 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, PageSearchMixin, Page
     parent_page_types = ['PublicationIndexPage']
     subpage_types = []
 
+    publication_type = models.ForeignKey(
+        PublicationType, related_name="+", null=True, blank=True, on_delete=models.SET_NULL)
+    topics = ClusterTaggableManager(through=PublicationTopic, blank=True, verbose_name="Topics")
+    countries = models.ForeignKey(
+        PublicationCountry, related_name="+", null=True, blank=True, on_delete=models.SET_NULL)
+
     content = RichTextField(
         verbose_name='Summary',
         help_text='Short summary for the legacy report',
@@ -382,6 +389,9 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, PageSearchMixin, Page
 
     content_panels = [
         hero_panels(),
+        SnippetChooserPanel('publication_type'),
+        FieldPanel('topics'),
+        SnippetChooserPanel('countries'),
         PublishedDatePanel(),
         DownloadsPanel(
             heading='Reports',

@@ -19,9 +19,7 @@
           {% breadcrumbs %}
           <div class="is-typeset wysiwyg">
             {% for block in page.body %}
-              {% if block.block_type == 'paragraph_block' or block.block_type == 'block_quote' %}
-                {% include_block block %}
-              {% endif %}
+              {% include_block block %}
             {% endfor %}
           </div>
         </div>
@@ -29,8 +27,8 @@
     </div>
   </section>
 
-  {% if page.project_related_links.count %}
-    {% with related_pages=page.project_related_links.all heading=page.other_pages_heading  %}
+  {% if related_pages %}
+    {% with related_pages=related_pages heading=page.other_pages_heading  %}
       {% include 'includes/partials/related_content.html' %}
     {% endwith %}
   {% endif %}

@@ -21,30 +21,41 @@ from wagtail.core.blocks import (
     URLBlock
 )
 
-from di_website.common.base import hero_panels
-from di_website.common.mixins import BaseStreamBodyMixin, HeroMixin, OtherPageMixin
+from di_website.common.base import hero_panels, get_related_pages
+from di_website.common.mixins import HeroMixin, OtherPageMixin, TypesetBodyMixin
 from di_website.common.blocks import BaseStreamBlock
 from di_website.common.constants import MAX_RELATED_LINKS
 
 
-class ProjectPage(BaseStreamBodyMixin, HeroMixin, Page):
+class ProjectPage(TypesetBodyMixin, HeroMixin, Page):
+    """
+    http://development-initiatives.surge.sh/page-templates/08-1-project
+    """
     other_pages_heading = models.CharField(
         max_length=255,
         null=True,
         blank=True,
-        verbose_name='Section Title'
+        verbose_name='Section Title',
+        default='Related content'
     )
     content_panels = Page.content_panels + [
         hero_panels(),
         StreamFieldPanel('body'),
         MultiFieldPanel([
             FieldPanel('other_pages_heading'),
-            InlinePanel('project_related_links', label="Related links", max_num=MAX_RELATED_LINKS)
+            InlinePanel('project_related_links', label="Related link", max_num=MAX_RELATED_LINKS)
         ], heading='Other Pages')
     ]
     parent_page_types = [
         'FocusAreasPage'
     ]
+
+    def get_context(self, request):
+        context = super().get_context(request)
+
+        context['related_pages'] = get_related_pages(self.project_related_links.all())
+
+        return context
 
     class Meta():
         verbose_name = 'Project Page'
@@ -61,20 +72,35 @@ class ProjectPageRelatedLink(OtherPageMixin):
     ]
 
 
-class FocusAreasPage(BaseStreamBodyMixin, HeroMixin, Page):
+class FocusAreasPage(TypesetBodyMixin, HeroMixin, Page):
+    """
+    http://development-initiatives.surge.sh/page-templates/08-focus-areas
+    """
     subpage_types = ['ProjectPage']
+    parent_page_types = ['whatwedo.WhatWeDoPage']
 
     class Meta():
         verbose_name = 'Focus Areas Page'
 
-    parent_page_types = ['whatwedo.WhatWeDoPage']
+
+    other_pages_heading = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True,
+        verbose_name='Section Title',
+        default='More about'
+    )
+
     content_panels = Page.content_panels + [
         hero_panels(),
         StreamFieldPanel('body'),
         MultiFieldPanel([
-            InlinePanel('focus_areas_page_link', label="Focus Areas Section", max_num=6)
+            InlinePanel('focus_areas_page_link', label="Focus Areas", max_num=6)
         ], heading='Focus Areas'),
-        InlinePanel('focus_areas_related_links', label="More About Section", max_num=4)
+        MultiFieldPanel([
+            FieldPanel('other_pages_heading'),
+            InlinePanel('other_pages', label='Related Page', max_num=4)
+        ], heading='Related Pages')
     ]
 
 
@@ -110,8 +136,9 @@ class FocusAreasPageLink(Orderable):
     image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
+        blank=True,
         on_delete=models.SET_NULL,
-        verbose_name='Focus Area Image',
+        verbose_name='Image',
         help_text='Add an image to this focus area'
     )
     panels = [
@@ -127,17 +154,6 @@ class FocusAreasProjects(OtherPageMixin):
     page = ParentalKey(
         Page,
         related_name='focus_areas_projects',
-        on_delete=models.CASCADE
-    )
-    panels = [
-        PageChooserPanel('other_page')
-    ]
-
-
-class FocusAreasPageRelatedLink(OtherPageMixin):
-    page = ParentalKey(
-        Page,
-        related_name='focus_areas_related_links',
         on_delete=models.CASCADE
     )
     panels = [

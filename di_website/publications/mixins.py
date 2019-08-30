@@ -43,7 +43,7 @@ class PublishedDateMixin(models.Model):
     def save(self, *args, **kwargs):
         if not self.published_date:
             self.published_date = datetime.datetime.now()
-        super(PublishedDateMixin, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
 
 class UUIDMixin(models.Model):

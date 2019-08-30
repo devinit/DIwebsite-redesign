@@ -398,7 +398,7 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, PageSearchMixin, Page
         help_text='Optimal minimum size 800x400px',
     )
 
-    content_panels = [
+    content_panels = Page.content_panels + [
         hero_panels(),
         SnippetChooserPanel('publication_type'),
         FieldPanel('topics'),

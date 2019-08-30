@@ -29,6 +29,7 @@ from taggit.models import Tag, TaggedItemBase
 from .mixins import FlexibleContentMixin, UniquePageMixin, PageSearchMixin, PublishedDateMixin, UUIDMixin, ReportChildMixin
 from .utils import ContentPanel, PublishedDatePanel, WagtailImageField, UUIDPanel, get_first_child_of_type, get_ordered_children_of_type, get_downloads
 from .edit_handlers import MultiFieldPanel
+from .inlines import *
 
 
 class PublicationTopic(TaggedItemBase):

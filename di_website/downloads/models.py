@@ -128,7 +128,7 @@ class DownloadItem(models.Model):
         abstract = True
 
     download = models.ForeignKey(
-        'Download',
+        'downloads.Download',
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
@@ -146,7 +146,7 @@ class DataDownloadItem(models.Model):
         abstract = True
 
     download = models.ForeignKey(
-        'DataDownload',
+        'downloads.DataDownload',
         null=True,
         blank=True,
         on_delete=models.SET_NULL,

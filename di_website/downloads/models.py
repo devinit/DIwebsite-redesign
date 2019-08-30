@@ -80,18 +80,6 @@ class BaseDownload(models.Model):
 @register_snippet
 class Download(BaseDownload):
 
-    file = models.ForeignKey(
-        'wagtaildocs.Document',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+'
-    )
-    title = models.CharField(
-        max_length=255,
-        blank=True,
-        help_text='Optional: document title, defaults to the file name if left blank',
-    )
     language = models.ForeignKey(
         'Language',
         null=True,

@@ -130,7 +130,7 @@ class BannerBlock(StructBlock):
     image = ImageChooserBlock(required=False)
     video = EmbedBlock(
         help_text='Insert an embed URL e.g https://www.youtube.com/embed/SGJFWirQ3ks',
-        icon='fa-s15',
+        icon='fa-video-camera',
         template='blocks/embed_block.html',
         required=False
     )
@@ -226,6 +226,12 @@ class TypesetStreamBlock(StreamBlock):
     button_block = ButtonBlock()
     link_block = LinkBlock()
     image = TypeSetImageBlock()
+    video = EmbedBlock(
+        help_text='Insert an embed URL e.g https://www.youtube.com/embed/SGJFWirQ3ks',
+        icon='fa-video-camera',
+        template='blocks/embed_block.html',
+        required=False
+    )
 
     required = False
 

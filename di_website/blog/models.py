@@ -16,7 +16,7 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from taggit.models import Tag, TaggedItemBase
 
 from di_website.common.base import hero_panels, get_paginator_range, get_related_pages
-from di_website.common.mixins import BaseStreamBodyMixin, OtherPageMixin, HeroMixin
+from di_website.common.mixins import OtherPageMixin, HeroMixin, TypesetBodyMixin
 from di_website.common.constants import MAX_PAGE_SIZE, MAX_RELATED_LINKS
 from di_website.ourteam.models import TeamMemberPage
 
@@ -62,7 +62,7 @@ class BlogIndexPage(HeroMixin, Page):
     content_panels = Page.content_panels + [hero_panels()]
 
 
-class BlogArticlePage(BaseStreamBodyMixin, HeroMixin, Page):
+class BlogArticlePage(TypesetBodyMixin, HeroMixin, Page):
     topics = ClusterTaggableManager(through=BlogTopic, blank=True)
 
     internal_author_page = models.ForeignKey(

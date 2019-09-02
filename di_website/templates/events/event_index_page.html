@@ -19,9 +19,7 @@
                 <div class="l-sidebar__body">
                     <div class="is-typeset wysiwyg">
                         {% for block in page.body %}
-                            {% if block.block_type == 'paragraph_block' or block.block_type == 'block_quote' %}
-                                {% include_block block %}
-                            {% endif %}
+                          {% include_block block %}
                         {% endfor %}
                     </div>
                 </div>

@@ -28,16 +28,16 @@
           {{ page.location }}
         </li>
       </ul>
-      <a href="#" class="button">Register</a>
+      {% if page.registration_link %}
+        <a href="{{page.registration_link}}" class="button">Register</a>
+      {% endif %}
     </div>
   </section>
 
   <section class="section section--post">
     <div class="is-typeset is-typeset--additionals wysiwyg">
       {% for block in page.body %}
-        {% if block.block_type == 'paragraph_block' or block.block_type == 'block_quote' %}
-          {% include_block block %}
-        {% endif %}
+        {% include_block block %}
       {% endfor %}
     </div>
   </section>

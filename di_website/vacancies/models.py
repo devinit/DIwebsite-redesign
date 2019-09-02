@@ -15,7 +15,7 @@ from wagtail.snippets.models import register_snippet
 from wagtail.core.models import Page
 
 from di_website.common.base import hero_panels
-from di_website.common.mixins import BaseStreamBodyMixin, OtherPageMixin, HeroMixin
+from di_website.common.mixins import OtherPageMixin, HeroMixin, SectionBodyMixin, TypesetBodyMixin
 from di_website.users.models import Department, Subscription
 
 from modelcluster.fields import ParentalKey
@@ -136,7 +136,7 @@ class VacancyIndexPage(HeroMixin, Page):
     content_panels = Page.content_panels + [hero_panels()]
 
 
-class VacancyPage(BaseStreamBodyMixin, HeroMixin, Page):
+class VacancyPage(TypesetBodyMixin, SectionBodyMixin, HeroMixin, Page):
     vacancy = models.ForeignKey(
         'users.JobTitle',
         null=True,
@@ -207,6 +207,7 @@ class VacancyPage(BaseStreamBodyMixin, HeroMixin, Page):
             FieldPanel('downloads_description'),
             InlinePanel('page_downloads', label='Download', max_num=None)
         ], heading='Downloads'),
+        StreamFieldPanel('sections'),
         MultiFieldPanel([
             FieldPanel('other_pages_heading'),
             InlinePanel('other_pages', label='Other Pages')

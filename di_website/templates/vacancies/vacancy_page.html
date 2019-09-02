@@ -26,9 +26,7 @@
     <section class="section">
         <div class="is-typeset is-typeset--additionals wysiwyg">
             {% for block in page.body %}
-                {% if block.block_type == 'paragraph_block' or block.block_type == 'block_quote' %}
-                    {% include_block block %}
-                {% endif %}
+              {% include_block block %}
             {% endfor %}
         </div>
     </section>
@@ -64,10 +62,8 @@
 
 
 {% block after_content %}
-    {% for block in page.body %}
-        {% if block.block_type == 'banner_block' %}
-            {% include_block block %}
-        {% endif %}
+    {% for block in page.sections %}
+      {% include_block block %}
     {% endfor %}
 
     <section class="section">

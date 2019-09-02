@@ -236,19 +236,10 @@ class TypesetStreamBlock(StreamBlock):
     required = False
 
 
-class SectionStreamBlock(StreamBlock):
-    """
-    The custom blocks that can be rendered as independent sections on a page
-    """
-    paragraph_block = SectionParagraphBlock()
-    block_quote = SectionBlockQuote()
-    banner_block = BannerBlock()
-
-    required = False
-
 class MediaImageBlock(ImageBlock):
     class Meta:
         template = 'blocks/media_image_block.html'
+        icon = 'fa-image'
 
 
 class ImageDuoTextBlock(ImageBlock):
@@ -261,6 +252,7 @@ class ImageDuoTextBlock(ImageBlock):
 
     class Meta:
         template = 'blocks/duo_body_block_img.html'
+        icon = 'fa-image'
 
 
 class VideoDuoTextBlock(StructBlock):
@@ -281,15 +273,19 @@ class VideoDuoTextBlock(StructBlock):
 
     class Meta:
         template = 'blocks/duo_body_block_vid.html'
+        icon = 'fa-video-camera'
 
 
-class DuoContentStreamBlock(StreamBlock):
+class SectionStreamBlock(StreamBlock):
     """
-    Displays with video or image aligned to left with text aligned to the right
+    The custom blocks that can be rendered as independent sections on a page
     """
-    image_block = ImageDuoTextBlock()
-    video_block = VideoDuoTextBlock()
-    media_image = MediaImageBlock()
-    text_block = SectionParagraphBlock()
+    paragraph_block = SectionParagraphBlock()
+    block_quote = SectionBlockQuote()
+    banner_block = BannerBlock()
+    downloads = DocumentBoxSectionBlock()
+    image = MediaImageBlock()
+    image_duo = ImageDuoTextBlock()
+    video_duo = VideoDuoTextBlock()
 
     required = False

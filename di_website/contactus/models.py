@@ -1,5 +1,6 @@
 import json
 
+from os import settings
 from django import forms
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
@@ -11,8 +12,10 @@ from wagtail.core.models import Page
 
 from di_website.common.base import hero_panels
 from di_website.common.mixins import HeroMixin, TypesetBodyMixin
-
+from .utils import create_new_ticket
+from datetime import date
 HONEYPOT_FORM_FIELD = 'captcha'
+HS_TICKET_PREFIX = 'WS'
 
 
 class ContactUs(models.Model):
@@ -75,6 +78,54 @@ class ContactPage(TypesetBodyMixin, HeroMixin, Page):
             context
         )
 
+    def generate_hubspot_object(self, form_object):
+
+        today = date.today()
+        subject = today.strftime("%Y%m%d")
+
+        hubspot_payload = []
+        kv_p = {}
+        kv_p['name'] = 'subject'
+        kv_p['value'] = HS_TICKET_PREFIX + subject
+        hubspot_payload.append(kv_p)
+
+        kv_p2 = {}
+        kv_p2['name'] = 'hs_pipeline'
+        kv_p2['value'] = settings.HS_TICKET_PIPELINE
+        hubspot_payload.append(kv_p2)
+
+        kv_p3 = {}
+        kv_p3['name'] = 'hs_pipeline_stage'
+        kv_p3['value'] = settings.HS_TICKET_PIPELINE_STAGE
+        hubspot_payload.append(kv_p3)
+
+        kv_p4 = {}
+        kv_p4['name'] = 'client_first_name'
+        kv_p4['value'] = form_object.get('name')
+        hubspot_payload.append(kv_p4)
+
+        kv_p5 = {}
+        kv_p5['name'] = 'organisation'
+        kv_p5['value'] = form_object.get('organisation')
+        hubspot_payload.append(kv_p5)
+
+        kv_p6 = {}
+        kv_p6['name'] = 'email_address'
+        kv_p6['value'] = form_object.get('email')
+        hubspot_payload.append(kv_p6)
+
+        kv_p7 = {}
+        kv_p7['name'] = 'contact_details'
+        kv_p7['value'] = form_object.get('telephone')
+        hubspot_payload.append(kv_p7)
+
+        kv_p8 = {}
+        kv_p8['name'] = 'content'
+        kv_p8['value'] = form_object.get('message')
+        hubspot_payload.append(kv_p8)
+
+        return hubspot_payload
+
     def serve(self, request, *args, **kwargs):
         if request.method == 'POST':
             form = ContactUsForm(request.POST)
@@ -100,7 +151,8 @@ class ContactPage(TypesetBodyMixin, HeroMixin, Page):
             if form.is_valid():
                 form_submission = form.save()
 
-                # TODO Post content of form submission to hubspot CRM
+                hs_obj = self.generate_hubspot_object(request.POST)
+                create_new_ticket(hs_obj)
 
                 return self.render_landing_page(
                     request, form_submission, *args, **kwargs)

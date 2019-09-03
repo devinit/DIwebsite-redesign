@@ -111,7 +111,7 @@ class PublicationIndexPage(HeroMixin, Page):
             legacy_pubs = LegacyPublicationPage.objects.live().filter(topics__slug=topic_filter)
         else:
             stories = PublicationPage.objects.live()
-            legacy_pubs = LegacyPublicationTopic.objects.live()
+            legacy_pubs = LegacyPublicationPage.objects.live()
 
         if country_filter:
             stories = stories.filter(countries__slug=country_filter)
@@ -250,7 +250,7 @@ class PublicationSummaryPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
 
     template = 'publications/publication_chapter_page.html'
 
-    content_panels = [
+    content_panels = Page.content_panels + [
         hero_panels(),
         ContentPanel(),
         DownloadsPanel(
@@ -282,7 +282,7 @@ class PublicationChapterPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
         choices=[(i, num2words(i).title()) for i in range(1, 21)]
     )
 
-    content_panels = [
+    content_panels = Page.content_panels + [
         hero_panels(),
         MultiFieldPanel(
             [
@@ -340,7 +340,7 @@ class PublicationAppendixPage(HeroMixin, ReportChildMixin, FlexibleContentMixin,
         choices=[(i, num2words(i).title()) for i in range(1, 21)]
     )
 
-    content_panels = [
+    content_panels = Page.content_panels + [
         hero_panels(),
         MultiFieldPanel(
             [

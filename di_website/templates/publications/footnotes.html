@@ -12,7 +12,7 @@
                                 <li class="footnotes__item" id="{{ item.footnote_id }}">
                                     <a name="{{ item.footnote_id }}"></a>
                                     <div class="footnotes__text">
-                                        {{ item.text | urlize  | autop }}
+                                        {{ item.text | urlize }}
                                     </div>
                                     <a class="footnotes__return" href="#{{ item.source_id }}">Return to source text</a>
                                 </li>

@@ -74,11 +74,11 @@ class ReportChildMixin(models.Model):
         abstract = True
 
     @cached_property
-    def downloads_title(self):
+    def publication_downloads_title(self):
         return 'Downloads'
 
     @cached_property
-    def downloads_list(self):
+    def publication_downloads_list(self):
         return get_downloads(self, with_parent=True)
 
     @cached_property
@@ -90,8 +90,8 @@ class ReportChildMixin(models.Model):
         return get_downloads(self, with_parent=True, data=True)
 
     @cached_property
-    def page_downloads(self):
-        return self.downloads.all()
+    def page_publication_downloads(self):
+        return self.publication_downloads.all()
 
     @cached_property
     def page_data_downloads(self):

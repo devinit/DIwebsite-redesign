@@ -30,17 +30,7 @@
         {% include_block section %}
     {% endfor %}
 
-    {% for content in page.content %}
-        {% include_block content %}
-    {% endfor %}
-
-   
-    {% for block in page.downloads %}
-        {% include_block block %}
-    {% endfor %}
-    
     <section class="section">
         {% get_other_pages calling_page=self heading=page.other_pages_heading %}
     </section>
 {% endblock %}
-

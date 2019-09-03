@@ -15,8 +15,8 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 
 from taggit.models import Tag, TaggedItemBase
 
-from di_website.common.base import hero_panels, get_paginator_range
-from di_website.common.mixins import BaseStreamBodyMixin, OtherPageMixin, HeroMixin
+from di_website.common.base import hero_panels, get_paginator_range, get_related_pages
+from di_website.common.mixins import OtherPageMixin, HeroMixin, TypesetBodyMixin
 from di_website.common.constants import MAX_PAGE_SIZE, MAX_RELATED_LINKS
 from di_website.ourteam.models import TeamMemberPage
 
@@ -62,7 +62,7 @@ class BlogIndexPage(HeroMixin, Page):
     content_panels = Page.content_panels + [hero_panels()]
 
 
-class BlogArticlePage(BaseStreamBodyMixin, HeroMixin, Page):
+class BlogArticlePage(TypesetBodyMixin, HeroMixin, Page):
     topics = ClusterTaggableManager(through=BlogTopic, blank=True)
 
     internal_author_page = models.ForeignKey(
@@ -121,10 +121,21 @@ class BlogArticlePage(BaseStreamBodyMixin, HeroMixin, Page):
     class Meta():
         verbose_name = 'Blog Article Page'
 
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+        context['related_pages'] = get_related_pages(
+            self.blog_related_links.all(), BlogArticlePage.objects)
+
+        return context
+
 
 class BlogPageRelatedLink(OtherPageMixin):
     page = ParentalKey(Page, related_name='blog_related_links', on_delete=models.CASCADE)
 
     panels = [
-        PageChooserPanel('other_page', ['blog.BlogArticlePage', 'news.NewsStoryPage'])
+        PageChooserPanel('other_page', [
+            'events.EventPage',
+            'blog.BlogArticlePage',
+            'news.NewsStoryPage'
+        ])
     ]

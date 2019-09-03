@@ -13,8 +13,8 @@ from wagtail.admin.edit_handlers import (
 from wagtail.core.fields import StreamField
 from wagtail.core.models import Page
 
-from di_website.common.base import hero_panels, get_paginator_range
-from di_website.common.mixins import OtherPageMixin, HeroMixin
+from di_website.common.base import hero_panels, get_paginator_range, get_related_pages
+from di_website.common.mixins import OtherPageMixin, HeroMixin, TypesetBodyMixin
 from di_website.common.blocks import BaseStreamBlock
 from di_website.common.constants import MAX_PAGE_SIZE, MAX_RELATED_LINKS
 
@@ -23,7 +23,7 @@ from taggit.models import Tag, TaggedItemBase
 from modelcluster.fields import ParentalKey
 
 
-class EventPage(HeroMixin, Page):
+class EventPage(TypesetBodyMixin, HeroMixin, Page):
     """ Content of each event """
 
     start_date = models.DateField(default=datetime.now)
@@ -31,8 +31,8 @@ class EventPage(HeroMixin, Page):
     start_time = models.TimeField()
     end_time = models.TimeField()
     location = models.CharField(max_length=100, help_text='Physical location of event')
+    registration_link = models.URLField(blank=True, null=True)
 
-    body = StreamField(BaseStreamBlock(), verbose_name="Page Body", blank=True)
     other_pages_heading = models.CharField(
         blank=True,
         max_length=255,
@@ -49,6 +49,7 @@ class EventPage(HeroMixin, Page):
             FieldPanel('end_time'),
             FieldPanel('location')
         ], heading='Event Details'),
+        FieldPanel('registration_link'),
         StreamFieldPanel('body'),
         MultiFieldPanel([
             FieldPanel('other_pages_heading'),
@@ -58,13 +59,20 @@ class EventPage(HeroMixin, Page):
 
     parent_page_types = ['EventIndexPage']
 
+    def get_context(self, request):
+        context = super().get_context(request)
+
+        context['related_pages'] = get_related_pages(
+            self.event_related_links.all(), EventPage.objects)
+
+        return context
+
     class Meta:
         verbose_name = "Event Page"
 
 
-class EventIndexPage(HeroMixin, Page):
+class EventIndexPage(TypesetBodyMixin, HeroMixin, Page):
     """ List of all events that have been created from events page """
-    body = StreamField(BaseStreamBlock(), verbose_name="Page Body", blank=True)
 
     content_panels = Page.content_panels + [
         hero_panels(),

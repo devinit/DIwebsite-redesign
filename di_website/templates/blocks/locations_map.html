@@ -11,7 +11,7 @@
       <div class="media-map media-map--minor">
         <div id="map" class="media-map__location" data-latlng="25.453669,-55.585922">
           {% for location in locations %}
-            {% if location.latitude is None %}
+            {% if location.latitude is not None %}
               <div class="media-map__location__point"
                 data-latlng="{{ location.latitude }}, {{ location.longitude }}"
                 data-title="{{ location.location }}" data-desc="{{ location.address }}"

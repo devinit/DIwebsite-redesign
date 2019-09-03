@@ -28,16 +28,16 @@
           {{ page.location }}
         </li>
       </ul>
-      <a href="#" class="button">Register</a>
+      {% if page.registration_link %}
+        <a href="{{page.registration_link}}" class="button">Register</a>
+      {% endif %}
     </div>
   </section>
 
   <section class="section section--post">
     <div class="is-typeset is-typeset--additionals wysiwyg">
       {% for block in page.body %}
-        {% if block.block_type == 'paragraph_block' or block.block_type == 'block_quote' %}
-          {% include_block block %}
-        {% endif %}
+        {% include_block block %}
       {% endfor %}
     </div>
   </section>
@@ -50,8 +50,8 @@
 {% endblock aside %}
 
 {% block after_content %}
-  {% if page.event_related_links.count %}
-    {% with related_pages=page.event_related_links.all heading=page.other_pages_heading  %}
+  {% if related_pages %}
+    {% with related_pages=related_pages heading=page.other_pages_heading  %}
       {% include 'includes/partials/related_content.html' %}
     {% endwith %}
   {% endif %}

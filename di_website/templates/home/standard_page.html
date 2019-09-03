@@ -31,8 +31,8 @@
     {% include_block block %}
   {% endfor %}
 
-  {% if page.other_pages.count %}
-    {% with related_pages=page.other_pages.all heading='Related content'  %}
+  {% if related_pages %}
+    {% with related_pages=related_pages heading='Related content'  %}
       {% include 'includes/partials/related_content.html' %}
     {% endwith %}
   {% endif %}

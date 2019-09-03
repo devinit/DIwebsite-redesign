@@ -130,7 +130,7 @@ class BannerBlock(StructBlock):
     image = ImageChooserBlock(required=False)
     video = EmbedBlock(
         help_text='Insert an embed URL e.g https://www.youtube.com/embed/SGJFWirQ3ks',
-        icon='fa-s15',
+        icon='fa-video-camera',
         template='blocks/embed_block.html',
         required=False
     )
@@ -226,23 +226,20 @@ class TypesetStreamBlock(StreamBlock):
     button_block = ButtonBlock()
     link_block = LinkBlock()
     image = TypeSetImageBlock()
+    video = EmbedBlock(
+        help_text='Insert an embed URL e.g https://www.youtube.com/embed/SGJFWirQ3ks',
+        icon='fa-video-camera',
+        template='blocks/embed_block.html',
+        required=False
+    )
 
     required = False
 
-
-class SectionStreamBlock(StreamBlock):
-    """
-    The custom blocks that can be rendered as independent sections on a page
-    """
-    paragraph_block = SectionParagraphBlock()
-    block_quote = SectionBlockQuote()
-    banner_block = BannerBlock()
-
-    required = False
 
 class MediaImageBlock(ImageBlock):
     class Meta:
         template = 'blocks/media_image_block.html'
+        icon = 'fa-image'
 
 
 class ImageDuoTextBlock(ImageBlock):
@@ -255,6 +252,7 @@ class ImageDuoTextBlock(ImageBlock):
 
     class Meta:
         template = 'blocks/duo_body_block_img.html'
+        icon = 'fa-image'
 
 
 class VideoDuoTextBlock(StructBlock):
@@ -275,15 +273,19 @@ class VideoDuoTextBlock(StructBlock):
 
     class Meta:
         template = 'blocks/duo_body_block_vid.html'
+        icon = 'fa-video-camera'
 
 
-class DuoContentStreamBlock(StreamBlock):
+class SectionStreamBlock(StreamBlock):
     """
-    Displays with video or image aligned to left with text aligned to the right
+    The custom blocks that can be rendered as independent sections on a page
     """
-    image_block = ImageDuoTextBlock()
-    video_block = VideoDuoTextBlock()
-    media_image = MediaImageBlock()
-    text_block = SectionParagraphBlock()
+    paragraph_block = SectionParagraphBlock()
+    block_quote = SectionBlockQuote()
+    banner_block = BannerBlock()
+    downloads = DocumentBoxSectionBlock()
+    image = MediaImageBlock()
+    image_duo = ImageDuoTextBlock()
+    video_duo = VideoDuoTextBlock()
 
     required = False

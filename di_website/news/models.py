@@ -16,9 +16,10 @@ from wagtail.core.models import Page
 
 from taggit.models import Tag, TaggedItemBase
 
-from di_website.common.base import hero_panels, get_paginator_range
-from di_website.common.mixins import BaseStreamBodyMixin, OtherPageMixin, HeroMixin
+from di_website.common.base import hero_panels, get_paginator_range, get_related_pages
+from di_website.common.mixins import OtherPageMixin, HeroMixin, TypesetBodyMixin
 from di_website.common.constants import MAX_PAGE_SIZE, MAX_RELATED_LINKS
+from di_website.home.models import NewsLetter
 
 
 class NewsTopic(TaggedItemBase):
@@ -62,13 +63,15 @@ class NewsIndexPage(HeroMixin, Page):
         ).distinct()
         context['selected_topic'] = topic_filter
         context['paginator_range'] = get_paginator_range(paginator, context['stories'])
+        context['newsletter'] = NewsLetter.objects.first()
 
         return context
 
 
-class NewsStoryPage(BaseStreamBodyMixin, HeroMixin, Page):
+class NewsStoryPage(TypesetBodyMixin, HeroMixin, Page):
     topics = ClusterTaggableManager(through=NewsTopic, blank=True)
-    press_release = models.BooleanField(default=False, help_text="Should this page appear in the Media Center?")
+    press_release = models.BooleanField(
+        default=False, help_text="Should this page appear in the Media Center?")
 
     content_panels = Page.content_panels + [
         hero_panels(),
@@ -88,17 +91,8 @@ class NewsStoryPage(BaseStreamBodyMixin, HeroMixin, Page):
     def get_context(self, request):
         context = super().get_context(request)
 
-        related_links = self.news_related_links.all()
-        related_links_count = len(related_links)
-
-        if related_links_count < MAX_RELATED_LINKS:
-            difference = MAX_RELATED_LINKS - related_links_count
-            news_pages = [link.page for link in related_links]
-            id_list = [page.id for page in news_pages]
-            news_objects = NewsStoryPage.objects.live()
-            related_links = news_objects.filter(id__in=id_list) | news_objects.exclude(id__in=id_list)[:difference]
-
-        context['related_pages'] = related_links
+        context['related_pages'] = get_related_pages(
+            self.news_related_links.all(), NewsStoryPage.objects)
 
         return context
 
@@ -107,7 +101,11 @@ class NewsPageRelatedLink(OtherPageMixin):
     page = ParentalKey(Page, related_name='news_related_links', on_delete=models.CASCADE)
 
     panels = [
-        PageChooserPanel('other_page', ['news.NewsStoryPage', 'blog.BlogArticlePage'])
+        PageChooserPanel('other_page', [
+            'events.EventPage',
+            'news.NewsStoryPage',
+            'blog.BlogArticlePage'
+        ])
     ]
 
 
@@ -124,12 +122,12 @@ class PersonBlock(StructBlock):
         template = "blocks/person_block.html"
 
 
-class MediaCenterPage(BaseStreamBodyMixin, HeroMixin, Page):
+class MediaCenterPage(TypesetBodyMixin, HeroMixin, Page):
     contact_box = StreamField([
         ('contact', ContactBlock())
     ], null=True, blank=True)
     spokespeople = StreamField([
-        ('spokesperson', PersonBlock())
+        ('person', PersonBlock())
     ], null=True, blank=True)
 
     def get_context(self, request):
@@ -155,3 +153,6 @@ class MediaCenterPage(BaseStreamBodyMixin, HeroMixin, Page):
         StreamFieldPanel('body'),
         StreamFieldPanel('spokespeople'),
     ]
+
+    class Meta():
+        verbose_name = 'Media Center Page'

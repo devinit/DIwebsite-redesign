@@ -1,9 +1,9 @@
 {% load wagtailcore_tags wagtailimages_tags static %}
 
 {% if item %}
-<a href="{% pageurl item %}" class="card card--offset">
+  <a href="{% pageurl item %}" class="card card--offset">
     {% if tag %}
-        <span class="card__tag">{{tag}}</span>
+      <span class="card__tag">{{tag}}</span>
     {% endif %}
     <span class="card__tag">{{ tag }}</span>
     {% if item.hero_image %}
@@ -19,5 +19,5 @@
         <h3 class="card__title"><span>{{ item.title }}</span></h3>
         <div class="card__excerpt">{{ item.hero_text|richtext }}</div>
     </div>
-</a>
+  </a>
 {% endif %}

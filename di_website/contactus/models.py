@@ -5,12 +5,12 @@ from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
 from django.shortcuts import render
 
-from wagtail.admin.edit_handlers import FieldPanel, InlinePanel
+from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, StreamFieldPanel
 from wagtail.core.fields import RichTextField
 from wagtail.core.models import Page
 
 from di_website.common.base import hero_panels
-from di_website.common.mixins import HeroMixin
+from di_website.common.mixins import HeroMixin, TypesetBodyMixin
 
 HONEYPOT_FORM_FIELD = 'captcha'
 
@@ -20,9 +20,9 @@ class ContactUs(models.Model):
         Form fields for contact us form
     """
     name = models.CharField(max_length=255)
-    organisation = models.CharField(max_length=255)
+    organisation = models.CharField(max_length=255, blank=True)
     email = models.EmailField()
-    telephone = models.CharField(max_length=255)
+    telephone = models.CharField(max_length=255, blank=True)
     message = models.TextField()
 
     def __str__(self):
@@ -35,14 +35,13 @@ class ContactUsForm(forms.ModelForm):
         fields = ['name', 'organisation', 'email', 'telephone', 'message']
 
 
-class ContactPage(HeroMixin, Page):
+class ContactPage(TypesetBodyMixin, HeroMixin, Page):
     """
         Form with pre-built form fields to handle contact us info
     """
     template = 'contactus/contact_page.html'
     landing_template = 'contactus/contact_page_landing.html'
 
-    intro = RichTextField(blank=True)
     success_alert = models.CharField(
         max_length=255,
         default='Your message was sent successfully',
@@ -50,7 +49,7 @@ class ContactPage(HeroMixin, Page):
 
     content_panels = Page.content_panels + [
         hero_panels(),
-        FieldPanel('intro', classname="full"),
+        StreamFieldPanel('body'),
         FieldPanel('success_alert', classname="full"),
     ]
 

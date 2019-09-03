@@ -1,11 +1,6 @@
 from django.db import models
-from di_website.common.blocks import DocumentBoxSectionBlock, DuoContentStreamBlock
-from di_website.common.mixins import (
-    SectionBodyMixin,
-    HeroMixin,
-    BaseStreamBodyMixin
-)
 
+from di_website.common.mixins import HeroMixin, SectionBodyMixin, TypesetBodyMixin
 from di_website.common.base import hero_panels
 
 from wagtail.admin.edit_handlers import (
@@ -20,7 +15,7 @@ from wagtail.core.fields import StreamField
 from wagtail.core.models import Page
 
 
-class General(HeroMixin, SectionBodyMixin, BaseStreamBodyMixin, Page):
+class General(TypesetBodyMixin, HeroMixin, SectionBodyMixin, Page):
 
     """
     General page that that can be used with strategy  and accounts pages
@@ -28,10 +23,6 @@ class General(HeroMixin, SectionBodyMixin, BaseStreamBodyMixin, Page):
 
     template = 'general/general_page.html'
 
-    downloads = StreamField([
-        ('downloads', DocumentBoxSectionBlock()), ], verbose_name="Downloads Section",)
-
-    content = StreamField(DuoContentStreamBlock(), blank=True)
     other_pages_heading = models.CharField(
         blank=True,
         max_length=255,
@@ -43,8 +34,6 @@ class General(HeroMixin, SectionBodyMixin, BaseStreamBodyMixin, Page):
         hero_panels(),
         StreamFieldPanel('body'),
         StreamFieldPanel('sections'),
-        StreamFieldPanel('content'),
-        StreamFieldPanel('downloads'),
         MultiFieldPanel([
             FieldPanel('other_pages_heading'),
             InlinePanel('other_pages', label='Related pages')

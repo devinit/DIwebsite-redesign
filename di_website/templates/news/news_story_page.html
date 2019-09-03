@@ -11,9 +11,7 @@
         <div class="max-meter max-meter--center">
             <div class="is-typeset is-typeset--additionals wysiwyg">
                 {% for block in page.body %}
-                    {% if block.block_type == 'paragraph_block' or block.block_type == 'block_quote' %}
-                        {% include_block block %}
-                    {% endif %}
+                  {% include_block block %}
                 {% endfor %}
             </div>
         </div>
@@ -27,8 +25,8 @@
 {% endblock aside %}
 
 {% block after_content %}
-    {% if page.news_related_links.count %}
-        {% with related_pages=page.news_related_links.all heading='Related content'  %}
+    {% if related_pages %}
+        {% with related_pages=related_pages heading='Related content'  %}
             {% include 'includes/partials/related_content.html' %}
         {% endwith %}
     {% endif %}

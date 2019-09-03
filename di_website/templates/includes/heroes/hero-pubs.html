@@ -1,0 +1,12 @@
+{% extends 'includes/heroes/hero.html' %}
+
+{% block hero_class %}hero--minor{% endblock hero_class %}
+
+{% block hero_meta %}
+    <ul class="hero__meta">
+        <li class="hero__meta-item hero__meta-item--block">{{ page.publication_type|default_if_none:"Publication" }}</li>
+        {% if page.published_date %}
+          <li class="hero__meta-item">{{ page.published_date|date:"j F Y" }}</li>
+        {% endif %}
+    </ul>
+{% endblock hero_meta %}

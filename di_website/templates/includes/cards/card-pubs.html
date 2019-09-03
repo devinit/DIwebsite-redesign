@@ -2,7 +2,7 @@
 
 {% if item %}
 <a href="{% pageurl item %}" class="card card--offset">
-      <span class="card__tag">{{ item.publication_type }}</span>
+      <span class="card__tag">{{ item.publication_type|default_if_none:"Publication" }}</span>
     {% if item.hero_image %}
       {% image item.hero_image max-400x250 as hero_img %}
       <div class="card__media" style="background-image: url({{hero_img.url}});"></div>
@@ -10,8 +10,8 @@
       <div class="card__media" style="background-image: url({% static 'img/fallback-image.jpg' %});"></div>
     {% endif %}
     <div class="card__body">
-      {% if item.first_published_at %}
-        <span class="card__meta">{{ item.first_published_at|date:"j F Y" }}</span>
+      {% if item.published_date %}
+        <span class="card__meta">{{ item.published_date|date:"j F Y" }}</span>
       {% endif %}
         <h3 class="card__title"><span>{{ item.title }}</span></h3>
         <div class="card__excerpt">

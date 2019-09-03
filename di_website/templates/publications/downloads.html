@@ -1,10 +1,10 @@
 {% load string_utils %}
 
-{% if item.page_downloads %}
+{% if item.page_publication_downloads %}
     <div class="button download-button {{ button_class }}">
-        <span>{{ download_title }} {% include 'macros/icon.html' with file=download_icon|default:'ico-arrow-down-slate' size=10 %}</span>
+        <span>{{ download_title }} {% include 'publications/icon.html' with file=download_icon|default:'ico-arrow-down-slate' size=10 %}</span>
         <ul>
-            {% for download in item.page_downloads %}
+            {% for download in item.page_publication_downloads %}
                 {% if download.download.file %}
                     <li>
                         <a

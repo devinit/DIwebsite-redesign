@@ -6,7 +6,7 @@
     {% include 'includes/heroes/hero-news.html' %}
 {% endblock hero %}
 
-{% block main %}
+{% block body %}
 
     <div class="chapter-block-wrapper space-section-both-med">
 
@@ -21,7 +21,7 @@
                     <div class="chapter-block_content">
                         <h2 class="chapter-block__heading heading type-xl type-s--trailer">{{ page.summary_title }}</h2>
                         <div class="is-typeset wysiwyg">
-                            {{ page.content | content }}
+                            {{ page.content | richtext }}
                         </div>
                         {% include 'publications/downloads.html' with item=page button_class='download-button--action' download_title='Download the full report' download_icon='ico-arrow-down-blank' %}
                         {% include 'publications/data-downloads.html' with item=page button_class='button--secondary' download_title='Download data' %}

@@ -6,7 +6,7 @@
     {% include 'includes/heroes/hero-news.html' %}
 {% endblock hero %}
 
-{% block main %}
+{% block body %}
 
     {% if page.chapter_number %}
         {% include 'publications/chapter-nav/nav.html' with page=page.get_parent.specific menu_label='Contents' chapter_number=page.chapter_number %}

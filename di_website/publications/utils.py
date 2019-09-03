@@ -9,7 +9,7 @@ from .edit_handlers import MultiFieldPanel
 
 def get_downloads(instance, with_parent=False, data=False):
     d = defaultdict(list)
-    downloads = instance.data_downloads.all() if data else instance.downloads.all()
+    downloads = instance.data_downloads.all() if data else instance.publication_downloads.all()
 
     for item in downloads:
         download = create_download(item)
@@ -19,7 +19,7 @@ def get_downloads(instance, with_parent=False, data=False):
         if data:
             parent_downloads = instance.get_parent().specific.data_downloads.all()
         else:
-            parent_downloads = instance.get_parent().specific.downloads.all()
+            parent_downloads = instance.get_parent().specific.publication_downloads.all()
 
         for item in parent_downloads:
             download = create_download(item)
@@ -31,11 +31,11 @@ def get_downloads(instance, with_parent=False, data=False):
 def create_download(item):
     download = {
         'prefix': '',
-        'download': item.download
+        'download': item.publication_download
     }
 
     try:
-        language = item.download.language.title
+        language = item.publication_download.language.title
     except AttributeError:
         language = ''
 

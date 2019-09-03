@@ -183,11 +183,11 @@ class PublicationPage(HeroMixin, PublishedDateMixin, UUIDMixin, Page):
     ]
 
     @cached_property
-    def downloads_title(self):
+    def publication_downloads_title(self):
         return 'Downloads'
 
     @cached_property
-    def downloads_list(self):
+    def publication_downloads_list(self):
         return get_downloads(self)
 
     @cached_property
@@ -199,8 +199,8 @@ class PublicationPage(HeroMixin, PublishedDateMixin, UUIDMixin, Page):
         return get_downloads(self, with_parent=False, data=True)
 
     @cached_property
-    def page_downloads(self):
-        return self.downloads.all()
+    def page_publication_downloads(self):
+        return self.publication_downloads.all()
 
     @cached_property
     def page_data_downloads(self):
@@ -426,8 +426,8 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, PageSearchMixin, Page
     ]
 
     @cached_property
-    def page_downloads(self):
-        return self.downloads.all()
+    def page_publication_downloads(self):
+        return self.publication_downloads.all()
 
     @cached_property
     def page_data_downloads(self):

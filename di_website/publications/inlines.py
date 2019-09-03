@@ -7,7 +7,7 @@ from di_website.downloads.models import (
 
 
 class PublicationPageDownloads(Orderable, DownloadItem):
-    item = ParentalKey('PublicationPage', related_name='downloads')
+    item = ParentalKey('PublicationPage', related_name='publication_downloads')
 
 
 class PublicationPageDataDownloads(Orderable, DataDownloadItem):
@@ -15,7 +15,7 @@ class PublicationPageDataDownloads(Orderable, DataDownloadItem):
 
 
 class PublicationSummaryPageDownloads(Orderable, DownloadItem):
-    item = ParentalKey('PublicationSummaryPage', related_name='downloads')
+    item = ParentalKey('PublicationSummaryPage', related_name='publication_downloads')
 
 
 class PublicationSummaryPageDataDownloads(Orderable, DataDownloadItem):
@@ -23,14 +23,14 @@ class PublicationSummaryPageDataDownloads(Orderable, DataDownloadItem):
 
 
 class PublicationChapterPageDownloads(Orderable, DownloadItem):
-    item = ParentalKey('PublicationChapterPage', related_name='downloads')
+    item = ParentalKey('PublicationChapterPage', related_name='publication_downloads')
 
 
 class PublicationChapterPageDataDownloads(Orderable, DataDownloadItem):
     item = ParentalKey('PublicationChapterPage', related_name='data_downloads')
 
 class PublicationAppendixPageDownloads(Orderable, DownloadItem):
-    item = ParentalKey('PublicationAppendixPage', related_name='downloads')
+    item = ParentalKey('PublicationAppendixPage', related_name='publication_downloads')
 
 
 class PublicationAppendixPageDataDownloads(Orderable, DataDownloadItem):
@@ -38,7 +38,7 @@ class PublicationAppendixPageDataDownloads(Orderable, DataDownloadItem):
 
 
 class LegacyPublicationPageDownloads(Orderable, DownloadItem):
-    item = ParentalKey('LegacyPublicationPage', related_name='downloads')
+    item = ParentalKey('LegacyPublicationPage', related_name='publication_downloads')
 
 
 class LegacyPublicationPageDataDownloads(Orderable, DataDownloadItem):

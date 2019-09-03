@@ -78,7 +78,7 @@ class BaseDownload(models.Model):
 
 
 @register_snippet
-class Download(BaseDownload):
+class PublicationDownload(BaseDownload):
 
     language = models.ForeignKey(
         'Language',
@@ -116,7 +116,7 @@ class DownloadItem(models.Model):
         abstract = True
 
     download = models.ForeignKey(
-        'downloads.Download',
+        'downloads.PublicationDownload',
         null=True,
         blank=True,
         on_delete=models.SET_NULL,

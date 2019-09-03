@@ -3,14 +3,14 @@ from wagtail.contrib.modeladmin.options import (
     ModelAdminGroup,
     modeladmin_register
 )
-from .models import Download, DataDownload
+from .models import PublicationDownload, DataDownload
 
 
-class DownloadAdmin(ModelAdmin):
-    model = Download
+class PublicationDownloadAdmin(ModelAdmin):
+    model = PublicationDownload
     menu_icon = 'download'
     menu_order = 100
-    menu_label = 'Downloads'
+    menu_label = 'Publication downloads'
     list_display = ('file', 'title', 'language', )
     search_fields = ('file__title', 'title', )
 
@@ -29,7 +29,7 @@ class DownloadsAdminGroup(ModelAdminGroup):
     menu_icon = 'download'
     menu_order = 130
     items = (
-        DownloadAdmin,
+        PublicationDownloadAdmin,
         DataDownloadAdmin,
     )
 

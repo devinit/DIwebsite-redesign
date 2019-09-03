@@ -168,6 +168,6 @@ class Infographic(StructBlock):
         help_text='Optional: label for the caption link, defaults to the link if left blank'
     )
     downloads = ListBlock(
-        SnippetChooserBlock('downloads.Download', required=False),
+        SnippetChooserBlock('downloads.PublicationDownload', required=False),
         help_text='Optional: list of downloads to appear below the image or table'
     )

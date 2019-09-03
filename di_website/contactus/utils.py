@@ -4,7 +4,7 @@ from django.conf import settings
 import json
 
 END_POINT = 'https://api.hubapi.com/crm-objects/v1/objects/tickets?hapikey=' + \
-    settings.HUBSPOT_API_KEY
+    settings.HS_API_KEY
 
 
 def create_new_ticket(payload):

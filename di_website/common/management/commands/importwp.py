@@ -16,6 +16,7 @@ from di_website.blog.models import BlogArticlePage, BlogIndexPage
 from di_website.news.models import NewsIndexPage, NewsStoryPage
 from di_website.ourteam.models import OurTeamPage, TeamMemberPage, TeamMemberPageDepartment
 from di_website.users.models import Department, JobTitle
+from di_website.publications.models import PublicationIndexPage, LegacyPublicationPage, PublicationType
 
 from wagtail.contrib.redirects.models import Redirect
 from wagtail.images.models import Image
@@ -32,7 +33,7 @@ class Command(BaseCommand):
         parser.add_argument('blogs_file', nargs='?', type=str, default=os.path.join(settings.BASE_DIR, 'migrated_content/di_blogs.json'))
         parser.add_argument('news_file', nargs='?', type=str, default=os.path.join(settings.BASE_DIR, 'migrated_content/di_news.json'))
         parser.add_argument('img_folder', nargs='?', type=str, default=os.path.join(settings.BASE_DIR, 'migrated_content/staff_photos'))
-        # parser.add_argument('pubs_file', nargs='+', type=str, default=os.path.join(settings.BASE_DIR, 'migrated_content/di_pubs.json'))
+        parser.add_argument('pubs_file', nargs='?', type=str, default=os.path.join(settings.BASE_DIR, 'migrated_content/di_pubs.json'))
 
     def handle(self, *args, **options):
         """Implement the command handler."""
@@ -40,6 +41,7 @@ class Command(BaseCommand):
         our_team_page = OurTeamPage.objects.live().first()
         news_index_page = NewsIndexPage.objects.live().first()
         blog_index_page = BlogIndexPage.objects.live().first()
+        publication_index_page = PublicationIndexPage.objects.live().first()
 
         if our_team_page is not None:
             with open(options['staff_file']) as staff_file:
@@ -172,3 +174,42 @@ class Command(BaseCommand):
                             pass  # Sometimes a post was simultaneously news and a blog. In these cases retain both but don't have two redirects
 
         self.stdout.write(self.style.SUCCESS('Successfully imported news.'))
+
+        if publication_index_page is not None:
+            with open(options['pubs_file']) as pubs_file:
+                publication_datasets = json.load(pubs_file)
+                for publication_dataset in publication_datasets:
+
+                    publication_type, _ = PublicationType.objects.get_or_create(name=publication_dataset['format'].split(";")[0])
+
+                    slug = publication_dataset['url'].split('/')[-2]
+                    pub_check = LegacyPublicationPage.objects.filter(slug=slug)
+                    if not pub_check and publication_dataset['body'] != "":
+                        pub_page = LegacyPublicationPage(
+                            title=publication_dataset['title'],
+                            slug=slug,
+                            hero_text=publication_dataset['description'],
+                            content=publication_dataset['body'],
+                            publication_type=publication_type
+                        )
+                        # author_names = publication_dataset["author"]
+                        # if author_names:
+                        #     author_name = author_names[0]
+                        # else:
+                        #     author_name = None
+                        # internal_author_page_qs = TeamMemberPage.objects.filter(name=author_name)
+                        # if internal_author_page_qs:
+                        #     pub_page.internal_author_page = internal_author_page_qs.first()
+                        # else:
+                        #     pub_page.external_author_name = author_name
+                        publication_index_page.add_child(instance=pub_page)
+                        pub_page.save_revision().publish()
+                        pub_page.published_date = pytz.utc.localize(datetime.datetime.strptime(publication_dataset['date'], "%d %b %Y"))
+                        pub_page.save_revision().publish()
+                        Redirect.objects.create(
+                            site=pub_page.get_site(),
+                            old_path="/post/{}".format(slug),
+                            redirect_page=pub_page
+                        )
+
+        self.stdout.write(self.style.SUCCESS('Successfully imported publications.'))

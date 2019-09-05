@@ -192,16 +192,17 @@ class Command(BaseCommand):
                             content=publication_dataset['body'],
                             publication_type=publication_type
                         )
+                        authors = []
                         author_names = publication_dataset["author"]
-                        if author_names:
-                            author_name = author_names[0]
-                        else:
-                            author_name = None
-                        internal_author_page_qs = TeamMemberPage.objects.filter(name=author_name)
-                        if internal_author_page_qs:
-                            pub_page.internal_author_page = internal_author_page_qs.first()
-                        else:
-                            pub_page.external_author_name = author_name
+                        for author_name in author_names:
+                            internal_author_page_qs = TeamMemberPage.objects.filter(name=author_name)
+                            if internal_author_page_qs:
+                                author_obj = {"type": "internal_author", "value": internal_author_page_qs.first().pk}
+                            else:
+                                author_obj = {"type": "external_author", "value": {"name": author_name, "title": "", "photograph": None, "page": ""}}
+                            authors.append(author_obj)
+                        if authors:
+                            pub_page.other_authors = json.dumps(authors)
                         publication_index_page.add_child(instance=pub_page)
                         pub_page.save_revision().publish()
                         pub_page.published_date = pytz.utc.localize(datetime.datetime.strptime(publication_dataset['date'], "%d %b %Y"))

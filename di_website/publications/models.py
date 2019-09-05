@@ -15,7 +15,7 @@ from modelcluster.models import ClusterableModel
 
 from wagtail.core.models import Page
 from wagtail.core.fields import RichTextField
-from wagtail.admin.edit_handlers import FieldPanel
+from wagtail.admin.edit_handlers import FieldPanel, PageChooserPanel
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.contrib.redirects.models import Redirect
@@ -25,6 +25,7 @@ from di_website.common.base import hero_panels, get_paginator_range
 from di_website.common.mixins import HeroMixin
 from di_website.common.constants import MAX_PAGE_SIZE
 from di_website.downloads.utils import DownloadsPanel, DownloadGroupsPanel
+from di_website.ourteam.models import TeamMemberPage
 
 from taggit.models import Tag, TaggedItemBase
 
@@ -157,6 +158,27 @@ class PublicationPage(HeroMixin, PublishedDateMixin, UUIDMixin, Page):
         'PublicationAppendixPage',
     ]
 
+    internal_author_page = models.ForeignKey(
+        'wagtailcore.Page',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        help_text="The author's page if the author has an internal profile. Photograph, job title, and page link will be drawn from this."
+    )
+    external_author_name = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True,
+        help_text="Only fill out for guest authors."
+    )
+    external_author_page = models.URLField(
+        max_length=1000,
+        null=True,
+        blank=True,
+        help_text="Only fill out for guest authors."
+    )
+
     publication_type = models.ForeignKey(
         PublicationType, related_name="+", null=True, blank=True, on_delete=models.SET_NULL)
     topics = ClusterTaggableManager(through=PublicationTopic, blank=True, verbose_name="Topics")
@@ -165,6 +187,11 @@ class PublicationPage(HeroMixin, PublishedDateMixin, UUIDMixin, Page):
 
     content_panels = Page.content_panels + [
         hero_panels(),
+        MultiFieldPanel([
+            PageChooserPanel('internal_author_page', TeamMemberPage),
+            FieldPanel('external_author_name'),
+            FieldPanel('external_author_page'),
+        ], heading="Author information"),
         SnippetChooserPanel('publication_type'),
         FieldPanel('topics'),
         SnippetChooserPanel('countries'),
@@ -383,6 +410,27 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, PageSearchMixin, Page
     parent_page_types = ['PublicationIndexPage']
     subpage_types = []
 
+    internal_author_page = models.ForeignKey(
+        'wagtailcore.Page',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        help_text="The author's page if the author has an internal profile. Photograph, job title, and page link will be drawn from this."
+    )
+    external_author_name = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True,
+        help_text="Only fill out for guest authors."
+    )
+    external_author_page = models.URLField(
+        max_length=1000,
+        null=True,
+        blank=True,
+        help_text="Only fill out for guest authors."
+    )
+
     publication_type = models.ForeignKey(
         PublicationType, related_name="+", null=True, blank=True, on_delete=models.SET_NULL)
     topics = ClusterTaggableManager(through=LegacyPublicationTopic, blank=True, verbose_name="Topics")
@@ -400,6 +448,11 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, PageSearchMixin, Page
 
     content_panels = Page.content_panels + [
         hero_panels(),
+        MultiFieldPanel([
+            PageChooserPanel('internal_author_page', TeamMemberPage),
+            FieldPanel('external_author_name'),
+            FieldPanel('external_author_page'),
+        ], heading="Author information"),
         SnippetChooserPanel('publication_type'),
         FieldPanel('topics'),
         SnippetChooserPanel('countries'),

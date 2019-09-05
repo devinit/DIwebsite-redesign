@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.conf.urls import handler404
+from django.conf.urls import handler404, handler500
 from django.conf.urls import include, url
 from django.contrib import admin
 
@@ -44,3 +44,4 @@ if settings.DEBUG:
     SHOW_TOOLBAR_CALLBACK = True
 
 handler404 = 'di_website.error.views.error_404_view'
+handler500 = 'di_website.error.views.error_500_view'

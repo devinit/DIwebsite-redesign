@@ -3,5 +3,5 @@ from django.http import HttpResponse
 
 
 def error_404_view(request, exception):
-    data = {"name": "ThePythonDjango.com"}
+    data = {"status": 404}
     return render(request,'404-static.html', data)

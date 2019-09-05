@@ -10,8 +10,16 @@ from wagtail.admin.edit_handlers import (
     MultiFieldPanel, PageChooserPanel,
     StreamFieldPanel)
 from wagtail.core.fields import StreamField
-from wagtail.core.models import Orderable, Page
+from wagtail.core.models import Page
 from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.core.blocks import (
+    CharBlock,
+    PageChooserBlock,
+    StructBlock,
+    URLBlock
+)
+from wagtail.images.blocks import ImageChooserBlock
+
 
 from taggit.models import Tag, TaggedItemBase
 
@@ -73,41 +81,21 @@ class BlogArticlePage(TypesetBodyMixin, HeroMixin, Page):
         related_name='+',
         help_text="The author's page if the author has an internal profile. Photograph, job title, and page link will be drawn from this."
     )
-    external_author_name = models.CharField(
-        max_length=255,
-        null=True,
-        blank=True,
-        help_text="Only fill out for guest authors."
-    )
-    external_author_title = models.CharField(
-        max_length=255,
-        null=True,
-        blank=True,
-        help_text="Only fill out for guest authors."
-    )
-    external_author_photograph = models.ForeignKey(
-        'wagtailimages.Image',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+',
-        help_text="Only fill out for guest authors."
-    )
-    external_author_page = models.URLField(
-        max_length=1000,
-        null=True,
-        blank=True,
-        help_text="Only fill out for guest authors."
-    )
+    other_authors = StreamField([
+        ('internal_author', PageChooserBlock(required=False, target_model='ourteam.TeamMemberPage')),
+        ('external_author', StructBlock([
+            ('name', CharBlock(required=False)),
+            ('title', CharBlock(required=False)),
+            ('photograph', ImageChooserBlock(required=False)),
+            ('page', URLBlock(required=False))
+        ]))
+    ], blank=True, help_text="Additional authors. If order is important, please use this instead of internal author page.")
 
     content_panels = Page.content_panels + [
         hero_panels(),
         MultiFieldPanel([
             PageChooserPanel('internal_author_page', TeamMemberPage),
-            FieldPanel('external_author_name'),
-            FieldPanel('external_author_title'),
-            ImageChooserPanel('external_author_photograph'),
-            FieldPanel('external_author_page'),
+            StreamFieldPanel('other_authors')
         ], heading="Author information"),
         FieldPanel('topics'),
         StreamFieldPanel('body'),

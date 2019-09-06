@@ -58,7 +58,15 @@
                 <p>{{ page.values_text }}</p>
             </div>
             <div class="l-3up">
-                {% values %}
+                {% for block in page.ourvalues %}
+                    {% with block.value.ourvalues as item %}
+                        <div class="m-stat">
+                            <i role="presentation" aria-hidden="true" class="ico ico--30 ico-star-poppy"></i>
+                            <h3 class="m-stat__title">{{ item.title | default_if_none:"" }}</h3>
+                            <p class="m-stat__excerpt">{{ item.excerpt | default_if_none:"" }}</p>
+                        </div>
+                    {% endwith %}
+                {% endfor %}
             </div>
         </div>
     </section>

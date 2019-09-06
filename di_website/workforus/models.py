@@ -25,7 +25,7 @@ from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.blocks import SnippetChooserBlock
 
 from di_website.common.base import hero_panels
-from di_website.common.mixins import BaseStreamBodyMixin, HeroMixin
+from di_website.common.mixins import TypesetBodyMixin, HeroMixin
 from di_website.vacancies.models import VacancyPage
 from .blocks import BenefitsStreamBlock, TeamStoryStreamBlock
 
@@ -61,7 +61,7 @@ class OurValuesChooserStreamBlock(StreamBlock):
     required = False
 
 
-class WorkForUsPage(BaseStreamBodyMixin, HeroMixin, Page):
+class WorkForUsPage(TypesetBodyMixin, HeroMixin, Page):
     class Meta():
         verbose_name = 'Work For Us Page'
 

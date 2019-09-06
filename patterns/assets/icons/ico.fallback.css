@@ -139,6 +139,13 @@
 
 
 
+.ico-clock-warning {
+	background-image: url('png/clock-warning.png');
+	background-repeat: no-repeat;
+}
+
+
+
 .ico-data-blank {
 	background-image: url('png/data-blank.png');
 	background-repeat: no-repeat;

@@ -83,12 +83,6 @@ class WorkForUsPage(BaseStreamBodyMixin, HeroMixin, Page):
         null=True,
         blank=True
     )
-    logos = StreamField(
-        [('image', ImageChooserBlock())],
-        verbose_name="Logos",
-        null=True,
-        blank=True
-    )
     values_text = models.TextField(
         blank=True,
         max_length=255,
@@ -122,7 +116,6 @@ class WorkForUsPage(BaseStreamBodyMixin, HeroMixin, Page):
         FieldPanel('recruitment_policy'),
         FieldPanel('gdr_policy'),
         StreamFieldPanel('benefits'),
-        StreamFieldPanel('logos'),
         MultiFieldPanel([
             FieldPanel('values_text'),
             StreamFieldPanel('ourvalues')

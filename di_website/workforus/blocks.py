@@ -8,6 +8,7 @@ from wagtail.core.blocks import (
     TextBlock,
     URLBlock
 )
+from wagtail.core.fields import StreamField
 from wagtail.images.blocks import ImageChooserBlock
 
 from di_website.common.constants import RICHTEXT_FEATURES
@@ -18,6 +19,9 @@ class BenefitsBlock(StructBlock):
     title = TextBlock()
     body = RichTextBlock(required=False)
     image = ImageChooserBlock(required=False)
+    logos = StreamBlock([
+        ('image', ImageChooserBlock()),
+    ])
 
     class Meta():
         icon = 'fa-heart'

@@ -1,8 +1,12 @@
 {% load wagtailimages_tags %}
 
+{% for logo in val.logos %}
+
 <div class="aside">
     <div class="aside__media">
-        {% image item min-500x200 as image %}
+        {% image logo.value min-500x200 as image %}
         <img src='{{ image.url }}' alt="alt">
     </div>
 </div>
+
+{% endfor %}

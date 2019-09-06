@@ -1,0 +1,21 @@
+{% load wagtailcore_tags %}
+
+<div class="m-authors">
+    <h3 class="m-authors__title">Authors</h3>
+    <ul class="m-authors__list">
+      {% if first_author %}
+        <li><a href="{% pageurl first_author %}">{{ first_author.specific.name }}</a></li>
+      {% endif %}
+      {% for author in authors %}
+        {% if author.block_type == 'internal_author' %}
+          <li><a href="{% pageurl author.value %}">{{ author.value.specific.name }}</a></li>
+        {% else %}
+          {% if author.value.page %}
+            <li><a href="{{ author.value.page }}">{{ author.value.name }}</a></li>
+          {% else %}
+            <li>{{ author.value.name }}</li>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    </ul>
+</div>

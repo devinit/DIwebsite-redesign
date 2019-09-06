@@ -113,16 +113,26 @@ class Command(BaseCommand):
                             hero_text=blog_dataset['description'],
                             body=json.dumps([{'type': 'paragraph_block', 'value': blog_dataset['body']}]),
                         )
+                        other_authors = []
                         author_names = blog_dataset["author"]
                         if author_names:
                             author_name = author_names[0]
-                        else:
-                            author_name = None
-                        internal_author_page_qs = TeamMemberPage.objects.filter(name=author_name)
-                        if internal_author_page_qs:
-                            blog_page.internal_author_page = internal_author_page_qs.first()
-                        else:
-                            blog_page.external_author_name = author_name
+                            internal_author_page_qs = TeamMemberPage.objects.filter(name=author_name)
+                            if internal_author_page_qs:
+                                blog_page.internal_author_page = internal_author_page_qs.first()
+                            else:
+                                author_obj = {"type": "external_author", "value": {"name": author_name, "title": "", "photograph": None, "page": ""}}
+                                other_authors.append(author_obj)
+                        if len(author_names) > 1:
+                            for author_name in author_names[1:]:
+                                internal_author_page_qs = TeamMemberPage.objects.filter(name=author_name)
+                                if internal_author_page_qs:
+                                    author_obj = {"type": "internal_author", "value": internal_author_page_qs.first().pk}
+                                else:
+                                    author_obj = {"type": "external_author", "value": {"name": author_name, "title": "", "photograph": None, "page": ""}}
+                                other_authors.append(author_obj)
+                        if other_authors:
+                            blog_page.other_authors = json.dumps(other_authors)
                         blog_index_page.add_child(instance=blog_page)
                         blog_page.save_revision().publish()
                         blog_page.first_published_at = pytz.utc.localize(datetime.datetime.strptime(blog_dataset['date'], "%d %b %Y"))

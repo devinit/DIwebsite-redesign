@@ -17,6 +17,9 @@
             <div class="larger-center">
                 <div class="chapter-block__item">
                     <div class="chapter-block_content">
+                        {% if page.authors|length > 0 %}
+                          {% include 'includes/partials/multi-authors.html' with authors=page.authors %}
+                        {% endif %}
                         {% if item.chapter_number %}
                             <p class="chapter-title {% cycle 'reverse-text' '' %}">{{ item.label | title }}</p>
                         {% endif %}

@@ -204,7 +204,7 @@ class Command(BaseCommand):
                                 author_obj = {"type": "external_author", "value": {"name": author_name, "title": "", "photograph": None, "page": ""}}
                             authors.append(author_obj)
                         if authors:
-                            pub_page.other_authors = json.dumps(authors)
+                            pub_page.authors = json.dumps(authors)
                         publication_index_page.add_child(instance=pub_page)
                         pub_page.save_revision().publish()
                         pub_page.published_date = pytz.utc.localize(datetime.datetime.strptime(publication_dataset['date'], "%d %b %Y"))

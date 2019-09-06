@@ -193,7 +193,7 @@ class Command(BaseCommand):
                             publication_type=publication_type
                         )
                         authors = []
-                        author_names = publication_dataset["author"]
+                        author_names = publication_dataset["authors"]
                         for author_name in author_names:
                             internal_author_page_qs = TeamMemberPage.objects.filter(name=author_name)
                             if internal_author_page_qs:

@@ -6,6 +6,7 @@ import json
 import os
 import PIL.Image
 import pytz
+import re
 
 from django.conf import settings
 from django.core.files.images import ImageFile
@@ -185,11 +186,12 @@ class Command(BaseCommand):
                     slug = publication_dataset['url'].split('/')[-2]
                     pub_check = LegacyPublicationPage.objects.filter(slug=slug)
                     if not pub_check and publication_dataset['body'] != "":
+                        clean_body = re.sub(r'Modal[\s\S]*\/Modal', '', publication_dataset['body'])
                         pub_page = LegacyPublicationPage(
                             title=publication_dataset['title'],
                             slug=slug,
                             hero_text=publication_dataset['description'],
-                            content=publication_dataset['body'],
+                            content=clean_body,
                             publication_type=publication_type
                         )
                         authors = []

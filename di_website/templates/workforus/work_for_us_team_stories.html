@@ -1,11 +1,11 @@
-{% load wagtailimages_tags %}
+{% load wagtailimages_tags wagtailcore_tags %}
 
 <div class="l-4up__col">
-    <a href="{{ story.story_url }}" class="m-stat m-stat--simple">
+    <a href="{% pageurl page %}" class="m-stat m-stat--simple">
         <div class="m-stat__icon">
-            {% image story.image min-500x200 as image %}
-            <img src='{{ image.url }}' alt="alt">
+            {% image page.specific.hero_image min-500x200 as image %}
+            <img src='{{ image.url }}' alt="{{ image.alt }}">
         </div>
-        <h3 class="m-stat__title m-stat__title--center"><span>{{ story.title }}</span></h3>
+        <h3 class="m-stat__title m-stat__title--center"><span>{{ page.specific.title }}</span></h3>
     </a>
 </div>

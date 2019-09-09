@@ -33,9 +33,11 @@ class BenefitsStreamBlock(StreamBlock):
 
 
 class TeamStoryBlock(StructBlock):
-    title = TextBlock()
-    story_url = URLBlock()
-    image = ImageChooserBlock(required=False)
+    heading = TextBlock()
+    subtitle_text = TextBlock()
+    stories = StreamBlock([
+        ('team_story_page', PageChooserBlock(required=False)),
+    ])
 
     class Meta():
         icon = 'fa-book'

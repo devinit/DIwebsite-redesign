@@ -94,11 +94,6 @@ class WorkForUsPage(TypesetBodyMixin, HeroMixin, Page):
         null=True,
         blank=True
     )
-    team_story_heading = models.TextField(
-        blank=True,
-        max_length=255,
-        verbose_name='Brief descriptive text',
-    )
     team_story = StreamField(
         TeamStoryStreamBlock,
         verbose_name="Team Stories",
@@ -120,10 +115,7 @@ class WorkForUsPage(TypesetBodyMixin, HeroMixin, Page):
             FieldPanel('values_text'),
             StreamFieldPanel('ourvalues')
         ], heading='Our Values'),
-        MultiFieldPanel([
-            FieldPanel('team_story_heading'),
-            StreamFieldPanel('team_story'),
-        ], heading='Team Stories'),
+        StreamFieldPanel('team_story'),
         FieldPanel('vacancy_heading')
     ]
 

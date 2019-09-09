@@ -72,9 +72,9 @@
     <section class="section section--alt">
         <div class="row row--narrow">
             {% for block in page.team_story %}
-                <h2 class="section__heading">{{ block.value.heading | default="" }}</h2>
+                <h2 class="section__heading">{{ block.value.heading | default:"" }}</h2>
                 <div class="is-typeset max-meter">
-                    <p>{{ block.value.subtitle_text | default="" }}</p>
+                    <p>{{ block.value.subtitle_text | default:"" }}</p>
                 </div>
                 <div class="l-4up space-section-top">
                     {% for block in block.value.stories %}
@@ -90,9 +90,9 @@
     <section class="section" id="vacancies">
         <div class="row row--narrow">
             {% if vacancies %}
-                <h2 class="section__heading">Latest vacancies</h2>
+                <h2 class="section__heading">{{ page.vacancy_title }}</h2>
                 <div class="is-typeset max-meter">
-                    <p>{{ page.vacancy_heading }}</p>
+                    <p>{{ page.vacancy_subtitle_text }}</p>
                 </div>
                 <div class="l-2up-3up">
                     {% for vacancy in vacancies %}

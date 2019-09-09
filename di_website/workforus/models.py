@@ -100,7 +100,12 @@ class WorkForUsPage(TypesetBodyMixin, HeroMixin, Page):
         null=True,
         blank=True
     )
-    vacancy_heading = models.TextField(
+    vacancy_title = models.TextField(
+        blank=True,
+        max_length=255,
+        verbose_name='Vacancy Title',
+    )
+    vacancy_subtitle_text = models.TextField(
         blank=True,
         max_length=255,
         verbose_name='Brief descriptive text for vacancies',
@@ -116,7 +121,8 @@ class WorkForUsPage(TypesetBodyMixin, HeroMixin, Page):
             StreamFieldPanel('ourvalues')
         ], heading='Our Values'),
         StreamFieldPanel('team_story'),
-        FieldPanel('vacancy_heading')
+        FieldPanel('vacancy_title'),
+        FieldPanel('vacancy_subtitle_text')
     ]
 
     def get_context(self, request):

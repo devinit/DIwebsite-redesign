@@ -41,6 +41,21 @@ from .utils import ContentPanel, PublishedDatePanel, WagtailImageField, UUIDPane
 from .edit_handlers import MultiFieldPanel
 from .inlines import *
 
+RED = ''
+BLUE = 'body--bluebell'
+PINK = 'body--rose'
+YELLOW = 'body--sunflower'
+ORANGE = 'body--marigold'
+PURPLE = 'body--lavendar'
+COLOUR_CHOICES = (
+    (RED, 'Red'),
+    (BLUE, 'Blue'),
+    (PINK, 'Pink'),
+    (YELLOW, 'Yellow'),
+    (ORANGE, 'Orange'),
+    (PURPLE, 'Purple'),
+)
+
 
 class PublicationTopic(TaggedItemBase):
     content_object = ParentalKey('publications.PublicationPage', on_delete=models.CASCADE, related_name='publication_topics')
@@ -165,6 +180,8 @@ class PublicationPage(HeroMixin, PublishedDateMixin, UUIDMixin, Page):
         'PublicationAppendixPage',
     ]
 
+    colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=BLUE)
+
     authors = StreamField([
         ('internal_author', PageChooserBlock(required=False, target_model='ourteam.TeamMemberPage')),
         ('external_author', StructBlock([
@@ -182,6 +199,7 @@ class PublicationPage(HeroMixin, PublishedDateMixin, UUIDMixin, Page):
         PublicationCountry, related_name="+", null=True, blank=True, on_delete=models.SET_NULL)
 
     content_panels = Page.content_panels + [
+        FieldPanel('colour'),
         hero_panels(),
         StreamFieldPanel('authors'),
         SnippetChooserPanel('publication_type'),
@@ -269,7 +287,10 @@ class PublicationSummaryPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
 
     template = 'publications/publication_chapter_page.html'
 
+    colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=BLUE)
+
     content_panels = Page.content_panels + [
+        FieldPanel('colour'),
         hero_panels(),
         ContentPanel(),
         DownloadsPanel(
@@ -300,8 +321,10 @@ class PublicationChapterPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
     chapter_number = models.PositiveIntegerField(
         choices=[(i, num2words(i).title()) for i in range(1, 21)]
     )
+    colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=BLUE)
 
     content_panels = Page.content_panels + [
+        FieldPanel('colour'),
         hero_panels(),
         MultiFieldPanel(
             [
@@ -358,8 +381,10 @@ class PublicationAppendixPage(HeroMixin, ReportChildMixin, FlexibleContentMixin,
     appendix_number = models.PositiveIntegerField(
         choices=[(i, num2words(i).title()) for i in range(1, 21)]
     )
+    colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=BLUE)
 
     content_panels = Page.content_panels + [
+        FieldPanel('colour'),
         hero_panels(),
         MultiFieldPanel(
             [
@@ -402,6 +427,7 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, PageSearchMixin, Page
     parent_page_types = ['PublicationIndexPage']
     subpage_types = []
 
+    colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=BLUE)
     authors = StreamField([
         ('internal_author', PageChooserBlock(required=False, target_model='ourteam.TeamMemberPage')),
         ('external_author', StructBlock([
@@ -428,6 +454,7 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, PageSearchMixin, Page
     )
 
     content_panels = Page.content_panels + [
+        FieldPanel('colour'),
         hero_panels(),
         StreamFieldPanel('authors'),
         SnippetChooserPanel('publication_type'),

@@ -3,6 +3,8 @@
 
 {% block body %}
 
+{% load contactus %}
+
 <section class="hero hero--minor">
     <span class="hero__flourish"></span>
     <span class="hero__flourish"></span>
@@ -28,7 +30,7 @@
             <ul>
                 <li>Report this link as broken by emailing <a href="mailto:info@devinit.org">info@devinit.org</a></li>
                 <li><a href="/" rel="home">Our homepage</a></li>
-                <li><a href="#">Contact us</a></li>
+                <li>{% load_contactus %}</li>
             </ul>
         </div>
     </div>

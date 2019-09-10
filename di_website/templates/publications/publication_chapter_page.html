@@ -6,6 +6,8 @@
     {% include 'includes/heroes/hero-pubs.html' %}
 {% endblock hero %}
 
+{% block additional_body_class %}{{page.colour}}{% endblock %}
+
 {% block body %}
 
     {% if page.chapter_number %}

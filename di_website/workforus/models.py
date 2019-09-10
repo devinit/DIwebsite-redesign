@@ -111,6 +111,8 @@ class WorkForUsPage(TypesetBodyMixin, HeroMixin, Page):
         FieldPanel('vacancy_subtitle_text')
     ]
 
+    subpage_types = ['vacancies.VacancyIndexPage']
+
     def get_context(self, request):
         context = super().get_context(request)
         context['vacancies'] = VacancyPage.objects.live()

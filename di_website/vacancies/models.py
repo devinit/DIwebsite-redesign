@@ -70,7 +70,7 @@ class VacancyIndexPage(HeroMixin, Page):
         db_table = 'vacancies_page'
         verbose_name = 'Vacancy Index Page'
 
-    parent_page_types = ['home.HomePage']
+    parent_page_types = ['workforus.WorkForUsPage']
     subpage_types = ['VacancyPage']
 
     def create_subscription(self, email, subscription_on, department):

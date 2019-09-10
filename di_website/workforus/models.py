@@ -65,18 +65,6 @@ class WorkForUsPage(TypesetBodyMixin, HeroMixin, Page):
     class Meta():
         verbose_name = 'Work For Us Page'
 
-    recruitment_policy = models.URLField(
-        null=True,
-        blank=True,
-        verbose_name='Recruitment Policy',
-        help_text='A Link to the recruitment policy if any'
-    )
-    gdr_policy = models.URLField(
-        null=True,
-        blank=True,
-        verbose_name='GDPR Policy',
-        help_text='A Link to the GDPR policy if any'
-    )
     benefits = StreamField(
         BenefitsStreamBlock,
         verbose_name="Benefits",
@@ -113,8 +101,6 @@ class WorkForUsPage(TypesetBodyMixin, HeroMixin, Page):
     content_panels = Page.content_panels + [
         hero_panels(),
         StreamFieldPanel('body'),
-        FieldPanel('recruitment_policy'),
-        FieldPanel('gdr_policy'),
         StreamFieldPanel('benefits'),
         MultiFieldPanel([
             FieldPanel('values_text'),

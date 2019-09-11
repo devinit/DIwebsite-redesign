@@ -22,6 +22,14 @@ body.body--bluebell {
     .hero {
         background-color: $bluebell;
     }
+    .hero__title span {
+        background-color: darken($bluebell, 10%);
+    }
+    .hero--image {
+        .hero__title span {
+            background-color: transparent;
+        }
+    }
     .hero__image {
         &:after {
             background-color: $bluebell;
@@ -399,6 +407,14 @@ body.body--sunflower {
     .hero {
         background-color: $sunflower;
     }
+    .hero__title span {
+        background-color: darken($sunflower, 10%);
+    }
+    .hero--image {
+        .hero__title span {
+            background-color: transparent;
+        }
+    }
     .hero__image {
         &:after {
             background-color: $sunflower;
@@ -593,6 +609,14 @@ body.body--marigold {
     }
     .hero {
         background-color: $marigold;
+    }
+    .hero__title span {
+        background-color: darken($marigold, 10%);
+    }
+    .hero--image {
+        .hero__title span {
+            background-color: transparent;
+        }
     }
     .hero__image {
         &:after {
@@ -789,6 +813,14 @@ body.body--rose {
     .hero {
         background-color: $rose;
     }
+    .hero__title span {
+        background-color: darken($rose, 10%);
+    }
+    .hero--image {
+        .hero__title span {
+            background-color: transparent;
+        }
+    }
     .hero__image {
         &:after {
             background-color: $rose;
@@ -983,6 +1015,14 @@ body.body--lavendar {
     }
     .hero {
         background-color: $lavendar;
+    }
+    .hero__title span {
+        background-color: darken($lavendar, 10%);
+    }
+    .hero--image {
+        .hero__title span {
+            background-color: transparent;
+        }
     }
     .hero__image {
         &:after {

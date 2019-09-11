@@ -493,3 +493,32 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, PageSearchMixin, Page
     @cached_property
     def groups(self):
         return self.download_groups.all()
+
+
+class ShortPublicationPage(HeroMixin, FlexibleContentMixin, PageSearchMixin, UUIDMixin, Page):
+
+    class Meta:
+        verbose_name = 'Short publication'
+
+    parent_page_types = ['PublicationIndexPage']
+    subpage_types = []
+
+    template = 'publications/publication_chapter_page.html'
+
+    colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=BLUE)
+
+    content_panels = Page.content_panels + [
+        FieldPanel('colour'),
+        hero_panels(),
+        ContentPanel(),
+        DownloadsPanel(
+            heading='Downloads',
+            description='Downloads for this chapter.'
+        ),
+        DownloadsPanel(
+            related_name='data_downloads',
+            heading='Data downloads',
+            description='Optional: data download for this chapter.',
+            max_num=1,
+        ),
+    ]

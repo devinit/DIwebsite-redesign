@@ -25,40 +25,12 @@ from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.blocks import SnippetChooserBlock
 
 from di_website.common.base import hero_panels
+from di_website.common.blocks import ValueBlock
 from di_website.common.mixins import TypesetBodyMixin, HeroMixin
 from di_website.vacancies.models import VacancyPage
 from .blocks import BenefitsStreamBlock, TeamStoryStreamBlock
 
 from modelcluster.fields import ParentalKey
-
-
-@register_snippet
-class Values(models.Model):
-    title = models.TextField(null=True, blank=True, verbose_name='Name',)
-    excerpt = models.TextField(max_length=255, verbose_name='Description',)
-    panels = [
-        FieldPanel('title'),
-        FieldPanel('excerpt'),
-    ]
-
-    class Meta():
-        verbose_name = 'Our Value'
-        verbose_name_plural = 'Our Values'
-
-    def __str__(self):
-        return self.title
-
-
-class OurValuesChooserBlock(StructBlock):
-    ourvalues = SnippetChooserBlock(Values)
-
-    class Meta():
-        icon = 'fa-anchor'
-
-
-class OurValuesChooserStreamBlock(StreamBlock):
-    item = OurValuesChooserBlock()
-    required = False
 
 
 class WorkForUsPage(TypesetBodyMixin, HeroMixin, Page):
@@ -71,17 +43,21 @@ class WorkForUsPage(TypesetBodyMixin, HeroMixin, Page):
         null=True,
         blank=True
     )
-    values_text = models.TextField(
+
+    value_section_heading = models.CharField(
         blank=True,
         max_length=255,
-        verbose_name='Brief text for values section',
+        verbose_name='Value Heading',
     )
-    ourvalues = StreamField(
-        OurValuesChooserStreamBlock,
-        verbose_name="Our Values Chooser",
-        null=True,
-        blank=True
+    value_section_sub_heading = models.TextField(
+        blank=True,
+        max_length=255,
+        verbose_name='Value Sub Heading',
     )
+    values = StreamField([
+        ('value', ValueBlock()),
+    ], null=True, blank=True)
+
     team_story = StreamField(
         TeamStoryStreamBlock,
         verbose_name="Team Stories",
@@ -102,10 +78,9 @@ class WorkForUsPage(TypesetBodyMixin, HeroMixin, Page):
         hero_panels(),
         StreamFieldPanel('body'),
         StreamFieldPanel('benefits'),
-        MultiFieldPanel([
-            FieldPanel('values_text'),
-            StreamFieldPanel('ourvalues')
-        ], heading='Our Values'),
+        FieldPanel('value_section_heading'),
+        FieldPanel('value_section_sub_heading'),
+        StreamFieldPanel('values'),
         StreamFieldPanel('team_story'),
         FieldPanel('vacancy_title'),
         FieldPanel('vacancy_subtitle_text')

@@ -42,19 +42,13 @@
 
     <section class="section">
         <div class="row row--narrow">
-            <h2 class="section__heading">Our values</h2>
+            <h2 class="section__heading">{{ page.value_section_heading | default_if_none:"" }}</h2>
             <div class="is-typeset">
-                <p>{{ page.values_text }}</p>
+                <p>{{ page.value_section_sub_heading | default_if_none:"" }}</p>
             </div>
             <div class="l-3up">
-                {% for block in page.ourvalues %}
-                    {% with block.value.ourvalues as item %}
-                        <div class="m-stat">
-                            <i role="presentation" aria-hidden="true" class="ico ico--30 ico-star-poppy"></i>
-                            <h3 class="m-stat__title">{{ item.title | default_if_none:"" }}</h3>
-                            <p class="m-stat__excerpt">{{ item.excerpt | default_if_none:"" }}</p>
-                        </div>
-                    {% endwith %}
+                {% for block in page.values %}
+                    {% include_block block %}
                 {% endfor %}
             </div>
         </div>

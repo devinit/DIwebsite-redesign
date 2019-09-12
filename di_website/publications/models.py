@@ -142,7 +142,7 @@ class PublicationIndexPage(HeroMixin, Page):
         hero_panels()
     ]
 
-    subpage_types = ['PublicationPage', 'LegacyPublicationPage']
+    subpage_types = ['PublicationPage', 'LegacyPublicationPage', 'ShortPublicationPage']
     parent_page_types = ['home.HomePage']
 
     def get_context(self, request):

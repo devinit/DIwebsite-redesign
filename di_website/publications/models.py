@@ -65,15 +65,37 @@ class LegacyPublicationTopic(TaggedItemBase):
     content_object = ParentalKey('publications.LegacyPublicationPage', on_delete=models.CASCADE, related_name='legacy_publication_topics')
 
 
+class ShortPublicationTopic(TaggedItemBase):
+    content_object = ParentalKey('publications.ShortPublicationPage', on_delete=models.CASCADE, related_name='short_publication_topics')
+
+
+@register_snippet
+class PublicationRegion(ClusterableModel):
+    name = models.CharField(max_length=255, unique=True)
+
+    panels = [
+        FieldPanel('name'),
+    ]
+
+    class Meta:
+        ordering = ["name"]
+
+    def __str__(self):
+        return self.name
+
+
 @register_snippet
 class PublicationCountry(ClusterableModel):
     name = models.CharField(max_length=255, unique=True)
+    region = models.ForeignKey(
+        PublicationRegion, related_name="+", on_delete=models.CASCASE)
     slug = models.SlugField(
         max_length=255, blank=True, null=True,
         help_text="Optional. Will be auto-generated from name if left blank.")
 
     panels = [
         FieldPanel('name'),
+        SnippetChooserPanel('region'),
         FieldPanel('slug'),
     ]
 
@@ -132,18 +154,21 @@ class PublicationIndexPage(HeroMixin, Page):
         if topic_filter:
             stories = PublicationPage.objects.live().filter(topics__slug=topic_filter)
             legacy_pubs = LegacyPublicationPage.objects.live().filter(topics__slug=topic_filter)
+            short_pubs = ShortPublicationPage.objects.live().filter(topics__slug=topic_filter)
         else:
             stories = PublicationPage.objects.live()
             legacy_pubs = LegacyPublicationPage.objects.live()
+            short_pubs = ShortPublicationPage.objects.live()
 
         if country_filter:
             stories = stories.filter(countries__slug=country_filter)
             legacy_pubs = legacy_pubs.filter(countries__slug=country_filter)
+            short_pubs = short_pubs.filter(countries__slug=country_filter)
 
         if search_filter:
             pass  # TODO: Implement keyword search
 
-        paginator = Paginator(list(chain(stories, legacy_pubs)), MAX_PAGE_SIZE)
+        paginator = Paginator(list(chain(stories, legacy_pubs, short_pubs)), MAX_PAGE_SIZE)
         try:
             context['stories'] = paginator.page(page)
         except PageNotAnInteger:
@@ -153,9 +178,11 @@ class PublicationIndexPage(HeroMixin, Page):
 
         pubs_content_type = ContentType.objects.get_for_model(PublicationPage)
         leg_pubs_content_type = ContentType.objects.get_for_model(LegacyPublicationPage)
+        short_pubs_content_type = ContentType.objects.get_for_model(ShortPublicationPage)
         context['topics'] = Tag.objects.filter(
             Q(publications_publicationtopic_items__content_object__content_type=pubs_content_type) |
-            Q(publications_legacypublicationtopic_items__content_object__content_type=leg_pubs_content_type)
+            Q(publications_legacypublicationtopic_items__content_object__content_type=leg_pubs_content_type) |
+            Q(publications_shortpublicationtopic_items__content_object__content_type=short_pubs_content_type)
         ).distinct()
         context['selected_topic'] = topic_filter
         context['countries'] = PublicationCountry.objects.all()
@@ -506,10 +533,18 @@ class ShortPublicationPage(HeroMixin, FlexibleContentMixin, PageSearchMixin, UUI
     template = 'publications/publication_chapter_page.html'
 
     colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=BLUE)
+    publication_type = models.ForeignKey(
+        PublicationType, related_name="+", null=True, blank=True, on_delete=models.SET_NULL)
+    topics = ClusterTaggableManager(through=ShortPublicationTopic, blank=True, verbose_name="Topics")
+    countries = models.ForeignKey(
+        PublicationCountry, related_name="+", null=True, blank=True, on_delete=models.SET_NULL)
 
     content_panels = Page.content_panels + [
         FieldPanel('colour'),
         hero_panels(),
+        SnippetChooserPanel('publication_type'),
+        FieldPanel('topics'),
+        SnippetChooserPanel('countries'),
         ContentPanel(),
         DownloadsPanel(
             heading='Downloads',

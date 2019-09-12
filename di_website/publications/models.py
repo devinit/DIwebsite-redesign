@@ -88,7 +88,7 @@ class PublicationRegion(ClusterableModel):
 class PublicationCountry(ClusterableModel):
     name = models.CharField(max_length=255, unique=True)
     region = models.ForeignKey(
-        PublicationRegion, related_name="+", on_delete=models.CASCASE)
+        PublicationRegion, related_name="+", on_delete=models.CASCADE)
     slug = models.SlugField(
         max_length=255, blank=True, null=True,
         help_text="Optional. Will be auto-generated from name if left blank.")

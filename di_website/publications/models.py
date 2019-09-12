@@ -101,6 +101,7 @@ class PublicationCountry(ClusterableModel):
 
     class Meta:
         ordering = ["name"]
+        verbose_name_plural = 'Publication countries'
 
     def __str__(self):
         return self.name

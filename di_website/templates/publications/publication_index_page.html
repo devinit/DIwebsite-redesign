@@ -64,6 +64,9 @@
         {% if stories|length == 0 %}
           <h2 class="section__heading">Sorry, no results found</h2>
         {% endif %}
+        {% if search_filter %}
+          <h2 class="section__heading">Showing results for "{{search_filter}}".</h2>
+        {% endif %}
           <div class="l-2up-3up">
               {% for item in stories %}
                   {% include 'includes/cards/card-pubs.html' %}

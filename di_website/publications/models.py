@@ -166,7 +166,9 @@ class PublicationIndexPage(HeroMixin, Page):
             short_pubs = short_pubs.filter(countries__slug=country_filter)
 
         if search_filter:
-            pass  # TODO: Implement keyword search
+            stories = stories.search(search_filter)
+            legacy_pubs = legacy_pubs.search(search_filter)
+            short_pubs = short_pubs.search(search_filter)
 
         paginator = Paginator(list(chain(stories, legacy_pubs, short_pubs)), MAX_PAGE_SIZE)
         try:
@@ -187,6 +189,7 @@ class PublicationIndexPage(HeroMixin, Page):
         context['selected_topic'] = topic_filter
         context['countries'] = PublicationCountry.objects.all()
         context['selected_country'] = country_filter
+        context['search_filter'] = search_filter
         context['paginator_range'] = get_paginator_range(paginator, context['stories'])
 
         return context

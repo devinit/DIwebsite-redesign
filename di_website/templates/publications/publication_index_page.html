@@ -61,6 +61,9 @@
 
   <section class="section">
       <div class="row row--narrow">
+        {% if stories|length == 0 %}
+          <h2 class="section__heading">Sorry, no results found</h2>
+        {% endif %}
           <div class="l-2up-3up">
               {% for item in stories %}
                   {% include 'includes/cards/card-pubs.html' %}

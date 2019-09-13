@@ -1,20 +1,20 @@
 {% load static %}
 
-<div class="shareBlock__wrapper" data-js="{{ data_js }}" data-id="{{ data_id }}">
+<div class="share__wrapper" data-js="{{ data_js }}" data-id="{{ data_id }}">
     {% if not hide_social %}
-        <ul class="shareBlock__media">
-            <li class="shareBlock__item">
+        <ul class="share__media">
+            <li class="share__item">
                 <a class="js-social-share" data-event-label="Share {{ share_type }} with Facebook / {{ title }} / {{ short_url }}" data-event-category="Share" href="https://www.facebook.com/sharer/sharer.php?u={{ short_url | urlencode }}" target="_blank"><img src="{% static 'svg/source/facebook.svg' %}" alt="Share with Facebook"></a>
             </li>
-            <li class="shareBlock__item">
+            <li class="share__item">
                 <a class="js-social-share" data-event-label="Share {{ share_type }}  with Twitter / {{ title }} / {{ short_url }}" data-event-category="Share" href="https://twitter.com/intent/tweet/?text={{ title | urlencode }}&url={{ short_url | urlencode }}" target="_blank"><img src="{% static 'svg/source/twitter.svg' %}" alt="Share with Twitter"></a>
             </li>
-            <li class="shareBlock__item">
+            <li class="share__item">
                 <a class="js-social-share" data-event-label="Share {{ share_type }}  with LinkedIn / {{ title }} / {{ short_url }}" data-event-category="Share" href="https://www.linkedin.com/shareArticle?mini=true&url={{ short_url | urlencode }}&title={{ title | urlencode }}" target="_blank"><img src="{% static 'svg/source/linkedin.svg' %}" alt="Share with LinkedIn"></a>
             </li>
         </ul>
     {% endif %}
-    <div class="shareBlock__copy {% if hide_social %} shareBlock__copy--no-social {% endif %}">
+    <div class="share__copy {% if hide_social %} share__copy--no-social {% endif %}">
         <input readonly class="js-copy-field" type="text" value="{{ short_url }}" title="Short URL for sharing">
         <button class="button js-copy-trigger">Copy</button>
     </div>

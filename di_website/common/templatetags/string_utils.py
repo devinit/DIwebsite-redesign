@@ -7,6 +7,7 @@ from django.utils import formats
 from django.utils.text import Truncator
 from django.utils.html import strip_tags
 from django.utils.safestring import mark_safe
+from django.template.base import VariableDoesNotExist
 
 from wagtail.core.rich_text import expand_db_html, RichText
 
@@ -175,14 +176,14 @@ def return_content(content):
 @register.filter
 def content_excerpt(item):
     try:
-        if item.excerpt != '':
-            return item.excerpt
+        if item.hero_text != '':
+            return item.hero_text
         else:
             return return_content(item.content)
-    except AttributeError:
+    except (AttributeError, VariableDoesNotExist) as err:
         try:
             return return_content(item.content)
-        except AttributeError:
+        except (AttributeError, VariableDoesNotExist) as err:
             return ''
     except TypeError:
         for block in item.content:

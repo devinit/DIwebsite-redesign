@@ -4,7 +4,7 @@ import mimetypes
 
 from django import template
 from django.utils import formats
-from django.utils.text import Truncator
+from django.utils.text import Truncator, slugify
 from django.utils.html import strip_tags
 from django.utils.safestring import mark_safe
 from django.template.base import VariableDoesNotExist
@@ -177,7 +177,7 @@ def return_content(content):
 def content_excerpt(item):
     try:
         if item.hero_text != '':
-            return item.hero_text
+            return return_content(item.hero_text)
         else:
             return return_content(item.content)
     except (AttributeError, VariableDoesNotExist) as err:

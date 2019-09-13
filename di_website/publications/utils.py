@@ -31,11 +31,11 @@ def get_downloads(instance, with_parent=False, data=False):
 def create_download(item):
     download = {
         'prefix': '',
-        'download': item.publication_download
+        'download': item.download
     }
 
     try:
-        language = item.publication_download.language.title
+        language = item.download.language.title
     except AttributeError:
         language = ''
 

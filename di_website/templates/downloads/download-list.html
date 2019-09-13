@@ -1,11 +1,11 @@
 {% load string_utils %}
 
-{% if page.downloads_list or page.data_downloads_list %}
+{% if page.publication_downloads_list or page.data_downloads_list %}
     <div class="download">
-        {% if page.downloads_list %}
-            <h2 class="type-m type-s--trailer heading">{{ page.downloads_title }}</h2>
+        {% if page.publication_downloads_list %}
+            <h2 class="type-m type-s--trailer heading">{{ page.publication_downloads_title }}</h2>
             <ul class="download__list">
-                {% for group, downloads in page.downloads_list %}
+                {% for group, downloads in page.publication_downloads_list %}
                     <li class="download__item">
                         <span class="download__label">{{ group }}</span>
                         {% for item in downloads %}

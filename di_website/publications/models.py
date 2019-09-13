@@ -41,14 +41,14 @@ from .utils import ContentPanel, PublishedDatePanel, WagtailImageField, UUIDPane
 from .edit_handlers import MultiFieldPanel
 from .inlines import *
 
-RED = 'poppy'
+# RED = 'poppy'
 BLUE = 'bluebell'
 PINK = 'rose'
 YELLOW = 'sunflower'
 ORANGE = 'marigold'
 PURPLE = 'lavendar'
 COLOUR_CHOICES = (
-    (RED, 'Red'),
+    # (RED, 'Red'),
     (BLUE, 'Blue'),
     (PINK, 'Pink'),
     (YELLOW, 'Yellow'),

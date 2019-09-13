@@ -54,7 +54,7 @@ class Infographic(StructBlock):
 
     class Meta:
         help_text = HELP_TEXT
-        template = 'content/blocks/infographic.html'
+        template = 'publications/blocks/infographic.html'
         value_class = InfographicStructValue
         icon = 'form'
         label = 'Infographic'

@@ -8,7 +8,7 @@
                 {% if item.value.file %}
                     <li>
                         <a
-                            href="{{ item.value.file }}"
+                            href="{{ item.value.file.file.url }}"
                             class="js-ga-download-click"
                             data-event-label="{{ item.value.file.file }}"
                         >{{ item.value.file.file }}<span class="downloadSize">{{ item.value.file.file | file_info }}</span></a></li>
@@ -19,4 +19,3 @@
         </ul>
     </div>
 </div>
-

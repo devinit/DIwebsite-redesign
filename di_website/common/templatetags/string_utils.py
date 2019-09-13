@@ -206,3 +206,10 @@ def prepend_with_char(value, string, char='.'):
 @register.simple_tag
 def section_id(value, string):
     return prepend_with_char(value, string).replace('.', '-')
+
+
+@register.simple_tag
+def definition_id(def_id, term):
+    if not def_id:
+        return ''
+    return '%s-%s' % (def_id, slugify(term))

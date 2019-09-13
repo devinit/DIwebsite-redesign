@@ -6,7 +6,7 @@
     {% include 'includes/heroes/hero-pubs.html' %}
 {% endblock hero %}
 
-{% block additional_body_class %}{{page.colour}}{% endblock %}
+{% block colour %}body--{{page.colour}}{% endblock %}
 
 {% block body %}
 
@@ -15,13 +15,13 @@
     {% endif %}
 
     {% for block in page.content %}
-        <div class="section">
+        <section class="section">
 
             {% if block.block_type == 'case_study' %}
                 <div class="pullOutBlock">
             {% endif %}
 
-                <div class="row">
+                <div class="row row--narrow">
                     {% include_block block with id=block.id|string_start  %}
                 </div>
 
@@ -33,7 +33,7 @@
     {% endfor %}
 
     <section class="section">
-        <div class="row">
+        <div class="row row--narrow">
             {% include 'publications/share.html' %}
             <div class="mainAction padd-section-both border-top">
                 {% include 'downloads/download-list.html' %}

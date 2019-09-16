@@ -1,0 +1,59 @@
+{% extends "layouts/default.html" %}
+{% load static wagtailcore_tags wagtailimages_tags card_tags generic_tags navigation_tags %}
+
+{% block hero %}
+  {% include 'includes/heroes/hero-dataset.html' %}
+{% endblock hero %}
+
+{% block body %}
+
+<section class="section">
+        <div class="row row--narrow">
+            <div class="l-sidebar">
+                <div class="l-sidebar__body">
+                    <div class="m-notice">
+                    {% if page.release_date %}
+                      Release date : {{ page.release_date | date:'d F, o'  }}
+                    {% endif %}
+                    </div>
+                    <div class="is-typeset wysiwyg">
+                      {{ page.text_content | richtext }}
+                    </div>
+                    <span class="alert alert--notice">
+                      <i role="presentation" aria-hidden="true" class="ico ico-clock-warning"></i>
+                      There is more recent data available relating to this dataset:
+                      <a href="#">{{ page.updated_content_title }}</a>
+                    </span>
+
+                    <div class="l-2up space-section-top">
+                        <div class="l-2up__col">
+                            <div class="button button--faux button--icon">
+                                <i role="presentation" aria-hidden="true" class="ico ico--24 ico-download-poppy"></i>
+                                <span class="button--faux__meta">Download</span>
+                                <ul class="button--faux__list">
+                                    <li><a href="#">Filename - XLS 1.8mb</a></li>
+                                    <li><a href="#">Filename - CSV 1.8mb</a></li>
+                                </ul>
+                                <p class="button--faux__note">XLS files contain the dataset, metadata and charts / images</p>
+                                <p class="button--faux__note">CSV files contain the raw dataset</p>
+                            </div>
+                        </div>
+                        <div class="l-2up__col">
+                            <a href="#" class="m-author m-author--spacing">
+                                <div class="m-author__image">
+                                    <img src="/assets/img/profile2sq.jpg" alt="alt tag">
+                                </div>
+                                <div class="m-author__body">
+                                    <h3 class="m-author__title">Analysis by Emily Underhill</h3>
+                                    <p class="m-author__job">Senior Analyst</p>
+                                </div>
+                            </a>
+                            <p class="para">Contact <a href="#">data@devinit.org</a> if you have any queries about this dataset or other data related matters.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

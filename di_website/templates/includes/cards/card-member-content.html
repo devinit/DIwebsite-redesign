@@ -4,7 +4,7 @@
     <div class="card__body">
         <span class="card__flag">
             {% if item|classname == global.blog_classname %}Blog{% endif %}
-            {% if item|classname in publication_classnames %}item.published_date{% endif %}
+            {% if item|classname in global.publication_classnames %}{{ item.publication_type }}{% endif %}
         </span>
         {% if item.published_date  %}
           <span class="card__meta">{{ item.published_date|date:"j F Y" }}</span>

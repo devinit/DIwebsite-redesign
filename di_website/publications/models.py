@@ -41,14 +41,14 @@ from .utils import ContentPanel, PublishedDatePanel, WagtailImageField, UUIDPane
 from .edit_handlers import MultiFieldPanel
 from .inlines import *
 
-# RED = 'poppy'
+RED = 'poppy'
 BLUE = 'bluebell'
 PINK = 'rose'
 YELLOW = 'sunflower'
 ORANGE = 'marigold'
 PURPLE = 'lavendar'
 COLOUR_CHOICES = (
-    # (RED, 'Red'),
+    (RED, 'Red'),
     (BLUE, 'Blue'),
     (PINK, 'Pink'),
     (YELLOW, 'Yellow'),
@@ -211,7 +211,7 @@ class PublicationPage(HeroMixin, PublishedDateMixin, UUIDMixin, Page):
         'PublicationAppendixPage',
     ]
 
-    colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=BLUE)
+    colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=RED)
 
     authors = StreamField([
         ('internal_author', PageChooserBlock(required=False, target_model='ourteam.TeamMemberPage')),
@@ -318,7 +318,7 @@ class PublicationSummaryPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
 
     template = 'publications/publication_chapter_page.html'
 
-    colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=BLUE)
+    colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=RED)
 
     content_panels = Page.content_panels + [
         FieldPanel('colour'),
@@ -352,7 +352,7 @@ class PublicationChapterPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
     chapter_number = models.PositiveIntegerField(
         choices=[(i, num2words(i).title()) for i in range(1, 21)]
     )
-    colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=BLUE)
+    colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=RED)
 
     content_panels = Page.content_panels + [
         FieldPanel('colour'),
@@ -412,7 +412,7 @@ class PublicationAppendixPage(HeroMixin, ReportChildMixin, FlexibleContentMixin,
     appendix_number = models.PositiveIntegerField(
         choices=[(i, num2words(i).title()) for i in range(1, 21)]
     )
-    colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=BLUE)
+    colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=RED)
 
     content_panels = Page.content_panels + [
         FieldPanel('colour'),
@@ -458,7 +458,7 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, PageSearchMixin, Page
     parent_page_types = ['PublicationIndexPage']
     subpage_types = []
 
-    colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=BLUE)
+    colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=RED)
     authors = StreamField([
         ('internal_author', PageChooserBlock(required=False, target_model='ourteam.TeamMemberPage')),
         ('external_author', StructBlock([
@@ -536,7 +536,7 @@ class ShortPublicationPage(HeroMixin, FlexibleContentMixin, PageSearchMixin, UUI
 
     template = 'publications/publication_chapter_page.html'
 
-    colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=BLUE)
+    colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=RED)
     publication_type = models.ForeignKey(
         PublicationType, related_name="+", null=True, blank=True, on_delete=models.SET_NULL)
     topics = ClusterTaggableManager(through=ShortPublicationTopic, blank=True, verbose_name="Topics")

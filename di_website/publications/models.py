@@ -214,13 +214,17 @@ class PublicationPage(HeroMixin, PublishedDateMixin, UUIDMixin, Page):
     colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=RED)
 
     authors = StreamField([
-        ('internal_author', PageChooserBlock(required=False, target_model='ourteam.TeamMemberPage')),
+        ('internal_author', PageChooserBlock(
+            required=False,
+            target_model='ourteam.TeamMemberPage',
+            icon='fa-user'
+        )),
         ('external_author', StructBlock([
             ('name', CharBlock(required=False)),
             ('title', CharBlock(required=False)),
             ('photograph', ImageChooserBlock(required=False)),
             ('page', URLBlock(required=False))
-        ]))
+        ], icon='fa-user'))
     ], blank=True)
 
     publication_type = models.ForeignKey(

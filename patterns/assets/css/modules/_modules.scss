@@ -296,6 +296,7 @@ a.m-stat {
     display: inline-block;
     line-height: 1;
     margin-right: 10px;
+    max-width: 80%;
 }
 
 .m-slip__copy {
@@ -441,7 +442,7 @@ a.m-stat {
     padding: 3rem;
     overflow: hidden;
     text-align: center;
-    background-color: $bluebell;
+    background-color: $poppy;
     @include respond-to($c-vp) {
         text-align: left;
     }

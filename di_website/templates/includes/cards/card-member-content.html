@@ -4,9 +4,11 @@
     <div class="card__body">
         <span class="card__flag">
             {% if item|classname == global.blog_classname %}Blog{% endif %}
-            <!-- TODO: add condition for publication - when implemented -->
+            {% if item|classname in publication_classnames %}item.published_date{% endif %}
         </span>
-        {% if item.first_published_at %}
+        {% if item.published_date  %}
+          <span class="card__meta">{{ item.published_date|date:"j F Y" }}</span>
+        {% elif item.first_published_at %}
           <span class="card__meta">{{ item.first_published_at|date:"j F Y" }}</span>
         {% endif %}
         <h3 class="card__title"><span>{{ item.title }}</span></h3>

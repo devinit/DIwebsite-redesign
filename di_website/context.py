@@ -1,6 +1,7 @@
 import os
 from django.conf import settings
 
+
 def globals(request):
 
     if request.path.startswith('/admin/') or request.path.startswith('/django-admin/'):
@@ -16,6 +17,7 @@ def globals(request):
             'card_srcs': 'fill-370x150 1w, fill-470x150 400w, fill-750x150 500w, fill-270x150 780w, fill-270x150 1000w, fill-385x150 1350w',
             'image_srcs': 'width-270 300w, width-370 400w, width-470 500w, width-750 780w, width-750 780w, width-800 800w',
             'blog_classname': 'BlogArticlePage',
+            'publication_classnames': ['PublicationPage', 'ShortPublicationPage', 'LegacyPublicationPage'],
             'event_classname': 'EventPage',
             'news_classname': 'NewsStoryPage'
         },

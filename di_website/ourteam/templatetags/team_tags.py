@@ -1,6 +1,7 @@
 from django import template
-
+from itertools import chain
 from di_website.blog.models import BlogArticlePage
+from di_website.publications.models import LegacyPublicationPage, ShortPublicationPage, PublicationPage
 
 register = template.Library()
 
@@ -10,5 +11,10 @@ def user_content(author_page):
     """
     Blogs, Publications that were authored by the user
     """
-    # TODO: return user publications as well
-    return BlogArticlePage.objects.filter(internal_author_page=author_page).live()
+    return chain(
+        BlogArticlePage.objects.filter(internal_author_page=author_page).live(),
+        BlogArticlePage.objects.filter(other_authors__contains=[{'type': 'internal_author', 'value': author_page.pk}]).live(),
+        PublicationPage.objects.filter(authors__contains=[{'type': 'internal_author', 'value': author_page.pk}]).live(),
+        ShortPublicationPage.objects.filter(authors__contains=[{'type': 'internal_author', 'value': author_page.pk}]).live(),
+        LegacyPublicationPage.objects.filter(authors__contains=[{'type': 'internal_author', 'value': author_page.pk}]).live()
+    )

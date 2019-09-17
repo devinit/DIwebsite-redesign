@@ -537,6 +537,15 @@ class ShortPublicationPage(HeroMixin, FlexibleContentMixin, PageSearchMixin, UUI
     template = 'publications/publication_chapter_page.html'
 
     colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=RED)
+    authors = StreamField([
+        ('internal_author', PageChooserBlock(required=False, target_model='ourteam.TeamMemberPage')),
+        ('external_author', StructBlock([
+            ('name', CharBlock(required=False)),
+            ('title', CharBlock(required=False)),
+            ('photograph', ImageChooserBlock(required=False)),
+            ('page', URLBlock(required=False))
+        ]))
+    ], blank=True)
     publication_type = models.ForeignKey(
         PublicationType, related_name="+", null=True, blank=True, on_delete=models.SET_NULL)
     topics = ClusterTaggableManager(through=ShortPublicationTopic, blank=True, verbose_name="Topics")
@@ -546,6 +555,7 @@ class ShortPublicationPage(HeroMixin, FlexibleContentMixin, PageSearchMixin, UUI
     content_panels = Page.content_panels + [
         FieldPanel('colour'),
         hero_panels(),
+        StreamFieldPanel('authors'),
         SnippetChooserPanel('publication_type'),
         FieldPanel('topics'),
         SnippetChooserPanel('countries'),

@@ -5,7 +5,6 @@
     {% if tag %}
       <span class="card__tag">{{tag}}</span>
     {% endif %}
-    <span class="card__tag">{{ tag }}</span>
     {% if item.hero_image %}
       {% image item.hero_image max-400x250 as hero_img %}
       <div class="card__media" style="background-image: url({{hero_img.url}});"></div>

@@ -19,7 +19,7 @@
 	@include respond-to($menu-respond) {
 		background-color: $body-color;
 		&:after {
-			width: 32%;
+			width: 27%;
 		}
 	}
 	.row {

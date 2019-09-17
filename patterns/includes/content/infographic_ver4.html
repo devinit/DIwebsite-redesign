@@ -1,5 +1,21 @@
 <div class="max-meter max-meter--center responsive-graph">
-    <a href="#" name="2.1" class="section-chapter__link">{{ icons.icon('ico-link-bluebell', '16') }}</i>Share chart</a>
+    <a href="#" name="2.1" class="section-chapter__link">
+        {% if colour == "bluebell" %}
+            {{ icons.icon('ico-link-bluebell', '16') }}
+        {% elif colour == "leaf" %}
+            {{ icons.icon('ico-link-leaf', '16') }}
+        {% elif colour == "rose" %}
+            {{ icons.icon('ico-link-rose', '16') }}
+        {% elif colour == "sunflower" %}
+            {{ icons.icon('ico-link-sunflower', '16') }}
+        {% elif colour == "marigold" %}
+            {{ icons.icon('ico-link-marigold', '16') }}
+        {% elif colour == "lavendar" %}
+            {{ icons.icon('ico-link-lavendar', '16') }}
+        {% else %}
+            {{ icons.icon('ico-link-poppy', '16') }}
+        {% endif %}
+            Share chart</a>
     <h3 class="type-l type-l--trailer">Figure 4.4: Framework for implementing infant and young child feeding programs at scale</h3>
     <figure>
         <picture>

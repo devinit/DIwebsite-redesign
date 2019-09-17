@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.conf.urls import handler404, handler500
 from django.conf.urls import include, url
 from django.contrib import admin
 
@@ -7,6 +8,7 @@ from wagtail.core import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
 
 from di_website.search import views as search_views
+
 
 urlpatterns = [
     url(r'^django-admin/', admin.site.urls),
@@ -26,7 +28,6 @@ urlpatterns = [
     #    url(r'^pages/', include(wagtail_urls)),
 ]
 
-
 if settings.DEBUG:
     from django.conf.urls.static import static
     from django.contrib.staticfiles.urls import staticfiles_urlpatterns
@@ -41,3 +42,6 @@ if settings.DEBUG:
         url(r'^__debug__/', include(debug_toolbar.urls)),
     ] + urlpatterns
     SHOW_TOOLBAR_CALLBACK = True
+
+handler404 = 'di_website.error.views.error_404_view'
+handler500 = 'di_website.error.views.error_500_view'

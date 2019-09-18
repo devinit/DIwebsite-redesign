@@ -17,18 +17,19 @@
 
   <section class="section">
     <div class="row row--narrow">
-      {% if stories|length == 0 %}
-        <h2 class="section__heading">Sorry, no results found</h2>
-      {% endif %}
       {% if search_filter %}
-        <h2 class="section__heading">Showing results for "{{search_filter}}".</h2>
+        <div><h2 class="section__heading">Showing results for "{{search_filter}}".</h2></div>
       {% endif %}
-      <div class="l-2up-3up">
-        {% for item in stories %}
-          {% include 'includes/cards/card-publications.html' %}
-        {% endfor %}
-      </div>
-      {% include "includes/scaffold/pagination.html" with children=stories %}
+      {% if stories|length == 0 %}
+        <div><h2 class="section__heading">Sorry, no results found</h2></div>
+      {% else %}
+        <div class="l-2up-3up">
+          {% for item in stories %}
+            {% include 'includes/cards/card-publications.html' %}
+          {% endfor %}
+        </div>
+        {% include "includes/scaffold/pagination.html" with children=stories %}
+      {% endif %}
     </div>
   </section>
 {% endblock %}

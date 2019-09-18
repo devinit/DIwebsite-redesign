@@ -319,8 +319,8 @@ class PublicationPage(HeroMixin, PublishedDateMixin, UUIDMixin, Page):
 class PublicationSummaryPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin, UniquePageMixin, UUIDMixin, Page):
 
     class Meta:
-        verbose_name = 'Publication summary'
-        verbose_name_plural = 'Publication summaries'
+        verbose_name = 'Publication Summary'
+        verbose_name_plural = 'Publication Summaries'
 
     parent_page_types = ['PublicationPage']
     subpage_types = []
@@ -353,7 +353,7 @@ class PublicationSummaryPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
 class PublicationChapterPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin, UUIDMixin, Page):
 
     class Meta:
-        verbose_name = 'Publication chapter'
+        verbose_name = 'Publication Chapter'
 
     parent_page_types = ['PublicationPage']
     subpage_types = []
@@ -410,8 +410,8 @@ class PublicationChapterPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
 class PublicationAppendixPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin, UUIDMixin, Page):
 
     class Meta:
-        verbose_name = 'Publication appendix'
-        verbose_name_plural = 'Publication appendices'
+        verbose_name = 'Publication Appendix'
+        verbose_name_plural = 'Publication Appendices'
 
     parent_page_types = ['PublicationPage']
     subpage_types = []
@@ -462,7 +462,7 @@ class PublicationAppendixPage(HeroMixin, ReportChildMixin, FlexibleContentMixin,
 class LegacyPublicationPage(HeroMixin, PublishedDateMixin, PageSearchMixin, Page):
 
     class Meta:
-        verbose_name = 'Legacy publication'
+        verbose_name = 'Legacy Publication'
 
     parent_page_types = ['PublicationIndexPage']
     subpage_types = []
@@ -538,7 +538,7 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, PageSearchMixin, Page
 class ShortPublicationPage(HeroMixin, FlexibleContentMixin, PageSearchMixin, UUIDMixin, Page):
 
     class Meta:
-        verbose_name = 'Short publication'
+        verbose_name = 'Short Publication'
 
     parent_page_types = ['PublicationIndexPage']
     subpage_types = []

@@ -27,7 +27,7 @@
                         {% endif %}
                         <h2 class="chapter-block__heading heading type-xl type-s--trailer">{{ item.title }}</h2>
                         <p class="para {% cycle '' 'reverse-text' %}">{{ item | content_excerpt }}</p>
-                        <a href="{{ item.url }}" id="" class="button button--a11y {% cycle '' 'button-full-white' %}" title="Read {{ item.label }}"><span>Read {{ item.label }}</span></a>
+                        <a href="{{ item.url }}" id="" class="button button--a11y {% cycle '' 'button--reverse' %}" title="Read {{ item.label }}"><span>Read {{ item.label }}</span></a>
                         {% cycle 'button-slate' 'download-button--reverse' as button_class silent %}
                         {% cycle 'button--secondary' 'button--reverse' as data_button_class silent %}
                         {% cycle 'ico-arrow-down-slate' 'ico-arrow-down-blank' as download_icon silent %}

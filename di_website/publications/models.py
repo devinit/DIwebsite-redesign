@@ -1,5 +1,7 @@
 from num2words import num2words
 from itertools import chain
+import operator
+from functools import reduce
 
 from django import forms
 from django.db import models
@@ -36,7 +38,7 @@ from di_website.downloads.utils import DownloadsPanel, DownloadGroupsPanel
 from taggit.models import Tag, TaggedItemBase
 
 from .mixins import (
-    FlexibleContentMixin, UniquePageMixin, PageSearchMixin, ParentPageSearchMixin
+    FlexibleContentMixin, UniquePageMixin, PageSearchMixin,
     PublishedDateMixin, UUIDMixin, ReportChildMixin)
 from .utils import (
     ContentPanel, PublishedDatePanel, WagtailImageField,
@@ -170,7 +172,9 @@ class PublicationIndexPage(HeroMixin, Page):
             short_pubs = short_pubs.filter(countries__slug=country_filter)
 
         if search_filter:
-            stories = stories.search(search_filter)
+            pub_children = reduce(operator.or_, [pub.get_children() for pub in stories]).live().specific().search(search_filter)
+            matching_parents = reduce(operator.or_, [stories.parent_of(child) for child in pub_children])
+            stories = list(chain(stories.search(search_filter), matching_parents))
             legacy_pubs = legacy_pubs.search(search_filter)
             short_pubs = short_pubs.search(search_filter)
 
@@ -203,7 +207,7 @@ class PublicationIndexPage(HeroMixin, Page):
         verbose_name = 'Publication Index Page'
 
 
-class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUIDMixin, Page):
+class PublicationPage(HeroMixin, PublishedDateMixin, PageSearchMixin, UUIDMixin, Page):
 
     class Meta:
         verbose_name = 'Publication Page'

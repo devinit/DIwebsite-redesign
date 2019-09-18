@@ -172,9 +172,13 @@ class PublicationIndexPage(HeroMixin, Page):
             short_pubs = short_pubs.filter(countries__slug=country_filter)
 
         if search_filter:
-            pub_children = reduce(operator.or_, [pub.get_children() for pub in stories]).live().specific().search(search_filter)
-            matching_parents = reduce(operator.or_, [stories.parent_of(child) for child in pub_children])
-            stories = list(chain(stories.search(search_filter), matching_parents))
+            if stories:
+                pub_children = reduce(operator.or_, [pub.get_children() for pub in stories]).live().specific().search(search_filter)
+                if pub_children:
+                    matching_parents = reduce(operator.or_, [stories.parent_of(child) for child in pub_children])
+                    stories = list(chain(stories.search(search_filter), matching_parents))
+                else:
+                    stories = stories.search(search_filter)
             legacy_pubs = legacy_pubs.search(search_filter)
             short_pubs = short_pubs.search(search_filter)
 

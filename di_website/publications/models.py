@@ -21,7 +21,7 @@ from wagtail.core.blocks import (
     StructBlock,
     URLBlock
 )
-from wagtail.admin.edit_handlers import FieldPanel, PageChooserPanel, StreamFieldPanel
+from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.contrib.redirects.models import Redirect
@@ -32,12 +32,11 @@ from di_website.common.base import hero_panels, get_paginator_range
 from di_website.common.mixins import HeroMixin
 from di_website.common.constants import MAX_PAGE_SIZE
 from di_website.downloads.utils import DownloadsPanel, DownloadGroupsPanel
-from di_website.ourteam.models import TeamMemberPage
 
 from taggit.models import Tag, TaggedItemBase
 
 from .mixins import (
-    FlexibleContentMixin, UniquePageMixin, PageSearchMixin,
+    FlexibleContentMixin, UniquePageMixin, PageSearchMixin, ParentPageSearchMixin
     PublishedDateMixin, UUIDMixin, ReportChildMixin)
 from .utils import (
     ContentPanel, PublishedDatePanel, WagtailImageField,
@@ -204,7 +203,7 @@ class PublicationIndexPage(HeroMixin, Page):
         verbose_name = 'Publication Index Page'
 
 
-class PublicationPage(HeroMixin, PublishedDateMixin, UUIDMixin, Page):
+class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUIDMixin, Page):
 
     class Meta:
         verbose_name = 'Publication Page'

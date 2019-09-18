@@ -21,6 +21,13 @@ class UniquePageMixin(object):
         return super(UniquePageMixin, cls).can_create_at(parent) and not cls.objects.exists()
 
 
+class ParentPageSearchMixin(object):
+    search_fields = Page.search_fields + [
+        index.SearchField('title', partial_match=True),
+        index.FilterField('slug')
+    ]
+
+
 class PageSearchMixin(object):
     search_fields = Page.search_fields + [
         index.SearchField('content', partial_match=True),

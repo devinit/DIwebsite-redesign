@@ -38,7 +38,7 @@ from di_website.downloads.utils import DownloadsPanel, DownloadGroupsPanel
 from taggit.models import Tag, TaggedItemBase
 
 from .mixins import (
-    FlexibleContentMixin, UniquePageMixin, PageSearchMixin,
+    FlexibleContentMixin, UniquePageMixin, PageSearchMixin, ParentPageSearchMixin,
     PublishedDateMixin, UUIDMixin, ReportChildMixin)
 from .utils import (
     ContentPanel, PublishedDatePanel, WagtailImageField,
@@ -211,7 +211,7 @@ class PublicationIndexPage(HeroMixin, Page):
         verbose_name = 'Publication Index Page'
 
 
-class PublicationPage(HeroMixin, PublishedDateMixin, PageSearchMixin, UUIDMixin, Page):
+class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUIDMixin, Page):
 
     class Meta:
         verbose_name = 'Publication Page'

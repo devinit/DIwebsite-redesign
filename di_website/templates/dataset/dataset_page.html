@@ -39,19 +39,166 @@
                             </div>
                         </div>
                         <div class="l-2up__col">
+
+                            {% for member in team_member_links %}
                             <a href="#" class="m-author m-author--spacing">
                                 <div class="m-author__image">
-                                    <img src="/assets/img/profile2sq.jpg" alt="alt tag">
+                                  {% if member.specific.image %}
+                                    {% image member.specific.image max-400x250 as pic %}
+                                    <img src="{{ pic.url }}" alt="alt tag">
+                                  {% else %}
+                                    <img src="img/fallback-image.jpg" alt="alt tag">
+                                  {% endif %}
                                 </div>
                                 <div class="m-author__body">
-                                    <h3 class="m-author__title">Analysis by Emily Underhill</h3>
-                                    <p class="m-author__job">Senior Analyst</p>
+                                    <h3 class="m-author__title">Analysis by {{ member.specific.name }}</h3>
+                                    <p class="m-author__job">{{ member.specific.position }}</p>
                                 </div>
                             </a>
+                            {% endfor %}
+
                             <p class="para">Contact <a href="#">data@devinit.org</a> if you have any queries about this dataset or other data related matters.</p>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <h2 class="section__heading">Metadata</h2>
+            <div id="responsive-tabs" class="responsive-tabs">
+    <ul class="tab__menu">
+        <li class="tab__link">
+            <a href="#description">Description</a>
+        </li>
+        <li class="tab__link">
+            <a href="#sources">Sources</a>
+        </li>
+        <li class="tab__link">
+            <a href="#legal">Legal & Suggested Citation</a>
+        </li>
+    </ul>
+    <div class="tab__container">
+        <section id="description" class="tab__content">
+            <div class="is-typeset max-meter">
+                {% for block in page.meta_data %}
+                    {{block.value.description}}
+                {% endfor %}
+            </div>
+            <div class="l-2up">
+                {% for block in page.meta_data %}
+                    {% if block.value.provenance %}
+                      <div class="l-2up__col">
+                          <div class="is-typeset">
+                              <h3>Provenance</h3>
+                              {{ block.value.provenance }}
+                          </div>
+                      </div>
+                    {% endif %}
+
+                    {% if block.value.geography %}
+                      <div class="l-2up__col">
+                          <div class="is-typeset">
+                              <h3>Geography</h3>
+                              {{ block.value.geography }}
+                          </div>
+                      </div>
+                    {% endif %}
+
+                    {% if block.value.variables %}
+                      <div class="l-2up__col">
+                          <div class="is-typeset">
+                              <h3>Variables</h3>
+                              {{ block.value.variables }}
+                          </div>
+                      </div>
+                    {% endif %}
+
+                    {% if block.value.topic %}
+                      <div class="l-2up__col">
+                          <div class="is-typeset">
+                              <h3>Topics</h3>
+                              {{ block.value.topic }}
+                          </div>
+                      </div>
+                    {% endif %}
+                {% endfor %}
+
+            </div>
+        </section>
+        <section id="sources" class="tab__content">
+            <div class="l-3up">
+
+
+<div class="m-slip m-slip--alt m-slip--icon">
+    <i role="presentation" aria-hidden="true" class="ico ico--24 ico-data-slate"></i>
+    <p class="m-slip__copy"><a href="#">N/A - INFORM</a></p>
+    <span class="m-slip__meta">Accessed: 26 July 2019</span>
+
+        <a href="#" class="button button--reverses">View source dataset</a>
+</div>
+
+
+            </div>
+            <div class="is-typeset max-meter">
+                <p>Access Dates: explanation as to what the access date is and why it is relevant. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis commodo mattis nisi eu adipiscing. Vivamus euismod nisl a leo pellentesque sed lobortis ipsum commodo. Nullam id turpis libero, sit amet posuere est. Fusce porttitor odio sit amet justo aliquet ac porta turpis vulputate.</p>
+            </div>
+        </section>
+        <section id="legal" class="tab__content">
+            <div class="is-typeset max-meter">
+                <h3>Licence</h3>
+                <p>Dataset Title by <a href="#">Development Initiatives Poverty Research Limited</a> is licensed under a <a href="#">Creative Commons Attribution 4.0 International License</a>.</p>
+                <p>Based on a work at <a href="#">https://link-to-sources-used</a></p>
+                <p>Permissions beyond the scope of this license may be available at <a href="#">https://devinit.org/data/datasets/dataset-title#licence.</a></p>
+                <h3>Suggested Citation</h3>
+                <p class="selectable">Investments to End Poverty, 2018, Development Initiatives Poverry Research Ltd.</p>
+            </div>
+        </section>
+    </div>
+</div>
+
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <h2 class="section__heading">{{ page.related_datasets_title }}</h2>
+            <div class="l-3up">
+
+{% for page in related_datasets %}
+<div class="m-slip m-slip--icon">
+    <i role="presentation" aria-hidden="true" class="ico ico--24 ico-data-poppydark"></i>
+
+    <p class="m-slip__copy">
+    <a href="{% pageurl page %}">
+      {{page.specific.text_content | richtext }}
+    </a></p>
+    <span class="m-slip__meta">Released: {{ page.specific.release_date | date:'d F, o' }}</span>
+</div>
+
+{% endfor %}
+
+            </div>
+        </div>
+    </section>
+
+
+    <section class="section">
+        <div class="row row--narrow">
+            <h2 class="section__heading">More about</h2>
+            <div class="l-4up">
+
+{% for page in more_about_links %}
+<a href="#" class="card">
+                        <div class="card__media" style="background-image: url(/assets/img/Pin-at-Open-Up-conference-2-400x250.jpg);"></div>
+                        <div class="card__body">
+                            <h3 class="card__title"><span>{{page.title}}</span></h3>
+                        </div>
+                    </a>
+{% endfor %}
+
             </div>
         </div>
     </section>

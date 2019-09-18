@@ -279,6 +279,27 @@
 
 
 
+.ico-link-lavendar {
+	background-image: url('png/link-lavendar.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-link-leaf {
+	background-image: url('png/link-leaf.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-link-marigold {
+	background-image: url('png/link-marigold.png');
+	background-repeat: no-repeat;
+}
+
+
+
 .ico-link-poppy {
 	background-image: url('png/link-poppy.png');
 	background-repeat: no-repeat;
@@ -286,8 +307,22 @@
 
 
 
+.ico-link-rose {
+	background-image: url('png/link-rose.png');
+	background-repeat: no-repeat;
+}
+
+
+
 .ico-link-slate {
 	background-image: url('png/link-slate.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-link-sunflower {
+	background-image: url('png/link-sunflower.png');
 	background-repeat: no-repeat;
 }
 

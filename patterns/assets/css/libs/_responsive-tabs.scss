@@ -41,7 +41,7 @@
 .r-tabs {
     position: relative;
 
-    background-color: $slate;
+    //background-color: $slate;
 
 }
 
@@ -80,17 +80,38 @@
 
 /* Accordion anchor */
 .r-tabs .r-tabs-accordion-title .r-tabs-anchor {
+    position: relative;
     display: block;
     padding: 10px;
     background-color: $slate;
     color: #fff;
     @include font-size($para);
+    margin-bottom: 1px;
+    @include respond-to($c-vp) {
+        margin-bottom: 0;
+    }
+    &:after {
+        content: "";
+        background-image: url(../svg/source/arrow-down.svg);
+        background-size: contain;
+        background-repeat: no-repeat;
+        width: 24px;
+        height: 16px;
+        display: block;
+        position: absolute;
+        top: 15px;
+        right: 10px;
+        transition: all, ease-in-out, 0.3s;
+    }
 }
 
 /* Active accordion anchor */
 .r-tabs .r-tabs-accordion-title.r-tabs-state-active .r-tabs-anchor {
     background-color: $poppy-dark;
     color: #fff;
+    &:after {
+        transform: rotate(180deg);
+    }
 }
 
 /* Disabled accordion button */

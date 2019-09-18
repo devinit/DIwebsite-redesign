@@ -244,7 +244,7 @@
                         if (!window.location.origin) {
                             window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port: '');
                         }
-                        
+
                         history.pushState(null, null, window.location.origin + window.location.pathname + window.location.search + activatedTab.selector);
                     } else {
                         // Otherwise fallback to the hash update for sites that don't support the history api

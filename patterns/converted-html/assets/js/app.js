@@ -127,7 +127,9 @@ function globals () {
     // Tabs
     // https://github.com/jellekralt/Responsive-Tabs
     $('#responsive-tabs').responsiveTabs({
-        startCollapsed: 'accordion'
+        startCollapsed: 'accordion',
+        collapsible: 'accordion',
+        setHash: true
     });
 }
 

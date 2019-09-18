@@ -36,8 +36,12 @@ from di_website.ourteam.models import TeamMemberPage
 
 from taggit.models import Tag, TaggedItemBase
 
-from .mixins import FlexibleContentMixin, UniquePageMixin, PageSearchMixin, PublishedDateMixin, UUIDMixin, ReportChildMixin
-from .utils import ContentPanel, PublishedDatePanel, WagtailImageField, UUIDPanel, get_first_child_of_type, get_ordered_children_of_type, get_downloads
+from .mixins import (
+    FlexibleContentMixin, UniquePageMixin, PageSearchMixin,
+    PublishedDateMixin, UUIDMixin, ReportChildMixin)
+from .utils import (
+    ContentPanel, PublishedDatePanel, WagtailImageField,
+    UUIDPanel, get_first_child_of_type, get_ordered_children_of_type, get_downloads)
 from .edit_handlers import MultiFieldPanel
 from .inlines import *
 
@@ -191,6 +195,7 @@ class PublicationIndexPage(HeroMixin, Page):
         context['countries'] = PublicationCountry.objects.all()
         context['selected_country'] = country_filter
         context['search_filter'] = search_filter
+        context['is_filtered'] = search_filter or topic_filter or country_filter
         context['paginator_range'] = get_paginator_range(paginator, context['stories'])
 
         return context

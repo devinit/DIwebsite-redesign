@@ -19,14 +19,18 @@ from di_website.common.constants import RICHTEXT_FEATURES
 from di_website.common.blocks import ButtonBlock
 
 
-class MainContentBlock(StreamBlock):
-    """
-    Renders a map with all the DI office locations
-    """
-    release_date = DateBlock()
-    text_content = RichTextBlock(required=False)
-    most_recent_dataset = PageChooserBlock(page_type="dataset.DatasetPage", required=False)
+class MetaDataDescriptionBlock(StructBlock):
+    description = RichTextBlock(icon="title", required=False)
+    provenance = RichTextBlock(icon="title", required=False)
+    variables = RichTextBlock(icon="title", required=False)
+    geography = RichTextBlock(icon="title", required=False)
+    topic = RichTextBlock(icon="title", required=False)
 
-    class Meta():
-        icon = 'fa-edit'
-        template = 'blocks/dataset_main_content.html'
+
+class MetaDataSourcesBlock(StructBlock):
+    data_sources = PageChooserBlock(page_type="dataset.DatasetPage", required=False)
+
+
+class MetaDataSourcesStreamBlock(StreamBlock):
+    description = RichTextBlock(icon="title", required=False)
+    sources = MetaDataSourcesBlock()

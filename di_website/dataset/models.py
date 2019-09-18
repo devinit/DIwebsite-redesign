@@ -3,6 +3,20 @@ from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
 from datetime import datetime
 
+from wagtail.core.blocks import (
+    BooleanBlock,
+    CharBlock,
+    ChoiceBlock,
+    DecimalBlock,
+    ListBlock,
+    PageChooserBlock,
+    RichTextBlock,
+    StreamBlock,
+    StructBlock,
+    TextBlock,
+    URLBlock,
+    DateBlock
+)
 from wagtail.admin.edit_handlers import (
     FieldPanel,
     InlinePanel,
@@ -22,6 +36,11 @@ from taggit.models import Tag, TaggedItemBase
 
 from modelcluster.fields import ParentalKey
 
+from .blocks import (
+    MetaDataDescriptionBlock,
+    MetaDataSourcesBlock,
+)
+
 
 class DatasetPage(TypesetBodyMixin, HeroMixin, Page):
     """ Content of each Dataset """
@@ -38,6 +57,10 @@ class DatasetPage(TypesetBodyMixin, HeroMixin, Page):
         verbose_name='Main Content',
         help_text='A description of the page content'
     )
+    meta_data = StreamField([
+        ('description', MetaDataDescriptionBlock(max_num=1)),
+        ('sources', MetaDataSourcesBlock(max_num=1)),
+    ], null=True, blank=True)
     related_datasets_title = models.CharField(
         blank=True,
         max_length=255,
@@ -49,11 +72,23 @@ class DatasetPage(TypesetBodyMixin, HeroMixin, Page):
         FieldPanel('publication_type'),
         FieldPanel('release_date'),
         FieldPanel('text_content'),
+        InlinePanel('team_member_links', label="Dataset Author", max_num=1),
+        StreamFieldPanel('meta_data'),
         MultiFieldPanel([
             FieldPanel('related_datasets_title'),
             InlinePanel('related_dataset_links', label="Related Datasets", max_num=MAX_RELATED_LINKS)
-        ], heading='Related Dataset')
+        ], heading='Related Dataset'),
+        InlinePanel('more_about_links', label="More About Pages", max_num=MAX_RELATED_LINKS)
     ]
+
+    def get_context(self, request):
+        context = super().get_context(request)
+
+        context['related_datasets'] = get_related_pages(self.related_dataset_links.all(), DatasetPage.objects)
+        context['more_about_links'] = get_related_pages(self.more_about_links.all(), DatasetPage.objects)
+        context['team_member_links'] = get_related_pages(self.team_member_links.all())
+
+        return context
 
 
 class DatasetPageRelatedLink(OtherPageMixin):
@@ -62,5 +97,23 @@ class DatasetPageRelatedLink(OtherPageMixin):
     panels = [
         PageChooserPanel('other_page', [
             'dataset.DatasetPage'
+        ])
+    ]
+
+
+class MoreAboutRelatedLink(OtherPageMixin):
+    page = ParentalKey(Page, related_name='more_about_links', on_delete=models.CASCADE)
+
+    panels = [
+        PageChooserPanel('other_page')
+    ]
+
+
+class TeamMemberRelatedLink(OtherPageMixin):
+    page = ParentalKey(Page, related_name='team_member_links', on_delete=models.CASCADE)
+
+    panels = [
+        PageChooserPanel('other_page', [
+            'ourteam.TeamMemberPage'
         ])
     ]

@@ -150,7 +150,7 @@ class FooterText(models.Model):
         verbose_name_plural = 'Footer Text'
 
 
-class HomePage(HeroMixin, Page):
+class HomePage(Page):
     def __str__(self):
         return self.title
 
@@ -159,7 +159,29 @@ class HomePage(HeroMixin, Page):
 
     parent_page_types = []  # prevent from being a child page
 
-    content_panels = Page.content_panels + [hero_panels()]
+    featured_publication = models.ForeignKey(
+        'publications.PublicationPage',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        help_text='The publication to showcase in the page hero'
+    )
+    hero_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        help_text='Overwrites the hero image of the featured publication'
+    )
+
+    content_panels = Page.content_panels + [
+        MultiFieldPanel([
+            PageChooserPanel('featured_publication'),
+            ImageChooserPanel('hero_image')
+        ], heading="Hero Section")
+    ]
 
 
 class StandardPage(SectionBodyMixin, TypesetBodyMixin, HeroMixin, Page):

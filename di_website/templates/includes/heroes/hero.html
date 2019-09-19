@@ -32,6 +32,7 @@
             {% if page.hero_text %}
                 <div class="hero__excerpt"><span>{{ page.hero_text|richtext }}</span></div>
             {% endif %}
+            <br/>
             {% if page.hero_link and page.hero_link_caption %}
                 <a href="{% pageurl page.hero_link %}" class="button button--reverse">{{ page.hero_link_caption }}</a>
             {% endif %}

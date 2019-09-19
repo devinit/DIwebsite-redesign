@@ -1,0 +1,30 @@
+{% load string_utils report_utils %}
+
+{% if page.chapters %}
+    <div class="js-chapter-nav">
+        <div class="page__action">
+            {% include 'publications/chapter-nav/prev-next.html' %}
+            <div class="page__action__menu">
+                <span tabindex="0" class="page__action_text">{{ menu_label|default:'Jump to chapter' }}</span>
+                <div class="page__action__burgerWrapper">
+                    <div class="burger burger--reverse"><span></span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="chapter-nav-wrapper">
+            <div class="row__nojs">
+                <nav class="chapter-nav" role="navigation" aria-label="navigation">
+                    <div class="chapter-scroll">
+                        <ul class="chapter-nav__list">
+                            {% chapter_nav_slice page.chapters chapter_number as nav_slice %}
+                            {% for item in page.chapters|slice:nav_slice %}
+                                {% include 'publications/chapter-nav/nav-item.html' %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+{% endif %}

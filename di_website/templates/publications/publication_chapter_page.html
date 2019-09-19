@@ -1,0 +1,45 @@
+{% extends "layouts/default.html" %}
+
+{% load string_utils wagtailcore_tags responsive %}
+
+{% block hero %}
+    {% include 'includes/heroes/hero-pubs.html' %}
+{% endblock hero %}
+
+{% block colour %}body--{{page.colour}}{% endblock %}
+
+{% block body %}
+
+    {% if page.chapter_number %}
+        {% include 'publications/chapter-nav/nav.html' with page=page.get_parent.specific menu_label='Contents' chapter_number=page.chapter_number %}
+    {% endif %}
+
+    {% for block in page.content %}
+        <section class="section">
+
+            {% if block.block_type == 'case_study' %}
+                <div class="pullOutBlock">
+            {% endif %}
+
+                <div class="row row--narrow">
+                    {% include_block block with id=block.id|string_start  %}
+                </div>
+
+            {% if block.block_type == 'case_study' %}
+                </div>
+            {% endif %}
+
+        </div>
+    {% endfor %}
+
+    <section class="section">
+        <div class="row row--narrow">
+            {% include 'publications/share.html' %}
+            <div class="mainAction padd-section-both border-top">
+                {% include 'downloads/download-list.html' %}
+            </div>
+        </div>
+    </section>
+
+    {% include 'publications/footnotes.html' %}
+{% endblock %}

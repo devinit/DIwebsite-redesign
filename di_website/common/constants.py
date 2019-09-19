@@ -16,8 +16,16 @@ RICHTEXT_FEATURES = [
     'link',
     'document',
     'image',
-    'embed'
+    'embed',
+    'footnote'
 ]
 MAX_RELATED_LINKS = 3
 MAX_OTHER_PAGES = 4
 MAX_PAGE_SIZE = 9
+
+RICHTEXT_FEATURES_NO_FOOTNOTES = RICHTEXT_FEATURES.copy()
+RICHTEXT_FEATURES_NO_FOOTNOTES.remove('footnote')
+
+FOOTNOTE_RICHTEXT_FEATURES = [
+    'footnote',
+]

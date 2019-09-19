@@ -1,0 +1,6 @@
+{% extends "wagtailadmin/login.html" %}
+{% load static %}
+
+{% block branding_login %}
+    Sign in to <img src="{% static "img/logo.png" %}" alt="{{ global.site_name }}" style="height: 1.4em; vertical-align: bottom;" />
+{% endblock %}

@@ -187,6 +187,7 @@ class Command(BaseCommand):
                     pub_check = LegacyPublicationPage.objects.filter(slug=slug)
                     if not pub_check and publication_dataset['body'] != "":
                         clean_body = re.sub(r'Modal[\s\S]*\/Modal', '', publication_dataset['body'])
+                        clean_body = re.sub('btn btn--dark pdf-download', 'button', clean_body)
                         pub_page = LegacyPublicationPage(
                             title=publication_dataset['title'],
                             slug=slug,

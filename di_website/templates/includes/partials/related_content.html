@@ -17,6 +17,10 @@
                   {% with item=page.specific show_tag=True %}
                       {% include 'includes/cards/card-news.html' %}
                   {% endwith %}
+              {% elif page.specific|classname in global.publication_classnames %}
+                {% with item=page.specific show_tag=True %}
+                  {% include 'includes/cards/card-publication.html' %}
+                {% endwith %}
               {% else %}
                   {% with item=page.specific tag=tag %}
                       {% include 'includes/cards/card-related.html' %}

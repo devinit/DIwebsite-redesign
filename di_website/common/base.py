@@ -1,9 +1,6 @@
-from wagtail.documents.edit_handlers import DocumentChooserPanel
-from wagtail.snippets.models import register_snippet
 from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, PageChooserPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 
-from .mixins import BaseDownloadMixin
 from .constants import MAX_RELATED_LINKS
 
 
@@ -21,14 +18,6 @@ def hero_panels():
         FieldPanel('hero_link_caption'),
         PageChooserPanel('hero_link')
     ], heading="Hero Section")
-
-
-@register_snippet
-class Download(BaseDownloadMixin):
-    panels = [
-        DocumentChooserPanel('file'),
-        FieldPanel('title')
-    ]
 
 
 def get_paginator_range(paginator, page):

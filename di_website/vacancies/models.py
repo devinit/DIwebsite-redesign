@@ -7,15 +7,15 @@ from wagtail.admin.edit_handlers import (
     FieldPanel,
     InlinePanel,
     MultiFieldPanel,
-    PageChooserPanel,
     StreamFieldPanel
 )
-from wagtail.core.fields import RichTextField, StreamField
+from wagtail.core.fields import RichTextField
 from wagtail.snippets.models import register_snippet
-from wagtail.core.models import Page
+from wagtail.core.models import Page, Orderable
+from wagtail.documents.edit_handlers import DocumentChooserPanel
 
 from di_website.common.base import hero_panels
-from di_website.common.mixins import OtherPageMixin, HeroMixin, SectionBodyMixin, TypesetBodyMixin
+from di_website.common.mixins import HeroMixin, SectionBodyMixin, TypesetBodyMixin
 from di_website.users.models import Department, Subscription
 
 from modelcluster.fields import ParentalKey
@@ -218,7 +218,6 @@ class VacancyPage(TypesetBodyMixin, SectionBodyMixin, HeroMixin, Page):
         'VacancyIndexPage'
     ]
 
-
     @cached_property
     def get_page_downloads(self):
         return self.page_downloads.all()
@@ -226,3 +225,30 @@ class VacancyPage(TypesetBodyMixin, SectionBodyMixin, HeroMixin, Page):
     class Meta():
         db_table = 'vacancy_page'
         verbose_name = 'Vacancy Page'
+
+
+class VacancyDownload(Orderable):
+    page = ParentalKey(
+        VacancyPage, related_name='page_downloads', on_delete=models.CASCADE
+    )
+    file = models.ForeignKey(
+        'wagtaildocs.Document',
+        on_delete=models.CASCADE,
+    )
+    title = models.CharField(
+        max_length=255,
+        blank=True,
+        help_text='Optional: document title, defaults to the file name if left blank',
+    )
+
+    @cached_property
+    def get_title(self):
+        return self.title if self.title else self.file.title
+
+    def __str__(self):
+        return self.get_title
+
+    panels = [
+        DocumentChooserPanel('file'),
+        FieldPanel('title')
+    ]

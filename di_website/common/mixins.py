@@ -1,18 +1,7 @@
 from django.db import models
-from django.utils.functional import cached_property
 
-from wagtail.core.models import Orderable, Page
+from wagtail.core.models import Orderable
 from wagtail.core.fields import RichTextField, StreamField
-from wagtail.admin.edit_handlers import (
-    FieldPanel,
-    MultiFieldPanel,
-    PageChooserPanel
-)
-from wagtail.documents.edit_handlers import DocumentChooserPanel
-from wagtail.images.edit_handlers import ImageChooserPanel
-from wagtail.snippets.models import register_snippet
-
-from modelcluster.fields import ParentalKey
 
 from .blocks import BaseStreamBlock, SectionStreamBlock, TypesetStreamBlock
 
@@ -111,28 +100,3 @@ class SectionBodyMixin(models.Model):
 
     class Meta:
         abstract = True
-
-
-class BaseDownloadMixin(models.Model):
-    class Meta:
-        abstract = True
-
-    page = ParentalKey(
-        Page, related_name='page_downloads', on_delete=models.CASCADE
-    )
-    file = models.ForeignKey(
-        'wagtaildocs.Document',
-        on_delete=models.CASCADE,
-    )
-    title = models.CharField(
-        max_length=255,
-        blank=True,
-        help_text='Optional: document title, defaults to the file name if left blank',
-    )
-
-    @cached_property
-    def get_title(self):
-        return self.title if self.title else self.file.title
-
-    def __str__(self):
-        return self.title if self.title else self.file.title

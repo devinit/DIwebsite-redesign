@@ -3,7 +3,7 @@
 <section class="section">
     <div class="row row--narrow">
         <h2 class="section__heading">{{heading}}</h2>
-        <div class="l-2up-3up">
+        <div class="l-2up{% if related_pages|length > 2 %}-3up{% endif %}">
             {% for page in related_pages %}
               {% if page.specific|classname == global.blog_classname %}
                   {% with blog=page.specific show_tag=True %}

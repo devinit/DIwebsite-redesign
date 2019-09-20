@@ -29,6 +29,8 @@ from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.contrib.redirects.models import Redirect
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.images.blocks import ImageChooserBlock
+from wagtail.documents.edit_handlers import DocumentChooserPanel
+
 
 from di_website.common.base import hero_panels, get_paginator_range
 from di_website.common.mixins import HeroMixin
@@ -245,6 +247,18 @@ class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUID
     countries = models.ForeignKey(
         PublicationCountry, related_name="+", null=True, blank=True, on_delete=models.SET_NULL)
 
+    download_report_cover = WagtailImageField()
+    download_report_title = models.CharField(max_length=255, null=True, blank=True, default="Download this report")
+    download_report_body = models.TextField(null=True, blank=True)
+    download_report_button_text = models.CharField(max_length=255, null=True, blank=True, default="Download now")
+    report_download = models.ForeignKey(
+        'wagtaildocs.Document',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
     content_panels = Page.content_panels + [
         FieldPanel('colour'),
         hero_panels(),
@@ -263,6 +277,12 @@ class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUID
             description='Optional: data download for this report.',
             max_num=1,
         ),
+        MultiFieldPanel([
+            FieldPanel('download_report_title'),
+            FieldPanel('download_report_body'),
+            ImageChooserPanel('download_report_cover'),
+            DocumentChooserPanel('report_download')
+        ], heading='Report download section'),
         UUIDPanel(),
     ]
 

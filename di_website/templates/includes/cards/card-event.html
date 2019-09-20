@@ -1,16 +1,13 @@
-{% load wagtailcore_tags wagtailimages_tags static %}
+{% load wagtailcore_tags %}
 
 {% if event %}
-<a href="{% pageurl event %}" class="card card--offset">
+<a href="{% pageurl event %}" class="card card--{% if card_type %}{{card_type}}{% else %}offset{% endif %}">
     {% if show_tag %}
         <span class="card__tag">Event</span>
     {% endif %}
-    {% if event.hero_image %}
-      {% image event.hero_image max-400x250 as hero_img %}
-      <div class="card__media" style="background-image: url({{hero_img.url}});"></div>
-    {% else %}
-      <div class="card__media" style="background-image: url({% static 'img/fallback-image.jpg' %});"></div>
-    {% endif %}
+
+    {% include 'includes/cards/card-image.html' with item=event %}
+
     <div class="card__body">
         <h3 class="card__title"><span>{{ event.title }}</span></h3>
         <ul class="card__list">

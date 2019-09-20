@@ -1,5 +1,13 @@
+from django.db import models
+
+from modelcluster.fields import ParentalKey
+
 from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, PageChooserPanel
+from wagtail.core.models import Orderable, Page
+from wagtail.core.fields import RichTextField
+from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.snippets.models import register_snippet
 
 from .constants import MAX_RELATED_LINKS
 
@@ -42,3 +50,17 @@ def get_related_pages(selected_pages, queryset=None):
             return list(queryset.live()[:MAX_RELATED_LINKS])
 
     return list([link.other_page for link in selected_pages])
+
+
+class PageNotification(models.Model):
+    page = ParentalKey(Page, related_name='page_notifications', on_delete=models.CASCADE)
+
+    date_time = models.DateTimeField(verbose_name='Notification date')
+    message = RichTextField(verbose_name='Notification message')
+    email = models.EmailField(help_text='Email address to notify')
+
+    panels = [
+        FieldPanel('date_time'),
+        FieldPanel('message'),
+        FieldPanel('email')
+    ]

@@ -160,7 +160,7 @@ class FooterText(models.Model):
         verbose_name_plural = 'Footer Text'
 
 
-class HomePage(Page):
+class HomePage(SectionBodyMixin, Page):
     def __str__(self):
         return self.title
 
@@ -210,7 +210,8 @@ class HomePage(Page):
         MultiFieldPanel([
             FieldPanel('featured_work_heading'),
             InlinePanel('featured_pages', label='Featured Pages')
-        ], heading='Featured Work')
+        ], heading='Featured Work'),
+        StreamFieldPanel('sections')
     ]
 
     def get_context(self, request, *args, **kwargs):

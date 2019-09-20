@@ -23,4 +23,8 @@
       {% include 'includes/partials/related_content.html' %}
     {% endwith %}
   {% endif %}
+
+  {% for block in page.sections %}
+    {% include_block block %}
+  {% endfor %}
 {% endblock body %}

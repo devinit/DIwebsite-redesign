@@ -99,7 +99,8 @@ class BlogArticlePage(TypesetBodyMixin, HeroMixin, Page):
         ], heading="Author information"),
         FieldPanel('topics'),
         StreamFieldPanel('body'),
-        InlinePanel('blog_related_links', label="Related links", max_num=MAX_RELATED_LINKS)
+        InlinePanel('blog_related_links', label='Related links', max_num=MAX_RELATED_LINKS),
+        InlinePanel('page_notifications', label='Notifications')
     ]
 
     parent_page_types = [

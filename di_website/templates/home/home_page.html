@@ -1,7 +1,20 @@
 {% extends 'layouts/default.html' %}
+{% load wagtailcore_tags %}
 
 
 {% block body %}
   {% include 'includes/heroes/hero_home.html' with page=page.featured_publication hero_image=page.hero_image %}
 
+
+  {% if page.featured_content %}
+    <section class="section">
+      <div class="row row--narrow">
+        <div class="l-2up">
+          {% for block in page.featured_content %}
+            {% include_block block %}
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+  {% endif %}
 {% endblock body %}

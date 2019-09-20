@@ -1,3 +1,6 @@
+"""
+Home page models, reusable snippets, other common models
+"""
 from django.db import models
 
 from wagtail.admin.edit_handlers import (
@@ -9,8 +12,9 @@ from wagtail.admin.edit_handlers import (
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.admin.edit_handlers import MultiFieldPanel
 from wagtail.core.models import Orderable, Page
-from wagtail.core.fields import RichTextField
+from wagtail.core.fields import RichTextField, StreamField
 from wagtail.snippets.models import register_snippet
+from wagtail.core.blocks import CharBlock, PageChooserBlock, RichTextBlock, StructBlock
 
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
@@ -21,6 +25,12 @@ from di_website.common.constants import SIMPLE_RICHTEXT_FEATURES
 
 
 class AbstractLink(models.Model):
+    """
+    Contains common properties for links
+
+    Arguments:
+        Model {Django Model}
+    """
     class Meta:
         abstract = True
 
@@ -95,7 +105,7 @@ class FooterLink(Orderable, AbstractLink):
         'FooterSection', on_delete=models.CASCADE, related_name="footer_section_links")
 
     def __str__(self):
-        return (self.page.title if self.page else self.label)
+        return self.page.title if self.page else self.label
 
     class Meta:
         verbose_name = "Footer Link"
@@ -175,12 +185,21 @@ class HomePage(Page):
         related_name='+',
         help_text='Overwrites the hero image of the featured publication'
     )
+    featured_content = StreamField([
+        ('content', StructBlock([
+            ('title', CharBlock()),
+            ('body', RichTextBlock()),
+            ('related_page', PageChooserBlock(required=False)),
+            ('button_caption', CharBlock(required=False, help_text='Overwrite title text from the related page'))
+        ], template='home/blocks/featured_content.html'))
+    ], null=True, blank=True)
 
     content_panels = Page.content_panels + [
         MultiFieldPanel([
             PageChooserPanel('featured_publication'),
             ImageChooserPanel('hero_image')
-        ], heading="Hero Section")
+        ], heading="Hero Section"),
+        StreamFieldPanel('featured_content')
     ]
 
 

@@ -1,0 +1,18 @@
+{% load wagtailcore_tags string_utils %}
+
+<div class="l-2up__col">
+  <h2 class="section__heading">{{self.title}}</h2>
+  <div class="is-typeset max-meter">
+    {{self.body|richtext_strip_wrapper}}
+  </div>
+
+  {% if self.related_page %}
+    <a href="{% pageurl self.related_page %}" class="button">
+      {% if self.button_caption %}
+        {{self.button_caption}}
+      {% else %}
+        {{self.related_page.title}}
+      {% endif %}
+    </a>
+  {% endif %}
+</div>

@@ -193,13 +193,47 @@ class HomePage(Page):
             ('button_caption', CharBlock(required=False, help_text='Overwrite title text from the related page'))
         ], template='home/blocks/featured_content.html'))
     ], null=True, blank=True)
+    featured_work_heading = models.CharField(
+        blank=True,
+        null=True,
+        default='Featured work',
+        max_length=200,
+        verbose_name='Section heading'
+    )
 
     content_panels = Page.content_panels + [
         MultiFieldPanel([
             PageChooserPanel('featured_publication'),
             ImageChooserPanel('hero_image')
-        ], heading="Hero Section"),
-        StreamFieldPanel('featured_content')
+        ], heading='Hero Section'),
+        StreamFieldPanel('featured_content'),
+        MultiFieldPanel([
+            FieldPanel('featured_work_heading'),
+            InlinePanel('featured_pages', label='Featured Pages')
+        ], heading='Featured Work')
+    ]
+
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+        context['featured_pages'] = [link.other_page for link in self.featured_pages.all()]
+
+        return context
+
+
+class HomePageFeaturedWork(OtherPageMixin):
+    page = ParentalKey(
+        Page, related_name='featured_pages', on_delete=models.CASCADE)
+
+    panels = [
+        PageChooserPanel('other_page', [
+            'events.EventPage',
+            'blog.BlogArticlePage',
+            'news.NewsStoryPage',
+            'publications.PublicationPage',
+            'publications.ShortPublicationPage',
+            'publications.LegacyPublicationPage',
+            'project.ProjectPage'
+        ])
     ]
 
 

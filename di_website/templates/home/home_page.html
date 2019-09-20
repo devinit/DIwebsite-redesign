@@ -17,4 +17,10 @@
       </div>
     </section>
   {% endif %}
+
+  {% if featured_pages %}
+    {% with related_pages=featured_pages heading=page.featured_work_heading %}
+      {% include 'includes/partials/related_content.html' %}
+    {% endwith %}
+  {% endif %}
 {% endblock body %}

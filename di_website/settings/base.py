@@ -138,13 +138,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-WAGTAILSEARCH_BACKENDS = {
-    'default': {
-        'BACKEND': 'wagtail.search.backends.db',
-    }
-}
-
-
 if config('ELASTIC_SEARCH_URL', ''):
     
     elastic_search_tokens = [

@@ -138,6 +138,60 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+if config('ELASTIC_SEARCH_URL', ''):
+
+    elastic_search_tokens = [
+        'letter',
+        'digit',
+        'whitespace'
+    ]
+
+    WAGTAILSEARCH_BACKENDS = {
+        'default': {
+            'BACKEND': 'wagtail.search.backends.elasticsearch6',
+            'AUTO_UPDATE': False,
+            'ATOMIC_REBUILD': True,
+            'URLS': [config('ELASTIC_SEARCH_URL', '')],
+            'TIMEOUT': 10,
+            'INDEX_SETTINGS': {
+                'settings': {
+                    'analysis': {
+                        'tokenizer': {
+                            'ngram_tokenizer': {
+                                'type': 'nGram',
+                                'min_gram': 3,
+                                'max_gram': 10,
+                                'token_cars': elastic_search_tokens
+                            },
+                            'edgengram_tokenizer': {
+                                'type': 'edgeNGram',
+                                'min_gram': 1,
+                                'max_gram': 10,
+                                'side': 'front',
+                                'token_cars': elastic_search_tokens
+                            }
+                        },
+                        'filter': {
+                            'ngram': {
+                                'type': 'nGram',
+                                'min_gram': 3,
+                                'max_gram': 10
+                            },
+                            'edgengram': {
+                                'type': 'edgeNGram',
+                                'min_gram': 1,
+                                'max_gram': 10
+                            }
+                        },
+                        'index': {
+                            'number_of_shards': 2
+                        }
+
+                    }
+                }
+            }
+        }
+    }
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/

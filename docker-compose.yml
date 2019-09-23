@@ -12,6 +12,21 @@ services:
     volumes:
       - diwebsite_db:/var/lib/postgresql/data
 
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.2.4
+    environment:
+      - ELASTIC_SEARCH_URL    
+      - discovery.type=single-node
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1  
+    ports:
+      - "8900:9200"
+      - "9700:9300"
+    volumes:
+      - index_db:/usr/share/elasticsearch/data
+
   web:
     depends_on:
       - db
@@ -38,4 +53,7 @@ services:
 
 volumes:
   diwebsite_db:
+    external: true
+  index_db:
+    driver: local
     external: true

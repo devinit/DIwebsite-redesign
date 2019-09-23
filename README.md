@@ -54,5 +54,18 @@ Pattern library available online at [http://development-initiatives.surge.sh/](h
 
 ## Run with Docker Compose
 1. Create docker volume diwebsite_db
+    ```docker
     docker volume create --name=diwebsite_db
+    ```
 2. Run command docker-compose up
+
+#### *Note*
+If the deployment is from scratch, follow commands below to update content with old website content
+1. Create pages Publication Index and Blog Index
+2. Execute the commands below to finish the migration
+   
+   ```docker
+   docker-compose exec web python manage.py fixblogs
+   docker-compose exec web python manage.py importwp
+   docker-compose exec web python manage.py update_index
+   ```

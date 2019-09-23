@@ -139,36 +139,36 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 if config('ELASTIC_SEARCH_URL', ''):
-    
+
     elastic_search_tokens = [
         'letter',
         'digit',
         'whitespace'
     ]
-    
+
     WAGTAILSEARCH_BACKENDS = {
         'default': {
             'BACKEND': 'wagtail.search.backends.elasticsearch6',
             'AUTO_UPDATE': False,
-            'ATOMIC_REBUILD':True,
+            'ATOMIC_REBUILD': True,
             'URLS': [config('ELASTIC_SEARCH_URL', '')],
-            'TIMEOUT':10,
-            'INDEX_SETTINGS':{            
+            'TIMEOUT': 10,
+            'INDEX_SETTINGS': {
                 'settings': {
-                    'analysis': {                
+                    'analysis': {
                         'tokenizer': {
                             'ngram_tokenizer': {
                                 'type': 'nGram',
                                 'min_gram': 3,
                                 'max_gram': 10,
-                                'token_cars':elastic_search_tokens
+                                'token_cars': elastic_search_tokens
                             },
                             'edgengram_tokenizer': {
                                 'type': 'edgeNGram',
                                 'min_gram': 1,
                                 'max_gram': 10,
                                 'side': 'front',
-                                'token_cars':elastic_search_tokens
+                                'token_cars': elastic_search_tokens
                             }
                         },
                         'filter': {
@@ -183,10 +183,10 @@ if config('ELASTIC_SEARCH_URL', ''):
                                 'max_gram': 10
                             }
                         },
-                        'index':{
+                        'index': {
                             'number_of_shards': 2
                         }
-                        
+
                     }
                 }
             }

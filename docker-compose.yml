@@ -13,10 +13,11 @@ services:
       - diwebsite_db:/var/lib/postgresql/data
 
   elasticsearch:
-    image: elasticsearch:6.2.4
-    enviroment:
-      discovery.type: single-node
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.2.4
+    environment:
       - ELASTIC_SEARCH_URL    
+      - discovery.type=single-node
+      
     ports:
       - "9200:9200"
       - "9300:9300"

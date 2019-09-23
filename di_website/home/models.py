@@ -170,7 +170,7 @@ class HomePage(SectionBodyMixin, Page):
     parent_page_types = []  # prevent from being a child page
 
     featured_publication = models.ForeignKey(
-        'publications.PublicationPage',
+        Page,
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
@@ -184,6 +184,12 @@ class HomePage(SectionBodyMixin, Page):
         on_delete=models.SET_NULL,
         related_name='+',
         help_text='Overwrites the hero image of the featured publication'
+    )
+    hero_link_caption = models.CharField(
+        max_length=255,
+        blank=True,
+        help_text='Text to display on the link button',
+        default='View full report'
     )
     featured_content = StreamField([
         ('content', StructBlock([
@@ -203,8 +209,13 @@ class HomePage(SectionBodyMixin, Page):
 
     content_panels = Page.content_panels + [
         MultiFieldPanel([
-            PageChooserPanel('featured_publication'),
-            ImageChooserPanel('hero_image')
+            PageChooserPanel('featured_publication', [
+                'publications.PublicationPage',
+                'publications.ShortPublicationPage',
+                'publications.LegacyPublicationPage'
+            ]),
+            ImageChooserPanel('hero_image'),
+            FieldPanel('hero_link_caption')
         ], heading='Hero Section'),
         StreamFieldPanel('featured_content'),
         MultiFieldPanel([

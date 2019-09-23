@@ -3,7 +3,10 @@
 
 
 {% block body %}
-  {% include 'includes/heroes/hero_home.html' with page=page.featured_publication hero_image=page.hero_image %}
+
+  {% with page=page.featured_publication hero_image=page.hero_image link_caption=page.hero_link_caption %}
+    {% include 'includes/heroes/hero_home.html' %}
+  {% endwith %}
 
 
   {% if page.featured_content %}

@@ -1,4 +1,6 @@
 from django.db import models
+from django.core.exceptions import ValidationError
+from django.core.validators import EmailValidator
 
 from modelcluster.fields import ParentalKey
 
@@ -52,15 +54,32 @@ def get_related_pages(selected_pages, queryset=None):
     return list([link.other_page for link in selected_pages])
 
 
+def multiple_email_validator(email_string):
+    email_list = email_string.split(',')
+    validator = EmailValidator()
+    for email in email_list:
+        try:
+            validator(email)
+        except ValidationError:
+            raise ValidationError('"%s" is invalid' % email)
+
+
 class PageNotification(models.Model):
     page = ParentalKey(Page, related_name='page_notifications', on_delete=models.CASCADE)
 
     date_time = models.DateTimeField(verbose_name='Notification date')
+    title = models.CharField(
+        max_length=255,
+        verbose_name='Notification title',
+        default='DI Website Scheduled Notification')
     message = RichTextField(verbose_name='Notification message')
-    email = models.EmailField(help_text='Email address to notify')
+    emails = models.TextField(
+        help_text='Email addresses to notify. Multiple emails must be comma separated',
+        validators=[multiple_email_validator])
 
     panels = [
         FieldPanel('date_time'),
+        FieldPanel('title'),
         FieldPanel('message'),
-        FieldPanel('email')
+        FieldPanel('emails')
     ]

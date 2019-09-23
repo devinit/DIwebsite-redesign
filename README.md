@@ -67,4 +67,5 @@ If the deployment is from scratch, follow commands below to update content with 
    ```docker
    docker-compose exec web python manage.py fixblogs
    docker-compose exec web python manage.py importwp
+   docker-compose exec web python manage.py update_index
    ```

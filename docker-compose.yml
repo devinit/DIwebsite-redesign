@@ -17,10 +17,17 @@ services:
     environment:
       - ELASTIC_SEARCH_URL    
       - discovery.type=single-node
-      
+      - ELASTIC_PASSWORD
+      - ELASTIC_USERNAME
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1  
     ports:
       - "9200:9200"
       - "9300:9300"
+    volumes:
+      - indexdb:/usr/share/elasticsearch/data
 
   web:
     depends_on:
@@ -48,4 +55,7 @@ services:
 
 volumes:
   diwebsite_db:
+    external: true
+  index_db:
+    driver: local
     external: true

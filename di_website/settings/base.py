@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'di_website.downloads',
     'di_website.workforus',
     'di_website.dataset',
+    'di_website.datasection',
 
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',

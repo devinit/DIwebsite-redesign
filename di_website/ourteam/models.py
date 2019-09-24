@@ -35,7 +35,10 @@ class OurTeamPage(HeroMixin, Page):
 
     subpage_types = ['TeamMemberPage']
 
-    content_panels = Page.content_panels + [hero_panels()]
+    content_panels = Page.content_panels + [
+        hero_panels(),
+        InlinePanel('page_notifications', label='Notifications')
+    ]
 
 
 class TeamMemberPage(Page):
@@ -81,6 +84,7 @@ class TeamMemberPage(Page):
         FieldPanel('email'),
         FieldPanel('telephone'),
         FieldPanel('my_story', classname="full"),
+        InlinePanel('page_notifications', label='Notifications')
     ]
 
     class Meta:

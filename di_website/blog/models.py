@@ -67,7 +67,10 @@ class BlogIndexPage(HeroMixin, Page):
 
         return context
 
-    content_panels = Page.content_panels + [hero_panels()]
+    content_panels = Page.content_panels + [
+        hero_panels(),
+        InlinePanel('page_notifications', label='Notifications')
+    ]
 
 
 class BlogArticlePage(TypesetBodyMixin, HeroMixin, Page):
@@ -99,7 +102,8 @@ class BlogArticlePage(TypesetBodyMixin, HeroMixin, Page):
         ], heading="Author information"),
         FieldPanel('topics'),
         StreamFieldPanel('body'),
-        InlinePanel('blog_related_links', label="Related links", max_num=MAX_RELATED_LINKS)
+        InlinePanel('blog_related_links', label='Related links', max_num=MAX_RELATED_LINKS),
+        InlinePanel('page_notifications', label='Notifications')
     ]
 
     parent_page_types = [

@@ -54,6 +54,7 @@ class ContactPage(TypesetBodyMixin, HeroMixin, Page):
         hero_panels(),
         StreamFieldPanel('body'),
         FieldPanel('success_alert', classname="full"),
+        InlinePanel('page_notifications', label='Notifications')
     ]
 
     class Meta():

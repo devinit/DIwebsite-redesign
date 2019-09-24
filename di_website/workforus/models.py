@@ -83,7 +83,8 @@ class WorkForUsPage(TypesetBodyMixin, HeroMixin, Page):
         StreamFieldPanel('values'),
         StreamFieldPanel('team_story'),
         FieldPanel('vacancy_title'),
-        FieldPanel('vacancy_subtitle_text')
+        FieldPanel('vacancy_subtitle_text'),
+        InlinePanel('page_notifications', label='Notifications')
     ]
 
     subpage_types = ['vacancies.VacancyIndexPage']

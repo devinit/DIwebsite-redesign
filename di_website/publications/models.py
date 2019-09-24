@@ -23,7 +23,7 @@ from wagtail.core.blocks import (
     StructBlock,
     URLBlock
 )
-from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
+from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, StreamFieldPanel
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.contrib.redirects.models import Redirect
@@ -144,7 +144,8 @@ class PublicationType(ClusterableModel):
 class PublicationIndexPage(HeroMixin, Page):
 
     content_panels = Page.content_panels + [
-        hero_panels()
+        hero_panels(),
+        InlinePanel('page_notifications', label='Notifications')
     ]
 
     subpage_types = ['PublicationPage', 'LegacyPublicationPage', 'ShortPublicationPage']
@@ -264,6 +265,7 @@ class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUID
             max_num=1,
         ),
         UUIDPanel(),
+        InlinePanel('page_notifications', label='Notifications')
     ]
 
     @cached_property
@@ -350,6 +352,7 @@ class PublicationSummaryPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
             description='Optional: data download for this summary.',
             max_num=1,
         ),
+        InlinePanel('page_notifications', label='Notifications')
     ]
 
     @cached_property
@@ -391,6 +394,7 @@ class PublicationChapterPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
             description='Optional: data download for this chapter.',
             max_num=1,
         ),
+        InlinePanel('page_notifications', label='Notifications')
     ]
 
     @cached_property
@@ -451,6 +455,7 @@ class PublicationAppendixPage(HeroMixin, ReportChildMixin, FlexibleContentMixin,
             description='Optional: data download for this appendix page.',
             max_num=1,
         ),
+        InlinePanel('page_notifications', label='Notifications')
     ]
 
     @cached_property
@@ -527,6 +532,7 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, PageSearchMixin, Page
             description='Summary for the legacy publication.'
         ),
         DownloadGroupsPanel(),
+        InlinePanel('page_notifications', label='Notifications')
     ]
 
     @cached_property
@@ -586,4 +592,5 @@ class ShortPublicationPage(HeroMixin, FlexibleContentMixin, PageSearchMixin, UUI
             description='Optional: data download for this chapter.',
             max_num=1,
         ),
+        InlinePanel('page_notifications', label='Notifications')
     ]

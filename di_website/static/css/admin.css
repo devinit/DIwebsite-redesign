@@ -1,0 +1,8 @@
+.nav-wrapper .logo {
+    background: #ffffff;
+    margin-top: 0;
+}
+
+.nav-wrapper .logo img {
+    height: auto !important;
+}

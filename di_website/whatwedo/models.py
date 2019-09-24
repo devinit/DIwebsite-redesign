@@ -54,7 +54,8 @@ class WhatWeDoPage(TypesetBodyMixin, HeroMixin, Page):
         MultiFieldPanel([
             FieldPanel('other_pages_heading'),
             InlinePanel('other_pages', label='Related pages', max_num=MAX_OTHER_PAGES)
-        ], heading='Other Pages/Related Links')
+        ], heading='Other Pages/Related Links'),
+        InlinePanel('page_notifications', label='Notifications')
     ]
 
     subpage_types = [
@@ -168,7 +169,8 @@ class ServicesPage(TypesetBodyMixin, HeroMixin, Page):
         StreamFieldPanel('skills'),
         InlinePanel('services_related_news', label="Related news"),
         InlinePanel('services_related_example', label="Project examples"),
-        StreamFieldPanel('sections')
+        StreamFieldPanel('sections'),
+        InlinePanel('page_notifications', label='Notifications')
     ]
 
     parent_page_types = [WhatWeDoPage]

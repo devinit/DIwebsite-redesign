@@ -222,7 +222,8 @@ class HomePage(SectionBodyMixin, Page):
             FieldPanel('featured_work_heading'),
             InlinePanel('featured_pages', label='Featured Pages')
         ], heading='Featured Work'),
-        StreamFieldPanel('sections')
+        StreamFieldPanel('sections'),
+        InlinePanel('page_notifications', label='Notifications')
     ]
 
     def get_context(self, request, *args, **kwargs):
@@ -268,7 +269,8 @@ class StandardPage(SectionBodyMixin, TypesetBodyMixin, HeroMixin, Page):
         MultiFieldPanel([
             FieldPanel('other_pages_heading'),
             InlinePanel('other_pages', label='Related links')
-        ], heading='Other Pages/Related Links')
+        ], heading='Other Pages/Related Links'),
+        InlinePanel('page_notifications', label='Notifications')
     ]
 
     def get_context(self, request):

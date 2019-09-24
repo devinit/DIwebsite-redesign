@@ -1,1 +1,37 @@
 {% extends 'layouts/default.html' %}
+{% load wagtailcore_tags %}
+
+
+{% block body %}
+
+  {% with page=page.featured_publication hero_image=page.hero_image link_caption=page.hero_link_caption %}
+    {% include 'includes/heroes/hero_home.html' %}
+  {% endwith %}
+
+
+  {% if page.featured_content %}
+    <section class="section">
+      <div class="row row--narrow">
+        <div class="l-2up">
+          {% for block in page.featured_content %}
+            {% include_block block %}
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+  {% endif %}
+
+  {% if featured_pages %}
+    {% with related_pages=featured_pages heading=page.featured_work_heading %}
+      {% if related_pages|length == 1 %}
+          {% include 'home/includes/featured_page.html' %}
+      {% else %}
+          {% include 'includes/partials/related_content.html' %}
+      {% endif %}
+    {% endwith %}
+  {% endif %}
+
+  {% for block in page.sections %}
+    {% include_block block %}
+  {% endfor %}
+{% endblock body %}

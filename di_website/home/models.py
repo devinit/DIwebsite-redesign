@@ -1,3 +1,6 @@
+"""
+Home page models, reusable snippets, other common models
+"""
 from django.db import models
 
 from wagtail.admin.edit_handlers import (
@@ -9,8 +12,9 @@ from wagtail.admin.edit_handlers import (
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.admin.edit_handlers import MultiFieldPanel
 from wagtail.core.models import Orderable, Page
-from wagtail.core.fields import RichTextField
+from wagtail.core.fields import RichTextField, StreamField
 from wagtail.snippets.models import register_snippet
+from wagtail.core.blocks import CharBlock, PageChooserBlock, RichTextBlock, StructBlock
 
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
@@ -21,6 +25,12 @@ from di_website.common.constants import SIMPLE_RICHTEXT_FEATURES
 
 
 class AbstractLink(models.Model):
+    """
+    Contains common properties for links
+
+    Arguments:
+        Model {Django Model}
+    """
     class Meta:
         abstract = True
 
@@ -95,7 +105,7 @@ class FooterLink(Orderable, AbstractLink):
         'FooterSection', on_delete=models.CASCADE, related_name="footer_section_links")
 
     def __str__(self):
-        return (self.page.title if self.page else self.label)
+        return self.page.title if self.page else self.label
 
     class Meta:
         verbose_name = "Footer Link"
@@ -150,7 +160,7 @@ class FooterText(models.Model):
         verbose_name_plural = 'Footer Text'
 
 
-class HomePage(HeroMixin, Page):
+class HomePage(SectionBodyMixin, Page):
     def __str__(self):
         return self.title
 
@@ -159,7 +169,84 @@ class HomePage(HeroMixin, Page):
 
     parent_page_types = []  # prevent from being a child page
 
-    content_panels = Page.content_panels + [hero_panels()]
+    featured_publication = models.ForeignKey(
+        Page,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        help_text='The publication to showcase in the page hero'
+    )
+    hero_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        help_text='Overwrites the hero image of the featured publication'
+    )
+    hero_link_caption = models.CharField(
+        max_length=255,
+        blank=True,
+        help_text='Text to display on the link button',
+        default='View full report'
+    )
+    featured_content = StreamField([
+        ('content', StructBlock([
+            ('title', CharBlock()),
+            ('body', RichTextBlock()),
+            ('related_page', PageChooserBlock(required=False)),
+            ('button_caption', CharBlock(required=False, help_text='Overwrite title text from the related page'))
+        ], template='home/blocks/featured_content.html'))
+    ], null=True, blank=True)
+    featured_work_heading = models.CharField(
+        blank=True,
+        null=True,
+        default='Featured work',
+        max_length=200,
+        verbose_name='Section heading'
+    )
+
+    content_panels = Page.content_panels + [
+        MultiFieldPanel([
+            PageChooserPanel('featured_publication', [
+                'publications.PublicationPage',
+                'publications.ShortPublicationPage',
+                'publications.LegacyPublicationPage'
+            ]),
+            ImageChooserPanel('hero_image'),
+            FieldPanel('hero_link_caption')
+        ], heading='Hero Section'),
+        StreamFieldPanel('featured_content'),
+        MultiFieldPanel([
+            FieldPanel('featured_work_heading'),
+            InlinePanel('featured_pages', label='Featured Pages')
+        ], heading='Featured Work'),
+        StreamFieldPanel('sections')
+    ]
+
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+        context['featured_pages'] = [link.other_page for link in self.featured_pages.all()]
+
+        return context
+
+
+class HomePageFeaturedWork(OtherPageMixin):
+    page = ParentalKey(
+        Page, related_name='featured_pages', on_delete=models.CASCADE)
+
+    panels = [
+        PageChooserPanel('other_page', [
+            'events.EventPage',
+            'blog.BlogArticlePage',
+            'news.NewsStoryPage',
+            'publications.PublicationPage',
+            'publications.ShortPublicationPage',
+            'publications.LegacyPublicationPage',
+            'project.ProjectPage'
+        ])
+    ]
 
 
 class StandardPage(SectionBodyMixin, TypesetBodyMixin, HeroMixin, Page):

@@ -1,0 +1,21 @@
+{% load wagtailimages_tags static  %}
+
+{% if item.hero_image %}
+  {% if card_type == "duo" %}
+    {% image item.hero_image max-464x300 as hero_img %}
+    <div class="card__media">
+      <img src="{{hero_img.url}}" alt="{{hero_img.alt}}"/>
+    </div>
+  {% else %}
+    {% image item.hero_image max-400x250 as hero_img %}
+    <div class="card__media" style="background-image: url({{hero_img.url}});"></div>
+  {% endif %}
+{% else %}
+  {% if card_type == "duo" %}
+    <div class="card__media">
+      <img src="{% static 'img/fallback-image.jpg' %}" alt="{{hero_img.alt}}"/>
+    </div>
+  {% else %}
+    <div class="card__media" style="background-image: url({% static 'img/fallback-image.jpg' %});"></div>
+  {% endif %}
+{% endif %}

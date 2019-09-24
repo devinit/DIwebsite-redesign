@@ -135,11 +135,12 @@ class BannerBlock(StructBlock):
         required=False
     )
     text = StreamBlock([
+        ('text_heading', CharBlock(template='blocks/banner/text_heading.html', required=False, icon='title')),
         ('text', TextBlock(template='blocks/banner/text.html')),
         ('list', ListBlock(StructBlock([
             ('title', TextBlock()),
             ('content', TextBlock(required=False)),
-        ], template='blocks/banner/list_item.html'), template='blocks/banner/list.html'))
+        ], template='blocks/banner/list_item.html'), template='blocks/banner/list.html', icon='list-ul'))
     ])
     meta = CharBlock(
         required=False,

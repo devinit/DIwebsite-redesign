@@ -67,7 +67,10 @@ class BlogIndexPage(HeroMixin, Page):
 
         return context
 
-    content_panels = Page.content_panels + [hero_panels()]
+    content_panels = Page.content_panels + [
+        hero_panels(),
+        InlinePanel('page_notifications', label='Notifications')
+    ]
 
 
 class BlogArticlePage(TypesetBodyMixin, HeroMixin, Page):

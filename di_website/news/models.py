@@ -31,7 +31,8 @@ class NewsIndexPage(HeroMixin, Page):
 
     content_panels = Page.content_panels + [
         hero_panels(),
-        FieldPanel('intro')
+        FieldPanel('intro'),
+        InlinePanel('page_notifications', label='Notifications')
     ]
 
     subpage_types = ['NewsStoryPage']
@@ -78,7 +79,8 @@ class NewsStoryPage(TypesetBodyMixin, HeroMixin, Page):
         FieldPanel('press_release'),
         FieldPanel('topics'),
         StreamFieldPanel('body'),
-        InlinePanel('news_related_links', label="Related links", max_num=MAX_RELATED_LINKS)
+        InlinePanel('news_related_links', label="Related links", max_num=MAX_RELATED_LINKS),
+        InlinePanel('page_notifications', label='Notifications')
     ]
 
     parent_page_types = [
@@ -152,6 +154,7 @@ class MediaCenterPage(TypesetBodyMixin, HeroMixin, Page):
         StreamFieldPanel('contact_box'),
         StreamFieldPanel('body'),
         StreamFieldPanel('spokespeople'),
+        InlinePanel('page_notifications', label='Notifications')
     ]
 
     class Meta():

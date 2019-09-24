@@ -54,7 +54,8 @@ class EventPage(TypesetBodyMixin, HeroMixin, Page):
         MultiFieldPanel([
             FieldPanel('other_pages_heading'),
             InlinePanel('event_related_links', label='Related Pages', max_num=MAX_RELATED_LINKS)
-        ], heading='Other Pages')
+        ], heading='Other Pages'),
+        InlinePanel('page_notifications', label='Notifications')
     ]
 
     parent_page_types = ['EventIndexPage']
@@ -77,6 +78,7 @@ class EventIndexPage(TypesetBodyMixin, HeroMixin, Page):
     content_panels = Page.content_panels + [
         hero_panels(),
         StreamFieldPanel('body'),
+        InlinePanel('page_notifications', label='Notifications')
     ]
 
     def get_context(self, request):

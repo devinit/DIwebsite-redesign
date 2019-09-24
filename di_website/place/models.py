@@ -42,7 +42,8 @@ class PlacesPage(TypesetBodyMixin, HeroMixin, Page):
         MultiFieldPanel([
             FieldPanel('other_pages_heading'),
             InlinePanel('other_pages', label='Related pages', max_num=MAX_OTHER_PAGES)
-        ], heading='Other Pages/Related Links')
+        ], heading='Other Pages/Related Links'),
+        InlinePanel('page_notifications', label='Notifications')
     ]
 
     subpage_types = ['home.StandardPage']

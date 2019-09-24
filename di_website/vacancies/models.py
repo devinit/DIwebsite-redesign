@@ -133,7 +133,10 @@ class VacancyIndexPage(HeroMixin, Page):
 
         return context
 
-    content_panels = Page.content_panels + [hero_panels()]
+    content_panels = Page.content_panels + [
+        hero_panels(),
+        InlinePanel('page_notifications', label='Notifications')
+    ]
 
 
 class VacancyPage(TypesetBodyMixin, SectionBodyMixin, HeroMixin, Page):
@@ -211,7 +214,8 @@ class VacancyPage(TypesetBodyMixin, SectionBodyMixin, HeroMixin, Page):
         MultiFieldPanel([
             FieldPanel('other_pages_heading'),
             InlinePanel('other_pages', label='Other Pages')
-        ], heading='Other Pages')
+        ], heading='Other Pages'),
+        InlinePanel('page_notifications', label='Notifications')
     ]
 
     parent_page_types = [

@@ -44,7 +44,8 @@ class ProjectPage(TypesetBodyMixin, HeroMixin, Page):
         MultiFieldPanel([
             FieldPanel('other_pages_heading'),
             InlinePanel('project_related_links', label="Related link", max_num=MAX_RELATED_LINKS)
-        ], heading='Other Pages')
+        ], heading='Other Pages'),
+        InlinePanel('page_notifications', label='Notifications')
     ]
     parent_page_types = [
         'FocusAreasPage'
@@ -100,7 +101,8 @@ class FocusAreasPage(TypesetBodyMixin, HeroMixin, Page):
         MultiFieldPanel([
             FieldPanel('other_pages_heading'),
             InlinePanel('other_pages', label='Related Page', max_num=4)
-        ], heading='Related Pages')
+        ], heading='Related Pages'),
+        InlinePanel('page_notifications', label='Notifications')
     ]
 
 

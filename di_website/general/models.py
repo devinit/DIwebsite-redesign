@@ -38,6 +38,7 @@ class General(TypesetBodyMixin, HeroMixin, SectionBodyMixin, Page):
             FieldPanel('other_pages_heading'),
             InlinePanel('other_pages', label='Related pages')
         ], heading='Other Pages/Related Links'),
+        InlinePanel('page_notifications', label='Notifications')
     ]
 
     class Meta:

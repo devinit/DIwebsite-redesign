@@ -1,5 +1,4 @@
-import datetime
-
+from django.utils.timezone import now
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.functional import cached_property
@@ -46,13 +45,9 @@ class PublishedDateMixin(models.Model):
 
     published_date = models.DateTimeField(
         blank=True,
+        default=now,
         help_text='This date will be used for display and ordering',
     )
-
-    def save(self, *args, **kwargs):
-        if not self.published_date:
-            self.published_date = datetime.datetime.now()
-        super().save(*args, **kwargs)
 
 
 class UUIDMixin(models.Model):

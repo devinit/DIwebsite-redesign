@@ -71,8 +71,11 @@ class PageNotification(models.Model):
     title = models.CharField(
         max_length=255,
         verbose_name='Notification title',
-        default='DI Website Scheduled Notification')
-    message = RichTextField(verbose_name='Notification message')
+        default='DI Website Scheduled Notification',
+        help_text='This will be the subject of the notification email')
+    message = RichTextField(
+        verbose_name='Notification message',
+        help_text='Body of the email. Supports tokens for page title (%page_title%) and page URL (%page_url%)')
     emails = models.TextField(
         help_text='Email addresses to notify. Multiple emails must be comma separated',
         validators=[multiple_email_validator])

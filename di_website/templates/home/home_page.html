@@ -4,9 +4,14 @@
 
 {% block body %}
 
-  {% with page=page.featured_publication hero_image=page.hero_image link_caption=page.hero_link_caption %}
-    {% include 'includes/heroes/hero_home.html' %}
-  {% endwith %}
+
+  {% if page.featured_publicatuion %}
+    {% with page=page.featured_publication hero_image=page.hero_image link_caption=page.hero_link_caption %}
+      {% include 'includes/heroes/hero_home.html' %}
+    {% endwith %}
+  {% else %}
+    {% include 'includes/heroes/hero.html' %}
+  {% endif %}
 
 
   {% if page.featured_content %}

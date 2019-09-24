@@ -173,16 +173,22 @@ class PublicationIndexPage(HeroMixin, Page):
 
         if search_filter:
             if stories:
-                pub_children = reduce(operator.or_, [pub.get_children() for pub in stories]).live().specific().search(search_filter)
-                if pub_children:
-                    matching_parents = reduce(operator.or_, [stories.parent_of(child) for child in pub_children])
-                    stories = list(chain(stories.search(search_filter), matching_parents))
+                child_count = reduce(operator.add, [len(pub.get_children()) for pub in stories])
+                if child_count:
+                    pub_children = reduce(operator.or_, [pub.get_children() for pub in stories]).live().specific().search(search_filter)
+                    if pub_children:
+                        matching_parents = reduce(operator.or_, [stories.parent_of(child) for child in pub_children])
+                        stories = list(chain(stories.search(search_filter), matching_parents))
+                    else:
+                        stories = stories.search(search_filter)
                 else:
                     stories = stories.search(search_filter)
             legacy_pubs = legacy_pubs.search(search_filter)
             short_pubs = short_pubs.search(search_filter)
 
-        paginator = Paginator(list(chain(stories, legacy_pubs, short_pubs)), MAX_PAGE_SIZE)
+        story_list = list(chain(stories, legacy_pubs, short_pubs))
+        story_list.sort(key=lambda x: x.published_date, reverse=True)
+        paginator = Paginator(story_list, MAX_PAGE_SIZE)
         try:
             context['stories'] = paginator.page(page)
         except PageNotAnInteger:
@@ -542,7 +548,7 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, PageSearchMixin, Page
         return self.download_groups.all()
 
 
-class ShortPublicationPage(HeroMixin, FlexibleContentMixin, PageSearchMixin, UUIDMixin, Page):
+class ShortPublicationPage(HeroMixin, PublishedDateMixin, FlexibleContentMixin, PageSearchMixin, UUIDMixin, Page):
 
     class Meta:
         verbose_name = 'Short Publication'
@@ -575,6 +581,7 @@ class ShortPublicationPage(HeroMixin, FlexibleContentMixin, PageSearchMixin, UUI
         SnippetChooserPanel('publication_type'),
         FieldPanel('topics'),
         SnippetChooserPanel('countries'),
+        PublishedDatePanel(),
         ContentPanel(),
         DownloadsPanel(
             heading='Downloads',

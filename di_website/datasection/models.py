@@ -57,6 +57,11 @@ class DataSectionPage(TypesetBodyMixin, HeroMixin, Page):
         StreamFieldPanel('quotes'),
         FieldPanel('dataset_subtitle'),
         StreamFieldPanel('data_support'),
+        InlinePanel('datasection_related_links',
+            label='More About Us',
+            max_num=MAX_RELATED_LINKS
+        )
+
     ]
 
     parent_page_types = ['home.HomePage']
@@ -75,4 +80,13 @@ class DataSectionPage(TypesetBodyMixin, HeroMixin, Page):
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
         context['random_quote'] = self.getRandomQuote()
+        context['related_pages'] = get_related_pages(self.datasection_related_links.all())
         return context
+
+
+class DatasectionRelatedLink(OtherPageMixin):
+    page = ParentalKey(Page, related_name='datasection_related_links', on_delete=models.CASCADE)
+
+    panels = [
+        PageChooserPanel('other_page')
+    ]

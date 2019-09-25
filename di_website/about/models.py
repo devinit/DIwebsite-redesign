@@ -61,7 +61,7 @@ class OurStoryPage(SectionBodyMixin, TypesetBodyMixin, HeroMixin, Page):
 
 
 class WhoWeArePage(SectionBodyMixin, TypesetBodyMixin, HeroMixin, Page):
-    subpage_types = ['OurStoryPage']
+    subpage_types = ['OurStoryPage', 'general.General']
 
     value_section_heading = models.CharField(blank=True, max_length=255)
     value_section_sub_heading = models.TextField(blank=True)

@@ -1,7 +1,7 @@
 {% load wagtailcore_tags wagtailimages_tags static %}
 
 {% if item %}
-<a href="{% pageurl item %}" class="card card--offset">
+  <a href="{% pageurl item %}" class="card card--offset">
     {% if show_tag %}
         <span class="card__tag">News</span>
     {% endif %}
@@ -12,14 +12,14 @@
       {% if item.first_published_at %}
         <span class="card__meta">{{ item.first_published_at|date:"j F Y" }}</span>
       {% endif %}
-        <h3 class="card__title"><span>{{ item.title }}</span></h3>
-        <div class="card__excerpt">
-            {% if item.hero_text %}
-                {{item.hero_text|richtext}}
-            {% else %}
-                {{ item.body|first|striptags|truncatewords:40 }}
-            {% endif %}
-        </div>
+      <h3 class="card__title"><span>{{ item.title }}</span></h3>
+      <div class="card__excerpt">
+        {% if item.hero_text %}
+          {{item.hero_text|richtext}}
+        {% else %}
+          {{ item.body|first|striptags|truncatewords:40 }}
+        {% endif %}
+      </div>
     </div>
-</a>
+  </a>
 {% endif %}

@@ -34,6 +34,7 @@ class OurTeamPage(HeroMixin, Page):
         verbose_name = "Our Team Page"
 
     subpage_types = ['TeamMemberPage']
+    parent_page_types = ['about.WhoWeArePage']
 
     content_panels = Page.content_panels + [
         hero_panels(),

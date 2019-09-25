@@ -6,7 +6,8 @@ from wagtail.core.blocks import (
     StreamBlock,
     StructBlock,
     TextBlock,
-    URLBlock
+    URLBlock,
+    EmailBlock
 )
 from wagtail.core.fields import StreamField
 from wagtail.images.blocks import ImageChooserBlock
@@ -21,6 +22,7 @@ class TeamMemberQuoteBlock(StructBlock):
 
     class Meta():
         icon = 'fa-users'
+
 
 class ExternalMemberQuoteBlock(StructBlock):
     quote_text = TextBlock()
@@ -37,3 +39,24 @@ class QuoteStreamBlock(StreamBlock):
     team_member = TeamMemberQuoteBlock()
     external_member = ExternalMemberQuoteBlock()
     required = False
+
+
+class DataSupportServicesBlock(StructBlock):
+    title = TextBlock()
+    description = TextBlock()
+    telephone = TextBlock()
+    email = EmailBlock()
+    photo = ImageChooserBlock(required=False)
+    photographer = TextBlock()
+    photo_credit = URLBlock()
+
+    class Meta():
+        icon = 'fa-phone-square'
+
+
+class DataSuportStreamBlock(StreamBlock):
+    support = DataSupportServicesBlock()
+    required = False
+
+    class Meta():
+        max_num=1

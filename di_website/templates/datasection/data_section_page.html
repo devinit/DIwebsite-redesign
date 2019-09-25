@@ -7,6 +7,78 @@
 
 {% block body %}
 
+<section class="section">
+  <div class="row row--narrow">
+    <div class="l-sidebar">
+      {% comment %} TODO:: Add more about section here {% endcomment %}
+      <div class="l-sidebar__body">
+        <div class="is-typeset wysiwyg">
+          <p>
+            {{ page.body }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
+<section class="section section--alt">
+  <div class="row row--narrow">
+    <div class="l-2up">
+      <div class="l-2up__col">
+
+{% if random_quote.value.team_member %}
+
+<div class="testimonial testimonial--reverse">
+  <div class="testimonial__main">
+    <p class="testimonial__copy">
+      {{ random_quote.value.quote_text }}
+    </p>
+    <span class="testimonial__cite">
+      {{ random_quote.value.team_member.specific.name }}, {{ random_quote.value.team_member.specific.position }}, DI
+    </span>
+  </div>
+  <aside class="testimonial__aside">
+    {% if random_quote.value.team_member.specific.image %}
+      {% image random_quote.value.team_member.specific.image max-400x250 as profile_img %}
+      <img src="{{ profile_img.url }}" alt="alt tag">
+    {% else %}
+      <img src="img/fallback-image.jpg" alt="alt tag">
+    {% endif %}
+  </aside>
+</div>
+
+{% else %}
+<div class="testimonial testimonial--reverse">
+  <div class="testimonial__main">
+    <p class="testimonial__copy">
+      {{ random_quote.value.quote_text }}
+    </p>
+    <span class="testimonial__cite">
+      {{ random_quote.value.name }}, {{ random_quote.value.role }}, {{ random_quote.value.organisation }},
+    </span>
+  </div>
+  <aside class="testimonial__aside">
+    {% if random_quote.value.external_member_photo %}
+      {% image random_quote.value.external_member_photo max-400x250 as profile_img %}
+      <img src="{{ profile_img.url }}" alt="alt tag">
+    {% else %}
+      <img src="img/fallback-image.jpg" alt="alt tag">
+    {% endif %}
+  </aside>
+</div>
+
+{% endif %}
+
+      </div>
+      <div class="l-2up__col">
+        <p class="m-text-major"><span>583</span> datasets</p>
+        <p class="para para--typeset">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+          incididunt ut labore et dolore magna aliqua.</p>
+        <a href="#" class="button">View datasets</a>
+      </div>
+    </div>
+  </div>
+</section>
 
 {% endblock %}

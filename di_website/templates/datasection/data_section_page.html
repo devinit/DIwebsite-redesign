@@ -116,4 +116,30 @@
 
 {% endfor %}
 
+<section class="section">
+  <div class="row row--narrow">
+    <h2 class="section__heading">More about</h2>
+    <div class="l-4up">
+
+      {% for page_item in related_pages %}
+        <a href="#" class="card">
+            {% if page_item.specific.hero_image %}
+              {% image page_item.specific.hero_image max-400x250 as photo %}
+              <div class="card__media" style="background-image: url({{ photo.url }});">
+              </div>
+            {% else %}
+              <div class="card__media" style="background-image: url('img/fallback-image.jpg');">
+              </div>
+            {% endif %}
+
+          <div class="card__body">
+            <h3 class="card__title"><span>{{ page_item.title }}</span></h3>
+          </div>
+        </a>
+      {% endfor %}
+
+    </div>
+  </div>
+</section>
+
 {% endblock %}

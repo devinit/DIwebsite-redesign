@@ -73,12 +73,47 @@
       </div>
       <div class="l-2up__col">
         <p class="m-text-major"><span>583</span> datasets</p>
-        <p class="para para--typeset">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-          incididunt ut labore et dolore magna aliqua.</p>
-        <a href="#" class="button">View datasets</a>
+        <p class="para para--typeset">
+          {{ page.dataset_subtitle }}
+        </p>
+        <a href="{{ page.hero_link }}" class="button">View datasets</a>
       </div>
     </div>
   </div>
 </section>
+
+{% for block in page.data_support %}
+
+<section class="section">
+  <div class="row row--narrow">
+    <div class="banner">
+      <div class="l-banner">
+        <div class="l-banner__aside">
+          <div class="banner__media">
+          {% if block.value.photo %}
+            {% image block.value.photo max-400x250 as photo %}
+            <img src="{{ photo.url }}" alt="alt tag">
+            <span class="banner__credit">Image by <a href="{{ block.value.photo_credit }}">{{ block.value.photographer }}</a></span>
+          {% else %}
+            <img src="img/fallback-image.jpg" alt="alt tag">
+          {% endif %}
+          </div>
+        </div>
+        <div class="l-banner__main">
+          <h3 class="banner__heading">{{ block.value.title }}</h3>
+          <p class="banner__excerpt">
+            {{ block.value.description }}
+          </p>
+          <ul class="banner__list">
+            <li>Telephone: {{ block.value.telephone }}</li>
+            <li>Email: <a href="mailto:">{{ block.value.email }}</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endfor %}
 
 {% endblock %}

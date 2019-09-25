@@ -11,6 +11,20 @@
 {% block body %}
 {% include 'publications/chapter-nav/nav.html' %}
 
+{% if page.authors|length > 0 %}
+<div class="chapter-block-wrapper space-section-both-med">
+<div class="row">
+    <div class="larger-center">
+        <div class="chapter-block__item">
+            <div class="chapter-block_content">
+              {% include 'includes/partials/multi-authors.html' with authors=page.authors %}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="chapter-block-wrapper space-section-both-med">
+{% endif %}
+
 {% for item in page.listing %}
     <div class="chapter-block-wrapper space-section-both-med {% cycle '' 'chapter-block-wrapper--alt' %}">
         {% responsiveimage item.hero_image fill-665x320 srcset="fill-360x150 1w, fill-460x150 400w, fill-740x200 500w, fill-350x400 780w, fill-475x400 1000w, fill-680x400 1350w" as image %}
@@ -19,9 +33,6 @@
             <div class="larger-center">
                 <div class="chapter-block__item">
                     <div class="chapter-block_content">
-                        {% if page.authors|length > 0 %}
-                          {% include 'includes/partials/multi-authors.html' with authors=page.authors %}
-                        {% endif %}
                         {% if item.chapter_number %}
                             <p class="chapter-title {% cycle 'reverse-text' '' %}">{{ item.label | title }}</p>
                         {% endif %}

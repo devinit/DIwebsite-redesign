@@ -24,18 +24,18 @@
         <div class="row row--narrow">
             <h2 class="section__heading">Benefits of working at DI</h2>
             <div class="l-sidebar">
-                {% for block in page.benefits %}
+                <div class="l-sidebar__body">
+                  {% for block in page.benefits %}
                     {% with block.value as val %}
-                        <div class="l-sidebar__body">
-                            {% include "includes/partials/benefits.html" %}
-                        </div>
-                        <aside class="l-sidebar__aside">
-                            {% if val.logos %}
-                                {% include "workforus/work_for_us_logos.html" %}
-                            {% endif %}
-                        </aside>
+                      {% include "includes/partials/benefits.html" %}
                     {% endwith %}
-                {% endfor %}
+                  {% endfor %}
+                </div>
+                <aside class="l-sidebar__aside">
+                  {% for block in page.logos %}
+                    {% include "workforus/work_for_us_logos.html" %}
+                  {% endfor %}
+                </aside>
             </div>
         </div>
     </section>

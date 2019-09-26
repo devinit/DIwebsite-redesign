@@ -19,9 +19,6 @@ class BenefitsBlock(StructBlock):
     title = TextBlock()
     body = RichTextBlock(required=False)
     image = ImageChooserBlock(required=False)
-    logos = StreamBlock([
-        ('image', ImageChooserBlock()),
-    ])
 
     class Meta():
         icon = 'fa-heart'

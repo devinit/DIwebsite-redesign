@@ -43,7 +43,13 @@ class WorkForUsPage(TypesetBodyMixin, HeroMixin, Page):
         null=True,
         blank=True
     )
-
+    logos = StreamField([
+        ('image', ImageChooserBlock()),
+    ],
+        verbose_name="Logos",
+        null=True,
+        blank=True
+    )
     value_section_heading = models.CharField(
         blank=True,
         max_length=255,
@@ -78,6 +84,7 @@ class WorkForUsPage(TypesetBodyMixin, HeroMixin, Page):
         hero_panels(),
         StreamFieldPanel('body'),
         StreamFieldPanel('benefits'),
+        StreamFieldPanel('logos'),
         FieldPanel('value_section_heading'),
         FieldPanel('value_section_sub_heading'),
         StreamFieldPanel('values'),

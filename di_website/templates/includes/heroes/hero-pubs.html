@@ -10,3 +10,9 @@
         {% endif %}
     </ul>
 {% endblock hero_meta %}
+
+{% block hero-link %}
+  {% if page.publication_downloads_list|length > 0 or page.data_downloads_list|length > 0 %}
+    <a href="#downloads" class="button button--reverse">Publication downloads</a>
+  {% endif %}
+{% endblock hero-link %}

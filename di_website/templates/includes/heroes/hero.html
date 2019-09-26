@@ -36,6 +36,7 @@
             {% if page.hero_link and page.hero_link_caption %}
                 <a href="{% pageurl page.hero_link %}" class="button button--reverse">{{ page.hero_link_caption }}</a>
             {% endif %}
+            {% block hero-link %}{% endblock hero-link %}
         </div>
     </div>
 

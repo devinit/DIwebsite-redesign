@@ -5,44 +5,44 @@ from wagtail.core.blocks import (
     RichTextBlock,
     StreamBlock,
     StructBlock,
-    TextBlock,
-    URLBlock
-)
-from wagtail.core.fields import StreamField
+    TextBlock)
 from wagtail.images.blocks import ImageChooserBlock
 
-from di_website.common.constants import RICHTEXT_FEATURES
-from di_website.common.blocks import LinkBlock
 
-
-class BenefitsBlock(StructBlock):
+class BenefitBlock(StructBlock):
+    """
+    Allows the addition of a single benefit
+    """
     title = TextBlock()
     body = RichTextBlock(required=False)
     image = ImageChooserBlock(required=False)
-    logos = StreamBlock([
-        ('image', ImageChooserBlock()),
-    ])
 
     class Meta():
         icon = 'fa-heart'
 
 
 class BenefitsStreamBlock(StreamBlock):
-    item = BenefitsBlock()
+    """
+    Handles the benefits section of the 'Work for Us' page
+    """
+    benefit = BenefitBlock()
+    logo = ImageChooserBlock()
+
     required = False
 
 
 class TeamStoryBlock(StructBlock):
-    heading = TextBlock()
-    subtitle_text = TextBlock()
-    stories = StreamBlock([
-        ('team_story_page', PageChooserBlock(required=False)),
-    ])
+    team_story_page = PageChooserBlock(
+        verbose_name='Story Page',
+        page_type=['general.General']
+    )
+    logo = ImageChooserBlock()
 
     class Meta():
         icon = 'fa-book'
+        verbose_name = 'Team Story'
 
 
 class TeamStoryStreamBlock(StreamBlock):
-    item = TeamStoryBlock()
+    team_story = TeamStoryBlock()
     required = False

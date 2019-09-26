@@ -96,13 +96,13 @@
     </div>
   </section>
 
-{% if self.services_related_news.count %}
+{% if related_news|length %}
   <section class="section">
     <div class="row row--narrow">
       <h2 class="section__heading">News</h2>
       <div class="l-2up-3up">
-        {% for item in self.services_related_news.all %}
-          {% include 'includes/cards/card-news.html' with show_tag=True %}
+        {% for item in related_news %}
+          {% include 'includes/cards/card-news.html' with show_tag=True item=item.specific %}
         {% endfor %}
       </div>
     </div>

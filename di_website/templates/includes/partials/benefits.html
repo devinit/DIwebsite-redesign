@@ -3,17 +3,17 @@
 <div class="project">
     <div class="project__main">
         <div class="project__header">
-            {% if val.image %}
-                {% image val.image fill-180x112-c100 as image %}
+            {% if item.image %}
+                {% image item.image fill-180x112-c100 as image %}
                 <div class="project__media">
                     <img src="{{ image.url }}" alt="{{ image.alt }}">
                 </div>
             {% endif %}
 
-            <h2 class="project__heading">{{ val.title }}</h2>
+            <h2 class="project__heading">{{ item.title }}</h2>
         </div>
         <div class="is-typeset">
-            <p>{{ val.body }}.</p>
+            <p>{{ item.body }}.</p>
         </div>
     </div>
 </div>

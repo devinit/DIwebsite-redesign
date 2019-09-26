@@ -43,53 +43,73 @@ class WorkForUsPage(TypesetBodyMixin, HeroMixin, Page):
         null=True,
         blank=True
     )
-
     value_section_heading = models.CharField(
         blank=True,
         max_length=255,
         verbose_name='Value Heading',
+        default='Our values'
     )
-    value_section_sub_heading = models.TextField(
+    value_section_sub_heading = RichTextField(
         blank=True,
-        max_length=255,
-        verbose_name='Value Sub Heading',
+        verbose_name='Value Sub-heading',
+        help_text='A brief description of the section contents'
     )
     values = StreamField([
         ('value', ValueBlock()),
     ], null=True, blank=True)
-
-    team_story = StreamField(
+    team_story_section_heading = models.CharField(
+        blank=True,
+        max_length=255,
+        verbose_name='Section Heading',
+        default='Team stories'
+    )
+    team_story_section_sub_heading = RichTextField(
+        blank=True,
+        verbose_name='Section Sub-heading',
+        help_text='A brief description of the section contents'
+    )
+    team_stories = StreamField(
         TeamStoryStreamBlock,
         verbose_name="Team Stories",
         null=True,
         blank=True
     )
-    vacancy_title = models.TextField(
+    vacancy_section_heading = models.TextField(
         blank=True,
         max_length=255,
-        verbose_name='Vacancy Title',
+        verbose_name='Section Heading',
+        default='Latest vacancies'
     )
-    vacancy_subtitle_text = models.TextField(
+    vacancy_section_sub_heading = RichTextField(
         blank=True,
-        max_length=255,
-        verbose_name='Brief descriptive text for vacancies',
+        verbose_name='Section Sub-heading',
+        help_text='A brief description of the section contents'
     )
     content_panels = Page.content_panels + [
         hero_panels(),
         StreamFieldPanel('body'),
         StreamFieldPanel('benefits'),
-        FieldPanel('value_section_heading'),
-        FieldPanel('value_section_sub_heading'),
-        StreamFieldPanel('values'),
-        StreamFieldPanel('team_story'),
-        FieldPanel('vacancy_title'),
-        FieldPanel('vacancy_subtitle_text'),
+        MultiFieldPanel([
+            FieldPanel('value_section_heading'),
+            FieldPanel('value_section_sub_heading'),
+            StreamFieldPanel('values')
+        ], heading='Values Section'),
+        MultiFieldPanel([
+            FieldPanel('team_story_section_heading'),
+            FieldPanel('team_story_section_sub_heading'),
+            StreamFieldPanel('team_stories')
+        ], heading='Team Stories Section'),
+        MultiFieldPanel([
+            FieldPanel('vacancy_section_heading'),
+            FieldPanel('vacancy_section_sub_heading')
+        ], heading='Vacancies Section'),
         InlinePanel('page_notifications', label='Notifications')
     ]
 
-    subpage_types = ['vacancies.VacancyIndexPage']
+    subpage_types = ['vacancies.VacancyIndexPage', 'general.General']
 
     def get_context(self, request):
         context = super().get_context(request)
         context['vacancies'] = VacancyPage.objects.live()
+
         return context

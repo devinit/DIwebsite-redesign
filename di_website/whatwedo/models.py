@@ -18,11 +18,12 @@ from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
 
 from di_website.common.mixins import HeroMixin, TypesetBodyMixin, OtherPageMixin
-from di_website.common.base import hero_panels
+from di_website.common.base import hero_panels, get_related_pages
 from .blocks import ExpertiseBlock, FocusAreasBlock, LocationsMapBlock
 from di_website.common.blocks import (
     BannerBlock, SectionStreamBlock, TestimonialBlock, VideoDuoTextBlock)
 from di_website.common.constants import MAX_OTHER_PAGES
+from di_website.news.models import NewsStoryPage
 
 class WhatWeDoPage(TypesetBodyMixin, HeroMixin, Page):
     """
@@ -122,6 +123,8 @@ class ServicesPage(TypesetBodyMixin, HeroMixin, Page):
         context['topics'] = ExampleTopic.objects.all()
         context['selected_topic'] = topic_filter
         context['examples'] = examples
+        context['related_news'] = get_related_pages(
+            self.services_related_news.all(), NewsStoryPage.objects, min_len=0)
 
         return context
 

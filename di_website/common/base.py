@@ -37,19 +37,19 @@ def get_paginator_range(paginator, page):
     return [i for i in range(range_start, range_end + 1)]
 
 
-def get_related_pages(selected_pages, queryset=None):
+def get_related_pages(selected_pages, queryset=None, min_len=MAX_RELATED_LINKS):
     count = len(selected_pages)
 
-    if count < MAX_RELATED_LINKS:
-        difference = MAX_RELATED_LINKS - count
+    if count < min_len:
+        difference = min_len - count
         related_pages = [link.other_page for link in selected_pages]
-        if len(related_pages) and queryset:
+        if related_pages and queryset:
             id_list = [page.id for page in related_pages if page]
-            if len(id_list):
+            if id_list:
                 return list(related_pages) + list(queryset.live().exclude(id__in=id_list)[:difference])
-            return list(queryset.live()[:MAX_RELATED_LINKS])
+            return list(queryset.live()[:min_len])
         elif queryset:
-            return list(queryset.live()[:MAX_RELATED_LINKS])
+            return list(queryset.live()[:min_len])
 
     return list([link.other_page for link in selected_pages])
 

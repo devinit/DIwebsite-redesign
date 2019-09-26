@@ -33,8 +33,8 @@ class OurTeamPage(HeroMixin, Page):
     class Meta:
         verbose_name = "Our Team Page"
 
-    subpage_types = ['TeamMemberPage']
     parent_page_types = ['about.WhoWeArePage']
+    subpage_types = ['TeamMemberPage', 'general.General']
 
     content_panels = Page.content_panels + [
         hero_panels(),
@@ -94,6 +94,7 @@ class TeamMemberPage(Page):
     parent_page_types = [
         'OurTeamPage'
     ]
+    subpage_types = ['general.General']
 
 
 class TeamMemberPageDepartment(Orderable, models.Model):

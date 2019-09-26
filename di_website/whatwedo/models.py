@@ -64,7 +64,8 @@ class WhatWeDoPage(TypesetBodyMixin, HeroMixin, Page):
         'whatwedo.ServicesPage',
         'news.NewsIndexPage',
         'events.EventIndexPage',
-        'place.PlacesPage'
+        'place.PlacesPage',
+        'general.General'
     ]
     parent_page_types = ['home.HomePage']
 
@@ -177,6 +178,7 @@ class ServicesPage(TypesetBodyMixin, HeroMixin, Page):
     ]
 
     parent_page_types = [WhatWeDoPage]
+    subpage_types = ['general.General']
 
 
 class ServicesPageRelatedNews(OtherPageMixin):

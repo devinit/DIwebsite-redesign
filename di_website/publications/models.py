@@ -161,7 +161,7 @@ class PublicationIndexPage(HeroMixin, Page):
         InlinePanel('page_notifications', label='Notifications')
     ]
 
-    subpage_types = ['PublicationPage', 'LegacyPublicationPage', 'ShortPublicationPage']
+    subpage_types = ['PublicationPage', 'LegacyPublicationPage', 'ShortPublicationPage', 'general.General']
     parent_page_types = ['home.HomePage']
 
     def get_context(self, request):
@@ -241,6 +241,7 @@ class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUID
         'PublicationSummaryPage',
         'PublicationChapterPage',
         'PublicationAppendixPage',
+        'general.General'
     ]
 
     colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=RED)

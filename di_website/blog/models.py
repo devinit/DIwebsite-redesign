@@ -34,7 +34,7 @@ class BlogTopic(TaggedItemBase):
 
 
 class BlogIndexPage(HeroMixin, Page):
-    subpage_types = ['BlogArticlePage']
+    subpage_types = ['BlogArticlePage', 'general.General']
 
     class Meta():
         verbose_name = 'Blog Index Page'
@@ -109,6 +109,8 @@ class BlogArticlePage(TypesetBodyMixin, HeroMixin, Page):
     parent_page_types = [
         'BlogIndexPage'
     ]
+
+    subpage_types = ['general.General']
 
     class Meta():
         verbose_name = 'Blog Article Page'

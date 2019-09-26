@@ -35,7 +35,7 @@ class NewsIndexPage(HeroMixin, Page):
         InlinePanel('page_notifications', label='Notifications')
     ]
 
-    subpage_types = ['NewsStoryPage']
+    subpage_types = ['NewsStoryPage', 'general.General']
     parent_page_types = ['whatwedo.WhatWeDoPage']
 
     class Meta():
@@ -86,6 +86,7 @@ class NewsStoryPage(TypesetBodyMixin, HeroMixin, Page):
     parent_page_types = [
         'NewsIndexPage'
     ]
+    subpage_types = ['general.General']
 
     class Meta():
         verbose_name = 'News Story Page'

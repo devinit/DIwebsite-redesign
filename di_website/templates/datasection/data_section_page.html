@@ -27,51 +27,53 @@
     <div class="l-2up">
       <div class="l-2up__col">
 
-{% if random_quote.value.team_member %}
+        {% if random_quote.value.team_member %}
 
-<div class="testimonial testimonial--reverse">
-  <div class="testimonial__main">
-    <p class="testimonial__copy">
-      {{ random_quote.value.quote_text }}
-    </p>
-    <span class="testimonial__cite">
-      {{ random_quote.value.team_member.specific.name }}, {{ random_quote.value.team_member.specific.position }}, DI
-    </span>
-  </div>
-  <aside class="testimonial__aside">
-    {% if random_quote.value.team_member.specific.image %}
-      {% image random_quote.value.team_member.specific.image max-400x250 as profile_img %}
-      <img src="{{ profile_img.url }}" alt="alt tag">
-    {% else %}
-      <img src="img/fallback-image.jpg" alt="alt tag">
-    {% endif %}
-  </aside>
-</div>
+          <div class="testimonial testimonial--reverse">
+            <div class="testimonial__main">
+              <p class="testimonial__copy">
+                {{ random_quote.value.quote_text }}
+              </p>
+              <span class="testimonial__cite">
+                {{ random_quote.value.team_member.specific.name }},
+                {{ random_quote.value.team_member.specific.position }}, DI
+              </span>
+            </div>
+            <aside class="testimonial__aside">
+              {% if random_quote.value.team_member.specific.image %}
+                {% image random_quote.value.team_member.specific.image max-400x250 as profile_img %}
+                <img src="{{ profile_img.url }}" alt="alt tag">
+              {% else %}
+                <img src="img/fallback-image.jpg" alt="alt tag">
+              {% endif %}
+            </aside>
+          </div>
 
-{% else %}
-<div class="testimonial testimonial--reverse">
-  <div class="testimonial__main">
-    <p class="testimonial__copy">
-      {{ random_quote.value.quote_text }}
-    </p>
-    <span class="testimonial__cite">
-      {{ random_quote.value.name }}, {{ random_quote.value.role }}, {{ random_quote.value.organisation }},
-    </span>
-  </div>
-  <aside class="testimonial__aside">
-    {% if random_quote.value.external_member_photo %}
-      {% image random_quote.value.external_member_photo max-400x250 as profile_img %}
-      <img src="{{ profile_img.url }}" alt="alt tag">
-    {% else %}
-      <img src="img/fallback-image.jpg" alt="alt tag">
-    {% endif %}
-  </aside>
-</div>
+        {% else %}
+          <div class="testimonial testimonial--reverse">
+            <div class="testimonial__main">
+              <p class="testimonial__copy">
+                {{ random_quote.value.quote_text }}
+              </p>
+              <span class="testimonial__cite">
+                {{ random_quote.value.name }}, {{ random_quote.value.role }}, {{ random_quote.value.organisation }},
+              </span>
+            </div>
+            <aside class="testimonial__aside">
+              {% if random_quote.value.external_member_photo %}
+                {% image random_quote.value.external_member_photo max-400x250 as profile_img %}
+                <img src="{{ profile_img.url }}" alt="alt tag">
+              {% else %}
+                <img src="img/fallback-image.jpg" alt="alt tag">
+              {% endif %}
+            </aside>
+          </div>
 
-{% endif %}
+        {% endif %}
 
       </div>
       <div class="l-2up__col">
+        {% comment %} TODO:: Load correct dataset number when dataset branch is completed {% endcomment %}
         <p class="m-text-major"><span>583</span> datasets</p>
         <p class="para para--typeset">
           {{ page.dataset_subtitle }}
@@ -84,62 +86,73 @@
 
 {% for block in page.data_support %}
 
-<section class="section">
-  <div class="row row--narrow">
-    <div class="banner">
-      <div class="l-banner">
-        <div class="l-banner__aside">
-          <div class="banner__media">
-          {% if block.value.photo %}
-            {% image block.value.photo max-400x250 as photo %}
-            <img src="{{ photo.url }}" alt="alt tag">
-            <span class="banner__credit">Image by <a href="{{ block.value.photo_credit }}">{{ block.value.photographer }}</a></span>
-          {% else %}
-            <img src="img/fallback-image.jpg" alt="alt tag">
-          {% endif %}
+  <section class="section">
+    <div class="row row--narrow">
+      <div class="banner">
+        <div class="l-banner">
+          <div class="l-banner__aside">
+            <div class="banner__media">
+              {% if block.value.photo %}
+                {% image block.value.photo max-400x250 as photo %}
+                <img src="{{ photo.url }}" alt="alt tag">
+                <span class="banner__credit">
+                  {% if block.value.photographer and block.value.photo_credit %}
+                    Image by <a href="{{ block.value.photo_credit }}">{{ block.value.photographer }}</a>
+                  {% endif %}
+                </span>
+              {% else %}
+                <img src="img/fallback-image.jpg" alt="alt tag">
+              {% endif %}
+            </div>
           </div>
-        </div>
-        <div class="l-banner__main">
-          <h3 class="banner__heading">{{ block.value.title }}</h3>
-          <p class="banner__excerpt">
-            {{ block.value.description }}
-          </p>
-          <ul class="banner__list">
-            <li>Telephone: {{ block.value.telephone }}</li>
-            <li>Email: <a href="mailto:">{{ block.value.email }}</a></li>
-          </ul>
+          <div class="l-banner__main">
+            <h3 class="banner__heading">{{ block.value.title }}</h3>
+            <p class="banner__excerpt">
+              {{ block.value.description | default:"" }}
+            </p>
+            <ul class="banner__list">
+              {% if block.value.telephone %}
+                <li>Telephone: {{ block.value.telephone }}</li>
+              {% endif %}
+
+              {% if block.value.email %}
+                <li>Email: <a href="mailto:">{{ block.value.email }}</a></li>
+              {% endif %}
+            </ul>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
 {% endfor %}
 
+{% if related_pages %}
 <section class="section">
   <div class="row row--narrow">
     <h2 class="section__heading">More about</h2>
     <div class="l-4up">
 
       {% for page_item in related_pages %}
-        <a href="#" class="card">
-            {% if page_item.specific.hero_image %}
-              {% image page_item.specific.hero_image max-400x250 as photo %}
-              <div class="card__media" style="background-image: url({{ photo.url }});">
-              </div>
-            {% else %}
-              <div class="card__media" style="background-image: url('img/fallback-image.jpg');">
-              </div>
-            {% endif %}
-
-          <div class="card__body">
-            <h3 class="card__title"><span>{{ page_item.title }}</span></h3>
+      <a href="#" class="card">
+        {% if page_item.specific.hero_image %}
+          {% image page_item.specific.hero_image max-400x250 as photo %}
+          <div class="card__media" style="background-image: url({{ photo.url }});">
           </div>
-        </a>
+        {% else %}
+          <div class="card__media" style="background-image: url('img/fallback-image.jpg');">
+          </div>
+        {% endif %}
+
+        <div class="card__body">
+          <h3 class="card__title"><span>{{ page_item.title }}</span></h3>
+        </div>
+      </a>
       {% endfor %}
 
     </div>
   </div>
 </section>
+{% endif %}
 
 {% endblock %}

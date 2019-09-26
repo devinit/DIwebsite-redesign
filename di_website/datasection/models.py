@@ -1,14 +1,10 @@
 from django.db import models
-from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
-
-from datetime import datetime
 
 import random
 
 from wagtail.admin.edit_handlers import (
     FieldPanel,
     InlinePanel,
-    MultiFieldPanel,
     PageChooserPanel,
     StreamFieldPanel
 )
@@ -16,11 +12,9 @@ from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Page
 from wagtail.core.blocks import StreamBlock
 
-from di_website.common.base import hero_panels, get_paginator_range, get_related_pages
+from di_website.common.base import hero_panels, get_related_pages
 from di_website.common.mixins import OtherPageMixin, HeroMixin, TypesetBodyMixin
-from di_website.common.constants import MAX_PAGE_SIZE, MAX_RELATED_LINKS
-
-from taggit.models import Tag, TaggedItemBase
+from di_website.common.constants import MAX_RELATED_LINKS
 
 from modelcluster.fields import ParentalKey
 
@@ -45,7 +39,7 @@ class DataSectionPage(TypesetBodyMixin, HeroMixin, Page):
     )
 
     data_support = StreamField(
-        DataSuportStreamBlock,
+        DataSuportStreamBlock(max_num=1),
         verbose_name="Data Support Services",
         null=True,
         blank=True

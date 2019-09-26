@@ -1,5 +1,3 @@
-from django.db import models
-
 from wagtail.core.blocks import (
     PageChooserBlock,
     RichTextBlock,
@@ -11,9 +9,6 @@ from wagtail.core.blocks import (
 )
 from wagtail.core.fields import StreamField
 from wagtail.images.blocks import ImageChooserBlock
-
-from di_website.common.constants import RICHTEXT_FEATURES
-from di_website.common.blocks import LinkBlock
 
 
 class TeamMemberQuoteBlock(StructBlock):
@@ -57,6 +52,3 @@ class DataSupportServicesBlock(StructBlock):
 class DataSuportStreamBlock(StreamBlock):
     support = DataSupportServicesBlock()
     required = False
-
-    class Meta():
-        max_num=1

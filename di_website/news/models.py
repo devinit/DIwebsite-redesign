@@ -162,3 +162,6 @@ class MediaCenterPage(TypesetBodyMixin, HeroMixin, Page):
         verbose_name = 'Media Center Page'
 
     subpage_types = ['general.General']
+    parent_page_types = [
+        'home.HomePage'
+    ]

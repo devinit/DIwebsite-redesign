@@ -71,7 +71,7 @@ class VacancyIndexPage(HeroMixin, Page):
         verbose_name = 'Vacancy Index Page'
 
     parent_page_types = ['workforus.WorkForUsPage']
-    subpage_types = ['VacancyPage']
+    subpage_types = ['VacancyPage','general.General']
 
     def create_subscription(self, email, subscription_on, department):
         subscription = Subscription.objects.create_subscription(email, 'jobs', department)
@@ -218,6 +218,7 @@ class VacancyPage(TypesetBodyMixin, SectionBodyMixin, HeroMixin, Page):
         InlinePanel('page_notifications', label='Notifications')
     ]
 
+    subpage_types = ['general.General']
     parent_page_types = [
         'VacancyIndexPage'
     ]

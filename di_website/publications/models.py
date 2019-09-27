@@ -161,7 +161,7 @@ class PublicationIndexPage(HeroMixin, Page):
         InlinePanel('page_notifications', label='Notifications')
     ]
 
-    subpage_types = ['PublicationPage', 'LegacyPublicationPage', 'ShortPublicationPage']
+    subpage_types = ['PublicationPage', 'LegacyPublicationPage', 'ShortPublicationPage', 'general.General']
     parent_page_types = ['home.HomePage']
 
     def get_context(self, request):
@@ -236,7 +236,7 @@ class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUID
     class Meta:
         verbose_name = 'Publication Page'
 
-    parent_page_types = ['PublicationIndexPage']
+    parent_page_types = ['PublicationIndexPage', 'general.General']
     subpage_types = [
         'PublicationSummaryPage',
         'PublicationChapterPage',

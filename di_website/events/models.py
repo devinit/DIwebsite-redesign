@@ -59,7 +59,6 @@ class EventPage(TypesetBodyMixin, HeroMixin, Page):
     ]
 
     parent_page_types = ['EventIndexPage']
-    subpage_types = ['general.General']
 
     def get_context(self, request):
         context = super().get_context(request)
@@ -102,7 +101,7 @@ class EventIndexPage(TypesetBodyMixin, HeroMixin, Page):
     class Meta:
         verbose_name = "Event Index Page"
 
-    subpage_types = ['EventPage', 'general.General']
+    subpage_types = ['EventPage']
 
 
 class EventPageRelatedLink(OtherPageMixin):

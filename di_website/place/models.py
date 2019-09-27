@@ -46,7 +46,7 @@ class PlacesPage(TypesetBodyMixin, HeroMixin, Page):
         InlinePanel('page_notifications', label='Notifications')
     ]
 
-    subpage_types = ['home.StandardPage', 'general.General']
+    subpage_types = ['home.StandardPage']
     parent_page_types = ['whatwedo.WhatWeDoPage']
 
     # TODO: set Where we Work as parent page

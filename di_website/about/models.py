@@ -57,6 +57,7 @@ class OurStoryPage(SectionBodyMixin, TypesetBodyMixin, HeroMixin, Page):
     class Meta():
         verbose_name = 'Our Story Page'
 
+    subpage_types = ['general.General']
     parent_page_types = ['WhoWeArePage']
 
 
@@ -91,3 +92,5 @@ class WhoWeArePage(SectionBodyMixin, TypesetBodyMixin, HeroMixin, Page):
 
     class Meta():
         verbose_name = 'Who We Are Page'
+
+    subpage_types = ['general.General']

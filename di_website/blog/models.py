@@ -39,6 +39,7 @@ class BlogIndexPage(HeroMixin, Page):
     class Meta():
         verbose_name = 'Blog Index Page'
 
+    subpage_types = ['general.General']
     parent_page_types = ['home.HomePage']
 
     def get_context(self, request):
@@ -106,6 +107,7 @@ class BlogArticlePage(TypesetBodyMixin, HeroMixin, Page):
         InlinePanel('page_notifications', label='Notifications')
     ]
 
+    subpage_types = ['general.General']
     parent_page_types = [
         'BlogIndexPage'
     ]

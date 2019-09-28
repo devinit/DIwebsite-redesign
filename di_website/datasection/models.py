@@ -70,10 +70,16 @@ class DataSectionPage(TypesetBodyMixin, HeroMixin, Page):
         return quote_counter
 
     def getRandomQuote(self):
-        random_number = random.randint(0, self.countQuotes() - 1)
-        for index, quote in enumerate(self.quotes):
-            if random_number == index:
+        number_of_quotes = self.countQuotes()
+        if number_of_quotes == 1:
+            for quote in self.quotes:
                 return quote
+        elif number_of_quotes >= 2:
+            random_number = random.randint(0, number_of_quotes - 1)
+            for index, quote in enumerate(self.quotes):
+                if random_number == index:
+                    return quote
+        return
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)

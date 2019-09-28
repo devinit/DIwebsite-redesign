@@ -78,7 +78,9 @@
         <p class="para para--typeset">
           {{ page.dataset_subtitle }}
         </p>
-        <a href="{{ page.hero_link }}" class="button">View datasets</a>
+        {% if page.hero_link %}
+          <a href="{{ page.hero_link }}" class="button">View datasets</a>
+        {% endif %}
       </div>
     </div>
   </div>

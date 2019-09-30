@@ -57,4 +57,10 @@
         </div>
     </div>
 
+    {% if page.publication_related_links %}
+        {% with related_pages=page.publication_related_links heading='Related content'  %}
+            {% include 'includes/partials/related_content.html' %}
+        {% endwith %}
+    {% endif %}
+
 {% endblock %}

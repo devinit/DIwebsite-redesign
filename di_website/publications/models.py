@@ -23,7 +23,7 @@ from wagtail.core.blocks import (
     StructBlock,
     URLBlock
 )
-from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, StreamFieldPanel
+from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, StreamFieldPanel, PageChooserPanel
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.contrib.redirects.models import Redirect
@@ -33,9 +33,9 @@ from wagtail.documents.edit_handlers import DocumentChooserPanel
 
 
 from di_website.common.base import hero_panels, get_paginator_range
-from di_website.common.mixins import HeroMixin
-from di_website.common.constants import MAX_PAGE_SIZE
-from di_website.downloads.utils import DownloadsPanel, DownloadGroupsPanel
+from di_website.common.mixins import HeroMixin, OtherPageMixin
+from di_website.common.constants import MAX_PAGE_SIZE, MAX_RELATED_LINKS
+from di_website.downloads.utils import DownloadsPanel
 
 from taggit.models import Tag, TaggedItemBase
 
@@ -304,7 +304,8 @@ class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUID
             DocumentChooserPanel('report_download')
         ], heading='Report download section'),
         UUIDPanel(),
-        InlinePanel('page_notifications', label='Notifications')
+        InlinePanel('page_notifications', label='Notifications'),
+        InlinePanel('publication_related_links', label='Related links', max_num=MAX_RELATED_LINKS),
     ]
 
     @cached_property
@@ -391,7 +392,8 @@ class PublicationSummaryPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
             description='Optional: data download for this summary.',
             max_num=1,
         ),
-        InlinePanel('page_notifications', label='Notifications')
+        InlinePanel('page_notifications', label='Notifications'),
+        InlinePanel('publication_related_links', label='Related links', max_num=MAX_RELATED_LINKS),
     ]
 
     @cached_property
@@ -457,7 +459,8 @@ class PublicationChapterPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
             description='Optional: data download for this chapter.',
             max_num=1,
         ),
-        InlinePanel('page_notifications', label='Notifications')
+        InlinePanel('page_notifications', label='Notifications'),
+        InlinePanel('publication_related_links', label='Related links', max_num=MAX_RELATED_LINKS),
     ]
 
     @cached_property
@@ -542,7 +545,8 @@ class PublicationAppendixPage(HeroMixin, ReportChildMixin, FlexibleContentMixin,
             description='Optional: data download for this appendix page.',
             max_num=1,
         ),
-        InlinePanel('page_notifications', label='Notifications')
+        InlinePanel('page_notifications', label='Notifications'),
+        InlinePanel('publication_related_links', label='Related links', max_num=MAX_RELATED_LINKS),
     ]
 
     @cached_property
@@ -659,7 +663,8 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, PageSearchMixin, Page
             heading='Summary',
             description='Summary for the legacy publication.'
         ),
-        InlinePanel('page_notifications', label='Notifications')
+        InlinePanel('page_notifications', label='Notifications'),
+        InlinePanel('publication_related_links', label='Related links', max_num=MAX_RELATED_LINKS),
     ]
 
     @cached_property
@@ -748,7 +753,8 @@ class ShortPublicationPage(HeroMixin, PublishedDateMixin, FlexibleContentMixin, 
             ImageChooserPanel('download_report_cover'),
             DocumentChooserPanel('report_download')
         ], heading='Report download section'),
-        InlinePanel('page_notifications', label='Notifications')
+        InlinePanel('page_notifications', label='Notifications'),
+        InlinePanel('publication_related_links', label='Related links', max_num=MAX_RELATED_LINKS),
     ]
 
     @cached_property
@@ -774,3 +780,11 @@ class ShortPublicationPage(HeroMixin, PublishedDateMixin, FlexibleContentMixin, 
     @cached_property
     def page_data_downloads(self):
         return self.data_downloads.all()
+
+
+class PublicationPageRelatedLink(OtherPageMixin):
+    page = ParentalKey(Page, related_name='publication_related_links', on_delete=models.CASCADE)
+
+    panels = [
+        PageChooserPanel('other_page')
+    ]

@@ -14,3 +14,5 @@ num2words==0.5.10
 beautifulsoup4==4.6.0
 bleach==3.1.0
 elasticsearch>=6.0.0,<6.3.1
+wagtail-linkchecker==0.4.0
+celery>=4.2.0rc4

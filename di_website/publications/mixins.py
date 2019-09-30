@@ -3,7 +3,13 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.functional import cached_property
 
-
+from wagtail.core.blocks import (
+    CharBlock,
+    RichTextBlock,
+    StructBlock,
+    IntegerBlock
+)
+from wagtail.core.fields import StreamField
 from wagtail.core.models import Page
 from wagtail.contrib.redirects.models import Redirect
 from wagtail.search import index
@@ -121,3 +127,16 @@ class OptionalContentMixin(models.Model):
         abstract = True
 
     content = content_streamfield(blank=True)
+
+
+class FootnoteMixin(models.Model):
+    class Meta:
+        abstract = True
+
+    footnotes_list = StreamField([
+        ('footnote', StructBlock([
+            ('footnote_id', IntegerBlock()),
+            ('title', CharBlock()),
+            ('text', RichTextBlock())
+        ]))
+    ], null=True, blank=True)

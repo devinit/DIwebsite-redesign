@@ -57,6 +57,8 @@
         </div>
     </div>
 
+    {% include 'publications/footnotes.html' %}
+
     {% if page.publication_related_links|length > 0 %}
         {% with related_pages=page.publication_related_links.other_page heading='Related content'  %}
             {% include 'includes/partials/related_content.html' %}

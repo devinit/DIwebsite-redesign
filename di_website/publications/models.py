@@ -41,7 +41,7 @@ from taggit.models import Tag, TaggedItemBase
 
 from .mixins import (
     FlexibleContentMixin, UniquePageMixin, PageSearchMixin, ParentPageSearchMixin,
-    PublishedDateMixin, UUIDMixin, ReportChildMixin)
+    PublishedDateMixin, UUIDMixin, ReportChildMixin, FootnoteMixin)
 from .utils import (
     ContentPanel, PublishedDatePanel, WagtailImageField,
     UUIDPanel, get_first_child_of_type, get_ordered_children_of_type, get_downloads)
@@ -365,7 +365,7 @@ class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUID
             Redirect(old_path=old_path, redirect_page=self).save()
 
 
-class PublicationSummaryPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin, UniquePageMixin, UUIDMixin, Page):
+class PublicationSummaryPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin, UniquePageMixin, UUIDMixin, FootnoteMixin, Page):
 
     class Meta:
         verbose_name = 'Publication Summary'
@@ -392,6 +392,7 @@ class PublicationSummaryPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
             description='Optional: data download for this summary.',
             max_num=1,
         ),
+        StreamFieldPanel('footnotes_list'),
         InlinePanel('page_notifications', label='Notifications'),
         InlinePanel('publication_related_links', label='Related links', max_num=MAX_RELATED_LINKS),
     ]
@@ -425,7 +426,7 @@ class PublicationSummaryPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
         return self.data_downloads.all()
 
 
-class PublicationChapterPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin, UUIDMixin, Page):
+class PublicationChapterPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin, UUIDMixin, FootnoteMixin, Page):
 
     class Meta:
         verbose_name = 'Publication Chapter'
@@ -459,6 +460,7 @@ class PublicationChapterPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
             description='Optional: data download for this chapter.',
             max_num=1,
         ),
+        StreamFieldPanel('footnotes_list'),
         InlinePanel('page_notifications', label='Notifications'),
         InlinePanel('publication_related_links', label='Related links', max_num=MAX_RELATED_LINKS),
     ]
@@ -508,7 +510,7 @@ class PublicationChapterPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
         return self.data_downloads.all()
 
 
-class PublicationAppendixPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin, UUIDMixin, Page):
+class PublicationAppendixPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin, UUIDMixin, FootnoteMixin, Page):
 
     class Meta:
         verbose_name = 'Publication Appendix'
@@ -586,7 +588,7 @@ class PublicationAppendixPage(HeroMixin, ReportChildMixin, FlexibleContentMixin,
         return self.data_downloads.all()
 
 
-class LegacyPublicationPage(HeroMixin, PublishedDateMixin, PageSearchMixin, Page):
+class LegacyPublicationPage(HeroMixin, PublishedDateMixin, PageSearchMixin, FootnoteMixin, Page):
 
     class Meta:
         verbose_name = 'Legacy Publication'
@@ -663,6 +665,7 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, PageSearchMixin, Page
             heading='Summary',
             description='Summary for the legacy publication.'
         ),
+        StreamFieldPanel('footnotes_list'),
         InlinePanel('page_notifications', label='Notifications'),
         InlinePanel('publication_related_links', label='Related links', max_num=MAX_RELATED_LINKS),
     ]
@@ -692,7 +695,7 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, PageSearchMixin, Page
         return self.data_downloads.all()
 
 
-class ShortPublicationPage(HeroMixin, PublishedDateMixin, FlexibleContentMixin, PageSearchMixin, UUIDMixin, Page):
+class ShortPublicationPage(HeroMixin, PublishedDateMixin, FlexibleContentMixin, PageSearchMixin, UUIDMixin, FootnoteMixin, Page):
 
     class Meta:
         verbose_name = 'Short Publication'
@@ -753,6 +756,7 @@ class ShortPublicationPage(HeroMixin, PublishedDateMixin, FlexibleContentMixin, 
             ImageChooserPanel('download_report_cover'),
             DocumentChooserPanel('report_download')
         ], heading='Report download section'),
+        StreamFieldPanel('footnotes_list'),
         InlinePanel('page_notifications', label='Notifications'),
         InlinePanel('publication_related_links', label='Related links', max_num=MAX_RELATED_LINKS),
     ]

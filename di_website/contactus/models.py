@@ -60,6 +60,7 @@ class ContactPage(TypesetBodyMixin, HeroMixin, Page):
     class Meta():
         verbose_name = 'Contact Us Page'
 
+    subpage_types = ['general.General']
     parent_page_types = ['home.HomePage']
 
     def render_landing_page(

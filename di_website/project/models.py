@@ -47,6 +47,7 @@ class ProjectPage(TypesetBodyMixin, HeroMixin, Page):
         ], heading='Other Pages'),
         InlinePanel('page_notifications', label='Notifications')
     ]
+    subpage_types = ['general.General']
     parent_page_types = [
         'FocusAreasPage'
     ]
@@ -77,7 +78,7 @@ class FocusAreasPage(TypesetBodyMixin, HeroMixin, Page):
     """
     http://development-initiatives.surge.sh/page-templates/08-focus-areas
     """
-    subpage_types = ['ProjectPage']
+    subpage_types = ['ProjectPage','general.General']
     parent_page_types = ['whatwedo.WhatWeDoPage']
 
     class Meta():

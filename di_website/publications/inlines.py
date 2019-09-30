@@ -3,7 +3,7 @@ from modelcluster.fields import ParentalKey
 from wagtail.core.models import Orderable
 
 from di_website.downloads.models import (
-    DownloadItem, DataDownloadItem, DownloadGroupItem)
+    DownloadItem, DataDownloadItem)
 
 
 class PublicationPageDownloads(Orderable, DownloadItem):
@@ -44,10 +44,6 @@ class LegacyPublicationPageDownloads(Orderable, DownloadItem):
 
 class LegacyPublicationPageDataDownloads(Orderable, DataDownloadItem):
     item = ParentalKey('LegacyPublicationPage', related_name='data_downloads')
-
-
-class LegacyPublicationPageDownloadGroups(Orderable, DownloadGroupItem):
-    item = ParentalKey('LegacyPublicationPage', related_name='download_groups')
 
 
 class ShortPublicationPageDownloads(Orderable, DownloadItem):

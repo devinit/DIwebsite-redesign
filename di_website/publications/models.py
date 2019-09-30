@@ -55,6 +55,7 @@ PINK = 'rose'
 YELLOW = 'sunflower'
 ORANGE = 'marigold'
 PURPLE = 'lavendar'
+GREEN = 'leaf'
 COLOUR_CHOICES = (
     (RED, 'Red'),
     (BLUE, 'Blue'),
@@ -62,6 +63,7 @@ COLOUR_CHOICES = (
     (YELLOW, 'Yellow'),
     (ORANGE, 'Orange'),
     (PURPLE, 'Purple'),
+    (GREEN, 'Green')
 )
 
 
@@ -396,6 +398,30 @@ class PublicationSummaryPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
     def label(self):
         return 'The summary'
 
+    @cached_property
+    def publication_downloads_title(self):
+        return 'Downloads'
+
+    @cached_property
+    def publication_downloads_list(self):
+        return get_downloads(self)
+
+    @cached_property
+    def data_downloads_title(self):
+        return 'Data downloads'
+
+    @cached_property
+    def data_downloads_list(self):
+        return get_downloads(self, with_parent=False, data=True)
+
+    @cached_property
+    def page_publication_downloads(self):
+        return self.publication_downloads.all()
+
+    @cached_property
+    def page_data_downloads(self):
+        return self.data_downloads.all()
+
 
 class PublicationChapterPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin, UUIDMixin, Page):
 
@@ -454,6 +480,30 @@ class PublicationChapterPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
                 sections.append(block)
         return sections
 
+    @cached_property
+    def publication_downloads_title(self):
+        return 'Downloads'
+
+    @cached_property
+    def publication_downloads_list(self):
+        return get_downloads(self)
+
+    @cached_property
+    def data_downloads_title(self):
+        return 'Data downloads'
+
+    @cached_property
+    def data_downloads_list(self):
+        return get_downloads(self, with_parent=False, data=True)
+
+    @cached_property
+    def page_publication_downloads(self):
+        return self.publication_downloads.all()
+
+    @cached_property
+    def page_data_downloads(self):
+        return self.data_downloads.all()
+
 
 class PublicationAppendixPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin, UUIDMixin, Page):
 
@@ -507,6 +557,30 @@ class PublicationAppendixPage(HeroMixin, ReportChildMixin, FlexibleContentMixin,
     def label_num(self):
         return 'appendix %s' % str(self.appendix_number).zfill(2)
 
+    @cached_property
+    def publication_downloads_title(self):
+        return 'Downloads'
+
+    @cached_property
+    def publication_downloads_list(self):
+        return get_downloads(self)
+
+    @cached_property
+    def data_downloads_title(self):
+        return 'Data downloads'
+
+    @cached_property
+    def data_downloads_list(self):
+        return get_downloads(self, with_parent=False, data=True)
+
+    @cached_property
+    def page_publication_downloads(self):
+        return self.publication_downloads.all()
+
+    @cached_property
+    def page_data_downloads(self):
+        return self.data_downloads.all()
+
 
 class LegacyPublicationPage(HeroMixin, PublishedDateMixin, PageSearchMixin, Page):
 
@@ -531,13 +605,26 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, PageSearchMixin, Page
         PublicationType, related_name="+", null=True, blank=True, on_delete=models.SET_NULL)
     topics = ClusterTaggableManager(through=LegacyPublicationTopic, blank=True, verbose_name="Topics")
 
+    raw_content = models.TextField(null=True, blank=True)
     content = RichTextField(
-        verbose_name='Summary',
-        help_text='Short summary for the legacy report',
+        help_text='Content for the legacy report',
+        null=True, blank=True
     )
     summary_image = WagtailImageField(
         required=False,
         help_text='Optimal minimum size 800x400px',
+    )
+
+    download_report_cover = WagtailImageField()
+    download_report_title = models.CharField(max_length=255, null=True, blank=True, default="Download this report")
+    download_report_body = models.TextField(null=True, blank=True)
+    download_report_button_text = models.CharField(max_length=255, null=True, blank=True, default="Download now")
+    report_download = models.ForeignKey(
+        'wagtaildocs.Document',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
     )
 
     content_panels = Page.content_panels + [
@@ -558,17 +645,38 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, PageSearchMixin, Page
             description='Optional: data download for this legacy report.',
             max_num=1,
         ),
+        MultiFieldPanel([
+            FieldPanel('download_report_title'),
+            FieldPanel('download_report_body'),
+            ImageChooserPanel('download_report_cover'),
+            DocumentChooserPanel('report_download')
+        ], heading='Report download section'),
         MultiFieldPanel(
             [
                 FieldPanel('content'),
-                ImageChooserPanel('summary_image'),
+                FieldPanel('raw_content'),
             ],
             heading='Summary',
             description='Summary for the legacy publication.'
         ),
-        DownloadGroupsPanel(),
         InlinePanel('page_notifications', label='Notifications')
     ]
+
+    @cached_property
+    def publication_downloads_title(self):
+        return 'Downloads'
+
+    @cached_property
+    def publication_downloads_list(self):
+        return get_downloads(self)
+
+    @cached_property
+    def data_downloads_title(self):
+        return 'Data downloads'
+
+    @cached_property
+    def data_downloads_list(self):
+        return get_downloads(self, with_parent=False, data=True)
 
     @cached_property
     def page_publication_downloads(self):
@@ -577,10 +685,6 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, PageSearchMixin, Page
     @cached_property
     def page_data_downloads(self):
         return self.data_downloads.all()
-
-    @cached_property
-    def groups(self):
-        return self.download_groups.all()
 
 
 class ShortPublicationPage(HeroMixin, PublishedDateMixin, FlexibleContentMixin, PageSearchMixin, UUIDMixin, Page):
@@ -607,6 +711,18 @@ class ShortPublicationPage(HeroMixin, PublishedDateMixin, FlexibleContentMixin, 
         PublicationType, related_name="+", null=True, blank=True, on_delete=models.SET_NULL)
     topics = ClusterTaggableManager(through=ShortPublicationTopic, blank=True, verbose_name="Topics")
 
+    download_report_cover = WagtailImageField()
+    download_report_title = models.CharField(max_length=255, null=True, blank=True, default="Download this report")
+    download_report_body = models.TextField(null=True, blank=True)
+    download_report_button_text = models.CharField(max_length=255, null=True, blank=True, default="Download now")
+    report_download = models.ForeignKey(
+        'wagtaildocs.Document',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
     content_panels = Page.content_panels + [
         FieldPanel('colour'),
         hero_panels(),
@@ -626,5 +742,35 @@ class ShortPublicationPage(HeroMixin, PublishedDateMixin, FlexibleContentMixin, 
             description='Optional: data download for this chapter.',
             max_num=1,
         ),
+        MultiFieldPanel([
+            FieldPanel('download_report_title'),
+            FieldPanel('download_report_body'),
+            ImageChooserPanel('download_report_cover'),
+            DocumentChooserPanel('report_download')
+        ], heading='Report download section'),
         InlinePanel('page_notifications', label='Notifications')
     ]
+
+    @cached_property
+    def publication_downloads_title(self):
+        return 'Downloads'
+
+    @cached_property
+    def publication_downloads_list(self):
+        return get_downloads(self)
+
+    @cached_property
+    def data_downloads_title(self):
+        return 'Data downloads'
+
+    @cached_property
+    def data_downloads_list(self):
+        return get_downloads(self, with_parent=False, data=True)
+
+    @cached_property
+    def page_publication_downloads(self):
+        return self.publication_downloads.all()
+
+    @cached_property
+    def page_data_downloads(self):
+        return self.data_downloads.all()

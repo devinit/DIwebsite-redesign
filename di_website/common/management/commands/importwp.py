@@ -192,7 +192,7 @@ class Command(BaseCommand):
                             title=publication_dataset['title'],
                             slug=slug,
                             hero_text=publication_dataset['description'],
-                            content=clean_body,
+                            raw_content=clean_body,
                             publication_type=publication_type
                         )
                         authors = []

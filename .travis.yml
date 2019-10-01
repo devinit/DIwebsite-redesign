@@ -17,6 +17,6 @@ script:
 deploy:
  provider: script
  skip_cleanup: true
- script: cd .. && chmod 600 ./deploy_key && ssh -o StrictHostKeyChecking=no -i ./deploy_key di_website@178.128.102.213 ./deploy.sh
+ script: cd .. && chmod 600 ./deploy_key && ssh -o StrictHostKeyChecking=no -i ./deploy_key AcceptEnv=EMAIL_BACKEND AcceptEnv=EMAIL_HOST AcceptEnv=EMAIL_HOST_USER AcceptEnv=EMAIL_HOST_PASSWORD di_website@178.128.102.213 ./deploy.sh
  on:
    branch: develop

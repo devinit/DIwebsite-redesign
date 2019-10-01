@@ -20,5 +20,8 @@ git reset --hard origin/$deploy_branch
 
 printf "Starting up services.... \n\n"
 echo "DATABASE_URL=postgresql://di_website:di_website_pw@db/di_website" > .env
+echo "EMAIL_HOST=$EMAIL_HOST" >> .env
+echo "EMAIL_BACKEND=$EMAIL_BACKEND" >> .env
+echo "EMAIL_HOST_USER=$EMAIL_HOST_USER" >> .env
+echo "EMAIL_HOST_PASSWORD=$EMAIL_HOST_PASSWORD" >> .env
 docker-compose up -d --build
-

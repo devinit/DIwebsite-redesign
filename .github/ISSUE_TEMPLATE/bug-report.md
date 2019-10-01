@@ -7,16 +7,6 @@ assignees: ''
 
 ---
 
-**Describe the bug**
-A clear and concise description of what the bug is.
-
-**To Reproduce**
-Steps to reproduce the behaviour:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
-
 ## I'm submitting a ...
 Check one of the following options with "x" and add the appropriate label to the issue as well
 <pre><code>

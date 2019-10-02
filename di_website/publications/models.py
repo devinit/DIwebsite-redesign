@@ -378,6 +378,18 @@ class PublicationSummaryPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
 
     colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=RED)
 
+    download_report_cover = WagtailImageField()
+    download_report_title = models.CharField(max_length=255, null=True, blank=True, default="Download this report")
+    download_report_body = models.TextField(null=True, blank=True)
+    download_report_button_text = models.CharField(max_length=255, null=True, blank=True, default="Download now")
+    report_download = models.ForeignKey(
+        'wagtaildocs.Document',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
     content_panels = Page.content_panels + [
         FieldPanel('colour'),
         hero_panels(),
@@ -392,6 +404,12 @@ class PublicationSummaryPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
             description='Optional: data download for this summary.',
             max_num=1,
         ),
+        MultiFieldPanel([
+            FieldPanel('download_report_title'),
+            FieldPanel('download_report_body'),
+            ImageChooserPanel('download_report_cover'),
+            DocumentChooserPanel('report_download')
+        ], heading='Report download section'),
         StreamFieldPanel('footnotes_list'),
         InlinePanel('page_notifications', label='Notifications'),
         InlinePanel('publication_related_links', label='Related links', max_num=MAX_RELATED_LINKS),
@@ -439,6 +457,18 @@ class PublicationChapterPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
     )
     colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=RED)
 
+    download_report_cover = WagtailImageField()
+    download_report_title = models.CharField(max_length=255, null=True, blank=True, default="Download this report")
+    download_report_body = models.TextField(null=True, blank=True)
+    download_report_button_text = models.CharField(max_length=255, null=True, blank=True, default="Download now")
+    report_download = models.ForeignKey(
+        'wagtaildocs.Document',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
     content_panels = Page.content_panels + [
         FieldPanel('colour'),
         hero_panels(),
@@ -460,6 +490,12 @@ class PublicationChapterPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
             description='Optional: data download for this chapter.',
             max_num=1,
         ),
+        MultiFieldPanel([
+            FieldPanel('download_report_title'),
+            FieldPanel('download_report_body'),
+            ImageChooserPanel('download_report_cover'),
+            DocumentChooserPanel('report_download')
+        ], heading='Report download section'),
         StreamFieldPanel('footnotes_list'),
         InlinePanel('page_notifications', label='Notifications'),
         InlinePanel('publication_related_links', label='Related links', max_num=MAX_RELATED_LINKS),
@@ -526,6 +562,18 @@ class PublicationAppendixPage(HeroMixin, ReportChildMixin, FlexibleContentMixin,
     )
     colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=RED)
 
+    download_report_cover = WagtailImageField()
+    download_report_title = models.CharField(max_length=255, null=True, blank=True, default="Download this report")
+    download_report_body = models.TextField(null=True, blank=True)
+    download_report_button_text = models.CharField(max_length=255, null=True, blank=True, default="Download now")
+    report_download = models.ForeignKey(
+        'wagtaildocs.Document',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
     content_panels = Page.content_panels + [
         FieldPanel('colour'),
         hero_panels(),
@@ -547,6 +595,12 @@ class PublicationAppendixPage(HeroMixin, ReportChildMixin, FlexibleContentMixin,
             description='Optional: data download for this appendix page.',
             max_num=1,
         ),
+        MultiFieldPanel([
+            FieldPanel('download_report_title'),
+            FieldPanel('download_report_body'),
+            ImageChooserPanel('download_report_cover'),
+            DocumentChooserPanel('report_download')
+        ], heading='Report download section'),
         InlinePanel('page_notifications', label='Notifications'),
         InlinePanel('publication_related_links', label='Related links', max_num=MAX_RELATED_LINKS),
     ]

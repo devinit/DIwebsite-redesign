@@ -38,12 +38,12 @@ class QuoteStreamBlock(StreamBlock):
 
 class DataSupportServicesBlock(StructBlock):
     title = TextBlock()
-    description = TextBlock()
-    telephone = TextBlock()
-    email = EmailBlock()
+    description = TextBlock(required=False)
+    telephone = TextBlock(required=False)
+    email = EmailBlock(required=False)
     photo = ImageChooserBlock(required=False)
-    photographer = TextBlock()
-    photo_credit = URLBlock()
+    photographer = TextBlock(required=False)
+    photo_credit = URLBlock(required=False)
 
     class Meta():
         icon = 'fa-phone-square'

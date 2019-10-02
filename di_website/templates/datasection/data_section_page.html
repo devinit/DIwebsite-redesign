@@ -43,7 +43,7 @@
                   {% image random_quote.value.team_member.specific.image max-400x250 as profile_img %}
                   <img src="{{ profile_img.url }}" alt="alt tag">
                 {% else %}
-                  <img src="img/fallback-image.jpg" alt="alt tag">
+                  <img src="{% static 'img/profile-fallback.jpg' %}" alt="alt tag">
                 {% endif %}
               </aside>
             </div>
@@ -62,7 +62,7 @@
                   {% image random_quote.value.external_member_photo max-400x250 as profile_img %}
                   <img src="{{ profile_img.url }}" alt="alt tag">
                 {% else %}
-                  <img src="img/fallback-image.jpg" alt="alt tag">
+                  <img src="{% static 'img/profile-fallback.jpg' %}" alt="alt tag">
                 {% endif %}
               </aside>
             </div>

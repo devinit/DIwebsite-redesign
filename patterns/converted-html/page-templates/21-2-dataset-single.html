@@ -15,12 +15,6 @@
 <noscript><link href="/assets/icons/ico.fallback.css" rel="stylesheet"></noscript>
 <script src="/assets/js/libs/modernizr.js"></script>
 <link rel="icon" type="image/png" href="/assets/favicons/favicon-16x16.png" sizes="16x16">
-
-<!-- Modal plugin -->
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script> -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
-
     
 </head>
 <body class="body body--data" id="body-data">
@@ -114,7 +108,7 @@
 </section>
 
 
-    <section class="section">
+    <section class="section" id="modal-container">
         <div class="row row--narrow">
             <div class="l-sidebar">
                 <aside class="l-sidebar__aside">
@@ -150,9 +144,9 @@
                             <div class="button button--faux button--icon">
                                 <i role="presentation" aria-hidden="true" class="ico ico--24 ico-download-poppy"></i>
                                 <span class="button--faux__meta">Download</span>
-                                <ul class="button--faux__list">
-                                    <li><a href="#g-form" rel="modal:open">Filename - XLS 1.8mb</a></li>
-                                    <li><a href="#g-form" rel="modal:open">Filename - CSV 1.8mb</a></li>
+                                <ul class="button--faux__list" id="download-list">
+                                    <li><a href="#" class="modal-button-open">Filename - XLS 1.8mb</a></li>
+                                    <li><a href="#" class="modal-button-open">Filename - CSV 1.8mb</a></li>
                                 </ul>
                                 <p class="button--faux__note">XLS files contain the dataset, metadata and charts / images</p>
                                 <p class="button--faux__note">CSV files contain the raw dataset</p>
@@ -425,10 +419,14 @@
         </div>
     </section>
 
-    <!-- Modal -->
-    <div id="g-form" class="modal">
-        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdlVbapY33-yT13my5Fr5ZRuJ6ySR7-ohcCmFtwAOByvdaNYQ/viewform?embedded=true" width="640" height="698" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
-        <a href="#close-modal" rel="modal:close" class="close-modal ">Close</a>
+    <!-- Modal container it includes the overlay -->
+    <div id="download-modal" class="modal is-hidden is-visually-hidden">
+        <div class="modal__content">
+            <span id="modal-button-close" class="modal-button-close">&times;</span>
+            <h2>Simple modal</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. At eum, ex eaque quas voluptas, ad quo laboriosam corporis. Provident, eveniet, eum. Hic fuga consequuntur placeat soluta, aut natus dicta asperiores.</p>
+            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdlVbapY33-yT13my5Fr5ZRuJ6ySR7-ohcCmFtwAOByvdaNYQ/viewform?embedded=true" width="640" height="698" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+        </div>
     </div>
 
 

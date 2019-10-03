@@ -15,6 +15,8 @@ import chapterNav from './utils/chapterNav';
 import './libs/slick';
 import './libs/jquery.responsiveTabs';
 
+import modal from './utils/modal';
+
 function globals () {
 
     // FastClick
@@ -131,6 +133,14 @@ function globals () {
         collapsible: 'accordion',
         setHash: true
     });
+
+    // Go go modal
+    // function is modal(target, trigger, parentcontainer)
+    // target = id of modal
+    // trigger = class of item to open the modal
+    // parentcontainer = id of <section> containing the trigger
+    modal('download-modal','.modal-button-open', 'modal-container');
+
 }
 
 $(function run () {

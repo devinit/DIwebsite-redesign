@@ -65,6 +65,11 @@ class Infographic(StructBlock):
         required=False,
         help_text='Optional: heading for the infographic'
     )
+    descriptive_text = RichTextBlock(
+        required=False,
+        features=FOOTNOTE_RICHTEXT_FEATURES,
+        help_text='Optional: descriptive text to appear above the image or table'
+    )
     images = StreamBlock(
         [
             ('image_wide', StructBlock(

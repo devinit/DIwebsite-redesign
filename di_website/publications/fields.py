@@ -50,6 +50,7 @@ class CaseStudy(StructBlock):
         form_template = 'publications/block_forms/custom_struct.html'
         template = 'publications/blocks/case_study.html'
 
+    section_label = CharBlock(default="Case Study")
     heading = CharBlock()
     content = StreamBlock(
         [

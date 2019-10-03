@@ -85,7 +85,6 @@ class DataSectionPage(TypesetBodyMixin, HeroMixin, Page):
         context = super().get_context(request, *args, **kwargs)
         context['random_quote'] = self.getRandomQuote()
         context['related_pages'] = get_related_pages(self.datasection_related_links.all())
-        context['datasets_count'] = DataSectionPage.objects.all().count()
         return context
 
 

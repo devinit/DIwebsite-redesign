@@ -131,6 +131,7 @@ function globals () {
     $('#responsive-tabs').responsiveTabs({
         startCollapsed: 'accordion',
         collapsible: 'accordion',
+        scrollToAccordion: true,
         setHash: true
     });
 

@@ -69,3 +69,8 @@ If the deployment is from scratch, follow commands below to update content with 
    docker-compose exec web python manage.py importwp
    docker-compose exec web python manage.py update_index
    ```
+To enable rabbitmq management
+   ```
+   docker-compose exec rabbitmq rabbitmq-plugins enable rabbitmq_management
+   ```
+   

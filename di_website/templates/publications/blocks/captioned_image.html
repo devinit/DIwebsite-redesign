@@ -1,5 +1,11 @@
 {% load responsive string_utils %}
 
+{% if value.descriptive_text %}
+  <div class="max-meter max-meter--center is-typeset wysiwyg">
+      {{ value.descriptive_text|content }}
+  </div>
+{% endif %}
+
 <div class="media-figure">
     {% responsiveimage value.image width-800 srcset=global.image_srcs alt=value.caption class='imageCredit__img' %}
     {% if value.caption or value.caption_link %}

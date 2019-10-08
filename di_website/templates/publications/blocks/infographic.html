@@ -11,6 +11,11 @@
         <h3 class="type-l type-l--trailer heading">{{ value.heading }}</h3>
     {% endif %}
 
+    {% if value.descriptive_text %}
+      <div class="max-meter max-meter--center is-typeset wysiwyg">
+          {{ value.descriptive_text|content }}
+      </div>
+    {% endif %}
     <figure>
         {% image value.wide_image width-1200 as wide %}
         <picture>

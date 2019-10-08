@@ -27,6 +27,11 @@ class CaptionedImage(StructBlock):
     image = ImageChooserBlock(
         help_text='Optimal minimum width 800px'
     )
+    descriptive_text = RichTextBlock(
+        required=False,
+        features=FOOTNOTE_RICHTEXT_FEATURES,
+        help_text='Optional: descriptive text to appear above the image'
+    )
     caption = TextBlock(
         required=False,
         help_text='Optional: caption text to appear below the image'
@@ -50,6 +55,7 @@ class CaseStudy(StructBlock):
         form_template = 'publications/block_forms/custom_struct.html'
         template = 'publications/blocks/case_study.html'
 
+    section_label = CharBlock(default="Case Study")
     heading = CharBlock()
     content = StreamBlock(
         [

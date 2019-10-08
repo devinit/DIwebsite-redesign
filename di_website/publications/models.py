@@ -23,7 +23,7 @@ from wagtail.core.blocks import (
     StructBlock,
     URLBlock
 )
-from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, StreamFieldPanel
+from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, StreamFieldPanel, PageChooserPanel
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.contrib.redirects.models import Redirect
@@ -33,15 +33,15 @@ from wagtail.documents.edit_handlers import DocumentChooserPanel
 
 
 from di_website.common.base import hero_panels, get_paginator_range
-from di_website.common.mixins import HeroMixin
-from di_website.common.constants import MAX_PAGE_SIZE
-from di_website.downloads.utils import DownloadsPanel, DownloadGroupsPanel
+from di_website.common.mixins import HeroMixin, OtherPageMixin
+from di_website.common.constants import MAX_PAGE_SIZE, MAX_RELATED_LINKS
+from di_website.downloads.utils import DownloadsPanel
 
 from taggit.models import Tag, TaggedItemBase
 
 from .mixins import (
     FlexibleContentMixin, UniquePageMixin, PageSearchMixin, ParentPageSearchMixin,
-    PublishedDateMixin, UUIDMixin, ReportChildMixin)
+    PublishedDateMixin, UUIDMixin, ReportChildMixin, FootnoteMixin)
 from .utils import (
     ContentPanel, PublishedDatePanel, WagtailImageField,
     UUIDPanel, get_first_child_of_type, get_ordered_children_of_type, get_downloads)
@@ -55,6 +55,7 @@ PINK = 'rose'
 YELLOW = 'sunflower'
 ORANGE = 'marigold'
 PURPLE = 'lavendar'
+GREEN = 'leaf'
 COLOUR_CHOICES = (
     (RED, 'Red'),
     (BLUE, 'Blue'),
@@ -62,6 +63,7 @@ COLOUR_CHOICES = (
     (YELLOW, 'Yellow'),
     (ORANGE, 'Orange'),
     (PURPLE, 'Purple'),
+    (GREEN, 'Green')
 )
 
 
@@ -302,7 +304,8 @@ class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUID
             DocumentChooserPanel('report_download')
         ], heading='Report download section'),
         UUIDPanel(),
-        InlinePanel('page_notifications', label='Notifications')
+        InlinePanel('page_notifications', label='Notifications'),
+        InlinePanel('publication_related_links', label='Related links', max_num=MAX_RELATED_LINKS),
     ]
 
     @cached_property
@@ -362,7 +365,7 @@ class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUID
             Redirect(old_path=old_path, redirect_page=self).save()
 
 
-class PublicationSummaryPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin, UniquePageMixin, UUIDMixin, Page):
+class PublicationSummaryPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin, UniquePageMixin, UUIDMixin, FootnoteMixin, Page):
 
     class Meta:
         verbose_name = 'Publication Summary'
@@ -374,6 +377,18 @@ class PublicationSummaryPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
     template = 'publications/publication_chapter_page.html'
 
     colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=RED)
+
+    download_report_cover = WagtailImageField()
+    download_report_title = models.CharField(max_length=255, null=True, blank=True, default="Download this report")
+    download_report_body = models.TextField(null=True, blank=True)
+    download_report_button_text = models.CharField(max_length=255, null=True, blank=True, default="Download now")
+    report_download = models.ForeignKey(
+        'wagtaildocs.Document',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
 
     content_panels = Page.content_panels + [
         FieldPanel('colour'),
@@ -389,15 +404,47 @@ class PublicationSummaryPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
             description='Optional: data download for this summary.',
             max_num=1,
         ),
-        InlinePanel('page_notifications', label='Notifications')
+        MultiFieldPanel([
+            FieldPanel('download_report_title'),
+            FieldPanel('download_report_body'),
+            ImageChooserPanel('download_report_cover'),
+            DocumentChooserPanel('report_download')
+        ], heading='Report download section'),
+        StreamFieldPanel('footnotes_list'),
+        InlinePanel('page_notifications', label='Notifications'),
+        InlinePanel('publication_related_links', label='Related links', max_num=MAX_RELATED_LINKS),
     ]
 
     @cached_property
     def label(self):
         return 'The summary'
 
+    @cached_property
+    def publication_downloads_title(self):
+        return 'Downloads'
 
-class PublicationChapterPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin, UUIDMixin, Page):
+    @cached_property
+    def publication_downloads_list(self):
+        return get_downloads(self)
+
+    @cached_property
+    def data_downloads_title(self):
+        return 'Data downloads'
+
+    @cached_property
+    def data_downloads_list(self):
+        return get_downloads(self, with_parent=False, data=True)
+
+    @cached_property
+    def page_publication_downloads(self):
+        return self.publication_downloads.all()
+
+    @cached_property
+    def page_data_downloads(self):
+        return self.data_downloads.all()
+
+
+class PublicationChapterPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin, UUIDMixin, FootnoteMixin, Page):
 
     class Meta:
         verbose_name = 'Publication Chapter'
@@ -409,6 +456,18 @@ class PublicationChapterPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
         choices=[(i, num2words(i).title()) for i in range(1, 21)]
     )
     colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=RED)
+
+    download_report_cover = WagtailImageField()
+    download_report_title = models.CharField(max_length=255, null=True, blank=True, default="Download this report")
+    download_report_body = models.TextField(null=True, blank=True)
+    download_report_button_text = models.CharField(max_length=255, null=True, blank=True, default="Download now")
+    report_download = models.ForeignKey(
+        'wagtaildocs.Document',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
 
     content_panels = Page.content_panels + [
         FieldPanel('colour'),
@@ -431,7 +490,15 @@ class PublicationChapterPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
             description='Optional: data download for this chapter.',
             max_num=1,
         ),
-        InlinePanel('page_notifications', label='Notifications')
+        MultiFieldPanel([
+            FieldPanel('download_report_title'),
+            FieldPanel('download_report_body'),
+            ImageChooserPanel('download_report_cover'),
+            DocumentChooserPanel('report_download')
+        ], heading='Report download section'),
+        StreamFieldPanel('footnotes_list'),
+        InlinePanel('page_notifications', label='Notifications'),
+        InlinePanel('publication_related_links', label='Related links', max_num=MAX_RELATED_LINKS),
     ]
 
     @cached_property
@@ -454,8 +521,32 @@ class PublicationChapterPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
                 sections.append(block)
         return sections
 
+    @cached_property
+    def publication_downloads_title(self):
+        return 'Downloads'
 
-class PublicationAppendixPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin, UUIDMixin, Page):
+    @cached_property
+    def publication_downloads_list(self):
+        return get_downloads(self)
+
+    @cached_property
+    def data_downloads_title(self):
+        return 'Data downloads'
+
+    @cached_property
+    def data_downloads_list(self):
+        return get_downloads(self, with_parent=False, data=True)
+
+    @cached_property
+    def page_publication_downloads(self):
+        return self.publication_downloads.all()
+
+    @cached_property
+    def page_data_downloads(self):
+        return self.data_downloads.all()
+
+
+class PublicationAppendixPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin, UUIDMixin, FootnoteMixin, Page):
 
     class Meta:
         verbose_name = 'Publication Appendix'
@@ -470,6 +561,18 @@ class PublicationAppendixPage(HeroMixin, ReportChildMixin, FlexibleContentMixin,
         choices=[(i, num2words(i).title()) for i in range(1, 21)]
     )
     colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=RED)
+
+    download_report_cover = WagtailImageField()
+    download_report_title = models.CharField(max_length=255, null=True, blank=True, default="Download this report")
+    download_report_body = models.TextField(null=True, blank=True)
+    download_report_button_text = models.CharField(max_length=255, null=True, blank=True, default="Download now")
+    report_download = models.ForeignKey(
+        'wagtaildocs.Document',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
 
     content_panels = Page.content_panels + [
         FieldPanel('colour'),
@@ -492,7 +595,14 @@ class PublicationAppendixPage(HeroMixin, ReportChildMixin, FlexibleContentMixin,
             description='Optional: data download for this appendix page.',
             max_num=1,
         ),
-        InlinePanel('page_notifications', label='Notifications')
+        MultiFieldPanel([
+            FieldPanel('download_report_title'),
+            FieldPanel('download_report_body'),
+            ImageChooserPanel('download_report_cover'),
+            DocumentChooserPanel('report_download')
+        ], heading='Report download section'),
+        InlinePanel('page_notifications', label='Notifications'),
+        InlinePanel('publication_related_links', label='Related links', max_num=MAX_RELATED_LINKS),
     ]
 
     @cached_property
@@ -507,8 +617,32 @@ class PublicationAppendixPage(HeroMixin, ReportChildMixin, FlexibleContentMixin,
     def label_num(self):
         return 'appendix %s' % str(self.appendix_number).zfill(2)
 
+    @cached_property
+    def publication_downloads_title(self):
+        return 'Downloads'
 
-class LegacyPublicationPage(HeroMixin, PublishedDateMixin, PageSearchMixin, Page):
+    @cached_property
+    def publication_downloads_list(self):
+        return get_downloads(self)
+
+    @cached_property
+    def data_downloads_title(self):
+        return 'Data downloads'
+
+    @cached_property
+    def data_downloads_list(self):
+        return get_downloads(self, with_parent=False, data=True)
+
+    @cached_property
+    def page_publication_downloads(self):
+        return self.publication_downloads.all()
+
+    @cached_property
+    def page_data_downloads(self):
+        return self.data_downloads.all()
+
+
+class LegacyPublicationPage(HeroMixin, PublishedDateMixin, PageSearchMixin, FootnoteMixin, Page):
 
     class Meta:
         verbose_name = 'Legacy Publication'
@@ -531,13 +665,26 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, PageSearchMixin, Page
         PublicationType, related_name="+", null=True, blank=True, on_delete=models.SET_NULL)
     topics = ClusterTaggableManager(through=LegacyPublicationTopic, blank=True, verbose_name="Topics")
 
+    raw_content = models.TextField(null=True, blank=True)
     content = RichTextField(
-        verbose_name='Summary',
-        help_text='Short summary for the legacy report',
+        help_text='Content for the legacy report',
+        null=True, blank=True
     )
     summary_image = WagtailImageField(
         required=False,
         help_text='Optimal minimum size 800x400px',
+    )
+
+    download_report_cover = WagtailImageField()
+    download_report_title = models.CharField(max_length=255, null=True, blank=True, default="Download this report")
+    download_report_body = models.TextField(null=True, blank=True)
+    download_report_button_text = models.CharField(max_length=255, null=True, blank=True, default="Download now")
+    report_download = models.ForeignKey(
+        'wagtaildocs.Document',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
     )
 
     content_panels = Page.content_panels + [
@@ -558,17 +705,40 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, PageSearchMixin, Page
             description='Optional: data download for this legacy report.',
             max_num=1,
         ),
+        MultiFieldPanel([
+            FieldPanel('download_report_title'),
+            FieldPanel('download_report_body'),
+            ImageChooserPanel('download_report_cover'),
+            DocumentChooserPanel('report_download')
+        ], heading='Report download section'),
         MultiFieldPanel(
             [
                 FieldPanel('content'),
-                ImageChooserPanel('summary_image'),
+                FieldPanel('raw_content'),
             ],
             heading='Summary',
             description='Summary for the legacy publication.'
         ),
-        DownloadGroupsPanel(),
-        InlinePanel('page_notifications', label='Notifications')
+        StreamFieldPanel('footnotes_list'),
+        InlinePanel('page_notifications', label='Notifications'),
+        InlinePanel('publication_related_links', label='Related links', max_num=MAX_RELATED_LINKS),
     ]
+
+    @cached_property
+    def publication_downloads_title(self):
+        return 'Downloads'
+
+    @cached_property
+    def publication_downloads_list(self):
+        return get_downloads(self)
+
+    @cached_property
+    def data_downloads_title(self):
+        return 'Data downloads'
+
+    @cached_property
+    def data_downloads_list(self):
+        return get_downloads(self, with_parent=False, data=True)
 
     @cached_property
     def page_publication_downloads(self):
@@ -578,12 +748,8 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, PageSearchMixin, Page
     def page_data_downloads(self):
         return self.data_downloads.all()
 
-    @cached_property
-    def groups(self):
-        return self.download_groups.all()
 
-
-class ShortPublicationPage(HeroMixin, PublishedDateMixin, FlexibleContentMixin, PageSearchMixin, UUIDMixin, Page):
+class ShortPublicationPage(HeroMixin, PublishedDateMixin, FlexibleContentMixin, PageSearchMixin, UUIDMixin, FootnoteMixin, Page):
 
     class Meta:
         verbose_name = 'Short Publication'
@@ -607,6 +773,18 @@ class ShortPublicationPage(HeroMixin, PublishedDateMixin, FlexibleContentMixin, 
         PublicationType, related_name="+", null=True, blank=True, on_delete=models.SET_NULL)
     topics = ClusterTaggableManager(through=ShortPublicationTopic, blank=True, verbose_name="Topics")
 
+    download_report_cover = WagtailImageField()
+    download_report_title = models.CharField(max_length=255, null=True, blank=True, default="Download this report")
+    download_report_body = models.TextField(null=True, blank=True)
+    download_report_button_text = models.CharField(max_length=255, null=True, blank=True, default="Download now")
+    report_download = models.ForeignKey(
+        'wagtaildocs.Document',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
     content_panels = Page.content_panels + [
         FieldPanel('colour'),
         hero_panels(),
@@ -626,5 +804,45 @@ class ShortPublicationPage(HeroMixin, PublishedDateMixin, FlexibleContentMixin, 
             description='Optional: data download for this chapter.',
             max_num=1,
         ),
-        InlinePanel('page_notifications', label='Notifications')
+        MultiFieldPanel([
+            FieldPanel('download_report_title'),
+            FieldPanel('download_report_body'),
+            ImageChooserPanel('download_report_cover'),
+            DocumentChooserPanel('report_download')
+        ], heading='Report download section'),
+        StreamFieldPanel('footnotes_list'),
+        InlinePanel('page_notifications', label='Notifications'),
+        InlinePanel('publication_related_links', label='Related links', max_num=MAX_RELATED_LINKS),
+    ]
+
+    @cached_property
+    def publication_downloads_title(self):
+        return 'Downloads'
+
+    @cached_property
+    def publication_downloads_list(self):
+        return get_downloads(self)
+
+    @cached_property
+    def data_downloads_title(self):
+        return 'Data downloads'
+
+    @cached_property
+    def data_downloads_list(self):
+        return get_downloads(self, with_parent=False, data=True)
+
+    @cached_property
+    def page_publication_downloads(self):
+        return self.publication_downloads.all()
+
+    @cached_property
+    def page_data_downloads(self):
+        return self.data_downloads.all()
+
+
+class PublicationPageRelatedLink(OtherPageMixin):
+    page = ParentalKey(Page, related_name='publication_related_links', on_delete=models.CASCADE)
+
+    panels = [
+        PageChooserPanel('other_page')
     ]

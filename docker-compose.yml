@@ -51,6 +51,13 @@ services:
       - ./config/nginx:/etc/nginx/conf.d
     depends_on:
       - web
+  rabbitmq:
+    image: rabbitmq:latest
+    ports:
+      - 4369:4369
+      - 5671:5671
+      - 5672:5672
+      - 15672:15672
 
 volumes:
   diwebsite_db:

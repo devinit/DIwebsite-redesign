@@ -13,8 +13,9 @@ RICHTEXT_FEATURES = [
     'italic',
     'ol',
     'ul',
+    'hr',
     'link',
-    'document',
+    'document-link',
     'image',
     'embed',
     'anchor'

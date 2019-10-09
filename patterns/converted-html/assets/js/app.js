@@ -14,7 +14,6 @@ import copyText from './utils/copyText';
 import chapterNav from './utils/chapterNav';
 import './libs/slick';
 import './libs/jquery.responsiveTabs';
-
 import modal from './utils/modal';
 
 function globals () {

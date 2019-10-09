@@ -15,7 +15,8 @@ export default function modal (target, trigger, parentcontainer) {
 		/* Capture the filename for later*/
 		file_url = $(this).attr('href');
 
-Cookies.set('download_modal', 'debug');
+// Enable this to force the modal to always appear.
+Cookies.set('download_modal', 'always show the modal');
 
 		/* Act on the event */
 		if(Cookies.get('download_modal') == 'used') { // download the file

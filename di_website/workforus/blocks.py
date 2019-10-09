@@ -26,7 +26,7 @@ class BenefitsStreamBlock(StreamBlock):
     Handles the benefits section of the 'Work for Us' page
     """
     benefit = BenefitBlock()
-    logo = ImageChooserBlock()
+    logo = ImageChooserBlock(required=False)
 
     required = False
 

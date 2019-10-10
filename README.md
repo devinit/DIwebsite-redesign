@@ -40,15 +40,32 @@ Pattern library available online at [http://development-initiatives.surge.sh/](h
 
         python3 manage.py migrate
 
-7. Build static assets - refer to *Pattern library* section, then in the project root
+
+7. Install Rabbitmq in Ubuntu
+
+        sudo apt-get install rabbitmq-server
+
+8. Add
+
+        export DJANGO_SETTINGS_MODULE=di_website.settings.dev
+
+   to your activate file inside
+
+        path_to_virtual_env_folder/bin/
+
+9. Run Celery worker
+
+        celery -A wagtaillinkchecker worker -l info
+
+10. Build static assets - refer to *Pattern library* section, then in the project root
 
         python3 manage.py collectstatic
 
-8. Run
+11. Run
 
         python3 manage.py runserver
 
-9. Test
+12. Test
 
         python3 manage.py test
 
@@ -63,7 +80,7 @@ Pattern library available online at [http://development-initiatives.surge.sh/](h
 If the deployment is from scratch, follow commands below to update content with old website content
 1. Create pages Publication Index and Blog Index
 2. Execute the commands below to finish the migration
-   
+
    ```docker
    docker-compose exec web python manage.py fixblogs
    docker-compose exec web python manage.py importwp

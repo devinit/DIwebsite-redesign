@@ -145,6 +145,18 @@
 {% endif %}
 
 
+{% if self.richtext_columns %}
+  <section class="section">
+    <div class="row row--narrow">
+      <div class="l-2up">
+        {% for block in self.richtext_columns %}
+          {% include_block block %}
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+{% endif %}
+
 {% for block in self.sections %}
   {% include_block block %}
 {% endfor %}

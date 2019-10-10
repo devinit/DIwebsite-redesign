@@ -34,13 +34,11 @@ class BlogTopic(TaggedItemBase):
 
 
 class BlogIndexPage(HeroMixin, Page):
-    subpage_types = ['BlogArticlePage']
+    subpage_types = ['general.General', 'BlogArticlePage']
+    parent_page_types = ['home.HomePage']
 
     class Meta():
         verbose_name = 'Blog Index Page'
-
-    subpage_types = ['general.General']
-    parent_page_types = ['home.HomePage']
 
     def get_context(self, request):
         context = super(BlogIndexPage, self).get_context(request)

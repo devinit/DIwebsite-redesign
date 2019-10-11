@@ -93,9 +93,15 @@ class SectionBlockQuote(StructBlock):
 
 
 class AbstractLinkBlock(StructBlock):
-    caption = CharBlock(required=False)
-    url = URLBlock(required=False)
-    page = PageChooserBlock(required=False)
+    caption = CharBlock(
+        required=False,
+        help_text='Leave blank if you wish to use the page title as a caption'
+    )
+    page = PageChooserBlock(
+        required=False,
+        help_text='For the link/button to show, either this or the url are required'
+    )
+    url = URLBlock(required=False, help_text='An alternative to an internal page')
 
     class Meta:
         icon = 'fa-link'
@@ -110,8 +116,10 @@ class LinkBlock(AbstractLinkBlock):
 
 class ButtonBlock(AbstractLinkBlock):
     class Meta:
-        icon = 'fa-link'
         template = 'blocks/button_block.html'
+        label = 'A Link Button'
+        form_classname = 'button-block'
+        help_text = 'Displays a link/button that navigates to the specified page or url when clicked'
 
 
 class ImageBlock(StructBlock):

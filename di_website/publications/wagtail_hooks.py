@@ -149,6 +149,10 @@ def editor_css():
                 hyphens: auto;
             }}
 
+            .struct-block .fields .button-block .fields {{
+                border-bottom: 1px solid #e6e6e6;
+            }}
+
         </style>
         """
     )

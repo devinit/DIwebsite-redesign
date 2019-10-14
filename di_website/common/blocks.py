@@ -118,7 +118,7 @@ class ButtonBlock(AbstractLinkBlock):
     class Meta:
         template = 'blocks/button_block.html'
         label = 'A Link Button'
-        form_classname = 'button-block'
+        form_classname = 'button-block indent-fields'
         help_text = 'Displays a link/button that navigates to the specified page or url when clicked'
 
 

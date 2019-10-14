@@ -90,6 +90,7 @@ def editor_css():
 
     # For the data-text selector, see https://css-tricks.com/snippets/css/prevent-long-urls-from-breaking-out-of-container/
     # This fixes long URLs breaking the interface
+    # Any extra CSS for customising the admin interface can be added here as well
     return format_html(
         """
         <style>
@@ -149,8 +150,12 @@ def editor_css():
                 hyphens: auto;
             }}
 
-            .struct-block .fields .button-block .fields {{
+            .button-block .fields {{
                 border-bottom: 1px solid #e6e6e6;
+            }}
+
+            .indent-fields .fields {{
+                margin-left: 5%;
             }}
 
         </style>

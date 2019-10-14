@@ -20,18 +20,8 @@
           {% endfor %}
         </div>
       </div>
-      {% if self.button_page %}
-        <a href="{% pageurl self.button_page %}" class="button">
-          {% if self.button_caption %}
-            {{ self.button_caption }}
-          {% else %}
-            {{ self.button_page.title }}
-          {% endif %}
-        </a>
-      {% elif self.button_url %}
-          <a href="{{ self.button_url }}" class="button">
-            {{ self.button_caption }}
-          </a>
+      {% if self.button %}
+        {% include_block self.button %}
       {% endif %}
     </div>
   </section>

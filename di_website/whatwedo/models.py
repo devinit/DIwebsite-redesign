@@ -5,6 +5,8 @@ from wagtail.core.blocks import (
     CharBlock,
     RichTextBlock,
     StructBlock,
+    StreamBlock,
+    TextBlock
 )
 from wagtail.core.models import Page
 from wagtail.core.fields import RichTextField, StreamField
@@ -22,7 +24,7 @@ from di_website.common.base import hero_panels, get_related_pages
 from .blocks import ExpertiseBlock, FocusAreasBlock, LocationsMapBlock
 from di_website.common.blocks import (
     BannerBlock, SectionStreamBlock, TestimonialBlock, VideoDuoTextBlock)
-from di_website.common.constants import MAX_OTHER_PAGES
+from di_website.common.constants import MAX_OTHER_PAGES, RICHTEXT_FEATURES
 from di_website.news.models import NewsStoryPage
 
 class WhatWeDoPage(TypesetBodyMixin, HeroMixin, Page):
@@ -151,6 +153,13 @@ class ServicesPage(TypesetBodyMixin, HeroMixin, Page):
         ]))
     ])
 
+    richtext_columns = StreamField([
+        ('column', StructBlock([
+            ('heading', TextBlock(required=False, icon='title')),
+            ('content', RichTextBlock(features=RICHTEXT_FEATURES, icon='fa-paragraph'))
+        ], template='blocks/richtext_column.html'))
+    ], null=True, blank=True)
+
     sections = StreamField(
         SectionStreamBlock(),
         verbose_name="Sections",
@@ -173,6 +182,7 @@ class ServicesPage(TypesetBodyMixin, HeroMixin, Page):
         StreamFieldPanel('skills'),
         InlinePanel('services_related_news', label="Related news"),
         InlinePanel('services_related_example', label="Project examples"),
+        StreamFieldPanel('richtext_columns'),
         StreamFieldPanel('sections'),
         InlinePanel('page_notifications', label='Notifications')
     ]

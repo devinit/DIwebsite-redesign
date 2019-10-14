@@ -1,0 +1,8 @@
+{% load wagtailcore_tags string_utils %}
+
+<div class="l-2up__col">
+  {% if self.heading %}
+    <h3 class="type-m type-m--trailer">{{ self.heading }}</h3>
+  {% endif %}
+  <div class="para">{{ self.content|richtext_strip_wrapper}}</div>
+</div>

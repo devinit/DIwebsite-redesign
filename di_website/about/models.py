@@ -58,11 +58,11 @@ class OurStoryPage(SectionBodyMixin, TypesetBodyMixin, HeroMixin, Page):
         verbose_name = 'Our Story Page'
 
     subpage_types = ['general.General']
-    parent_page_types = ['WhoWeArePage']
+    parent_page_types = ['about.WhoWeArePage']
 
 
 class WhoWeArePage(SectionBodyMixin, TypesetBodyMixin, HeroMixin, Page):
-    subpage_types = ['OurStoryPage', 'general.General', 'ourteam.OurTeamPage']
+    subpage_types = ['about.OurStoryPage', 'general.General', 'ourteam.OurTeamPage']
 
     value_section_heading = models.CharField(blank=True, max_length=255)
     value_section_sub_heading = models.TextField(blank=True)
@@ -92,5 +92,3 @@ class WhoWeArePage(SectionBodyMixin, TypesetBodyMixin, HeroMixin, Page):
 
     class Meta():
         verbose_name = 'Who We Are Page'
-
-    subpage_types = ['general.General']

@@ -5,7 +5,7 @@
 {% block body %}
 
 
-  {% if page.featured_publicatuion %}
+  {% if page.featured_publication %}
     {% with page=page.featured_publication hero_image=page.hero_image link_caption=page.hero_link_caption %}
       {% include 'includes/heroes/hero_home.html' %}
     {% endwith %}

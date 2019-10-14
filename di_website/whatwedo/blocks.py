@@ -28,9 +28,7 @@ class LocationsMapBlock(StructBlock):
         template='blocks/paragraph_block.html',
         features=RICHTEXT_FEATURES,
         required=False)
-    button_caption = CharBlock(required=False)
-    button_page = PageChooserBlock(required=False)
-    button_url = URLBlock(required=False, help_text='An alternative to an internal page')
+    button = ButtonBlock()
     light = BooleanBlock(
         default=False,
         required=False,

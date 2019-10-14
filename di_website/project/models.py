@@ -78,7 +78,7 @@ class FocusAreasPage(TypesetBodyMixin, HeroMixin, Page):
     """
     http://development-initiatives.surge.sh/page-templates/08-focus-areas
     """
-    subpage_types = ['ProjectPage','general.General']
+    subpage_types = ['ProjectPage', 'general.General']
     parent_page_types = ['whatwedo.WhatWeDoPage']
 
     class Meta():

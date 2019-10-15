@@ -14,6 +14,7 @@ import copyText from './utils/copyText';
 import chapterNav from './utils/chapterNav';
 import './libs/slick';
 import './libs/jquery.responsiveTabs';
+import modal from './utils/modal';
 
 function globals () {
 
@@ -129,8 +130,17 @@ function globals () {
     $('#responsive-tabs').responsiveTabs({
         startCollapsed: 'accordion',
         collapsible: 'accordion',
+        scrollToAccordion: true,
         setHash: true
     });
+
+    // Go go modal
+    // function is modal(target, trigger, parentcontainer)
+    // target = id of modal
+    // trigger = class of item to open the modal
+    // parentcontainer = id of <section> containing the trigger
+    modal('download-modal','.modal-button-open', 'modal-container');
+
 }
 
 $(function run () {

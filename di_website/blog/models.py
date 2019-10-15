@@ -128,6 +128,9 @@ class BlogPageRelatedLink(OtherPageMixin):
         PageChooserPanel('other_page', [
             'events.EventPage',
             'blog.BlogArticlePage',
-            'news.NewsStoryPage'
+            'news.NewsStoryPage',
+            'publications.PublicationPage',
+            'publications.ShortPublicationPage',
+            'publications.LegacyPublicationPage'
         ])
     ]

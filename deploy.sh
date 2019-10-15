@@ -61,7 +61,7 @@ function export_travis_enviroment {
 
     for env in $ENVIROMENT_VARIABLES
     do
-        echo  "$env=eval ('$'$env)" >> $APP_DIR'/'.env
+        eval echo $env"="\${$env} >> $APP_DIR'/'.env
     done
 
 }

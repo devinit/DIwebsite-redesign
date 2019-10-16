@@ -150,7 +150,7 @@ function start_link_checker_processes {
 
 }
 
-if [ $args[0] -eq 'run']
+if [ $args[0] -eq 'run' ]
 then
     if [ -d $APP_DIR ]; then
         backup_database
@@ -166,7 +166,7 @@ then
     start_link_checker_processes
     elastic_search_reindex
 
-elif [ $args[0] -eq 'backup']
+elif [ $args[0] -eq 'backup' ]
 then 
 
     backup_database

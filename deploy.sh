@@ -22,7 +22,7 @@ DOCKER_STORAGE='diwebsite_db;index_db'
 REPOSITORY="git@github.com:devinit/"$APP_NAME".git"
 ACTIVE_BRANCH='develop'
 STAGING_IP=
-ENVIROMENT_VARIABLES='DATABASE_URL;EMAIL_HOST;EMAIL_BACKEND;EMAIL_HOST_USER;EMAIL_HOST_PASSWORD'
+ENVIROMENT_VARIABLES='EMAIL_HOST;EMAIL_BACKEND;EMAIL_HOST_USER;EMAIL_HOST_PASSWORD;HS_API_KEY;HS_TICKET_PIPELINE;HS_TICKET_PIPELINE_STAGE;ELASTIC_USERNAME;ELASTIC_PASSWORD;RABBITMQ_PASSWORD;DATABASE_URL;CELERY_BROKER_URL;ELASTIC_SEARCH_URL'
 
 OIFS=$IFS
 IFS=';'
@@ -66,6 +66,7 @@ function export_travis_enviroment {
     
     for env in $ENVIROMENT_VARIABLES
     do
+        log "Creating $env"
         eval echo $env"="\${$env} >> $APP_DIR'/'.env
     done
     
@@ -91,7 +92,7 @@ function backup_database {
     cd $APP_DIR
 
     log "Starting backup from remote docker machine $(docker-compose ps -q db)"
-    docker-compose exec db pg_dump -U di_website -d di_website >  $file_name
+    docker-compose exec -T db pg_dump -U di_website -d di_website >  $file_name
     
     log "Database backup completed..."
     
@@ -99,7 +100,7 @@ function backup_database {
     then
         :
     else
-        log "Database backup failed, exiting process ..."
+        log "Database backup failed, exiting process ... If this is a fresh deployment, delete $APP_DIR folder"
         exit 20;
     fi
     
@@ -110,7 +111,7 @@ function elastic_search_reindex {
     start_new_process "Re-indexing elastic search"
     cd $APP_DIR
     
-    docker-compose exec web python manage.py update_index
+    docker-compose exec -T web python manage.py update_index
     
 }
 
@@ -149,14 +150,14 @@ function start_link_checker_processes {
     start_new_process "Creating Rabbit MQ user and vhost for celery"
     cd $APP_DIR
     
-    docker-compose exec rabbit rabbitmqctl add_user di_website $RABBITMQ_PASSWORD
-    docker-compose exec rabbit rabbitmqctl add_vhost myvhost
-    docker-compose exec rabbitmqctl set_user_tags di_website di_website
-    docker-compose exec rabbitmqctl set_permissions -p myvhost di_website ".*" ".*" ".*"
+    docker-compose exec -T rabbitmq rabbitmqctl add_user di_website $RABBITMQ_PASSWORD
+    docker-compose exec -T rabbitmq rabbitmqctl add_vhost myvhost
+    docker-compose exec -T rabbitmq rabbitmqctl set_user_tags di_website di_website
+    docker-compose exec -T rabbitmq rabbitmqctl set_permissions -p myvhost di_website ".*" ".*" ".*"
     
     start_new_process "Starting celery"
     
-    docker-compose -exec web celery -A wagtaillinkchecker worker -l info &
+    docker-compose exec -T web celery -A wagtaillinkchecker worker -l info &
 
     log "Finished setting up link checker .."
     

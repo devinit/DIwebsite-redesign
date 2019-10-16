@@ -36,6 +36,11 @@ function start_new_process {
     printf "$1"
     printf "\n===================================================================\n"
 }
+
+function log {
+   printf  "$1\n"
+}
+
 function setup_docker_storage {
     
     start_new_process 'Setting up new docker storage for postgres and elastic search'
@@ -44,10 +49,10 @@ function setup_docker_storage {
     for storage in $DOCKER_STORAGE
     do
         if echo $docker_volumes | grep -q $storage ; then
-            echo "Docker volume $storage already exits. Skipping ...."
+            log "Docker volume $storage already exits. Skipping ...."
         else
             docker volume create $storage > /dev/null
-            echo "Created new docker volume $storage witth status "$?
+            log "Created new docker volume $storage witth status "$?
         fi
     done
     
@@ -68,28 +73,33 @@ function export_travis_enviroment {
 
 function backup_database {
     
-    start_new_process "Creating a backup of working database to location $"
+    start_new_process "Creating a backup of working database to location $DATABASE_BACKUP"
     
     mkdir -p $DATABASE_BACKUP && cd $DATABASE_BACKUP
-    tmpdir='/tmp/dbback00100100'
     
     current_date=`date '+%F'`
     file_name=$DATABASE_BACKUP'/'$current_date'.backup'
     
-    label="$(($(ls -v | grep 'test' | cat -n | wc -l) + 1))"
+    label="$(($(ls -v | grep $current_date | cat -n | wc -l) + 1))"
     
-    mv -n $f  $tmpdir/label'.'$current_date'.backup'
-    
+    if [ -r $current_date'.backup' ];
+    then
+        log "Moving file old backup to new location $label.$current_date.backup"
+        mv -n $current_date'.backup' $label'.'$current_date'.backup'
+    fi
+
     cd $APP_DIR
+
+    log "Starting backup from remote docker machine $(docker-compose ps -q db)"
     docker-compose exec db pg_dump -U di_website -d di_website >  $file_name
     
-    printf "Database backup completed"
+    log "Database backup completed..."
     
     if [ -r $file_name ];
     then
         :
     else
-        printf "Database backup failed, exiting process ...\n"
+        log "Database backup failed, exiting process ..."
         exit 20;
     fi
     
@@ -114,20 +124,20 @@ function perform_git_operations {
         {
             docker-compose down
             # Move back to root director
-            printf  "Cloning new content from active branch "$ACTIVE_BRANCH"\n\n"
+            log  "Cloning new content from active branch "$ACTIVE_BRANCH
             git fetch
             git stash
             git checkout $ACTIVE_BRANCH
             git reset --hard origin/$ACTIVE_BRANCH
             } || {
-            printf "Failed to update from git repository \n"
+            log "Failed to update from git repository"
             exit 20;
         }
     else
         {
             git clone --branch $ACTIVE_BRANCH $REPOSITORY
             } || {
-            printf "Failed to perform git clone on $REPOSITORY with branch $ACTIVE_BRANCH \n"
+            log "Failed to perform git clone on $REPOSITORY with branch $ACTIVE_BRANCH "
             exit 20;
         }
     fi
@@ -147,6 +157,8 @@ function start_link_checker_processes {
     start_new_process "Starting celery"
     
     docker-compose -exec web celery -A wagtaillinkchecker worker -l info &
+
+    log "Finished setting up link checker .."
     
 }
 
@@ -156,25 +168,25 @@ then
     if [ -d $APP_DIR ]; then
         backup_database
     fi
-
+    
     perform_git_operations
     export_travis_enviroment
     setup_docker_storage
-
+    
     start_new_process "Starting up services ..."
     cd $APP_DIR
     docker-compose up -d --build
     start_link_checker_processes
     elastic_search_reindex
-
+    
 elif [ ${args[0]} == 'backup' ]
 then
-
+    
     backup_database
-
+    
 else
-
-    printf "Failed to find operation; Usage: \n$0 run|backup|restoredb <Vars>\n"
+    
+    log "Failed to find operation; Usage: \n$0 run|backup|restoredb <Vars>"
     exit 20
-
+    
 fi

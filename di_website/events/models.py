@@ -32,6 +32,7 @@ class EventPage(TypesetBodyMixin, HeroMixin, Page):
     end_time = models.TimeField()
     location = models.CharField(max_length=100, help_text='Physical location of event')
     registration_link = models.URLField(blank=True, null=True)
+    raw_content = models.TextField(null=True, blank=True)
 
     other_pages_heading = models.CharField(
         blank=True,
@@ -51,6 +52,7 @@ class EventPage(TypesetBodyMixin, HeroMixin, Page):
         ], heading='Event Details'),
         FieldPanel('registration_link'),
         StreamFieldPanel('body'),
+        FieldPanel('raw_content'),
         MultiFieldPanel([
             FieldPanel('other_pages_heading'),
             InlinePanel('event_related_links', label='Related Pages', max_num=MAX_RELATED_LINKS)

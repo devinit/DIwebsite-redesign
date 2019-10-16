@@ -18,6 +18,7 @@ from di_website.news.models import NewsIndexPage, NewsStoryPage
 from di_website.ourteam.models import OurTeamPage, TeamMemberPage, TeamMemberPageDepartment
 from di_website.users.models import Department, JobTitle
 from di_website.publications.models import PublicationIndexPage, LegacyPublicationPage, PublicationType
+from di_website.events.models import EventIndexPage, EventPage
 
 from wagtail.contrib.redirects.models import Redirect
 from wagtail.images.models import Image
@@ -35,6 +36,7 @@ class Command(BaseCommand):
         parser.add_argument('news_file', nargs='?', type=str, default=os.path.join(settings.BASE_DIR, 'migrated_content/di_news.json'))
         parser.add_argument('img_folder', nargs='?', type=str, default=os.path.join(settings.BASE_DIR, 'migrated_content/staff_photos'))
         parser.add_argument('pubs_file', nargs='?', type=str, default=os.path.join(settings.BASE_DIR, 'migrated_content/di_pubs.json'))
+        parser.add_argument('events_file', nargs='?', type=str, default=os.path.join(settings.BASE_DIR, 'migrated_content/di_events.json'))
 
     def handle(self, *args, **options):
         """Implement the command handler."""
@@ -43,6 +45,7 @@ class Command(BaseCommand):
         news_index_page = NewsIndexPage.objects.live().first()
         blog_index_page = BlogIndexPage.objects.live().first()
         publication_index_page = PublicationIndexPage.objects.live().first()
+        event_index_page = EventIndexPage.objects.live().first()
 
         if our_team_page is not None:
             with open(options['staff_file']) as staff_file:
@@ -217,3 +220,31 @@ class Command(BaseCommand):
                         )
 
         self.stdout.write(self.style.SUCCESS('Successfully imported publications.'))
+
+        if event_index_page is not None:
+            with open(options['events_file']) as events_file:
+                event_datasets = json.load(events_file)
+                for event_dataset in event_datasets:
+                    slug = event_dataset['url'].split('/')[-2]
+                    event_check = EventPage.objects.filter(slug=slug)
+                    if not event_check and event_dataset['body'] != "":
+                        event_page = EventPage(
+                            title=event_dataset['title'],
+                            slug=slug,
+                            hero_text=event_dataset['description'],
+                            raw_content=json.dumps([{'type': 'paragraph_block', 'value': event_dataset['body']}]),
+                            start_time=datetime.time(0),
+                            end_time=datetime.time(0),
+                            location="Placeholder"
+                        )
+                        event_index_page.add_child(instance=event_page)
+                        event_page.save_revision().publish()
+                        event_page.first_published_at = pytz.utc.localize(datetime.datetime.strptime(event_dataset['date'], "%d %b %Y"))
+                        event_page.save_revision().publish()
+                        Redirect.objects.create(
+                            site=event_page.get_site(),
+                            old_path="/post/{}".format(slug),
+                            redirect_page=event_page
+                        )
+
+        self.stdout.write(self.style.SUCCESS('Successfully imported events.'))

@@ -22,7 +22,7 @@
             {% endwith %}
         {% endwith %}
 
-    {% elif page.other_authors|length == 1 %}
+    {% elif not page.internal_author_page and page.other_authors|length == 1 %}
 
       {% with other_author=page.other_authors|first %}
         {% if other_author.block_type == 'internal_author' %}

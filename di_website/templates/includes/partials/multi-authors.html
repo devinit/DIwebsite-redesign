@@ -1,21 +1,35 @@
 {% load wagtailcore_tags %}
 
 <div class="m-authors">
-    <h3 class="m-authors__title">Authors</h3>
-    <ul class="m-authors__list">
+    <h3 class="m-authors__title">
+      {% if first_author and authors|length > 0 %}
+        Authors
+      {% elif authors|length > 1 %}
+        Authors
+      {% else %}
+        Author
+      {% endif %}
+    </h3>
+    <p class="m-authors__copy">
       {% if first_author %}
-        <li><a href="{% pageurl first_author %}">{{ first_author.specific.name }}</a></li>
+        <a href="{% pageurl first_author %}">{{ first_author.specific.name }}</a>
+      {% endif %}
+      {% if first_author and authors|length > 0 %}
+      ,
       {% endif %}
       {% for author in authors %}
         {% if author.block_type == 'internal_author' %}
-          <li><a href="{% pageurl author.value %}">{{ author.value.specific.name }}</a></li>
+          <a href="{% pageurl author.value %}">{{ author.value.specific.name }}</a>
         {% else %}
           {% if author.value.page %}
-            <li><a href="{{ author.value.page }}">{{ author.value.name }}</a></li>
+            <a href="{{ author.value.page }}">{{ author.value.name }}</a>
           {% else %}
-            <li>{{ author.value.name }}</li>
+            <a href="#">{{ author.value.name }}</a>
           {% endif %}
         {% endif %}
+        {% if not forloop.last %}
+        ,
+        {% endif %}
       {% endfor %}
-    </ul>
+    </p>
 </div>

@@ -232,7 +232,7 @@ class Command(BaseCommand):
                             title=event_dataset['title'],
                             slug=slug,
                             hero_text=event_dataset['description'],
-                            raw_content=json.dumps([{'type': 'paragraph_block', 'value': event_dataset['body']}]),
+                            raw_content=event_dataset['body'],
                             start_time=datetime.time(0),
                             end_time=datetime.time(0),
                             location="Placeholder"

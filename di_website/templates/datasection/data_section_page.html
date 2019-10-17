@@ -17,9 +17,9 @@
         </aside>
         <div class="l-sidebar__body">
           <div class="is-typeset wysiwyg">
-            <p>
-              {{ page.body }}
-            </p>
+            {% for block in page.body %}
+              {% include_block block %}
+            {% endfor %}
           </div>
         </div>
       </div>
@@ -72,7 +72,6 @@
   {% for block in page.sections %}
     {% include_block block %}
   {% endfor %}
-
 
   <section class="section">
     {% get_other_pages calling_page=self heading=page.other_pages_heading %}

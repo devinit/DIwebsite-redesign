@@ -19,7 +19,7 @@ from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Page
 from wagtail.snippets.models import register_snippet
 
-from di_website.common.base import get_related_pages, hero_panels
+from di_website.common.base import get_related_pages, hero_panels, Country
 from di_website.common.constants import MAX_RELATED_LINKS
 from di_website.common.mixins import HeroMixin, OtherPageMixin, SectionBodyMixin, TypesetBodyMixin
 from di_website.dataset.models import DatasetPage
@@ -200,5 +200,8 @@ class DataSetListing(TypesetBodyMixin, Page):
         context['topics'] = Tag.objects.filter(
             models.Q(dataset_datasettopic_items__content_object__content_type=content_type)
         ).distinct()
+        context['countries'] = Country.objects.all()
+        context['sources'] = DataSource.objects.all()
+        context['reports'] = Report.objects.all()
 
         return context

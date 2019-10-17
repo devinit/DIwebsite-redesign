@@ -42,12 +42,12 @@
         <label for="team-filter" class="form-label form-label--hidden">Geography</label>
         <div class="form-field__select-dropdown">
             <select name="country" id="country">
-                <option value="" selected>Geography</option>
-                <option value="global">Global</option>
+                <option value="" disabled selected>Geography</option>
+                <option value="">Global</option>
                 {% regroup countries by region as country_groups %}
                 {% for country_group in country_groups %}
                   <optgroup label="{{country_group.grouper}}">
-                    <option value="all-{{country_group.grouper}}">All in {{country_group.grouper}}</option>
+                    <option value="all--{{country_group.grouper}}">All in {{country_group.grouper}}</option>
                     {% for country in country_group.list %}
                       <option value="{{country.slug}}" id="{{country.slug}}" {% if country.slug == selected_country %}selected{% endif %}>
                         {{country}}

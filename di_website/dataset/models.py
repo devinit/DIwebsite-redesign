@@ -52,6 +52,8 @@ class DataSetTopic(TaggedItemBase):
 class DatasetPage(TypesetBodyMixin, HeroMixin, Page):
     """ Content of each Dataset """
 
+    parent_page_types = ['datasection.DataSetListing']
+
     publication_type = models.CharField(
         blank=True,
         max_length=255,

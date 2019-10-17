@@ -12,7 +12,7 @@
               {% endif %}
 
               {% if self.image %}
-                {% responsiveimage self.image width-460 srcset=global.banner_srcs alt='alt image' %}
+                {% responsiveimage self.image width-460 srcset=global.banner_srcs alt=self.image.title %}
               {% endif %}
             </div>
           </div>

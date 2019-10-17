@@ -363,7 +363,7 @@ class DataSetListing(TypesetBodyMixin, Page):
 
         content_type = ContentType.objects.get_for_model(DatasetPage)
         context['topics'] = Tag.objects.filter(
-            models.Q(dataset_datasettopic_items__content_object__content_type=content_type)
+            models.Q(datasection_datasettopic_items__content_object__content_type=content_type)
         ).distinct()
         context['countries'] = Country.objects.all()
         context['sources'] = DataSource.objects.all()

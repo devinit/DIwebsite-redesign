@@ -1,7 +1,9 @@
 import random
 
 from django.db import models
+from django.utils.text import slugify
 from modelcluster.fields import ParentalKey
+from modelcluster.models import ClusterableModel
 
 from wagtail.admin.edit_handlers import (
     FieldPanel, InlinePanel, MultiFieldPanel,
@@ -10,12 +12,39 @@ from wagtail.admin.edit_handlers import (
 from wagtail.core.blocks import StreamBlock
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Page
+from wagtail.snippets.models import register_snippet
 
 from di_website.common.base import get_related_pages, hero_panels
 from di_website.common.constants import MAX_RELATED_LINKS
 from di_website.common.mixins import HeroMixin, OtherPageMixin, SectionBodyMixin, TypesetBodyMixin
 
 from .blocks import QuoteStreamBlock
+
+
+@register_snippet
+class Report(ClusterableModel):
+    title = models.CharField(max_length=255, unique=True)
+    description = models.TextField(blank=True, null=True)
+    slug = models.SlugField(
+        max_length=255, blank=True, null=True,
+        help_text="Optional. Will be auto-generated from name if left blank.")
+
+    panels = [
+        FieldPanel('title'),
+        FieldPanel('description'),
+        FieldPanel('slug'),
+    ]
+
+    class Meta:
+        ordering = ["title"]
+
+    def __str__(self):
+        return self.title
+
+    def save(self, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super(Report, self).save(**kwargs)
 
 
 class DataSectionPage(SectionBodyMixin, TypesetBodyMixin, HeroMixin, Page):

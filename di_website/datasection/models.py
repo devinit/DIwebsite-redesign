@@ -61,14 +61,14 @@ class DataSectionPage(SectionBodyMixin, TypesetBodyMixin, HeroMixin, Page):
     class Meta:
         verbose_name = "Data Section Page"
 
-    def countQuotes(self):
+    def count_quotes(self):
         quote_counter = 0
         for quote in self.quotes:
             quote_counter = quote_counter + 1
         return quote_counter
 
-    def getRandomQuote(self):
-        number_of_quotes = self.countQuotes()
+    def get_random_quote(self):
+        number_of_quotes = self.count_quotes()
         if number_of_quotes == 1:
             for quote in self.quotes:
                 return quote
@@ -81,5 +81,5 @@ class DataSectionPage(SectionBodyMixin, TypesetBodyMixin, HeroMixin, Page):
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
-        context['random_quote'] = self.getRandomQuote()
+        context['random_quote'] = self.get_random_quote()
         return context

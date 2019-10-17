@@ -1,6 +1,8 @@
 from django.db import models
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
+from modelcluster.contrib.taggit import ClusterTaggableManager
+
 from datetime import datetime
 
 from wagtail.core.blocks import (
@@ -24,6 +26,7 @@ from wagtail.admin.edit_handlers import (
     PageChooserPanel,
     StreamFieldPanel
 )
+from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Page
 
@@ -36,10 +39,14 @@ from taggit.models import Tag, TaggedItemBase
 
 from modelcluster.fields import ParentalKey
 
-from .blocks import (
+from di_website.dataset.blocks import (
     MetaDataDescriptionBlock,
-    MetaDataSourcesBlock,
+    MetaDataSourcesBlock
 )
+
+
+class DataSetTopic(TaggedItemBase):
+    content_object = ParentalKey('dataset.DatasetPage', on_delete=models.CASCADE, related_name='dataset_topics')
 
 
 class DatasetPage(TypesetBodyMixin, HeroMixin, Page):
@@ -66,6 +73,14 @@ class DatasetPage(TypesetBodyMixin, HeroMixin, Page):
         max_length=255,
         verbose_name='Title'
     )
+    report = models.ForeignKey(
+        'datasection.Report',
+        related_name="+",
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True
+    )
+    topics = ClusterTaggableManager(through=DataSetTopic, blank=True, verbose_name="Topics")
 
     content_panels = Page.content_panels + [
         hero_panels(),
@@ -73,7 +88,13 @@ class DatasetPage(TypesetBodyMixin, HeroMixin, Page):
         FieldPanel('release_date'),
         FieldPanel('text_content'),
         InlinePanel('team_member_links', label="Dataset Author", max_num=1),
-        StreamFieldPanel('meta_data'),
+        MultiFieldPanel([
+            StreamFieldPanel('meta_data'),
+            SnippetChooserPanel('report'),
+            FieldPanel('topics'),
+            InlinePanel('page_countries', label="Countries"),
+            InlinePanel('dataset_sources', label='Sources')
+        ], heading='Metadata'),
         MultiFieldPanel([
             FieldPanel('related_datasets_title'),
             InlinePanel('related_dataset_links', label="Related Datasets", max_num=MAX_RELATED_LINKS)
@@ -116,4 +137,23 @@ class TeamMemberRelatedLink(OtherPageMixin):
         PageChooserPanel('other_page', [
             'ourteam.TeamMemberPage'
         ])
+    ]
+
+
+class DataSetSource(models.Model):
+    page = ParentalKey(
+        'dataset.DataSetPage',
+        related_name='dataset_sources',
+        on_delete=models.CASCADE
+    )
+    source = models.ForeignKey(
+        'datasection.DataSource',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        verbose_name='Data Source')
+
+    panels = [
+        SnippetChooserPanel('source')
     ]

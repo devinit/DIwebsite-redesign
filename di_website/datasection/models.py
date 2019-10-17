@@ -27,7 +27,7 @@ class Report(ClusterableModel):
     description = models.TextField(blank=True, null=True)
     slug = models.SlugField(
         max_length=255, blank=True, null=True,
-        help_text="Optional. Will be auto-generated from name if left blank.")
+        help_text="Optional. Will be auto-generated from title if left blank.")
 
     panels = [
         FieldPanel('title'),
@@ -45,6 +45,42 @@ class Report(ClusterableModel):
         if not self.slug:
             self.slug = slugify(self.title)
         super(Report, self).save(**kwargs)
+
+
+@register_snippet
+class DataSource(ClusterableModel):
+    title = models.CharField(max_length=255, unique=True)
+    description = models.TextField(blank=True, null=True)
+    organisation = models.CharField(max_length=255, blank=True)
+    date_of_access = models.DateField(blank=True)
+    link_to_metadata = models.URLField(blank=True)
+    geography = models.CharField(max_length=255, blank=True)
+    slug = models.SlugField(
+        max_length=255, blank=True, null=True,
+        help_text="Optional. Will be auto-generated from title if left blank.")
+
+    panels = [
+        FieldPanel('title'),
+        FieldPanel('description'),
+        FieldPanel('organisation'),
+        FieldPanel('date_of_access'),
+        FieldPanel('link_to_metadata'),
+        FieldPanel('geography'),
+        FieldPanel('slug'),
+    ]
+
+    class Meta:
+        ordering = ["title"]
+        verbose_name = 'Data Source'
+        verbose_name_plural = 'Data Sources'
+
+    def __str__(self):
+        return self.title
+
+    def save(self, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super(DataSource, self).save(**kwargs)
 
 
 class DataSectionPage(SectionBodyMixin, TypesetBodyMixin, HeroMixin, Page):

@@ -4,7 +4,7 @@
   <a href="{% pageurl self.person %}" class="profile">
     <div class="profile__media">
     {% if self.person.image %}
-      {% image self.person.image fill-140x140-c100 as image %}
+      {% image self.person.image fill-200x200-c100 as image %}
       <img src="{{ image.url }}" alt="{{ image.alt }}">
     {% else %}
       <img height="140px" width="140px" src="{% static 'img/profile-fallback.jpg' %}" alt="Placeholder profile picture">

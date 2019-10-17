@@ -3,9 +3,7 @@ from wagtail.core.blocks import (
     RichTextBlock,
     StreamBlock,
     StructBlock,
-    TextBlock,
-    URLBlock,
-    EmailBlock
+    TextBlock
 )
 from wagtail.core.fields import StreamField
 from wagtail.images.blocks import ImageChooserBlock
@@ -34,3 +32,20 @@ class QuoteStreamBlock(StreamBlock):
     team_member = TeamMemberQuoteBlock()
     external_member = ExternalMemberQuoteBlock()
     required = False
+
+
+class MetaDataDescriptionBlock(StructBlock):
+    description = RichTextBlock(icon="title", required=False)
+    provenance = RichTextBlock(icon="title", required=False)
+    variables = RichTextBlock(icon="title", required=False)
+    geography = RichTextBlock(icon="title", required=False)
+    topic = RichTextBlock(icon="title", required=False)
+
+
+class MetaDataSourcesBlock(StructBlock):
+    data_sources = PageChooserBlock(page_type="datasection.DatasetPage", required=False)
+
+
+class MetaDataSourcesStreamBlock(StreamBlock):
+    description = RichTextBlock(icon="title", required=False)
+    sources = MetaDataSourcesBlock()

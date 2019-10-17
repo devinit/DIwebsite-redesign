@@ -1,27 +1,24 @@
-from django.db import models
-
 import random
 
-from wagtail.admin.edit_handlers import (
-    FieldPanel,
-    InlinePanel,
-    PageChooserPanel,
-    StreamFieldPanel
-)
-from wagtail.core.fields import RichTextField, StreamField
-from wagtail.core.models import Page
-from wagtail.core.blocks import StreamBlock
-
-from di_website.common.base import hero_panels, get_related_pages
-from di_website.common.mixins import OtherPageMixin, HeroMixin, TypesetBodyMixin
-from di_website.common.constants import MAX_RELATED_LINKS
-
+from django.db import models
 from modelcluster.fields import ParentalKey
 
-from .blocks import QuoteStreamBlock, DataSuportStreamBlock
+from wagtail.admin.edit_handlers import (
+    FieldPanel, InlinePanel, MultiFieldPanel,
+    PageChooserPanel, StreamFieldPanel
+)
+from wagtail.core.blocks import StreamBlock
+from wagtail.core.fields import RichTextField, StreamField
+from wagtail.core.models import Page
+
+from di_website.common.base import get_related_pages, hero_panels
+from di_website.common.constants import MAX_RELATED_LINKS
+from di_website.common.mixins import HeroMixin, OtherPageMixin, SectionBodyMixin, TypesetBodyMixin
+
+from .blocks import QuoteStreamBlock
 
 
-class DataSectionPage(TypesetBodyMixin, HeroMixin, Page):
+class DataSectionPage(SectionBodyMixin, TypesetBodyMixin, HeroMixin, Page):
     """ Main page for datasets """
 
     quotes = StreamField(
@@ -38,11 +35,11 @@ class DataSectionPage(TypesetBodyMixin, HeroMixin, Page):
         help_text='A description of the datasets'
     )
 
-    data_support = StreamField(
-        DataSuportStreamBlock(max_num=1),
-        verbose_name="Data Support Services",
-        null=True,
-        blank=True
+    other_pages_heading = models.CharField(
+        blank=True,
+        max_length=255,
+        verbose_name='Heading',
+        default='More about'
     )
 
     content_panels = Page.content_panels + [
@@ -50,11 +47,11 @@ class DataSectionPage(TypesetBodyMixin, HeroMixin, Page):
         StreamFieldPanel('body'),
         StreamFieldPanel('quotes'),
         FieldPanel('dataset_subtitle'),
-        StreamFieldPanel('data_support'),
-        InlinePanel('datasection_related_links',
-            label='More About Us',
-            max_num=MAX_RELATED_LINKS
-        )
+        StreamFieldPanel('sections'),
+        MultiFieldPanel([
+            FieldPanel('other_pages_heading'),
+            InlinePanel('other_pages', label='Related pages')
+        ], heading='Other Pages/Related Links')
 
     ]
 
@@ -84,13 +81,4 @@ class DataSectionPage(TypesetBodyMixin, HeroMixin, Page):
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
         context['random_quote'] = self.getRandomQuote()
-        context['related_pages'] = get_related_pages(self.datasection_related_links.all())
         return context
-
-
-class DatasectionRelatedLink(OtherPageMixin):
-    page = ParentalKey(Page, related_name='datasection_related_links', on_delete=models.CASCADE)
-
-    panels = [
-        PageChooserPanel('other_page')
-    ]

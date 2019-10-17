@@ -34,21 +34,3 @@ class QuoteStreamBlock(StreamBlock):
     team_member = TeamMemberQuoteBlock()
     external_member = ExternalMemberQuoteBlock()
     required = False
-
-
-class DataSupportServicesBlock(StructBlock):
-    title = TextBlock()
-    description = TextBlock(required=False)
-    telephone = TextBlock(required=False)
-    email = EmailBlock(required=False)
-    photo = ImageChooserBlock(required=False)
-    photographer = TextBlock(required=False)
-    photo_credit = URLBlock(required=False)
-
-    class Meta():
-        icon = 'fa-phone-square'
-
-
-class DataSuportStreamBlock(StreamBlock):
-    support = DataSupportServicesBlock()
-    required = False

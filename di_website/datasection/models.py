@@ -28,7 +28,7 @@ class DataSectionPage(SectionBodyMixin, TypesetBodyMixin, HeroMixin, Page):
         blank=True
     )
 
-    dataset_subtitle = models.TextField(
+    dataset_info = models.TextField(
         null=False,
         blank=False,
         default="",
@@ -46,7 +46,7 @@ class DataSectionPage(SectionBodyMixin, TypesetBodyMixin, HeroMixin, Page):
         hero_panels(),
         StreamFieldPanel('body'),
         StreamFieldPanel('quotes'),
-        FieldPanel('dataset_subtitle'),
+        FieldPanel('dataset_info'),
         StreamFieldPanel('sections'),
         MultiFieldPanel([
             FieldPanel('other_pages_heading'),

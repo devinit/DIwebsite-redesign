@@ -1,8 +1,10 @@
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.core.validators import EmailValidator
+from django.utils.text import slugify
 
 from modelcluster.fields import ParentalKey
+from modelcluster.models import ClusterableModel
 
 from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, PageChooserPanel
 from wagtail.core.models import Orderable, Page
@@ -10,6 +12,7 @@ from wagtail.core.fields import RichTextField
 from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.models import register_snippet
+from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
 from .constants import MAX_RELATED_LINKS
 
@@ -86,3 +89,46 @@ class PageNotification(models.Model):
         FieldPanel('message'),
         FieldPanel('emails')
     ]
+
+
+@register_snippet
+class Region(ClusterableModel):
+    name = models.CharField(max_length=255, unique=True)
+
+    panels = [
+        FieldPanel('name'),
+    ]
+
+    class Meta:
+        ordering = ["name"]
+
+    def __str__(self):
+        return self.name
+
+
+@register_snippet
+class Country(ClusterableModel):
+    name = models.CharField(max_length=255, unique=True)
+    region = models.ForeignKey(
+        Region, related_name="+", on_delete=models.CASCADE)
+    slug = models.SlugField(
+        max_length=255, blank=True, null=True,
+        help_text="Optional. Will be auto-generated from name if left blank.")
+
+    panels = [
+        FieldPanel('name'),
+        SnippetChooserPanel('region'),
+        FieldPanel('slug'),
+    ]
+
+    class Meta:
+        ordering = ["name"]
+        verbose_name_plural = 'Countries'
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super(Country, self).save(*args, **kwargs)

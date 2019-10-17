@@ -1,1 +1,10 @@
-<div>Dataset Goes Here!</div>
+{% load wagtailcore_tags %}
+
+<div class="m-slip m-slip--icon">
+  <i role="presentation" aria-hidden="true" class="ico ico--24 ico-data-poppydark"></i>
+  {% if item.publication_type %}
+      <span class="m-slip__flag">{{ item.publication_type }}</span>
+  {% endif %}
+  <p class="m-slip__copy"><a href="{% pageurl item %}">{{ item.title }}</a></p>
+  <span class="m-slip__meta">Released: {{ item.release_date }}</span>
+</div>

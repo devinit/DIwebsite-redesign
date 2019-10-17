@@ -1,5 +1,6 @@
 import random
 import re
+from datetime import datetime
 
 from django.db import models
 from django.utils.text import slugify
@@ -20,13 +21,13 @@ from wagtail.core.blocks import StreamBlock
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Page
 from wagtail.snippets.models import register_snippet
+from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
 from di_website.common.base import get_related_pages, hero_panels, Country
 from di_website.common.constants import MAX_PAGE_SIZE, MAX_RELATED_LINKS
 from di_website.common.mixins import HeroMixin, OtherPageMixin, SectionBodyMixin, TypesetBodyMixin
-from di_website.dataset.models import DatasetPage
 
-from .blocks import QuoteStreamBlock
+from .blocks import QuoteStreamBlock, MetaDataDescriptionBlock, MetaDataSourcesBlock
 
 
 @register_snippet
@@ -162,6 +163,121 @@ class DataSectionPage(SectionBodyMixin, TypesetBodyMixin, HeroMixin, Page):
         context = super().get_context(request, *args, **kwargs)
         context['random_quote'] = self.get_random_quote()
         return context
+
+
+class DataSetTopic(TaggedItemBase):
+    content_object = ParentalKey('datasection.DatasetPage', on_delete=models.CASCADE, related_name='dataset_topics')
+
+
+class DatasetPage(TypesetBodyMixin, HeroMixin, Page):
+    """ Content of each dataset """
+
+    parent_page_types = ['datasection.DataSetListing']
+
+    publication_type = models.CharField(
+        blank=True,
+        max_length=255,
+        verbose_name='Publication Type'
+    )
+    release_date = models.DateField(default=datetime.now)
+    text_content = RichTextField(
+        null=True,
+        blank=True,
+        verbose_name='Main Content',
+        help_text='A description of the page content'
+    )
+    meta_data = StreamField([
+        ('description', MetaDataDescriptionBlock(max_num=1)),
+        ('sources', MetaDataSourcesBlock(max_num=1)),
+    ], null=True, blank=True)
+    related_datasets_title = models.CharField(
+        blank=True,
+        max_length=255,
+        verbose_name='Title'
+    )
+    report = models.ForeignKey(
+        'datasection.Report',
+        related_name="+",
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True
+    )
+    topics = ClusterTaggableManager(through=DataSetTopic, blank=True, verbose_name="Topics")
+
+    content_panels = Page.content_panels + [
+        hero_panels(),
+        FieldPanel('publication_type'),
+        FieldPanel('release_date'),
+        FieldPanel('text_content'),
+        InlinePanel('team_member_links', label="Dataset Author", max_num=1),
+        MultiFieldPanel([
+            StreamFieldPanel('meta_data'),
+            SnippetChooserPanel('report'),
+            FieldPanel('topics'),
+            InlinePanel('page_countries', label="Countries"),
+            InlinePanel('dataset_sources', label='Sources')
+        ], heading='Metadata'),
+        MultiFieldPanel([
+            FieldPanel('related_datasets_title'),
+            InlinePanel('related_dataset_links', label="Related Datasets", max_num=MAX_RELATED_LINKS)
+        ], heading='Related Dataset'),
+        InlinePanel('more_about_links', label="More About Pages", max_num=MAX_RELATED_LINKS)
+    ]
+
+    def get_context(self, request):
+        context = super().get_context(request)
+
+        context['related_datasets'] = get_related_pages(self.related_dataset_links.all(), DatasetPage.objects)
+        context['more_about_links'] = get_related_pages(self.more_about_links.all(), DatasetPage.objects)
+        context['team_member_links'] = get_related_pages(self.team_member_links.all())
+
+        return context
+
+
+class DatasetPageRelatedLink(OtherPageMixin):
+    page = ParentalKey(Page, related_name='related_dataset_links', on_delete=models.CASCADE)
+
+    panels = [
+        PageChooserPanel('other_page', [ DatasetPage ])
+    ]
+
+
+class MoreAboutRelatedLink(OtherPageMixin):
+    page = ParentalKey(Page, related_name='more_about_links', on_delete=models.CASCADE)
+
+    panels = [
+        PageChooserPanel('other_page')
+    ]
+
+
+class TeamMemberRelatedLink(OtherPageMixin):
+    page = ParentalKey(Page, related_name='team_member_links', on_delete=models.CASCADE)
+
+    panels = [
+        PageChooserPanel('other_page', [
+            'ourteam.TeamMemberPage'
+        ])
+    ]
+
+
+class DataSetSource(models.Model):
+    page = ParentalKey(
+        DatasetPage,
+        related_name='dataset_sources',
+        on_delete=models.CASCADE
+    )
+    source = models.ForeignKey(
+        'datasection.DataSource',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        verbose_name='Data Source')
+
+    panels = [
+        SnippetChooserPanel('source')
+    ]
+
 
 
 class DataSetListing(TypesetBodyMixin, Page):

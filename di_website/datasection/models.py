@@ -1,4 +1,5 @@
 import random
+import re
 
 from django.db import models
 from django.utils.text import slugify
@@ -196,14 +197,10 @@ class DataSetListing(TypesetBodyMixin, Page):
 
     def is_filtering(self, request):
         get = request.GET.get
-
         return get('topic', None) or get('country', None) or get('source', None) or get('report', None)
 
     def fetch_all_datasets(self):
         return DatasetPage.objects.live();
-
-    def filter_by_topic(self, topic=None):
-        pass
 
     def get_context(self, request, *args, **kwargs):
         context = super(DataSetListing, self).get_context(request, *args, **kwargs)
@@ -224,7 +221,14 @@ class DataSetListing(TypesetBodyMixin, Page):
             else:
                 datasets = self.fetch_all_datasets()
             if country_filter:
-                datasets = datasets.filter(page_countries__country__slug=country_filter)
+                if 'all--' in country_filter:
+                    try:
+                        region = re.search('all--(.*)', country_filter).group(1)
+                        datasets = datasets.filter(page_countries__country__region__name=region)
+                    except AttributeError:
+                        pass
+                else:
+                    datasets = datasets.filter(page_countries__country__slug=country_filter)
             if source_filter:
                 datasets = datasets.filter(dataset_sources__source__slug=source_filter)
             if report_filter:

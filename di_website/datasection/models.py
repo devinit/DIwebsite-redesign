@@ -2,11 +2,13 @@ import random
 
 from django.db import models
 from django.utils.text import slugify
+from django.contrib.contenttypes.models import ContentType
+
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
 from modelcluster.contrib.taggit import ClusterTaggableManager
 
-from taggit.models import TaggedItemBase
+from taggit.models import Tag, TaggedItemBase
 
 from wagtail.admin.edit_handlers import (
     FieldPanel, InlinePanel, MultiFieldPanel,
@@ -20,6 +22,7 @@ from wagtail.snippets.models import register_snippet
 from di_website.common.base import get_related_pages, hero_panels
 from di_website.common.constants import MAX_RELATED_LINKS
 from di_website.common.mixins import HeroMixin, OtherPageMixin, SectionBodyMixin, TypesetBodyMixin
+from di_website.dataset.models import DatasetPage
 
 from .blocks import QuoteStreamBlock
 
@@ -167,6 +170,7 @@ class DataSetListing(TypesetBodyMixin, Page):
         verbose_name = 'DataSet Listing'
 
     parent_page_types = ['datasection.DataSectionPage']
+    sub_page_types = ['dataset.DatasetPage']
 
     hero_text = RichTextField(
         null=True,
@@ -188,3 +192,13 @@ class DataSetListing(TypesetBodyMixin, Page):
             InlinePanel('other_pages', label='Related pages')
         ], heading='Other Pages/Related Links')
     ]
+
+    def get_context(self, request, *args, **kwargs):
+        context = super(DataSetListing, self).get_context(request, *args, **kwargs)
+
+        content_type = ContentType.objects.get_for_model(DatasetPage)
+        context['topics'] = Tag.objects.filter(
+            models.Q(dataset_datasettopic_items__content_object__content_type=content_type)
+        ).distinct()
+
+        return context

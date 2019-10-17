@@ -5,9 +5,13 @@
     <div class="profile__media">
     {% if self.person.image %}
       {% image self.person.image fill-200x200-c100 as image %}
-      <img src="{{ image.url }}" alt="{{ image.alt }}">
+      {% if image.url != '/media/not-found' %}
+        <img src="{{ image.url }}" alt="{{ image.alt }}">
+      {% else %}
+        <img height="200px" width="200px" src="{% static 'img/profile-fallback.jpg' %}" alt="Placeholder profile picture">
+      {% endif %}
     {% else %}
-      <img height="140px" width="140px" src="{% static 'img/profile-fallback.jpg' %}" alt="Placeholder profile picture">
+      <img height="200px" width="200px" src="{% static 'img/profile-fallback.jpg' %}" alt="Placeholder profile picture">
     {% endif %}
     </div>
 

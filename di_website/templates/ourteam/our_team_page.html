@@ -47,33 +47,38 @@
     </section>
 
 {% if profiles %}
-    <section class="section">
-        <div class="row row--narrow">
-            <div class="l-4up">
-                {% for profile in profiles %}
-                <div class="l-4up__col">
-                    <a href="{% pageurl profile %}">
-                        <div class="profile">
-                            <div class="profile__media">
-                                {% if profile.image %}
-                                    {% image profile.image fill-400x400-c100 as img %}
-                                    <img height="400px" width="400px" src="{{img.url}}" alt="{{img.alt}}">
-                                {% else %}
-                                    <img height="400px" width="400px" src="{% static 'img/profile-fallback.jpg' %}" alt="Placeholder profile picture">
-                                {% endif %}
-                            </div>
-                            <div class="profile__caption">
-                                <h3 class="profile__title">{{profile.name|default_if_none:""}}</h3>
-                                <p class="profile__meta">{{profile.position.name|default_if_none:""}}</p>
-                            </div>
-                        </div>
-                    </a>
+  <section class="section">
+    <div class="row row--narrow">
+      <div class="l-4up">
+        {% for profile in profiles %}
+          <div class="l-4up__col">
+            <a href="{% pageurl profile %}">
+              <div class="profile">
+                <div class="profile__media">
+                  {% if profile.image %}
+                    {% image profile.image fill-400x400-c100 as img %}
+                  {% if img.url != '/media/not-found' %}
+                    <img height="400px" width="400px" src="{{img.url}}" alt="{{img.alt}}">
+                  {% else %}
+                    <img height="400px" width="400px" src="{% static 'img/profile-fallback.jpg' %}"
+                      alt="Placeholder profile picture">
+                  {% endif %}
+                  {% else %}
+                    <img height="400px" width="400px" src="{% static 'img/profile-fallback.jpg' %}"
+                      alt="Placeholder profile picture">
+                  {% endif %}
                 </div>
-
-                {% endfor %}
-            </div>
-        </div>
-    </section>
+                <div class="profile__caption">
+                  <h3 class="profile__title">{{profile.name|default_if_none:""}}</h3>
+                  <p class="profile__meta">{{profile.position.name|default_if_none:""}}</p>
+                </div>
+              </div>
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
 {% endif %}
 
 <section class="section">

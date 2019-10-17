@@ -23,6 +23,7 @@ from di_website.common.base import get_related_pages, hero_panels
 from di_website.common.constants import MAX_RELATED_LINKS
 from di_website.common.mixins import HeroMixin, OtherPageMixin, SectionBodyMixin, TypesetBodyMixin
 from di_website.dataset.models import DatasetPage
+from di_website.publications.models import Country
 
 from .blocks import QuoteStreamBlock
 
@@ -200,5 +201,8 @@ class DataSetListing(TypesetBodyMixin, Page):
         context['topics'] = Tag.objects.filter(
             models.Q(dataset_datasettopic_items__content_object__content_type=content_type)
         ).distinct()
+        context['countries'] = Country.objects.all()
+        context['sources'] = DataSource.objects.all()
+        context['reports'] = Report.objects.all()
 
         return context

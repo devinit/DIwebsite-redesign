@@ -195,6 +195,14 @@ class DataSetListing(TypesetBodyMixin, Page):
         ], heading='Other Pages/Related Links')
     ]
 
+    def is_filtering(self, request):
+        get = request.GET.get
+
+        return get('topic', None) or get('country', None) or get('source', None) or get('report', None)
+
+    def fetch_all_datasets(self):
+        return DatasetPage.objects.live();
+
     def filter_by_topic(self, topic=None):
         pass
 
@@ -202,18 +210,28 @@ class DataSetListing(TypesetBodyMixin, Page):
         context = super(DataSetListing, self).get_context(request, *args, **kwargs)
 
         page = request.GET.get('page', None)
-        topic_filter = request.GET.get('topic', None)
-        country_filter = request.GET.get('country', None)
-        source_filter = request.GET.get('source', None)
-        report_filter = request.GET.get('report', None)
+        topic_filter = context['selected_topic'] = request.GET.get('topic', None)
+        country_filter = context['selected_country'] = request.GET.get('country', None)
+        source_filter = context['selected_source'] = request.GET.get('source', None)
+        report_filter = context['selected_report'] = request.GET.get('report', None)
 
-        is_filtered = True
-        if topic_filter:
-            datasets = DatasetPage.objects.live().filter(topics__slug=topic_filter)
-        else:
-            datasets = DatasetPage.objects.live()
+        if not self.is_filtering(request):
+            datasets = self.fetch_all_datasets()
             is_filtered = False
+        else:
+            is_filtered = True
+            if topic_filter:
+                datasets = DatasetPage.objects.live().filter(topics__slug=topic_filter)
+            else:
+                datasets = self.fetch_all_datasets()
+            if country_filter:
+                datasets = datasets.filter(page_countries__country__slug=country_filter)
+            if source_filter:
+                datasets = datasets.filter(dataset_sources__source__slug=source_filter)
+            if report_filter:
+                datasets = datasets.filter(report__slug=report_filter)
 
+        datasets = datasets.order_by('-release_date')
         context['is_filtered'] = is_filtered
         paginator = Paginator(datasets, MAX_PAGE_SIZE)
         try:

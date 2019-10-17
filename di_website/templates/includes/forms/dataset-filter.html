@@ -1,8 +1,8 @@
-<form class="form">
+<form class="form" method="get" action="{{self.pageurl}}">
     <div class="form-field form-field--inline-five">
         <label for="team-filter" class="form-label form-label--hidden">Report</label>
         <div class="form-field__select-dropdown">
-            <select name="report-filter" id="report-filter">
+            <select name="report" id="report">
                 <option value="" disabled selected>Report</option>
                 {% for report in reports %}
                   <option value="{{report.slug}}" id="{{report.slug}}" {% if report.slug == selected_topic %}selected{% endif %}>
@@ -15,7 +15,7 @@
     <div class="form-field form-field--inline-five">
         <label for="team-filter" class="form-label form-label--hidden">Data source</label>
         <div class="form-field__select-dropdown">
-            <select name="source-filter" id="source-filter">
+            <select name="source" id="source">
                 <option value="" disabled selected>Data source</option>
                 {% for source in sources %}
                   <option value="{{source.slug}}" id="{{source.slug}}" {% if source.slug == selected_topic %}selected{% endif %}>
@@ -28,7 +28,7 @@
     <div class="form-field form-field--inline-five">
         <label for="team-filter" class="form-label form-label--hidden">Topic</label>
         <div class="form-field__select-dropdown">
-            <select name="topic-filter" id="topic-filter">
+            <select name="topic" id="topic">
                 <option value="" disabled selected>Topic</option>
                 {% for topic in topics %}
                   <option value="{{topic.slug}}" id="{{topic.slug}}" {% if topic.slug == selected_topic %}selected{% endif %}>
@@ -41,7 +41,7 @@
     <div class="form-field form-field--inline-five">
         <label for="team-filter" class="form-label form-label--hidden">Geography</label>
         <div class="form-field__select-dropdown">
-            <select name="geography-filter" id="geography-filter">
+            <select name="geography" id="geography">
                 <option value="" disabled selected>Geography</option>
                 <option value="global">Global</option>
                 {% regroup countries by region as country_groups %}

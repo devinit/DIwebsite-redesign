@@ -1,0 +1,64 @@
+<form class="form">
+    <div class="form-field form-field--inline-five">
+        <label for="team-filter" class="form-label form-label--hidden">Report</label>
+        <div class="form-field__select-dropdown">
+            <select name="report-filter" id="report-filter">
+                <option value="" disabled selected>Report</option>
+                {% for report in reports %}
+                  <option value="{{report.slug}}" id="{{report.slug}}" {% if report.slug == selected_topic %}selected{% endif %}>
+                    {{report}}
+                  </option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="form-field form-field--inline-five">
+        <label for="team-filter" class="form-label form-label--hidden">Data source</label>
+        <div class="form-field__select-dropdown">
+            <select name="source-filter" id="source-filter">
+                <option value="" disabled selected>Data source</option>
+                {% for source in sources %}
+                  <option value="{{source.slug}}" id="{{source.slug}}" {% if source.slug == selected_topic %}selected{% endif %}>
+                    {{source}}
+                  </option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="form-field form-field--inline-five">
+        <label for="team-filter" class="form-label form-label--hidden">Topic</label>
+        <div class="form-field__select-dropdown">
+            <select name="topic-filter" id="topic-filter">
+                <option value="" disabled selected>Topic</option>
+                {% for topic in topics %}
+                  <option value="{{topic.slug}}" id="{{topic.slug}}" {% if topic.slug == selected_topic %}selected{% endif %}>
+                    {{topic}}
+                  </option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="form-field form-field--inline-five">
+        <label for="team-filter" class="form-label form-label--hidden">Geography</label>
+        <div class="form-field__select-dropdown">
+            <select name="geography-filter" id="geography-filter">
+                <option value="" disabled selected>Geography</option>
+                <option value="global">Global</option>
+                {% regroup countries by region as country_groups %}
+                {% for country_group in country_groups %}
+                  <optgroup label="{{country_group.grouper}}">
+                    <option value="all-{{country_group.grouper}}">All in {{country_group.grouper}}</option>
+                    {% for country in country_group.list %}
+                      <option value="{{country.slug}}" id="{{country.slug}}" {% if country.slug == selected_country %}selected{% endif %}>
+                        {{country}}
+                      </option>
+                    {% endfor %}
+                  </optgroup>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="form-field form-field--inline-five">
+        <button type="submit" class="button">Filter</button>
+    </div>
+</form>

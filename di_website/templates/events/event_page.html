@@ -36,6 +36,7 @@
 
   <section class="section section--post">
     <div class="is-typeset is-typeset--additionals wysiwyg">
+      {{ page.raw_content | safe }}
       {% for block in page.body %}
         {% include_block block %}
       {% endfor %}

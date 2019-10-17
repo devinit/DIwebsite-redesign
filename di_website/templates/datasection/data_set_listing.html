@@ -24,6 +24,34 @@
   </section>
 
   <section class="section">
+      <div class="row row--narrow">
+        <div class="highlight">
+          {% include 'includes/forms/dataset-filter.html' %}
+        </div>
+      </div>
+  </section>
+
+  <section class="section">
+    <div class="row row--narrow">
+      {% if datasets|length == 0 %}
+        <h2 class="section__heading">Sorry, no results found</h2>
+      {% else %}
+        {% if is_filtered %}
+          <h2 class="section__heading">
+            Showing page {{datasets.number}} of {{datasets.paginator.count}} result{% if datasets|length > 1 %}s{% endif %}
+          </h2>
+        {% endif %}
+        <div class="l-3up">
+          {% for item in datasets %}
+            {% include 'includes/cards/card-dataset.html' %}
+          {% endfor %}
+        </div>
+        {% include "includes/scaffold/pagination.html" with children=datasets %}
+      {% endif %}
+    </div>
+  </section>
+
+  <section class="section">
     {% get_other_pages calling_page=self heading=page.other_pages_heading %}
   </section>
 {% endblock body %}

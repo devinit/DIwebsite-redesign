@@ -4,6 +4,9 @@ from django.db import models
 from django.utils.text import slugify
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
+from modelcluster.contrib.taggit import ClusterTaggableManager
+
+from taggit.models import TaggedItemBase
 
 from wagtail.admin.edit_handlers import (
     FieldPanel, InlinePanel, MultiFieldPanel,
@@ -47,6 +50,10 @@ class Report(ClusterableModel):
         super(Report, self).save(**kwargs)
 
 
+class DataSourceTopic(TaggedItemBase):
+    content_object = ParentalKey('datasection.DataSource', on_delete=models.CASCADE, related_name='datasource_topics')
+
+
 @register_snippet
 class DataSource(ClusterableModel):
     title = models.CharField(max_length=255, unique=True)
@@ -55,6 +62,7 @@ class DataSource(ClusterableModel):
     date_of_access = models.DateField(blank=True)
     link_to_metadata = models.URLField(blank=True)
     geography = models.CharField(max_length=255, blank=True)
+    topics = ClusterTaggableManager(through=DataSourceTopic, blank=True, verbose_name="Topics")
     slug = models.SlugField(
         max_length=255, blank=True, null=True,
         help_text="Optional. Will be auto-generated from title if left blank.")
@@ -66,6 +74,7 @@ class DataSource(ClusterableModel):
         FieldPanel('date_of_access'),
         FieldPanel('link_to_metadata'),
         FieldPanel('geography'),
+        FieldPanel('topics'),
         FieldPanel('slug'),
     ]
 

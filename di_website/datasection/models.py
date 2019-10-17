@@ -163,6 +163,7 @@ class DataSectionPage(SectionBodyMixin, TypesetBodyMixin, HeroMixin, Page):
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
         context['random_quote'] = self.get_random_quote()
+        context['dataset_count'] = DatasetPage.objects.live().count()
         return context
 
 

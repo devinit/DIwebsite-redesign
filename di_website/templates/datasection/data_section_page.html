@@ -1,5 +1,5 @@
 {% extends "layouts/default.html" %}
-{% load navigation_tags static wagtailcore_tags wagtailimages_tags card_tags %}
+{% load navigation_tags static wagtailcore_tags wagtailimages_tags card_tags string_utils %}
 
 {% block hero %}
   {% include 'includes/heroes/hero.html' %}
@@ -28,44 +28,21 @@
         <div class="l-2up__col">
           {% if random_quote %}
             {% if random_quote.value.team_member %}
-              <div class="testimonial testimonial--reverse">
-                <div class="testimonial__main">
-                  <p class="testimonial__copy">
-                    {{ random_quote.value.quote_text }}
-                  </p>
-                  <span class="testimonial__cite">
-                    {{ random_quote.value.team_member.specific.name }},
-                    {{ random_quote.value.team_member.specific.position }}, DI
-                  </span>
-                </div>
-                <aside class="testimonial__aside">
-                  {% if random_quote.value.team_member.specific.image %}
-                    {% image random_quote.value.team_member.specific.image max-400x250 as profile_img %}
-                    <img src="{{ profile_img.url }}" alt="alt tag">
-                  {% else %}
-                    <img src="{% static 'img/profile-fallback.jpg' %}" alt="alt tag">
-                  {% endif %}
-                </aside>
-              </div>
+              {% with body=random_quote.value.quote_text source=random_quote.value.team_member.specific %}
+                {% image source.image max-400x250 as image %}
+                {% with cite=source.name|add_string:', '|add_string:source.position|add_string:', DI' %}
+                  {% include 'includes/partials/testimonial.html' with class_name='testimonial--reverse' %}
+                {% endwith %}
+              {% endwith %}
             {% else %}
-              <div class="testimonial testimonial--reverse">
-                <div class="testimonial__main">
-                  <p class="testimonial__copy">
-                    {{ random_quote.value.quote_text }}
-                  </p>
-                  <span class="testimonial__cite">
-                    {{ random_quote.value.name }}, {{ random_quote.value.role }}, {{ random_quote.value.organisation }},
-                  </span>
-                </div>
-                <aside class="testimonial__aside">
-                  {% if random_quote.value.external_member_photo %}
-                    {% image random_quote.value.external_member_photo max-400x250 as profile_img %}
-                    <img src="{{ profile_img.url }}" alt="alt tag">
-                  {% else %}
-                    <img src="{% static 'img/profile-fallback.jpg' %}" alt="alt tag">
-                  {% endif %}
-                </aside>
-              </div>
+              {% with body=random_quote.value.quote_text source=random_quote.value %}
+                {% if source.external_member_photo %}
+                  {% image source.external_member_photo max-400x250 as image %}
+                {% endif %}
+                {% with cite=source.name|add_string:', '|add_string:source.role|add_string:source.organisation|add_string:', DI' %}
+                  {% include 'includes/partials/testimonial.html' with class_name='testimonial--reverse' %}
+                {% endwith %}
+              {% endwith %}
             {% endif %}
           {% endif %}
         </div>

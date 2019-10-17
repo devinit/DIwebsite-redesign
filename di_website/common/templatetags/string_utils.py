@@ -215,3 +215,9 @@ def definition_id(def_id, term):
     if not def_id:
         return ''
     return '%s-%s' % (def_id, slugify(term))
+
+
+@register.filter
+def add_string(stringA, stringB):
+    """concatenate stringA & stringB"""
+    return str(stringA) + str(stringB)

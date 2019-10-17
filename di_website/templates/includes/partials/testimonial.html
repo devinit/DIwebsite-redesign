@@ -6,7 +6,7 @@
     <span class="testimonial__cite">{{cite}}</span>
   </div>
   <aside class="testimonial__aside">
-    {% if image %}
+    {% if image and image.url != '/media/not-found' %}
       <img src="{{ image.url }}" alt="alt tag">
     {% else %}
       <img src="{% static 'img/profile-fallback.jpg' %}" alt="alt tag">

@@ -3,9 +3,9 @@
         <label for="team-filter" class="form-label form-label--hidden">Report</label>
         <div class="form-field__select-dropdown">
             <select name="report" id="report">
-                <option value="" disabled selected>Report</option>
+                <option value="" selected>Report</option>
                 {% for report in reports %}
-                  <option value="{{report.slug}}" id="{{report.slug}}" {% if report.slug == selected_topic %}selected{% endif %}>
+                  <option value="{{report.slug}}" id="{{report.slug}}" {% if report.slug == selected_report %}selected{% endif %}>
                     {{report}}
                   </option>
                 {% endfor %}
@@ -16,9 +16,9 @@
         <label for="team-filter" class="form-label form-label--hidden">Data source</label>
         <div class="form-field__select-dropdown">
             <select name="source" id="source">
-                <option value="" disabled selected>Data source</option>
+                <option value="" selected>Data source</option>
                 {% for source in sources %}
-                  <option value="{{source.slug}}" id="{{source.slug}}" {% if source.slug == selected_topic %}selected{% endif %}>
+                  <option value="{{source.slug}}" id="{{source.slug}}" {% if source.slug == selected_source %}selected{% endif %}>
                     {{source}}
                   </option>
                 {% endfor %}
@@ -29,7 +29,7 @@
         <label for="team-filter" class="form-label form-label--hidden">Topic</label>
         <div class="form-field__select-dropdown">
             <select name="topic" id="topic">
-                <option value="" disabled selected>Topic</option>
+                <option value="" selected>Topic</option>
                 {% for topic in topics %}
                   <option value="{{topic.slug}}" id="{{topic.slug}}" {% if topic.slug == selected_topic %}selected{% endif %}>
                     {{topic}}
@@ -41,8 +41,8 @@
     <div class="form-field form-field--inline-five">
         <label for="team-filter" class="form-label form-label--hidden">Geography</label>
         <div class="form-field__select-dropdown">
-            <select name="geography" id="geography">
-                <option value="" disabled selected>Geography</option>
+            <select name="country" id="country">
+                <option value="" selected>Geography</option>
                 <option value="global">Global</option>
                 {% regroup countries by region as country_groups %}
                 {% for country_group in country_groups %}

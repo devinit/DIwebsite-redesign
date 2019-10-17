@@ -3,6 +3,7 @@ import random
 from django.db import models
 from django.utils.text import slugify
 from django.contrib.contenttypes.models import ContentType
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
@@ -20,7 +21,7 @@ from wagtail.core.models import Page
 from wagtail.snippets.models import register_snippet
 
 from di_website.common.base import get_related_pages, hero_panels, Country
-from di_website.common.constants import MAX_RELATED_LINKS
+from di_website.common.constants import MAX_PAGE_SIZE, MAX_RELATED_LINKS
 from di_website.common.mixins import HeroMixin, OtherPageMixin, SectionBodyMixin, TypesetBodyMixin
 from di_website.dataset.models import DatasetPage
 
@@ -193,8 +194,33 @@ class DataSetListing(TypesetBodyMixin, Page):
         ], heading='Other Pages/Related Links')
     ]
 
+    def filter_by_topic(self, topic=None):
+        pass
+
     def get_context(self, request, *args, **kwargs):
         context = super(DataSetListing, self).get_context(request, *args, **kwargs)
+
+        page = request.GET.get('page', None)
+        topic_filter = request.GET.get('topic', None)
+        country_filter = request.GET.get('country', None)
+        source_filter = request.GET.get('source', None)
+        report_filter = request.GET.get('report', None)
+
+        is_filtered = True
+        if topic_filter:
+            datasets = DatasetPage.objects.live().filter(topics__slug=topic_filter)
+        else:
+            datasets = DatasetPage.objects.live()
+            is_filtered = False
+
+        context['is_filtered'] = is_filtered
+        paginator = Paginator(datasets, MAX_PAGE_SIZE)
+        try:
+            context['datasets'] = paginator.page(page)
+        except PageNotAnInteger:
+            context['datasets'] = paginator.page(1)
+        except EmptyPage:
+            context['datasets'] = paginator.page(paginator.num_pages)
 
         content_type = ContentType.objects.get_for_model(DatasetPage)
         context['topics'] = Tag.objects.filter(

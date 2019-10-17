@@ -56,7 +56,7 @@ class DataSectionPage(SectionBodyMixin, TypesetBodyMixin, HeroMixin, Page):
     ]
 
     parent_page_types = ['home.HomePage']
-    subpage_types = ['general.General']
+    subpage_types = ['general.General', 'datasection.DataSetListing']
 
     class Meta:
         verbose_name = "Data Section Page"
@@ -83,3 +83,34 @@ class DataSectionPage(SectionBodyMixin, TypesetBodyMixin, HeroMixin, Page):
         context = super().get_context(request, *args, **kwargs)
         context['random_quote'] = self.get_random_quote()
         return context
+
+
+class DataSetListing(TypesetBodyMixin, Page):
+    """
+    http://development-initiatives.surge.sh/page-templates/21-1-dataset-listing
+    """
+    class Meta():
+        verbose_name = 'DataSet Listing'
+
+    parent_page_types = ['datasection.DataSectionPage']
+
+    hero_text = RichTextField(
+        null=True,
+        blank=True,
+        help_text='A description of the page content'
+    )
+    other_pages_heading = models.CharField(
+        blank=True,
+        max_length=255,
+        verbose_name='Heading',
+        default='More about'
+    )
+
+    content_panels = Page.content_panels + [
+        FieldPanel('hero_text'),
+        StreamFieldPanel('body'),
+        MultiFieldPanel([
+            FieldPanel('other_pages_heading'),
+            InlinePanel('other_pages', label='Related pages')
+        ], heading='Other Pages/Related Links')
+    ]

@@ -149,8 +149,8 @@ class BannerBlock(StructBlock):
         ('text', TextBlock(template='blocks/banner/text.html')),
         ('richtext', RichTextBlock(template='blocks/banner/richtext.html')),
         ('list', ListBlock(StructBlock([
-            ('title', TextBlock()),
-            ('content', TextBlock(required=False)),
+            ('title', TextBlock(required=False, help_text='An optional title to the list item')),
+            ('content', TextBlock(required=True, help_text='The list item content')),
         ], template='blocks/banner/list_item.html'), template='blocks/banner/list.html', icon='list-ul'))
     ])
     meta = CharBlock(

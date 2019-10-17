@@ -21,14 +21,24 @@
                     {{ event.start_date|date:"d F Y" }} - {{ event.end_date|date:"d F Y" }}
                 {% endif %}
             </li>
-            <li>
-                <i role="presentation" aria-hidden="true" class="ico ico--14 ico-clock-slate"></i>
-                {{ event.start_time }} - {{ event.end_time }}
-            </li>
-            <li>
-                <i role="presentation" aria-hidden="true" class="ico ico--14 ico-location-slate"></i>
-                {{ event.location }}
-            </li>
+            {% if event.start_time or event.end_time %}
+              <li>
+                  <i role="presentation" aria-hidden="true" class="ico ico--14 ico-clock-slate"></i>
+                  {% if event.start_time and event.end_time %}
+                    {{ event.start_time }} - {{ event.end_time }}
+                  {% elif event.start_time %}
+                    {{ event.start_time }}
+                  {% elif event.end_time %}
+                    {{ event.end_time }}
+                  {% endif %}
+              </li>
+            {% endif %}
+            {% if event.location %}
+              <li>
+                  <i role="presentation" aria-hidden="true" class="ico ico--14 ico-location-slate"></i>
+                  {{ event.location }}
+              </li>
+            {% endif %}
         </ul>
     </div>
 </a>

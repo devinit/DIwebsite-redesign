@@ -232,10 +232,7 @@ class Command(BaseCommand):
                             title=event_dataset['title'],
                             slug=slug,
                             hero_text=event_dataset['description'],
-                            raw_content=event_dataset['body'],
-                            start_time=datetime.time(0),
-                            end_time=datetime.time(0),
-                            location="Placeholder"
+                            raw_content=event_dataset['body']
                         )
                         event_index_page.add_child(instance=event_page)
                         event_page.save_revision().publish()

@@ -136,23 +136,27 @@
             </section>
             <section id="sources" class="tab__content">
               <div class="l-3up">
-
-
-                <div class="m-slip m-slip--alt m-slip--icon">
-                  <i role="presentation" aria-hidden="true" class="ico ico--24 ico-data-slate"></i>
-                  <p class="m-slip__copy"><a href="#">N/A - INFORM</a></p>
-                  <span class="m-slip__meta">Accessed: 26 July 2019</span>
-
-                  <a href="#" class="button button--reverses">View source dataset</a>
-                </div>
+                {% for source in page.get_dataset_sources %}
+                  <div class="m-slip m-slip--alt m-slip--icon">
+                    <i role="presentation" aria-hidden="true" class="ico ico--24 ico-data-slate"></i>
+                    <p class="m-slip__copy">
+                      <a href="{{source.source.link_to_metadata}}">{{source.source.title}}</a>
+                    </p>
+                    {% if source.source.date_of_access %}
+                      <span class="m-slip__meta">Accessed: {{source.source.date_of_access}}</span>
+                    {% endif %}
+                    {% if source.source.link_to_data %}
+                      <a href="{{source.source.link_to_data}}" class="button button--reverses">
+                        View source dataset
+                      </a>
+                    {% endif %}
+                  </div>
+                {% endfor %}
 
 
               </div>
               <div class="is-typeset max-meter">
-                <p>Access Dates: explanation as to what the access date is and why it is relevant. Lorem ipsum dolor sit
-                  amet, consectetur adipiscing elit. Duis commodo mattis nisi eu adipiscing. Vivamus euismod nisl a leo
-                  pellentesque sed lobortis ipsum commodo. Nullam id turpis libero, sit amet posuere est. Fusce porttitor
-                  odio sit amet justo aliquet ac porta turpis vulputate.</p>
+                <p>Access Dates: explanation as to what the access date is and why it is relevant.</p>
               </div>
             </section>
             <section id="legal" class="tab__content">
@@ -185,18 +189,7 @@
       <h2 class="section__heading">{{ page.related_datasets_title }}</h2>
       <div class="l-3up">
 
-        {% for page in related_datasets %}
-        <div class="m-slip m-slip--icon">
-          <i role="presentation" aria-hidden="true" class="ico ico--24 ico-data-poppydark"></i>
-
-          <p class="m-slip__copy">
-            <a href="{% pageurl page %}">
-              {{page.specific.text_content | richtext }}
-            </a></p>
-          <span class="m-slip__meta">Released: {{ page.specific.release_date | date:'d F, o' }}</span>
-        </div>
-
-        {% endfor %}
+        {% for page in related_datasets %}{% endfor %}
 
       </div>
     </div>
@@ -208,15 +201,7 @@
       <h2 class="section__heading">More about</h2>
       <div class="l-4up">
 
-        {% for page in more_about_links %}
-        <a href="#" class="card">
-          <div class="card__media" style="background-image: url(/assets/img/Pin-at-Open-Up-conference-2-400x250.jpg);">
-          </div>
-          <div class="card__body">
-            <h3 class="card__title"><span>{{page.title}}</span></h3>
-          </div>
-        </a>
-        {% endfor %}
+        {% for page in more_about_links %}{% endfor %}
 
       </div>
     </div>

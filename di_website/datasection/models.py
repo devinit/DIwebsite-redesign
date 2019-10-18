@@ -76,6 +76,7 @@ class DataSource(ClusterableModel):
     date_of_access = models.DateField(blank=True)
     link_to_metadata = models.URLField(blank=True)
     geography = models.CharField(max_length=255, blank=True)
+    link_to_data = models.URLField(blank=True)
     topics = ClusterTaggableManager(through=DataSourceTopic, blank=True, verbose_name="Topics")
     slug = models.SlugField(
         max_length=255, blank=True, null=True,
@@ -87,6 +88,7 @@ class DataSource(ClusterableModel):
         FieldPanel('organisation'),
         FieldPanel('date_of_access'),
         FieldPanel('link_to_metadata'),
+        FieldPanel('link_to_data'),
         FieldPanel('geography'),
         FieldPanel('topics'),
         FieldPanel('slug'),
@@ -238,6 +240,10 @@ class DatasetPage(TypesetBodyMixin, HeroMixin, Page):
     @cached_property
     def get_dataset_downloads(self):
         return self.dataset_downloads.all()
+
+    @cached_property
+    def get_dataset_sources(self):
+        return self.dataset_sources.all()
 
 
 class DatasetDownloads(BaseDownload, Orderable):

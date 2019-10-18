@@ -19,14 +19,24 @@
             {{ page.start_date|date:"d F Y" }} - {{ page.end_date|date:"d F Y" }}
           {% endif %}
         </li>
-        <li>
-          <i role="presentation" aria-hidden="true" class="ico ico--14 ico-clock-slate"></i>
-          {{ page.start_time }} - {{ page.end_time }}
-        </li>
-        <li>
-          <i role="presentation" aria-hidden="true" class="ico ico--14 ico-location-slate"></i>
-          {{ page.location }}
-        </li>
+        {% if page.start_time or page.end_time %}
+          <li>
+            <i role="presentation" aria-hidden="true" class="ico ico--14 ico-clock-slate"></i>
+            {% if page.start_time and page.end_time %}
+              {{ page.start_time }} - {{ page.end_time }}
+            {% elif page.start_time %}
+              {{ page.start_time }}
+            {% elif page.end_time %}
+              {{ page.end_time }}
+            {% endif %}
+          </li>
+        {% endif %}
+        {% if page.location %}
+          <li>
+            <i role="presentation" aria-hidden="true" class="ico ico--14 ico-location-slate"></i>
+            {{ page.location }}
+          </li>
+        {% endif %}
       </ul>
       {% if page.registration_link %}
         <a href="{{page.registration_link}}" class="button">Register</a>

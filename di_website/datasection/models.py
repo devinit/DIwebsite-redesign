@@ -166,8 +166,9 @@ class DatasetPage(TypesetBodyMixin, HeroMixin, Page):
 
     parent_page_types = ['datasection.DataSetListing']
 
-    publication_type = models.CharField(
-        blank=True, max_length=255, verbose_name='Publication Type')
+    publication = models.CharField(
+        blank=True, max_length=255, verbose_name='Publication Type',
+        help_text='The publication that used this dataset. For a figure, format is [Publication] - [Figure] e.g ITEP 2018 - Figure 1.1')
     release_date = models.DateField(default=datetime.now)
     text_content = RichTextField(
         null=True, blank=True,
@@ -184,7 +185,7 @@ class DatasetPage(TypesetBodyMixin, HeroMixin, Page):
 
     content_panels = Page.content_panels + [
         hero_panels(),
-        FieldPanel('publication_type'),
+        FieldPanel('publication'),
         FieldPanel('release_date'),
         FieldPanel('text_content'),
         InlinePanel('team_member_links', label="Dataset Author", max_num=1),

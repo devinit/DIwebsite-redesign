@@ -176,7 +176,7 @@ then
     setup_docker_storage
     
     mkdir -p $APP_DIR"/assets"
-    
+
     start_new_process "Starting up services ..."
     cd $APP_DIR
     docker-compose up -d --build
@@ -184,6 +184,9 @@ then
     sleep 45
     start_link_checker_processes
     elastic_search_reindex
+
+    start_new_process "Generating static assets"
+    docker-compose exec -T web python manage.py collectstatic --noinput
     
 elif [ ${args[0]} == 'backup' ]
 then

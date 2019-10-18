@@ -4,6 +4,7 @@ from datetime import datetime
 
 from django.db import models
 from django.utils.text import slugify
+from django.utils.functional import cached_property
 from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
@@ -20,7 +21,7 @@ from wagtail.admin.edit_handlers import (
 from wagtail.core.blocks import CharBlock, PageChooserBlock, StreamBlock, StructBlock, URLBlock
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.core.fields import RichTextField, StreamField
-from wagtail.core.models import Page
+from wagtail.core.models import Orderable, Page
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
@@ -28,6 +29,7 @@ from di_website.common.base import get_related_pages, hero_panels
 from di_website.common.constants import MAX_PAGE_SIZE, MAX_RELATED_LINKS
 from di_website.common.mixins import HeroMixin, OtherPageMixin, SectionBodyMixin, TypesetBodyMixin
 from di_website.publications.models import Country
+from di_website.downloads.models import BaseDownload
 
 from .blocks import QuoteStreamBlock, MetaDataDescriptionBlock, MetaDataSourcesBlock
 
@@ -201,6 +203,7 @@ class DatasetPage(TypesetBodyMixin, HeroMixin, Page):
         FieldPanel('release_date'),
         StreamFieldPanel('body'),
         StreamFieldPanel('authors'),
+        InlinePanel('dataset_downloads', label='Downloads', max_num=None),
         MultiFieldPanel([
             StreamFieldPanel('meta_data'),
             SnippetChooserPanel('report'),
@@ -223,6 +226,15 @@ class DatasetPage(TypesetBodyMixin, HeroMixin, Page):
         context['team_member_links'] = get_related_pages(self.team_member_links.all())
 
         return context
+
+    @cached_property
+    def get_dataset_downloads(self):
+        return self.dataset_downloads.all()
+
+
+class DatasetDownloads(BaseDownload, Orderable):
+    page = ParentalKey(
+        DatasetPage, related_name='dataset_downloads', on_delete=models.CASCADE)
 
 
 class DatasetPageRelatedLink(OtherPageMixin):

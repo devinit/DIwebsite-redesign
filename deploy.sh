@@ -177,6 +177,8 @@ then
     start_new_process "Starting up services ..."
     cd $APP_DIR
     docker-compose up -d --build
+
+    sleep 45
     start_link_checker_processes
     elastic_search_reindex
     

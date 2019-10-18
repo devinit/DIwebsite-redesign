@@ -17,7 +17,8 @@ from wagtail.admin.edit_handlers import (
     FieldPanel, InlinePanel, MultiFieldPanel,
     PageChooserPanel, StreamFieldPanel
 )
-from wagtail.core.blocks import StreamBlock
+from wagtail.core.blocks import CharBlock, PageChooserBlock, StreamBlock, StructBlock, URLBlock
+from wagtail.images.blocks import ImageChooserBlock
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Page
 from wagtail.snippets.models import register_snippet
@@ -170,9 +171,19 @@ class DatasetPage(TypesetBodyMixin, HeroMixin, Page):
         blank=True, max_length=255, verbose_name='Publication Type',
         help_text='The publication that used this dataset. For a figure, format is [Publication] - [Figure] e.g ITEP 2018 - Figure 1.1')
     release_date = models.DateField(default=datetime.now)
-    text_content = RichTextField(
-        null=True, blank=True,
-        verbose_name='Main Content', help_text='A description of the page content')
+    authors = StreamField([
+        ('internal_author', PageChooserBlock(
+            required=False,
+            target_model='ourteam.TeamMemberPage',
+            icon='fa-user'
+        )),
+        ('external_author', StructBlock([
+            ('name', CharBlock(required=False)),
+            ('title', CharBlock(required=False)),
+            ('photograph', ImageChooserBlock(required=False)),
+            ('page', URLBlock(required=False))
+        ], icon='fa-user'))
+    ], blank=True)
     meta_data = StreamField([
         ('description', MetaDataDescriptionBlock(max_num=1)),
         ('sources', MetaDataSourcesBlock(max_num=1)),
@@ -187,8 +198,8 @@ class DatasetPage(TypesetBodyMixin, HeroMixin, Page):
         hero_panels(),
         FieldPanel('publication'),
         FieldPanel('release_date'),
-        FieldPanel('text_content'),
-        InlinePanel('team_member_links', label="Dataset Author", max_num=1),
+        StreamFieldPanel('body'),
+        StreamFieldPanel('authors'),
         MultiFieldPanel([
             StreamFieldPanel('meta_data'),
             SnippetChooserPanel('report'),

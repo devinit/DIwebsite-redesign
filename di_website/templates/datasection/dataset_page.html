@@ -16,19 +16,17 @@
           </div>
         </aside>
         <div class="l-sidebar__body">
-          <div class="m-notice">
-            {% if page.release_date %}
-              Release date : {{ page.release_date | date:'d F, o'  }}
-            {% endif %}
-          </div>
+          {% if page.release_date %}
+            <div class="m-notice">
+                Release date : {{ page.release_date | date:'d F, o'  }}
+            </div>
+          {% endif %}
           <div class="is-typeset wysiwyg">
-            {{ page.text_content | richtext }}
+            {% for block in page.body %}
+              {% include_block block %}
+            {% endfor %}
           </div>
-          <span class="alert alert--notice">
-            <i role="presentation" aria-hidden="true" class="ico ico-clock-warning"></i>
-            There is more recent data available relating to this dataset:
-            <a href="#">{{ page.updated_content_title }}</a>
-          </span>
+          {% comment %} TODO: Add Alert {% endcomment %}
 
           <div class="l-2up space-section-top">
             <div class="l-2up__col">
@@ -45,21 +43,20 @@
             </div>
             <div class="l-2up__col">
 
-              {% for member in team_member_links %}
-              <a href="#" class="m-author m-author--spacing">
-                <div class="m-author__image">
-                  {% if member.specific.image %}
-                  {% image member.specific.image max-400x250 as pic %}
-                  <img src="{{ pic.url }}" alt="alt tag">
-                  {% else %}
-                  <img src="img/fallback-image.jpg" alt="alt tag">
-                  {% endif %}
-                </div>
-                <div class="m-author__body">
-                  <h3 class="m-author__title">Analysis by {{ member.specific.name }}</h3>
-                  <p class="m-author__job">{{ member.specific.position }}</p>
-                </div>
-              </a>
+              {% for author in page.authors %}
+                {% if author.block_type == 'internal_author' %}
+                  {% with page=author.value img=author.value.image name=author.value.name position=author.value.position %}
+                    {% with class_name='m-author--spacing' author_prefix='Analysis by' %}
+                      {% include 'includes/partials/author-link.html' %}
+                    {% endwith %}
+                  {% endwith %}
+                {% else %}
+                  {% with page=None img=author.value.photograph name=author.value.name position=author.value.title %}
+                    {% with link=author.value.page class_name='m-author--spacing' author_prefix='Analysis by' %}
+                      {% include 'includes/partials/author-link.html' %}
+                    {% endwith %}
+                  {% endwith %}
+                {% endif %}
               {% endfor %}
 
               <p class="para">Contact <a href="#">data@devinit.org</a> if you have any queries about this dataset or other

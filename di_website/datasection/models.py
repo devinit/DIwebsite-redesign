@@ -256,21 +256,9 @@ class DatasetDownloads(BaseDownload, Orderable):
 
 
 class DatasetPageRelatedLink(OtherPageMixin):
-    page = ParentalKey(Page, related_name='related_dataset_links', on_delete=models.CASCADE)
+    page = ParentalKey(DatasetPage, related_name='related_dataset_links', on_delete=models.CASCADE)
 
-    panels = [
-        PageChooserPanel('other_page', [ DatasetPage ])
-    ]
-
-
-class TeamMemberRelatedLink(OtherPageMixin):
-    page = ParentalKey(Page, related_name='team_member_links', on_delete=models.CASCADE)
-
-    panels = [
-        PageChooserPanel('other_page', [
-            'ourteam.TeamMemberPage'
-        ])
-    ]
+    panels = [PageChooserPanel('other_page')]
 
 
 class DataSetSource(models.Model):

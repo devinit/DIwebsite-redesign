@@ -262,4 +262,5 @@ SERVER_EMAIL = DEFAULT_FROM_EMAIL
 HS_API_KEY = config('HS_API_KEY', default='')
 HS_TICKET_PIPELINE = config('HS_TICKET_PIPELINE', '891429')
 HS_TICKET_PIPELINE_STAGE = config('HS_TICKET_PIPELINE_STAGE', '891430')
-EMAIL_BACKEND = os.getenv('EMAIL_BACKEND') or 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = os.getenv(
+    'EMAIL_BACKEND') or 'django.core.mail.backends.console.EmailBackend'

@@ -9,7 +9,7 @@ SECRET_KEY = '3bxacdim+p6h*6-j7(zq$t4#4=vzu97+xzeb9-=0rqbh+_o#_d'
 # SECURITY WARNING: define the correct hosts in production!
 ALLOWED_HOSTS = ['*']
 
-INSTALLED_APPS = INSTALLED_APPS+[
+INSTALLED_APPS = INSTALLED_APPS + [
     'debug_toolbar',
 ]
 try:

@@ -18,7 +18,8 @@ from wagtail.admin.edit_handlers import (
     FieldPanel, InlinePanel, MultiFieldPanel,
     PageChooserPanel, StreamFieldPanel
 )
-from wagtail.core.blocks import CharBlock, PageChooserBlock, StreamBlock, StructBlock, URLBlock
+from wagtail.core.blocks import (
+    CharBlock, PageChooserBlock, RichTextBlock, StreamBlock, StructBlock, URLBlock)
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Orderable, Page
@@ -188,9 +189,13 @@ class DatasetPage(TypesetBodyMixin, HeroMixin, Page):
         ], icon='fa-user'))
     ], blank=True)
     meta_data = StreamField([
-        ('description', MetaDataDescriptionBlock(max_num=1)),
-        ('sources', MetaDataSourcesBlock(max_num=1)),
-    ], null=True, blank=True)
+        ('description', RichTextBlock(required=True)),
+        ('provenance', RichTextBlock()),
+        ('variables', RichTextBlock()),
+        ('geography', RichTextBlock()),
+        ('licence', RichTextBlock()),
+        ('citation', RichTextBlock())
+    ], verbose_name='Content', help_text='A description is expected, but only one of each shall be shown')
     related_datasets_title = models.CharField(
         blank=True, max_length=255, verbose_name='Title')
     report = models.ForeignKey(
@@ -221,6 +226,10 @@ class DatasetPage(TypesetBodyMixin, HeroMixin, Page):
     def get_context(self, request):
         context = super().get_context(request)
 
+        content_type = ContentType.objects.get_for_model(DatasetPage)
+        context['topics'] = Tag.objects.filter(
+                    models.Q(datasection_datasettopic_items__content_object__content_type=content_type)
+                ).distinct()
         context['related_datasets'] = get_related_pages(self.related_dataset_links.all(), DatasetPage.objects)
         context['more_about_links'] = get_related_pages(self.more_about_links.all(), DatasetPage.objects)
         context['team_member_links'] = get_related_pages(self.team_member_links.all())

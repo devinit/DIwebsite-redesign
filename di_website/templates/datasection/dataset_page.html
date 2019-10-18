@@ -76,107 +76,109 @@
     </div>
   </section>
 
-  <section class="section">
-    <div class="row row--narrow">
-      <h2 class="section__heading">Metadata</h2>
-      <div id="responsive-tabs" class="responsive-tabs">
-        <ul class="tab__menu">
-          <li class="tab__link">
-            <a href="#description">Description</a>
-          </li>
-          <li class="tab__link">
-            <a href="#sources">Sources</a>
-          </li>
-          <li class="tab__link">
-            <a href="#legal">Legal & Suggested Citation</a>
-          </li>
-        </ul>
-        <div class="tab__container">
-          <section id="description" class="tab__content">
-            <div class="is-typeset max-meter">
-              {% for block in page.meta_data %}
-              {{block.value.description}}
-              {% endfor %}
-            </div>
-            <div class="l-2up">
-              {% for block in page.meta_data %}
-              {% if block.value.provenance %}
-              <div class="l-2up__col">
-                <div class="is-typeset">
-                  <h3>Provenance</h3>
-                  {{ block.value.provenance }}
+
+  {% if page.meta_data %}
+    <section class="section">
+      <div class="row row--narrow">
+        <h2 class="section__heading">Metadata</h2>
+        <div id="responsive-tabs" class="responsive-tabs">
+          <ul class="tab__menu">
+            <li class="tab__link"><a href="#description">Description</a></li>
+            <li class="tab__link"><a href="#sources">Sources</a></li>
+            <li class="tab__link"><a href="#legal">Legal & Suggested Citation</a></li>
+          </ul>
+          <div class="tab__container">
+            <section id="description" class="tab__content">
+              <div class="is-typeset max-meter">
+                {% for block in page.meta_data %}
+                  {% if block.block_type == 'description' %}
+                    {% include_block block %}
+                  {% endif %}
+                {% endfor %}
+              </div>
+              <div class="l-2up">
+                {% for block in page.meta_data %}
+                  {% if block.block_type == 'provenance' or block.block_type == 'geography' or block.block_type == 'variables' %}
+                    <div class="l-2up__col">
+                      <div class="is-typeset">
+                        {% if block.block_type == 'provenance' %}
+                          <h3>Provenance</h3>
+                          {% include_block block %}
+                        {% endif %}
+
+                        {% if block.block_type == 'geography' %}
+                          <h3>Geography</h3>
+                          {% include_block block %}
+                        {% endif %}
+
+                        {% if block.block_type == 'variables' %}
+                          <h3>Variables</h3>
+                          {% include_block block %}
+                        {% endif %}
+                      </div>
+                    </div>
+                  {% endif %}
+                {% endfor %}
+
+                {% if topics|length %}
+                  <div class="l-2up__col">
+                    <div class="is-typeset">
+                      <h3>Topics</h3>
+                      <ul>
+                        {% for topic in topics %}
+                          <li>{{topic}}</li>
+                        {% endfor %}
+                      </ul>
+                    </div>
+                  </div>
+                {% endif %}
+              </div>
+            </section>
+            <section id="sources" class="tab__content">
+              <div class="l-3up">
+
+
+                <div class="m-slip m-slip--alt m-slip--icon">
+                  <i role="presentation" aria-hidden="true" class="ico ico--24 ico-data-slate"></i>
+                  <p class="m-slip__copy"><a href="#">N/A - INFORM</a></p>
+                  <span class="m-slip__meta">Accessed: 26 July 2019</span>
+
+                  <a href="#" class="button button--reverses">View source dataset</a>
                 </div>
+
+
               </div>
-              {% endif %}
-
-              {% if block.value.geography %}
-              <div class="l-2up__col">
-                <div class="is-typeset">
-                  <h3>Geography</h3>
-                  {{ block.value.geography }}
-                </div>
+              <div class="is-typeset max-meter">
+                <p>Access Dates: explanation as to what the access date is and why it is relevant. Lorem ipsum dolor sit
+                  amet, consectetur adipiscing elit. Duis commodo mattis nisi eu adipiscing. Vivamus euismod nisl a leo
+                  pellentesque sed lobortis ipsum commodo. Nullam id turpis libero, sit amet posuere est. Fusce porttitor
+                  odio sit amet justo aliquet ac porta turpis vulputate.</p>
               </div>
-              {% endif %}
+            </section>
+            <section id="legal" class="tab__content">
+              <div class="is-typeset max-meter">
+                {% for block in page.meta_data %}
+                  {% if block.block_type == 'licence' %}
+                    <h3>Licence</h3>
+                    {% include_block block %}
+                  {% endif %}
 
-              {% if block.value.variables %}
-              <div class="l-2up__col">
-                <div class="is-typeset">
-                  <h3>Variables</h3>
-                  {{ block.value.variables }}
-                </div>
+                  {% if block.block_type == 'citation' %}
+                    <h3>Suggested Citation</h3>
+                    <div class="selectable">
+                      {% include_block block %}
+                    </div>
+                  {% endif %}
+                {% endfor %}
               </div>
-              {% endif %}
-
-              {% if block.value.topic %}
-              <div class="l-2up__col">
-                <div class="is-typeset">
-                  <h3>Topics</h3>
-                  {{ block.value.topic }}
-                </div>
-              </div>
-              {% endif %}
-              {% endfor %}
-
-            </div>
-          </section>
-          <section id="sources" class="tab__content">
-            <div class="l-3up">
-
-
-              <div class="m-slip m-slip--alt m-slip--icon">
-                <i role="presentation" aria-hidden="true" class="ico ico--24 ico-data-slate"></i>
-                <p class="m-slip__copy"><a href="#">N/A - INFORM</a></p>
-                <span class="m-slip__meta">Accessed: 26 July 2019</span>
-
-                <a href="#" class="button button--reverses">View source dataset</a>
-              </div>
-
-
-            </div>
-            <div class="is-typeset max-meter">
-              <p>Access Dates: explanation as to what the access date is and why it is relevant. Lorem ipsum dolor sit
-                amet, consectetur adipiscing elit. Duis commodo mattis nisi eu adipiscing. Vivamus euismod nisl a leo
-                pellentesque sed lobortis ipsum commodo. Nullam id turpis libero, sit amet posuere est. Fusce porttitor
-                odio sit amet justo aliquet ac porta turpis vulputate.</p>
-            </div>
-          </section>
-          <section id="legal" class="tab__content">
-            <div class="is-typeset max-meter">
-              <h3>Licence</h3>
-              <p>Dataset Title by <a href="#">Development Initiatives Poverty Research Limited</a> is licensed under a <a
-                  href="#">Creative Commons Attribution 4.0 International License</a>.</p>
-              <p>Based on a work at <a href="#">https://link-to-sources-used</a></p>
-              <p>Permissions beyond the scope of this license may be available at <a
-                  href="#">https://devinit.org/data/datasets/dataset-title#licence.</a></p>
-              <h3>Suggested Citation</h3>
-              <p class="selectable">Investments to End Poverty, 2018, Development Initiatives Poverry Research Ltd.</p>
-            </div>
-          </section>
+            </section>
+          </div>
         </div>
-      </div>
 
-    </div>
-  </section>
+      </div>
+    </section>
+  {% endif %}
+
 
   <section class="section">
     <div class="row row--narrow">

@@ -153,7 +153,7 @@ function start_link_checker_processes {
     docker-compose exec -T rabbitmq rabbitmqctl add_user di_website $RABBITMQ_PASSWORD
     docker-compose exec -T rabbitmq rabbitmqctl add_vhost myvhost
     docker-compose exec -T rabbitmq rabbitmqctl set_user_tags di_website di_website
-    docker-compose exec -T rabbitmq rabbitmqctl set_permissions -p myvhost di_website ".*" ".*" ".*"
+    docker-compose exec -T rabbitmq rabbitmqctl set_permissions -p myvhost di_website \".*\" \".*\" \".*\"
     
     start_new_process "Starting celery"
     

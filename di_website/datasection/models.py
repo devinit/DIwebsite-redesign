@@ -237,7 +237,6 @@ class DatasetPage(TypesetBodyMixin, HeroMixin, Page):
                     models.Q(datasection_datasettopic_items__content_object__content_type=content_type)
                 ).distinct()
         context['related_datasets'] = get_related_pages(self.related_dataset_links.all(), DatasetPage.objects)
-        context['more_about_links'] = get_related_pages(self.more_about_links.all(), DatasetPage.objects)
         context['team_member_links'] = get_related_pages(self.team_member_links.all())
 
         return context
@@ -261,14 +260,6 @@ class DatasetPageRelatedLink(OtherPageMixin):
 
     panels = [
         PageChooserPanel('other_page', [ DatasetPage ])
-    ]
-
-
-class MoreAboutRelatedLink(OtherPageMixin):
-    page = ParentalKey(Page, related_name='more_about_links', on_delete=models.CASCADE)
-
-    panels = [
-        PageChooserPanel('other_page')
     ]
 
 

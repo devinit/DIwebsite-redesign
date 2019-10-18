@@ -43,7 +43,7 @@
                 {% if source.external_member_photo %}
                   {% image source.external_member_photo max-400x250 as image %}
                 {% endif %}
-                {% with cite=source.name|add_string:', '|add_string:source.role|add_string:source.organisation|add_string:', DI' %}
+                {% with cite=source.name|add_string:', '|add_string:source.role|add_string:', '|add_string:source.organisation %}
                   {% include 'includes/partials/testimonial.html' with class_name='testimonial--reverse' %}
                 {% endwith %}
               {% endwith %}

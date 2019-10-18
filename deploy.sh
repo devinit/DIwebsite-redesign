@@ -176,6 +176,7 @@ then
     setup_docker_storage
     
     mkdir -p $APP_DIR"/assets"
+    mkdir -p $APP_DIR"/storage"
 
     start_new_process "Starting up services ..."
     cd $APP_DIR

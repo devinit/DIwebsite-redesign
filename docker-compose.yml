@@ -52,6 +52,7 @@ services:
     volumes:
       - ./config/nginx:/etc/nginx/conf.d
       - ./assets:/static
+      - ./storage:/media
     depends_on:
       - web
   rabbitmq:

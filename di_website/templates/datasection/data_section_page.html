@@ -58,7 +58,7 @@
             {{ page.dataset_info }}
           </p>
           {% if page.hero_link %}
-            <a href="{{ page.hero_link }}" class="button">View datasets</a>
+            <a href="{% pageurl page.hero_link %}" class="button">View datasets</a>
           {% endif %}
         </div>
       </div>

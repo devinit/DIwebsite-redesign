@@ -58,7 +58,11 @@ class Report(ClusterableModel):
 
 
 class DataSourceTopic(TaggedItemBase):
-    content_object = ParentalKey('datasection.DataSource', on_delete=models.CASCADE, related_name='datasource_topics')
+    """
+    Handles topic tags on the DataSource snippets
+    """
+    content_object = ParentalKey(
+        'datasection.DataSource', on_delete=models.CASCADE, related_name='datasource_topics')
 
 
 @register_snippet
@@ -103,25 +107,11 @@ class DataSectionPage(SectionBodyMixin, TypesetBodyMixin, HeroMixin, Page):
     """ Main page for datasets """
 
     quotes = StreamField(
-        QuoteStreamBlock,
-        verbose_name="Quotes",
-        null=True,
-        blank=True
-    )
-
+        QuoteStreamBlock, verbose_name="Quotes", null=True, blank=True)
     dataset_info = models.TextField(
-        null=False,
-        blank=False,
-        default="",
-        help_text='A description of the datasets'
-    )
-
+        null=False, blank=False, default="", help_text='A description of the datasets')
     other_pages_heading = models.CharField(
-        blank=True,
-        max_length=255,
-        verbose_name='Heading',
-        default='More about'
-    )
+        blank=True, max_length=255, verbose_name='Heading', default='More about')
 
     content_panels = Page.content_panels + [
         hero_panels(),
@@ -168,7 +158,8 @@ class DataSectionPage(SectionBodyMixin, TypesetBodyMixin, HeroMixin, Page):
 
 
 class DataSetTopic(TaggedItemBase):
-    content_object = ParentalKey('datasection.DatasetPage', on_delete=models.CASCADE, related_name='dataset_topics')
+    content_object = ParentalKey(
+        'datasection.DatasetPage', on_delete=models.CASCADE, related_name='dataset_topics')
 
 
 class DatasetPage(TypesetBodyMixin, HeroMixin, Page):
@@ -177,33 +168,19 @@ class DatasetPage(TypesetBodyMixin, HeroMixin, Page):
     parent_page_types = ['datasection.DataSetListing']
 
     publication_type = models.CharField(
-        blank=True,
-        max_length=255,
-        verbose_name='Publication Type'
-    )
+        blank=True, max_length=255, verbose_name='Publication Type')
     release_date = models.DateField(default=datetime.now)
     text_content = RichTextField(
-        null=True,
-        blank=True,
-        verbose_name='Main Content',
-        help_text='A description of the page content'
-    )
+        null=True, blank=True,
+        verbose_name='Main Content', help_text='A description of the page content')
     meta_data = StreamField([
         ('description', MetaDataDescriptionBlock(max_num=1)),
         ('sources', MetaDataSourcesBlock(max_num=1)),
     ], null=True, blank=True)
     related_datasets_title = models.CharField(
-        blank=True,
-        max_length=255,
-        verbose_name='Title'
-    )
+        blank=True, max_length=255, verbose_name='Title')
     report = models.ForeignKey(
-        'datasection.Report',
-        related_name="+",
-        on_delete=models.SET_NULL,
-        blank=True,
-        null=True
-    )
+        'datasection.Report', related_name="+", on_delete=models.SET_NULL, blank=True, null=True)
     topics = ClusterTaggableManager(through=DataSetTopic, blank=True, verbose_name="Topics")
 
     content_panels = Page.content_panels + [
@@ -264,21 +241,12 @@ class TeamMemberRelatedLink(OtherPageMixin):
 
 class DataSetSource(models.Model):
     page = ParentalKey(
-        DatasetPage,
-        related_name='dataset_sources',
-        on_delete=models.CASCADE
-    )
+        DatasetPage, related_name='dataset_sources', on_delete=models.CASCADE)
     source = models.ForeignKey(
-        'datasection.DataSource',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+',
-        verbose_name='Data Source')
+        'datasection.DataSource', null=True, blank=True, on_delete=models.SET_NULL,
+        related_name='+', verbose_name='Data Source')
 
-    panels = [
-        SnippetChooserPanel('source')
-    ]
+    panels = [ SnippetChooserPanel('source') ]
 
 
 
@@ -293,16 +261,9 @@ class DataSetListing(TypesetBodyMixin, Page):
     sub_page_types = ['dataset.DatasetPage']
 
     hero_text = RichTextField(
-        null=True,
-        blank=True,
-        help_text='A description of the page content'
-    )
+        null=True, blank=True, help_text='A description of the page content')
     other_pages_heading = models.CharField(
-        blank=True,
-        max_length=255,
-        verbose_name='Heading',
-        default='More about'
-    )
+        blank=True, max_length=255, verbose_name='Heading', default='More about')
 
     content_panels = Page.content_panels + [
         FieldPanel('hero_text'),

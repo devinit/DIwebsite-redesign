@@ -30,6 +30,8 @@ services:
   web:
     depends_on:
       - db
+      - rabbitmq
+      - elasticsearch
     expose:
       - "8090"
     env_file: .env

@@ -170,6 +170,8 @@ then
         backup_database
     fi
     
+    mkdir -p $APP_DIR"/assets"
+    
     perform_git_operations
     export_travis_enviroment
     setup_docker_storage

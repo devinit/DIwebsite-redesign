@@ -203,6 +203,8 @@ class DatasetPage(TypesetBodyMixin, HeroMixin, Page):
     report = models.ForeignKey(
         'datasection.Report', related_name="+", on_delete=models.SET_NULL, blank=True, null=True)
     topics = ClusterTaggableManager(through=DataSetTopic, blank=True, verbose_name="Topics")
+    other_pages_heading = models.CharField(
+        blank=True, max_length=255, verbose_name='Heading', default='More about')
 
     content_panels = Page.content_panels + [
         hero_panels(),
@@ -222,7 +224,10 @@ class DatasetPage(TypesetBodyMixin, HeroMixin, Page):
             FieldPanel('related_datasets_title'),
             InlinePanel('related_dataset_links', label="Related Datasets", max_num=MAX_RELATED_LINKS)
         ], heading='Related Dataset'),
-        InlinePanel('more_about_links', label="More About Pages", max_num=MAX_RELATED_LINKS)
+        MultiFieldPanel([
+            FieldPanel('other_pages_heading'),
+            InlinePanel('other_pages', label='Related pages')
+        ], heading='Other Pages/Related Links')
     ]
 
     def get_context(self, request):

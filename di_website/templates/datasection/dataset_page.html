@@ -197,14 +197,7 @@
 
 
   <section class="section">
-    <div class="row row--narrow">
-      <h2 class="section__heading">More about</h2>
-      <div class="l-4up">
-
-        {% for page in more_about_links %}{% endfor %}
-
-      </div>
-    </div>
+    {% get_other_pages calling_page=self heading=page.other_pages_heading %}
   </section>
 
 {% endblock %}

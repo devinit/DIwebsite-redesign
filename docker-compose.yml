@@ -51,6 +51,8 @@ services:
       - "80:80"
     volumes:
       - ./config/nginx:/etc/nginx/conf.d
+      - ./assets:/static
+      - ./storage:/media
     depends_on:
       - web
   rabbitmq:

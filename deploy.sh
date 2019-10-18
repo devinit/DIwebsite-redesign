@@ -170,15 +170,24 @@ then
         backup_database
     fi
     
+    
     perform_git_operations
     export_travis_enviroment
     setup_docker_storage
     
+    mkdir -p $APP_DIR"/assets"
+    mkdir -p $APP_DIR"/storage"
+
     start_new_process "Starting up services ..."
     cd $APP_DIR
     docker-compose up -d --build
+
+    sleep 45
     start_link_checker_processes
     elastic_search_reindex
+
+    start_new_process "Generating static assets"
+    docker-compose exec -T web python manage.py collectstatic --noinput
     
 elif [ ${args[0]} == 'backup' ]
 then

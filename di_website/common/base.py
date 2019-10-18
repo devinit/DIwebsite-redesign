@@ -14,7 +14,7 @@ from wagtail.snippets.models import register_snippet
 from .constants import MAX_RELATED_LINKS
 
 
-def hero_panels():
+def hero_panels(allowed_pages=[]):
     """
     Called when creating page content_panels for pages that require a Hero
     Returns:
@@ -26,7 +26,7 @@ def hero_panels():
         FieldPanel('hero_image_credit_url'),
         FieldPanel('hero_text', classname="hero_excerpt"),
         FieldPanel('hero_link_caption'),
-        PageChooserPanel('hero_link')
+        PageChooserPanel('hero_link', allowed_pages)
     ], heading="Hero Section")
 
 

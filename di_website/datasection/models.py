@@ -114,7 +114,7 @@ class DataSectionPage(SectionBodyMixin, TypesetBodyMixin, HeroMixin, Page):
         blank=True, max_length=255, verbose_name='Heading', default='More about')
 
     content_panels = Page.content_panels + [
-        hero_panels(),
+        hero_panels(allowed_pages=['datasection.DataSetListing']),
         StreamFieldPanel('body'),
         StreamFieldPanel('quotes'),
         FieldPanel('dataset_info'),

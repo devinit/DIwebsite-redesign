@@ -51,7 +51,7 @@ services:
       - "80:80"
     volumes:
       - ./config/nginx:/etc/nginx/conf.d
-      - ./assets:/static
+      - ./assets:/assets
       - ./storage:/media
     depends_on:
       - web

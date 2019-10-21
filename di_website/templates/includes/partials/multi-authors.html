@@ -11,6 +11,19 @@
       {% endif %}
     </h3>
     <p class="m-authors__copy">
-      {% if first_author %}<a href="{% pageurl first_author %}">{{ first_author.specific.name }}</a>{% endif %}{% if first_author and authors|length > 0 %}, {% endif %}{% for author in authors %}{% if author.block_type == 'internal_author' %}<a href="{% pageurl author.value %}">{{ author.value.specific.name }}</a>{% else %}{% if author.value.page %}<a href="{{ author.value.page }}">{{ author.value.name }}</a>{% else %}<a href="#">{{ author.value.name }}</a>{% endif %}{% endif %}{% if not forloop.last %}, {% endif %}{% endfor %}
+      {% if first_author %}
+        <a href="{% pageurl first_author %}">{{ first_author.specific.name }}</a>{% if authors|length > 0 %}, {% endif %}
+      {% endif %}
+      {% for author in authors %}
+        {% if author.block_type == 'internal_author' %}
+          <a href="{% pageurl author.value %}">{{ author.value.specific.name }}</a>{% if not forloop.last %}, {% endif %}
+        {% else %}
+          {% if author.value.page %}
+            <a href="{{ author.value.page }}">{{ author.value.name }}</a>{% if not forloop.last %}, {% endif %}
+          {% else %}
+            <a href="#">{{ author.value.name }}</a>{% if not forloop.last %}, {% endif %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
     </p>
 </div>

@@ -184,16 +184,24 @@
   {% endif %}
 
 
-  <section class="section">
-    <div class="row row--narrow">
-      <h2 class="section__heading">{{ page.related_datasets_title }}</h2>
-      <div class="l-3up">
-
-        {% for page in related_datasets %}{% endfor %}
-
+  {% if related_datasets|length %}
+    <section class="section">
+      <div class="row row--narrow">
+        <h2 class="section__heading">{{ page.related_datasets_title }}</h2>
+        <div class="l-3up">
+          {% for item in related_datasets %}
+            <div class="m-slip m-slip--icon">
+              <i role="presentation" aria-hidden="true" class="ico ico--24 ico-data-poppydark"></i>
+              <p class="m-slip__copy">
+                <a href="{% pageurl item %}">{{item.specific.title}}</a>
+              </p>
+              <span class="m-slip__meta">Released: {{item.specific.release_date}}</span>
+            </div>
+          {% endfor %}
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  {% endif %}
 
 
   <section class="section">

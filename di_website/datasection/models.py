@@ -173,7 +173,7 @@ class DatasetPage(TypesetBodyMixin, HeroMixin, Page):
     parent_page_types = ['datasection.DataSetListing']
 
     publication = models.CharField(
-        blank=True, max_length=255, verbose_name='Publication Type',
+        blank=True, max_length=255, verbose_name='Publication',
         help_text='The publication that used this dataset. For a figure, format is [Publication] - [Figure] e.g ITEP 2018 - Figure 1.1')
     release_date = models.DateField(default=datetime.now)
     authors = StreamField([
@@ -198,7 +198,7 @@ class DatasetPage(TypesetBodyMixin, HeroMixin, Page):
         ('citation', RichTextBlock())
     ], verbose_name='Content', help_text='A description is expected, but only one of each shall be shown')
     related_datasets_title = models.CharField(
-        blank=True, max_length=255, verbose_name='Title')
+        blank=True, max_length=255, default='Related datasets', verbose_name='Section Title')
     report = models.ForeignKey(
         'datasection.Report', related_name="+", on_delete=models.SET_NULL, blank=True, null=True)
     topics = ClusterTaggableManager(through=DataSetTopic, blank=True, verbose_name="Topics")
@@ -221,8 +221,8 @@ class DatasetPage(TypesetBodyMixin, HeroMixin, Page):
         ], heading='Metadata'),
         MultiFieldPanel([
             FieldPanel('related_datasets_title'),
-            InlinePanel('related_dataset_links', label="Related Datasets", max_num=MAX_RELATED_LINKS)
-        ], heading='Related Dataset'),
+            InlinePanel('related_datasets', label="Related Datasets", max_num=MAX_RELATED_LINKS)
+        ], heading='Related Datasets'),
         MultiFieldPanel([
             FieldPanel('other_pages_heading'),
             InlinePanel('other_pages', label='Related pages')
@@ -234,10 +234,10 @@ class DatasetPage(TypesetBodyMixin, HeroMixin, Page):
 
         content_type = ContentType.objects.get_for_model(DatasetPage)
         context['topics'] = Tag.objects.filter(
-                    models.Q(datasection_datasettopic_items__content_object__content_type=content_type)
-                ).distinct()
-        context['related_datasets'] = get_related_pages(self.related_dataset_links.all(), DatasetPage.objects)
-        context['team_member_links'] = get_related_pages(self.team_member_links.all())
+                models.Q(datasection_datasettopic_items__content_object__content_type=content_type)
+            ).distinct()
+        context['related_datasets'] = get_related_pages(
+            self.related_datasets.all(), DatasetPage.objects)
 
         return context
 
@@ -256,19 +256,19 @@ class DatasetDownloads(BaseDownload, Orderable):
 
 
 class DatasetPageRelatedLink(OtherPageMixin):
-    page = ParentalKey(DatasetPage, related_name='related_dataset_links', on_delete=models.CASCADE)
+    page = ParentalKey(DatasetPage, related_name='related_datasets', on_delete=models.CASCADE)
 
-    panels = [PageChooserPanel('other_page')]
+    panels = [PageChooserPanel('other_page', [DatasetPage])]
 
 
 class DataSetSource(models.Model):
     page = ParentalKey(
         DatasetPage, related_name='dataset_sources', on_delete=models.CASCADE)
     source = models.ForeignKey(
-        'datasection.DataSource', null=True, blank=True, on_delete=models.SET_NULL,
+        'datasection.DataSource', null=True, blank  =True, on_delete=models.SET_NULL,
         related_name='+', verbose_name='Data Source')
 
-    panels = [ SnippetChooserPanel('source') ]
+    panels = [SnippetChooserPanel('source')]
 
 
 

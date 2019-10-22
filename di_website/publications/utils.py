@@ -13,7 +13,8 @@ def get_downloads(instance, with_parent=False, data=False):
 
     for item in downloads:
         download = create_download(item)
-        d[download[0]].append(download[1])
+        if download[1]['download'] is not None:
+            d[download[0]].append(download[1])
 
     if with_parent:
         if data:

@@ -18,8 +18,7 @@ class HeroMixin(models.Model):
         related_name='+',
         help_text='Hero Image'
     )
-    hero_image_credit_name = models.CharField(
-        max_length=50,
+    hero_image_credit_name = models.TextField(
         null=True,
         blank=True,
         verbose_name='Image credit name',

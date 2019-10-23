@@ -12,7 +12,11 @@
             <div class="l-sidebar">
                 <aside class="l-sidebar__aside">
                     <div class="aside aside--clipping">
+                      {% if self.depth > 3 %}
                         {% secondary_menu parent=self.get_parent calling_page=self %}
+                      {% else %}
+                        {% secondary_menu parent=self calling_page=self %}
+                      {% endif %}
                     </div>
                 </aside>
                 <div class="l-sidebar__body">

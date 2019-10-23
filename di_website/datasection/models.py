@@ -34,32 +34,6 @@ from di_website.downloads.models import BaseDownload
 from .blocks import QuoteStreamBlock, MetaDataDescriptionBlock, MetaDataSourcesBlock
 
 
-@register_snippet
-class Report(ClusterableModel):
-    title = models.CharField(max_length=255, unique=True)
-    description = models.TextField(blank=True, null=True)
-    slug = models.SlugField(
-        max_length=255, blank=True, null=True,
-        help_text="Optional. Will be auto-generated from title if left blank.")
-
-    panels = [
-        FieldPanel('title'),
-        FieldPanel('description'),
-        FieldPanel('slug'),
-    ]
-
-    class Meta:
-        ordering = ["title"]
-
-    def __str__(self):
-        return self.title
-
-    def save(self, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.title)
-        super(Report, self).save(**kwargs)
-
-
 class DataSourceTopic(TaggedItemBase):
     """
     Handles topic tags on the DataSource snippets
@@ -199,8 +173,6 @@ class DatasetPage(TypesetBodyMixin, HeroMixin, Page):
     ], verbose_name='Content', help_text='A description is expected, but only one of each shall be shown')
     related_datasets_title = models.CharField(
         blank=True, max_length=255, default='Related datasets', verbose_name='Section Title')
-    report = models.ForeignKey(
-        'datasection.Report', related_name="+", on_delete=models.SET_NULL, blank=True, null=True)
     topics = ClusterTaggableManager(through=DataSetTopic, blank=True, verbose_name="Topics")
     other_pages_heading = models.CharField(
         blank=True, max_length=255, verbose_name='Heading', default='More about')
@@ -214,7 +186,6 @@ class DatasetPage(TypesetBodyMixin, HeroMixin, Page):
         InlinePanel('dataset_downloads', label='Downloads', max_num=None),
         MultiFieldPanel([
             StreamFieldPanel('meta_data'),
-            SnippetChooserPanel('report'),
             FieldPanel('topics'),
             InlinePanel('page_countries', label="Countries"),
             InlinePanel('dataset_sources', label='Sources')

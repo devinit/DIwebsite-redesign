@@ -242,6 +242,7 @@ class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUID
         StreamFieldPanel('authors'),
         SnippetChooserPanel('publication_type'),
         FieldPanel('topics'),
+        InlinePanel('publication_datasets', label='Datasets'),
         InlinePanel('page_countries', label="Countries"),
         PublishedDatePanel(),
         DownloadsPanel(
@@ -351,6 +352,7 @@ class PublicationSummaryPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
         FieldPanel('colour'),
         hero_panels(),
         ContentPanel(),
+        InlinePanel('publication_datasets', label='Datasets'),
         DownloadsPanel(
             heading='Downloads',
             description='Downloads for this summary.'
@@ -437,6 +439,7 @@ class PublicationChapterPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
             description='Chapter number: this should be unique for each chapter of a report.'
         ),
         ContentPanel(),
+        InlinePanel('publication_datasets', label='Datasets'),
         DownloadsPanel(
             heading='Downloads',
             description='Downloads for this chapter.'
@@ -542,6 +545,7 @@ class PublicationAppendixPage(HeroMixin, ReportChildMixin, FlexibleContentMixin,
             description='Appendix number: this should be unique for each appendix of a report.'
         ),
         ContentPanel(),
+        InlinePanel('publication_datasets', label='Datasets'),
         DownloadsPanel(
             heading='Downloads',
             description='Downloads for this appendix page.'
@@ -652,6 +656,7 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, LegacyPageSearchMixin
         FieldPanel('topics'),
         InlinePanel('page_countries', label="Countries"),
         PublishedDatePanel(),
+        InlinePanel('publication_datasets', label='Datasets'),
         DownloadsPanel(
             heading='Reports',
             description='Report downloads for this legacy report.'
@@ -751,6 +756,7 @@ class ShortPublicationPage(HeroMixin, PublishedDateMixin, FlexibleContentMixin, 
         InlinePanel('page_countries', label="Countries"),
         PublishedDatePanel(),
         ContentPanel(),
+        InlinePanel('publication_datasets', label='Datasets'),
         DownloadsPanel(
             heading='Downloads',
             description='Downloads for this chapter.'

@@ -145,6 +145,7 @@ class BannerBlock(StructBlock):
     text = StreamBlock([
         ('text_heading', CharBlock(template='blocks/banner/text_heading.html', required=False, icon='title')),
         ('text', TextBlock(template='blocks/banner/text.html')),
+        ('richtext', RichTextBlock(template='blocks/banner/richtext.html')),
         ('list', ListBlock(StructBlock([
             ('title', TextBlock()),
             ('content', TextBlock(required=False)),

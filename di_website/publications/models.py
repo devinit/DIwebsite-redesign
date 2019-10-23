@@ -221,7 +221,7 @@ class PublicationIndexPage(HeroMixin, Page):
             Q(publications_publicationtopic_items__content_object__content_type=pubs_content_type) |
             Q(publications_legacypublicationtopic_items__content_object__content_type=leg_pubs_content_type) |
             Q(publications_shortpublicationtopic_items__content_object__content_type=short_pubs_content_type)
-        ).distinct()
+        ).distinct().order_by('name')
         context['selected_topic'] = topic_filter
         context['countries'] = Country.objects.all()
         context['selected_country'] = country_filter

@@ -221,7 +221,7 @@ class DatasetPage(TypesetBodyMixin, HeroMixin, Page):
         return self.dataset_sources.all()
 
 
-class DatasetDownloads(BaseDownload, Orderable):
+class DatasetDownloads(Orderable, BaseDownload):
     page = ParentalKey(
         DatasetPage, related_name='dataset_downloads', on_delete=models.CASCADE)
 
@@ -322,6 +322,5 @@ class DataSetListing(TypesetBodyMixin, Page):
         ).distinct()
         context['countries'] = Country.objects.all()
         context['sources'] = DataSource.objects.all()
-        context['reports'] = Report.objects.all()
 
         return context

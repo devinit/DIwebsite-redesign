@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 from modelcluster.fields import ParentalKey
 
-from wagtail.admin.edit_handlers import FieldPanel, InlinePanel
+from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.core.models import Page, Orderable
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
@@ -17,6 +17,13 @@ from di_website.users.models import Department, JobTitle
 class OurTeamPage(HeroMixin, Page):
 
     """ List of Team Members Page """
+
+    other_pages_heading = models.CharField(
+        blank=True,
+        max_length=255,
+        verbose_name='Heading',
+        default='More about'
+    )
 
     def get_context(self, request):
         context = super(OurTeamPage, self).get_context(request)
@@ -33,11 +40,15 @@ class OurTeamPage(HeroMixin, Page):
     class Meta:
         verbose_name = "Our Team Page"
 
-    subpage_types = ['TeamMemberPage','general.General']
+    subpage_types = ['TeamMemberPage', 'general.General']
     parent_page_types = ['about.WhoWeArePage']
 
     content_panels = Page.content_panels + [
         hero_panels(),
+        MultiFieldPanel([
+            FieldPanel('other_pages_heading'),
+            InlinePanel('other_pages', label='Related pages')
+        ], heading='Other Pages/Related Links'),
         InlinePanel('page_notifications', label='Notifications')
     ]
 

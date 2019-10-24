@@ -24,7 +24,7 @@ class ContactUs(models.Model):
     """
     name = models.CharField(max_length=255)
     organisation = models.CharField(max_length=255, blank=True)
-    email = models.EmailField()
+    email_address = models.EmailField()
     telephone = models.CharField(max_length=255, blank=True)
     message = models.TextField()
 
@@ -35,7 +35,7 @@ class ContactUs(models.Model):
 class ContactUsForm(forms.ModelForm):
     class Meta:
         model = ContactUs
-        fields = ['name', 'organisation', 'email', 'telephone', 'message']
+        fields = ['name', 'organisation', 'email_address', 'telephone', 'message']
 
 
 class ContactPage(TypesetBodyMixin, HeroMixin, Page):
@@ -113,7 +113,7 @@ class ContactPage(TypesetBodyMixin, HeroMixin, Page):
 
         kv_p6 = {}
         kv_p6['name'] = 'email_address'
-        kv_p6['value'] = form_object.get('email')
+        kv_p6['value'] = form_object.get('email_address')
         hubspot_payload.append(kv_p6)
 
         kv_p7 = {}

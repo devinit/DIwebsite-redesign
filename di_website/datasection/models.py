@@ -1,6 +1,7 @@
 import random
 import re
 from datetime import datetime
+from itertools import chain
 
 from django.db import models
 from django.utils.text import slugify
@@ -31,6 +32,9 @@ from di_website.common.constants import MAX_PAGE_SIZE, MAX_RELATED_LINKS
 from di_website.common.mixins import HeroMixin, OtherPageMixin, SectionBodyMixin, TypesetBodyMixin
 from di_website.publications.models import Country
 from di_website.downloads.models import BaseDownload
+from di_website.publications.models import (
+    PublicationPage, LegacyPublicationPage, ShortPublicationPage,
+    PublicationAppendixPage, PublicationChapterPage, PublicationSummaryPage)
 
 from .blocks import QuoteStreamBlock, MetaDataDescriptionBlock, MetaDataSourcesBlock
 
@@ -305,7 +309,12 @@ class DataSetListing(TypesetBodyMixin, Page):
             if source_filter:
                 datasets = datasets.filter(dataset_sources__source__slug=source_filter)
             if report_filter:
-                datasets = datasets.filter(report__slug=report_filter)
+                pubs = Page.objects.filter(publicationpage__publication_datasets__item__slug=report_filter).first()
+                if (pubs.specific.publication_datasets):
+                    for dataset in pubs.specific.publication_datasets.all():
+                        results = datasets.filter(slug__exact=dataset.dataset.slug)
+                        if results:
+                            datasets = results
 
         datasets = datasets.order_by('-release_date')
         context['is_filtered'] = is_filtered
@@ -319,9 +328,30 @@ class DataSetListing(TypesetBodyMixin, Page):
 
         content_type = ContentType.objects.get_for_model(DatasetPage)
         context['topics'] = Tag.objects.filter(
-            models.Q(datasection_datasettopic_items__content_object__content_type=content_type)
+            datasection_datasettopic_items__content_object__content_type=content_type
         ).distinct()
         context['countries'] = Country.objects.all()
         context['sources'] = DataSource.objects.all()
+
+        publication_pages = PublicationPage.objects.filter(
+            publication_datasets__dataset__content_type=content_type
+        ).distinct()
+        publication_summary_pages = PublicationSummaryPage.objects.filter(
+            publication_datasets__dataset__content_type=content_type
+        ).distinct()
+        legacy_publication_pages = LegacyPublicationPage.objects.filter(
+            publication_datasets__dataset__content_type=content_type
+        ).distinct()
+        publication_appendix_pages = PublicationAppendixPage.objects.filter(
+            publication_datasets__dataset__content_type=content_type
+        ).distinct()
+        publication_chapter_pages = PublicationChapterPage.objects.filter(
+            publication_datasets__dataset__content_type=content_type
+        ).distinct()
+
+        context['reports'] = list(chain(
+            publication_pages, publication_summary_pages, legacy_publication_pages,
+            publication_appendix_pages, publication_chapter_pages
+        ))
 
         return context

@@ -1,6 +1,7 @@
+import os
+
 import bleach
 import uuid
-import mimetypes
 
 from django import template
 from django.utils import formats
@@ -127,7 +128,7 @@ def sizeof_fmt(num, suffix='B'):
 @register.filter
 def file_info(file):
     try:
-        return '%s %s' % (mimetypes.guess_extension(mimetypes.guess_type(file.url)[0])[1:].upper(), sizeof_fmt(file.file.size))
+        return '%s %s' % (os.path.splitext(file.url)[1][1:].upper(), sizeof_fmt(file.file.size))
     except Exception:
         return file.title
 
@@ -137,7 +138,7 @@ def file_label(file):
     try:
         return '%s | %s %s' % (
             file.title,
-            mimetypes.guess_extension(mimetypes.guess_type(file.url)[0])[1:].upper(),
+            os.path.splitext(file.url)[1][1:].upper(),
             sizeof_fmt(file.file.size)
         )
     except Exception:

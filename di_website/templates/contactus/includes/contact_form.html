@@ -29,7 +29,7 @@
           {% endif %}
         {% else %}
           {% if 'hiddeninput' not in field|widget_type %}
-            <label for="{{ field.id_for_label }}" class="form-label ">{{ field.label }} [Optional]</label>
+            <label for="{{ field.id_for_label }}" class="form-label ">{{ field.label }} [optional]</label>
           {% endif %}
           {% if field|widget_type == 'select' %}
             <div class="form-field__select-dropdown">

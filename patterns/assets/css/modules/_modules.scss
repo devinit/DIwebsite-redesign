@@ -107,13 +107,17 @@ a.m-author {
         li {
             display: inline-block;
             margin-right: 3px;
-            &:after {
-                content: ","
-            }
             a {
                 font-size: inherit;
                 text-decoration: underline;
             }
+        }
+    }
+    &__copy {
+        @include font-size($epsilon);
+        a {
+            font-size: inherit;
+            text-decoration: underline;
         }
     }
 }

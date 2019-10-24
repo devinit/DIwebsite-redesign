@@ -14,7 +14,7 @@
             {% if location.latitude is not None %}
               <div class="media-map__location__point"
                 data-latlng="{{ location.latitude }}, {{ location.longitude }}"
-                data-title="{{ location.location }}" data-desc="{{ location.address }}"
+                data-title="{{ location.location }}"
                 data-tel="{{ location.contact }}" data-email="" data-web=""></div>
             {% endif %}
           {% endfor %}

@@ -1,6 +1,6 @@
 {% extends "layouts/default.html" %}
 
-{% load navigation_tags static wagtailcore_tags wagtailimages_tags card_tags %}
+{% load navigation_tags static wagtailcore_tags wagtailimages_tags card_tags string_utils %}
 
 {% block hero %}
   {% include 'includes/heroes/hero.html' %}
@@ -59,7 +59,7 @@
               {% if location.latitude %}
                 <div class="media-map__location__point"
                   data-latlng="{{ location.latitude }}, {{ location.longitude }}"
-                  data-title="{{ location.location }}" data-desc="{{ location.address }}"
+                  data-title="{{ location.location }}"
                   data-tel="{{ location.contact }}" data-email="" data-web=""></div>
               {% endif %}
             {% endfor %}
@@ -72,7 +72,7 @@
                 <h3 class="location__heading">{{ location.location }}</h3>
               {% endif %}
               {% if location.address %}
-                <p class="location__copy">{{ location.address }}</p>
+                <div class="location__copy">{{ location.address | richtext_strip_wrapper }}</div>
               {% endif %}
               {% if location.contact %}
                 <span class="location__contact">{{ location.contact }}</span>

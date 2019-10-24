@@ -31,8 +31,9 @@ class OfficeLocation(models.Model):
         max_length=100,
         help_text='e.g. Bristol, UK | Kampala, UG | Nairobi, KE'
     )
-    address = models.TextField(
+    address = RichTextField(
         blank=True,
+        null=True,
         help_text="E.g. 'North Quay House Quay Side, Temple Back Bristol, BS1 6FL, UK'"
     )
     contact = models.CharField(

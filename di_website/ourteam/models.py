@@ -18,6 +18,13 @@ class OurTeamPage(HeroMixin, Page):
 
     """ List of Team Members Page """
 
+    other_pages_heading = models.CharField(
+        blank=True,
+        max_length=255,
+        verbose_name='Heading',
+        default='More about'
+    )
+
     def get_context(self, request):
         context = super(OurTeamPage, self).get_context(request)
         team_filter = request.GET.get('team-filter', None)

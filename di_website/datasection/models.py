@@ -164,7 +164,7 @@ class DatasetPage(DataSetMixin, TypesetBodyMixin, HeroMixin, Page):
         metadata_panel(),
         MultiFieldPanel([
             FieldPanel('related_datasets_title'),
-            InlinePanel('related_datasets', label="Related Datasets", max_num=MAX_RELATED_LINKS)
+            InlinePanel('related_datasets', label="Related Datasets")
         ], heading='Related Datasets'),
         other_pages_panel()
     ]

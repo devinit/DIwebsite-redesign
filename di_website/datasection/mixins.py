@@ -4,6 +4,7 @@ from datetime import datetime
 from wagtail.core.fields import StreamField
 from wagtail.core.blocks import CharBlock, PageChooserBlock, RichTextBlock, StructBlock, URLBlock
 from wagtail.images.blocks import ImageChooserBlock
+from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
 class DataSetMixin(models.Model):
     class Meta():
@@ -40,3 +41,14 @@ class DataSetMixin(models.Model):
     )
     other_pages_heading = models.CharField(
         blank=True, max_length=255, verbose_name='Heading', default='More about')
+
+
+class DataSetSourceMixin(models.Model):
+    class Meta():
+        abstract = True
+
+    source = models.ForeignKey(
+        'datasection.DataSource', null=True, blank  =True, on_delete=models.SET_NULL,
+        related_name='+', verbose_name='Data Source')
+
+    panels = [SnippetChooserPanel('source')]

@@ -4,7 +4,7 @@ from django.core.validators import EmailValidator
 
 from modelcluster.fields import ParentalKey
 
-from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, PageChooserPanel
+from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel, PageChooserPanel
 from wagtail.core.models import Orderable, Page
 from wagtail.core.fields import RichTextField
 from wagtail.documents.edit_handlers import DocumentChooserPanel
@@ -28,6 +28,13 @@ def hero_panels(allowed_pages=[]):
         FieldPanel('hero_link_caption'),
         PageChooserPanel('hero_link', allowed_pages)
     ], heading="Hero Section")
+
+
+def other_pages_panel():
+    return MultiFieldPanel([
+            FieldPanel('other_pages_heading'),
+            InlinePanel('other_pages', label='Related pages')
+        ], heading='Other Pages/Related Links')
 
 
 def get_paginator_range(paginator, page):

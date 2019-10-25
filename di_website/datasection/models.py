@@ -27,7 +27,7 @@ from wagtail.core.models import Orderable, Page
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
-from di_website.common.base import get_related_pages, hero_panels
+from di_website.common.base import get_related_pages, hero_panels, other_pages_panel
 from di_website.common.constants import MAX_PAGE_SIZE, MAX_RELATED_LINKS
 from di_website.common.mixins import HeroMixin, OtherPageMixin, SectionBodyMixin, TypesetBodyMixin
 from di_website.publications.models import Country
@@ -37,6 +37,8 @@ from di_website.publications.models import (
     PublicationAppendixPage, PublicationChapterPage, PublicationSummaryPage)
 
 from .blocks import QuoteStreamBlock, MetaDataDescriptionBlock, MetaDataSourcesBlock
+from .mixins import DataSetMixin
+from .panels import metadata_panel
 
 
 class DataSourceTopic(TaggedItemBase):
@@ -143,41 +145,15 @@ class DataSetTopic(TaggedItemBase):
         'datasection.DatasetPage', on_delete=models.CASCADE, related_name='dataset_topics')
 
 
-class DatasetPage(TypesetBodyMixin, HeroMixin, Page):
+class DatasetPage(DataSetMixin, TypesetBodyMixin, HeroMixin, Page):
     """ Content of each dataset """
-
-    parent_page_types = ['datasection.DataSetListing']
 
     publication = models.CharField(
         blank=True, max_length=255, verbose_name='Publication',
         help_text='The publication that used this dataset. For a figure, format is [Publication] - [Figure] e.g ITEP 2018 - Figure 1.1')
-    release_date = models.DateField(default=datetime.now)
-    authors = StreamField([
-        ('internal_author', PageChooserBlock(
-            required=False,
-            target_model='ourteam.TeamMemberPage',
-            icon='fa-user'
-        )),
-        ('external_author', StructBlock([
-            ('name', CharBlock(required=False)),
-            ('title', CharBlock(required=False)),
-            ('photograph', ImageChooserBlock(required=False)),
-            ('page', URLBlock(required=False))
-        ], icon='fa-user'))
-    ], blank=True)
-    meta_data = StreamField([
-        ('description', RichTextBlock(required=True)),
-        ('provenance', RichTextBlock()),
-        ('variables', RichTextBlock()),
-        ('geography', RichTextBlock()),
-        ('licence', RichTextBlock()),
-        ('citation', RichTextBlock())
-    ], verbose_name='Content', help_text='A description is expected, but only one of each shall be shown')
     related_datasets_title = models.CharField(
         blank=True, max_length=255, default='Related datasets', verbose_name='Section Title')
     topics = ClusterTaggableManager(through=DataSetTopic, blank=True, verbose_name="Topics")
-    other_pages_heading = models.CharField(
-        blank=True, max_length=255, verbose_name='Heading', default='More about')
 
     content_panels = Page.content_panels + [
         hero_panels(),
@@ -186,20 +162,12 @@ class DatasetPage(TypesetBodyMixin, HeroMixin, Page):
         StreamFieldPanel('body'),
         StreamFieldPanel('authors'),
         InlinePanel('dataset_downloads', label='Downloads', max_num=None),
-        MultiFieldPanel([
-            StreamFieldPanel('meta_data'),
-            FieldPanel('topics'),
-            InlinePanel('page_countries', label="Countries"),
-            InlinePanel('dataset_sources', label='Sources')
-        ], heading='Metadata'),
+        metadata_panel(),
         MultiFieldPanel([
             FieldPanel('related_datasets_title'),
             InlinePanel('related_datasets', label="Related Datasets", max_num=MAX_RELATED_LINKS)
         ], heading='Related Datasets'),
-        MultiFieldPanel([
-            FieldPanel('other_pages_heading'),
-            InlinePanel('other_pages', label='Related pages')
-        ], heading='Other Pages/Related Links')
+        other_pages_panel()
     ]
 
     def get_context(self, request):
@@ -242,7 +210,6 @@ class DataSetSource(models.Model):
         related_name='+', verbose_name='Data Source')
 
     panels = [SnippetChooserPanel('source')]
-
 
 
 class DataSetListing(TypesetBodyMixin, Page):

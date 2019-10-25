@@ -74,6 +74,7 @@ class BlockQuote(StructBlock):
     Custom `StructBlock` that allows render text in a blockquote element
     """
     text = TextBlock()
+    source = TextBlock(required=False, help_text='Who is this quote acredited to?')
 
     class Meta:
         icon = 'fa-quote-left'
@@ -85,6 +86,7 @@ class SectionBlockQuote(StructBlock):
     Custom `StructBlock` that allows render text in a blockquote element
     """
     text = TextBlock()
+    source = TextBlock(required=False, help_text='Who is this quote acredited to?')
     center = BooleanBlock(default=False, required=False)
 
     class Meta:

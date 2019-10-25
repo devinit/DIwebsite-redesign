@@ -37,7 +37,7 @@ from di_website.publications.models import (
     PublicationAppendixPage, PublicationChapterPage, PublicationSummaryPage)
 
 from .blocks import QuoteStreamBlock, MetaDataDescriptionBlock, MetaDataSourcesBlock
-from .mixins import DataSetMixin
+from .mixins import DataSetMixin, DataSetSourceMixin
 from .panels import metadata_panel
 
 
@@ -148,6 +148,9 @@ class DataSetTopic(TaggedItemBase):
 class DatasetPage(DataSetMixin, TypesetBodyMixin, HeroMixin, Page):
     """ Content of each dataset """
 
+    class Meta():
+        verbose_name = 'Data Set Page'
+
     publication = models.CharField(
         blank=True, max_length=255, verbose_name='Publication',
         help_text='The publication that used this dataset. For a figure, format is [Publication] - [Figure] e.g ITEP 2018 - Figure 1.1')
@@ -202,14 +205,76 @@ class DatasetPageRelatedLink(OtherPageMixin):
     panels = [PageChooserPanel('other_page', [DatasetPage])]
 
 
-class DataSetSource(models.Model):
-    page = ParentalKey(
-        DatasetPage, related_name='dataset_sources', on_delete=models.CASCADE)
-    source = models.ForeignKey(
-        'datasection.DataSource', null=True, blank  =True, on_delete=models.SET_NULL,
-        related_name='+', verbose_name='Data Source')
+class DataSetSource(DataSetSourceMixin):
+    page = ParentalKey(DatasetPage, related_name='dataset_sources', on_delete=models.CASCADE)
 
-    panels = [SnippetChooserPanel('source')]
+
+class FigureTopic(TaggedItemBase):
+    content_object = ParentalKey(
+        'datasection.FigurePage', on_delete=models.CASCADE, related_name='figure_topics')
+
+
+class FigurePage(DataSetMixin, TypesetBodyMixin, HeroMixin, Page):
+    """ Content of each figure """
+
+    class Meta():
+        verbose_name = 'Figure Page'
+
+    name = models.CharField(
+        blank=True, max_length=255, verbose_name='Name',
+        help_text='The name of this figure in the publication e.g Figure 1.1')
+    related_figures_title = models.CharField(
+        blank=True, max_length=255, default='Related figures', verbose_name='Section Title')
+    topics = ClusterTaggableManager(through=FigureTopic, blank=True, verbose_name="Topics")
+
+    content_panels = Page.content_panels + [
+        hero_panels(),
+        FieldPanel('name'),
+        FieldPanel('release_date'),
+        StreamFieldPanel('body'),
+        StreamFieldPanel('authors'),
+        InlinePanel('figure_downloads', label='Downloads', max_num=None),
+        metadata_panel(sources_relation='figure_sources'),
+        MultiFieldPanel([
+            FieldPanel('related_figures_title'),
+            InlinePanel('related_figures', label="Related Figures")
+        ], heading='Related Figures'),
+        other_pages_panel()
+    ]
+
+    def get_context(self, request):
+        context = super().get_context(request)
+
+        content_type = ContentType.objects.get_for_model(DatasetPage)
+        context['topics'] = Tag.objects.filter(
+                models.Q(datasection_figuretopic_items__content_object__content_type=content_type)
+            ).distinct()
+        context['related_figures'] = get_related_pages(
+            self.related_figures.all(), FigurePage.objects)
+
+        return context
+
+    @cached_property
+    def get_figure_downloads(self):
+        return self.figure_downloads.all()
+
+    @cached_property
+    def get_figure_sources(self):
+        return self.figure_sources.all()
+
+
+class FigurePageDownloads(Orderable, BaseDownload):
+    page = ParentalKey(FigurePage, related_name='figure_downloads', on_delete=models.CASCADE)
+
+
+class FigurePageRelatedLink(OtherPageMixin):
+    page = ParentalKey(FigurePage, related_name='related_figures', on_delete=models.CASCADE)
+
+    panels = [PageChooserPanel('other_page', [FigurePage])]
+
+
+class FigureSource(DataSetSourceMixin):
+    page = ParentalKey(FigurePage, related_name='figure_sources', on_delete=models.CASCADE)
 
 
 class DataSetListing(TypesetBodyMixin, Page):
@@ -220,7 +285,7 @@ class DataSetListing(TypesetBodyMixin, Page):
         verbose_name = 'DataSet Listing'
 
     parent_page_types = ['datasection.DataSectionPage']
-    sub_page_types = ['dataset.DatasetPage']
+    subpage_types = ['datasection.DatasetPage', 'datasection.FigurePage']
 
     hero_text = RichTextField(
         null=True, blank=True, help_text='A description of the page content')

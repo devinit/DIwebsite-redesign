@@ -219,6 +219,14 @@ class FigurePage(DataSetMixin, TypesetBodyMixin, HeroMixin, Page):
     name = models.CharField(
         blank=True, max_length=255, verbose_name='Name',
         help_text='The name of this figure in the publication e.g Figure 1.1')
+    publication = models.ForeignKey(
+        'wagtailcore.Page',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        help_text="The publication in which this figure appears"
+    )
     related_figures_title = models.CharField(
         blank=True, max_length=255, default='Related figures', verbose_name='Section Title')
     topics = ClusterTaggableManager(through=FigureTopic, blank=True, verbose_name="Topics")
@@ -227,6 +235,14 @@ class FigurePage(DataSetMixin, TypesetBodyMixin, HeroMixin, Page):
         hero_panels(),
         FieldPanel('name'),
         FieldPanel('release_date'),
+        PageChooserPanel('publication', [
+            'publications.PublicationPage',
+            'publications.ShortPublicationPage',
+            'publications.LegacyPublicationPage',
+            'publications.PublicationSummaryPage',
+            'publications.PublicationChapterPage',
+            'publications.PublicationAppendixPage'
+        ]),
         StreamFieldPanel('body'),
         StreamFieldPanel('authors'),
         InlinePanel('figure_downloads', label='Downloads', max_num=None),

@@ -150,16 +150,12 @@ class DatasetPage(DataSetMixin, TypesetBodyMixin, HeroMixin, Page):
     class Meta():
         verbose_name = 'Data Set Page'
 
-    publication = models.CharField(
-        blank=True, max_length=255, verbose_name='Publication',
-        help_text='The publication that used this dataset. For a figure, format is [Publication] - [Figure] e.g ITEP 2018 - Figure 1.1')
     related_datasets_title = models.CharField(
         blank=True, max_length=255, default='Related datasets', verbose_name='Section Title')
     topics = ClusterTaggableManager(through=DataSetTopic, blank=True, verbose_name="Topics")
 
     content_panels = Page.content_panels + [
         hero_panels(),
-        FieldPanel('publication'),
         FieldPanel('release_date'),
         StreamFieldPanel('body'),
         StreamFieldPanel('authors'),

@@ -274,6 +274,9 @@ class FigurePage(DataSetMixin, TypesetBodyMixin, HeroMixin, Page):
     def get_figure_sources(self):
         return self.figure_sources.all()
 
+    def get_name(self):
+        return self.publication.title + ' - ' + self.name if self.publication else self.name
+
 
 class FigurePageDownloads(Orderable, BaseDownload):
     page = ParentalKey(FigurePage, related_name='figure_downloads', on_delete=models.CASCADE)

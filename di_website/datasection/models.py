@@ -51,7 +51,6 @@ class DataSource(ClusterableModel):
     title = models.CharField(max_length=255, unique=True)
     description = models.TextField(blank=True, null=True)
     organisation = models.CharField(max_length=255, blank=True)
-    date_of_access = models.DateField(blank=True)
     link_to_metadata = models.URLField(blank=True)
     geography = models.CharField(max_length=255, blank=True)
     link_to_data = models.URLField(blank=True)
@@ -64,7 +63,6 @@ class DataSource(ClusterableModel):
         FieldPanel('title'),
         FieldPanel('description'),
         FieldPanel('organisation'),
-        FieldPanel('date_of_access'),
         FieldPanel('link_to_metadata'),
         FieldPanel('link_to_data'),
         FieldPanel('geography'),
@@ -89,8 +87,7 @@ class DataSource(ClusterableModel):
 class DataSectionPage(SectionBodyMixin, TypesetBodyMixin, HeroMixin, Page):
     """ Main page for datasets """
 
-    quotes = StreamField(
-        QuoteStreamBlock, verbose_name="Quotes", null=True, blank=True)
+    quotes = StreamField(QuoteStreamBlock, verbose_name="Quotes", null=True, blank=True)
     dataset_info = models.TextField(
         null=False, blank=False, default="", help_text='A description of the datasets')
     other_pages_heading = models.CharField(

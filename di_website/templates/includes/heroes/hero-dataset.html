@@ -1,7 +1,9 @@
 {% extends 'includes/heroes/hero.html' %}
 
 {% block hero_meta %}
-  <ul class="hero__meta">
-    <li class="hero__meta-item hero__meta-item--block">{{ page.publication }}</li>
-  </ul>
+  {% if page.name %}
+    <ul class="hero__meta">
+      <li class="hero__meta-item hero__meta-item--block">{{ page.name }}</li>
+    </ul>
+  {% endif %}
 {% endblock hero_meta %}

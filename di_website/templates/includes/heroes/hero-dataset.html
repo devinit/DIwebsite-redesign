@@ -3,7 +3,7 @@
 {% block hero_meta %}
   {% if page.name %}
     <ul class="hero__meta">
-      <li class="hero__meta-item hero__meta-item--block">{{ page.name }}</li>
+      <li class="hero__meta-item hero__meta-item--block">{{ page.get_name }}</li>
     </ul>
   {% endif %}
 {% endblock hero_meta %}

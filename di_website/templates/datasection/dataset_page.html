@@ -140,7 +140,11 @@
                   <div class="m-slip m-slip--alt m-slip--icon">
                     <i role="presentation" aria-hidden="true" class="ico ico--24 ico-data-slate"></i>
                     <p class="m-slip__copy">
-                      <a href="{{source.source.link_to_metadata}}">{{source.source.title}}</a>
+                      {% if source.source.link_to_metadata %}
+                        <a href="{{source.source.link_to_metadata}}">{{source.source.title}}</a>
+                      {% else %}
+                        {{source.source.title}}
+                      {% endif %}
                     </p>
                     {% if source.source.link_to_data %}
                       <a href="{{source.source.link_to_data}}" class="button button--reverses">
@@ -149,11 +153,6 @@
                     {% endif %}
                   </div>
                 {% endfor %}
-
-
-              </div>
-              <div class="is-typeset max-meter">
-                <p>Access Dates: explanation as to what the access date is and why it is relevant.</p>
               </div>
             </section>
             <section id="legal" class="tab__content">

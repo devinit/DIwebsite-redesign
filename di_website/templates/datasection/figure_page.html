@@ -1,0 +1,39 @@
+{% extends "layouts/default.html" %}
+{% load static wagtailcore_tags wagtailimages_tags card_tags generic_tags navigation_tags string_utils %}
+
+{% block hero %}
+  {% include 'includes/heroes/hero-dataset.html' %}
+{% endblock hero %}
+
+{% block body %}
+
+  {% include './includes/partials/dataset_body.html' %}
+
+  {% include './includes/partials/dataset_metadata.html' %}
+
+
+  {% if related_figures|length %}
+    <section class="section">
+      <div class="row row--narrow">
+        <h2 class="section__heading">{{ page.related_figures_title }}</h2>
+        <div class="l-3up">
+          {% for item in related_figures %}
+            <div class="m-slip m-slip--icon">
+              <i role="presentation" aria-hidden="true" class="ico ico--24 ico-data-poppydark"></i>
+              <p class="m-slip__copy">
+                <a href="{% pageurl item %}">{{item.specific.title}}</a>
+              </p>
+              <span class="m-slip__meta">Released: {{item.specific.release_date}}</span>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+  {% endif %}
+
+
+  <section class="section">
+    {% get_other_pages calling_page=self heading=page.other_pages_heading %}
+  </section>
+
+{% endblock %}

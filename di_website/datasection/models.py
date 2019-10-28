@@ -414,25 +414,12 @@ class DataSetListing(TypesetBodyMixin, Page):
         context['countries'] = Country.objects.all()
         context['sources'] = DataSource.objects.all()
 
-        publication_pages = PublicationPage.objects.filter(
-            publication_datasets__dataset__content_type=content_type
+        context['reports'] = Page.objects.filter(
+            models.Q(publicationpage__publication_datasets__dataset__content_type=content_type) |
+            models.Q(publicationsummarypage__publication_datasets__dataset__content_type=content_type) |
+            models.Q(legacypublicationpage__publication_datasets__dataset__content_type=content_type) |
+            models.Q(publicationappendixpage__publication_datasets__dataset__content_type=content_type) |
+            models.Q(publicationchapterpage__publication_datasets__dataset__content_type=content_type)
         ).distinct()
-        publication_summary_pages = PublicationSummaryPage.objects.filter(
-            publication_datasets__dataset__content_type=content_type
-        ).distinct()
-        legacy_publication_pages = LegacyPublicationPage.objects.filter(
-            publication_datasets__dataset__content_type=content_type
-        ).distinct()
-        publication_appendix_pages = PublicationAppendixPage.objects.filter(
-            publication_datasets__dataset__content_type=content_type
-        ).distinct()
-        publication_chapter_pages = PublicationChapterPage.objects.filter(
-            publication_datasets__dataset__content_type=content_type
-        ).distinct()
-
-        context['reports'] = list(chain(
-            publication_pages, publication_summary_pages, legacy_publication_pages,
-            publication_appendix_pages, publication_chapter_pages
-        ))
 
         return context

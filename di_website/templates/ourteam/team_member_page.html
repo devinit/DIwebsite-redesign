@@ -50,7 +50,7 @@
         <div class="l-sidebar">
             <aside class="l-sidebar__aside">
                 <div class="aside aside--clipping">
-                    {% secondary_menu parent=self %}
+                    {% secondary_menu parent=self.get_parent.get_parent calling_page=self %}
                 </div>
             </aside>
             <div class="l-sidebar__body">
@@ -63,7 +63,7 @@
 </section>
 
 {% user_content self as content %}
-{% if content %}
+{% if content|length > 0 %}
 <section class="section">
     <div class="row row--narrow">
         <h2 class="section__heading">Content by {{self.name}}:</h2>

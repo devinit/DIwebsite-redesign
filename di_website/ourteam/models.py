@@ -87,6 +87,12 @@ class TeamMemberPage(Page):
         help_text="Please say something about team member"
     )
 
+    other_pages_heading = models.CharField(
+        blank=True,
+        max_length=255,
+        verbose_name='Heading',
+        default='More about'
+    )
     content_panels = Page.content_panels + [
         FieldPanel('user'),
         FieldPanel('name'),
@@ -96,6 +102,10 @@ class TeamMemberPage(Page):
         FieldPanel('email'),
         FieldPanel('telephone'),
         FieldPanel('my_story', classname="full"),
+        MultiFieldPanel([
+            FieldPanel('other_pages_heading'),
+            InlinePanel('other_pages', label='Related pages')
+        ], heading='Other Pages/Related Links'),
         InlinePanel('page_notifications', label='Notifications')
     ]
 

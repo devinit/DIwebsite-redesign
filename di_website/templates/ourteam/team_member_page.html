@@ -63,7 +63,7 @@
 </section>
 
 {% user_content self as content %}
-{% if content %}
+{% if content|length > 0 %}
 <section class="section">
     <div class="row row--narrow">
         <h2 class="section__heading">Content by {{self.name}}:</h2>

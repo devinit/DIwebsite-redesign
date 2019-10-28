@@ -261,6 +261,8 @@ class ImageDuoTextBlock(ImageBlock):
         template='blocks/paragraph_block.html',
         required=True
     )
+    button = ButtonBlock()
+    alt = BooleanBlock(default=False, help_text="White background if checked.")
 
     class Meta:
         template = 'blocks/duo_body_block_img.html'
@@ -282,6 +284,7 @@ class VideoDuoTextBlock(StructBlock):
         required=True
     )
     button = ButtonBlock()
+    alt = BooleanBlock(default=False, help_text="White background if checked.")
 
     class Meta:
         template = 'blocks/duo_body_block_vid.html'

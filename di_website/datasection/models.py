@@ -320,34 +320,65 @@ class DataSetListing(TypesetBodyMixin, Page):
         get = request.GET.get
         return get('topic', None) or get('country', None) or get('source', None) or get('report', None)
 
-    def fetch_all_datasets(self):
-        return DatasetPage.objects.live();
+    def fetch_all_data(self):
+        dataset_content_type = ContentType.objects.get_for_model(DatasetPage)
+        figures_content_type = ContentType.objects.get_for_model(FigurePage)
+        return Page.objects.live().filter(
+            models.Q(content_type=dataset_content_type) |
+            models.Q(content_type=figures_content_type)
+        ).specific()
 
     def fetch_filtered_data(self, context):
-        if context['selected_topic']:
-            datasets = DatasetPage.objects.live().filter(topics__slug=context['selected_topic'])
+        dataset_content_type = ContentType.objects.get_for_model(DatasetPage)
+        figures_content_type = ContentType.objects.get_for_model(FigurePage)
+        topic = context['selected_topic']
+        country = context['selected_country']
+        source = context['selected_source']
+        report = context['selected_report']
+
+        if topic:
+            datasets = Page.objects.live().filter(
+                models.Q(content_type=dataset_content_type) |
+                models.Q(content_type=figures_content_type),
+                models.Q(datasetpage__topics__slug=topic) |
+                models.Q(figurepage__topics__slug=topic)
+            ).specific()
         else:
-            datasets = self.fetch_all_datasets()
-        if context['selected_country']:
-            if 'all--' in context['selected_country']:
+            datasets = self.fetch_all_data()
+        if country:
+            if 'all--' in country:
                 try:
-                    region = re.search('all--(.*)', context['selected_country']).group(1)
-                    datasets = datasets.filter(page_countries__country__region__name=region)
+                    region = re.search('all--(.*)', country).group(1)
+                    datasets = datasets.filter(
+                        models.Q(datasetpage__page_countries__country__region__name=region) |
+                        models.Q(figurepage__page_countries__country__region__name=region))
                 except AttributeError:
                     pass
             else:
-                datasets = datasets.filter(page_countries__country__slug=context['selected_country'])
-        if context['selected_source']:
-            datasets = datasets.filter(dataset_sources__source__slug=context['selected_source'])
-        if context['selected_report']:
+                datasets = datasets.filter(
+                    models.Q(datasetpage__page_countries__country__slug=country) |
+                    models.Q(figurepage__page_countries__country__slug=country))
+        if source:
+            datasets = datasets.filter(
+                models.Q(datasetpage__dataset_sources__source__slug=source) |
+                models.Q(figurepage__figure_sources__source__slug=source))
+        if report:
             pubs = Page.objects.filter(
-                publicationpage__publication_datasets__item__slug=context['selected_report']
+                models.Q(publicationpage__publication_datasets__item__slug=report) |
+                models.Q(publicationsummarypage__publication_datasets__item__slug=report) |
+                models.Q(publicationappendixpage__publication_datasets__item__slug=report) |
+                models.Q(publicationchapterpage__publication_datasets__item__slug=report) |
+                models.Q(legacypublicationpage__publication_datasets__item__slug=report)
             ).first()
-            if (pubs.specific.publication_datasets):
+            if (pubs and pubs.specific.publication_datasets):
                 for dataset in pubs.specific.publication_datasets.all():
-                    results = datasets.filter(slug__exact=dataset.dataset.slug)
+                    results = datasets.filter(
+                        models.Q(datasetpage__slug__exact=dataset.dataset.slug) |
+                        models.Q(figurepage__slug__exact=dataset.dataset.slug))
                     if results:
                         datasets = results
+            else:
+                datasets = None
 
         return datasets
 
@@ -355,19 +386,19 @@ class DataSetListing(TypesetBodyMixin, Page):
         context = super(DataSetListing, self).get_context(request, *args, **kwargs)
 
         page = request.GET.get('page', None)
-        topic_filter = context['selected_topic'] = request.GET.get('topic', None)
-        country_filter = context['selected_country'] = request.GET.get('country', None)
-        source_filter = context['selected_source'] = request.GET.get('source', None)
-        report_filter = context['selected_report'] = request.GET.get('report', None)
+        context['selected_topic'] = request.GET.get('topic', None)
+        context['selected_country'] = request.GET.get('country', None)
+        context['selected_source'] = request.GET.get('source', None)
+        context['selected_report'] = request.GET.get('report', None)
 
         if not self.is_filtering(request):
-            datasets = self.fetch_all_datasets()
+            datasets = self.fetch_all_data()
             is_filtered = False
         else:
             is_filtered = True
             datasets = self.fetch_filtered_data(context)
 
-        datasets = datasets.order_by('-release_date')
+        datasets = datasets.order_by('-first_published_at') if datasets else []
         context['is_filtered'] = is_filtered
         paginator = Paginator(datasets, MAX_PAGE_SIZE)
         try:

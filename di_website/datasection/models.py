@@ -247,6 +247,7 @@ class FigurePage(DataSetMixin, TypesetBodyMixin, HeroMixin, Page):
         StreamFieldPanel('authors'),
         InlinePanel('figure_downloads', label='Downloads', max_num=None),
         metadata_panel(sources_relation='figure_sources'),
+        InlinePanel('figure_datasets', label='Data Sets'),
         MultiFieldPanel([
             FieldPanel('related_figures_title'),
             InlinePanel('related_figures', label="Related Figures")
@@ -286,6 +287,20 @@ class FigurePageRelatedLink(OtherPageMixin):
     page = ParentalKey(FigurePage, related_name='related_figures', on_delete=models.CASCADE)
 
     panels = [PageChooserPanel('other_page', [FigurePage])]
+
+
+class FigureDataSet(Orderable):
+    page = ParentalKey(FigurePage, related_name='figure_datasets', on_delete=models.CASCADE)
+    dataset = models.ForeignKey(
+        'datasection.DatasetPage',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        verbose_name='Data Set',
+        help_text='A dataset on which this figure is based')
+
+    panels = [PageChooserPanel('dataset', [DatasetPage])]
 
 
 class FigureSource(DataSetSourceMixin):

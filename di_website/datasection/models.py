@@ -323,6 +323,34 @@ class DataSetListing(TypesetBodyMixin, Page):
     def fetch_all_datasets(self):
         return DatasetPage.objects.live();
 
+    def fetch_filtered_data(self, context):
+        if context['selected_topic']:
+            datasets = DatasetPage.objects.live().filter(topics__slug=context['selected_topic'])
+        else:
+            datasets = self.fetch_all_datasets()
+        if context['selected_country']:
+            if 'all--' in context['selected_country']:
+                try:
+                    region = re.search('all--(.*)', context['selected_country']).group(1)
+                    datasets = datasets.filter(page_countries__country__region__name=region)
+                except AttributeError:
+                    pass
+            else:
+                datasets = datasets.filter(page_countries__country__slug=context['selected_country'])
+        if context['selected_source']:
+            datasets = datasets.filter(dataset_sources__source__slug=context['selected_source'])
+        if context['selected_report']:
+            pubs = Page.objects.filter(
+                publicationpage__publication_datasets__item__slug=context['selected_report']
+            ).first()
+            if (pubs.specific.publication_datasets):
+                for dataset in pubs.specific.publication_datasets.all():
+                    results = datasets.filter(slug__exact=dataset.dataset.slug)
+                    if results:
+                        datasets = results
+
+        return datasets
+
     def get_context(self, request, *args, **kwargs):
         context = super(DataSetListing, self).get_context(request, *args, **kwargs)
 
@@ -337,28 +365,7 @@ class DataSetListing(TypesetBodyMixin, Page):
             is_filtered = False
         else:
             is_filtered = True
-            if topic_filter:
-                datasets = DatasetPage.objects.live().filter(topics__slug=topic_filter)
-            else:
-                datasets = self.fetch_all_datasets()
-            if country_filter:
-                if 'all--' in country_filter:
-                    try:
-                        region = re.search('all--(.*)', country_filter).group(1)
-                        datasets = datasets.filter(page_countries__country__region__name=region)
-                    except AttributeError:
-                        pass
-                else:
-                    datasets = datasets.filter(page_countries__country__slug=country_filter)
-            if source_filter:
-                datasets = datasets.filter(dataset_sources__source__slug=source_filter)
-            if report_filter:
-                pubs = Page.objects.filter(publicationpage__publication_datasets__item__slug=report_filter).first()
-                if (pubs.specific.publication_datasets):
-                    for dataset in pubs.specific.publication_datasets.all():
-                        results = datasets.filter(slug__exact=dataset.dataset.slug)
-                        if results:
-                            datasets = results
+            datasets = self.fetch_filtered_data(context)
 
         datasets = datasets.order_by('-release_date')
         context['is_filtered'] = is_filtered

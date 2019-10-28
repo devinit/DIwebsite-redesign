@@ -310,7 +310,7 @@ class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUID
 
     @cached_property
     def publication_downloads_title(self):
-        return 'Downloads'
+        return 'Publication downloads'
 
     @cached_property
     def publication_downloads_list(self):
@@ -421,7 +421,7 @@ class PublicationSummaryPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
 
     @cached_property
     def publication_downloads_title(self):
-        return 'Downloads'
+        return 'Publication downloads'
 
     @cached_property
     def publication_downloads_list(self):
@@ -523,7 +523,7 @@ class PublicationChapterPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
 
     @cached_property
     def publication_downloads_title(self):
-        return 'Downloads'
+        return 'Publication downloads'
 
     @cached_property
     def publication_downloads_list(self):
@@ -619,7 +619,7 @@ class PublicationAppendixPage(HeroMixin, ReportChildMixin, FlexibleContentMixin,
 
     @cached_property
     def publication_downloads_title(self):
-        return 'Downloads'
+        return 'Publication downloads'
 
     @cached_property
     def publication_downloads_list(self):
@@ -726,7 +726,7 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, LegacyPageSearchMixin
 
     @cached_property
     def publication_downloads_title(self):
-        return 'Downloads'
+        return 'Publication downloads'
 
     @cached_property
     def publication_downloads_list(self):
@@ -817,7 +817,7 @@ class ShortPublicationPage(HeroMixin, PublishedDateMixin, FlexibleContentMixin, 
 
     @cached_property
     def publication_downloads_title(self):
-        return 'Downloads'
+        return 'Publication downloads'
 
     @cached_property
     def publication_downloads_list(self):

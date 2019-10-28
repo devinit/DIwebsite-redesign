@@ -1,6 +1,6 @@
 {% load wagtailcore_tags wagtailimages_tags string_utils responsive %}
 
-<section class="section">
+<section class="section {% if self.alt %}section--alt{% endif %}">
   <div class="row row--narrow">
     {% if self.heading %}
       <h2 class="section__heading">{{self.heading}}</h2>

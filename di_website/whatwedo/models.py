@@ -23,7 +23,7 @@ from di_website.common.mixins import HeroMixin, TypesetBodyMixin, OtherPageMixin
 from di_website.common.base import hero_panels, get_related_pages
 from .blocks import ExpertiseBlock, FocusAreasBlock, LocationsMapBlock
 from di_website.common.blocks import (
-    BannerBlock, SectionStreamBlock, TestimonialBlock, VideoDuoTextBlock)
+    BannerBlock, SectionStreamBlock, TestimonialBlock, VideoDuoTextBlock, ImageDuoTextBlock)
 from di_website.common.constants import MAX_OTHER_PAGES, RICHTEXT_FEATURES
 from di_website.news.models import NewsStoryPage
 
@@ -40,7 +40,8 @@ class WhatWeDoPage(TypesetBodyMixin, HeroMixin, Page):
         ('focus_area', FocusAreasBlock()),
         ('expertise', ExpertiseBlock()),
         ('banner', BannerBlock()),
-        ('duo', VideoDuoTextBlock()),
+        ('video_duo', VideoDuoTextBlock()),
+        ('image_duo', ImageDuoTextBlock()),
         ('testimonial', TestimonialBlock())
     ], verbose_name="Sections", null=True, blank=True)
     other_pages_heading = models.CharField(

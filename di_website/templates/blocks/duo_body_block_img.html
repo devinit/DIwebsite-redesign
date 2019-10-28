@@ -1,6 +1,6 @@
 {% load wagtailcore_tags wagtailimages_tags string_utils responsive %}
 
-<section class="section">
+<section class="section {% if self.alt %}section--alt{% endif %}">
   <div class="row row--narrow">
     <div class="duo">
       <div class="duo__media">
@@ -20,6 +20,9 @@
         <div class="is-typeset">
           {{self.side_text|richtext_strip_wrapper}}
         </div>
+        {% if self.button %}
+          {% include_block self.button %}
+        {% endif %}
       </div>
     </div>
   </div>

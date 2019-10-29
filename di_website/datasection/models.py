@@ -177,6 +177,7 @@ class DatasetPage(DataSetMixin, TypesetBodyMixin, HeroMixin, Page):
             ).distinct()
         context['related_datasets'] = get_related_pages(
             self.related_datasets.all(), DatasetPage.objects)
+        context['reports'] = self.get_usages()
 
         return context
 
@@ -187,6 +188,24 @@ class DatasetPage(DataSetMixin, TypesetBodyMixin, HeroMixin, Page):
     @cached_property
     def get_dataset_sources(self):
         return self.dataset_sources.all()
+
+    def get_usages(self):
+        reports = Page.objects.live().filter(
+            models.Q(publicationpage__publication_datasets__dataset__slug=self.slug) |
+            models.Q(legacypublicationpage__publication_datasets__dataset__slug=self.slug) |
+            models.Q(publicationsummarypage__publication_datasets__dataset__slug=self.slug) |
+            models.Q(publicationchapterpage__publication_datasets__dataset__slug=self.slug) |
+            models.Q(publicationappendixpage__publication_datasets__dataset__slug=self.slug)
+        ).specific()
+
+        for report in reports:
+            figures = Page.objects.live().filter(
+                figurepage__figure_datasets__dataset__slug=self.slug,
+                figurepage__publication__slug=report.slug
+            ).specific()
+            report.figures = figures
+
+        return reports
 
 
 class DatasetDownloads(Orderable, BaseDownload):
@@ -429,7 +448,7 @@ class DataSetListing(TypesetBodyMixin, Page):
         context['countries'] = Country.objects.all()
         context['sources'] = DataSource.objects.all()
 
-        context['reports'] = Page.objects.filter(
+        context['reports'] = Page.objects.live().filter(
             models.Q(publicationpage__publication_datasets__dataset__content_type=content_type) |
             models.Q(publicationsummarypage__publication_datasets__dataset__content_type=content_type) |
             models.Q(legacypublicationpage__publication_datasets__dataset__content_type=content_type) |

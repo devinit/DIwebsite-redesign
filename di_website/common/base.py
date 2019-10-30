@@ -4,7 +4,7 @@ from django.core.validators import EmailValidator
 
 from modelcluster.fields import ParentalKey
 
-from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, PageChooserPanel
+from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel, PageChooserPanel
 from wagtail.core.models import Orderable, Page
 from wagtail.core.fields import RichTextField
 from wagtail.documents.edit_handlers import DocumentChooserPanel
@@ -14,7 +14,7 @@ from wagtail.snippets.models import register_snippet
 from .constants import MAX_RELATED_LINKS
 
 
-def hero_panels():
+def hero_panels(allowed_pages=[]):
     """
     Called when creating page content_panels for pages that require a Hero
     Returns:
@@ -26,8 +26,15 @@ def hero_panels():
         FieldPanel('hero_image_credit_url'),
         FieldPanel('hero_text', classname="hero_excerpt"),
         FieldPanel('hero_link_caption'),
-        PageChooserPanel('hero_link')
+        PageChooserPanel('hero_link', allowed_pages)
     ], heading="Hero Section")
+
+
+def other_pages_panel():
+    return MultiFieldPanel([
+            FieldPanel('other_pages_heading'),
+            InlinePanel('other_pages', label='Related pages')
+        ], heading='Other Pages/Related Links')
 
 
 def get_paginator_range(paginator, page):

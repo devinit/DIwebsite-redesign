@@ -1,0 +1,15 @@
+{% load wagtailcore_tags wagtailimages_tags static string_utils %}
+
+<div class="testimonial{% if class_name %} {{class_name}}{% endif %}">
+  <div class="testimonial__main">
+    <div class="testimonial__copy">{{body|richtext_strip_wrapper}}</div>
+    <span class="testimonial__cite">{{cite}}</span>
+  </div>
+  <aside class="testimonial__aside">
+    {% if image and image.url != '/media/not-found' %}
+      <img src="{{ image.url }}" alt="alt tag">
+    {% else %}
+      <img src="{% static 'img/profile-fallback.jpg' %}" alt="alt tag">
+    {% endif %}
+  </aside>
+</div>

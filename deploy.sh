@@ -38,14 +38,14 @@ function start_new_process {
 }
 
 function log {
-   printf  "$1\n"
+    printf  "$1\n"
 }
 
 function setup_docker_storage {
-    
+
     start_new_process 'Setting up new docker storage for postgres and elastic search'
     docker_volumes="$( docker volume ls )"
-    
+
     for storage in $DOCKER_STORAGE
     do
         if echo $docker_volumes | grep -q $storage ; then
@@ -55,34 +55,34 @@ function setup_docker_storage {
             log "Created new docker volume $storage witth status "$?
         fi
     done
-    
+
 }
 
 # This can only happen after project clonning has been done
 function export_travis_enviroment {
     start_new_process 'Exporting enviroment variables defined in Travis to .env file'
-    
+
     rm $APP_DIR'/'.env > /dev/null && touch $APP_DIR'/'.env
-    
+
     for env in $ENVIROMENT_VARIABLES
     do
         log "Creating $env"
         eval echo $env"="\${$env} >> $APP_DIR'/'.env
     done
-    
+
 }
 
 function backup_database {
-    
+
     start_new_process "Creating a backup of working database to location $DATABASE_BACKUP"
-    
+
     mkdir -p $DATABASE_BACKUP && cd $DATABASE_BACKUP
-    
+
     current_date=`date '+%F'`
     file_name=$DATABASE_BACKUP'/'$current_date'.backup'
-    
+
     label="$(($(ls -v | grep $current_date | cat -n | wc -l) + 1))"
-    
+
     if [ -r $current_date'.backup' ];
     then
         log "Moving file old backup to new location $label.$current_date.backup"
@@ -93,9 +93,9 @@ function backup_database {
 
     log "Starting backup from remote docker machine $(docker-compose ps -q db)"
     docker-compose exec -T db pg_dump -U di_website -d di_website >  $file_name
-    
+
     log "Database backup completed..."
-    
+
     if [ -r $file_name ];
     then
         :
@@ -103,25 +103,25 @@ function backup_database {
         log "Database backup failed, exiting process ... If this is a fresh deployment, delete $APP_DIR folder"
         exit 20;
     fi
-    
+
 }
 
 function elastic_search_reindex {
-    
+
     start_new_process "Re-indexing elastic search"
     cd $APP_DIR
-    
+
     docker-compose exec -T web python manage.py update_index
-    
+
 }
 
 function perform_git_operations {
-    
+
     start_new_process "Performing git operation on branch $ACTIVE_BRANBCH of repository $REPOSITORY"
-    
+
     if [ -d $APP_DIR ]; then
         cd $APP_DIR
-        
+
         {
             docker-compose down
             # Move back to root director
@@ -146,21 +146,21 @@ function perform_git_operations {
 
 
 function start_link_checker_processes {
-    
+
     start_new_process "Creating Rabbit MQ user and vhost for celery"
     cd $APP_DIR
-    
+
     docker-compose exec -T rabbitmq rabbitmqctl add_user di_website $RABBITMQ_PASSWORD
     docker-compose exec -T rabbitmq rabbitmqctl add_vhost myvhost
     docker-compose exec -T rabbitmq rabbitmqctl set_user_tags di_website di_website
     docker-compose exec -T rabbitmq rabbitmqctl set_permissions -p myvhost di_website \".*\" \".*\" \".*\"
-    
+
     start_new_process "Starting celery"
-    
+
     docker-compose exec -T web celery -A wagtaillinkchecker worker -l info &
 
     log "Finished setting up link checker .."
-    
+
 }
 
 
@@ -169,12 +169,12 @@ then
     if [ -d $APP_DIR ]; then
         backup_database
     fi
-    
-    
+
+
     perform_git_operations
     export_travis_enviroment
     setup_docker_storage
-    
+
     mkdir -p $APP_DIR"/assets"
     mkdir -p $APP_DIR"/storage"
 
@@ -188,15 +188,15 @@ then
 
     start_new_process "Generating static assets"
     docker-compose exec -T web python manage.py collectstatic --noinput
-    
+
 elif [ ${args[0]} == 'backup' ]
 then
-    
+
     backup_database
-    
+
 else
-    
+
     log "Failed to find operation; Usage: \n$0 run|backup|restoredb <Vars>"
     exit 20
-    
+
 fi

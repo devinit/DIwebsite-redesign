@@ -3,8 +3,12 @@
 <div class="m-author">
     <div class="m-author__image">
         {% if img %}
-            {% image img fill-80x80-c100 as image %}
+          {% image img fill-80x80-c100 as image %}
+          {% if image.url != '/media/not-found' %}
             <img src="{{ image.url }}" alt="{{ image.alt }}">
+          {% else %}
+            <img height="80px" width="80px" src="{% static 'img/profile-fallback.jpg' %}" alt="Placeholder profile picture">
+          {% endif %}
         {% else %}
             <img height="80px" width="80px" src="{% static 'img/profile-fallback.jpg' %}" alt="Placeholder profile picture">
         {% endif %}

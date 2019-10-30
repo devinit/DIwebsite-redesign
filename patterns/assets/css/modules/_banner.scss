@@ -70,8 +70,15 @@
     @include font-size($para);
     color: #fff;
     margin-bottom: 1em;
+    a {
+        color: #fff;
+        text-decoration: underline;
+    }
     .banner--light &, .banner--publication & {
         color: $base-color;
+        a {
+            color: $action;
+        }
     }
 }
 

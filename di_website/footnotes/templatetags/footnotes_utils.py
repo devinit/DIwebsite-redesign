@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 from django import template
 from django.utils.safestring import mark_safe
-from common.templatetags.string_utils import content
+from di_website.common.templatetags.string_utils import content
 
 register = template.Library()
 

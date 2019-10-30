@@ -136,16 +136,3 @@ class OptionalContentMixin(models.Model):
         abstract = True
 
     content = content_streamfield(blank=True)
-
-
-class FootnoteMixin(models.Model):
-    class Meta:
-        abstract = True
-
-    footnotes_list = StreamField([
-        ('footnote', StructBlock([
-            ('footnote_id', IntegerBlock()),
-            ('title', CharBlock()),
-            ('text', RichTextBlock())
-        ]))
-    ], null=True, blank=True)

@@ -60,7 +60,8 @@ class FootnotesContentNode(template.Node):
             position_id = len(footnotes_list)
 
             # replace the span
-            a_tag = soup.new_tag('a', attrs={'href': footnote_href, 'id': source_id, 'aria-describedby': footnote_id})
+            a_tag = soup.new_tag('a', href=footnote_href, id=source_id)
+            a_tag['aria-describedby'] = footnote_id
             sup_tag = soup.new_tag('sup')
             sup_tag.string = '[%s]' % str(position_id)
             a_tag.append(sup_tag)

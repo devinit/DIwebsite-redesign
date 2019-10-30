@@ -27,6 +27,7 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 # Application definition
 
 INSTALLED_APPS = [
+    'di_website.footnotes',
     'di_website.home',
     'di_website.users',
     'di_website.search',

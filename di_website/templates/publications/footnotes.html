@@ -8,13 +8,14 @@
                 {% for item in page.footnotes_list %}
                 <ul class="footnotes__list">
                     <li class="footnotes__item">
-                        <span class="heading type-m type-m--trailer footnotes__sub">{{ item.value.footnote_id }}</span>
-                        <a id="note-{{ item.value.footnote_id }}"></a>
-                        <p class="footnotes__text">{{ item.value.text | richtext }}</p>
+                        <span class="heading type-m type-m--trailer footnotes__sub">{{ forloop.counter }}</span>
+                        <a id="{{ item.footnote_id }}"></a>
+                        <p class="footnotes__text">{{ item.text | urlize }}</p>
 
                         {% section_id item.value.footnote_id|stringformat:"i" page.chapter_number as section_id %}
-                        <a href="#note-{{ item.value.footnote_id }}" data-id="note-{{ section_id }}" data-js="share-section-trigger" class="footnotes__return">Share footnote</a>
-                        {% include 'publications/share-block.html' with share_type='footnote' title=item.value.title short_url=short_url|add:'#note-'|add:section_id data_js='share-section' data_id='note-'|add:section_id %}
+                        <!-- <a class="footnotes__return" href="#{{ item.source_id }}">Return to source text</a> -->
+                        <a href="#{{ item.footnote_id }}" data-id="{{ section_id }}" data-js="share-section-trigger" class="footnotes__return">Share footnote</a>
+                        {% include 'publications/share-block.html' with share_type='footnote' title=item.text short_url=short_url|add:'#'|add:item.footnote_id data_js='share-section' data_id=section_id %}
                     </li>
                 </ul>
                 {% endfor %}

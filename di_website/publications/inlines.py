@@ -1,9 +1,11 @@
+from django.db import models
+
 from modelcluster.fields import ParentalKey
 
 from wagtail.core.models import Orderable
+from wagtail.admin.edit_handlers import PageChooserPanel
 
-from di_website.downloads.models import (
-    DownloadItem, DataDownloadItem)
+from di_website.downloads.models import DownloadItem, DataDownloadItem
 
 
 class PublicationPageDownloads(Orderable, DownloadItem):
@@ -52,3 +54,42 @@ class ShortPublicationPageDownloads(Orderable, DownloadItem):
 
 class ShortPublicationPageDataDownloads(Orderable, DataDownloadItem):
     item = ParentalKey('ShortPublicationPage', related_name='data_downloads')
+
+
+class PublicationDataset(Orderable):
+    class Meta():
+        abstract = True
+
+    dataset = models.ForeignKey(
+        'datasection.DatasetPage',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
+    panels = [PageChooserPanel('dataset', ['datasection.DatasetPage'])]
+
+
+class PublicationPageDataset(PublicationDataset):
+    item = ParentalKey('PublicationPage', related_name='publication_datasets')
+
+
+class PublicationSummaryPageDataset(PublicationDataset):
+    item = ParentalKey('PublicationSummaryPage', related_name='publication_datasets')
+
+
+class PublicationChapterPageDataset(PublicationDataset):
+    item = ParentalKey('PublicationChapterPage', related_name='publication_datasets')
+
+
+class PublicationAppendixPageDataset(PublicationDataset):
+    item = ParentalKey('PublicationAppendixPage', related_name='publication_datasets')
+
+
+class LegacyPublicationPageDataset(PublicationDataset):
+    item = ParentalKey('LegacyPublicationPage', related_name='publication_datasets')
+
+
+class ShortPublicationPageDataset(PublicationDataset):
+    item = ParentalKey('ShortPublicationPage', related_name='publication_datasets')

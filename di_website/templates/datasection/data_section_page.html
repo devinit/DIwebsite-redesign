@@ -1,0 +1,76 @@
+{% extends "layouts/default.html" %}
+{% load navigation_tags static wagtailcore_tags wagtailimages_tags card_tags string_utils %}
+
+{% block hero %}
+  {% include 'includes/heroes/hero.html' %}
+{% endblock hero %}
+
+{% block body %}
+
+  <section class="section">
+    <div class="row row--narrow">
+      <div class="l-sidebar">
+        <aside class="l-sidebar__aside">
+          <div class="aside aside--clipping">
+            {% secondary_menu parent=self calling_page=self %}
+          </div>
+        </aside>
+        <div class="l-sidebar__body">
+          <div class="is-typeset wysiwyg">
+            {% for block in page.body %}
+              {% include_block block %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="row row--narrow">
+      <div class="l-2up">
+        <div class="l-2up__col">
+          {% if random_quote %}
+            {% if random_quote.value.team_member %}
+              {% with body=random_quote.value.quote_text source=random_quote.value.team_member.specific %}
+                {% image source.image max-400x250 as image %}
+                {% with cite=source.name|add_string:', '|add_string:source.position|add_string:', DI' %}
+                  {% include 'includes/partials/testimonial.html' with class_name='testimonial--reverse' %}
+                {% endwith %}
+              {% endwith %}
+            {% else %}
+              {% with body=random_quote.value.quote_text source=random_quote.value %}
+                {% if source.external_member_photo %}
+                  {% image source.external_member_photo max-400x250 as image %}
+                {% endif %}
+                {% with cite=source.name|add_string:', '|add_string:source.role|add_string:', '|add_string:source.organisation %}
+                  {% include 'includes/partials/testimonial.html' with class_name='testimonial--reverse' %}
+                {% endwith %}
+              {% endwith %}
+            {% endif %}
+          {% endif %}
+        </div>
+        <div class="l-2up__col">
+          <p class="m-text-major">
+            <span>{{dataset_count}}</span> datasets
+          </p>
+          <p class="para para--typeset">
+            {{ page.dataset_info }}
+          </p>
+          {% if page.hero_link %}
+            <a href="{% pageurl page.hero_link %}" class="button">View datasets</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {% for block in page.sections %}
+    {% include_block block %}
+  {% endfor %}
+
+  <section class="section">
+    {% get_other_pages calling_page=self heading=page.other_pages_heading %}
+  </section>
+
+{% endblock %}

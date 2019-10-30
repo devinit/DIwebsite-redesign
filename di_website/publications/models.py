@@ -32,7 +32,7 @@ from wagtail.images.blocks import ImageChooserBlock
 from wagtail.documents.edit_handlers import DocumentChooserPanel
 
 
-from di_website.common.base import hero_panels, get_paginator_range
+from di_website.common.base import hero_panels, get_paginator_range, Country
 from di_website.common.mixins import HeroMixin, OtherPageMixin
 from di_website.common.constants import MAX_PAGE_SIZE, MAX_RELATED_LINKS
 from di_website.downloads.utils import DownloadsPanel
@@ -77,49 +77,6 @@ class LegacyPublicationTopic(TaggedItemBase):
 
 class ShortPublicationTopic(TaggedItemBase):
     content_object = ParentalKey('publications.ShortPublicationPage', on_delete=models.CASCADE, related_name='short_publication_topics')
-
-
-@register_snippet
-class Region(ClusterableModel):
-    name = models.CharField(max_length=255, unique=True)
-
-    panels = [
-        FieldPanel('name'),
-    ]
-
-    class Meta:
-        ordering = ["name"]
-
-    def __str__(self):
-        return self.name
-
-
-@register_snippet
-class Country(ClusterableModel):
-    name = models.CharField(max_length=255, unique=True)
-    region = models.ForeignKey(
-        Region, related_name="+", on_delete=models.CASCADE)
-    slug = models.SlugField(
-        max_length=255, blank=True, null=True,
-        help_text="Optional. Will be auto-generated from name if left blank.")
-
-    panels = [
-        FieldPanel('name'),
-        SnippetChooserPanel('region'),
-        FieldPanel('slug'),
-    ]
-
-    class Meta:
-        ordering = ["name"]
-        verbose_name_plural = 'Countries'
-
-    def __str__(self):
-        return self.name
-
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.name)
-        super(Country, self).save(*args, **kwargs)
 
 
 class PageCountry(Orderable):
@@ -285,6 +242,7 @@ class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUID
         StreamFieldPanel('authors'),
         SnippetChooserPanel('publication_type'),
         FieldPanel('topics'),
+        InlinePanel('publication_datasets', label='Datasets'),
         InlinePanel('page_countries', label="Countries"),
         PublishedDatePanel(),
         DownloadsPanel(
@@ -394,6 +352,7 @@ class PublicationSummaryPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
         FieldPanel('colour'),
         hero_panels(),
         ContentPanel(),
+        InlinePanel('publication_datasets', label='Datasets'),
         DownloadsPanel(
             heading='Downloads',
             description='Downloads for this summary.'
@@ -480,6 +439,7 @@ class PublicationChapterPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
             description='Chapter number: this should be unique for each chapter of a report.'
         ),
         ContentPanel(),
+        InlinePanel('publication_datasets', label='Datasets'),
         DownloadsPanel(
             heading='Downloads',
             description='Downloads for this chapter.'
@@ -585,6 +545,7 @@ class PublicationAppendixPage(HeroMixin, ReportChildMixin, FlexibleContentMixin,
             description='Appendix number: this should be unique for each appendix of a report.'
         ),
         ContentPanel(),
+        InlinePanel('publication_datasets', label='Datasets'),
         DownloadsPanel(
             heading='Downloads',
             description='Downloads for this appendix page.'
@@ -695,6 +656,7 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, LegacyPageSearchMixin
         FieldPanel('topics'),
         InlinePanel('page_countries', label="Countries"),
         PublishedDatePanel(),
+        InlinePanel('publication_datasets', label='Datasets'),
         DownloadsPanel(
             heading='Reports',
             description='Report downloads for this legacy report.'
@@ -794,6 +756,7 @@ class ShortPublicationPage(HeroMixin, PublishedDateMixin, FlexibleContentMixin, 
         InlinePanel('page_countries', label="Countries"),
         PublishedDatePanel(),
         ContentPanel(),
+        InlinePanel('publication_datasets', label='Datasets'),
         DownloadsPanel(
             heading='Downloads',
             description='Downloads for this chapter.'

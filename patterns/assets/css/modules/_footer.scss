@@ -65,6 +65,13 @@
     @include respond-to($menu-respond) {
         max-width: 75%;
     }
+    a {
+        color: lighten($slate, 50%);
+        text-decoration: underline;
+        @include link-active-styles {
+            text-decoration: none;
+        }
+    }
 }
 
 .footer__social {

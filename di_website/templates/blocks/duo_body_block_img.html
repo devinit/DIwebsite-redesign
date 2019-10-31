@@ -2,6 +2,9 @@
 
 <section class="section {% if self.alt %}section--alt{% endif %}">
   <div class="row row--narrow">
+    {% if self.heading %}
+      <h2 class="section__heading">{{self.heading}}</h2>
+    {% endif %}
     <div class="duo">
       <div class="duo__media">
         <div class="media-figure">

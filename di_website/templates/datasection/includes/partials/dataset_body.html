@@ -11,7 +11,7 @@
       <div class="l-sidebar__body">
         {% if page.release_date %}
           <div class="m-notice">
-              Release date : {{ page.release_date | date:'d F, o'  }}
+              Release date : {{ page.release_date|date:"j F Y"  }}
           </div>
         {% endif %}
         <div class="is-typeset wysiwyg">

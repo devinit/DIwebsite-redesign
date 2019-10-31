@@ -223,7 +223,7 @@ class PublicationIndexPage(HeroMixin, Page):
             Q(publications_shortpublicationtopic_items__content_object__content_type=short_pubs_content_type)
         ).distinct().order_by('name')
         context['selected_topic'] = topic_filter
-        context['countries'] = Country.objects.all()
+        context['countries'] = Country.objects.all().order_by('region', 'name')
         context['selected_country'] = country_filter
         context['search_filter'] = search_filter
         context['is_filtered'] = search_filter or topic_filter or country_filter

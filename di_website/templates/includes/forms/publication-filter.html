@@ -21,10 +21,10 @@
     <div class="form-field__select-dropdown">
       <select name="country" id="country">
         <option value="" id="filter-by-country">Filter by country</option>
-        {% regroup countries by region as country_groups %}
-        {% for country_group in country_groups %}
-          <optgroup label="{{country_group.grouper}}">
-            {% for country in country_group.list %}
+        {% regroup countries by region as country_list %}
+        {% for region in country_list %}
+          <optgroup label="{{ region.grouper }}">
+            {% for country in region.list %}
               <option value="{{country.slug}}" id="{{country.slug}}" {% if country.slug == selected_country %}selected{% endif %}>
                 {{country}}
               </option>

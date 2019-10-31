@@ -14,11 +14,11 @@
             <li>
                 <i role="presentation" aria-hidden="true" class="ico ico--14 ico-calendar-slate"></i>
                 {% if event.start_date == event.end_date %}
-                    {{ event.start_date|date:"d F Y" }}
+                    {{ event.start_date|date:"j F Y" }}
                 {% elif event.start_date.year == event.end_date.year %}
-                    {{ event.start_date|date:"d F" }} - {{ event.end_date|date:"d F Y" }}
+                    {{ event.start_date|date:"j F" }} - {{ event.end_date|date:"j F Y" }}
                 {% else %}
-                    {{ event.start_date|date:"d F Y" }} - {{ event.end_date|date:"d F Y" }}
+                    {{ event.start_date|date:"j F Y" }} - {{ event.end_date|date:"j F Y" }}
                 {% endif %}
             </li>
             {% if event.start_time or event.end_time %}

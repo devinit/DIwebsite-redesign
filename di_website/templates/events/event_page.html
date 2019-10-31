@@ -12,11 +12,11 @@
         <li>
           <i role="presentation" aria-hidden="true" class="ico ico--14 ico-calendar-slate"></i>
           {% if page.start_date == page.end_date %}
-            {{ page.start_date|date:"d F Y" }}
+            {{ page.start_date|date:"j F Y" }}
           {% elif page.start_date.year == page.end_date.year %}
-            {{ page.start_date|date:"d F" }} - {{ page.end_date|date:"d F Y" }}
+            {{ page.start_date|date:"j F" }} - {{ page.end_date|date:"j F Y" }}
           {% else %}
-            {{ page.start_date|date:"d F Y" }} - {{ page.end_date|date:"d F Y" }}
+            {{ page.start_date|date:"j F Y" }} - {{ page.end_date|date:"j F Y" }}
           {% endif %}
         </li>
         {% if page.start_time or page.end_time %}

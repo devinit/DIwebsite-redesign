@@ -7,7 +7,7 @@
         data-event-label="Download {{ group.singular_name|lower }} / {{ page.title }}"
         title="Download {{ group.singular_name|lower }} | {{ value.file|file_info }}"
     >
-        <p class="card__meta">{{ value.date | date:'d F Y' }}</p>
+        <p class="card__meta">{{ value.date|date:"j F Y" }}</p>
         <h3 class="card__headng">{{ value.title }}</h3>
         <p class="card__excerpt">{{ value.description }}</p>
         <div class="button--a11y reportCard__action button button--reverse" title="Download {{ group.singular_name|lower }} | {{ value.file|file_info }}"><span>Download {{ value.file|file_label }}</span></div>

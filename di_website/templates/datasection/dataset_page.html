@@ -23,7 +23,7 @@
           <div class="card__media">
             {% responsiveimage item.specific.hero_image fill-464x290-c100 srcset="fill-382x238 1w, fill-464x290 464w" alt=item.specific.hero_image.title %}
             <div class="card__media__caption">
-              <span class="card__meta">{{item.specific.release_date}}</span>
+              <span class="card__meta">{{item.specific.release_date|date:"j F Y"}}</span>
               <h3 class="card__title"><span>{{item.specific.name}} {{item.title}}</span></h3>
             </div>
           </div>
@@ -54,7 +54,7 @@
               <p class="m-slip__copy">
                 <a href="{% pageurl item %}">{{item.specific.title}}</a>
               </p>
-              <span class="m-slip__meta">Released: {{item.specific.release_date}}</span>
+              <span class="m-slip__meta">Released: {{item.specific.release_date|date:"j F Y"}}</span>
             </div>
           {% endfor %}
         </div>

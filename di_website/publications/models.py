@@ -418,7 +418,7 @@ class PublicationSummaryPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
 
     @cached_property
     def label(self):
-        return 'The summary'
+        return 'the executive summary'
 
     @cached_property
     def publication_downloads_title(self):

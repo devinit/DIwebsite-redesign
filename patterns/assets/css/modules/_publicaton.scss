@@ -165,6 +165,9 @@ body.body--bluebell {
                 color: #fff;
             }
         }
+        &:after {
+            background-color: $bluebell;
+        }
     }
     .chapter-block-wrapper--alt {
         .button {
@@ -359,6 +362,9 @@ body.body--leaf {
                 border-color: $slate;
                 color: #fff;
             }
+        }
+        &:after {
+            background-color: $leaf;
         }
     }
     .chapter-block-wrapper--alt {
@@ -566,6 +572,9 @@ body.body--sunflower {
                 color: #fff;
             }
         }
+        &:after {
+            background-color: $sunflower;
+        }
     }
     .chapter-block-wrapper--alt {
         .button {
@@ -768,6 +777,9 @@ body.body--marigold {
                 border-color: $slate;
                 color: #fff;
             }
+        }
+        &:after {
+            background-color: $marigold;
         }
     }
     .chapter-block-wrapper--alt {
@@ -972,6 +984,9 @@ body.body--rose {
                 color: #fff;
             }
         }
+        &:after {
+            background-color: $rose;
+        }
     }
     .chapter-block-wrapper--alt {
         .button {
@@ -1174,6 +1189,9 @@ body.body--lavendar {
                 border-color: $slate;
                 color: #fff;
             }
+        }
+        &:after {
+            background-color: $lavendar;
         }
     }
     .chapter-block-wrapper--alt {

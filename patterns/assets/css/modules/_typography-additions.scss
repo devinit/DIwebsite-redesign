@@ -88,7 +88,7 @@
 		@include font-size($quote);
 	}
 	cite {
-		@include font-size($para - 2);
+		@include font-size($para);
 		color: $poppy-dark;
 		display: block;
 		font-style: italic;

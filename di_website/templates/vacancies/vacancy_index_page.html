@@ -2,74 +2,94 @@
 {% load wagtailcore_tags navigation_tags %}
 
 {% block hero %}
-    {% include 'includes/heroes/hero.html' %}
+{% include 'includes/heroes/hero.html' %}
 {% endblock hero %}
 
 
 {% block body %}
-    <section class="section">
-        <div class="row row--narrow">
-            {% breadcrumbs %}
-        </div>
-    </section>
+<section class="section">
+  <div class="row row--narrow">
+    {% breadcrumbs %}
+  </div>
+</section>
 
-    <section class="section">
-        <div class="row row--narrow">
-            <div class="l-2up-3up">
-                {% for vacancy in vacancies %}
-                    {% include 'includes/cards/card-job.html' %}
-                {% endfor %}
-            </div>
-        </div>
-    </section>
+<section class="section">
+  <div class="row row--narrow">
+    <div class="l-2up-3up">
+      {% for vacancy in vacancies %}
+      {% include 'includes/cards/card-job.html' %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
 
-    <section class="section">
-        <div class="row row--narrow">
-            <h2 class="section__heading">Sign up for vacancy alerts</h2>
-            <div class="is-typeset max-meter">
-                <p>Do you want to know when new vacancies become available in your chosen field?</p>
-                <p>Subscribe to vacancy alerts!</p>
+<section class="section">
+  <div class="row row--narrow">
+    <h2 class="section__heading">Sign up for vacancy alerts</h2>
+    <div class="is-typeset max-meter">
+      <p>Do you want to know when new vacancies become available in your chosen field?</p>
+      <p>Subscribe to vacancy alerts!</p>
+    </div>
+    {% if form %}
+    {% if form.success %}
+    <div class="alert alert--success"><i role="presentation" aria-hidden="true" class="ico ico-success-success"></i>
+      <p><strong>{{ form.alert_message }}</strong></p>
+    </div>
+    {% endif %}
+    <form class="form" method="post" action="{{self.pageurl}}">
+      <fieldset class="form-section">
+        {% with form.email as email %}
+        <div class="form-field {% if email.field_error %}form-field--error{% else %}{% endif %}">
+          <label for="{{ email.label }}" id="{{ email.id }}_label" class="form-label">
+            {{ email.label }}
+          </label>
+          <input id="{{ email.id }}" class="form-item" name="{{ email.id }}" type="email"
+            placeholder="{{email.placeholder}}" value={{email.value}}>
+          {% if email.field_error %}
+          <span class="form-message">{{ email.field_error }}</span>
+          {% endif %}
+        </div>
+        {% endwith %}
+
+        <div class="form-field form-field--spaced">
+          <div for="choose_departments" class="form-label ">Choose departments (optional)</div>
+          <div id="choose_departments">
+            <div class="form-field__checkboxes form-field__checkboxes--columns">
+              {% for department in departments %}
+              <div class="form-checkbox-group cp-form-checkbox-group-{{ department.slug}}">
+                <input class="form-checkbox" type="checkbox" name="{{ department.slug }}" id="{{ department.slug }}" />
+                <label class="form-label" for="{{ department.slug}}">{{ department.name }}</label>
+              </div>
+              {% endfor %}
             </div>
-            {% if form %}
-                {% if form.success %}
-                    <div class="alert alert--success"><i role="presentation" aria-hidden="true" class="ico ico-success-success"></i>
-                        <p><strong>{{ form.alert_message }}</strong></p>
-                    </div>
+          </div>
+        </div>
+
+        <div class="form-field form-field--spaced ">
+          <div for="checkbox2" class="form-label form-label--hidden"></div>
+          <div id="checkbox2">
+            <div class="form-field__checkboxes ">
+              <div class="form-checkbox-group cp-form-checkbox-group-gdpr">
+                <input class="form-checkbox" type="checkbox" name="gdpr" id="gdpr" />
+                <label class="form-label" for="gdpr">
+                  {{ page.email_alert_confirmation_label | richtext }}
+
+                {% if form.email.consent %}
+                  <span style="color: #f25111; font-size: 11px; display: block;">{{ form.email.consent }}</span>
                 {% endif %}
-                <form class="form" method="post" action="{{self.pageurl}}">
-                    <fieldset class="form-section">
-                        {% with form.email as email %}
-                            <div class="form-field {% if email.field_error %}form-field--error{% else %}{% endif %}">
-                                <label for="{{ email.label }}" id="{{ email.id }}_label" class="form-label">
-                                    {{ email.label }}
-                                </label>
-                                <input id="{{ email.id }}" class="form-item" name="{{ email.id }}" type="email" placeholder="{{email.placeholder}}" value={{email.value}}>
-                                {% if email.field_error %}
-                                    <span class="form-message">{{ email.field_error }}</span>
-                                {% endif %}
-                            </div>
-                        {% endwith %}
-
-                        <div class="form-field form-field--spaced">
-                            <div for="choose_departments" class="form-label ">Choose departments (optional)</div>
-                            <div id="choose_departments">
-                                <div class="form-field__checkboxes form-field__checkboxes--columns">
-                                    {% for department in departments %}
-                                        <div class="form-checkbox-group cp-form-checkbox-group-{{ department.slug}}">
-                                            <input class="form-checkbox" type="checkbox" name="{{ department.slug }}" id="{{ department.slug }}"/>
-                                            <label class="form-label" for="{{ department.slug}}">{{ department.name }}</label>
-                                        </div>
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-field form-field--spaced">
-                            <input class="button" type="submit" value="Sign up for alerts">
-                        </div>
-                        {% csrf_token %}
-                    </fieldset>
-                </form>
-            {% endif %}
+                </label>
+              </div>
+            </div>
+          </div>
         </div>
-    </section>
+
+        <div class="form-field form-field--spaced">
+          <input class="button" type="submit" value="Sign up for alerts">
+        </div>
+        {% csrf_token %}
+      </fieldset>
+    </form>
+    {% endif %}
+  </div>
+</section>
 {% endblock body %}

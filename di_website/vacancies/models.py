@@ -97,33 +97,39 @@ class VacancyIndexPage(HeroMixin, Page):
             data = request.POST.copy()
             email_address = data.get('email_address', None)
             email['value'] = email_address
+            gdpr = data.get('gdpr', None)
+
             try:
-                if email_address:
-                    validate_email(email_address)
+                if gdpr:
+                    if email_address:
+                        validate_email(email_address)
 
-                    monitored_departments = []
-                    for department in all_departments:
-                        if data.get(department.slug, None) == 'on':
-                            monitored_departments.append(department)
-
-                    form['alert_message'] = 'You have signed up for vacancy alerts for '
-                    if len(monitored_departments):
-                        first = True
-                        for department in monitored_departments:
-                            self.create_subscription(email.value, 'jobs', department)
-                            if first:
-                                form['alert_message'] = form.get('alert_message') + ' ' + department.name
-                                first = False
-                            else:
-                                form['alert_message'] = form.get('alert_message') + ', ' + department.name
-                    else:
+                        monitored_departments = []
                         for department in all_departments:
-                            self.create_subscription(email.value, 'jobs', department)
-                        form['alert_message'] = ' all departments'
+                            if data.get(department.slug, None) == 'on':
+                                monitored_departments.append(department)
 
-                    form['success'] = True
+                        form['alert_message'] = 'You have signed up for vacancy alerts for '
+                        if len(monitored_departments):
+                            first = True
+                            for department in monitored_departments:
+                                self.create_subscription(email.value, 'jobs', department)
+                                if first:
+                                    form['alert_message'] = form.get('alert_message') + ' ' + department.name
+                                    first = False
+                                else:
+                                    form['alert_message'] = form.get('alert_message') + ', ' + department.name
+                        else:
+                            for department in all_departments:
+                                self.create_subscription(email.value, 'jobs', department)
+                            form['alert_message'] = form.get('alert_message') + ' ' + ' all departments'
+
+                        form['success'] = True
+                    else:
+                        email['field_error'] = 'This field is required'
                 else:
-                    email['field_error'] = 'This field is required'
+                    email['consent'] = 'This field is required'
+
             except ValidationError:
                 email['field_error'] = 'Invalid email'
             except DataError:
@@ -134,8 +140,15 @@ class VacancyIndexPage(HeroMixin, Page):
 
         return context
 
+    email_alert_confirmation_label = RichTextField(
+        blank=True,
+        verbose_name='Descriptive Text for Consent to Email Alerts',
+        default='By checking this box you consent to us collecting the data submitted',
+    )
+
     content_panels = Page.content_panels + [
         hero_panels(),
+        FieldPanel('email_alert_confirmation_label'),
         InlinePanel('page_notifications', label='Notifications')
     ]
 

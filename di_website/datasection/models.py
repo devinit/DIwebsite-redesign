@@ -177,7 +177,7 @@ class DatasetPage(DataSetMixin, TypesetBodyMixin, HeroMixin, Page):
                 models.Q(datasection_datasettopic_items__content_object__content_type=content_type)
             ).distinct()
         context['related_datasets'] = get_related_pages(
-            self.related_datasets.all(), DatasetPage.objects)
+            self.related_datasets.all(), DatasetPage.objects.exclude(id=self.id))
         context['reports'] = self.get_usages()
 
         return context

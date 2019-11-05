@@ -21,7 +21,14 @@
         <div class="card card--duo">
           <span class="card__tag">Report</span>
           <div class="card__media">
-            {% responsiveimage item.specific.hero_image fill-464x290-c100 srcset="fill-382x238 1w, fill-464x290 464w" alt=item.specific.hero_image.title %}
+            {% if item.specific.hero_image %}
+              {% responsiveimage item.specific.hero_image fill-464x290-c100 srcset="fill-382x238 1w, fill-464x290 464w" as image %}
+              {% if image.url != '/media/not-found' %}
+                <img src="{{ image.url }}" alt="{{item.specific.hero_image.title}}"/>
+              {% endif %}
+            {% else %}
+              <img src="{% static 'img/fallback-image.jpg' %}" height="290px" width="464px"/>
+            {% endif %}
             <div class="card__media__caption">
               <span class="card__meta">{{item.specific.release_date|date:"j F Y"}}</span>
               <h3 class="card__title"><span>{{item.specific.name}} {{item.title}}</span></h3>

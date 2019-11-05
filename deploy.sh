@@ -164,16 +164,6 @@ function start_link_checker_processes {
 }
 
 
-function install_host_python {
-
-    start_new_process "Installing python on host"
-
-    sudo apt-get install -y python3
-    sudo apt-get install -y python3-pip
-
-}
-
-
 if [ ${args[0]} == 'run' ]
 then
     if [ -d $APP_DIR ]; then
@@ -197,8 +187,7 @@ then
     elastic_search_reindex
 
     start_new_process "Generating static assets"
-    install_host_python
-    pip3 install -r requirements.txt
+    pip install -r requirements.txt
     python manage.py collectstatic --noinput
 
 elif [ ${args[0]} == 'backup' ]

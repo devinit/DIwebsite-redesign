@@ -9,7 +9,11 @@
         <a href="{% pageurl page %}" class="card">
           {% if page.hero_image %}
             {% image page.hero_image fill-400x250 as image %}
-            <div class="card__media" style="background-image: url('{{ image.url }}');"></div>
+            {% if image.url != '/media/not-found' %}
+              <div class="card__media" style="background-image: url('{{ image.url }}');"></div>
+            {% else %}
+              <div class="card__media" style="background-image: url({% static 'img/fallback-image.jpg' %})"></div>
+            {% endif %}
           {% else %}
             <div class="card__media" style="background-image: url({% static 'img/fallback-image.jpg' %})"></div>
           {% endif %}

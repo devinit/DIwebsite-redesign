@@ -255,6 +255,7 @@ class MediaImageBlock(ImageBlock):
 
 
 class ImageDuoTextBlock(ImageBlock):
+    heading = CharBlock(icon='fa-heading', required=False)
     side_text = RichTextBlock(
         icon='fa-paragraph',
         features=RICHTEXT_FEATURES,

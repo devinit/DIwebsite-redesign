@@ -134,6 +134,10 @@ class ImageBlock(StructBlock):
         required=False,
         help_text='URL of the image source'
     )
+    caption = CharBlock(
+        required=False,
+        help_text='Caption to appear beneath the image'
+    )
 
 
 class BannerBlock(StructBlock):

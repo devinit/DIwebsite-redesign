@@ -5,23 +5,19 @@
 <div class="row row--narrow">
     <h2 class="section__heading">{{ heading }}</h2>
     <div class="l-4up">
-        {% for page in other_pages %}
+      {% for page in other_pages %}
+        <a href="{% pageurl page %}" class="card">
+          {% if page.hero_image %}
             {% image page.hero_image fill-400x250 as image %}
-            <a href="{% pageurl page %}" class="card">
-                {% if image %}
-                  <div class="card__media" style="background-image: url('{% if page.hero_image %}{{ image.url }}{% endif %}');">
-                  </div>
-                {% else %}
-                  <div class="card__media" style="background-image: url({% static 'img/fallback-image.jpg' %})">
-                  </div>
-                {% endif %}
-
-                <div class="card__body">
-                    <h3 class="card__title"><span>{{ page.title }}</span></h3>
-                </div>
-            </a>
-        {% endfor %}
-
+            <div class="card__media" style="background-image: url('{{ image.url }}');"></div>
+          {% else %}
+            <div class="card__media" style="background-image: url({% static 'img/fallback-image.jpg' %})"></div>
+          {% endif %}
+          <div class="card__body">
+            <h3 class="card__title"><span>{{ page.title }}</span></h3>
+          </div>
+        </a>
+      {% endfor %}
     </div>
 </div>
 

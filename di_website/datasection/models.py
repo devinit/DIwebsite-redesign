@@ -136,7 +136,7 @@ class DataSectionPage(SectionBodyMixin, TypesetBodyMixin, HeroMixin, Page):
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
         context['random_quote'] = self.get_random_quote()
-        context['dataset_count'] = DatasetPage.objects.live().count()
+        context['dataset_count'] = DatasetPage.objects.live().count() + FigurePage.objects.live().count()
         return context
 
 
@@ -177,7 +177,7 @@ class DatasetPage(DataSetMixin, TypesetBodyMixin, HeroMixin, Page):
                 models.Q(datasection_datasettopic_items__content_object__content_type=content_type)
             ).distinct()
         context['related_datasets'] = get_related_pages(
-            self.related_datasets.all(), DatasetPage.objects)
+            self.related_datasets.all(), DatasetPage.objects.exclude(id=self.id))
         context['reports'] = self.get_usages()
 
         return context
@@ -196,7 +196,8 @@ class DatasetPage(DataSetMixin, TypesetBodyMixin, HeroMixin, Page):
             models.Q(legacypublicationpage__publication_datasets__dataset__slug=self.slug) |
             models.Q(publicationsummarypage__publication_datasets__dataset__slug=self.slug) |
             models.Q(publicationchapterpage__publication_datasets__dataset__slug=self.slug) |
-            models.Q(publicationappendixpage__publication_datasets__dataset__slug=self.slug)
+            models.Q(publicationappendixpage__publication_datasets__dataset__slug=self.slug) |
+            models.Q(shortpublicationpage__publication_datasets__dataset__slug=self.slug)
         ).specific()
 
         for report in reports:
@@ -402,7 +403,8 @@ class DataSetListing(TypesetBodyMixin, Page):
                 models.Q(publicationsummarypage__publication_datasets__item__slug=report) |
                 models.Q(publicationappendixpage__publication_datasets__item__slug=report) |
                 models.Q(publicationchapterpage__publication_datasets__item__slug=report) |
-                models.Q(legacypublicationpage__publication_datasets__item__slug=report)
+                models.Q(legacypublicationpage__publication_datasets__item__slug=report) |
+                models.Q(shortpublicationpage__publication_datasets__item__slug=report)
             ).first()
             if (pubs and pubs.specific.publication_datasets):
                 for dataset in pubs.specific.publication_datasets.all():
@@ -454,7 +456,8 @@ class DataSetListing(TypesetBodyMixin, Page):
             models.Q(publicationsummarypage__publication_datasets__dataset__content_type=content_type) |
             models.Q(legacypublicationpage__publication_datasets__dataset__content_type=content_type) |
             models.Q(publicationappendixpage__publication_datasets__dataset__content_type=content_type) |
-            models.Q(publicationchapterpage__publication_datasets__dataset__content_type=content_type)
+            models.Q(publicationchapterpage__publication_datasets__dataset__content_type=content_type) |
+            models.Q(shortpublicationpage__publication_datasets__dataset__content_type=content_type)
         ).distinct()
 
         return context

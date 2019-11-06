@@ -13,6 +13,7 @@ from wagtail.core.blocks import (
 )
 from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.images.blocks import ImageChooserBlock
+from wagtailgeowidget.blocks import GeoBlock
 
 from di_website.common.constants import RICHTEXT_FEATURES
 from di_website.common.blocks import ButtonBlock
@@ -81,3 +82,24 @@ class ExpertiseBlock(StructBlock):
 
     class Meta():
         template = 'blocks/expertise.html'
+
+
+class MapBlock(StructBlock):
+    """
+    Allows the addition of a single benefit
+    """
+    location = TextBlock()
+    address = TextBlock()
+    map = GeoBlock()
+
+    class Meta():
+        icon = 'fa-map'
+
+
+class MapStreamBlock(StreamBlock):
+    """
+    Handles creation of where we work locations
+    """
+    add_location = MapBlock()
+
+    required = False

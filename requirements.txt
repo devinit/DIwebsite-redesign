@@ -19,3 +19,4 @@ celery==4.3.0
 wagtailgeowidget==5.0.2
 numpy==1.17.3
 pandas==0.25.3
+xlrd>=1.0.0

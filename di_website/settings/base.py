@@ -268,4 +268,4 @@ HS_TICKET_PIPELINE_STAGE = config('HS_TICKET_PIPELINE_STAGE', '891430')
 EMAIL_BACKEND = os.getenv(
     'EMAIL_BACKEND') or 'django.core.mail.backends.console.EmailBackend'
 
-GOOGLE_MAPS_V3_APIKEY = "AIzaSyDieZP-GSZ14q8UsIZmjjAqQxn9jwF6fUU"
+GOOGLE_MAPS_V3_APIKEY = "AIzaSyAZAIjZtkBlsF0ZqvrlkvyLfVn6Bju6bJ4"

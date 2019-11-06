@@ -62,12 +62,12 @@ class WhatWeDoPage(TypesetBodyMixin, HeroMixin, Page):
         hero_panels(),
         StreamFieldPanel('body'),
         StreamFieldPanel('sections'),
+        StreamFieldPanel('locations_where_we_work'),
         MultiFieldPanel([
             FieldPanel('other_pages_heading'),
             InlinePanel('other_pages', label='Related pages', max_num=MAX_OTHER_PAGES)
         ], heading='Other Pages/Related Links'),
         InlinePanel('page_notifications', label='Notifications'),
-        StreamFieldPanel('locations_where_we_work')
     ]
 
     subpage_types = [

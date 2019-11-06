@@ -117,7 +117,7 @@ function elastic_search_reindex {
 
 function perform_git_operations {
 
-    start_new_process "Performing git operation on branch $ACTIVE_BRANBCH of repository $REPOSITORY"
+    start_new_process "Performing git operation on branch $ACTIVE_BRANCH of repository $REPOSITORY"
 
     if [ -d $APP_DIR ]; then
         cd $APP_DIR
@@ -188,6 +188,7 @@ then
 
     start_new_process "Generating static assets"
     docker-compose exec -T web python manage.py collectstatic --noinput
+    sudo chown -R di_website:di_website assets
 
 elif [ ${args[0]} == 'backup' ]
 then

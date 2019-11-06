@@ -62,6 +62,7 @@ class DocumentBoxSectionBlock(StructBlock):
     document_boxes = StreamBlock([
         ('document_box', DocumentBoxBlock()),
     ], required=False)
+    alt = BooleanBlock(default=True, help_text="White background if checked")
 
 
     class Meta:

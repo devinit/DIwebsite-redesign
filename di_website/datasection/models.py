@@ -259,7 +259,7 @@ class FigurePage(DataSetMixin, TypesetBodyMixin, HeroMixin, Page):
         help_text='Descriptive title of the chart'
     )
     publication_name = models.TextField(
-        blank=True, null=True verbose_name='Name',
+        blank=True, null=True, verbose_name='Name',
         help_text='Imported publication name')
     publication = models.ForeignKey(
         'wagtailcore.Page',

@@ -14,6 +14,9 @@ from di_website.datasection.models import (
     DataSource,
     DatasetPage,
     DataSetSource,
+    FigurePage,
+    FigureSource,
+    FigureDataSet,
     DatasetDownloads,
     FigurePageDownloads
 )
@@ -61,7 +64,7 @@ class Command(BaseCommand):
                 skip = False
             else:
                 source_dict = source_row[1].to_dict()
-                source_check = DataSource.objects.filter(title=source_dict['Source title'])
+                source_check = DataSource.objects.filter(source_id=source_dict['Source ID'])
                 if not source_check:
                     if type(source_dict['Date of access']) is not datetime:
                         try:
@@ -112,7 +115,7 @@ class Command(BaseCommand):
                 skip = False
             else:
                 dataset_dict = dataset_row[1].to_dict()
-                dataset_check = DataSource.objects.filter(title=dataset_dict['Dataset ID'])
+                dataset_check = DatasetPage.objects.filter(dataset_id=dataset_dict['Dataset ID'])
                 if not dataset_check:
                     if type(dataset_dict['Release date?']) is not datetime:
                         try:
@@ -162,16 +165,116 @@ class Command(BaseCommand):
                             except DataSource.DoesNotExist:
                                 pass
 
+                    try:
+                        tag_list = [tag.strip() for tag in dataset_dict['Keyword search'].split(",") if len(tag.strip()) < 100]
+                    except AttributeError:
+                        tag_list = []
+                    new_dataset.topics.add(*tag_list)
+
                     # TODO: Take XLSX and CSV links, format as box, download them, create BaseDownload items, attach to page model
 
         # Figures
+        """
+        (Pdb) figure_dict.keys()
+        dict_keys(['Chart ID', 'What is the descriptive title of the chart?', 'What is the active title used in the report', 'What is the Figure number used in the report', 'What report does the data set come from?', 'What is a long description of the chart data?', 'Release date', 'Geography information', 'Geography unit', 'Keyword search', 'Internal notes', 'Analyst that worked on the chart', 'Licence', 'Suggested citation', 'Source 1 (yellow = no source data [to check], orange = no source data [approved])', 'Source 2 (optional)', 'Source 3 (optional)', 'Source 4 (optional)', 'Source 5 (optional)', 'Source 6 (optional)', 'Source 7 (optional)', 'Source 8 (optional)', 'Source 9 (optional)', 'Source 10 (optional)', 'Source 11 (optional)', 'Source 12 (optional)', 'Source 13 (optional)', 'Source 14 (optional)', 'Source 15 (optional)', 'Dataset 1', 'Dataset 2', 'Dataset 3', 'Publication type', 'Done', 'File location', 'File name', 'Tab name', 'File notes', 'Signed-off and ready?'])
+        """
+        figure_source_keys = [
+            'Source 1 (yellow = no source data [to check], orange = no source data [approved])',
+            'Source 2 (optional)',
+            'Source 3 (optional)',
+            'Source 4 (optional)',
+            'Source 5 (optional)',
+            'Source 6 (optional)',
+            'Source 7 (optional)',
+            'Source 8 (optional)',
+            'Source 9 (optional)',
+            'Source 10 (optional)',
+            'Source 11 (optional)',
+            'Source 12 (optional)',
+            'Source 13 (optional)',
+            'Source 14 (optional)',
+            'Source 15 (optional)'
+        ]
+        figure_dataset_keys = [
+            'Dataset 1',
+            'Dataset 2',
+            'Dataset 3'
+        ]
         skip = True
         for figure_row in figures.iterrows():
             if skip:
                 skip = False
             else:
                 figure_dict = figure_row[1].to_dict()
-                import pdb; pdb.set_trace()
+                figure_check = FigurePage.objects.filter(figure_id=figure_dict['Chart ID'])
+                if not figure_check:
+                    if type(figure_dict['Release date']) is not datetime:
+                        try:
+                            release_date = datetime.strptime(figure_dict['Release date'], "%d/%m/%Y")
+                        except (ValueError, TypeError) as e:
+                            release_date = datetime.now()
+                    else:
+                        release_date = figure_dict['Release date']
+
+                    meta_json = []
+                    if figure_dict['What is a long description of the chart data?'] is not np.nan:
+                        meta_json.append({"type": "description", "value": figure_dict['What is a long description of the chart data?']})
+                    if figure_dict['Geography information'] is not np.nan:
+                        meta_json.append({"type": "geography", "value": figure_dict['Geography information']})
+                    if figure_dict['Geography unit'] is not np.nan:
+                        meta_json.append({"type": "geographic_coding", "value": figure_dict['Geography unit']})
+                    if figure_dict['Internal notes'] is not np.nan:
+                        meta_json.append({"type": "internal_notes", "value": figure_dict['Internal notes']})
+                    if figure_dict['Analyst that worked on the chart'] is not np.nan:
+                        meta_json.append({"type": "lead_analyst", "value": figure_dict['Analyst that worked on the chart']})
+                    if figure_dict['Licence'] is not np.nan:
+                        meta_json.append({"type": "license", "value": figure_dict['Licence']})
+                    if figure_dict['Suggested citation'] is not np.nan:
+                        meta_json.append({"type": "citation", "value": figure_dict['Suggested citation']})
+
+                    new_figure = FigurePage(
+                        title=figure_dict['What is the descriptive title of the chart?'],
+                        figure_id=figure_dict['Chart ID'],
+                        name=figure_dict['What is the active title used in the report'],
+                        figure_title=figure_dict['What is the descriptive title of the chart?'],
+                        publication_name=figure_dict['What report does the data set come from?'],
+                        release_date=release_date,
+                        meta_data=json.dumps(meta_json)
+                    )
+                    dataset_listing.add_child(instance=new_figure)
+                    new_figure.save_revision().publish()
+
+                    for source_key in figure_source_keys:
+                        key_val = figure_dict[source_key]
+                        if key_val is not np.nan:
+                            try:
+                                related_datasource = DataSource.objects.get(title=key_val)
+                                FigureSource(
+                                    page=new_figure,
+                                    source=related_datasource
+                                ).save()
+                            except DataSource.DoesNotExist:
+                                pass
+
+                    for dataset_key in figure_dataset_keys:
+                        key_val = figure_dict[dataset_key]
+                        if key_val is not np.nan:
+                            try:
+                                related_dataset = DatasetPage.objects.get(title=key_val)
+                                FigureDataSet(
+                                    page=new_figure,
+                                    dataset=related_dataset
+                                ).save()
+                            except DatasetPage.DoesNotExist:
+                                pass
+
+                    try:
+                        tag_list = [tag.strip() for tag in figure_dict['Keyword search'].split(",") if len(tag.strip()) < 100]
+                    except AttributeError:
+                        tag_list = []
+                    new_figure.topics.add(*tag_list)
+
+                    # TODO: Take XLSX and CSV links, format as box, download them, create BaseDownload items, attach to page model
 
 
         self.stdout.write(self.style.SUCCESS('Called successfully'))

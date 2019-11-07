@@ -51,7 +51,7 @@ class DataSourceTopic(TaggedItemBase):
 
 @register_snippet
 class DataSource(ClusterableModel):
-    source_id = models.CharField(max_length=255, unique=True)
+    source_id = models.CharField(max_length=255, unique=True, blank=True, null=True)
     title = models.TextField(unique=True)
     description = models.TextField(blank=True, null=True)
     organisation = models.TextField(blank=True, null=True)

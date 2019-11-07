@@ -61,7 +61,7 @@ class DataSource(ClusterableModel):
     date_of_access = models.DateField(null=True, blank=True)
     internal_notes = models.TextField(blank=True, null=True)
     lead_analyst = models.TextField(blank=True, null=True)
-    license = models.TextField(max_length=255, blank=True)
+    licence = models.TextField(max_length=255, blank=True, null=True)
     topics = ClusterTaggableManager(through=DataSourceTopic, blank=True, verbose_name="Topics")
     slug = models.SlugField(
         max_length=255, blank=True, null=True,

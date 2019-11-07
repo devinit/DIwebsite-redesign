@@ -77,7 +77,7 @@ class Command(BaseCommand):
                         date_of_access = source_dict['Date of access']
 
                     try:
-                        tag_list = [tag.strip() for tag in source_dict['Keyword search'].split(",") if len(tag.strip()) < 100]
+                        tag_list = [tag.strip() for tag in source_dict['Keyword search'].split(",") if len(tag.strip()) < 100 and len(tag.strip()) > 0]
                     except AttributeError:
                         tag_list = []
                     new_source = DataSource(
@@ -152,6 +152,13 @@ class Command(BaseCommand):
                         release_date=release_date,
                         meta_data=json.dumps(meta_json)
                     )
+
+                    try:
+                        tag_list = [tag.strip() for tag in dataset_dict['Keyword search'].split(",") if len(tag.strip()) < 100 and len(tag.strip()) > 0]
+                    except AttributeError:
+                        tag_list = []
+                    new_dataset.topics.add(*tag_list)
+
                     dataset_listing.add_child(instance=new_dataset)
                     new_dataset.save_revision().publish()
 
@@ -166,12 +173,6 @@ class Command(BaseCommand):
                                 ).save()
                             except DataSource.DoesNotExist:
                                 pass
-
-                    try:
-                        tag_list = [tag.strip() for tag in dataset_dict['Keyword search'].split(",") if len(tag.strip()) < 100]
-                    except AttributeError:
-                        tag_list = []
-                    new_dataset.topics.add(*tag_list)
 
                     # TODO: Take XLSX and CSV links, format as box, download them, create BaseDownload items, attach to page model
 
@@ -243,6 +244,13 @@ class Command(BaseCommand):
                         release_date=release_date,
                         meta_data=json.dumps(meta_json)
                     )
+
+                    try:
+                        tag_list = [tag.strip() for tag in figure_dict['Keyword search'].split(",") if len(tag.strip()) < 100 and len(tag.strip()) > 0]
+                    except AttributeError:
+                        tag_list = []
+                    new_figure.topics.add(*tag_list)
+
                     dataset_listing.add_child(instance=new_figure)
                     new_figure.save_revision().publish()
 
@@ -269,12 +277,6 @@ class Command(BaseCommand):
                                 ).save()
                             except DatasetPage.DoesNotExist:
                                 pass
-
-                    try:
-                        tag_list = [tag.strip() for tag in figure_dict['Keyword search'].split(",") if len(tag.strip()) < 100]
-                    except AttributeError:
-                        tag_list = []
-                    new_figure.topics.add(*tag_list)
 
                     # TODO: Take XLSX and CSV links, format as box, download them, create BaseDownload items, attach to page model
 

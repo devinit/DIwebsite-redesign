@@ -187,8 +187,8 @@ class DatasetPage(DataSetMixin, TypesetBodyMixin, HeroMixin, Page):
 
         content_type = ContentType.objects.get_for_model(DatasetPage)
         context['topics'] = Tag.objects.filter(
-                models.Q(datasection_datasettopic_items__content_object__content_type=content_type)
-            ).distinct()
+                datasection_datasettopic_items__content_object__content_type=content_type
+            ).distinct().order_by('name')
         context['related_datasets'] = get_related_pages(
             self.related_datasets.all(), DatasetPage.objects.exclude(id=self.id))
         context['reports'] = self.get_usages()
@@ -469,20 +469,22 @@ class DataSetListing(TypesetBodyMixin, Page):
         except EmptyPage:
             context['datasets'] = paginator.page(paginator.num_pages)
 
-        content_type = ContentType.objects.get_for_model(DatasetPage)
+        ds_content_type = ContentType.objects.get_for_model(DatasetPage)
+        fig_content_type = ContentType.objects.get_for_model(FigurePage)
         context['topics'] = Tag.objects.filter(
-            datasection_datasettopic_items__content_object__content_type=content_type
-        ).distinct()
+            models.Q(datasection_datasettopic_items__content_object__content_type=ds_content_type) |
+            models.Q(datasection_figuretopic_items__content_object__content_type=fig_content_type)
+        ).distinct().order_by('name')
         context['countries'] = Country.objects.all()
         context['sources'] = DataSource.objects.all()
 
         context['reports'] = Page.objects.live().filter(
-            models.Q(publicationpage__publication_datasets__dataset__content_type=content_type) |
-            models.Q(publicationsummarypage__publication_datasets__dataset__content_type=content_type) |
-            models.Q(legacypublicationpage__publication_datasets__dataset__content_type=content_type) |
-            models.Q(publicationappendixpage__publication_datasets__dataset__content_type=content_type) |
-            models.Q(publicationchapterpage__publication_datasets__dataset__content_type=content_type) |
-            models.Q(shortpublicationpage__publication_datasets__dataset__content_type=content_type)
+            models.Q(publicationpage__publication_datasets__dataset__content_type=ds_content_type) |
+            models.Q(publicationsummarypage__publication_datasets__dataset__content_type=ds_content_type) |
+            models.Q(publicationappendixpage__publication_datasets__dataset__content_type=ds_content_type) |
+            models.Q(legacypublicationpage__publication_datasets__dataset__content_type=ds_content_type) |
+            models.Q(publicationchapterpage__publication_datasets__dataset__content_type=ds_content_type) |
+            models.Q(shortpublicationpage__publication_datasets__dataset__content_type=ds_content_type)
         ).distinct()
 
         return context

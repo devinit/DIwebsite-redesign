@@ -14,11 +14,7 @@ class DataSetMixin(models.Model):
     parent_page_types = ['datasection.DataSetListing']
     subpage_types = []
 
-    dataset_id = models.CharField(max_length=255, unique=True, blank=True, null=True)
-    dataset_title = models.TextField(unique=True, blank=True, null=True)
     release_date = models.DateField(default=datetime.now)
-    xlsx_link = models.URLField(blank=True, null=True)
-    csv_link = models.URLField(blank=True, null=True)
     authors = StreamField([
         ('internal_author', PageChooserBlock(
             required=False,
@@ -57,7 +53,7 @@ class DataSetSourceMixin(models.Model):
         abstract = True
 
     source = models.ForeignKey(
-        'datasection.DataSource', null=True, blank =True, on_delete=models.SET_NULL,
+        'datasection.DataSource', null=True, blank=True, on_delete=models.SET_NULL,
         related_name='+', verbose_name='Data Source')
 
     panels = [SnippetChooserPanel('source')]

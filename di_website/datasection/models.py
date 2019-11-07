@@ -271,7 +271,7 @@ class FigurePage(DataSetMixin, TypesetBodyMixin, HeroMixin, Page):
     )
     related_figures_title = models.CharField(
         blank=True, null=True, max_length=255, default='Related figures', verbose_name='Section Title')
-    topics = ClusterTaggableManager(through=FigureTopic, blank=True, null=True, verbose_name="Topics")
+    topics = ClusterTaggableManager(through=FigureTopic, blank=True, verbose_name="Topics")
 
     content_panels = Page.content_panels + [
         hero_panels(),

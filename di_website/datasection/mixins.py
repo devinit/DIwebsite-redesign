@@ -15,7 +15,7 @@ class DataSetMixin(models.Model):
     subpage_types = []
 
     dataset_id = models.CharField(max_length=255, unique=True, blank=True, null=True)
-    dataset_title = models.TextField(unique=True)
+    dataset_title = models.TextField(unique=True, blank=True, null=True)
     release_date = models.DateField(default=datetime.now)
     xlsx_link = models.URLField(blank=True, null=True)
     csv_link = models.URLField(blank=True, null=True)

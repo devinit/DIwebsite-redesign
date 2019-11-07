@@ -131,13 +131,13 @@ class Command(BaseCommand):
                         meta_json.append({"type": "geographic_coding", "value": dataset_dict['Geographic coding']})
                     if dataset_dict['Unit'] is not np.nan:
                         meta_json.append({"type": "unit", "value": dataset_dict['Unit']})
-                    if dataset_dict[''] is not np.nan:
+                    if dataset_dict['Internal notes'] is not np.nan:
                         meta_json.append({"type": "internal_notes", "value": dataset_dict['Internal notes']})
-                    if dataset_dict[''] is not np.nan:
+                    if dataset_dict['Analyst that worked on the data'] is not np.nan:
                         meta_json.append({"type": "lead_analyst", "value": dataset_dict['Analyst that worked on the data']})
-                    if dataset_dict[''] is not np.nan:
+                    if dataset_dict['Licence'] is not np.nan:
                         meta_json.append({"type": "license", "value": dataset_dict['Licence']})
-                    if dataset_dict[''] is not np.nan:
+                    if dataset_dict['Suggested citation'] is not np.nan:
                         meta_json.append({"type": "citation", "value": dataset_dict['Suggested citation']})
 
                     new_dataset = DatasetPage(

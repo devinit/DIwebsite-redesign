@@ -22,6 +22,7 @@ class Command(BaseCommand):
         dataset = pd.read_excel(raw_data, sheet_name='Dataset')
         figures = pd.read_excel(raw_data, sheet_name='Figures')
 
+        # Data sources
         skip = True
         for source_row in source.iterrows():
             """
@@ -59,12 +60,22 @@ class Command(BaseCommand):
                     new_source.topics.add(*tag_list)
                     new_source.save()
 
+        # Datasets
         skip = True
         for dataset_row in dataset.iterrows():
             if skip:
                 skip = False
             else:
-                dataset_dict = source_row[1].to_dict()
+                dataset_dict = dataset_row[1].to_dict()
+                import pdb; pdb.set_trace()
+
+        # Figures
+        skip = True
+        for figure_row in figures.iterrows():
+            if skip:
+                skip = False
+            else:
+                figure_dict = figure_row[1].to_dict()
                 import pdb; pdb.set_trace()
 
 

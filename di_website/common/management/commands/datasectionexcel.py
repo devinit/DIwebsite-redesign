@@ -1,7 +1,6 @@
 """Management command that loads datasets."""
 
 import pandas as pd
-import numpy as np
 from datetime import datetime
 import json
 
@@ -49,9 +48,12 @@ class Command(BaseCommand):
         # Fetch data and parse
         raw_data = 'https://docs.google.com/spreadsheets/d/1pDbdncnm1TF41kJJX2WjZ2Wq9juOvUqU/export?format=xlsx&id=1pDbdncnm1TF41kJJX2WjZ2Wq9juOvUqU'
 
-        source = pd.read_excel(raw_data, sheet_name='Source Data')
-        dataset = pd.read_excel(raw_data, sheet_name='Dataset')
-        figures = pd.read_excel(raw_data, sheet_name='Figures')
+        source = pd.read_excel(raw_data, sheet_name='Source Data', na_values=[" ", ".", "", "No data", "na", "NA", "N/A"])
+        source = source.replace({pd.np.nan: None})
+        dataset = pd.read_excel(raw_data, sheet_name='Dataset', na_values=[" ", ".", "", "No data", "na", "NA", "N/A"])
+        dataset = dataset.replace({pd.np.nan: None})
+        figures = pd.read_excel(raw_data, sheet_name='Figures', na_values=[" ", ".", "", "No data", "na", "NA", "N/A"])
+        figures = figures.replace({pd.np.nan: None})
 
         # Data sources
         """
@@ -65,7 +67,7 @@ class Command(BaseCommand):
             else:
                 source_dict = source_row[1].to_dict()
                 source_check = DataSource.objects.filter(source_id=source_dict['Source ID'])
-                if not source_check:
+                if not source_check and source_dict['Source title'] is not None:
                     if type(source_dict['Date of access']) is not datetime:
                         try:
                             date_of_access = datetime.strptime(source_dict['Date of access'], "%d/%m/%Y")
@@ -116,7 +118,7 @@ class Command(BaseCommand):
             else:
                 dataset_dict = dataset_row[1].to_dict()
                 dataset_check = DatasetPage.objects.filter(dataset_id=dataset_dict['Dataset ID'])
-                if not dataset_check:
+                if not dataset_check and dataset_dict['What is the title of the data set?'] is not None:
                     if type(dataset_dict['Release date?']) is not datetime:
                         try:
                             release_date = datetime.strptime(dataset_dict['Release date?'], "%d/%m/%Y")
@@ -126,21 +128,21 @@ class Command(BaseCommand):
                         release_date = dataset_dict['Release date?']
 
                     meta_json = []
-                    if dataset_dict['What is a long description of the data set?'] is not np.nan:
+                    if dataset_dict['What is a long description of the data set?'] is not None:
                         meta_json.append({"type": "description", "value": dataset_dict['What is a long description of the data set?']})
-                    if dataset_dict['Geography information'] is not np.nan:
+                    if dataset_dict['Geography information'] is not None:
                         meta_json.append({"type": "geography", "value": dataset_dict['Geography information']})
-                    if dataset_dict['Geographic coding'] is not np.nan:
+                    if dataset_dict['Geographic coding'] is not None:
                         meta_json.append({"type": "geographic_coding", "value": dataset_dict['Geographic coding']})
-                    if dataset_dict['Unit'] is not np.nan:
+                    if dataset_dict['Unit'] is not None:
                         meta_json.append({"type": "unit", "value": dataset_dict['Unit']})
-                    if dataset_dict['Internal notes'] is not np.nan:
+                    if dataset_dict['Internal notes'] is not None:
                         meta_json.append({"type": "internal_notes", "value": dataset_dict['Internal notes']})
-                    if dataset_dict['Analyst that worked on the data'] is not np.nan:
+                    if dataset_dict['Analyst that worked on the data'] is not None:
                         meta_json.append({"type": "lead_analyst", "value": dataset_dict['Analyst that worked on the data']})
-                    if dataset_dict['Licence'] is not np.nan:
+                    if dataset_dict['Licence'] is not None:
                         meta_json.append({"type": "license", "value": dataset_dict['Licence']})
-                    if dataset_dict['Suggested citation'] is not np.nan:
+                    if dataset_dict['Suggested citation'] is not None:
                         meta_json.append({"type": "citation", "value": dataset_dict['Suggested citation']})
 
                     new_dataset = DatasetPage(
@@ -155,7 +157,7 @@ class Command(BaseCommand):
 
                     for source_key in source_keys:
                         key_val = dataset_dict[source_key]
-                        if key_val is not np.nan:
+                        if key_val is not None:
                             try:
                                 related_datasource = DataSource.objects.get(title=key_val)
                                 DataSetSource(
@@ -207,7 +209,7 @@ class Command(BaseCommand):
             else:
                 figure_dict = figure_row[1].to_dict()
                 figure_check = FigurePage.objects.filter(figure_id=figure_dict['Chart ID'])
-                if not figure_check:
+                if not figure_check and figure_dict['What is the descriptive title of the chart?'] is not None:
                     if type(figure_dict['Release date']) is not datetime:
                         try:
                             release_date = datetime.strptime(figure_dict['Release date'], "%d/%m/%Y")
@@ -217,19 +219,19 @@ class Command(BaseCommand):
                         release_date = figure_dict['Release date']
 
                     meta_json = []
-                    if figure_dict['What is a long description of the chart data?'] is not np.nan:
+                    if figure_dict['What is a long description of the chart data?'] is not None:
                         meta_json.append({"type": "description", "value": figure_dict['What is a long description of the chart data?']})
-                    if figure_dict['Geography information'] is not np.nan:
+                    if figure_dict['Geography information'] is not None:
                         meta_json.append({"type": "geography", "value": figure_dict['Geography information']})
-                    if figure_dict['Geography unit'] is not np.nan:
+                    if figure_dict['Geography unit'] is not None:
                         meta_json.append({"type": "geographic_coding", "value": figure_dict['Geography unit']})
-                    if figure_dict['Internal notes'] is not np.nan:
+                    if figure_dict['Internal notes'] is not None:
                         meta_json.append({"type": "internal_notes", "value": figure_dict['Internal notes']})
-                    if figure_dict['Analyst that worked on the chart'] is not np.nan:
+                    if figure_dict['Analyst that worked on the chart'] is not None:
                         meta_json.append({"type": "lead_analyst", "value": figure_dict['Analyst that worked on the chart']})
-                    if figure_dict['Licence'] is not np.nan:
+                    if figure_dict['Licence'] is not None:
                         meta_json.append({"type": "license", "value": figure_dict['Licence']})
-                    if figure_dict['Suggested citation'] is not np.nan:
+                    if figure_dict['Suggested citation'] is not None:
                         meta_json.append({"type": "citation", "value": figure_dict['Suggested citation']})
 
                     new_figure = FigurePage(
@@ -246,7 +248,7 @@ class Command(BaseCommand):
 
                     for source_key in figure_source_keys:
                         key_val = figure_dict[source_key]
-                        if key_val is not np.nan:
+                        if key_val is not None:
                             try:
                                 related_datasource = DataSource.objects.get(title=key_val)
                                 FigureSource(
@@ -258,7 +260,7 @@ class Command(BaseCommand):
 
                     for dataset_key in figure_dataset_keys:
                         key_val = figure_dict[dataset_key]
-                        if key_val is not np.nan:
+                        if key_val is not None:
                             try:
                                 related_dataset = DatasetPage.objects.get(title=key_val)
                                 FigureDataSet(

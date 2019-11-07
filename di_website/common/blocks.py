@@ -62,7 +62,7 @@ class DocumentBoxSectionBlock(StructBlock):
     document_boxes = StreamBlock([
         ('document_box', DocumentBoxBlock()),
     ], required=False)
-    alt = BooleanBlock(default=True, help_text="White background if checked")
+    alt = BooleanBlock(default=True, help_text="White background if checked", required=False)
 
 
     class Meta:
@@ -268,7 +268,7 @@ class ImageDuoTextBlock(ImageBlock):
         required=True
     )
     button = ButtonBlock()
-    alt = BooleanBlock(default=False, help_text="White background if checked.")
+    alt = BooleanBlock(default=False, help_text="White background if checked.", required=False)
 
     class Meta:
         template = 'blocks/duo_body_block_img.html'
@@ -290,7 +290,7 @@ class VideoDuoTextBlock(StructBlock):
         required=True
     )
     button = ButtonBlock()
-    alt = BooleanBlock(default=False, help_text="White background if checked.")
+    alt = BooleanBlock(default=False, help_text="White background if checked.", required=False)
 
     class Meta:
         template = 'blocks/duo_body_block_vid.html'

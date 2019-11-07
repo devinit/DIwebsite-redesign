@@ -101,7 +101,7 @@ class DataSectionPage(SectionBodyMixin, TypesetBodyMixin, HeroMixin, Page):
 
     quotes = StreamField(QuoteStreamBlock, verbose_name="Quotes", null=True, blank=True)
     dataset_info = models.TextField(
-        null=False, blank=False, default="", help_text='A description of the datasets')
+        null=True, blank=True, help_text='A description of the datasets')
     other_pages_heading = models.CharField(
         blank=True, max_length=255, verbose_name='Heading', default='More about')
 

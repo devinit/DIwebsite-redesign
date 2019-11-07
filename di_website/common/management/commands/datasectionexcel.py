@@ -39,12 +39,12 @@ class Command(BaseCommand):
                     if type(source_dict['Date of access']) is not datetime:
                         try:
                             date_of_access = datetime.strptime(source_dict['Date of access'], "%d/%m/%Y")
-                        except ValueError:
+                        except (ValueError, TypeError) as e:
                             date_of_access = None
                     else:
                         date_of_access = source_dict['Date of access']
 
-                    tag_list = [tag.strip() for tag in source_dict['Keyword search'].split(";")]
+                    tag_list = [tag.strip() for tag in source_dict['Keyword search'].split(",") if len(tag.strip()) < 100]
                     new_source = DataSource(
                         source_id=source_dict['Source ID'],
                         title=source_dict['Source title'],

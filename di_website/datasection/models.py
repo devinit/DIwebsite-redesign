@@ -51,24 +51,33 @@ class DataSourceTopic(TaggedItemBase):
 
 @register_snippet
 class DataSource(ClusterableModel):
-    title = models.CharField(max_length=255, unique=True)
+    source_id = models.CharField(max_length=255, unique=True)
+    title = models.TextField(unique=True)
     description = models.TextField(blank=True, null=True)
-    organisation = models.CharField(max_length=255, blank=True)
+    organisation = models.TextField(blank=True, null=True)
     link_to_metadata = models.URLField(blank=True)
-    geography = models.CharField(max_length=255, blank=True)
     link_to_data = models.URLField(blank=True)
+    geography = models.TextField(blank=True, null=True)
+    date_of_access = models.DateField(null=True, blank=True)
+    internal_notes = models.TextField(blank=True, null=True)
+    lead_analyst = models.TextField(blank=True, null=True)
+    license = models.TextField(max_length=255, blank=True)
     topics = ClusterTaggableManager(through=DataSourceTopic, blank=True, verbose_name="Topics")
     slug = models.SlugField(
         max_length=255, blank=True, null=True,
         help_text="Optional. Will be auto-generated from title if left blank.")
 
     panels = [
+        FieldPanel('source_id'),
         FieldPanel('title'),
         FieldPanel('description'),
         FieldPanel('organisation'),
         FieldPanel('link_to_metadata'),
         FieldPanel('link_to_data'),
         FieldPanel('geography'),
+        FieldPanel('date_of_access'),
+        FieldPanel('internal_notes'),
+        FieldPanel('lead_analyst'),
         FieldPanel('topics'),
         FieldPanel('slug'),
     ]

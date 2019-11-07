@@ -35,15 +35,15 @@ class DataSetMixin(models.Model):
     meta_data = StreamField(
         [
             ('description', TextBlock(required=True)),
-            ('provenance', TextBlock()),
-            ('variables', TextBlock()),
-            ('geography', TextBlock()),
-            ('geograpic_coding', TextBlock()),
-            ('unit', TextBlock()),
-            ('internal_notes', TextBlock()),
-            ('lead_analyst', TextBlock()),
-            ('licence', TextBlock()),
-            ('citation', TextBlock())
+            ('provenance', TextBlock(required=False)),
+            ('variables', TextBlock(required=False)),
+            ('geography', TextBlock(required=False)),
+            ('geograpic_coding', TextBlock(required=False)),
+            ('unit', TextBlock(required=False)),
+            ('internal_notes', TextBlock(required=False)),
+            ('lead_analyst', TextBlock(required=False)),
+            ('licence', TextBlock(required=False)),
+            ('citation', TextBlock(required=False))
         ],
         verbose_name='Content',
         help_text='A description is expected, but only one of each shall be shown'

@@ -25,10 +25,6 @@ class Command(BaseCommand):
         # Data sources
         skip = True
         for source_row in source.iterrows():
-            """
-            (Pdb) source_dict.keys()
-            dict_keys(['Source ID', 'Source title', 'Organisation ', 'Long description of the data source', 'Date of access', 'Link to the source', 'Geography information', 'Keyword search', 'Internal notes', 'Analyst that worked on the data', 'Licence', 'Check', 'Signed-off and ready?'])
-            """
             if skip:
                 skip = False
             else:
@@ -61,6 +57,10 @@ class Command(BaseCommand):
                     new_source.save()
 
         # Datasets
+        """
+        (Pdb) dataset_dict.keys()
+        dict_keys(['Dataset ID', 'What is the title of the data set?', 'What DI publication is this dataset associated with?', 'What is a long description of the data set?', 'Release date?', 'Geography information', 'Geographic coding', 'Unit', 'Keyword search', 'Internal notes', 'Analyst that worked on the data', 'Licence', 'Suggested citation', 'Source 1', 'Source 2 (optional)', 'Source 3 (optional)', 'Source 4 (optional)', 'Source 5 (optional)', 'Source 6 (optional)', 'Source 7 (optional)', 'Source 8 (optional)', 'Source 9 (optional)', 'Done', 'File location Excel', 'File name Excel', 'File location csv', 'File name csv', 'File notes', 'Signed-off and ready?'])
+        """
         skip = True
         for dataset_row in dataset.iterrows():
             if skip:

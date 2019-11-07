@@ -250,7 +250,7 @@ class FigurePage(DataSetMixin, TypesetBodyMixin, HeroMixin, Page):
         verbose_name = 'Figure Page'
 
     name = models.TextField(
-        blank=True, verbose_name='Name',
+        blank=True, null=True, verbose_name='Name',
         help_text='The name of this figure in the publication e.g Figure 1.1')
     figure_id = models.CharField(max_length=255, unique=True, blank=True, null=True)
     figure_title = models.TextField(
@@ -259,7 +259,7 @@ class FigurePage(DataSetMixin, TypesetBodyMixin, HeroMixin, Page):
         help_text='Descriptive title of the chart'
     )
     publication_name = models.TextField(
-        blank=True, verbose_name='Name',
+        blank=True, null=True verbose_name='Name',
         help_text='Imported publication name')
     publication = models.ForeignKey(
         'wagtailcore.Page',
@@ -270,8 +270,8 @@ class FigurePage(DataSetMixin, TypesetBodyMixin, HeroMixin, Page):
         help_text="The publication in which this figure appears"
     )
     related_figures_title = models.CharField(
-        blank=True, max_length=255, default='Related figures', verbose_name='Section Title')
-    topics = ClusterTaggableManager(through=FigureTopic, blank=True, verbose_name="Topics")
+        blank=True, null=True, max_length=255, default='Related figures', verbose_name='Section Title')
+    topics = ClusterTaggableManager(through=FigureTopic, blank=True, null=True, verbose_name="Topics")
 
     content_panels = Page.content_panels + [
         hero_panels(),

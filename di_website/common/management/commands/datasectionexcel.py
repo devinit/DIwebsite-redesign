@@ -90,7 +90,7 @@ class Command(BaseCommand):
                         geography=source_dict['Geography information'],
                         internal_notes=source_dict['Internal notes'],
                         lead_analyst=source_dict['Analyst that worked on the data'],
-                        license=source_dict['Licence']
+                        licence=source_dict['Licence']
                     )
                     new_source.topics.add(*tag_list)
                     new_source.save()
@@ -141,7 +141,7 @@ class Command(BaseCommand):
                     if dataset_dict['Analyst that worked on the data'] is not None:
                         meta_json.append({"type": "lead_analyst", "value": dataset_dict['Analyst that worked on the data']})
                     if dataset_dict['Licence'] is not None:
-                        meta_json.append({"type": "license", "value": dataset_dict['Licence']})
+                        meta_json.append({"type": "licence", "value": dataset_dict['Licence']})
                     if dataset_dict['Suggested citation'] is not None:
                         meta_json.append({"type": "citation", "value": dataset_dict['Suggested citation']})
 
@@ -230,7 +230,7 @@ class Command(BaseCommand):
                     if figure_dict['Analyst that worked on the chart'] is not None:
                         meta_json.append({"type": "lead_analyst", "value": figure_dict['Analyst that worked on the chart']})
                     if figure_dict['Licence'] is not None:
-                        meta_json.append({"type": "license", "value": figure_dict['Licence']})
+                        meta_json.append({"type": "licence", "value": figure_dict['Licence']})
                     if figure_dict['Suggested citation'] is not None:
                         meta_json.append({"type": "citation", "value": figure_dict['Suggested citation']})
 

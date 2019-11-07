@@ -1,12 +1,13 @@
 """Management command that loads datasets."""
 
+import pandas as pd
+import numpy as np
+from datetime import datetime
 
 from django.core.management.base import BaseCommand
 
-import pandas as pd
-import numpy as np
-
 from di_website.datasection.models import DataSource
+
 
 class Command(BaseCommand):
     """Management command that that loads metadata from excel and creates new pages for datasection."""
@@ -23,20 +24,39 @@ class Command(BaseCommand):
 
         skip = True
         for source_row in source.iterrows():
+            """
+            (Pdb) source_dict.keys()
+            dict_keys(['Source ID', 'Source title', 'Organisation ', 'Long description of the data source', 'Date of access', 'Link to the source', 'Geography information', 'Keyword search', 'Internal notes', 'Analyst that worked on the data', 'Licence', 'Check', 'Signed-off and ready?'])
+            """
             if skip:
                 skip = False
             else:
                 source_dict = source_row[1].to_dict()
                 source_check = DataSource.objects.filter(title=source_dict['Source title'])
                 if not source_check:
+
+                    if type(source_dict['Date of access']) is not datetime:
+                        try:
+                            date_of_access = datetime.strptime(source_dict['Date of access'], "%d/%m/%Y")
+                        except ValueError:
+                            date_of_access = None
+                    else:
+                        date_of_access = source_dict['Date of access']
+
+                    tag_list = [tag.strip() for tag in source_dict['Keyword search'].split(";")]
                     new_source = DataSource(
+                        source_id=source_dict['Source ID'],
                         title=source_dict['Source title'],
-                        description=source_dict['Long description of the data source'],
                         organisation=source_dict['Organisation '],
-                        link_to_metadata=source_dict['Link to the source'],
+                        description=source_dict['Long description of the data source'],
+                        date_of_access=date_of_access,
+                        link_to_data=source_dict['Link to the source'],
                         geography=source_dict['Geography information'],
-                        link_to_data=source_dict['Link to the source']
+                        internal_notes=source_dict['Internal notes'],
+                        lead_analyst=source_dict['Analyst that worked on the data'],
+                        license=source_dict['Licence']
                     )
+                    new_source.topics.add(*tag_list)
                     new_source.save()
 
         skip = True

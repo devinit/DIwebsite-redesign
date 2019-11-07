@@ -6,7 +6,11 @@ from datetime import datetime
 
 from django.core.management.base import BaseCommand
 
-from di_website.datasection.models import DataSource
+from di_website.datasection.models import (
+    DataSource,
+    DatasetDownloads,
+    FigurePageDownloads
+)
 
 
 class Command(BaseCommand):

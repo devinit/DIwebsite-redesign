@@ -118,7 +118,7 @@ class Command(BaseCommand):
                         try:
                             release_date = datetime.strptime(dataset_dict['Release date?'], "%d/%m/%Y")
                         except (ValueError, TypeError) as e:
-                            release_date = None
+                            release_date = datetime.now()
                     else:
                         release_date = dataset_dict['Release date?']
 

@@ -160,12 +160,16 @@ class DatasetPage(DataSetMixin, TypesetBodyMixin, HeroMixin, Page):
     class Meta():
         verbose_name = 'Data Set Page'
 
+    dataset_id = models.CharField(max_length=255, unique=True, blank=True, null=True)
+    dataset_title = models.TextField(unique=True, blank=True, null=True)
     related_datasets_title = models.CharField(
         blank=True, max_length=255, default='Related datasets', verbose_name='Section Title')
     topics = ClusterTaggableManager(through=DataSetTopic, blank=True, verbose_name="Topics")
 
     content_panels = Page.content_panels + [
         hero_panels(),
+        FieldPanel('dataset_id'),
+        FieldPanel('dataset_title'),
         FieldPanel('release_date'),
         StreamFieldPanel('body'),
         StreamFieldPanel('authors'),
@@ -245,9 +249,18 @@ class FigurePage(DataSetMixin, TypesetBodyMixin, HeroMixin, Page):
     class Meta():
         verbose_name = 'Figure Page'
 
-    name = models.CharField(
-        blank=True, max_length=255, verbose_name='Name',
+    name = models.TextField(
+        blank=True, verbose_name='Name',
         help_text='The name of this figure in the publication e.g Figure 1.1')
+    figure_id = models.CharField(max_length=255, unique=True, blank=True, null=True)
+    figure_title = models.TextField(
+        blank=True,
+        null=True,
+        help_text='Descriptive title of the chart'
+    )
+    publication_name = models.TextField(
+        blank=True, verbose_name='Name',
+        help_text='Imported publication name')
     publication = models.ForeignKey(
         'wagtailcore.Page',
         null=True,
@@ -263,6 +276,9 @@ class FigurePage(DataSetMixin, TypesetBodyMixin, HeroMixin, Page):
     content_panels = Page.content_panels + [
         hero_panels(),
         FieldPanel('name'),
+        FieldPanel('figure_id'),
+        FieldPanel('figure_title'),
+        FieldPanel('publication_name'),
         FieldPanel('release_date'),
         PageChooserPanel('publication', [
             'publications.PublicationPage',

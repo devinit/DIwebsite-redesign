@@ -84,12 +84,12 @@ class ExpertiseBlock(StructBlock):
         template = 'blocks/expertise.html'
 
 
-class MapBlock(StructBlock):
+class WhereWeWorkLocationBlock(StructBlock):
     """
-    Allows the addition of a single benefit
+    Allows the addition of a single where we work location
     """
-    location = TextBlock()
-    address = TextBlock()
+    name = TextBlock()
+    phone = TextBlock(required=False)
     map = GeoBlock()
 
     class Meta():
@@ -100,6 +100,5 @@ class MapStreamBlock(StreamBlock):
     """
     Handles creation of where we work locations
     """
-    add_location = MapBlock()
-
+    location = WhereWeWorkLocationBlock(label="Add Location")
     required = False

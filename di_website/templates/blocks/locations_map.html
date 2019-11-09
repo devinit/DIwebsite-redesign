@@ -13,8 +13,8 @@
             {% if location.value.map.lat is not None %}
               <div class="media-map__location__point"
                 data-latlng="{{ location.value.map.lat }}, {{ location.value.map.lng }}"
-                data-title="{{ location.value.location }}"
-                data-tel="" data-email="" data-web=""></div>
+                data-title="{{ location.value.name }}"
+                data-tel="{{ location.value.phone }}" data-email="" data-web=""></div>
             {% endif %}
           {% endfor %}
         </div>

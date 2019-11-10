@@ -10,9 +10,9 @@
       <div class="media-map media-map--minor">
         <div id="map" class="media-map__location" data-latlng="25.453669,-55.585922">
           {% for location in page.locations_where_we_work %}
-            {% if location.value.map.lat is not None %}
+            {% if location.value.google_map.lat is not None %}
               <div class="media-map__location__point"
-                data-latlng="{{ location.value.map.lat }}, {{ location.value.map.lng }}"
+                data-latlng="{{ location.value.google_map.lat }}, {{ location.value.google_map.lng }}"
                 data-title="{{ location.value.name }}"
                 data-tel="{{ location.value.phone }}" data-email="" data-web=""></div>
             {% endif %}

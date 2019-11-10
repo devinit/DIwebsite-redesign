@@ -90,7 +90,7 @@ class WhereWeWorkLocationBlock(StructBlock):
     """
     name = TextBlock()
     phone = TextBlock(required=False)
-    map = GeoBlock()
+    google_map = GeoBlock()
 
     class Meta():
         icon = 'fa-map'
@@ -101,4 +101,3 @@ class MapStreamBlock(StreamBlock):
     Handles creation of where we work locations
     """
     location = WhereWeWorkLocationBlock(label='Add Location')
-    required = False

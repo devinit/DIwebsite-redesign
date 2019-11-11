@@ -187,7 +187,7 @@ class Command(BaseCommand):
                                 pass
 
                     if dataset_dict["File name Excel"] is not None:
-                        items = client.search().query(query=dataset_dict["File name Excel"], file_extensions=['xlsx'])
+                        items = client.search().query(query=dataset_dict["File name Excel"], limit=1, file_extensions=['xlsx'])
                         for item in items:
                             f = BytesIO()
                             client.file(item.id).download_to(f)
@@ -202,7 +202,7 @@ class Command(BaseCommand):
                             download.save()
 
                     if dataset_dict["File name csv"] is not None:
-                        items = client.search().query(query=dataset_dict["File name csv"], file_extensions=['csv'])
+                        items = client.search().query(query=dataset_dict["File name csv"], limit=1, file_extensions=['csv'])
                         for item in items:
                             f = BytesIO()
                             client.file(item.id).download_to(f)
@@ -319,7 +319,7 @@ class Command(BaseCommand):
                                 pass
 
                     if figure_dict["File name"] is not None:
-                        items = client.search().query(query=figure_dict["File name"], file_extensions=['xlsx', 'csv'])
+                        items = client.search().query(query=figure_dict["File name"], limit=1, file_extensions=['xlsx', 'csv'])
                         for item in items:
                             f = BytesIO()
                             client.file(item.id).download_to(f)

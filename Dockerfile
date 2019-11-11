@@ -26,7 +26,7 @@ RUN apk add --no-cache postgresql-dev
 RUN apk add --no-cache libmemcached-dev zlib-dev
 
 # Required for python cryptography
-RUN apk add --no-cache build-essential libssl-dev libffi-dev python-dev
+RUN apk add --no-cache libressl-dev libffi-dev python-dev
 
 # Set environment varibles
 ENV PYTHONUNBUFFERED 1

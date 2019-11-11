@@ -15,13 +15,14 @@ from wagtail.admin.edit_handlers import (
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
+from wagtail.core.models import Orderable, Page
 
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
 
 from di_website.common.mixins import HeroMixin, TypesetBodyMixin, OtherPageMixin
 from di_website.common.base import hero_panels, get_related_pages
-from .blocks import ExpertiseBlock, FocusAreasBlock, LocationsMapBlock
+from .blocks import ExpertiseBlock, FocusAreasBlock, LocationsMapBlock, MapStreamBlock
 from di_website.common.blocks import (
     BannerBlock, SectionStreamBlock, TestimonialBlock, VideoDuoTextBlock, ImageDuoTextBlock)
 from di_website.common.constants import MAX_OTHER_PAGES, RICHTEXT_FEATURES
@@ -50,16 +51,23 @@ class WhatWeDoPage(TypesetBodyMixin, HeroMixin, Page):
         verbose_name='Heading',
         default='More about'
     )
+    locations_where_we_work = StreamField(
+        MapStreamBlock,
+        verbose_name="Add Where We Work Locations",
+        null=True,
+        blank=True
+    )
 
     content_panels = Page.content_panels + [
         hero_panels(),
         StreamFieldPanel('body'),
         StreamFieldPanel('sections'),
+        StreamFieldPanel('locations_where_we_work'),
         MultiFieldPanel([
             FieldPanel('other_pages_heading'),
             InlinePanel('other_pages', label='Related pages', max_num=MAX_OTHER_PAGES)
         ], heading='Other Pages/Related Links'),
-        InlinePanel('page_notifications', label='Notifications')
+        InlinePanel('page_notifications', label='Notifications'),
     ]
 
     subpage_types = [

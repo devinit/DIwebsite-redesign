@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     'wagtail.admin',
     'wagtail.core',
     'wagtaillinkchecker',
+    'wagtailgeowidget',
 
     'modelcluster',
     'taggit',
@@ -266,3 +267,5 @@ HS_TICKET_PIPELINE = config('HS_TICKET_PIPELINE', '891429')
 HS_TICKET_PIPELINE_STAGE = config('HS_TICKET_PIPELINE_STAGE', '891430')
 EMAIL_BACKEND = os.getenv(
     'EMAIL_BACKEND') or 'django.core.mail.backends.console.EmailBackend'
+
+GOOGLE_MAPS_V3_APIKEY = "AIzaSyAZAIjZtkBlsF0ZqvrlkvyLfVn6Bju6bJ4"

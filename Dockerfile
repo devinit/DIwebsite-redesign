@@ -20,10 +20,13 @@ RUN apk add --no-cache python3 && \
  if [ ! -e /usr/bin/pip ]; then ln -s pip3 /usr/bin/pip ; fi && \
  if [[ ! -e /usr/bin/python ]]; then ln -sf /usr/bin/python3 /usr/bin/python; fi
 
-#Require to compile pygcog2
+# Require to compile psycopg2
 RUN apk add --no-cache jpeg-dev zlib-dev
 RUN apk add --no-cache postgresql-dev
 RUN apk add --no-cache libmemcached-dev zlib-dev
+
+# Required for python cryptography
+RUN apk add --no-cache build-essential libssl-dev libffi-dev python-dev
 
 # Set environment varibles
 ENV PYTHONUNBUFFERED 1
@@ -32,10 +35,6 @@ ENV DJANGO_ENV dev
 WORKDIR /code/
 
 COPY ./requirements.txt /code/
-
-RUN apt-get update
-RUN apt-get -y install build-essential libssl-dev libffi-dev python-dev
-
 
 RUN apk add --no-cache --virtual .build-deps build-base linux-headers \
     && pip install pip --upgrade \

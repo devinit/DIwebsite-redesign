@@ -1,10 +1,18 @@
 """Management command that loads datasets."""
 
+import os
+from io import BytesIO
 import pandas as pd
 from datetime import datetime
 import json
 
+from boxsdk import JWTAuth, Client
+
 from django.core.management.base import BaseCommand
+from django.core.files import File
+from django.conf import settings
+
+from wagtail.documents.models import Document
 
 from di_website.home.models import HomePage
 from di_website.datasection.models import (
@@ -27,6 +35,10 @@ class Command(BaseCommand):
     help = 'Import approved metadata from .xlsx file https://docs.google.com/spreadsheets/d/1pDbdncnm1TF41kJJX2WjZ2Wq9juOvUqU/edit#gid=1029209261'
 
     def handle(self, *args, **options):
+
+        # Box Auth
+        config = JWTAuth.from_settings_file(os.path.join(settings.BASE_DIR, 'box_config.json'))
+        client = Client(config)
 
         # Create IA if not already present
         dataset_listing = DataSetListing.objects.live().first()
@@ -174,7 +186,35 @@ class Command(BaseCommand):
                             except DataSource.DoesNotExist:
                                 pass
 
-                    # TODO: Take XLSX and CSV links, format as box, download them, create BaseDownload items, attach to page model
+                    if dataset_dict["File name Excel"] is not None:
+                        items = client.search().query(query=dataset_dict["File name Excel"], file_extensions=['xlsx'])
+                        for item in items:
+                            f = BytesIO()
+                            client.file(item.id).download_to(f)
+                            doc = Document(title=item.name)
+                            doc.file.save(item.name, File(f), save=True)
+                            doc.save()
+                            download = DatasetDownloads(
+                                page=new_dataset,
+                                title=item.name,
+                                file=doc
+                            )
+                            download.save()
+
+                    if dataset_dict["File name csv"] is not None:
+                        items = client.search().query(query=dataset_dict["File name csv"], file_extensions=['csv'])
+                        for item in items:
+                            f = BytesIO()
+                            client.file(item.id).download_to(f)
+                            doc = Document(title=item.name)
+                            doc.file.save(item.name, File(f), save=True)
+                            doc.save()
+                            download = DatasetDownloads(
+                                page=new_dataset,
+                                title=item.name,
+                                file=doc
+                            )
+                            download.save()
 
         # Figures
         """
@@ -278,7 +318,20 @@ class Command(BaseCommand):
                             except DatasetPage.DoesNotExist:
                                 pass
 
-                    # TODO: Take XLSX and CSV links, format as box, download them, create BaseDownload items, attach to page model
+                    if figure_dict["File name"] is not None:
+                        items = client.search().query(query=figure_dict["File name"], file_extensions=['xlsx', 'csv'])
+                        for item in items:
+                            f = BytesIO()
+                            client.file(item.id).download_to(f)
+                            doc = Document(title=item.name)
+                            doc.file.save(item.name, File(f), save=True)
+                            doc.save()
+                            download = FigurePageDownloads(
+                                page=new_figure,
+                                title=item.name,
+                                file=doc
+                            )
+                            download.save()
 
 
         self.stdout.write(self.style.SUCCESS('Called successfully'))

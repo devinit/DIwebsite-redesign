@@ -33,6 +33,10 @@ WORKDIR /code/
 
 COPY ./requirements.txt /code/
 
+RUN apt-get update
+RUN apt-get -y install build-essential libssl-dev libffi-dev python-dev
+
+
 RUN apk add --no-cache --virtual .build-deps build-base linux-headers \
     && pip install pip --upgrade \
     && pip install -r /code/requirements.txt \

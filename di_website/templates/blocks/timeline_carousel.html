@@ -1,13 +1,13 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 <section class="section">
     <div class="row row--narrow">
-        <h2 class="section__heading">DI has achieved much over the past 20 years.</h2>
+        <h2 class="section__heading">{{ self.section_heading }}</h2>
         <div class="is-typeset">
-            <p>Here is our story so far...</p>
+            <p>{{ self.section_subheading }}</p>
         </div>
         <div class="carousel">
             <div class="slider timeline" id="timeline-control">
-                {% for item in self %}
+                {% for item in self.items %}
                   <div class="timeline__item">
                     <span>
                       <span class="timeline__item__month">{{ item.value.month }}</span><span class="timeline__item__year">{{ item.value.year }}</span>
@@ -17,7 +17,7 @@
 
             </div>
             <div class="slider highlight" id="timeline-slide">
-                {% for item in self %}
+                {% for item in self.items %}
                     <div class="l-highlight" id="{{ item.value.month }}{{ item.value.year }}">
                         <div class="l-highlight__main">
                             <span class="highlight__flag">{{ item.value.month }} {{ item.value.year }}</span>

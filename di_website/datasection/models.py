@@ -171,6 +171,7 @@ class DatasetPage(DataSetMixin, TypesetBodyMixin, HeroMixin, Page):
         FieldPanel('dataset_id'),
         FieldPanel('dataset_title'),
         FieldPanel('release_date'),
+        InlinePanel('page_countries', label="Countries"),
         StreamFieldPanel('body'),
         StreamFieldPanel('authors'),
         InlinePanel('dataset_downloads', label='Downloads', max_num=None),
@@ -280,6 +281,7 @@ class FigurePage(DataSetMixin, TypesetBodyMixin, HeroMixin, Page):
         FieldPanel('figure_title'),
         FieldPanel('publication_name'),
         FieldPanel('release_date'),
+        InlinePanel('page_countries', label="Countries"),
         PageChooserPanel('publication', [
             'publications.PublicationPage',
             'publications.ShortPublicationPage',

@@ -46,7 +46,7 @@ class Command(BaseCommand):
                     sub_folder_items = client.folder(folder_id=item.id).get_items()
                     box_items = recurse_items(sub_folder_items, box_items)
                 else:
-                    box_items[item.name] = item.id
+                    box_items[item.name.lower()] = item.id
             return box_items
 
         box_items = {}
@@ -200,7 +200,7 @@ class Command(BaseCommand):
                                 pass
 
                     if dataset_dict["File name Excel"] is not None:
-                        item_name = dataset_dict["File name Excel"] + ".xlsx"
+                        item_name = dataset_dict["File name Excel"].lower() + ".xlsx"
                         try:
                             item_id = box_items[item_name]
                             f = BytesIO()
@@ -218,7 +218,7 @@ class Command(BaseCommand):
                             self.stdout.write(self.style.WARNING(item_name + " not found."))
 
                     if dataset_dict["File name csv"] is not None:
-                        item_name = dataset_dict["File name csv"] + ".csv"
+                        item_name = dataset_dict["File name csv"].lower() + ".csv"
                         try:
                             item_id = box_items[item_name]
                             f = BytesIO()
@@ -338,7 +338,7 @@ class Command(BaseCommand):
                                 pass
 
                     if figure_dict["File name"] is not None:
-                        item_name = figure_dict["File name"] + ".csv"
+                        item_name = figure_dict["File name"].lower() + ".csv"
                         try:
                             item_id = box_items[item_name]
                             f = BytesIO()
@@ -353,9 +353,9 @@ class Command(BaseCommand):
                             )
                             download.save()
                         except KeyError:
-                            self.stdout.write(self.style.WARNING(item_name + " not found."))
+                            pass
 
-                        item_name = figure_dict["File name"] + ".xlsx"
+                        item_name = figure_dict["File name"].lower() + ".xlsx"
                         try:
                             item_id = box_items[item_name]
                             f = BytesIO()

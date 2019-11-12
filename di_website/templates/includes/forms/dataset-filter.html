@@ -46,8 +46,8 @@
                 <option value="">Global</option>
                 {% regroup countries by region as country_groups %}
                 {% for country_group in country_groups %}
-                  <optgroup label="{{country_group.grouper}}">
-                    <option value="all--{{country_group.grouper}}">All in {{country_group.grouper}}</option>
+                  <optgroup label="{{ country_group.grouper }}">
+                    <option value="{{ "all--"|add:country_group.grouper.name }}" id="{{ "all--"|add:country_group.grouper.name }}" {% if "all--"|add:country_group.grouper.name == selected_country %}selected{% endif %}>All in {{country_group.grouper}}</option>
                     {% for country in country_group.list %}
                       <option value="{{country.slug}}" id="{{country.slug}}" {% if country.slug == selected_country %}selected{% endif %}>
                         {{country}}

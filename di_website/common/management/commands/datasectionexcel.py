@@ -205,12 +205,12 @@ class Command(BaseCommand):
                             item_id = box_items[item_name]
                             f = BytesIO()
                             client.file(item_id).download_to(f)
-                            doc = Document(title=item_name)
+                            doc = Document(title=dataset_dict["File name Excel"])
                             doc.file.save(item_name, File(f), save=True)
                             doc.save()
                             download = DatasetDownloads(
                                 page=new_dataset,
-                                title=item_name,
+                                title=dataset_dict["File name Excel"],
                                 file=doc
                             )
                             download.save()
@@ -223,12 +223,12 @@ class Command(BaseCommand):
                             item_id = box_items[item_name]
                             f = BytesIO()
                             client.file(item_id).download_to(f)
-                            doc = Document(title=item_name)
+                            doc = Document(title=dataset_dict["File name csv"])
                             doc.file.save(item_name, File(f), save=True)
                             doc.save()
                             download = DatasetDownloads(
                                 page=new_dataset,
-                                title=item_name,
+                                title=dataset_dict["File name csv"],
                                 file=doc
                             )
                             download.save()
@@ -343,12 +343,12 @@ class Command(BaseCommand):
                             item_id = box_items[item_name]
                             f = BytesIO()
                             client.file(item_id).download_to(f)
-                            doc = Document(title=item_name)
+                            doc = Document(title=figure_dict["File name"])
                             doc.file.save(item_name, File(f), save=True)
                             doc.save()
                             download = FigurePageDownloads(
                                 page=new_figure,
-                                title=item_name,
+                                title=figure_dict["File name"],
                                 file=doc
                             )
                             download.save()
@@ -360,12 +360,12 @@ class Command(BaseCommand):
                             item_id = box_items[item_name]
                             f = BytesIO()
                             client.file(item_id).download_to(f)
-                            doc = Document(title=item_name)
+                            doc = Document(title=figure_dict["File name"])
                             doc.file.save(item_name, File(f), save=True)
                             doc.save()
                             download = FigurePageDownloads(
                                 page=new_figure,
-                                title=item_name,
+                                title=figure_dict["File name"],
                                 file=doc
                             )
                             download.save()

@@ -25,8 +25,10 @@ class TimelineItemBlock(StructBlock):
     documents = DocumentBoxBlock(required=False)
 
 
-class TimelineCarouselStreamBlock(StreamBlock):
-    item = TimelineItemBlock()
+class TimelineCarouselBlock(StructBlock):
+    section_heading = CharBlock(required=False)
+    section_subheading = CharBlock(required=False)
+    items = StreamBlock([('item', TimelineItemBlock())])
     required = False
 
     class Meta():
@@ -35,7 +37,7 @@ class TimelineCarouselStreamBlock(StreamBlock):
 
 class OurStoryPage(SectionBodyMixin, TypesetBodyMixin, HeroMixin, Page):
 
-    timeline_items = StreamField(TimelineCarouselStreamBlock)
+    timeline_items = StreamField([('timeline', TimelineCarouselBlock())])
     other_pages_heading = models.CharField(
         blank=True,
         max_length=255,

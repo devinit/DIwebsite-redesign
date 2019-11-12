@@ -551,6 +551,11 @@ a.m-stat {
     @include respond-to($c-vp) {
         @include font-size($eta*1.25);
     }
+    sup {
+        vertical-align: super;
+        font-size: 80%;
+        margin-left: 1px;
+    }
 }
 
 .footnotes__link {

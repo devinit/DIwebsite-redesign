@@ -98,7 +98,7 @@
 .is-typeset {
 	blockquote {
 		@extend .as-blockquote;
-		margin: 6em 0 5em 0;
+		margin: 9em 0 5em 0;
 		@include respond-to($d-vp) {
 			max-width: 80%;
 			margin-left: auto;

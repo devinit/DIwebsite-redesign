@@ -7,7 +7,9 @@
       <div id="responsive-tabs" class="responsive-tabs">
         <ul class="tab__menu">
           <li class="tab__link"><a href="#description">Description</a></li>
-          <li class="tab__link"><a href="#sources">Sources</a></li>
+          {% if page.get_dataset_sources or page.get_figure_sources %}
+            <li class="tab__link"><a href="#sources">Sources</a></li>
+          {% endif %}
           <li class="tab__link"><a href="#legal">Legal & Suggested Citation</a></li>
         </ul>
         <div class="tab__container">
@@ -57,6 +59,7 @@
               {% endif %}
             </div>
           </section>
+          {% if page.get_dataset_sources or page.get_figure_sources %}
           <section id="sources" class="tab__content">
             <div class="l-3up">
               {% for source in page.get_dataset_sources %}
@@ -76,8 +79,26 @@
                   {% endif %}
                 </div>
               {% endfor %}
+              {% for source in page.get_figure_sources %}
+                <div class="m-slip m-slip--alt m-slip--icon">
+                  <i role="presentation" aria-hidden="true" class="ico ico--24 ico-data-slate"></i>
+                  <p class="m-slip__copy">
+                    {% if source.source.link_to_metadata %}
+                      <a href="{{source.source.link_to_metadata}}">{{source.source.title}}</a>
+                    {% else %}
+                      {{source.source.title}}
+                    {% endif %}
+                  </p>
+                  {% if source.source.link_to_data %}
+                    <a href="{{source.source.link_to_data}}" class="button button--reverses">
+                      View source dataset
+                    </a>
+                  {% endif %}
+                </div>
+              {% endfor %}
             </div>
           </section>
+          {% endif %}
           <section id="legal" class="tab__content">
             <div class="is-typeset max-meter">
               {% for block in page.meta_data %}

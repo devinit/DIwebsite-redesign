@@ -7,6 +7,7 @@ from datetime import datetime
 import json
 
 from boxsdk import JWTAuth, Client
+from boxsdk.object.folder import Folder
 
 from django.core.management.base import BaseCommand
 from django.core.files import File
@@ -39,6 +40,18 @@ class Command(BaseCommand):
         # Box Auth
         config = JWTAuth.from_settings_file(os.path.join(settings.BASE_DIR, 'box_config.json'))
         client = Client(config)
+        def recurse_items(folder_items, box_items):
+            for item in folder_items:
+                if type(item) is Folder:
+                    sub_folder_items = client.folder(folder_id=item.id).get_items()
+                    box_items = recurse_items(sub_folder_items, box_items)
+                else:
+                    box_items[item.name] = item.id
+            return box_items
+
+        box_items = {}
+        folder_items = client.folder(folder_id="93089112686").get_items()
+        box_items = recurse_items(folder_items, box_items)
 
         # Create IA if not already present
         dataset_listing = DataSetListing.objects.live().first()
@@ -187,34 +200,40 @@ class Command(BaseCommand):
                                 pass
 
                     if dataset_dict["File name Excel"] is not None:
-                        items = client.search().query(query=dataset_dict["File name Excel"], limit=1, file_extensions=['xlsx'])
-                        for item in items:
+                        item_name = dataset_dict["File name Excel"] + ".xlsx"
+                        try:
+                            item_id = box_items[item_name]
                             f = BytesIO()
-                            client.file(item.id).download_to(f)
-                            doc = Document(title=item.name)
-                            doc.file.save(item.name, File(f), save=True)
+                            client.file(item_id).download_to(f)
+                            doc = Document(title=item_name)
+                            doc.file.save(item_name, File(f), save=True)
                             doc.save()
                             download = DatasetDownloads(
                                 page=new_dataset,
-                                title=item.name,
+                                title=item_name,
                                 file=doc
                             )
                             download.save()
+                        except KeyError:
+                            self.stdout.write(self.style.WARNING(item_name + " not found."))
 
                     if dataset_dict["File name csv"] is not None:
-                        items = client.search().query(query=dataset_dict["File name csv"], limit=1, file_extensions=['csv'])
-                        for item in items:
+                        item_name = dataset_dict["File name csv"] + ".csv"
+                        try:
+                            item_id = box_items[item_name]
                             f = BytesIO()
-                            client.file(item.id).download_to(f)
-                            doc = Document(title=item.name)
-                            doc.file.save(item.name, File(f), save=True)
+                            client.file(item_id).download_to(f)
+                            doc = Document(title=item_name)
+                            doc.file.save(item_name, File(f), save=True)
                             doc.save()
                             download = DatasetDownloads(
                                 page=new_dataset,
-                                title=item.name,
+                                title=item_name,
                                 file=doc
                             )
                             download.save()
+                        except KeyError:
+                            self.stdout.write(self.style.WARNING(item_name + " not found."))
 
         # Figures
         """
@@ -319,19 +338,39 @@ class Command(BaseCommand):
                                 pass
 
                     if figure_dict["File name"] is not None:
-                        items = client.search().query(query=figure_dict["File name"], limit=1, file_extensions=['xlsx', 'csv'])
-                        for item in items:
+                        item_name = figure_dict["File name"] + ".csv"
+                        try:
+                            item_id = box_items[item_name]
                             f = BytesIO()
-                            client.file(item.id).download_to(f)
-                            doc = Document(title=item.name)
-                            doc.file.save(item.name, File(f), save=True)
+                            client.file(item_id).download_to(f)
+                            doc = Document(title=item_name)
+                            doc.file.save(item_name, File(f), save=True)
                             doc.save()
                             download = FigurePageDownloads(
                                 page=new_figure,
-                                title=item.name,
+                                title=item_name,
                                 file=doc
                             )
                             download.save()
+                        except KeyError:
+                            self.stdout.write(self.style.WARNING(item_name + " not found."))
+
+                        item_name = figure_dict["File name"] + ".xlsx"
+                        try:
+                            item_id = box_items[item_name]
+                            f = BytesIO()
+                            client.file(item_id).download_to(f)
+                            doc = Document(title=item_name)
+                            doc.file.save(item_name, File(f), save=True)
+                            doc.save()
+                            download = FigurePageDownloads(
+                                page=new_figure,
+                                title=item_name,
+                                file=doc
+                            )
+                            download.save()
+                        except KeyError:
+                            self.stdout.write(self.style.WARNING(item_name + " not found."))
 
 
         self.stdout.write(self.style.SUCCESS('Called successfully'))

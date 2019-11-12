@@ -101,10 +101,10 @@ class Command(BaseCommand):
                     else:
                         date_of_access = source_dict['Date of access']
 
-                    try:
-                        tag_list = [tag.strip() for tag in source_dict['Keyword search'].split(",") if len(tag.strip()) < 100 and len(tag.strip()) > 0]
-                    except AttributeError:
-                        tag_list = []
+                    # try:
+                    #     tag_list = [tag.strip() for tag in source_dict['Keyword search'].split(",") if len(tag.strip()) < 100 and len(tag.strip()) > 0]
+                    # except AttributeError:
+                    #     tag_list = []
                     new_source = DataSource(
                         source_id=source_dict['Source ID'],
                         title=source_dict['Source title'],
@@ -117,7 +117,7 @@ class Command(BaseCommand):
                         lead_analyst=source_dict['Analyst that worked on the data'],
                         licence=source_dict['Licence']
                     )
-                    new_source.topics.add(*tag_list)
+                    # new_source.topics.add(*tag_list)
                     new_source.save()
 
         # Datasets
@@ -178,11 +178,11 @@ class Command(BaseCommand):
                         meta_data=json.dumps(meta_json)
                     )
 
-                    try:
-                        tag_list = [tag.strip() for tag in dataset_dict['Keyword search'].split(",") if len(tag.strip()) < 100 and len(tag.strip()) > 0]
-                    except AttributeError:
-                        tag_list = []
-                    new_dataset.topics.add(*tag_list)
+                    # try:
+                    #     tag_list = [tag.strip() for tag in dataset_dict['Keyword search'].split(",") if len(tag.strip()) < 100 and len(tag.strip()) > 0]
+                    # except AttributeError:
+                    #     tag_list = []
+                    # new_dataset.topics.add(*tag_list)
 
                     dataset_listing.add_child(instance=new_dataset)
                     new_dataset.save_revision().publish()
@@ -304,11 +304,11 @@ class Command(BaseCommand):
                         meta_data=json.dumps(meta_json)
                     )
 
-                    try:
-                        tag_list = [tag.strip() for tag in figure_dict['Keyword search'].split(",") if len(tag.strip()) < 100 and len(tag.strip()) > 0]
-                    except AttributeError:
-                        tag_list = []
-                    new_figure.topics.add(*tag_list)
+                    # try:
+                    #     tag_list = [tag.strip() for tag in figure_dict['Keyword search'].split(",") if len(tag.strip()) < 100 and len(tag.strip()) > 0]
+                    # except AttributeError:
+                    #     tag_list = []
+                    # new_figure.topics.add(*tag_list)
 
                     dataset_listing.add_child(instance=new_figure)
                     new_figure.save_revision().publish()

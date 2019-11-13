@@ -16,7 +16,6 @@ from wagtail.documents.edit_handlers import DocumentChooserPanel
 
 from di_website.common.base import hero_panels
 from di_website.common.mixins import HeroMixin, SectionBodyMixin, TypesetBodyMixin
-from di_website.users.models import Department, Subscription
 
 from modelcluster.fields import ParentalKey
 
@@ -74,68 +73,20 @@ class VacancyIndexPage(HeroMixin, Page):
     parent_page_types = ['workforus.WorkForUsPage']
     subpage_types = ['VacancyPage','general.General']
 
-    def create_subscription(self, email, subscription_on, department):
-        subscription = Subscription.objects.create_subscription(email, 'jobs', department)
-        subscription.save()
-
-        return subscription
-
     def get_context(self, request):
         context = super().get_context(request)
-
-        all_departments = Department.objects.all()
         context['vacancies'] = VacancyPage.objects.live()
-        context['departments'] = all_departments
-
-        form = {'success': False}
-        email = {
-            'id': 'email_address',
-            'label': 'Email address',
-            'placeholder': 'Your email address'
-        }
-        if request.method == 'POST':
-            data = request.POST.copy()
-            email_address = data.get('email_address', None)
-            email['value'] = email_address
-            try:
-                if email_address:
-                    validate_email(email_address)
-
-                    monitored_departments = []
-                    for department in all_departments:
-                        if data.get(department.slug, None) == 'on':
-                            monitored_departments.append(department)
-
-                    form['alert_message'] = 'You have signed up for vacancy alerts for '
-                    if len(monitored_departments):
-                        first = True
-                        for department in monitored_departments:
-                            self.create_subscription(email.value, 'jobs', department)
-                            if first:
-                                form['alert_message'] = form.get('alert_message') + ' ' + department.name
-                                first = False
-                            else:
-                                form['alert_message'] = form.get('alert_message') + ', ' + department.name
-                    else:
-                        for department in all_departments:
-                            self.create_subscription(email.value, 'jobs', department)
-                        form['alert_message'] = ' all departments'
-
-                    form['success'] = True
-                else:
-                    email['field_error'] = 'This field is required'
-            except ValidationError:
-                email['field_error'] = 'Invalid email'
-            except DataError:
-                email['field_error'] = 'Email address too long'
-
-        form['email'] = email
-        context['form'] = form
-
         return context
+
+    email_alert_confirmation_label = RichTextField(
+        blank=True,
+        verbose_name='Descriptive Text for Consent to Email Alerts',
+        default='By checking this box you consent to us collecting the data submitted',
+    )
 
     content_panels = Page.content_panels + [
         hero_panels(),
+        FieldPanel('email_alert_confirmation_label'),
         InlinePanel('page_notifications', label='Notifications')
     ]
 

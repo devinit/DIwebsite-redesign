@@ -2,9 +2,10 @@
 
 import os
 from io import BytesIO
-import pandas as pd
 from datetime import datetime
 import json
+import requests
+import csv
 
 from boxsdk import JWTAuth, Client
 from boxsdk.object.folder import Folder
@@ -64,23 +65,19 @@ class Command(BaseCommand):
             dataset_listing.save_revision().publish()
 
         # Fetch data and parse
-        raw_data = 'https://docs.google.com/spreadsheets/d/1pDbdncnm1TF41kJJX2WjZ2Wq9juOvUqU/export?format=xlsx&id=1pDbdncnm1TF41kJJX2WjZ2Wq9juOvUqU'
+        source_csv_url = "https://docs.google.com/spreadsheets/d/1pDbdncnm1TF41kJJX2WjZ2Wq9juOvUqU/export?format=csv&id=1pDbdncnm1TF41kJJX2WjZ2Wq9juOvUqU&gid=2086173829"
+        dataset_csv_url = "https://docs.google.com/spreadsheets/d/1pDbdncnm1TF41kJJX2WjZ2Wq9juOvUqU/export?format=csv&id=1pDbdncnm1TF41kJJX2WjZ2Wq9juOvUqU&gid=1736754230"
+        figure_csv_url = "https://docs.google.com/spreadsheets/d/1pDbdncnm1TF41kJJX2WjZ2Wq9juOvUqU/export?format=csv&id=1pDbdncnm1TF41kJJX2WjZ2Wq9juOvUqU&gid=1029209261"
 
-        source = pd.read_excel(
-            raw_data,
-            sheet_name='Source Data',
-            na_values=[" ", ".", "", "No data", "na", "NA", "N/A"])
-        source = source.replace({pd.np.nan: None})
-        dataset = pd.read_excel(
-            raw_data,
-            sheet_name='Dataset',
-            na_values=[" ", ".", "", "No data", "na", "NA", "N/A"])
-        dataset = dataset.replace({pd.np.nan: None})
-        figures = pd.read_excel(
-            raw_data,
-            sheet_name='Figures',
-            na_values=[" ", ".", "", "No data", "na", "NA", "N/A"])
-        figures = figures.replace({pd.np.nan: None})
+        source_response = requests.get(source_csv_url)
+        source_response.encoding = 'utf-8'
+        source_text = source_response.iter_lines(decode_unicode=True)
+        dataset_response = requests.get(dataset_csv_url)
+        dataset_response.encoding = 'utf-8'
+        dataset_text = dataset_response.iter_lines(decode_unicode=True)
+        figure_response = requests.get(figure_csv_url)
+        figure_response.encoding = 'utf-8'
+        figure_text = figure_response.iter_lines(decode_unicode=True)
 
         # Data sources
         """
@@ -88,14 +85,14 @@ class Command(BaseCommand):
         dict_keys(['Source ID', 'Source title', 'Organisation ', 'Long description of the data source', 'Date of access', 'Link to the source', 'Geography information', 'Keyword search', 'Internal notes', 'Analyst that worked on the data', 'Licence', 'Check', 'Signed-off and ready?'])
         """
         skip = True
-        for source_row in source.iterrows():
+        source_reader = csv.DictReader(source_text)
+        for source_dict in source_reader:
             if skip:
                 skip = False
             else:
-                source_dict = source_row[1].to_dict()
                 source_check = DataSource.objects.filter(
                     source_id=source_dict['Source ID'])
-                if not source_check and source_dict['Source title'] is not None:
+                if not source_check and source_dict['Source title'] != "" and source_dict['Signed-off and ready?'].lower() == "yes":
                     if type(source_dict['Date of access']) is not datetime:
                         try:
                             date_of_access = datetime.strptime(
@@ -137,15 +134,15 @@ class Command(BaseCommand):
             'Source 8 (optional)', 'Source 9 (optional)'
         ]
         skip = True
-        for dataset_row in dataset.iterrows():
+        dataset_reader = csv.DictReader(dataset_text)
+        for dataset_dict in dataset_reader:
             if skip:
                 skip = False
             else:
-                dataset_dict = dataset_row[1].to_dict()
                 dataset_check = DatasetPage.objects.filter(
                     dataset_id=dataset_dict['Dataset ID'])
                 if not dataset_check and dataset_dict[
-                        'What is the title of the data set?'] is not None:
+                        'What is the title of the data set?'] != "" and dataset_dict['Signed-off and ready?'].lower() == "yes":
                     if type(dataset_dict['Release date?']) is not datetime:
                         try:
                             release_date = datetime.strptime(
@@ -157,7 +154,7 @@ class Command(BaseCommand):
 
                     meta_json = []
                     if dataset_dict[
-                            'What is a long description of the data set?'] is not None:
+                            'What is a long description of the data set?'] != "":
                         meta_json.append({
                             "type":
                             "description",
@@ -165,26 +162,26 @@ class Command(BaseCommand):
                             dataset_dict[
                                 'What is a long description of the data set?']
                         })
-                    if dataset_dict['Geography information'] is not None:
+                    if dataset_dict['Geography information'] != "":
                         meta_json.append({
                             "type":
                             "geography",
                             "value":
                             dataset_dict['Geography information']
                         })
-                    if dataset_dict['Geographic coding'] is not None:
+                    if dataset_dict['Geographic coding'] != "":
                         meta_json.append({
                             "type":
                             "geographic_coding",
                             "value":
                             dataset_dict['Geographic coding']
                         })
-                    if dataset_dict['Unit'] is not None:
+                    if dataset_dict['Unit'] != "":
                         meta_json.append({
                             "type": "unit",
                             "value": dataset_dict['Unit']
                         })
-                    if dataset_dict['Internal notes'] is not None:
+                    if dataset_dict['Internal notes'] != "":
                         meta_json.append({
                             "type":
                             "internal_notes",
@@ -192,19 +189,19 @@ class Command(BaseCommand):
                             dataset_dict['Internal notes']
                         })
                     if dataset_dict[
-                            'Analyst that worked on the data'] is not None:
+                            'Analyst that worked on the data'] != "":
                         meta_json.append({
                             "type":
                             "lead_analyst",
                             "value":
                             dataset_dict['Analyst that worked on the data']
                         })
-                    if dataset_dict['Licence'] is not None:
+                    if dataset_dict['Licence'] != "":
                         meta_json.append({
                             "type": "licence",
                             "value": dataset_dict['Licence']
                         })
-                    if dataset_dict['Suggested citation'] is not None:
+                    if dataset_dict['Suggested citation'] != "":
                         meta_json.append({
                             "type":
                             "citation",
@@ -232,7 +229,7 @@ class Command(BaseCommand):
 
                     for source_key in source_keys:
                         key_val = dataset_dict[source_key]
-                        if key_val is not None:
+                        if key_val != "":
                             try:
                                 related_datasource = DataSource.objects.get(
                                     title=key_val)
@@ -242,7 +239,7 @@ class Command(BaseCommand):
                             except DataSource.DoesNotExist:
                                 pass
 
-                    if dataset_dict["File name Excel"] is not None:
+                    if dataset_dict["File name Excel"] != "":
                         item_name = dataset_dict["File name Excel"].lower(
                         ) + ".xlsx"
                         try:
@@ -262,7 +259,7 @@ class Command(BaseCommand):
                             self.stdout.write(
                                 self.style.WARNING(item_name + " not found."))
 
-                    if dataset_dict["File name csv"] is not None:
+                    if dataset_dict["File name csv"] != "":
                         item_name = dataset_dict["File name csv"].lower(
                         ) + ".csv"
                         try:
@@ -298,15 +295,15 @@ class Command(BaseCommand):
         ]
         figure_dataset_keys = ['Dataset 1', 'Dataset 2', 'Dataset 3']
         skip = True
-        for figure_row in figures.iterrows():
+        figure_reader = csv.DictReader(figure_text)
+        for figure_dict in figure_reader:
             if skip:
                 skip = False
             else:
-                figure_dict = figure_row[1].to_dict()
                 figure_check = FigurePage.objects.filter(
                     figure_id=figure_dict['Chart ID'])
                 if not figure_check and figure_dict[
-                        'What is the descriptive title of the chart?'] is not None:
+                        'What is the descriptive title of the chart?'] != "" and figure_dict['Signed-off and ready?'].lower() == "yes":
                     if type(figure_dict['Release date']) is not datetime:
                         try:
                             release_date = datetime.strptime(
@@ -318,7 +315,7 @@ class Command(BaseCommand):
 
                     meta_json = []
                     if figure_dict[
-                            'What is a long description of the chart data?'] is not None:
+                            'What is a long description of the chart data?'] != "":
                         meta_json.append({
                             "type":
                             "description",
@@ -326,37 +323,37 @@ class Command(BaseCommand):
                             figure_dict[
                                 'What is a long description of the chart data?']
                         })
-                    if figure_dict['Geography information'] is not None:
+                    if figure_dict['Geography information'] != "":
                         meta_json.append({
                             "type":
                             "geography",
                             "value":
                             figure_dict['Geography information']
                         })
-                    if figure_dict['Geography unit'] is not None:
+                    if figure_dict['Geography unit'] != "":
                         meta_json.append({
                             "type": "geographic_coding",
                             "value": figure_dict['Geography unit']
                         })
-                    if figure_dict['Internal notes'] is not None:
+                    if figure_dict['Internal notes'] != "":
                         meta_json.append({
                             "type": "internal_notes",
                             "value": figure_dict['Internal notes']
                         })
                     if figure_dict[
-                            'Analyst that worked on the chart'] is not None:
+                            'Analyst that worked on the chart'] != "":
                         meta_json.append({
                             "type":
                             "lead_analyst",
                             "value":
                             figure_dict['Analyst that worked on the chart']
                         })
-                    if figure_dict['Licence'] is not None:
+                    if figure_dict['Licence'] != "":
                         meta_json.append({
                             "type": "licence",
                             "value": figure_dict['Licence']
                         })
-                    if figure_dict['Suggested citation'] is not None:
+                    if figure_dict['Suggested citation'] != "":
                         meta_json.append({
                             "type":
                             "citation",
@@ -388,7 +385,7 @@ class Command(BaseCommand):
 
                     for source_key in figure_source_keys:
                         key_val = figure_dict[source_key]
-                        if key_val is not None:
+                        if key_val != "":
                             try:
                                 related_datasource = DataSource.objects.get(
                                     title=key_val)
@@ -399,7 +396,7 @@ class Command(BaseCommand):
 
                     for dataset_key in figure_dataset_keys:
                         key_val = figure_dict[dataset_key]
-                        if key_val is not None:
+                        if key_val != "":
                             try:
                                 related_dataset = DatasetPage.objects.get(
                                     title=key_val)
@@ -408,7 +405,7 @@ class Command(BaseCommand):
                             except DatasetPage.DoesNotExist:
                                 pass
 
-                    if figure_dict["File name"] is not None:
+                    if figure_dict["File name"] != "":
                         item_name = figure_dict["File name"].lower() + ".csv"
                         try:
                             item_id = box_items[item_name]

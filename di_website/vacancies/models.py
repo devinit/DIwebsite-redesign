@@ -82,62 +82,7 @@ class VacancyIndexPage(HeroMixin, Page):
 
     def get_context(self, request):
         context = super().get_context(request)
-
-        all_departments = Department.objects.all()
         context['vacancies'] = VacancyPage.objects.live()
-        context['departments'] = all_departments
-
-        form = {'success': False}
-        email = {
-            'id': 'email_address',
-            'label': 'Email address',
-            'placeholder': 'Your email address'
-        }
-        if request.method == 'POST':
-            data = request.POST.copy()
-            email_address = data.get('email_address', None)
-            email['value'] = email_address
-            gdpr = data.get('gdpr', None)
-
-            try:
-                if gdpr:
-                    if email_address:
-                        validate_email(email_address)
-
-                        monitored_departments = []
-                        for department in all_departments:
-                            if data.get(department.slug, None) == 'on':
-                                monitored_departments.append(department)
-
-                        form['alert_message'] = 'You have signed up for vacancy alerts for '
-                        if len(monitored_departments):
-                            first = True
-                            for department in monitored_departments:
-                                self.create_subscription(email.value, 'jobs', department)
-                                if first:
-                                    form['alert_message'] = form.get('alert_message') + ' ' + department.name
-                                    first = False
-                                else:
-                                    form['alert_message'] = form.get('alert_message') + ', ' + department.name
-                        else:
-                            for department in all_departments:
-                                self.create_subscription(email.value, 'jobs', department)
-                            form['alert_message'] = form.get('alert_message') + ' ' + ' all departments'
-
-                        form['success'] = True
-                    else:
-                        email['field_error'] = 'This field is required'
-                else:
-                    email['consent'] = 'This field is required'
-
-            except ValidationError:
-                email['field_error'] = 'Invalid email'
-            except DataError:
-                email['field_error'] = 'Email address too long'
-
-        form['email'] = email
-        context['form'] = form
-
         return context
 
     email_alert_confirmation_label = RichTextField(

@@ -26,9 +26,9 @@ from di_website.datasection.models import (DataSectionPage, DataSetListing,
 
 
 class Command(BaseCommand):
-    """Management command that that loads metadata from excel and creates new pages for datasection."""
+    """Management command that that loads metadata from CSV and creates new pages for datasection."""
 
-    help = 'Import approved metadata from .xlsx file https://docs.google.com/spreadsheets/d/1pDbdncnm1TF41kJJX2WjZ2Wq9juOvUqU/edit#gid=1029209261'
+    help = 'Import approved metadata from metadata file https://docs.google.com/spreadsheets/d/1pDbdncnm1TF41kJJX2WjZ2Wq9juOvUqU/edit#gid=1029209261'
 
     def handle(self, *args, **options):
 

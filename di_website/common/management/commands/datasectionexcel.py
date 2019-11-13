@@ -93,6 +93,7 @@ class Command(BaseCommand):
                 source_check = DataSource.objects.filter(
                     source_id=source_dict['Source ID'])
                 if not source_check and source_dict['Source title'] != "" and source_dict['Signed-off and ready?'].lower() == "yes":
+                    print("source: ", source_dict['Source title'])
                     if type(source_dict['Date of access']) is not datetime:
                         try:
                             date_of_access = datetime.strptime(
@@ -143,6 +144,8 @@ class Command(BaseCommand):
                     dataset_id=dataset_dict['Dataset ID'])
                 if not dataset_check and dataset_dict[
                         'What is the title of the data set?'] != "" and dataset_dict['Signed-off and ready?'].lower() == "yes":
+                    print("Dataset: ",dataset_dict[
+                                'What is the title of the data set?'])
                     if type(dataset_dict['Release date?']) is not datetime:
                         try:
                             release_date = datetime.strptime(
@@ -304,6 +307,8 @@ class Command(BaseCommand):
                     figure_id=figure_dict['Chart ID'])
                 if not figure_check and figure_dict[
                         'What is the descriptive title of the chart?'] != "" and figure_dict['Signed-off and ready?'].lower() == "yes":
+                    print("Figure: ", figure_dict[
+                                'What is the descriptive title of the chart?'])
                     if type(figure_dict['Release date']) is not datetime:
                         try:
                             release_date = datetime.strptime(

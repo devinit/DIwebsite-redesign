@@ -16,9 +16,9 @@ register = template.Library()
 def get_footer_sections(context, parent, calling_page=None):
     footer_sections = FooterSection.objects.all()
     for footer_section in footer_sections:
-        footer_section.links = footer_section.footer_section_links.all()
+        footer_section.links = footer_section.footer_section_links.all().order_by('sort_order')
 
-        footer_section.social_links = footer_section.footer_social_links.all()
+        footer_section.social_links = footer_section.footer_social_links.all().order_by('sort_order')
         for social_link in footer_section.social_links:
             social_link.image_url = 'svg/source/' + social_link.social_platform + '.svg'
 

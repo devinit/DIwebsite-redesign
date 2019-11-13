@@ -16,7 +16,6 @@ from wagtail.documents.edit_handlers import DocumentChooserPanel
 
 from di_website.common.base import hero_panels
 from di_website.common.mixins import HeroMixin, SectionBodyMixin, TypesetBodyMixin
-from di_website.users.models import Department, Subscription
 
 from modelcluster.fields import ParentalKey
 
@@ -73,12 +72,6 @@ class VacancyIndexPage(HeroMixin, Page):
 
     parent_page_types = ['workforus.WorkForUsPage']
     subpage_types = ['VacancyPage','general.General']
-
-    def create_subscription(self, email, subscription_on, department):
-        subscription = Subscription.objects.create_subscription(email, 'jobs', department)
-        subscription.save()
-
-        return subscription
 
     def get_context(self, request):
         context = super().get_context(request)

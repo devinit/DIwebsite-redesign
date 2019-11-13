@@ -8,11 +8,11 @@
     {% endif %}
 
     {% if value.heading %}
-        <h3 class="type-l type-l--trailer heading">{{ value.heading }}</h3>
+        <h3 class="type-l type-l--trailer">{{ value.heading }}</h3>
     {% endif %}
 
     {% if value.descriptive_text %}
-      <div class="max-meter is-typeset wysiwyg">
+      <div class="is-typeset wysiwyg">
           {{ value.descriptive_text|content }}
       </div>
     {% endif %}

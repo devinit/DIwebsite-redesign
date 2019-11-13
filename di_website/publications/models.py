@@ -841,6 +841,34 @@ class ShortPublicationPage(HeroMixin, PublishedDateMixin, FlexibleContentMixin, 
     def page_data_downloads(self):
         return self.data_downloads.all()
 
+    @cached_property
+    def chapter_number(self):
+        return 1
+
+    @cached_property
+    def chapters(self):
+        return [self]
+
+    @cached_property
+    def chapter_word(self):
+        return num2words(self.chapter_number)
+
+    @cached_property
+    def label(self):
+        return 'publication'
+
+    @cached_property
+    def label_num(self):
+        return 'publication'
+
+    @cached_property
+    def sections(self):
+        sections = []
+        for block in self.content:
+            if block.block_type == 'section_heading':
+                sections.append(block)
+        return sections
+
 
 class PublicationPageRelatedLink(OtherPageMixin):
     page = ParentalKey(Page, related_name='publication_related_links', on_delete=models.CASCADE)

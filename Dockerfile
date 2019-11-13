@@ -20,10 +20,13 @@ RUN apk add --no-cache python3 && \
  if [ ! -e /usr/bin/pip ]; then ln -s pip3 /usr/bin/pip ; fi && \
  if [[ ! -e /usr/bin/python ]]; then ln -sf /usr/bin/python3 /usr/bin/python; fi
 
-#Require to compile pygcog2
+# Require to compile psycopg2
 RUN apk add --no-cache jpeg-dev zlib-dev
 RUN apk add --no-cache postgresql-dev
 RUN apk add --no-cache libmemcached-dev zlib-dev
+
+# Required for python cryptography
+RUN apk add --no-cache libressl-dev libffi-dev python-dev
 
 # Set environment varibles
 ENV PYTHONUNBUFFERED 1

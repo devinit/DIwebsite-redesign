@@ -2,9 +2,10 @@ from django.db import models
 from datetime import datetime
 
 from wagtail.core.fields import StreamField
-from wagtail.core.blocks import CharBlock, PageChooserBlock, RichTextBlock, StructBlock, URLBlock
+from wagtail.core.blocks import CharBlock, PageChooserBlock, TextBlock, StructBlock, URLBlock
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
+
 
 class DataSetMixin(models.Model):
     class Meta():
@@ -29,12 +30,16 @@ class DataSetMixin(models.Model):
     ], blank=True)
     meta_data = StreamField(
         [
-            ('description', RichTextBlock(required=True)),
-            ('provenance', RichTextBlock()),
-            ('variables', RichTextBlock()),
-            ('geography', RichTextBlock()),
-            ('licence', RichTextBlock()),
-            ('citation', RichTextBlock())
+            ('description', TextBlock(required=True)),
+            ('provenance', TextBlock(required=False)),
+            ('variables', TextBlock(required=False)),
+            ('geography', TextBlock(required=False)),
+            ('geograpic_coding', TextBlock(required=False)),
+            ('unit', TextBlock(required=False)),
+            ('internal_notes', TextBlock(required=False)),
+            ('lead_analyst', TextBlock(required=False)),
+            ('licence', TextBlock(required=False)),
+            ('citation', TextBlock(required=False))
         ],
         verbose_name='Content',
         help_text='A description is expected, but only one of each shall be shown'
@@ -48,7 +53,7 @@ class DataSetSourceMixin(models.Model):
         abstract = True
 
     source = models.ForeignKey(
-        'datasection.DataSource', null=True, blank  =True, on_delete=models.SET_NULL,
+        'datasection.DataSource', null=True, blank=True, on_delete=models.SET_NULL,
         related_name='+', verbose_name='Data Source')
 
     panels = [SnippetChooserPanel('source')]

@@ -51,24 +51,33 @@ class DataSourceTopic(TaggedItemBase):
 
 @register_snippet
 class DataSource(ClusterableModel):
-    title = models.CharField(max_length=255, unique=True)
+    source_id = models.CharField(max_length=255, unique=True, blank=True, null=True)
+    title = models.TextField(unique=True)
     description = models.TextField(blank=True, null=True)
-    organisation = models.CharField(max_length=255, blank=True)
+    organisation = models.TextField(blank=True, null=True)
     link_to_metadata = models.URLField(blank=True)
-    geography = models.CharField(max_length=255, blank=True)
     link_to_data = models.URLField(blank=True)
+    geography = models.TextField(blank=True, null=True)
+    date_of_access = models.DateField(null=True, blank=True)
+    internal_notes = models.TextField(blank=True, null=True)
+    lead_analyst = models.TextField(blank=True, null=True)
+    licence = models.TextField(max_length=255, blank=True, null=True)
     topics = ClusterTaggableManager(through=DataSourceTopic, blank=True, verbose_name="Topics")
     slug = models.SlugField(
         max_length=255, blank=True, null=True,
         help_text="Optional. Will be auto-generated from title if left blank.")
 
     panels = [
+        FieldPanel('source_id'),
         FieldPanel('title'),
         FieldPanel('description'),
         FieldPanel('organisation'),
         FieldPanel('link_to_metadata'),
         FieldPanel('link_to_data'),
         FieldPanel('geography'),
+        FieldPanel('date_of_access'),
+        FieldPanel('internal_notes'),
+        FieldPanel('lead_analyst'),
         FieldPanel('topics'),
         FieldPanel('slug'),
     ]
@@ -92,7 +101,7 @@ class DataSectionPage(SectionBodyMixin, TypesetBodyMixin, HeroMixin, Page):
 
     quotes = StreamField(QuoteStreamBlock, verbose_name="Quotes", null=True, blank=True)
     dataset_info = models.TextField(
-        null=False, blank=False, default="", help_text='A description of the datasets')
+        null=True, blank=True, help_text='A description of the datasets')
     other_pages_heading = models.CharField(
         blank=True, max_length=255, verbose_name='Heading', default='More about')
 
@@ -151,12 +160,16 @@ class DatasetPage(DataSetMixin, TypesetBodyMixin, HeroMixin, Page):
     class Meta():
         verbose_name = 'Data Set Page'
 
+    dataset_id = models.CharField(max_length=255, unique=True, blank=True, null=True)
+    dataset_title = models.TextField(unique=True, blank=True, null=True)
     related_datasets_title = models.CharField(
         blank=True, max_length=255, default='Related datasets', verbose_name='Section Title')
     topics = ClusterTaggableManager(through=DataSetTopic, blank=True, verbose_name="Topics")
 
     content_panels = Page.content_panels + [
         hero_panels(),
+        FieldPanel('dataset_id'),
+        FieldPanel('dataset_title'),
         FieldPanel('release_date'),
         StreamFieldPanel('body'),
         StreamFieldPanel('authors'),
@@ -174,8 +187,8 @@ class DatasetPage(DataSetMixin, TypesetBodyMixin, HeroMixin, Page):
 
         content_type = ContentType.objects.get_for_model(DatasetPage)
         context['topics'] = Tag.objects.filter(
-                models.Q(datasection_datasettopic_items__content_object__content_type=content_type)
-            ).distinct()
+                datasection_datasettopic_items__content_object__content_type=content_type
+            ).distinct().order_by('name')
         context['related_datasets'] = get_related_pages(
             self.related_datasets.all(), DatasetPage.objects.exclude(id=self.id))
         context['reports'] = self.get_usages()
@@ -236,9 +249,18 @@ class FigurePage(DataSetMixin, TypesetBodyMixin, HeroMixin, Page):
     class Meta():
         verbose_name = 'Figure Page'
 
-    name = models.CharField(
-        blank=True, max_length=255, verbose_name='Name',
+    name = models.TextField(
+        blank=True, null=True, verbose_name='Name',
         help_text='The name of this figure in the publication e.g Figure 1.1')
+    figure_id = models.CharField(max_length=255, unique=True, blank=True, null=True)
+    figure_title = models.TextField(
+        blank=True,
+        null=True,
+        help_text='Descriptive title of the chart'
+    )
+    publication_name = models.TextField(
+        blank=True, null=True, verbose_name='Name',
+        help_text='Imported publication name')
     publication = models.ForeignKey(
         'wagtailcore.Page',
         null=True,
@@ -248,12 +270,15 @@ class FigurePage(DataSetMixin, TypesetBodyMixin, HeroMixin, Page):
         help_text="The publication in which this figure appears"
     )
     related_figures_title = models.CharField(
-        blank=True, max_length=255, default='Related figures', verbose_name='Section Title')
+        blank=True, null=True, max_length=255, default='Related figures', verbose_name='Section Title')
     topics = ClusterTaggableManager(through=FigureTopic, blank=True, verbose_name="Topics")
 
     content_panels = Page.content_panels + [
         hero_panels(),
         FieldPanel('name'),
+        FieldPanel('figure_id'),
+        FieldPanel('figure_title'),
+        FieldPanel('publication_name'),
         FieldPanel('release_date'),
         PageChooserPanel('publication', [
             'publications.PublicationPage',
@@ -444,20 +469,22 @@ class DataSetListing(TypesetBodyMixin, Page):
         except EmptyPage:
             context['datasets'] = paginator.page(paginator.num_pages)
 
-        content_type = ContentType.objects.get_for_model(DatasetPage)
+        ds_content_type = ContentType.objects.get_for_model(DatasetPage)
+        fig_content_type = ContentType.objects.get_for_model(FigurePage)
         context['topics'] = Tag.objects.filter(
-            datasection_datasettopic_items__content_object__content_type=content_type
-        ).distinct()
+            models.Q(datasection_datasettopic_items__content_object__content_type=ds_content_type) |
+            models.Q(datasection_figuretopic_items__content_object__content_type=fig_content_type)
+        ).distinct().order_by('name')
         context['countries'] = Country.objects.all()
         context['sources'] = DataSource.objects.all()
 
         context['reports'] = Page.objects.live().filter(
-            models.Q(publicationpage__publication_datasets__dataset__content_type=content_type) |
-            models.Q(publicationsummarypage__publication_datasets__dataset__content_type=content_type) |
-            models.Q(legacypublicationpage__publication_datasets__dataset__content_type=content_type) |
-            models.Q(publicationappendixpage__publication_datasets__dataset__content_type=content_type) |
-            models.Q(publicationchapterpage__publication_datasets__dataset__content_type=content_type) |
-            models.Q(shortpublicationpage__publication_datasets__dataset__content_type=content_type)
+            models.Q(publicationpage__publication_datasets__dataset__content_type=ds_content_type) |
+            models.Q(publicationsummarypage__publication_datasets__dataset__content_type=ds_content_type) |
+            models.Q(publicationappendixpage__publication_datasets__dataset__content_type=ds_content_type) |
+            models.Q(legacypublicationpage__publication_datasets__dataset__content_type=ds_content_type) |
+            models.Q(publicationchapterpage__publication_datasets__dataset__content_type=ds_content_type) |
+            models.Q(shortpublicationpage__publication_datasets__dataset__content_type=ds_content_type)
         ).distinct()
 
         return context

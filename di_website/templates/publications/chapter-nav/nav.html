@@ -3,7 +3,9 @@
 {% if page.chapters %}
     <div class="js-chapter-nav">
         <div class="page__action">
-            {% include 'publications/chapter-nav/prev-next.html' %}
+            {% if page.get_verbose_name != "Short Publication" %}
+              {% include 'publications/chapter-nav/prev-next.html' %}
+            {% endif %}
             <div class="page__action__menu">
                 <span tabindex="0" class="page__action_text">{{ menu_label|default:'Jump to chapter' }}</span>
                 <div class="page__action__burgerWrapper">

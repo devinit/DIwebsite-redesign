@@ -30,13 +30,10 @@
       <p>Do you want to know when new vacancies become available in your chosen field?</p>
       <p>Subscribe to vacancy alerts!</p>
     </div>
-    {% if form %}
-    {% if form.success %}
-    <div class="alert alert--success"><i role="presentation" aria-hidden="true" class="ico ico-success-success"></i>
-      <p><strong>{{ form.alert_message }}</strong></p>
-    </div>
-    {% endif %}
-    <form class="validate form" action="https://devinit.us11.list-manage.com/subscribe/post?u=a829237ca0cf1470615c7f059&amp;id=aee418056a" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank" novalidate>
+
+    <form class="validate form"
+      action="https://devinit.us11.list-manage.com/subscribe/post?u=a829237ca0cf1470615c7f059&amp;id=aee418056a"
+      method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank" novalidate>
       <fieldset class="form-section">
         <div class="form-field {% if email.field_error %}form-field--error{% else %}{% endif %}">
           <label for="mce-EMAIL" class="form-label">
@@ -51,62 +48,74 @@
             <div class="form-field__checkboxes form-field__checkboxes--columns">
 
               <div class="form-checkbox-group cp-form-checkbox-group-mce-group[21233]-21233-0">
-                <input class="form-checkbox" type="checkbox" value="1" name="group[21233][1]" id="mce-group[21233]-21233-0" />
+                <input class="form-checkbox" type="checkbox" value="1" name="group[21233][1]"
+                  id="mce-group[21233]-21233-0" />
                 <label class="form-label" for="mce-group[21233]-21233-0">Communications</label>
               </div>
 
               <div class="form-checkbox-group cp-form-checkbox-group-mce-group[21233]-21233-1">
-                <input class="form-checkbox" type="checkbox" value="2" name="group[21233][2]" id="mce-group[21233]-21233-1" />
+                <input class="form-checkbox" type="checkbox" value="2" name="group[21233][2]"
+                  id="mce-group[21233]-21233-1" />
                 <label class="form-label" for="mce-group[21233]-21233-1">Consultants</label>
               </div>
 
               <div class="form-checkbox-group cp-form-checkbox-group-mce-group[21233]-21233-2">
-                <input class="form-checkbox" type="checkbox" value="4" name="group[21233][4]" id="mce-group[21233]-21233-2" />
+                <input class="form-checkbox" type="checkbox" value="4" name="group[21233][4]"
+                  id="mce-group[21233]-21233-2" />
                 <label class="form-label" for="mce-group[21233]-21233-2">Data science</label>
               </div>
 
               <div class="form-checkbox-group cp-form-checkbox-group-mce-group[21233]-21233-3">
-                <input class="form-checkbox" type="checkbox" value="8" name="group[21233][8]" id="mce-group[21233]-21233-3" />
+                <input class="form-checkbox" type="checkbox" value="8" name="group[21233][8]"
+                  id="mce-group[21233]-21233-3" />
                 <label class="form-label" for="mce-group[21233]-21233-3">Finance</label>
               </div>
 
               <div class="form-checkbox-group cp-form-checkbox-group-mce-group[21233]-21233-4">
-                <input class="form-checkbox" type="checkbox" value="16" name="group[21233][16]" id="mce-group[21233]-21233-4" />
+                <input class="form-checkbox" type="checkbox" value="16" name="group[21233][16]"
+                  id="mce-group[21233]-21233-4" />
                 <label class="form-label" for="mce-group[21233]-21233-4">HR</label>
               </div>
 
               <div class="form-checkbox-group cp-form-checkbox-group-mce-group[21233]-21233-5">
-                <input class="form-checkbox" type="checkbox" value="32" name="group[21233][32]" id="mce-group[21233]-21233-5" />
+                <input class="form-checkbox" type="checkbox" value="32" name="group[21233][32]"
+                  id="mce-group[21233]-21233-5" />
                 <label class="form-label" for="mce-group[21233]-21233-5">IT</label>
               </div>
 
               <div class="form-checkbox-group cp-form-checkbox-group-mce-group[21233]-21233-6">
-                <input class="form-checkbox" type="checkbox" value="64" name="group[21233][64]" id="mce-group[21233]-21233-6" />
+                <input class="form-checkbox" type="checkbox" value="64" name="group[21233][64]"
+                  id="mce-group[21233]-21233-6" />
                 <label class="form-label" for="mce-group[21233]-21233-6">Leadership</label>
               </div>
 
               <div class="form-checkbox-group cp-form-checkbox-group-mce-group[21233]-21233-7">
-                <input class="form-checkbox" type="checkbox" value="128" name="group[21233][128]" id="mce-group[21233]-21233-7" />
+                <input class="form-checkbox" type="checkbox" value="128" name="group[21233][128]"
+                  id="mce-group[21233]-21233-7" />
                 <label class="form-label" for="mce-group[21233]-21233-7">Non-executive Directors</label>
               </div>
 
               <div class="form-checkbox-group cp-form-checkbox-group-mce-group[21233]-21233-8">
-                <input class="form-checkbox" type="checkbox" value="256" name="group[21233][256]" id="mce-group[21233]-21233-8" />
+                <input class="form-checkbox" type="checkbox" value="256" name="group[21233][256]"
+                  id="mce-group[21233]-21233-8" />
                 <label class="form-label" for="mce-group[21233]-21233-8">Policy and Engagement</label>
               </div>
 
               <div class="form-checkbox-group cp-form-checkbox-group-mce-group[21233]-21233-9">
-                <input class="form-checkbox" type="checkbox" value="512" name="group[21233][512]" id="mce-group[21233]-21233-9" />
+                <input class="form-checkbox" type="checkbox" value="512" name="group[21233][512]"
+                  id="mce-group[21233]-21233-9" />
                 <label class="form-label" for="mce-group[21233]-21233-9">Project management</label>
               </div>
 
               <div class="form-checkbox-group cp-form-checkbox-group-mce-group[21233]-21233-10">
-                <input class="form-checkbox" type="checkbox" value="1024" name="group[21233][1024]" id="mce-group[21233]-21233-10" />
+                <input class="form-checkbox" type="checkbox" value="1024" name="group[21233][1024]"
+                  id="mce-group[21233]-21233-10" />
                 <label class="form-label" for="mce-group[21233]-21233-10">Research and analysis</label>
               </div>
 
               <div class="form-checkbox-group cp-form-checkbox-group-mce-group[21233]-21233-11">
-                <input class="form-checkbox" type="checkbox" value="2048" name="group[21233][2048]" id="mce-group[21233]-21233-11" />
+                <input class="form-checkbox" type="checkbox" value="2048" name="group[21233][2048]"
+                  id="mce-group[21233]-21233-11" />
                 <label class="form-label" for="mce-group[21233]-21233-11">Strategic partnerships</label>
               </div>
 
@@ -171,7 +180,7 @@
             </div>
           </div>
         </div>
-        <br/>
+        <br />
         <div id="mce-responses" class="clear">
           <div class="response" id="mce-error-response" style="display:none"></div>
           <div class="response" id="mce-success-response" style="display:none"></div>
@@ -189,17 +198,18 @@
         {% csrf_token %}
       </fieldset>
     </form>
-    {% endif %}
+
   </div>
-<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script>
-<script type='text/javascript'>
-  (function ($) {
-    window.fnames = new Array();
-    window.ftypes = new Array();
-    fnames[0] = 'EMAIL';
-    ftypes[0] = 'email';
-  }(jQuery));
-  var $mcj = jQuery.noConflict(true);
-</script>
+  <script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script>
+  <script type='text/javascript'>
+    (function ($) {
+      window.fnames = new Array();
+      window.ftypes = new Array();
+      fnames[0] = 'EMAIL';
+      ftypes[0] = 'email';
+    }(jQuery));
+    var $mcj = jQuery.noConflict(true);
+
+  </script>
 </section>
 {% endblock body %}

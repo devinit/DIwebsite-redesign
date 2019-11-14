@@ -27,7 +27,7 @@ from wagtail.core.models import Orderable, Page
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
-from di_website.common.base import get_related_pages, hero_panels, other_pages_panel
+from di_website.common.base import get_paginator_range, get_related_pages, hero_panels, other_pages_panel
 from di_website.common.constants import MAX_PAGE_SIZE, MAX_RELATED_LINKS
 from di_website.common.mixins import HeroMixin, OtherPageMixin, SectionBodyMixin, TypesetBodyMixin
 from di_website.publications.models import Country
@@ -468,6 +468,8 @@ class DataSetListing(TypesetBodyMixin, Page):
             context['datasets'] = paginator.page(1)
         except EmptyPage:
             context['datasets'] = paginator.page(paginator.num_pages)
+
+        context['paginator_range'] = get_paginator_range(paginator, context['datasets'])
 
         ds_content_type = ContentType.objects.get_for_model(DatasetPage)
         fig_content_type = ContentType.objects.get_for_model(FigurePage)

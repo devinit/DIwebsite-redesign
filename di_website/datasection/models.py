@@ -227,8 +227,8 @@ class DatasetPage(DataSetMixin, TypesetBodyMixin, HeroMixin, Page):
 
         for report in reports:
             figures = Page.objects.live().filter(
-                models.Q(figurepage__figure_datasets__dataset__slug=self.slug) |
-                models.Q(figurepage__publication__slug=report.slug)
+                figurepage__figure_datasets__dataset__slug=self.slug,
+                figurepage__publication__slug=report.slug
             ).specific()
             report.figures = figures
 
@@ -441,8 +441,6 @@ class DataSetListing(TypesetBodyMixin, Page):
             ).first()
             if (pubs and pubs.specific.publication_datasets):
                 for dataset in pubs.specific.publication_datasets.all():
-                    if dataset.dataset is None:
-                        import pdb; pdb.set_trace()
                     results = datasets.filter(
                         models.Q(datasetpage__slug__exact=dataset.dataset.slug) |
                         models.Q(figurepage__slug__exact=dataset.dataset.slug))

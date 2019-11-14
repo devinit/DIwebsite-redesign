@@ -267,18 +267,18 @@ class Command(BaseCommand):
                         for pub_title in pub_titles:
                             pub_check = Page.objects.filter(title=pub_title).live()
                             if pub_check:
-                                pub_page = pub_check.first().specific()
-                                if pub_page.verbose_name == "Publication Page":
+                                pub_page = pub_check.first().specific
+                                if pub_page.get_verbose_name() == "Publication Page":
                                     PublicationPageDataset(item=pub_page, dataset=new_dataset).save()
-                                elif pub_page.verbose_name == "Publication Summary Page":
+                                elif pub_page.get_verbose_name() == "Publication Summary Page":
                                     PublicationSummaryPageDataset(item=pub_page, dataset=new_dataset).save()
-                                elif pub_page.verbose_name == "Publication Chapter Page":
+                                elif pub_page.get_verbose_name() == "Publication Chapter Page":
                                     PublicationChapterPageDataset(item=pub_page, dataset=new_dataset).save()
-                                elif pub_page.verbose_name == "Publication Appendix Page":
+                                elif pub_page.get_verbose_name() == "Publication Appendix Page":
                                     PublicationAppendixPageDataset(item=pub_page, dataset=new_dataset).save()
-                                elif pub_page.verbose_name == "Legacy Publication Page":
+                                elif pub_page.get_verbose_name() == "Legacy Publication Page":
                                     LegacyPublicationPageDataset(item=pub_page, dataset=new_dataset).save()
-                                elif pub_page.verbose_name == "Short Publication Page":
+                                elif pub_page.get_verbose_name() == "Short Publication Page":
                                     ShortPublicationPageDataset(item=pub_page, dataset=new_dataset).save()
 
                     for source_key in source_keys:

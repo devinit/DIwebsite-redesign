@@ -412,6 +412,8 @@ class Command(BaseCommand):
                             'What report does the data set come from?']).live()
                         if pub_check:
                             pub_page = pub_check.first()
+                        else:
+                            pub_page = None
 
                     new_figure = FigurePage(
                         title=figure_dict[

@@ -37,7 +37,6 @@ class DataSetMixin(models.Model):
             ('geograpic_coding', TextBlock(required=False)),
             ('unit', TextBlock(required=False)),
             ('internal_notes', TextBlock(required=False)),
-            ('lead_analyst', TextBlock(required=False)),
             ('licence', TextBlock(required=False)),
             ('citation', TextBlock(required=False))
         ],

@@ -263,7 +263,7 @@ class Command(BaseCommand):
                     new_dataset.save_revision().publish()
 
                     if dataset_dict['What DI publication is this dataset associated with?'] not in MISSING_VALUES:
-                        pub_titles = [pub_title.strip() for pub_title in dataset_dict['What DI publication is this dataset associated with?'].split(",")]
+                        pub_titles = [pub_title.strip() for pub_title in dataset_dict['What DI publication is this dataset associated with?'].split("|")]
                         for pub_title in pub_titles:
                             pub_check = Page.objects.filter(title=pub_title).live()
                             if pub_check:

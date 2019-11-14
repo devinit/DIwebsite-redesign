@@ -22,8 +22,8 @@ def user_content(author_page):
         ShortPublicationPage.objects.filter(authors__contains="\"value\": {}}}".format(author_page.pk)).live(),
         LegacyPublicationPage.objects.filter(authors__contains="\"value\": {},".format(author_page.pk)).live(),
         LegacyPublicationPage.objects.filter(authors__contains="\"value\": {}}}".format(author_page.pk)).live(),
-        DatasetPage.objects.filter(authors__contains="\"value\": {},".format(author_page.pk)).live(),
-        DatasetPage.objects.filter(authors__contains="\"value\": {}}}".format(author_page.pk)).live(),
-        FigurePage.objects.filter(authors__contains="\"value\": {},".format(author_page.pk)).live(),
-        FigurePage.objects.filter(authors__contains="\"value\": {}}}".format(author_page.pk)).live()
+        # DatasetPage.objects.filter(authors__contains="\"value\": {},".format(author_page.pk)).live(),
+        # DatasetPage.objects.filter(authors__contains="\"value\": {}}}".format(author_page.pk)).live(),
+        # FigurePage.objects.filter(authors__contains="\"value\": {},".format(author_page.pk)).live(),
+        # FigurePage.objects.filter(authors__contains="\"value\": {}}}".format(author_page.pk)).live()
     )

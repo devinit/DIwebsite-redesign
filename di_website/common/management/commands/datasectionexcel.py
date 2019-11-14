@@ -128,16 +128,18 @@ class Command(BaseCommand):
                     # new_source.topics.add(*tag_list)
 
                     # Authors
-                    author_name = source_dict[
+                    author_names = source_dict[
                         'Analyst that worked on the data']
                     authors = []
-                    if author_name != "":
-                        internal_author_page_qs = TeamMemberPage.objects.filter(name=author_name)
-                        if internal_author_page_qs:
-                            author_obj = {"type": "internal_author", "value": internal_author_page_qs.first().pk}
-                        else:
-                            author_obj = {"type": "external_author", "value": {"name": author_name, "title": "", "photograph": None, "page": ""}}
-                        authors.append(author_obj)
+                    if author_names != "":
+                        author_names_list = [author.strip() for author in author_names.split(",")]
+                        for author_name in author_names_list:
+                            internal_author_page_qs = TeamMemberPage.objects.filter(name=author_name)
+                            if internal_author_page_qs:
+                                author_obj = {"type": "internal_author", "value": internal_author_page_qs.first().pk}
+                            else:
+                                author_obj = {"type": "external_author", "value": {"name": author_name, "title": "", "photograph": None, "page": ""}}
+                            authors.append(author_obj)
                     if authors:
                         new_source.authors = json.dumps(authors)
                     new_source.save()
@@ -241,16 +243,18 @@ class Command(BaseCommand):
                     dataset_listing.add_child(instance=new_dataset)
 
                     # Authors
-                    author_name = dataset_dict[
+                    author_names = dataset_dict[
                             'Analyst that worked on the data']
                     authors = []
-                    if author_name != "":
-                        internal_author_page_qs = TeamMemberPage.objects.filter(name=author_name)
-                        if internal_author_page_qs:
-                            author_obj = {"type": "internal_author", "value": internal_author_page_qs.first().pk}
-                        else:
-                            author_obj = {"type": "external_author", "value": {"name": author_name, "title": "", "photograph": None, "page": ""}}
-                        authors.append(author_obj)
+                    if author_names != "":
+                        author_names_list = [author.strip() for author in author_names.split(",")]
+                        for author_name in author_names_list:
+                            internal_author_page_qs = TeamMemberPage.objects.filter(name=author_name)
+                            if internal_author_page_qs:
+                                author_obj = {"type": "internal_author", "value": internal_author_page_qs.first().pk}
+                            else:
+                                author_obj = {"type": "external_author", "value": {"name": author_name, "title": "", "photograph": None, "page": ""}}
+                            authors.append(author_obj)
                     if authors:
                         new_dataset.authors = json.dumps(authors)
 
@@ -428,16 +432,18 @@ class Command(BaseCommand):
                     dataset_listing.add_child(instance=new_figure)
 
                     # Authors
-                    author_name = figure_dict[
+                    author_names = figure_dict[
                             'Analyst that worked on the chart']
                     authors = []
-                    if author_name != "":
-                        internal_author_page_qs = TeamMemberPage.objects.filter(name=author_name)
-                        if internal_author_page_qs:
-                            author_obj = {"type": "internal_author", "value": internal_author_page_qs.first().pk}
-                        else:
-                            author_obj = {"type": "external_author", "value": {"name": author_name, "title": "", "photograph": None, "page": ""}}
-                        authors.append(author_obj)
+                    if author_names != "":
+                        author_names_list = [author.strip() for author in author_names.split(",")]
+                        for author_name in author_names_list:
+                            internal_author_page_qs = TeamMemberPage.objects.filter(name=author_name)
+                            if internal_author_page_qs:
+                                author_obj = {"type": "internal_author", "value": internal_author_page_qs.first().pk}
+                            else:
+                                author_obj = {"type": "external_author", "value": {"name": author_name, "title": "", "photograph": None, "page": ""}}
+                            authors.append(author_obj)
                     if authors:
                         new_figure.authors = json.dumps(authors)
 

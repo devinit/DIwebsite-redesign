@@ -53,6 +53,19 @@ class DataSourceTopic(TaggedItemBase):
 class DataSource(ClusterableModel):
     source_id = models.CharField(max_length=255, unique=True, blank=True, null=True)
     title = models.TextField(unique=True)
+    authors = StreamField([
+        ('internal_author', PageChooserBlock(
+            required=False,
+            target_model='ourteam.TeamMemberPage',
+            icon='fa-user'
+        )),
+        ('external_author', StructBlock([
+            ('name', CharBlock(required=False)),
+            ('title', CharBlock(required=False)),
+            ('photograph', ImageChooserBlock(required=False)),
+            ('page', URLBlock(required=False))
+        ], icon='fa-user'))
+    ], blank=True)
     description = models.TextField(blank=True, null=True)
     organisation = models.TextField(blank=True, null=True)
     link_to_metadata = models.URLField(blank=True)
@@ -60,7 +73,6 @@ class DataSource(ClusterableModel):
     geography = models.TextField(blank=True, null=True)
     date_of_access = models.DateField(null=True, blank=True)
     internal_notes = models.TextField(blank=True, null=True)
-    lead_analyst = models.TextField(blank=True, null=True)
     licence = models.TextField(max_length=255, blank=True, null=True)
     topics = ClusterTaggableManager(through=DataSourceTopic, blank=True, verbose_name="Topics")
     slug = models.SlugField(
@@ -70,6 +82,7 @@ class DataSource(ClusterableModel):
     panels = [
         FieldPanel('source_id'),
         FieldPanel('title'),
+        StreamFieldPanel('authors'),
         FieldPanel('description'),
         FieldPanel('organisation'),
         FieldPanel('link_to_metadata'),
@@ -77,7 +90,6 @@ class DataSource(ClusterableModel):
         FieldPanel('geography'),
         FieldPanel('date_of_access'),
         FieldPanel('internal_notes'),
-        FieldPanel('lead_analyst'),
         FieldPanel('topics'),
         FieldPanel('slug'),
     ]
@@ -258,9 +270,6 @@ class FigurePage(DataSetMixin, TypesetBodyMixin, HeroMixin, Page):
         null=True,
         help_text='Descriptive title of the chart'
     )
-    publication_name = models.TextField(
-        blank=True, null=True, verbose_name='Name',
-        help_text='Imported publication name')
     publication = models.ForeignKey(
         'wagtailcore.Page',
         null=True,
@@ -278,7 +287,6 @@ class FigurePage(DataSetMixin, TypesetBodyMixin, HeroMixin, Page):
         FieldPanel('name'),
         FieldPanel('figure_id'),
         FieldPanel('figure_title'),
-        FieldPanel('publication_name'),
         FieldPanel('release_date'),
         PageChooserPanel('publication', [
             'publications.PublicationPage',

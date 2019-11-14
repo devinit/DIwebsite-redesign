@@ -2,6 +2,7 @@ from django import template
 from itertools import chain
 from di_website.blog.models import BlogArticlePage
 from di_website.publications.models import LegacyPublicationPage, ShortPublicationPage, PublicationPage
+from di_website.datasection.models import DatasetPage, FigurePage
 
 register = template.Library()
 
@@ -19,6 +20,10 @@ def user_content(author_page):
         PublicationPage.objects.filter(authors__contains="\"value\": {}}}".format(author_page.pk)).live(),
         ShortPublicationPage.objects.filter(authors__contains="\"value\": {},".format(author_page.pk)).live(),
         ShortPublicationPage.objects.filter(authors__contains="\"value\": {}}}".format(author_page.pk)).live(),
-        LegacyPublicationPage.objects.filter(authors__contains="\"value\": {},".format(author_page.pk)),
-        LegacyPublicationPage.objects.filter(authors__contains="\"value\": {}}}".format(author_page.pk))
+        LegacyPublicationPage.objects.filter(authors__contains="\"value\": {},".format(author_page.pk)).live(),
+        LegacyPublicationPage.objects.filter(authors__contains="\"value\": {}}}".format(author_page.pk)).live(),
+        # DatasetPage.objects.filter(authors__contains="\"value\": {},".format(author_page.pk)).live(),
+        # DatasetPage.objects.filter(authors__contains="\"value\": {}}}".format(author_page.pk)).live(),
+        # FigurePage.objects.filter(authors__contains="\"value\": {},".format(author_page.pk)).live(),
+        # FigurePage.objects.filter(authors__contains="\"value\": {}}}".format(author_page.pk)).live()
     )

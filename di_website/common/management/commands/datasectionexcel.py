@@ -15,8 +15,15 @@ from django.core.files import File
 from django.conf import settings
 
 from wagtail.documents.models import Document
+from wagtail.core.models import Page
 
 from di_website.home.models import HomePage
+from di_website.ourteam.models import TeamMemberPage
+from di_website.publications.inlines import (
+    PublicationPageDataset, PublicationSummaryPageDataset,
+    PublicationChapterPageDataset, PublicationAppendixPageDataset,
+    LegacyPublicationPageDataset, ShortPublicationPageDataset
+)
 from di_website.datasection.models import (DataSectionPage, DataSetListing,
                                            DataSource, DatasetPage,
                                            DataSetSource, FigurePage,
@@ -117,10 +124,22 @@ class Command(BaseCommand):
                         link_to_data=source_dict['Link to the source'],
                         geography=source_dict['Geography information'],
                         internal_notes=source_dict['Internal notes'],
-                        lead_analyst=source_dict[
-                            'Analyst that worked on the data'],
                         licence=source_dict['Licence'])
                     # new_source.topics.add(*tag_list)
+
+                    # Authors
+                    author_name = source_dict[
+                        'Analyst that worked on the data']
+                    authors = []
+                    if author_name != "":
+                        internal_author_page_qs = TeamMemberPage.objects.filter(name=author_name)
+                        if internal_author_page_qs:
+                            author_obj = {"type": "internal_author", "value": internal_author_page_qs.first().pk}
+                        else:
+                            author_obj = {"type": "external_author", "value": {"name": author_name, "title": "", "photograph": None, "page": ""}}
+                        authors.append(author_obj)
+                    if authors:
+                        new_source.authors = json.dumps(authors)
                     new_source.save()
 
         # Datasets
@@ -144,7 +163,7 @@ class Command(BaseCommand):
                     dataset_id=dataset_dict['Dataset ID'])
                 if not dataset_check and dataset_dict[
                         'What is the title of the data set?'] != "" and dataset_dict['Signed-off and ready?'].lower() == "yes":
-                    print("Dataset: ",dataset_dict[
+                    print("Dataset: ", dataset_dict[
                                 'What is the title of the data set?'])
                     if type(dataset_dict['Release date?']) is not datetime:
                         try:
@@ -191,14 +210,6 @@ class Command(BaseCommand):
                             "value":
                             dataset_dict['Internal notes']
                         })
-                    if dataset_dict[
-                            'Analyst that worked on the data'] != "":
-                        meta_json.append({
-                            "type":
-                            "lead_analyst",
-                            "value":
-                            dataset_dict['Analyst that worked on the data']
-                        })
                     if dataset_dict['Licence'] != "":
                         meta_json.append({
                             "type": "licence",
@@ -228,7 +239,39 @@ class Command(BaseCommand):
                     # new_dataset.topics.add(*tag_list)
 
                     dataset_listing.add_child(instance=new_dataset)
+
+                    # Authors
+                    author_name = dataset_dict[
+                            'Analyst that worked on the data']
+                    authors = []
+                    if author_name != "":
+                        internal_author_page_qs = TeamMemberPage.objects.filter(name=author_name)
+                        if internal_author_page_qs:
+                            author_obj = {"type": "internal_author", "value": internal_author_page_qs.first().pk}
+                        else:
+                            author_obj = {"type": "external_author", "value": {"name": author_name, "title": "", "photograph": None, "page": ""}}
+                        authors.append(author_obj)
+                    if authors:
+                        new_dataset.authors = json.dumps(authors)
+
                     new_dataset.save_revision().publish()
+
+                    if dataset_dict['What DI publication is this dataset associated with?'] != "":
+                        pub_check = Page.objects.filter(title=dataset_dict['What DI publication is this dataset associated with?']).live()
+                        if pub_check:
+                            pub_page = pub_check.first().specific()
+                            if pub_page.verbose_name == "Publication Page":
+                                PublicationPageDataset(item=pub_page, dataset=new_dataset).save()
+                            elif pub_page.verbose_name == "Publication Summary Page":
+                                PublicationSummaryPageDataset(item=pub_page, dataset=new_dataset).save()
+                            elif pub_page.verbose_name == "Publication Chapter Page":
+                                PublicationChapterPageDataset(item=pub_page, dataset=new_dataset).save()
+                            elif pub_page.verbose_name == "Publication Appendix Page":
+                                PublicationAppendixPageDataset(item=pub_page, dataset=new_dataset).save()
+                            elif pub_page.verbose_name == "Legacy Publication Page":
+                                LegacyPublicationPageDataset(item=pub_page, dataset=new_dataset).save()
+                            elif pub_page.verbose_name == "Short Publication Page":
+                                ShortPublicationPageDataset(item=pub_page, dataset=new_dataset).save()
 
                     for source_key in source_keys:
                         key_val = dataset_dict[source_key]
@@ -345,14 +388,6 @@ class Command(BaseCommand):
                             "type": "internal_notes",
                             "value": figure_dict['Internal notes']
                         })
-                    if figure_dict[
-                            'Analyst that worked on the chart'] != "":
-                        meta_json.append({
-                            "type":
-                            "lead_analyst",
-                            "value":
-                            figure_dict['Analyst that worked on the chart']
-                        })
                     if figure_dict['Licence'] != "":
                         meta_json.append({
                             "type": "licence",
@@ -365,6 +400,12 @@ class Command(BaseCommand):
                             "value":
                             figure_dict['Suggested citation']
                         })
+                    if figure_dict[
+                        'What report does the data set come from?'] != "":
+                        pub_check = Page.objects.filter(title=figure_dict[
+                            'What report does the data set come from?']).live()
+                        if pub_check:
+                            pub_page = pub_check.first()
 
                     new_figure = FigurePage(
                         title=figure_dict[
@@ -374,9 +415,8 @@ class Command(BaseCommand):
                             'What is the active title used in the report'],
                         figure_title=figure_dict[
                             'What is the descriptive title of the chart?'],
-                        publication_name=figure_dict[
-                            'What report does the data set come from?'],
                         release_date=release_date,
+                        publication=pub_page,
                         meta_data=json.dumps(meta_json))
 
                     # try:
@@ -386,6 +426,21 @@ class Command(BaseCommand):
                     # new_figure.topics.add(*tag_list)
 
                     dataset_listing.add_child(instance=new_figure)
+
+                    # Authors
+                    author_name = figure_dict[
+                            'Analyst that worked on the chart']
+                    authors = []
+                    if author_name != "":
+                        internal_author_page_qs = TeamMemberPage.objects.filter(name=author_name)
+                        if internal_author_page_qs:
+                            author_obj = {"type": "internal_author", "value": internal_author_page_qs.first().pk}
+                        else:
+                            author_obj = {"type": "external_author", "value": {"name": author_name, "title": "", "photograph": None, "page": ""}}
+                        authors.append(author_obj)
+                    if authors:
+                        new_figure.authors = json.dumps(authors)
+
                     new_figure.save_revision().publish()
 
                     for source_key in figure_source_keys:

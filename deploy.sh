@@ -175,6 +175,8 @@ then
     export_travis_enviroment
     setup_docker_storage
 
+    cp $SCRIPT_DIR"/box_config.json" $APP_DIR"/"
+
     mkdir -p $APP_DIR"/assets"
     mkdir -p $APP_DIR"/storage"
 

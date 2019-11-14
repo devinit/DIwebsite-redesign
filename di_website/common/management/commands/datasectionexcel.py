@@ -24,6 +24,11 @@ from di_website.publications.inlines import (
     PublicationChapterPageDataset, PublicationAppendixPageDataset,
     LegacyPublicationPageDataset, ShortPublicationPageDataset
 )
+from di_website.publications.models import(
+    PublicationPage, PublicationSummaryPage,
+    PublicationChapterPage, PublicationAppendixPage,
+    LegacyPublicationPage, ShortPublicationPage
+)
 from di_website.datasection.models import (DataSectionPage, DataSetListing,
                                            DataSource, DatasetPage,
                                            DataSetSource, FigurePage,
@@ -267,18 +272,18 @@ class Command(BaseCommand):
                         for pub_title in pub_titles:
                             pub_check = Page.objects.filter(title=pub_title).live()
                             if pub_check:
-                                pub_page = pub_check.first().specific()
-                                if pub_page.verbose_name == "Publication Page":
+                                pub_page = pub_check.first().specific
+                                if isinstance(pub_page, PublicationPage):
                                     PublicationPageDataset(item=pub_page, dataset=new_dataset).save()
-                                elif pub_page.verbose_name == "Publication Summary Page":
+                                elif isinstance(pub_page, PublicationSummaryPage):
                                     PublicationSummaryPageDataset(item=pub_page, dataset=new_dataset).save()
-                                elif pub_page.verbose_name == "Publication Chapter Page":
+                                elif isinstance(pub_page, PublicationChapterPage):
                                     PublicationChapterPageDataset(item=pub_page, dataset=new_dataset).save()
-                                elif pub_page.verbose_name == "Publication Appendix Page":
+                                elif isinstance(pub_page, PublicationAppendixPage):
                                     PublicationAppendixPageDataset(item=pub_page, dataset=new_dataset).save()
-                                elif pub_page.verbose_name == "Legacy Publication Page":
+                                elif isinstance(pub_page, LegacyPublicationPage):
                                     LegacyPublicationPageDataset(item=pub_page, dataset=new_dataset).save()
-                                elif pub_page.verbose_name == "Short Publication Page":
+                                elif isinstance(pub_page, ShortPublicationPage):
                                     ShortPublicationPageDataset(item=pub_page, dataset=new_dataset).save()
 
                     for source_key in source_keys:
@@ -408,25 +413,16 @@ class Command(BaseCommand):
                             "value":
                             figure_dict['Suggested citation']
                         })
-                    if figure_dict[
-                        'What report does the data set come from?'] not in MISSING_VALUES:
-                        pub_check = Page.objects.filter(title=figure_dict[
-                            'What report does the data set come from?']).live()
-                        if pub_check:
-                            pub_page = pub_check.first()
-                        else:
-                            pub_page = None
 
                     new_figure = FigurePage(
                         title=figure_dict[
                             'What is the descriptive title of the chart?'],
                         figure_id=figure_dict['Chart ID'],
                         name=figure_dict[
-                            'What is the active title used in the report'],
+                            'What is the Figure number used in the report'],
                         figure_title=figure_dict[
-                            'What is the descriptive title of the chart?'],
+                            'What is the active title used in the report'],
                         release_date=release_date,
-                        publication=pub_page,
                         meta_data=json.dumps(meta_json))
 
                     # try:
@@ -436,6 +432,29 @@ class Command(BaseCommand):
                     # new_figure.topics.add(*tag_list)
 
                     dataset_listing.add_child(instance=new_figure)
+
+                    if figure_dict[
+                        'What report does the data set come from?'] not in MISSING_VALUES:
+                        pub_titles = [pub_title.strip() for pub_title in figure_dict[
+                            'What report does the data set come from?'].split("|")]
+                        for pub_title in pub_titles:
+                            pub_check = Page.objects.filter(title=pub_title).live()
+                            if pub_check:
+                                pub_page = pub_check.first().specific
+                                if not new_figure.publication:
+                                    new_figure.publication = pub_page
+                                if isinstance(pub_page, PublicationPage):
+                                    PublicationPageDataset(item=pub_page, dataset=new_figure).save()
+                                elif isinstance(pub_page, PublicationSummaryPage):
+                                    PublicationSummaryPageDataset(item=pub_page, dataset=new_figure).save()
+                                elif isinstance(pub_page, PublicationChapterPage):
+                                    PublicationChapterPageDataset(item=pub_page, dataset=new_figure).save()
+                                elif isinstance(pub_page, PublicationAppendixPage):
+                                    PublicationAppendixPageDataset(item=pub_page, dataset=new_figure).save()
+                                elif isinstance(pub_page, LegacyPublicationPage):
+                                    LegacyPublicationPageDataset(item=pub_page, dataset=new_figure).save()
+                                elif isinstance(pub_page, ShortPublicationPage):
+                                    ShortPublicationPageDataset(item=pub_page, dataset=new_figure).save()
 
                     # Authors
                     author_names = figure_dict[

@@ -287,7 +287,6 @@ class FigurePage(DataSetMixin, TypesetBodyMixin, HeroMixin, Page):
         FieldPanel('name'),
         FieldPanel('figure_id'),
         FieldPanel('figure_title'),
-        FieldPanel('release_date'),
         PageChooserPanel('publication', [
             'publications.PublicationPage',
             'publications.ShortPublicationPage',
@@ -296,6 +295,7 @@ class FigurePage(DataSetMixin, TypesetBodyMixin, HeroMixin, Page):
             'publications.PublicationChapterPage',
             'publications.PublicationAppendixPage'
         ]),
+        FieldPanel('release_date'),
         StreamFieldPanel('body'),
         StreamFieldPanel('authors'),
         InlinePanel('figure_downloads', label='Downloads', max_num=None),
@@ -329,7 +329,7 @@ class FigurePage(DataSetMixin, TypesetBodyMixin, HeroMixin, Page):
         return self.figure_sources.all()
 
     def get_name(self):
-        return self.publication.title + ' - ' + self.name if self.publication else self.name
+        return self.publication.title + ' - ' + self.name if self.publication else self.figure_title
 
 
 class FigurePageDownloads(Orderable, BaseDownload):
@@ -489,12 +489,12 @@ class DataSetListing(TypesetBodyMixin, Page):
         context['sources'] = DataSource.objects.all()
 
         context['reports'] = Page.objects.live().filter(
-            models.Q(publicationpage__publication_datasets__dataset__content_type=ds_content_type) |
-            models.Q(publicationsummarypage__publication_datasets__dataset__content_type=ds_content_type) |
-            models.Q(publicationappendixpage__publication_datasets__dataset__content_type=ds_content_type) |
-            models.Q(legacypublicationpage__publication_datasets__dataset__content_type=ds_content_type) |
-            models.Q(publicationchapterpage__publication_datasets__dataset__content_type=ds_content_type) |
-            models.Q(shortpublicationpage__publication_datasets__dataset__content_type=ds_content_type)
-        ).distinct()
+            models.Q(publicationpage__publication_datasets__isnull=False) |
+            models.Q(publicationsummarypage__publication_datasets__isnull=False) |
+            models.Q(publicationappendixpage__publication_datasets__isnull=False) |
+            models.Q(legacypublicationpage__publication_datasets__isnull=False) |
+            models.Q(publicationchapterpage__publication_datasets__isnull=False) |
+            models.Q(shortpublicationpage__publication_datasets__isnull=False)
+        ).distinct().order_by('title')
 
         return context

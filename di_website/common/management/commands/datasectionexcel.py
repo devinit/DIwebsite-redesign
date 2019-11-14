@@ -263,21 +263,23 @@ class Command(BaseCommand):
                     new_dataset.save_revision().publish()
 
                     if dataset_dict['What DI publication is this dataset associated with?'] not in MISSING_VALUES:
-                        pub_check = Page.objects.filter(title=dataset_dict['What DI publication is this dataset associated with?']).live()
-                        if pub_check:
-                            pub_page = pub_check.first().specific()
-                            if pub_page.verbose_name == "Publication Page":
-                                PublicationPageDataset(item=pub_page, dataset=new_dataset).save()
-                            elif pub_page.verbose_name == "Publication Summary Page":
-                                PublicationSummaryPageDataset(item=pub_page, dataset=new_dataset).save()
-                            elif pub_page.verbose_name == "Publication Chapter Page":
-                                PublicationChapterPageDataset(item=pub_page, dataset=new_dataset).save()
-                            elif pub_page.verbose_name == "Publication Appendix Page":
-                                PublicationAppendixPageDataset(item=pub_page, dataset=new_dataset).save()
-                            elif pub_page.verbose_name == "Legacy Publication Page":
-                                LegacyPublicationPageDataset(item=pub_page, dataset=new_dataset).save()
-                            elif pub_page.verbose_name == "Short Publication Page":
-                                ShortPublicationPageDataset(item=pub_page, dataset=new_dataset).save()
+                        pub_titles = [pub_title.strip() for pub_title in dataset_dict['What DI publication is this dataset associated with?'].split(",")]
+                        for pub_title in pub_titles:
+                            pub_check = Page.objects.filter(title=pub_title).live()
+                            if pub_check:
+                                pub_page = pub_check.first().specific()
+                                if pub_page.verbose_name == "Publication Page":
+                                    PublicationPageDataset(item=pub_page, dataset=new_dataset).save()
+                                elif pub_page.verbose_name == "Publication Summary Page":
+                                    PublicationSummaryPageDataset(item=pub_page, dataset=new_dataset).save()
+                                elif pub_page.verbose_name == "Publication Chapter Page":
+                                    PublicationChapterPageDataset(item=pub_page, dataset=new_dataset).save()
+                                elif pub_page.verbose_name == "Publication Appendix Page":
+                                    PublicationAppendixPageDataset(item=pub_page, dataset=new_dataset).save()
+                                elif pub_page.verbose_name == "Legacy Publication Page":
+                                    LegacyPublicationPageDataset(item=pub_page, dataset=new_dataset).save()
+                                elif pub_page.verbose_name == "Short Publication Page":
+                                    ShortPublicationPageDataset(item=pub_page, dataset=new_dataset).save()
 
                     for source_key in source_keys:
                         key_val = dataset_dict[source_key]

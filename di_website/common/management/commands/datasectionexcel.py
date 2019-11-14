@@ -39,6 +39,8 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
 
+        MISSING_VALUES = ["", " ", ".", "NA", "N/A", "N.A."]
+
         # Box Auth
         config = JWTAuth.from_settings_file(
             os.path.join(settings.BASE_DIR, 'box_config.json'))
@@ -99,7 +101,7 @@ class Command(BaseCommand):
             else:
                 source_check = DataSource.objects.filter(
                     source_id=source_dict['Source ID'])
-                if not source_check and source_dict['Source title'] != "" and source_dict['Signed-off and ready?'].lower() == "yes":
+                if not source_check and source_dict['Source title'] not in MISSING_VALUES and source_dict['Signed-off and ready?'].lower() == "yes":
                     print("source: ", source_dict['Source title'])
                     if type(source_dict['Date of access']) is not datetime:
                         try:
@@ -131,7 +133,7 @@ class Command(BaseCommand):
                     author_names = source_dict[
                         'Analyst that worked on the data']
                     authors = []
-                    if author_names != "":
+                    if author_names not in MISSING_VALUES:
                         author_names_list = [author.strip() for author in author_names.split(",")]
                         for author_name in author_names_list:
                             internal_author_page_qs = TeamMemberPage.objects.filter(name=author_name)
@@ -164,7 +166,7 @@ class Command(BaseCommand):
                 dataset_check = DatasetPage.objects.filter(
                     dataset_id=dataset_dict['Dataset ID'])
                 if not dataset_check and dataset_dict[
-                        'What is the title of the data set?'] != "" and dataset_dict['Signed-off and ready?'].lower() == "yes":
+                        'What is the title of the data set?'] not in MISSING_VALUES and dataset_dict['Signed-off and ready?'].lower() == "yes":
                     print("Dataset: ", dataset_dict[
                                 'What is the title of the data set?'])
                     if type(dataset_dict['Release date?']) is not datetime:
@@ -178,7 +180,7 @@ class Command(BaseCommand):
 
                     meta_json = []
                     if dataset_dict[
-                            'What is a long description of the data set?'] != "":
+                            'What is a long description of the data set?'] not in MISSING_VALUES:
                         meta_json.append({
                             "type":
                             "description",
@@ -186,38 +188,38 @@ class Command(BaseCommand):
                             dataset_dict[
                                 'What is a long description of the data set?']
                         })
-                    if dataset_dict['Geography information'] != "":
+                    if dataset_dict['Geography information'] not in MISSING_VALUES:
                         meta_json.append({
                             "type":
                             "geography",
                             "value":
                             dataset_dict['Geography information']
                         })
-                    if dataset_dict['Geographic coding'] != "":
+                    if dataset_dict['Geographic coding'] not in MISSING_VALUES:
                         meta_json.append({
                             "type":
                             "geographic_coding",
                             "value":
                             dataset_dict['Geographic coding']
                         })
-                    if dataset_dict['Unit'] != "":
+                    if dataset_dict['Unit'] not in MISSING_VALUES:
                         meta_json.append({
                             "type": "unit",
                             "value": dataset_dict['Unit']
                         })
-                    if dataset_dict['Internal notes'] != "":
+                    if dataset_dict['Internal notes'] not in MISSING_VALUES:
                         meta_json.append({
                             "type":
                             "internal_notes",
                             "value":
                             dataset_dict['Internal notes']
                         })
-                    if dataset_dict['Licence'] != "":
+                    if dataset_dict['Licence'] not in MISSING_VALUES:
                         meta_json.append({
                             "type": "licence",
                             "value": dataset_dict['Licence']
                         })
-                    if dataset_dict['Suggested citation'] != "":
+                    if dataset_dict['Suggested citation'] not in MISSING_VALUES:
                         meta_json.append({
                             "type":
                             "citation",
@@ -246,7 +248,7 @@ class Command(BaseCommand):
                     author_names = dataset_dict[
                             'Analyst that worked on the data']
                     authors = []
-                    if author_names != "":
+                    if author_names not in MISSING_VALUES:
                         author_names_list = [author.strip() for author in author_names.split(",")]
                         for author_name in author_names_list:
                             internal_author_page_qs = TeamMemberPage.objects.filter(name=author_name)
@@ -260,7 +262,7 @@ class Command(BaseCommand):
 
                     new_dataset.save_revision().publish()
 
-                    if dataset_dict['What DI publication is this dataset associated with?'] != "":
+                    if dataset_dict['What DI publication is this dataset associated with?'] not in MISSING_VALUES:
                         pub_check = Page.objects.filter(title=dataset_dict['What DI publication is this dataset associated with?']).live()
                         if pub_check:
                             pub_page = pub_check.first().specific()
@@ -279,7 +281,7 @@ class Command(BaseCommand):
 
                     for source_key in source_keys:
                         key_val = dataset_dict[source_key]
-                        if key_val != "":
+                        if key_val not in MISSING_VALUES:
                             try:
                                 related_datasource = DataSource.objects.get(
                                     title=key_val)
@@ -289,7 +291,7 @@ class Command(BaseCommand):
                             except DataSource.DoesNotExist:
                                 pass
 
-                    if dataset_dict["File name Excel"] != "":
+                    if dataset_dict["File name Excel"] not in MISSING_VALUES:
                         item_name = dataset_dict["File name Excel"].lower(
                         ) + ".xlsx"
                         try:
@@ -309,7 +311,7 @@ class Command(BaseCommand):
                             self.stdout.write(
                                 self.style.WARNING(item_name + " not found."))
 
-                    if dataset_dict["File name csv"] != "":
+                    if dataset_dict["File name csv"] not in MISSING_VALUES:
                         item_name = dataset_dict["File name csv"].lower(
                         ) + ".csv"
                         try:
@@ -353,7 +355,7 @@ class Command(BaseCommand):
                 figure_check = FigurePage.objects.filter(
                     figure_id=figure_dict['Chart ID'])
                 if not figure_check and figure_dict[
-                        'What is the descriptive title of the chart?'] != "" and figure_dict['Signed-off and ready?'].lower() == "yes":
+                        'What is the descriptive title of the chart?'] not in MISSING_VALUES and figure_dict['Signed-off and ready?'].lower() == "yes":
                     print("Figure: ", figure_dict[
                                 'What is the descriptive title of the chart?'])
                     if type(figure_dict['Release date']) is not datetime:
@@ -367,7 +369,7 @@ class Command(BaseCommand):
 
                     meta_json = []
                     if figure_dict[
-                            'What is a long description of the chart data?'] != "":
+                            'What is a long description of the chart data?'] not in MISSING_VALUES:
                         meta_json.append({
                             "type":
                             "description",
@@ -375,29 +377,29 @@ class Command(BaseCommand):
                             figure_dict[
                                 'What is a long description of the chart data?']
                         })
-                    if figure_dict['Geography information'] != "":
+                    if figure_dict['Geography information'] not in MISSING_VALUES:
                         meta_json.append({
                             "type":
                             "geography",
                             "value":
                             figure_dict['Geography information']
                         })
-                    if figure_dict['Geography unit'] != "":
+                    if figure_dict['Geography unit'] not in MISSING_VALUES:
                         meta_json.append({
                             "type": "geographic_coding",
                             "value": figure_dict['Geography unit']
                         })
-                    if figure_dict['Internal notes'] != "":
+                    if figure_dict['Internal notes'] not in MISSING_VALUES:
                         meta_json.append({
                             "type": "internal_notes",
                             "value": figure_dict['Internal notes']
                         })
-                    if figure_dict['Licence'] != "":
+                    if figure_dict['Licence'] not in MISSING_VALUES:
                         meta_json.append({
                             "type": "licence",
                             "value": figure_dict['Licence']
                         })
-                    if figure_dict['Suggested citation'] != "":
+                    if figure_dict['Suggested citation'] not in MISSING_VALUES:
                         meta_json.append({
                             "type":
                             "citation",
@@ -405,7 +407,7 @@ class Command(BaseCommand):
                             figure_dict['Suggested citation']
                         })
                     if figure_dict[
-                        'What report does the data set come from?'] != "":
+                        'What report does the data set come from?'] not in MISSING_VALUES:
                         pub_check = Page.objects.filter(title=figure_dict[
                             'What report does the data set come from?']).live()
                         if pub_check:
@@ -435,7 +437,7 @@ class Command(BaseCommand):
                     author_names = figure_dict[
                             'Analyst that worked on the chart']
                     authors = []
-                    if author_names != "":
+                    if author_names not in MISSING_VALUES:
                         author_names_list = [author.strip() for author in author_names.split(",")]
                         for author_name in author_names_list:
                             internal_author_page_qs = TeamMemberPage.objects.filter(name=author_name)
@@ -451,7 +453,7 @@ class Command(BaseCommand):
 
                     for source_key in figure_source_keys:
                         key_val = figure_dict[source_key]
-                        if key_val != "":
+                        if key_val not in MISSING_VALUES:
                             try:
                                 related_datasource = DataSource.objects.get(
                                     title=key_val)
@@ -462,7 +464,7 @@ class Command(BaseCommand):
 
                     for dataset_key in figure_dataset_keys:
                         key_val = figure_dict[dataset_key]
-                        if key_val != "":
+                        if key_val not in MISSING_VALUES:
                             try:
                                 related_dataset = DatasetPage.objects.get(
                                     title=key_val)
@@ -471,7 +473,7 @@ class Command(BaseCommand):
                             except DatasetPage.DoesNotExist:
                                 pass
 
-                    if figure_dict["File name"] != "":
+                    if figure_dict["File name"] not in MISSING_VALUES:
                         item_name = figure_dict["File name"].lower() + ".csv"
                         try:
                             item_id = box_items[item_name]

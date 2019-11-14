@@ -440,12 +440,14 @@ class DataSetListing(TypesetBodyMixin, Page):
                 models.Q(shortpublicationpage__publication_datasets__item__slug=report)
             ).first()
             if (pubs and pubs.specific.publication_datasets):
+                filtered_datasets = Page.objects.none()
                 for dataset in pubs.specific.publication_datasets.all():
                     results = datasets.filter(
                         models.Q(datasetpage__slug__exact=dataset.dataset.slug) |
                         models.Q(figurepage__slug__exact=dataset.dataset.slug))
                     if results:
-                        datasets = results
+                        filtered_datasets = filtered_datasets | results
+                datasets = filtered_datasets
             else:
                 datasets = None
 

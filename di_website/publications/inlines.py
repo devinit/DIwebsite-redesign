@@ -61,14 +61,14 @@ class PublicationDataset(Orderable):
         abstract = True
 
     dataset = models.ForeignKey(
-        'datasection.DatasetPage',
+        'wagtailcore.Page',
         null=True,
         blank=True,
-        on_delete=models.SET_NULL,
+        on_delete=models.CASCADE,
         related_name='+'
     )
 
-    panels = [PageChooserPanel('dataset', ['datasection.DatasetPage'])]
+    panels = [PageChooserPanel('dataset', ['datasection.DatasetPage', 'datasection.FigurePage'])]
 
 
 class PublicationPageDataset(PublicationDataset):

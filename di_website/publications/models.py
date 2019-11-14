@@ -417,6 +417,10 @@ class PublicationSummaryPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
     ]
 
     @cached_property
+    def label_type(self):
+        return 'summary'
+
+    @cached_property
     def label(self):
         return 'the executive summary'
 
@@ -505,6 +509,10 @@ class PublicationChapterPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
     @cached_property
     def chapter_word(self):
         return num2words(self.chapter_number)
+
+    @cached_property
+    def label_type(self):
+        return 'chapter'
 
     @cached_property
     def label(self):
@@ -610,6 +618,10 @@ class PublicationAppendixPage(HeroMixin, ReportChildMixin, FlexibleContentMixin,
     @cached_property
     def appendix_word(self):
         return num2words(self.appendix_number)
+
+    @cached_property
+    def label_type(self):
+        return 'appendix'
 
     @cached_property
     def label(self):
@@ -852,6 +864,10 @@ class ShortPublicationPage(HeroMixin, PublishedDateMixin, FlexibleContentMixin, 
     @cached_property
     def chapter_word(self):
         return num2words(self.chapter_number)
+
+    @cached_property
+    def label_type(self):
+        return 'publication'
 
     @cached_property
     def label(self):

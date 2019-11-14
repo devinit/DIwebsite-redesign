@@ -22,9 +22,9 @@
                 href="{{ item.url }}"
                 class="button button--a11y button--reverse js-chapter-link"
                 tabindex="-1"
-                title="Read whole {{ item.label }}"
+                title="Read whole {{ item.label_type }}"
             >
-                <span>Read {{ item.label }}</span>
+                <span>Read whole {{ item.label_type }}</span>
             </a>
             {% if item.sections %}
                 <ul class="chapter-nav__child__overflow">

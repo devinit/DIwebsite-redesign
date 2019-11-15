@@ -53,6 +53,7 @@ def get_related_dataset_pages(selected_pages, dataset_page, min_len=MAX_RELATED_
             models.Q(datasetpage__dataset_sources__source__slug=dataset_source.source.slug) |
             models.Q(figurepage__figure_sources__source__slug=dataset_source.source.slug))
         queryset = queryset | filtered_queryset
+    queryset = queryset.distinct()
 
     if count < min_len:
         difference = min_len - count

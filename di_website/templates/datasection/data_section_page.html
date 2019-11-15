@@ -54,9 +54,11 @@
           <p class="m-text-major">
             <span>{{dataset_count}}</span> datasets
           </p>
-          <p class="para para--typeset">
-            {{ page.dataset_info }}
-          </p>
+          {% if page.dataset_info %}
+            <p class="para para--typeset">
+              {{ page.dataset_info }}
+            </p>
+          {% endif %}
           {% if page.hero_link %}
             <a href="{% pageurl page.hero_link %}" class="button">View datasets</a>
           {% endif %}

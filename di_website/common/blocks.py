@@ -57,7 +57,7 @@ class DocumentBoxSectionBlock(StructBlock):
     A block for holding multiple document boxes.
     """
     section_heading = TextBlock(required=False)
-    section_sub_heading = TextBlock(required=False)
+    section_sub_heading = RichTextBlock(required=False)
     document_box_heading = CharBlock(icon="title", required=False)
     document_boxes = StreamBlock([
         ('document_box', DocumentBoxBlock()),

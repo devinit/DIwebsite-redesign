@@ -29,7 +29,7 @@ RUN apk add --no-cache libmemcached-dev zlib-dev
 RUN apk add --no-cache libressl-dev libffi-dev python3-dev
 
 # Required for python lxml
-RUN apt add --no-cache libxslt-dev
+RUN apk add --no-cache libxslt-dev
 
 # Set environment varibles
 ENV PYTHONUNBUFFERED 1

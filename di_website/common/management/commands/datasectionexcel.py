@@ -44,6 +44,9 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
 
+        def wrap_p(text):
+            return "<p>{}</p>".format(text)
+
         MISSING_VALUES = ["", " ", ".", "NA", "N/A", "N.A."]
 
         # Box Auth
@@ -190,46 +193,46 @@ class Command(BaseCommand):
                             "type":
                             "description",
                             "value":
-                            dataset_dict[
-                                'What is a long description of the data set?']
+                            wrap_p(dataset_dict[
+                                'What is a long description of the data set?'])
                         })
                     if dataset_dict['Geography information'] not in MISSING_VALUES:
                         meta_json.append({
                             "type":
                             "geography",
                             "value":
-                            dataset_dict['Geography information']
+                            wrap_p(dataset_dict['Geography information'])
                         })
                     if dataset_dict['Geographic coding'] not in MISSING_VALUES:
                         meta_json.append({
                             "type":
                             "geographic_coding",
                             "value":
-                            dataset_dict['Geographic coding']
+                            wrap_p(dataset_dict['Geographic coding'])
                         })
                     if dataset_dict['Unit'] not in MISSING_VALUES:
                         meta_json.append({
                             "type": "unit",
-                            "value": dataset_dict['Unit']
+                            "value": wrap_p(dataset_dict['Unit'])
                         })
                     if dataset_dict['Internal notes'] not in MISSING_VALUES:
                         meta_json.append({
                             "type":
                             "internal_notes",
                             "value":
-                            dataset_dict['Internal notes']
+                            wrap_p(dataset_dict['Internal notes'])
                         })
                     if dataset_dict['Licence'] not in MISSING_VALUES:
                         meta_json.append({
                             "type": "licence",
-                            "value": dataset_dict['Licence']
+                            "value": wrap_p(dataset_dict['Licence'])
                         })
                     if dataset_dict['Suggested citation'] not in MISSING_VALUES:
                         meta_json.append({
                             "type":
                             "citation",
                             "value":
-                            dataset_dict['Suggested citation']
+                            wrap_p(dataset_dict['Suggested citation'])
                         })
 
                     new_dataset = DatasetPage(
@@ -381,37 +384,37 @@ class Command(BaseCommand):
                             "type":
                             "description",
                             "value":
-                            figure_dict[
-                                'What is a long description of the chart data?']
+                            wrap_p(figure_dict[
+                                'What is a long description of the chart data?'])
                         })
                     if figure_dict['Geography information'] not in MISSING_VALUES:
                         meta_json.append({
                             "type":
                             "geography",
                             "value":
-                            figure_dict['Geography information']
+                            wrap_p(figure_dict['Geography information'])
                         })
                     if figure_dict['Geography unit'] not in MISSING_VALUES:
                         meta_json.append({
                             "type": "geographic_coding",
-                            "value": figure_dict['Geography unit']
+                            "value": wrap_p(figure_dict['Geography unit'])
                         })
                     if figure_dict['Internal notes'] not in MISSING_VALUES:
                         meta_json.append({
                             "type": "internal_notes",
-                            "value": figure_dict['Internal notes']
+                            "value": wrap_p(figure_dict['Internal notes'])
                         })
                     if figure_dict['Licence'] not in MISSING_VALUES:
                         meta_json.append({
                             "type": "licence",
-                            "value": figure_dict['Licence']
+                            "value": wrap_p(figure_dict['Licence'])
                         })
                     if figure_dict['Suggested citation'] not in MISSING_VALUES:
                         meta_json.append({
                             "type":
                             "citation",
                             "value":
-                            figure_dict['Suggested citation']
+                            wrap_p(figure_dict['Suggested citation'])
                         })
 
                     new_figure = FigurePage(

@@ -343,10 +343,10 @@ class Command(BaseCommand):
         # Figures
         """
         (Pdb) figure_dict.keys()
-        dict_keys(['Chart ID', 'What is the descriptive title of the chart?', 'What is the active title used in the report', 'What is the Figure number used in the report', 'What report does the data set come from?', 'What is a long description of the chart data?', 'Release date', 'Geography information', 'Geography unit', 'Keyword search', 'Internal notes', 'Analyst that worked on the chart', 'Licence', 'Suggested citation', 'Source 1 (yellow = no source data [to check], orange = no source data [approved])', 'Source 2 (optional)', 'Source 3 (optional)', 'Source 4 (optional)', 'Source 5 (optional)', 'Source 6 (optional)', 'Source 7 (optional)', 'Source 8 (optional)', 'Source 9 (optional)', 'Source 10 (optional)', 'Source 11 (optional)', 'Source 12 (optional)', 'Source 13 (optional)', 'Source 14 (optional)', 'Source 15 (optional)', 'Dataset 1', 'Dataset 2', 'Dataset 3', 'Publication type', 'Done', 'File location', 'File name', 'Tab name', 'File notes', 'Signed-off and ready?'])
+        dict_keys(['Chart ID', 'What is the descriptive title of the chart?', 'What is the active title used in the report', 'What is the Figure number used in the report', 'What report does the data set come from?', 'What is a long description of the chart data?', 'Release date', 'Geography information', 'Geography unit', 'Keyword search', 'Internal notes', 'Analyst that worked on the chart', 'Licence', 'Suggested citation', 'Source 1 (orange = no source hyperlink [approved])', 'Source 2 (optional)', 'Source 3 (optional)', 'Source 4 (optional)', 'Source 5 (optional)', 'Source 6 (optional)', 'Source 7 (optional)', 'Source 8 (optional)', 'Source 9 (optional)', 'Source 10 (optional)', 'Source 11 (optional)', 'Source 12 (optional)', 'Source 13 (optional)', 'Source 14 (optional)', 'Source 15 (optional)', 'Dataset 1', 'Dataset 2', 'Dataset 3', 'Publication type', 'Done', 'File location', 'File name', 'Tab name', 'File notes', 'Signed-off and ready?'])
         """
         figure_source_keys = [
-            'Source 1 (yellow = no source data [to check], orange = no source data [approved])',
+            'Source 1 (orange = no source hyperlink [approved])',
             'Source 2 (optional)', 'Source 3 (optional)',
             'Source 4 (optional)', 'Source 5 (optional)',
             'Source 6 (optional)', 'Source 7 (optional)',

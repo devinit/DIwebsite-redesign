@@ -27,7 +27,7 @@ from wagtail.core.models import Orderable, Page
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
-from di_website.common.base import get_paginator_range, get_related_pages, hero_panels, other_pages_panel
+from di_website.common.base import get_paginator_range, hero_panels, other_pages_panel
 from di_website.common.constants import MAX_PAGE_SIZE, MAX_RELATED_LINKS
 from di_website.common.mixins import HeroMixin, OtherPageMixin, SectionBodyMixin, TypesetBodyMixin
 from di_website.publications.models import Country
@@ -39,6 +39,33 @@ from di_website.publications.models import (
 from .blocks import QuoteStreamBlock, MetaDataDescriptionBlock, MetaDataSourcesBlock
 from .mixins import DataSetMixin, DataSetSourceMixin
 from .panels import metadata_panel
+
+
+def get_related_dataset_pages(selected_pages, dataset_page, min_len=MAX_RELATED_LINKS):
+    count = len(selected_pages)
+    if isinstance(dataset_page, DatasetPage):
+        sources = dataset_page.dataset_sources.all()
+    else:
+        sources = dataset_page.figure_sources.all()
+    queryset = Page.objects.none()
+    for dataset_source in sources:
+        filtered_queryset = Page.objects.sibling_of(dataset_page).live().filter(
+            models.Q(datasetpage__dataset_sources__source__slug=dataset_source.source.slug) |
+            models.Q(figurepage__figure_sources__source__slug=dataset_source.source.slug))
+        queryset = queryset | filtered_queryset
+
+    if count < min_len:
+        difference = min_len - count
+        related_pages = [link.other_page for link in selected_pages]
+        if related_pages and queryset:
+            id_list = [page.id for page in related_pages if page]
+            if id_list:
+                return list(related_pages) + list(queryset.live().exclude(id__in=id_list)[:difference])
+            return list(queryset.live()[:min_len])
+        elif queryset:
+            return list(queryset.live()[:min_len])
+
+    return list([link.other_page for link in selected_pages])
 
 
 class DataSourceTopic(TaggedItemBase):
@@ -201,8 +228,8 @@ class DatasetPage(DataSetMixin, TypesetBodyMixin, HeroMixin, Page):
         context['topics'] = Tag.objects.filter(
                 datasection_datasettopic_items__content_object__content_type=content_type
             ).distinct().order_by('name')
-        context['related_datasets'] = get_related_pages(
-            self.related_datasets.all(), DatasetPage.objects.exclude(id=self.id))
+        context['related_datasets'] = get_related_dataset_pages(
+            self.related_datasets.all(), self)
         context['reports'] = self.get_usages()
 
         return context
@@ -230,7 +257,7 @@ class DatasetPage(DataSetMixin, TypesetBodyMixin, HeroMixin, Page):
                 figurepage__figure_datasets__dataset__slug=self.slug,
                 figurepage__publication__slug=report.slug
             ).specific()
-            report.figures = figures
+            report.figures = figures.order_by('figurepage__figure_title')
 
         return reports
 
@@ -315,8 +342,8 @@ class FigurePage(DataSetMixin, TypesetBodyMixin, HeroMixin, Page):
         context['topics'] = Tag.objects.filter(
                 models.Q(datasection_figuretopic_items__content_object__content_type=content_type)
             ).distinct()
-        context['related_figures'] = get_related_pages(
-            self.related_figures.all(), FigurePage.objects)
+        context['related_figures'] = get_related_dataset_pages(
+            self.related_figures.all(), self)
 
         return context
 

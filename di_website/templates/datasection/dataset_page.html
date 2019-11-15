@@ -12,7 +12,7 @@
   {% include './includes/partials/dataset_metadata.html' %}
 
 
-{% if reports|length %}
+{% if reports|length or reportless_figures %}
   <section class="section">
     <div class="row row--narrow">
       <h2 class="section__heading">References to charts and infographics that use this dataset</h2>
@@ -45,6 +45,22 @@
           </div>
       </div>
       {% endfor %}
+      {% if reportless_figures %}
+        <div class="card card--duo">
+          <div class="card__media">
+              <img src="{% static 'img/fallback-image.jpg' %}" height="290px" width="464px"/>
+          </div>
+          <div class="card__body">
+            <div class="l-2up">
+              {% for figure in reportless_figures %}
+                <div class="l-2up__col">
+                  <p class="m-slip__copy"><a href="{% pageurl figure %}">{{figure.figure_title}}</a></p>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      {% endif %}
   </div>
 </section>
 {% endif %}

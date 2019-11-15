@@ -232,6 +232,7 @@ class DatasetPage(DataSetMixin, TypesetBodyMixin, HeroMixin, Page):
         context['related_datasets'] = get_related_dataset_pages(
             self.related_datasets.all(), self)
         context['reports'] = self.get_usages()
+        context['reportless_figures'] = FigurePage.objects.filter(figure_datasets__dataset=self, publication__isnull=True).live().order_by('figure_title')
 
         return context
 

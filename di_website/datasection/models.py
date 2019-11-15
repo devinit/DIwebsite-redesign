@@ -58,7 +58,7 @@ def get_related_dataset_pages(selected_pages, dataset_page, min_len=MAX_RELATED_
         difference = min_len - count
         related_pages = [link.other_page for link in selected_pages]
         if related_pages and queryset:
-            id_list = [page.id for page in related_pages if page]
+            id_list = [page.id for page in related_pages if page] + [dataset_page.id]
             if id_list:
                 return list(related_pages) + list(queryset.live().exclude(id__in=id_list)[:difference])
             return list(queryset.live()[:min_len])

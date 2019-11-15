@@ -20,7 +20,7 @@ services:
     ulimits:
       memlock:
         soft: -1
-        hard: -1  
+        hard: -1
     ports:
       - "8900:9200"
       - "9700:9300"
@@ -53,6 +53,7 @@ services:
       - ./config/nginx:/etc/nginx/conf.d
       - ./assets:/assets
       - ./storage:/media
+      - ../wp-content:/wp-content
     depends_on:
       - web
   rabbitmq:

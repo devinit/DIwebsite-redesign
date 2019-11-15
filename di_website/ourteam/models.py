@@ -29,9 +29,9 @@ class OurTeamPage(HeroMixin, Page):
         context = super(OurTeamPage, self).get_context(request)
         team_filter = request.GET.get('team-filter', None)
         if team_filter:
-            context['profiles'] = TeamMemberPage.objects.live().filter(teammember_departments__department__slug=team_filter)
+            context['profiles'] = TeamMemberPage.objects.live().filter(teammember_departments__department__slug=team_filter).order_by('name')
         else:
-            context['profiles'] = TeamMemberPage.objects.live()
+            context['profiles'] = TeamMemberPage.objects.live().order_by('name')
         context['departments'] = Department.objects.all()
         context['selected_team'] = team_filter
 

@@ -1,9 +1,9 @@
-{% load responsive wagtailimages_tags wagtailcore_tags %}
+{% load responsive wagtailimages_tags wagtailcore_tags responsive %}
 
 <section class="section">
   <div class="row row--narrow">
     <div class="media-figure">
-      {% image self.image min-500x200 as image %}
+      {% responsiveimage self.image min-500x200 srcset=global.image_srcs as image %}
       <img src="{{ image.url }}" alt="alt">
       <span class="media-figure__credit">Image by
         {% if self.credit_url %}

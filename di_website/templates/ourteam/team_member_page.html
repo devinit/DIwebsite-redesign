@@ -1,5 +1,5 @@
 {% extends "layouts/default.html" %}
-{% load navigation_tags static wagtailcore_tags wagtailimages_tags card_tags team_tags static %}
+{% load navigation_tags static wagtailcore_tags wagtailimages_tags card_tags team_tags static responsive %}
 
 {% block hero %}
 <section class="hero hero--profile">
@@ -14,7 +14,7 @@
     <div class="row row--narrow">
         <div class="hero__profile">
             {% if self.image %}
-              {% image self.image fill-260x260-c100 as img %}
+              {% responsiveimage self.image fill-260x260-c100 srcset=global.card_srcs as img %}
               {% if img.url != '/media/not-found' %}
                 <img height="260px" width="260px" src="{{img.url}}" alt="{{self.name}} photograph">
               {% else %}

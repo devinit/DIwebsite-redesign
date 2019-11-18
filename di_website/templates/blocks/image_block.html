@@ -1,7 +1,7 @@
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load wagtailcore_tags wagtailimages_tags responsive %}
 
 <figure class="media-figure">
-  {% image self.image fill-800x500 alt='inline image' %}
+  {% responsiveimage self.image fill-800x500 srcset=global.image_srcs alt=self.image.title %}
   {% if self.credit_name and self.credit_url %}
     <figcaption class="media-figure__credit">
       Image by <a href="{{self.credit_url}}">{{self.credit_name}}</a>

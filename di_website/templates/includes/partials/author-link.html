@@ -1,9 +1,9 @@
-{% load wagtailimages_tags wagtailcore_tags static %}
+{% load wagtailimages_tags wagtailcore_tags static responsive %}
 
 <a href="{% if page %}{% pageurl page %}{% else %}{{link}}{% endif %}" class="m-author {{class_name}}">
     <div class="m-author__image">
         {% if img %}
-          {% image img fill-80x80-c100 as image %}
+          {% responsiveimage img fill-80x80-c100 srcset=global.card_srcs as image %}
           {% if image.url != '/media/not-found' %}
             <img src="{{ image.url }}" alt="{{ image.alt }}">
           {% else %}

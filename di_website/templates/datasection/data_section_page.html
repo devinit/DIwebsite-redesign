@@ -1,5 +1,5 @@
 {% extends "layouts/default.html" %}
-{% load navigation_tags static wagtailcore_tags wagtailimages_tags card_tags string_utils %}
+{% load navigation_tags static wagtailcore_tags wagtailimages_tags card_tags string_utils responsive %}
 
 {% block hero %}
   {% include 'includes/heroes/hero.html' %}
@@ -33,7 +33,7 @@
           {% if random_quote %}
             {% if random_quote.value.team_member %}
               {% with body=random_quote.value.quote_text source=random_quote.value.team_member.specific %}
-                {% image source.image max-400x250 as image %}
+                {% responsiveimage source.image max-400x250 srcset=global.card_srcs as image %}
                 {% with cite=source.name|add_string:', '|add_string:source.position|add_string:', DI' %}
                   {% include 'includes/partials/testimonial.html' with class_name='testimonial--reverse' %}
                 {% endwith %}
@@ -41,7 +41,7 @@
             {% else %}
               {% with body=random_quote.value.quote_text source=random_quote.value %}
                 {% if source.external_member_photo %}
-                  {% image source.external_member_photo max-400x250 as image %}
+                  {% responsiveimage source.external_member_photo max-400x250 srcset=global.card_srcs as image %}
                 {% endif %}
                 {% with cite=source.name|add_string:', '|add_string:source.role|add_string:', '|add_string:source.organisation %}
                   {% include 'includes/partials/testimonial.html' with class_name='testimonial--reverse' %}

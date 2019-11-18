@@ -1,12 +1,32 @@
 from django.db import models
+from django.conf import settings
 
 from wagtail.core.models import Orderable
 from wagtail.core.fields import RichTextField, StreamField
 
 from .blocks import BaseStreamBlock, SectionStreamBlock, TypesetStreamBlock
 
+from wagtailmetadata.models import MetadataPageMixin
 
-class HeroMixin(models.Model):
+
+class CustomMetadataPageMixin(MetadataPageMixin):
+
+    class Meta:
+        abstract = True
+
+    def get_meta_image(self):
+        if getattr(self, 'hero_image', None):
+            return self.hero_image
+        return super(MetadataPageMixin, self).get_meta_image()
+
+    def get_meta_description(self):
+        return self.search_description if self.search_description else self.title
+
+    def get_meta_title(self):
+        return self.title
+
+
+class HeroMixin(CustomMetadataPageMixin, models.Model):
     class Meta:
         abstract = True
 

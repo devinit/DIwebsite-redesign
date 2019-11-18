@@ -1,6 +1,6 @@
 {% extends 'layouts/default.html' %}
 
-{% load navigation_tags wagtailcore_tags card_tags wagtailimages_tags string_utils %}
+{% load navigation_tags wagtailcore_tags card_tags wagtailimages_tags string_utils responsive %}
 
 {% block hero %}
   {% include 'includes/heroes/hero.html' %}
@@ -38,8 +38,8 @@
               {% if block.block_type == 'logo' %}
                 <div class="aside">
                   <div class="aside__media">
-                    {% image block.value min-500x200 as image %}
-                    <img src='{{ image.url }}' alt="alt">
+                    {% responsiveimage block.value min-500x200 srcset=global.image_srcs as image %}
+                    <img src='{{ image.url }}' alt="alt" srcset="{{ image.srcset }}">
                   </div>
                 </div>
               {% endif %}
@@ -78,8 +78,8 @@
             <div class="l-4up__col">
               <a href="{% pageurl block.value.team_story_page %}" class="m-stat m-stat--simple">
                 <div class="m-stat__icon">
-                  {% image block.value.logo min-500x200 as image %}
-                  <img src='{{ image.url }}' alt="{{ image.alt }}">
+                  {% responsiveimage block.value.logo min-500x200 srcset=global.image_srcs as image %}
+                  <img src='{{ image.url }}' alt="{{ image.alt }}" srcset="{{ image.srcset }}">
                 </div>
                 <h3 class="m-stat__title m-stat__title--center">
                   <span>{{ block.value.team_story_page.specific.title }}</span>

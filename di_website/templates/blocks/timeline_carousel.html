@@ -1,4 +1,4 @@
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load wagtailcore_tags wagtailimages_tags responsive %}
 <section class="section">
     <div class="row row--narrow">
         <h2 class="section__heading">{{ self.section_heading }}</h2>
@@ -31,9 +31,9 @@
                         </div>
                         {% if item.value.image %}
                           <div class="l-highlight__aside">
-                            {% image item.value.image max-400x250 as timeline_img %}
+                            {% responsiveimage item.value.image max-400x250 srcset=global.image_srcs as timeline_img %}
                               <div class="highlight__media">
-                                  <img src="{{ timeline_img.url }}" alt="{{ timeline_img.alt }}">
+                                  <img src="{{ timeline_img.url }}" alt="{{ timeline_img.alt }}" srcset="{{ timeline_img.srcset }}">
                               </div>
                           </div>
                         {% endif %}

@@ -3,7 +3,7 @@
 {% responsiveimage page.hero_image fill-1600x780-c100 srcset=global.hero_srcs as image %}
 <section class="hero{% if image %} hero--image{% endif %} {% block hero_class %}{% endblock %}">
     {% if image %}
-        <div class="hero__image" style="background-image: url('{{ image.url }}');"></div>
+        <div class="hero__image" {{ image | responsive_id }}>{{ image | responsive_css }}</div>
         {% if self.hero_image_credit_name %}
             <span class="hero__credit">Image by
             {% if self.hero_image_credit_url %}

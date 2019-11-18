@@ -1,12 +1,12 @@
-{% load wagtailcore_tags wagtailimages_tags static %}
+{% load wagtailcore_tags wagtailimages_tags static responsive %}
 
 <div class="l-5up__col">
   <a href="{% pageurl self.person %}" class="profile">
     <div class="profile__media">
     {% if self.person.image %}
-      {% image self.person.image fill-200x200-c100 as image %}
+      {% responsiveimage self.person.image fill-200x200-c100 srcset=global.card_srcs as image %}
       {% if image.url != '/media/not-found' %}
-        <img src="{{ image.url }}" alt="{{ image.alt }}">
+        <img src="{{ image.url }}" alt="{{ self.person.name }}" srcset="{{ image.srcset }}">
       {% else %}
         <img height="200px" width="200px" src="{% static 'img/profile-fallback.jpg' %}" alt="Placeholder profile picture">
       {% endif %}

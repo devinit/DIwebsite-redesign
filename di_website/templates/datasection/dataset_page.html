@@ -24,7 +24,7 @@
             {% if item.specific.hero_image %}
               {% responsiveimage item.specific.hero_image fill-464x290-c100 srcset="fill-382x238 1w, fill-464x290 464w" as image %}
               {% if image.url != '/media/not-found' %}
-                <img src="{{ image.url }}" alt="{{item.specific.hero_image.title}}"/>
+                <img src="{{ image.url }}" alt="{{item.specific.hero_image.title}}" srcset="{{ image.srcset }}"/>
               {% endif %}
             {% else %}
               <img src="{% static 'img/fallback-image.jpg' %}" height="290px" width="464px"/>

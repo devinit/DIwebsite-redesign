@@ -1,9 +1,9 @@
-{% load wagtailcore_tags wagtailimages_tags static %}
+{% load wagtailcore_tags wagtailimages_tags static responsive %}
 
 <a href="{% pageurl more_about_page %}" class="card">
     {% if more_about_page.hero_image %}
-        {% image more_about_page.hero_image max-400x250 as hero_img %}
-        <div class="card__media" style="background-image: url({{hero_img.url}});"></div>
+        {% responsiveimage more_about_page.hero_image max-400x250 srcset=global.card_srcs as hero_img %}
+        <div class="card__media" {{ hero_img | responsive_id }}>{{ hero_img | responsive_css }}</div>
     {% else %}
         <div class="card__media" style="background-image: url({% static 'img/fallback-image.jpg' %});"></div>
     {% endif %}

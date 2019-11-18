@@ -1,5 +1,5 @@
 {% extends 'layouts/default.html' %}
-{% load navigation_tags wagtailcore_tags wagtailimages_tags card_tags string_utils %}
+{% load navigation_tags wagtailcore_tags wagtailimages_tags card_tags string_utils responsive %}
 
 {% block body %}
   {% include 'includes/heroes/hero.html' %}
@@ -38,8 +38,8 @@
                 <div class="project__header">
                   <div class="project__media">
                     {% if speciality.value.image %}
-                      {% image speciality.value.image fill-600x375-c100 as image %}
-                      <img src="{{ image.url }}" alt="{{ image.alt }}">
+                      {% responsiveimage speciality.value.image fill-600x375-c100 srcset=global.image_srcs alt=speciality.value.image.title as image %}
+                      <img src="{{ image.url }}" alt="{{ image.alt }}" srcset="{{ image.srcset }}">
                     {% endif %}
                   </div>
                   <h2 class="project__heading">{{ speciality.value.heading|default_if_none:"" }}</h2>

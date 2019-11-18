@@ -1,6 +1,6 @@
 {% extends "layouts/default.html" %}
 
-{% load navigation_tags static wagtailcore_tags wagtailimages_tags card_tags static %}
+{% load navigation_tags static wagtailcore_tags wagtailimages_tags card_tags static responsive %}
 
 {% block hero %}
     {% include 'includes/heroes/hero.html' %}
@@ -56,9 +56,9 @@
               <div class="profile">
                 <div class="profile__media">
                   {% if profile.image %}
-                    {% image profile.image fill-400x400-c100 as img %}
+                    {% responsiveimage profile.image fill-400x400-c100 srcset=global.image_srcs as img %}
                   {% if img.url != '/media/not-found' %}
-                    <img height="400px" width="400px" src="{{img.url}}" alt="{{img.alt}}">
+                    <img height="400px" width="400px" src="{{img.url}}" alt="{{img.alt}}" srcset="{{ image.srcset }}">
                   {% else %}
                     <img height="400px" width="400px" src="{% static 'img/profile-fallback.jpg' %}"
                       alt="Placeholder profile picture">

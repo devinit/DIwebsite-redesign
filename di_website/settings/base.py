@@ -269,3 +269,6 @@ EMAIL_BACKEND = os.getenv(
     'EMAIL_BACKEND') or 'django.core.mail.backends.console.EmailBackend'
 
 GOOGLE_MAPS_V3_APIKEY = "AIzaSyAZAIjZtkBlsF0ZqvrlkvyLfVn6Bju6bJ4"
+
+# Celery
+CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL')

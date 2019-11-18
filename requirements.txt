@@ -24,3 +24,4 @@ cryptography==2.8
 pycparser==2.19
 pyjwt==1.7.1
 lxml==4.4.1
+wagtail-metadata==3.0.0

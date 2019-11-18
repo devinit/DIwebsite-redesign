@@ -1,14 +1,15 @@
-{% load wagtailuserbar %}
+{% load wagtailuserbar wagtailmetadata_tags %}
 <!doctype html>
 <!--[if IE 9]> <html lang="en-GB" class="no-js ie9"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--><html lang="en-GB" class="no-js"><!--<![endif]-->
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>{% block title %}{{ global.site_name }}{% endblock %}</title>
+	<title>{% block title %}{{ page.seo_title|default:page.title }}{% if not global.is_home %} - {{ global.site_name }}{% endif %}{% endblock %}</title>
     {% block html_header %}
 		{% include 'includes/scaffold/header-assets.html' %}
     {% endblock %}
+		{% meta_tags %}
 </head>
 <body class="body body--{{ id }} {% block colour %}{% endblock %}" id="body-{{ id }}">
 	{% wagtailuserbar %}

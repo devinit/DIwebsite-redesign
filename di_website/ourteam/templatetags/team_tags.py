@@ -12,7 +12,7 @@ def user_content(author_page):
     """
     Blogs, Publications that were authored by the user
     """
-    return chain(
+    return list(chain(
         BlogArticlePage.objects.filter(internal_author_page=author_page).live(),
         BlogArticlePage.objects.filter(other_authors__contains="\"value\": {},".format(author_page.pk)).live(),
         BlogArticlePage.objects.filter(other_authors__contains="\"value\": {}}}".format(author_page.pk)).live(),
@@ -26,4 +26,4 @@ def user_content(author_page):
         # DatasetPage.objects.filter(authors__contains="\"value\": {}}}".format(author_page.pk)).live(),
         # FigurePage.objects.filter(authors__contains="\"value\": {},".format(author_page.pk)).live(),
         # FigurePage.objects.filter(authors__contains="\"value\": {}}}".format(author_page.pk)).live()
-    )
+    ))

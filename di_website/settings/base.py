@@ -71,6 +71,7 @@ INSTALLED_APPS = [
     'wagtailfontawesome',
     'widget_tweaks',
 
+    'django.contrib.sitemaps',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

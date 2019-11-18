@@ -7,9 +7,9 @@
   </div>
   <aside class="testimonial__aside">
     {% if image and image.url != '/media/not-found' %}
-      <img src="{{ image.url }}" alt="alt tag">
+      <img src="{{ image.url }}" alt="{{ image.alt }}" srcset="{{ image.srcset }}">
     {% else %}
-      <img src="{% static 'img/profile-fallback.jpg' %}" alt="alt tag">
+      <img src="{% static 'img/profile-fallback.jpg' %}" alt="Profile image placeholder">
     {% endif %}
   </aside>
 </div>

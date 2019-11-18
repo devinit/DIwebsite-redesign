@@ -6,7 +6,7 @@
             {% if item.image %}
                 {% responsiveimage item.image fill-180x112-c100 srcset=global.card_srcs as image %}
                 <div class="project__media">
-                    <img src="{{ image.url }}" alt="{{ image.alt }}">
+                    <img src="{{ image.url }}" alt="{{ image.alt }}" srcset="{{ image.srcset }}">
                 </div>
             {% endif %}
 

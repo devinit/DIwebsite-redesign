@@ -8,7 +8,7 @@
     {% for block in self.projects %}
         {% if block.value.specific.hero_image %}
             {% responsiveimage block.value.specific.hero_image max-313x178 srcset=global.image_srcs as hero_img %}
-            <a href="{% pageurl block.value.specific %}" class="project-card" style="background-image: url({{hero_img.url}});">
+            <a href="{% pageurl block.value.specific %}" class="project-card" {{ hero_img | responsive_id }}>{{ hero_img | responsive_css }}</a>
         {% else %}
             <a href="{% pageurl block.value.specific %}" class="project-card" style="background-image: url({% static 'img/fallback-image.jpg' %});">
         {% endif %}

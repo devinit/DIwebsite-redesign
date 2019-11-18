@@ -4,11 +4,11 @@
   {% if card_type == "duo" %}
     {% responsiveimage item.hero_image max-464x300 srcset=global.card_srcs as hero_img %}
     <div class="card__media">
-      <img src="{{hero_img.url}}" alt="{{hero_img.alt}}"/>
+      <img src="{{hero_img.url}}" alt="{{hero_img.alt}}" srcset="{{hero_img.srcset}}"/>
     </div>
   {% else %}
     {% responsiveimage item.hero_image max-400x250 srcset=global.card_srcs as hero_img %}
-    <div class="card__media" style="background-image: url({{hero_img.url}});"></div>
+    <div class="card__media" {{ hero_img | responsive_id }}>{{ hero_img | responsive_css }}</div>
   {% endif %}
 {% else %}
   {% if card_type == "duo" %}

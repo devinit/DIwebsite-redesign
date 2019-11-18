@@ -6,7 +6,7 @@
     {% if self.person.image %}
       {% responsiveimage self.person.image fill-200x200-c100 srcset=global.card_srcs as image %}
       {% if image.url != '/media/not-found' %}
-        <img src="{{ image.url }}" alt="{{ image.alt }}">
+        <img src="{{ image.url }}" alt="{{ self.person.name }}" srcset="{{ image.srcset }}">
       {% else %}
         <img height="200px" width="200px" src="{% static 'img/profile-fallback.jpg' %}" alt="Placeholder profile picture">
       {% endif %}

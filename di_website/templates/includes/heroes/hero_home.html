@@ -7,7 +7,7 @@
 {% endif %}
 <section class="hero{% if image %} hero--image{% endif %} {% block hero_class %}{% endblock %}">
   {% if image %}
-    <div class="hero__image" style="background-image: url('{{ image.url }}');"></div>
+    <div class="hero__image" {{ image | responsive_id }}>{{ image | responsive_css }}</div>
     {% if page.hero_image_credit_name %}
       <span class="hero__credit">Image by
       {% if page.hero_image_credit_url %}

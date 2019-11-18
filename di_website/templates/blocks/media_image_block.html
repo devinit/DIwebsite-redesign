@@ -4,7 +4,7 @@
   <div class="row row--narrow">
     <div class="media-figure">
       {% responsiveimage self.image min-500x200 srcset=global.image_srcs as image %}
-      <img src="{{ image.url }}" alt="alt">
+      <img src="{{ image.url }}" alt="{{ self.image.title }}" srcset="{{ image.srcset }}">
       <span class="media-figure__credit">Image by
         {% if self.credit_url %}
           <a href="{{self.credit_url}}" target="_blank">{{self.credit_name}}</a>

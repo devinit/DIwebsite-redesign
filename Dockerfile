@@ -28,6 +28,9 @@ RUN apk add --no-cache libmemcached-dev zlib-dev
 # Required for python cryptography
 RUN apk add --no-cache libressl-dev libffi-dev python3-dev
 
+# Required for python lxml
+RUN apk add --no-cache libxslt-dev
+
 # Set environment varibles
 ENV PYTHONUNBUFFERED 1
 ENV DJANGO_ENV dev

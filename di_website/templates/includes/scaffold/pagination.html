@@ -1,47 +1,49 @@
-<ul class="pagination">
-    {% if children.has_previous %}
-        <li class="pagination__item pagination__item--prev">
-            <a class="pagination__item-prev-link"
-                href="?page={{ children.previous_page_number }}{% for key,value in request.GET.items %}{% if not key == 'page' %}&amp;{{ key }}={{ value }}{% endif %}{% endfor %}">Prev</a>
-        </li>
-    {% endif %}
+{% if children.paginator.num_pages > 1 %}
+  <ul class="pagination">
+      {% if children.has_previous %}
+          <li class="pagination__item pagination__item--prev">
+              <a class="pagination__item-prev-link"
+                  href="?page={{ children.previous_page_number }}{% for key,value in request.GET.items %}{% if not key == 'page' %}&amp;{{ key }}={{ value }}{% endif %}{% endfor %}">Prev</a>
+          </li>
+      {% endif %}
 
-    {% if 1 not in paginator_range %}
-      <li class="pagination__item">
-          <a href="?page=1{% for key,value in request.GET.items %}{% if not key == 'page' %}&amp;{{ key }}={{ value }}{% endif %}{% endfor %}"
-              class="pagination__item-link {% if children.number == 1 %}pagination__item-link--active{% endif %}">1</a>
-      </li>
-      {% if 2 not in paginator_range %}
+      {% if 1 not in paginator_range %}
         <li class="pagination__item">
-            <a class="pagination__item-link">...</a>
+            <a href="?page=1{% for key,value in request.GET.items %}{% if not key == 'page' %}&amp;{{ key }}={{ value }}{% endif %}{% endfor %}"
+                class="pagination__item-link {% if children.number == 1 %}pagination__item-link--active{% endif %}">1</a>
+        </li>
+        {% if 2 not in paginator_range %}
+          <li class="pagination__item">
+              <a class="pagination__item-link">...</a>
+          </li>
+        {% endif %}
+      {% endif %}
+
+      {% for item in paginator_range %}
+          <li class="pagination__item">
+              <a href="?page={{ item }}{% for key,value in request.GET.items %}{% if not key == 'page' %}&amp;{{ key }}={{ value }}{% endif %}{% endfor %}"
+                  class="pagination__item-link {% if item == children.number %}pagination__item-link--active{% endif %}">{{ item }}</a>
+          </li>
+      {% endfor %}
+
+      {% if children.paginator.num_pages not in paginator_range %}
+        {% if children.paginator.num_pages|add:"-1" not in paginator_range %}
+          <li class="pagination__item">
+              <a class="pagination__item-link">...</a>
+          </li>
+        {% endif %}
+        <li class="pagination__item">
+            <a href="?page={{ children.paginator.num_pages }}{% for key,value in request.GET.items %}{% if not key == 'page' %}&amp;{{ key }}={{ value }}{% endif %}{% endfor %}"
+                class="pagination__item-link {% if children.paginator.num_pages == children.number %}pagination__item-link--active{% endif %}">{{ children.paginator.num_pages }}</a>
         </li>
       {% endif %}
-    {% endif %}
 
-    {% for item in paginator_range %}
-        <li class="pagination__item">
-            <a href="?page={{ item }}{% for key,value in request.GET.items %}{% if not key == 'page' %}&amp;{{ key }}={{ value }}{% endif %}{% endfor %}"
-                class="pagination__item-link {% if item == children.number %}pagination__item-link--active{% endif %}">{{ item }}</a>
-        </li>
-    {% endfor %}
+      {% if children.has_next %}
 
-    {% if children.paginator.num_pages not in paginator_range %}
-      {% if children.paginator.num_pages|add:"-1" not in paginator_range %}
-        <li class="pagination__item">
-            <a class="pagination__item-link">...</a>
-        </li>
+          <li class="pagination__item pagination__item--next">
+              <a class="pagination__item-next-link"
+                  href="?page={{ children.next_page_number }}{% for key,value in request.GET.items %}{% if not key == 'page' %}&amp;{{ key }}={{ value }}{% endif %}{% endfor %}">Next</a>
+          </li>
       {% endif %}
-      <li class="pagination__item">
-          <a href="?page={{ children.paginator.num_pages }}{% for key,value in request.GET.items %}{% if not key == 'page' %}&amp;{{ key }}={{ value }}{% endif %}{% endfor %}"
-              class="pagination__item-link {% if children.paginator.num_pages == children.number %}pagination__item-link--active{% endif %}">{{ children.paginator.num_pages }}</a>
-      </li>
-    {% endif %}
-
-    {% if children.has_next %}
-
-        <li class="pagination__item pagination__item--next">
-            <a class="pagination__item-next-link"
-                href="?page={{ children.next_page_number }}{% for key,value in request.GET.items %}{% if not key == 'page' %}&amp;{{ key }}={{ value }}{% endif %}{% endfor %}">Next</a>
-        </li>
-    {% endif %}
-</ul>
+  </ul>
+{% endif %}

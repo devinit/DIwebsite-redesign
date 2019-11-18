@@ -6,7 +6,7 @@ from django import template
 
 from wagtail.core.models import Page
 
-from .context import globals
+from di_website.context import globals
 
 register = template.Library()
 

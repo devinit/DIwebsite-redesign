@@ -9,7 +9,7 @@ from di_website.home.models import (
 )
 from di_website.home.templatetags.navigation_tags import get_menu_items
 
-from .context import globals
+from di_website.context import globals
 
 register = template.Library()
 

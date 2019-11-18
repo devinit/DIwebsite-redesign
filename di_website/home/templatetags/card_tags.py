@@ -1,7 +1,7 @@
 from django import template
 
 from di_website.vacancies.models import OfficeLocation
-from .context import globals
+from di_website.context import globals
 
 
 register = template.Library()

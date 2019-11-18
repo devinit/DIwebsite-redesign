@@ -2,7 +2,7 @@ from django import template
 
 from di_website.contactus.models import ContactPage
 
-from .context import globals
+from di_website.context import globals
 
 
 register = template.Library()

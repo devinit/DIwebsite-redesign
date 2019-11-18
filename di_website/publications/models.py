@@ -295,8 +295,7 @@ class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUID
         DownloadsPanel(
             related_name='data_downloads',
             heading='Data downloads',
-            description='Optional: data download for this report.',
-            max_num=1,
+            description='Optional: data download for this report.'
         ),
         MultiFieldPanel([
             FieldPanel('download_report_title'),
@@ -403,8 +402,7 @@ class PublicationSummaryPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
         DownloadsPanel(
             related_name='data_downloads',
             heading='Data downloads',
-            description='Optional: data download for this summary.',
-            max_num=1,
+            description='Optional: data download for this summary.'
         ),
         MultiFieldPanel([
             FieldPanel('download_report_title'),
@@ -493,8 +491,7 @@ class PublicationChapterPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
         DownloadsPanel(
             related_name='data_downloads',
             heading='Data downloads',
-            description='Optional: data download for this chapter.',
-            max_num=1,
+            description='Optional: data download for this chapter.'
         ),
         MultiFieldPanel([
             FieldPanel('download_report_title'),
@@ -602,8 +599,7 @@ class PublicationAppendixPage(HeroMixin, ReportChildMixin, FlexibleContentMixin,
         DownloadsPanel(
             related_name='data_downloads',
             heading='Data downloads',
-            description='Optional: data download for this appendix page.',
-            max_num=1,
+            description='Optional: data download for this appendix page.'
         ),
         MultiFieldPanel([
             FieldPanel('download_report_title'),
@@ -717,8 +713,7 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, LegacyPageSearchMixin
         DownloadsPanel(
             related_name='data_downloads',
             heading='Data downloads',
-            description='Optional: data download for this legacy report.',
-            max_num=1,
+            description='Optional: data download for this legacy report.'
         ),
         MultiFieldPanel([
             FieldPanel('download_report_title'),
@@ -816,8 +811,7 @@ class ShortPublicationPage(HeroMixin, PublishedDateMixin, FlexibleContentMixin, 
         DownloadsPanel(
             related_name='data_downloads',
             heading='Data downloads',
-            description='Optional: data download for this chapter.',
-            max_num=1,
+            description='Optional: data download for this chapter.'
         ),
         MultiFieldPanel([
             FieldPanel('download_report_title'),

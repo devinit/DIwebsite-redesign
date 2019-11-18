@@ -49,10 +49,11 @@ def get_related_dataset_pages(selected_pages, dataset_page, min_len=MAX_RELATED_
         sources = dataset_page.figure_sources.all()
     queryset = Page.objects.none()
     for dataset_source in sources:
-        filtered_queryset = Page.objects.sibling_of(dataset_page).live().filter(
+        filtered_queryset = Page.objects.sibling_of(dataset_page).live().exclude(id=dataset_page.id).filter(
             models.Q(datasetpage__dataset_sources__source__slug=dataset_source.source.slug) |
             models.Q(figurepage__figure_sources__source__slug=dataset_source.source.slug))
         queryset = queryset | filtered_queryset
+    queryset = queryset.distinct()
 
     if count < min_len:
         difference = min_len - count
@@ -231,6 +232,7 @@ class DatasetPage(DataSetMixin, TypesetBodyMixin, HeroMixin, Page):
         context['related_datasets'] = get_related_dataset_pages(
             self.related_datasets.all(), self)
         context['reports'] = self.get_usages()
+        context['reportless_figures'] = FigurePage.objects.filter(figure_datasets__dataset=self, publication__isnull=True).live().order_by('figure_title')
 
         return context
 

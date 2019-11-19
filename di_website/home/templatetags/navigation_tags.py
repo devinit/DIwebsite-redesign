@@ -6,6 +6,8 @@ from django import template
 
 from wagtail.core.models import Page
 
+from di_website.context import globals
+
 register = template.Library()
 
 
@@ -54,6 +56,7 @@ def secondary_menu(context, parent, calling_page=None):
     """
     Returns the children of the specified menu
     """
+    global_obj = globals(context['request'])
     secondary_menu_items = get_menu_items(parent, calling_page)
     for menu_item in secondary_menu_items:
         menu_item.has_dropdown = has_menu_children(menu_item)
@@ -63,11 +66,13 @@ def secondary_menu(context, parent, calling_page=None):
         'menu_items': secondary_menu_items,
         # required by the pageurl tag that we want to use within this template
         'request': context.get('request'),
+        'global': global_obj['global']
     }
 
 
 @register.inclusion_tag('tags/navigation/breadcrumbs.html', takes_context=True)
 def breadcrumbs(context):
+    global_obj = globals(context['request'])
     self = context.get('self')
     if self is None or self.depth <= 2:
         # When on the home page, displaying breadcrumbs is irrelevant.
@@ -78,4 +83,5 @@ def breadcrumbs(context):
     return {
         'ancestors': ancestors,
         'request': context['request'],
+        'global': global_obj['global']
     }

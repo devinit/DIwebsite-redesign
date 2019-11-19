@@ -9,11 +9,14 @@ from di_website.home.models import (
 )
 from di_website.home.templatetags.navigation_tags import get_menu_items
 
+from di_website.context import globals
+
 register = template.Library()
 
 
 @register.inclusion_tag('tags/footer/useful_links.html', takes_context=True)
 def get_footer_sections(context, parent, calling_page=None):
+    global_obj = globals(context['request'])
     footer_sections = FooterSection.objects.all()
     for footer_section in footer_sections:
         footer_section.links = footer_section.footer_section_links.all().order_by('sort_order')
@@ -28,6 +31,7 @@ def get_footer_sections(context, parent, calling_page=None):
     return {
         'footer_sections': footer_sections,
         'request': context.get('request'),
+        'global': global_obj['global']
     }
 
 

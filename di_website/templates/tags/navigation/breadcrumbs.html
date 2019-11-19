@@ -4,15 +4,9 @@
 {% if ancestors %}
     <ul class="breadcrumbs">
         {% for ancestor in ancestors|slice:"1:" %}
-            {% if forloop.last %}
-                <li class="breadcrumbs__item" aria-level="{{ancestors|length}}">
-                    <a href="#">{{ ancestor }}</a>
-                </li>
-            {% else %}
-                <li class="breadcrumbs__item" aria-level="{% cycle 1 2 3 4 5 %}">
-                    <a href="{% pageurl ancestor %}">{{ ancestor }}</a>
-                </li>
-            {% endif %}
+          <li class="breadcrumbs__item" aria-level="{{ forloop.counter }}">
+              <a href="{% pageurl ancestor %}">{{ ancestor }}</a>
+          </li>
         {% endfor %}
     </ul>
 {% endif %}

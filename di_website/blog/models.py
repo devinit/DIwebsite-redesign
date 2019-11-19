@@ -1,3 +1,4 @@
+from django.utils.timezone import now
 from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db import models
@@ -45,9 +46,9 @@ class BlogIndexPage(HeroMixin, Page):
         page = request.GET.get('page', None)
         topic_filter = request.GET.get('topic', None)
         if topic_filter:
-            articles = BlogArticlePage.objects.live().filter(topics__slug=topic_filter)
+            articles = BlogArticlePage.objects.live().filter(topics__slug=topic_filter).order_by('-published_date')
         else:
-            articles = BlogArticlePage.objects.live()
+            articles = BlogArticlePage.objects.live().order_by('-published_date')
 
         paginator = Paginator(articles, MAX_PAGE_SIZE)
         try:
@@ -93,6 +94,12 @@ class BlogArticlePage(TypesetBodyMixin, HeroMixin, Page):
         ]))
     ], blank=True, help_text="Additional authors. If order is important, please use this instead of internal author page.")
 
+    published_date = models.DateTimeField(
+        blank=True,
+        default=now,
+        help_text='This date will be used for display and ordering',
+    )
+
     content_panels = Page.content_panels + [
         hero_panels(),
         MultiFieldPanel([
@@ -101,6 +108,7 @@ class BlogArticlePage(TypesetBodyMixin, HeroMixin, Page):
         ], heading="Author information"),
         FieldPanel('topics'),
         StreamFieldPanel('body'),
+        FieldPanel('published_date'),
         InlinePanel('blog_related_links', label='Related links', max_num=MAX_RELATED_LINKS),
         InlinePanel('page_notifications', label='Notifications')
     ]

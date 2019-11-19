@@ -9,8 +9,8 @@
     {% include 'includes/cards/card-image.html' with item=blog %}
 
     <div class="card__body">
-      {% if blog.first_published_at %}
-        <span class="card__meta">{{ blog.first_published_at|date:"j F Y" }}</span>
+      {% if blog.published_date %}
+        <span class="card__meta">{{ blog.published_date|date:"j F Y" }}</span>
       {% endif %}
       <h3 class="card__title"><span>{{ blog.title }}</span></h3>
       <div class="card__excerpt">

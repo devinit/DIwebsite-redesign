@@ -7,7 +7,7 @@
         {% if self.hero_image_credit_name %}
             <span class="hero__credit">Image by
             {% if self.hero_image_credit_url %}
-                <a href="{{self.hero_image_credit_url}}" target="_blank">{{self.hero_image_credit_name}}</a>
+                <a href="{{self.hero_image_credit_url}}">{{self.hero_image_credit_name}}</a>
             {% else %}
                 {{self.hero_image_credit_name}}
             {% endif %}

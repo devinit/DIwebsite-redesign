@@ -13,6 +13,25 @@ from di_website.common.base import hero_panels
 from di_website.common.mixins import HeroMixin
 from di_website.users.models import Department, JobTitle
 
+from wagtailmetadata.models import MetadataPageMixin
+
+
+class TeamMemberMetadataPageMixin(MetadataPageMixin):
+
+    class Meta:
+        abstract = True
+
+    def get_meta_image(self):
+        if getattr(self, 'image', None):
+            return self.image
+        return super(MetadataPageMixin, self).get_meta_image()
+
+    def get_meta_description(self):
+        return self.search_description if self.search_description else self.title
+
+    def get_meta_title(self):
+        return self.title
+
 
 class OurTeamPage(HeroMixin, Page):
 
@@ -53,7 +72,7 @@ class OurTeamPage(HeroMixin, Page):
     ]
 
 
-class TeamMemberPage(Page):
+class TeamMemberPage(TeamMemberMetadataPageMixin, Page):
     """Individual team member page. Autocreated when profile is."""
     user = models.OneToOneField(
         User,

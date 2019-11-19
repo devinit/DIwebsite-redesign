@@ -14,9 +14,9 @@
     <div class="row row--narrow">
         <div class="hero__profile">
             {% if self.image %}
-              {% responsiveimage self.image fill-260x260-c100 srcset=global.card_srcs as img %}
+              {% responsiveimage self.image fill-260x260-c100 srcset=global.sq_crop_srcs as img %}
               {% if img.url != '/media/not-found' %}
-                <img height="260px" width="260px" src="{{img.url}}" alt="{{self.name}} photograph" srcset="{{ image.srcset }}">
+                <img height="260px" width="260px" src="{{img.url}}" alt="{{self.name}} photograph" srcset="{{ img.srcset }}">
               {% else %}
                 <img height="260px" width="260px" src="{% static 'img/profile-fallback.jpg' %}"
                   alt="Placeholder profile picture">

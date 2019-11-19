@@ -38,7 +38,7 @@
                 <div class="project__header">
                   <div class="project__media">
                     {% if speciality.value.image %}
-                      {% responsiveimage speciality.value.image fill-600x375-c100 srcset=global.image_srcs alt=speciality.value.image.title as image %}
+                      {% responsiveimage speciality.value.image fill-600x375-c100 srcset=global.teaser_crop_srcs alt=speciality.value.image.title as image %}
                       <img src="{{ image.url }}" alt="{{ image.alt }}" srcset="{{ image.srcset }}">
                     {% endif %}
                   </div>

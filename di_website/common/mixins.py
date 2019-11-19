@@ -15,7 +15,9 @@ class CustomMetadataPageMixin(MetadataPageMixin):
         abstract = True
 
     def get_meta_image(self):
-        if getattr(self, 'hero_image', None):
+        if getattr(self, 'search_image', None):
+            return self.search_image
+        elif getattr(self, 'hero_image', None):
             return self.hero_image
         return super(MetadataPageMixin, self).get_meta_image()
 

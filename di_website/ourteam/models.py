@@ -22,7 +22,9 @@ class TeamMemberMetadataPageMixin(MetadataPageMixin):
         abstract = True
 
     def get_meta_image(self):
-        if getattr(self, 'image', None):
+        if self.search_image:
+            return self.search_image
+        elif getattr(self, 'image', None):
             return self.image
         return super(MetadataPageMixin, self).get_meta_image()
 

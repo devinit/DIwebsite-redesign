@@ -253,13 +253,13 @@ WAGTAIL_SITE_NAME = "di_website"
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
-BASE_URL = os.getenv('BASE_URL') or 'http://devinit.org'
+BASE_URL = os.getenv('BASE_URL', 'http://devinit.org')
 
 INTERNAL_IPS = ["127.0.0.1"]
 
 # Email settings
 
-EMAIL_BACKEND = os.getenv('EMAIL_BACKEND') or 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = os.getenv('EMAIL_BACKEND', 'django.core.mail.backends.console.EmailBackend')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST = os.getenv('EMAIL_HOST')

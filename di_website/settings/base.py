@@ -19,6 +19,12 @@ import dotenv
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
+ADMINS = [
+    ('Edwin', 'edwin.magezi@devinit.org'),
+    ('Alex', 'alex.miller@devinit.org'),
+    ('David', 'david.ebukali@devinit.org')
+]
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/

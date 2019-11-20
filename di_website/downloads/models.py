@@ -8,6 +8,7 @@ from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
 from .fields import download_streamfield, download_image_streamfield, download_date_streamfield
 from .mixins import DownloadGroupMixin
+from wagtail.search import index
 
 
 class SimpleTaxonomy(models.Model):
@@ -78,7 +79,7 @@ class BaseDownload(models.Model):
 
 
 @register_snippet
-class PublicationDownload(BaseDownload):
+class PublicationDownload(index.Indexed, BaseDownload):
 
     language = models.ForeignKey(
         'Language',
@@ -92,6 +93,10 @@ class PublicationDownload(BaseDownload):
         DocumentChooserPanel('file'),
         FieldPanel('title'),
         FieldPanel('language', widget=forms.RadioSelect),
+    ]
+
+    search_fields = [
+        index.SearchField('title', partial_match=True),
     ]
 
     def __str__(self):

@@ -38,8 +38,8 @@
               {% if block.block_type == 'logo' %}
                 <div class="aside">
                   <div class="aside__media">
-                    {% responsiveimage block.value min-500x200 srcset=global.image_srcs as image %}
-                    <img src='{{ image.url }}' alt="alt" srcset="{{ image.srcset }}">
+                    {% image block.value min-500x200 as image %}
+                    <img src='{{ image.url }}' alt="alt">
                   </div>
                 </div>
               {% endif %}
@@ -78,8 +78,8 @@
             <div class="l-4up__col">
               <a href="{% pageurl block.value.team_story_page %}" class="m-stat m-stat--simple">
                 <div class="m-stat__icon">
-                  {% responsiveimage block.value.logo min-500x200 srcset=global.image_srcs as image %}
-                  <img src='{{ image.url }}' alt="{{ image.alt }}" srcset="{{ image.srcset }}">
+                  {% image block.value.logo min-500x200 as image %}
+                  <img src='{{ image.url }}' alt="{{ image.alt }}">
                 </div>
                 <h3 class="m-stat__title m-stat__title--center">
                   <span>{{ block.value.team_story_page.specific.title }}</span>

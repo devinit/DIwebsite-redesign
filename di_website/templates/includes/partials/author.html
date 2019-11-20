@@ -3,9 +3,9 @@
 <div class="m-author">
     <div class="m-author__image">
         {% if img %}
-          {% responsiveimage img fill-80x80-c100 srcset=global.card_srcs as image %}
+          {% image img fill-80x80-c100 as image %}
           {% if image.url != '/media/not-found' %}
-            <img src="{{ image.url }}" alt="{{ image.alt }}"  srcset="{{ image.srcset }}">
+            <img src="{{ image.url }}" alt="{{ image.alt }}">
           {% else %}
             <img height="80px" width="80px" src="{% static 'img/profile-fallback.jpg' %}" alt="Placeholder profile picture">
           {% endif %}

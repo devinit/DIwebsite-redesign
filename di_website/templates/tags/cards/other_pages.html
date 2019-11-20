@@ -8,9 +8,9 @@
       {% for page in other_pages %}
         <a href="{% pageurl page %}" class="card">
           {% if page.hero_image %}
-            {% responsiveimage page.hero_image fill-400x250 srcset=global.card_srcs as image %}
+            {% image page.hero_image fill-400x250 as image %}
             {% if image.url != '/media/not-found' %}
-              <div class="card__media" {{ image | responsive_id }}>{{ image | responsive_css }}</div>
+              <div class="card__media" style="background-image: url({{image.url}});"></div>
             {% else %}
               <div class="card__media" style="background-image: url({% static 'img/fallback-image.jpg' %})"></div>
             {% endif %}

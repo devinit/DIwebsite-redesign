@@ -1,8 +1,12 @@
+{% load string_utils %}
+
 <section class="section{% if self.alt %} section--alt{% endif %}">
     <div class="row row--narrow">
         <h2 class="section__heading">{{ self.section_heading|default_if_none:"" }}</h2>
         <div class="is-typeset max-meter">
-            <p>{{ self.section_sub_heading|default_if_none:"" }}</p>
+          {% if self.section_sub_heading %}
+            {{ self.section_sub_heading|richtext_strip_wrapper }}
+          {% endif %}
         </div>
         <div class="l-3up">
           {% for doc_box in self.document_boxes %}

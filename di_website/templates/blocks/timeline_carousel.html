@@ -31,9 +31,9 @@
                         </div>
                         {% if item.value.image %}
                           <div class="l-highlight__aside">
-                            {% responsiveimage item.value.image max-400x250 srcset=global.image_srcs as timeline_img %}
+                            {% image item.value.image max-400x250 as timeline_img %}
                               <div class="highlight__media">
-                                  <img src="{{ timeline_img.url }}" alt="{{ timeline_img.alt }}" srcset="{{ timeline_img.srcset }}">
+                                  <img src="{{ timeline_img.url }}" alt="{{ timeline_img.alt }}">
                               </div>
                           </div>
                         {% endif %}

@@ -2,6 +2,7 @@
 Home page models, reusable snippets, other common models
 """
 from django.db import models
+from django.conf import settings
 
 from wagtail.admin.edit_handlers import (
     FieldPanel,
@@ -15,6 +16,8 @@ from wagtail.core.models import Orderable, Page
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.snippets.models import register_snippet
 from wagtail.core.blocks import CharBlock, PageChooserBlock, RichTextBlock, StructBlock
+
+from wagtailmetadata.models import MetadataPageMixin
 
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
@@ -160,7 +163,28 @@ class FooterText(models.Model):
         verbose_name_plural = 'Footer Text'
 
 
-class HomePage(SectionBodyMixin, Page):
+class HomePageMetaData(MetadataPageMixin):
+
+    class Meta:
+        abstract = True
+
+    def get_meta_image(self):
+        if self.search_image:
+            return self.search_image
+        elif self.hero_image:
+            return self.hero_image
+        elif self.featured_publication and self.featured_publication.hero_image:
+            return self.featured_publication.hero_image
+        return super(HomePageMetaData, self).get_meta_image()
+
+    def get_meta_description(self):
+        return self.search_description if self.search_description else self.title
+
+    def get_meta_title(self):
+        return self.title
+
+
+class HomePage(HomePageMetaData, SectionBodyMixin, Page):
     def __str__(self):
         return self.title
 

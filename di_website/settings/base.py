@@ -76,6 +76,7 @@ INSTALLED_APPS = [
     'taggit',
     'wagtailfontawesome',
     'widget_tweaks',
+    'wagtailmetadata',
 
     'django.contrib.sitemaps',
     'django.contrib.admin',

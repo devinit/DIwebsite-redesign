@@ -150,8 +150,8 @@ function start_link_checker_processes {
     start_new_process "Creating Rabbit MQ user and vhost for celery"
     cd $APP_DIR
 
-    until docker-compose exec rabbitmq rabbitmqctl start_app; do
-      >&2 echo "Rabbit is unavailable - sleeping"
+    until docker-compose exec -T rabbitmq rabbitmqctl start_app; do
+      log "Rabbit is unavailable - sleeping"
       sleep 10
     done
 

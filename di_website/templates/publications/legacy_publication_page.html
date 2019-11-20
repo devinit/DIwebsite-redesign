@@ -24,7 +24,7 @@
                       {% if page.authors|length > 0 %}
                         {% include 'includes/partials/multi-authors.html' with authors=page.authors %}
                       {% endif %}
-                        <h2 class="chapter-block__heading heading type-xl type-s--trailer">{{ page.summary_title }}</h2>
+                        <h2 class="chapter-block__heading heading type-xl type-s--trailer">{{ page.title }}</h2>
                         <div class="is-typeset wysiwyg">
                             {{ page.content | richtext }}
                             {{ page.raw_content | safe }}

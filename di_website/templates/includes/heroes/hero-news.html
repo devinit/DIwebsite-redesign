@@ -1,6 +1,6 @@
 {% extends 'includes/heroes/hero.html' %}
 
-{% block hero_class %}hero--minor{% endblock hero_class %}
+{% block hero_class %}{% if not page.hero_image %}hero--minor{% endif %}{% endblock hero_class %}
 
 {% block hero_meta %}
     <ul class="hero__meta">

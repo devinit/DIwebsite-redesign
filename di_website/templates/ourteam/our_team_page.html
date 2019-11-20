@@ -56,9 +56,9 @@
               <div class="profile">
                 <div class="profile__media">
                   {% if profile.image %}
-                    {% responsiveimage profile.image fill-400x400-c100 srcset=global.image_srcs as img %}
+                    {% responsiveimage profile.image fill-400x400-c100 srcset=global.sq_crop_srcs as img %}
                   {% if img.url != '/media/not-found' %}
-                    <img height="400px" width="400px" src="{{img.url}}" alt="{{img.alt}}" srcset="{{ image.srcset }}">
+                    <img height="400px" width="400px" src="{{img.url}}" alt="{{img.alt}}" srcset="{{ img.srcset }}">
                   {% else %}
                     <img height="400px" width="400px" src="{% static 'img/profile-fallback.jpg' %}"
                       alt="Placeholder profile picture">

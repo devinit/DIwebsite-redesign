@@ -8,7 +8,7 @@
     <div class="duo">
       <div class="duo__media">
         <div class="media-figure">
-          {% responsiveimage self.image fill-800x500-c100 srcset=global.image_srcs as image %}
+          {% responsiveimage self.image fill-800x500-c100 srcset=global.duo_srcs as image %}
           <img src="{{ image.url }}" alt="{{ self.image.title }}" srcset="{{ image.srcset }}">
           <span class="media-figure__credit">Image by
             {% if self.credit_url %}

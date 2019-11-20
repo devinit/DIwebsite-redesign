@@ -182,8 +182,8 @@ then
 
     start_new_process "Starting up services ..."
     cd $APP_DIR
-    sudo chown -R root:root storage
-    sudo chown -R root:root assets
+    sudo chown -R di_website:di_website storage
+    sudo chown -R di_website:di_website assets
     docker-compose up -d --build
 
     sleep 60;
@@ -192,8 +192,7 @@ then
 
     start_new_process "Generating static assets"
     docker-compose exec -T web python manage.py collectstatic --noinput
-    sudo chown -R root:root storage
-    sudo chown -R root:root assets
+    sudo chown -R di_website:di_website assets
 
 elif [ ${args[0]} == 'backup' ]
 then

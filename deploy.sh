@@ -182,6 +182,7 @@ then
 
     start_new_process "Starting up services ..."
     cd $APP_DIR
+    sudo chown -R di_website:di_website storage
     docker-compose up -d --build
 
     sleep 60;

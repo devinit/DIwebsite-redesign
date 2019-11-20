@@ -1,5 +1,4 @@
 from django.db import models
-from django.conf import settings
 
 from wagtail.core.models import Orderable
 from wagtail.core.fields import RichTextField, StreamField
@@ -15,11 +14,11 @@ class CustomMetadataPageMixin(MetadataPageMixin):
         abstract = True
 
     def get_meta_image(self):
-        if getattr(self, 'search_image', None):
-            return self.search_image
-        elif getattr(self, 'hero_image', None):
-            return self.hero_image
-        return super(MetadataPageMixin, self).get_meta_image()
+        if getattr(self.specific, 'search_image', None):
+            return self.specific.search_image
+        elif getattr(self.specific, 'hero_image', None):
+            return self.specific.hero_image
+        return super(CustomMetadataPageMixin, self).get_meta_image()
 
     def get_meta_description(self):
         return self.search_description if self.search_description else self.title

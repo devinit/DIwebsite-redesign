@@ -12,8 +12,9 @@
                         <a id="{{ item.footnote_id }}"></a>
                         <p class="footnotes__text">{{ item.text | urlize }}</p>
 
-                        {% section_id item.value.footnote_id|stringformat:"i" page.chapter_number as section_id %}
-                        <!-- <a class="footnotes__return" href="#{{ item.source_id }}">Return to source text</a> -->
+                        {% section_id forloop.counter|stringformat:"i" page.chapter_number|default_if_none:1 as section_id %}
+                        <a class="footnotes__return" href="#{{ item.source_id }}">Return to source text</a>
+                        <br/>
                         <a href="#{{ item.footnote_id }}" data-id="{{ section_id }}" data-js="share-section-trigger" class="footnotes__return">Share footnote</a>
                         {% include 'publications/share-block.html' with share_type='footnote' title=item.text short_url=short_url|add:'#'|add:item.footnote_id data_js='share-section' data_id=section_id %}
                     </li>

@@ -4,13 +4,13 @@
     {% if not hide_social %}
         <ul class="share__media">
             <li class="share__item">
-                <a class="js-social-share" data-event-label="Share {{ share_type }} with Facebook / {{ title }} / {{ short_url }}" data-event-category="Share" href="https://www.facebook.com/sharer/sharer.php?u={{ short_url | urlencode }}"><img src="{% static 'svg/source/facebook.svg' %}" alt="Share with Facebook"></a>
+                <a class="js-social-share" data-event-label="Share {{ share_type }} with Facebook / {{ title }} / {{ short_url }}" data-event-category="Share" href="https://www.facebook.com/sharer/sharer.php?u={{ short_url | urlencode }}" target="_blank"><img src="{% static 'svg/source/facebook.svg' %}" alt="Share with Facebook"></a>
             </li>
             <li class="share__item">
-                <a class="js-social-share" data-event-label="Share {{ share_type }}  with Twitter / {{ title }} / {{ short_url }}" data-event-category="Share" href="https://twitter.com/intent/tweet/?text={{ title | urlencode }}&url={{ short_url | urlencode }}"><img src="{% static 'svg/source/twitter.svg' %}" alt="Share with Twitter"></a>
+                <a class="js-social-share" data-event-label="Share {{ share_type }}  with Twitter / {{ title }} / {{ short_url }}" data-event-category="Share" href="https://twitter.com/intent/tweet/?text={{ title | urlencode }}&url={{ short_url | urlencode }}" target="_blank"><img src="{% static 'svg/source/twitter.svg' %}" alt="Share with Twitter"></a>
             </li>
             <li class="share__item">
-                <a class="js-social-share" data-event-label="Share {{ share_type }}  with LinkedIn / {{ title }} / {{ short_url }}" data-event-category="Share" href="https://www.linkedin.com/shareArticle?mini=true&url={{ short_url | urlencode }}&title={{ title | urlencode }}"><img src="{% static 'svg/source/linkedin.svg' %}" alt="Share with LinkedIn"></a>
+                <a class="js-social-share" data-event-label="Share {{ share_type }}  with LinkedIn / {{ title }} / {{ short_url }}" data-event-category="Share" href="https://www.linkedin.com/shareArticle?mini=true&url={{ short_url | urlencode }}&title={{ title | urlencode }}" target="_blank"><img src="{% static 'svg/source/linkedin.svg' %}" alt="Share with LinkedIn"></a>
             </li>
         </ul>
     {% endif %}

@@ -38,7 +38,7 @@ class DataSetMixin(models.Model):
             ('unit', RichTextBlock(required=False)),
             ('internal_notes', RichTextBlock(required=False)),
             ('licence', RichTextBlock(required=False)),
-            ('citation', RichTextBlock(required=False))
+            ('citation', RichTextBlock(required=False, template="blocks/urlize_richtext.html")),
         ],
         verbose_name='Content',
         help_text='A description is expected, but only one of each shall be shown'

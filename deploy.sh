@@ -150,6 +150,7 @@ function start_link_checker_processes {
     start_new_process "Creating Rabbit MQ user and vhost for celery"
     cd $APP_DIR
 
+    docker-compose exec -T rabbitmq rabbitmqctl start_app
     docker-compose exec -T rabbitmq rabbitmqctl add_user di_website $RABBITMQ_PASSWORD
     docker-compose exec -T rabbitmq rabbitmqctl add_vhost myvhost
     docker-compose exec -T rabbitmq rabbitmqctl set_user_tags di_website di_website

@@ -142,6 +142,7 @@ class Command(BaseCommand):
                         blog_index_page.add_child(instance=blog_page)
                         blog_page.save_revision().publish()
                         blog_page.first_published_at = pytz.utc.localize(datetime.datetime.strptime(blog_dataset['date'], "%d %b %Y"))
+                        blog_page.published_date = pytz.utc.localize(datetime.datetime.strptime(blog_dataset['date'], "%d %b %Y"))
                         blog_page.save_revision().publish()
                         Redirect.objects.create(
                             site=blog_page.get_site(),

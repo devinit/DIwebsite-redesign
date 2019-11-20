@@ -2,6 +2,8 @@
 
 import json
 import os
+import pytz
+import datetime
 
 from django.conf import settings
 from django.core.management.base import BaseCommand
@@ -50,6 +52,8 @@ class Command(BaseCommand):
                             other_authors.append(author_obj)
                     if other_authors:
                         blog_page.other_authors = json.dumps(other_authors)
+
+                    blog_page.published_date = pytz.utc.localize(datetime.datetime.strptime(blog_dataset['date'], "%d %b %Y"))
 
                     blog_page.save_revision().publish()
 

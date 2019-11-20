@@ -169,12 +169,12 @@ class HomePageMetaData(MetadataPageMixin):
         abstract = True
 
     def get_meta_image(self):
-        if self.search_image:
-            return self.search_image
-        elif self.hero_image:
-            return self.hero_image
-        elif self.featured_publication and self.featured_publication.hero_image:
-            return self.featured_publication.hero_image
+        if getattr(self.specific, 'search_image', None):
+            return self.specific.search_image
+        elif getattr(self.specific, 'hero_image', None):
+            return self.specific.hero_image
+        elif getattr(self.specific, 'featured_publication', None) and getattr(self.specific.featured_publication, 'hero_image', None):
+            return self.specific.featured_publication.hero_image
         return super(HomePageMetaData, self).get_meta_image()
 
     def get_meta_description(self):

@@ -9,4 +9,4 @@ register = template.Library()
 def columns():
     number_of_offices = OfficeLocation.objects.exclude(
         latitude__isnull=True).exclude(longitude__isnull=True).all().count()
-    return number_of_offices
+    return max(2, min(number_of_offices, 5))

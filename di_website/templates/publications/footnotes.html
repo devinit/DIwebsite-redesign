@@ -14,9 +14,9 @@
 
                         {% section_id forloop.counter|stringformat:"i" page.chapter_number|default_if_none:1 as section_id %}
                         <a class="footnotes__return" href="#{{ item.source_id }}">Return to source text</a>
-                        <br/>
+                        <!-- <br/>
                         <a href="#{{ item.footnote_id }}" data-id="{{ section_id }}" data-js="share-section-trigger" class="footnotes__return">Share footnote</a>
-                        {% include 'publications/share-block.html' with share_type='footnote' title=item.text short_url=short_url|add:'#'|add:item.footnote_id data_js='share-section' data_id=section_id %}
+                        {% include 'publications/share-block.html' with share_type='footnote' title=item.text short_url=short_url|add:'#'|add:item.footnote_id data_js='share-section' data_id=section_id %} -->
                     </li>
                 </ul>
                 {% endfor %}

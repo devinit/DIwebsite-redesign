@@ -1,6 +1,6 @@
 {% extends "layouts/default.html" %}
 
-{% load string_utils wagtailcore_tags responsive %}
+{% load string_utils wagtailcore_tags responsive wagtailimages_tags %}
 
 {% block hero %}
     {% include 'includes/heroes/hero-pubs.html' %}
@@ -55,8 +55,8 @@
             {% if page.report_download %}
             <div class="orderReport">
               {% if page.download_report_cover %}
-                {% responsiveimage  page.download_report_cover fill-250x340 as cover_image %}
-                <div class="orderReport__img" {{ cover_image | responsive_id }}>{{ cover_image | responsive_css }}</div>
+                {% image page.download_report_cover fill-250x340 as cover_image %}
+                <div class="orderReport__img" style="background-image: url({{image.url}});"></div>
               {% endif %}
                 <div class="orderReport__content">
                     <h2 class="type-m type-s--trailer">{{ page.download_report_title }}</h2>

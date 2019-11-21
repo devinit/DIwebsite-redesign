@@ -5,7 +5,7 @@
         <h2 class="section__heading">{{ self.section_heading|default_if_none:"" }}</h2>
         <div class="is-typeset max-meter">
           {% if self.section_sub_heading %}
-            {{ self.section_sub_heading|richtext_strip_wrapper }}
+            {{ self.section_sub_heading|content }}
           {% endif %}
         </div>
         <div class="l-3up">

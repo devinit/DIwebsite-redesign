@@ -55,7 +55,7 @@
       <div class="row row--narrow">
         <h2 class="section__heading">{{ page.value_section_heading | default_if_none:"" }}</h2>
         <div class="is-typeset">
-          {{ page.value_section_sub_heading|richtext_strip_wrapper }}
+          {{ page.value_section_sub_heading|content }}
         </div>
         <div class="l-3up">
           {% for block in page.values %}
@@ -71,7 +71,7 @@
       <div class="row row--narrow">
         <h2 class="section__heading">{{ page.team_story_section_heading|default:"" }}</h2>
         <div class="is-typeset max-meter">
-          <p>{{ page.team_story_section_sub_heading|richtext_strip_wrapper }}</p>
+          <p>{{ page.team_story_section_sub_heading|content }}</p>
         </div>
         <div class="l-4up space-section-top">
           {% for block in page.team_stories %}
@@ -97,7 +97,7 @@
       <div class="row row--narrow">
         <h2 class="section__heading">{{ page.vacancy_section_heading }}</h2>
         <div class="is-typeset max-meter">
-          {{ page.vacancy_section_sub_heading|richtext_strip_wrapper }}
+          {{ page.vacancy_section_sub_heading|content }}
         </div>
         <div class="l-2up-3up">
           {% for vacancy in vacancies %}

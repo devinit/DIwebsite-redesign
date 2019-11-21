@@ -32,7 +32,7 @@
         {% endif %}
       </ul>
       {% if page.hero_text %}
-        <h2 class="hero__subtitle">{{ page.hero_text|richtext_strip_wrapper }}</h2>
+        <h2 class="hero__subtitle">{{ page.hero_text|content }}</h2>
       {% endif %}
       <h1 class="hero__title">
         <span>{{ page.title }}</span>

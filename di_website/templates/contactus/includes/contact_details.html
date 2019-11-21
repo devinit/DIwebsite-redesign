@@ -13,7 +13,7 @@
                             <h3 class="location__heading">{{ location.location }}</h3>
                         {% endif %}
                         {% if location.address %}
-                            <div class="location__copy">{{ location.address | richtext_strip_wrapper }}</div>
+                            <div class="location__copy">{{ location.address | content }}</div>
                         {% endif %}
                         {% if location.contact %}
                             <span class="location__contact">{{ location.contact }}</span>

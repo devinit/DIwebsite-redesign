@@ -13,7 +13,7 @@
       </div>
       <div class="duo__main">
         <div class="is-typeset">
-          {{self.side_text|richtext_strip_wrapper}}
+          {{self.side_text|content}}
         </div>
         {% if self.button %}
           {% include_block self.button %}

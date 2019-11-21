@@ -3,7 +3,7 @@
 <div class="l-2up__col">
   <h2 class="section__heading">{{self.title}}</h2>
   <div class="is-typeset max-meter">
-    {{self.body|richtext_strip_wrapper}}
+    {{self.body|content}}
   </div>
 
   {% if self.related_page %}

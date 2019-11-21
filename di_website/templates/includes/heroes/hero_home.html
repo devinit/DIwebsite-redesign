@@ -36,7 +36,7 @@
         <span>{{ page.title }}</span>
       </h1>
       {% if page.hero_text %}
-        <div class="hero__excerpt"><span>{{ page.hero_text|richtext_strip_wrapper }}</span></div>
+        <div class="hero__excerpt"><span>{{ page.hero_text|content }}</span></div>
       {% endif %}
       {% if link_caption %}
         <div>

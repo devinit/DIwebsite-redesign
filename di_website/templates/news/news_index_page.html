@@ -17,7 +17,7 @@
                 </aside>
                 <div class="l-sidebar__body">
                     <div class="is-typeset wysiwyg">
-                        {{page.intro|richtext_strip_wrapper}}
+                        {{page.intro|content}}
                     </div>
                     {% if newsletter %}
                       <a href="{{newsletter.link_url}}" class="button">Sign up to our newsletter</a>

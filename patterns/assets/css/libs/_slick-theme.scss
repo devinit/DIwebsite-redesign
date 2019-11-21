@@ -140,6 +140,7 @@ $slick-opacity-not-active: 0.25 !default;
     margin: 15px 5% 15px 0;
     text-align: center;
     > span {
+        position: relative;
         transform: scale(1);
         transition: all, ease-in-out, 0.3s;
         background-color: $slate;
@@ -150,20 +151,31 @@ $slick-opacity-not-active: 0.25 !default;
         border-radius: 50%;
         display: block;
         margin: 0 auto;
+        vertical-align: middle;
         .timeline__item__month,
         .timeline__item__year {
             text-align: center;
             display: block;
             line-height: 1em;
             font-size: 1em;
-            padding-top: 10px;
+            //padding-top: 10px;
+            width: 100%;
+
         }
         .timeline__item__month{
             text-transform: uppercase;
             font-size: .8em;
+            padding-top: 10px;
+            +.timeline__item__year {
+                transform: translateY(-60%);
+                top: 60%;
+            }
         }
         .timeline__item__year {
             padding-top: 2px;
+            position: absolute;
+            transform: translateY(-50%);
+            top: 50%;
         }
         @include link-active-styles {
             transform: scale(1.5);

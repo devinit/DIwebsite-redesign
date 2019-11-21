@@ -1,4 +1,15 @@
 <div class="alert {{ variation }}">
   <i role="presentation" aria-hidden="true" class="ico ico-{{ ico_name }}"></i>
-  {{ message }}
+  <p>
+    {% if errors %}
+      <strong>{{ message }}</strong>
+    {% else %}
+      {{ message }}
+    {% endif %}
+  </p>
+  {% if errors %}
+    {% for error in form.errors %}
+      <p>{{ error }}</p>
+    {% endfor %}
+  {% endif %}
 </div>

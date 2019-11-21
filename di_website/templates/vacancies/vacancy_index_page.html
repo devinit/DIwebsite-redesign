@@ -1,210 +1,249 @@
 {% extends 'layouts/default.html' %}
 {% load wagtailcore_tags navigation_tags %}
 
+{% block html_header %}
+  <style type="text/css">
+    #mc_embed_signup .indicates-required {
+      text-align:right;
+      font-size:11px;
+      margin-right:4%;
+    }
+    #mc_embed_signup .asterisk {
+      color:#e85c41;
+      font-size:150%;
+      font-weight:normal;
+      position:relative;
+      top:5px;
+    }
+    div.mce_inline_error {
+      color: #f25111 !important;
+      background: transparent !important;
+      font-size: 1.3rem !important;
+    }
+    #mc_embed_signup input.mce_inline_error {
+      border-color: #f25111 !important;
+    }
+  </style>
+  {% include 'includes/scaffold/header-assets.html' %}
+{% endblock %}
+
 {% block hero %}
-{% include 'includes/heroes/hero.html' %}
+  {% include 'includes/heroes/hero.html' %}
 {% endblock hero %}
 
 
 {% block body %}
-<section class="section">
-  <div class="row row--narrow">
-    {% breadcrumbs %}
-  </div>
-</section>
-
-<section class="section">
-  <div class="row row--narrow">
-    <div class="l-2up-3up">
-      {% for vacancy in vacancies %}
-      {% include 'includes/cards/card-job.html' %}
-      {% endfor %}
+  <section class="section">
+    <div class="row row--narrow">
+      {% breadcrumbs %}
     </div>
-  </div>
-</section>
-<section class="section">
-  <div class="row row--narrow">
-    <h2 class="section__heading">Sign up for vacancy alerts</h2>
-    <div class="is-typeset max-meter">
-      <p>Do you want to know when new vacancies become available in your chosen field?</p>
-      <p>Subscribe to vacancy alerts!</p>
+  </section>
+
+  {% if vacancies|length %}
+    <section class="section">
+      <div class="row row--narrow">
+        <div class="l-2up-3up">
+          {% for vacancy in vacancies %}
+            {% include 'includes/cards/card-job.html' %}
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+  {% endif %}
+
+
+  <section class="section">
+    <div class="row row--narrow">
+      <h2 class="section__heading">Sign up for vacancy alerts</h2>
+      <div class="is-typeset max-meter">
+        <p>Do you want to know when new vacancies become available in your chosen field?</p>
+        <p>Subscribe to vacancy alerts!</p>
+      </div>
+      <div id="mc_embed_signup">
+        <form action="https://devinit.us11.list-manage.com/subscribe/post?u=a829237ca0cf1470615c7f059&amp;id=aee418056a"
+          method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form"
+          class="validate form form-section" target="_blank" novalidate>
+          <div id="mc_embed_signup_scroll">
+            <div class="indicates-required"><span class="asterisk">*</span> indicates required</div>
+            <div class="mc-field-group">
+              <label for="mce-EMAIL">Email address <span class="asterisk">*</span></label>
+              <input type="email" value="" name="EMAIL" class="form-item required email" id="mce-EMAIL">
+            </div>
+            <div class="form-field form-field--spaced">
+              <div for="choose_departments" class="form-label ">Choose departments (optional)</div>
+              <div id="choose_departments">
+                <div class="form-field__checkboxes form-field__checkboxes--columns">
+
+                  <div class="form-checkbox-group cp-form-checkbox-group-mce-group[21233]-21233-0">
+                    <input class="form-checkbox" type="checkbox" value="1" name="group[21233][1]"
+                      id="mce-group[21233]-21233-0" />
+                    <label class="form-label" for="mce-group[21233]-21233-0">Communications</label>
+                  </div>
+
+                  <div class="form-checkbox-group cp-form-checkbox-group-mce-group[21233]-21233-1">
+                    <input class="form-checkbox" type="checkbox" value="2" name="group[21233][2]"
+                      id="mce-group[21233]-21233-1" />
+                    <label class="form-label" for="mce-group[21233]-21233-1">Consultants</label>
+                  </div>
+
+                  <div class="form-checkbox-group cp-form-checkbox-group-mce-group[21233]-21233-2">
+                    <input class="form-checkbox" type="checkbox" value="4" name="group[21233][4]"
+                      id="mce-group[21233]-21233-2" />
+                    <label class="form-label" for="mce-group[21233]-21233-2">Data science</label>
+                  </div>
+
+                  <div class="form-checkbox-group cp-form-checkbox-group-mce-group[21233]-21233-3">
+                    <input class="form-checkbox" type="checkbox" value="8" name="group[21233][8]"
+                      id="mce-group[21233]-21233-3" />
+                    <label class="form-label" for="mce-group[21233]-21233-3">Finance</label>
+                  </div>
+
+                  <div class="form-checkbox-group cp-form-checkbox-group-mce-group[21233]-21233-4">
+                    <input class="form-checkbox" type="checkbox" value="16" name="group[21233][16]"
+                      id="mce-group[21233]-21233-4" />
+                    <label class="form-label" for="mce-group[21233]-21233-4">HR</label>
+                  </div>
+
+                  <div class="form-checkbox-group cp-form-checkbox-group-mce-group[21233]-21233-5">
+                    <input class="form-checkbox" type="checkbox" value="32" name="group[21233][32]"
+                      id="mce-group[21233]-21233-5" />
+                    <label class="form-label" for="mce-group[21233]-21233-5">IT</label>
+                  </div>
+
+                  <div class="form-checkbox-group cp-form-checkbox-group-mce-group[21233]-21233-6">
+                    <input class="form-checkbox" type="checkbox" value="64" name="group[21233][64]"
+                      id="mce-group[21233]-21233-6" />
+                    <label class="form-label" for="mce-group[21233]-21233-6">Leadership</label>
+                  </div>
+
+                  <div class="form-checkbox-group cp-form-checkbox-group-mce-group[21233]-21233-7">
+                    <input class="form-checkbox" type="checkbox" value="128" name="group[21233][128]"
+                      id="mce-group[21233]-21233-7" />
+                    <label class="form-label" for="mce-group[21233]-21233-7">Non-executive directors</label>
+                  </div>
+
+                  <div class="form-checkbox-group cp-form-checkbox-group-mce-group[21233]-21233-8">
+                    <input class="form-checkbox" type="checkbox" value="256" name="group[21233][256]"
+                      id="mce-group[21233]-21233-8" />
+                    <label class="form-label" for="mce-group[21233]-21233-8">Policy and engagement</label>
+                  </div>
+
+                  <div class="form-checkbox-group cp-form-checkbox-group-mce-group[21233]-21233-9">
+                    <input class="form-checkbox" type="checkbox" value="512" name="group[21233][512]"
+                      id="mce-group[21233]-21233-9" />
+                    <label class="form-label" for="mce-group[21233]-21233-9">Project management</label>
+                  </div>
+
+                  <div class="form-checkbox-group cp-form-checkbox-group-mce-group[21233]-21233-10">
+                    <input class="form-checkbox" type="checkbox" value="1024" name="group[21233][1024]"
+                      id="mce-group[21233]-21233-10" />
+                    <label class="form-label" for="mce-group[21233]-21233-10">Research and analysis</label>
+                  </div>
+
+                  <div class="form-checkbox-group cp-form-checkbox-group-mce-group[21233]-21233-11">
+                    <input class="form-checkbox" type="checkbox" value="2048" name="group[21233][2048]"
+                      id="mce-group[21233]-21233-11" />
+                    <label class="form-label" for="mce-group[21233]-21233-11">Strategic partnerships</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-field form-field--spaced">
+              <div for="email_format" class="form-label ">Email format (optional)</div>
+              <div id="email_format">
+                <div class="form-field__checkboxes form-field__checkboxes--columns">
+
+                  <div class="form-checkbox-group cp-form-checkbox-group-mce-EMAILTYPE-0">
+                    <input type="radio" value="html" name="EMAILTYPE" id="mce-EMAILTYPE-0">
+                    <label class="form-label" for="mce-EMAILTYPE-0">HTML</label>
+                  </div>
+
+                  <div class="form-checkbox-group cp-form-checkbox-group-mce-EMAILTYPE-1">
+                    <input type="radio" value="text" name="EMAILTYPE" id="mce-EMAILTYPE-1">
+                    <label class="form-label" for="mce-EMAILTYPE-1">Text</label>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="form-field form-field--spaced">
+              <div for="email_format" class="form-label ">Marketing permissions (optional)</div>
+              <div class="form-label">Please select all the ways you would like to hear from Development Initiatives:
+              </div>
+              <div id="email_format">
+                <div class="form-field__checkboxes form-field__checkboxes--columns">
+                  <fieldset class="mc_fieldset gdprRequired mc-field-group" name="interestgroup_field">
+                    <div class="form-checkbox-group cp-form-checkbox-group-gdpr_29137">
+                      <input class="form-checkbox" type="checkbox" id="gdpr_29137" name="gdpr[29137]" value="Y" />
+                      <label class="form-label" for="gdpr_29137">Email</label>
+                    </div>
+
+                    <div class="form-checkbox-group cp-form-checkbox-group-gdpr_29141">
+                      <input class="form-checkbox" type="checkbox" id="gdpr_29141" name="gdpr[29141]" value="Y" />
+                      <label class="form-label" for="gdpr_29141">Direct mail</label>
+                    </div>
+
+                    <div class="form-checkbox-group cp-form-checkbox-group-gdpr_29145">
+                      <input class="form-checkbox" type="checkbox" id="gdpr_29145" name="gdpr[29145]" value="Y" />
+                      <label class="form-label" for="gdpr_29145">Customized online advertising</label>
+                    </div>
+                  </fieldset>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-field form-field--spaced">
+              <div class="form-label ">{{ page.email_alert_confirmation_label | richtext }}</div>
+            </div>
+
+            <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+            <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text"
+                name="b_a829237ca0cf1470615c7f059_aee418056a" tabindex="-1" value=""></div>
+            <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe"
+                class="button"></div>
+          </div>
+        </form>
+      </div>
+      <div id="mce-responses" class="clear">
+        <div class="alert alert--success" id="mce-success-response" style="display:none"></div>
+        <div class="alert alert--error" id="mce-error-response" style="display:none"></div>
+      </div>
+      <!--End mc_embed_signup-->
+      <script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script>
+      <script type='text/javascript'>
+        (function ($) {
+          window.fnames = new Array();
+          window.ftypes = new Array();
+          fnames[0] = 'EMAIL';
+          ftypes[0] = 'email';
+        }(jQuery));
+        var $mcj = jQuery.noConflict(true);
+      </script>
+      <script>
+        // Select the node that will be observed for mutations
+        const targetNode = document.getElementById("mce-success-response");
+
+        // Options for the observer (which mutations to observe)
+        const config = {
+          attributes: true
+        };
+
+        // Callback function to execute when mutations are observed
+        const callback = function (mutationsList, observer) {
+          // Use traditional 'for loops' for IE 11
+          for (let mutation of mutationsList) {
+            document.getElementById("mc-embedded-subscribe-form").style.display = 'none';
+          }
+        };
+
+        // Create an observer instance linked to the callback function
+        const observer = new MutationObserver(callback);
+
+        // Start observing the target node for configured mutations
+        observer.observe(targetNode, config);
+      </script>
     </div>
-    <div class="alert alert--success" id="mce-success-response" style="display:none"></div>
-    <div class="alert alert--error" id="mce-error-response" style="display:none"></div>
-    <form class="validate form"
-      action="https://devinit.us11.list-manage.com/subscribe/post?u=a829237ca0cf1470615c7f059&amp;id=aee418056a"
-      method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" novalidate>
-      <fieldset class="form-section">
-        <div class="form-field {% if email.field_error %}form-field--error{% else %}{% endif %}">
-          <label for="mce-EMAIL" class="form-label">
-            Email address
-          </label>
-          <input type="email" value="" name="EMAIL" class="form-item required email" id="mce-EMAIL">
-        </div>
-
-        <div class="form-field form-field--spaced">
-          <div for="choose_departments" class="form-label ">Choose departments (optional)</div>
-          <div id="choose_departments">
-            <div class="form-field__checkboxes form-field__checkboxes--columns">
-
-              <div class="form-checkbox-group cp-form-checkbox-group-mce-group[21233]-21233-0">
-                <input class="form-checkbox" type="checkbox" value="1" name="group[21233][1]"
-                  id="mce-group[21233]-21233-0" />
-                <label class="form-label" for="mce-group[21233]-21233-0">Communications</label>
-              </div>
-
-              <div class="form-checkbox-group cp-form-checkbox-group-mce-group[21233]-21233-1">
-                <input class="form-checkbox" type="checkbox" value="2" name="group[21233][2]"
-                  id="mce-group[21233]-21233-1" />
-                <label class="form-label" for="mce-group[21233]-21233-1">Consultants</label>
-              </div>
-
-              <div class="form-checkbox-group cp-form-checkbox-group-mce-group[21233]-21233-2">
-                <input class="form-checkbox" type="checkbox" value="4" name="group[21233][4]"
-                  id="mce-group[21233]-21233-2" />
-                <label class="form-label" for="mce-group[21233]-21233-2">Data science</label>
-              </div>
-
-              <div class="form-checkbox-group cp-form-checkbox-group-mce-group[21233]-21233-3">
-                <input class="form-checkbox" type="checkbox" value="8" name="group[21233][8]"
-                  id="mce-group[21233]-21233-3" />
-                <label class="form-label" for="mce-group[21233]-21233-3">Finance</label>
-              </div>
-
-              <div class="form-checkbox-group cp-form-checkbox-group-mce-group[21233]-21233-4">
-                <input class="form-checkbox" type="checkbox" value="16" name="group[21233][16]"
-                  id="mce-group[21233]-21233-4" />
-                <label class="form-label" for="mce-group[21233]-21233-4">HR</label>
-              </div>
-
-              <div class="form-checkbox-group cp-form-checkbox-group-mce-group[21233]-21233-5">
-                <input class="form-checkbox" type="checkbox" value="32" name="group[21233][32]"
-                  id="mce-group[21233]-21233-5" />
-                <label class="form-label" for="mce-group[21233]-21233-5">IT</label>
-              </div>
-
-              <div class="form-checkbox-group cp-form-checkbox-group-mce-group[21233]-21233-6">
-                <input class="form-checkbox" type="checkbox" value="64" name="group[21233][64]"
-                  id="mce-group[21233]-21233-6" />
-                <label class="form-label" for="mce-group[21233]-21233-6">Leadership</label>
-              </div>
-
-              <div class="form-checkbox-group cp-form-checkbox-group-mce-group[21233]-21233-7">
-                <input class="form-checkbox" type="checkbox" value="128" name="group[21233][128]"
-                  id="mce-group[21233]-21233-7" />
-                <label class="form-label" for="mce-group[21233]-21233-7">Non-executive directors</label>
-              </div>
-
-              <div class="form-checkbox-group cp-form-checkbox-group-mce-group[21233]-21233-8">
-                <input class="form-checkbox" type="checkbox" value="256" name="group[21233][256]"
-                  id="mce-group[21233]-21233-8" />
-                <label class="form-label" for="mce-group[21233]-21233-8">Policy and engagement</label>
-              </div>
-
-              <div class="form-checkbox-group cp-form-checkbox-group-mce-group[21233]-21233-9">
-                <input class="form-checkbox" type="checkbox" value="512" name="group[21233][512]"
-                  id="mce-group[21233]-21233-9" />
-                <label class="form-label" for="mce-group[21233]-21233-9">Project management</label>
-              </div>
-
-              <div class="form-checkbox-group cp-form-checkbox-group-mce-group[21233]-21233-10">
-                <input class="form-checkbox" type="checkbox" value="1024" name="group[21233][1024]"
-                  id="mce-group[21233]-21233-10" />
-                <label class="form-label" for="mce-group[21233]-21233-10">Research and analysis</label>
-              </div>
-
-              <div class="form-checkbox-group cp-form-checkbox-group-mce-group[21233]-21233-11">
-                <input class="form-checkbox" type="checkbox" value="2048" name="group[21233][2048]"
-                  id="mce-group[21233]-21233-11" />
-                <label class="form-label" for="mce-group[21233]-21233-11">Strategic partnerships</label>
-              </div>
-
-            </div>
-          </div>
-        </div>
-
-        <div class="form-field form-field--spaced">
-          <div for="email_format" class="form-label ">Email format</div>
-          <div id="email_format">
-            <div class="form-field__checkboxes form-field__checkboxes--columns">
-
-              <div class="form-checkbox-group cp-form-checkbox-group-mce-EMAILTYPE-0">
-                <input type="radio" value="html" name="EMAILTYPE" id="mce-EMAILTYPE-0">
-                <label class="form-label" for="mce-EMAILTYPE-0">HTML</label>
-              </div>
-
-              <div class="form-checkbox-group cp-form-checkbox-group-mce-EMAILTYPE-1">
-                <input type="radio" value="text" name="EMAILTYPE" id="mce-EMAILTYPE-1">
-                <label class="form-label" for="mce-EMAILTYPE-1">Text</label>
-              </div>
-
-            </div>
-          </div>
-        </div>
-
-        <div class="form-field form-field--spaced">
-          <div for="email_format" class="form-label ">Marketing permissions</div>
-          <div class="form-label">Please select all the ways you would like to hear from Development Initiatives:</div>
-          <div id="email_format">
-            <div class="form-field__checkboxes form-field__checkboxes--columns">
-
-              <div class="form-checkbox-group cp-form-checkbox-group-gdpr_29137">
-                <input class="form-checkbox" type="checkbox" id="gdpr_29137" name="gdpr[29137]" value="Y" />
-                <label class="form-label" for="gdpr_29137">Email</label>
-              </div>
-
-              <div class="form-checkbox-group cp-form-checkbox-group-gdpr_29141">
-                <input class="form-checkbox" type="checkbox" id="gdpr_29141" name="gdpr[29141]" value="Y" />
-                <label class="form-label" for="gdpr_29141">Direct mail</label>
-              </div>
-
-              <div class="form-checkbox-group cp-form-checkbox-group-gdpr_29145">
-                <input class="form-checkbox" type="checkbox" id="gdpr_29145" name="gdpr[29145]" value="Y" />
-                <label class="form-label" for="gdpr_29145">Customized online advertising</label>
-              </div>
-
-            </div>
-          </div>
-        </div>
-
-        <div class="form-field form-field--spaced">
-          <div for="checkbox2" class="form-label form-label--hidden"></div>
-          <div id="checkbox2">
-            <div class="form-field__checkboxes ">
-              <div class="form-checkbox-group cp-form-checkbox-group-gdpr">
-                <input class="required form-checkbox" type="checkbox" name="gdpr" id="gdpr" value="">
-                <label class="form-label" for="gdpr">
-                  {{ page.email_alert_confirmation_label | richtext }}
-                </label>
-              </div>
-            </div>
-          </div>
-        </div>
-        <br />
-        <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-        <div style="position: absolute; left: -5000px;" aria-hidden="true">
-          <input type="text" name="b_a829237ca0cf1470615c7f059_aee418056a" tabindex="-1" value="">
-        </div>
-
-        <div class="form-field form-field--spaced">
-          <input class="button" name="subscribe" type="submit" value="Sign up for alerts">
-        </div>
-
-        {% csrf_token %}
-      </fieldset>
-    </form>
-
-  </div>
-  <script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script>
-  <script type='text/javascript'>
-    (function ($) {
-      window.fnames = new Array();
-      window.ftypes = new Array();
-      fnames[0] = 'EMAIL';
-      ftypes[0] = 'email';
-    }(jQuery));
-    var $mcj = jQuery.noConflict(true);
-
-  </script>
-</section>
+  </section>
 {% endblock body %}

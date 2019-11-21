@@ -23,11 +23,11 @@
           <li>
             <i role="presentation" aria-hidden="true" class="ico ico--14 ico-clock-slate"></i>
             {% if page.start_time and page.end_time %}
-              {{ page.start_time }} - {{ page.end_time }}
+              {{ page.start_time|date:"gA"|lower }} - {{ page.end_time|date:"gA"|lower }}
             {% elif page.start_time %}
-              {{ page.start_time }}
+              {{ page.start_time|date:"gA"|lower }}
             {% elif page.end_time %}
-              {{ page.end_time }}
+              {{ page.end_time|date:"gA"|lower }}
             {% endif %}
           </li>
         {% endif %}

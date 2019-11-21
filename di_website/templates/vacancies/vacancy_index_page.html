@@ -29,8 +29,6 @@
       <p>Do you want to know when new vacancies become available in your chosen field?</p>
       <p>Subscribe to vacancy alerts!</p>
     </div>
-    <div class="alert alert--success" id="mce-success-response" style="display:none"></div>
-    <div class="alert alert--error" id="mce-error-response" style="display:none"></div>
     <form class="validate form"
       action="https://devinit.us11.list-manage.com/subscribe/post?u=a829237ca0cf1470615c7f059&amp;id=aee418056a"
       method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" novalidate>
@@ -172,7 +170,7 @@
           <div id="checkbox2">
             <div class="form-field__checkboxes ">
               <div class="form-checkbox-group cp-form-checkbox-group-gdpr">
-                <input class="required form-checkbox" type="checkbox" name="gdpr" id="gdpr" value="">
+                <input class="required form-checkbox" type="checkbox" name="gdpr" id="gdpr" value="" required>
                 <label class="form-label" for="gdpr">
                   {{ page.email_alert_confirmation_label | richtext }}
                 </label>
@@ -186,6 +184,8 @@
           <input type="text" name="b_a829237ca0cf1470615c7f059_aee418056a" tabindex="-1" value="">
         </div>
 
+        <div class="alert alert--success" id="mce-success-response" style="display:none"></div>
+        <div class="alert alert--error" id="mce-error-response" style="display:none"></div>
         <div class="form-field form-field--spaced">
           <input class="button" name="subscribe" type="submit" value="Sign up for alerts">
         </div>

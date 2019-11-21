@@ -145,17 +145,6 @@ def file_label(file):
         return file.title
 
 
-@register.filter
-def richtext_strip_wrapper(value):
-    if isinstance(value, RichText):
-        # only strips from a RichText value and has no effect on others
-        return mark_safe(str(value).replace('<div class="rich-text">', '').replace('</div>', ''))
-    else:
-        html = expand_db_html(value)
-
-    return mark_safe(html)
-
-
 @register.filter(expects_localtime=True, is_safe=False)
 def format_date(start, end=None):
     """Check that years are not the same and format date field."""

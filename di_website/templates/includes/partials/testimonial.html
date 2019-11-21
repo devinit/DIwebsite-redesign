@@ -2,7 +2,7 @@
 
 <div class="testimonial{% if class_name %} {{class_name}}{% endif %}">
   <div class="testimonial__main">
-    <div class="testimonial__copy">{{body|richtext_strip_wrapper}}</div>
+    <div class="testimonial__copy">{{body|content}}</div>
     <span class="testimonial__cite">{{cite}}</span>
   </div>
   <aside class="testimonial__aside">

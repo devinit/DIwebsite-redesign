@@ -4,7 +4,7 @@
     <div class="row row--narrow">
         <div class="max-meter{% if self.center %} max-meter--center{% endif %}">
             <div class="is-typeset wysiwyg">
-                {{ self.text|richtext_strip_wrapper }}
+                {{ self.text|content }}
             </div>
         </div>
     </div>

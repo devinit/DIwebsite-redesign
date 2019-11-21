@@ -1,9 +1,9 @@
 <form class="form" method="get" action="{{self.pageurl}}">
     <div class="form-field form-field--inline-five">
-        <label for="report" class="form-label form-label--hidden">All Reports</label>
+        <label for="report" class="form-label form-label--hidden">All reports</label>
         <div class="form-field__select-dropdown">
             <select name="report" id="report">
-                <option value="" selected>All Reports</option>
+                <option value="" selected>All reports</option>
                 {% for report in reports %}
                   <option value="{{report.slug}}" id="{{report.slug}}" {% if report.slug == selected_report %}selected{% endif %}>
                     {{report}}
@@ -13,10 +13,10 @@
         </div>
     </div>
     <div class="form-field form-field--inline-five">
-        <label for="source" class="form-label form-label--hidden">All Data sources</label>
+        <label for="source" class="form-label form-label--hidden">All data sources</label>
         <div class="form-field__select-dropdown">
             <select name="source" id="source">
-                <option value="" selected>All Data sources</option>
+                <option value="" selected>All data sources</option>
                 {% for source in sources %}
                   <option value="{{source.slug}}" id="{{source.slug}}" {% if source.slug == selected_source %}selected{% endif %}>
                     {{source}}
@@ -27,10 +27,10 @@
     </div>
     {% if topics %}
       <div class="form-field form-field--inline-five">
-          <label for="topic" class="form-label form-label--hidden">All Topics</label>
+          <label for="topic" class="form-label form-label--hidden">All topics</label>
           <div class="form-field__select-dropdown">
               <select name="topic" id="topic">
-                  <option value="" selected>All Topics</option>
+                  <option value="" selected>All topics</option>
                   {% for topic in topics %}
                     <option value="{{topic.slug}}" id="{{topic.slug}}" {% if topic.slug == selected_topic %}selected{% endif %}>
                       {{topic}}
@@ -44,8 +44,7 @@
         <label for="country" class="form-label form-label--hidden">Geography</label>
         <div class="form-field__select-dropdown">
             <select name="country" id="country">
-                <option value="" disabled selected>All Geographies</option>
-                <option value="">Global</option>
+                <option value="">All locations</option>
                 {% regroup countries by region as country_groups %}
                 {% for country_group in country_groups %}
                   <optgroup label="{{ country_group.grouper }}">

@@ -1,30 +1,30 @@
 {% load wagtailcore_tags card_tags string_utils %}
 
-<section class="section">
+
+{% get_office_locations as locations %}
+{% if locations %}
+  <section class="section">
     <div class="row row--narrow">
-        <h2 class="section__heading">Where we are based</h2>
-        <div class="l-4up">
-
-            {% get_office_locations as locations %}
-            {% if locations %}
-                {% for location in locations %}
-                    <div class="location">
-                        {% if location.location %}
-                            <h3 class="location__heading">{{ location.location }}</h3>
-                        {% endif %}
-                        {% if location.address %}
-                            <div class="location__copy">{{ location.address | content }}</div>
-                        {% endif %}
-                        {% if location.contact %}
-                            <span class="location__contact">{{ location.contact }}</span>
-                        {% endif %}
-                    </div>
-                {% endfor %}
+      <h2 class="section__heading">Where we are based</h2>
+      <div class="l-4up">
+        {% for location in locations %}
+          <div class="location">
+            {% if location.location %}
+              <h3 class="location__heading">{{ location.location }}</h3>
             {% endif %}
+            {% if location.address %}
+              <div class="location__copy">{{ location.address | content }}</div>
+            {% endif %}
+            {% if location.contact %}
+              <span class="location__contact">{{ location.contact }}</span>
+            {% endif %}
+          </div>
+        {% endfor %}
 
-        </div>
+      </div>
     </div>
-</section>
+  </section>
+{% endif %}
 
 <section class="section">
     <div class="row row--narrow">

@@ -40,6 +40,25 @@ from .blocks import QuoteStreamBlock, MetaDataDescriptionBlock, MetaDataSourcesB
 from .mixins import DataSetMixin, DataSetSourceMixin
 from .panels import metadata_panel
 
+from wagtailmetadata.models import MetadataPageMixin
+
+
+class DatasetListingMetadataPageMixin(MetadataPageMixin):
+
+    class Meta:
+        abstract = True
+
+    def get_meta_image(self):
+        if getattr(self.specific, 'search_image', None):
+            return self.specific.search_image
+        return super(DatasetListingMetadataPageMixin, self).get_meta_image()
+
+    def get_meta_description(self):
+        return self.search_description if self.search_description else self.title
+
+    def get_meta_title(self):
+        return self.title
+
 
 def get_related_dataset_pages(selected_pages, dataset_page, min_len=MAX_RELATED_LINKS):
     count = len(selected_pages)
@@ -389,7 +408,7 @@ class FigureSource(DataSetSourceMixin):
     page = ParentalKey(FigurePage, related_name='figure_sources', on_delete=models.CASCADE)
 
 
-class DataSetListing(TypesetBodyMixin, Page):
+class DataSetListing(DatasetListingMetadataPageMixin, TypesetBodyMixin, Page):
     """
     http://development-initiatives.surge.sh/page-templates/21-1-dataset-listing
     """

@@ -11,17 +11,16 @@
   <section class="section">
     <div class="row row--narrow">
       <div class="max-meter">
-        <div class="is-typeset">
-          {% for block in page.body %}
-            {% include_block block %}
-          {% endfor %}
-        </div>
         <form novalidate action="{% pageurl page %}" method="POST">
           {% csrf_token %}
-          {% if form.non_field_errors %}
-            {% for error in form.non_field_errors %}
-              {% include 'includes/partials/alert.html' with variation='alert--error' ico_name='error-error' message=error %}
-            {% endfor %}
+          {% if form.non_field_errors or form.errors %}
+            {% include 'includes/partials/alert.html' with variation='alert--error' ico_name='error-error' message='Sorry, there appears to be an issue.' errors=form.non_field_errors %}
+          {% else %}
+            <div class="is-typeset">
+              {% for block in page.body %}
+                {% include_block block %}
+              {% endfor %}
+            </div>
           {% endif %}
 
           {% include 'contactus/includes/contact_form.html'%}

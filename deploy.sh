@@ -162,7 +162,7 @@ function start_link_checker_processes {
 
     start_new_process "Starting celery"
 
-    docker-compose exec -T web celery -A di_website worker -l info &
+    docker-compose exec -T web /etc/init.d/celeryd start
 
     log "Finished setting up link checker .."
 

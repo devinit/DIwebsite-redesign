@@ -44,6 +44,8 @@ services:
       context: .
     volumes:
       - ./:/code/
+      - ./config/celery/default:/etc/default
+      - ./config/celery/init.d:/etc/init.d
 
   nginx:
     image: nginx:latest

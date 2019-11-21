@@ -162,7 +162,7 @@ function start_link_checker_processes {
 
     start_new_process "Starting celery"
 
-    docker-compose exec -T web celery -A di_website worker -l info &
+    docker-compose exec -T web /etc/init.d/celeryd start
 
     log "Finished setting up link checker .."
 
@@ -197,11 +197,13 @@ then
     start_new_process "Generating static assets"
     docker-compose exec -T web python manage.py collectstatic --noinput
     sudo chown -R di_website:di_website assets
+    exit 0
 
 elif [ ${args[0]} == 'backup' ]
 then
 
     backup_database
+    exit 0
 
 else
 

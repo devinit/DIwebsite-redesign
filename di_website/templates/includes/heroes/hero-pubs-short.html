@@ -26,16 +26,24 @@
   <div class="row row--narrow">
     <div class="hero__content">
       <ul class="hero__meta">
-        {% if page.publication_type %}
-          <li class="hero__meta-item hero__meta-item--block">{{ page.publication_type }}</li>
+        {% if page.get_verbose_name  == "Short Publication" or page.get_verbose_name == "Legacy Publication" %}
+          <li class="hero__meta-item hero__meta-item--block">{{ page.publication_type|default_if_none:"Publication" }}</li>
+        {% else %}
+          <li class="hero__meta-item hero__meta-item--block">{{ page.get_parent.specific.publication_type|default_if_none:"Publication" }}</li>
         {% endif %}
         {% if page.published_date %}
           <li class="hero__meta-item">{{ page.published_date|date:"j F Y" }}</li>
         {% endif %}
       </ul>
+      {% if page.get_verbose_name  == "Publication Chapter" %}
+        <h2 class="hero__subtitle">{{ page.get_parent.title }}: Chapter {{ page.chapter_number }}</h2>
+      {% endif %}
       <h1 class="hero__title">
         <span>{{ page.title }}</span>
       </h1>
+      {% if page.get_verbose_name  == "Publication Appendix" or page.get_verbose_name  == "Publication Summary" %}
+        <h2 class="hero__subtitle">{{ page.hero_text|content }}</h2>
+      {% endif %}
       {% if page.hero_link and page.hero_link_caption %}
         <a href="{% pageurl page.hero_link %}" class="button button--reverse">{{ page.hero_link_caption }}</a>
       {% endif %}

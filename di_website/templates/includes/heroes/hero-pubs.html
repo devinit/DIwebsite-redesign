@@ -31,12 +31,12 @@
           <li class="hero__meta-item">{{ page.published_date|date:"j F Y" }}</li>
         {% endif %}
       </ul>
-      {% if page.hero_text %}
-        <h2 class="hero__subtitle">{{ page.hero_text|content }}</h2>
-      {% endif %}
       <h1 class="hero__title">
         <span>{{ page.title }}</span>
       </h1>
+      {% if page.hero_text %}
+        <h2 class="hero__subtitle">{{ page.hero_text|content }}</h2>
+      {% endif %}
       {% if page.hero_link and page.hero_link_caption %}
         <a href="{% pageurl page.hero_link %}" class="button button--reverse">{{ page.hero_link_caption }}</a>
       {% endif %}

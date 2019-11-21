@@ -39,15 +39,18 @@
     </div>
   </section>
 
-  <section class="section">
-    <div class="row row--narrow">
-      <div class="l-2up-3up">
-        {% for vacancy in vacancies %}
-          {% include 'includes/cards/card-job.html' %}
-        {% endfor %}
+  {% if vacancies|length %}
+    <section class="section">
+      <div class="row row--narrow">
+        <div class="l-2up-3up">
+          {% for vacancy in vacancies %}
+            {% include 'includes/cards/card-job.html' %}
+          {% endfor %}
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  {% endif %}
+
 
   <section class="section">
     <div class="row row--narrow">

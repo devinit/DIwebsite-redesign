@@ -25,19 +25,21 @@
             </select>
         </div>
     </div>
-    <div class="form-field form-field--inline-five">
-        <label for="topic" class="form-label form-label--hidden">All Topics</label>
-        <div class="form-field__select-dropdown">
-            <select name="topic" id="topic">
-                <option value="" selected>All Topics</option>
-                {% for topic in topics %}
-                  <option value="{{topic.slug}}" id="{{topic.slug}}" {% if topic.slug == selected_topic %}selected{% endif %}>
-                    {{topic}}
-                  </option>
-                {% endfor %}
-            </select>
-        </div>
-    </div>
+    {% if topics %}
+      <div class="form-field form-field--inline-five">
+          <label for="topic" class="form-label form-label--hidden">All Topics</label>
+          <div class="form-field__select-dropdown">
+              <select name="topic" id="topic">
+                  <option value="" selected>All Topics</option>
+                  {% for topic in topics %}
+                    <option value="{{topic.slug}}" id="{{topic.slug}}" {% if topic.slug == selected_topic %}selected{% endif %}>
+                      {{topic}}
+                    </option>
+                  {% endfor %}
+              </select>
+          </div>
+      </div>
+    {% endif %}
     <div class="form-field form-field--inline-five">
         <label for="country" class="form-label form-label--hidden">Geography</label>
         <div class="form-field__select-dropdown">

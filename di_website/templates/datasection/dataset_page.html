@@ -19,21 +19,23 @@
 
       {% for item in reports %}
         <div class="card card--duo">
-          <span class="card__tag">Report</span>
-          <div class="card__media">
-            {% if item.specific.hero_image %}
-              {% responsiveimage item.specific.hero_image fill-464x290-c100 srcset="fill-382x238 1w, fill-464x290 464w" as image %}
-              {% if image.url != '/media/not-found' %}
-                <img src="{{ image.url }}" alt="{{item.specific.hero_image.title}}" srcset="{{ image.srcset }}"/>
+          <span class="card__tag">{{ item.specific.publication_type|default_if_none:"Publication" }}</span>
+          <a href="{% pageurl item %}">
+            <div class="card__media">
+              {% if item.specific.hero_image %}
+                {% responsiveimage item.specific.hero_image fill-464x290-c100 srcset="fill-382x238 1w, fill-464x290 464w" as image %}
+                {% if image.url != '/media/not-found' %}
+                  <img src="{{ image.url }}" alt="{{item.specific.hero_image.title}}" srcset="{{ image.srcset }}"/>
+                {% endif %}
+              {% else %}
+                <img src="{% static 'img/fallback-image.jpg' %}" height="290px" width="464px"/>
               {% endif %}
-            {% else %}
-              <img src="{% static 'img/fallback-image.jpg' %}" height="290px" width="464px"/>
-            {% endif %}
-            <div class="card__media__caption">
-              <span class="card__meta">{{item.specific.release_date|date:"j F Y"}}</span>
-              <h3 class="card__title"><span>{{item.specific.name}} {{item.title}}</span></h3>
+              <div class="card__media__caption">
+                <span class="card__meta">{{item.specific.release_date|date:"j F Y"}}</span>
+                <h3 class="card__title"><span>{{item.title}}</span></h3>
+              </div>
             </div>
-          </div>
+          </a>
           <div class="card__body">
             <div class="l-2up">
               {% for figure in item.figures %}

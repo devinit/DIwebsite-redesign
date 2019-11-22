@@ -1,6 +1,6 @@
 {% load string_utils wagtailcore_tags %}
 
-{% if page.publication_downloads_list or page.data_downloads_list or page.publication_datasets.all %}
+{% if page.publication_downloads_list or page.data_downloads_list or page.filtered_datasets %}
     <div class="download">
         {% if page.publication_downloads_list %}
             <h2 class="type-m type-s--trailer">{{ page.publication_downloads_title }}</h2>
@@ -19,7 +19,7 @@
                 {% endfor %}
             </ul>
         {% endif %}
-        {% if page.data_downloads_list or page.publication_datasets.all %}
+        {% if page.data_downloads_list or page.filtered_datasets %}
             <h2 class="type-m type-s--trailer space-section-top--small">{{ page.data_downloads_title }}</h2>
             <ul class="download__list">
                 {% for group, downloads in page.data_downloads_list %}
@@ -34,10 +34,10 @@
                         {% endfor %}
                     </li>
                 {% endfor %}
-                {% if page.publication_datasets.all %}
+                {% if page.filtered_datasets %}
                   <li class="download__item">
-                      <span class="download__label">Datasets and figures</span>
-                      {% for item in page.publication_datasets.all %}
+                      <span class="download__label">Datasets</span>
+                      {% for item in page.filtered_datasets %}
                           <a
                               href="{% pageurl item.dataset %}"
                               class="download__link js-ga-download-click"

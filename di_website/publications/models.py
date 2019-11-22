@@ -356,6 +356,16 @@ class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUID
         children += list(self.appendices)
         return filter(None, children)
 
+    @cached_property
+    def filtered_datasets(self):
+        results = []
+        all_pub_datasets = self.publication_datasets.all()
+        for pub_dataset in all_pub_datasets:
+            if type(pub_dataset.dataset.specific).__name__ == "DatasetPage":
+                results.append(pub_dataset)
+        return results
+
+
     def save(self, *args, **kwargs):
         super(PublicationPage, self).save(*args, **kwargs)
 
@@ -445,6 +455,15 @@ class PublicationSummaryPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
     @cached_property
     def page_data_downloads(self):
         return self.data_downloads.all()
+
+    @cached_property
+    def filtered_datasets(self):
+        results = []
+        all_pub_datasets = self.publication_datasets.all()
+        for pub_dataset in all_pub_datasets:
+            if type(pub_dataset.dataset.specific).__name__ == "DatasetPage":
+                results.append(pub_dataset)
+        return results
 
 
 class PublicationChapterPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin, UUIDMixin, Page):
@@ -551,6 +570,15 @@ class PublicationChapterPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
     def page_data_downloads(self):
         return self.data_downloads.all()
 
+    @cached_property
+    def filtered_datasets(self):
+        results = []
+        all_pub_datasets = self.publication_datasets.all()
+        for pub_dataset in all_pub_datasets:
+            if type(pub_dataset.dataset.specific).__name__ == "DatasetPage":
+                results.append(pub_dataset)
+        return results
+
 
 class PublicationAppendixPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin, UUIDMixin, Page):
 
@@ -650,6 +678,15 @@ class PublicationAppendixPage(HeroMixin, ReportChildMixin, FlexibleContentMixin,
     @cached_property
     def page_data_downloads(self):
         return self.data_downloads.all()
+
+    @cached_property
+    def filtered_datasets(self):
+        results = []
+        all_pub_datasets = self.publication_datasets.all()
+        for pub_dataset in all_pub_datasets:
+            if type(pub_dataset.dataset.specific).__name__ == "DatasetPage":
+                results.append(pub_dataset)
+        return results
 
 
 class LegacyPublicationPage(HeroMixin, PublishedDateMixin, LegacyPageSearchMixin, Page):
@@ -756,6 +793,15 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, LegacyPageSearchMixin
     @cached_property
     def page_data_downloads(self):
         return self.data_downloads.all()
+
+    @cached_property
+    def filtered_datasets(self):
+        results = []
+        all_pub_datasets = self.publication_datasets.all()
+        for pub_dataset in all_pub_datasets:
+            if type(pub_dataset.dataset.specific).__name__ == "DatasetPage":
+                results.append(pub_dataset)
+        return results
 
 
 class ShortPublicationPage(HeroMixin, PublishedDateMixin, FlexibleContentMixin, PageSearchMixin, UUIDMixin, Page):
@@ -878,6 +924,15 @@ class ShortPublicationPage(HeroMixin, PublishedDateMixin, FlexibleContentMixin, 
             if block.block_type == 'section_heading':
                 sections.append(block)
         return sections
+
+    @cached_property
+    def filtered_datasets(self):
+        results = []
+        all_pub_datasets = self.publication_datasets.all()
+        for pub_dataset in all_pub_datasets:
+            if type(pub_dataset.dataset.specific).__name__ == "DatasetPage":
+                results.append(pub_dataset)
+        return results
 
 
 class PublicationPageRelatedLink(OtherPageMixin):

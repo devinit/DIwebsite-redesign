@@ -48,8 +48,7 @@ if settings.DEBUG:
     import debug_toolbar
     urlpatterns = [
         url(r'^__debug__/', include(debug_toolbar.urls)),
+        url(r'test404', TemplateView.as_view(template_name='404.html')),
+        url(r'test500', TemplateView.as_view(template_name='500.html')),
     ] + urlpatterns
     SHOW_TOOLBAR_CALLBACK = True
-
-handler404 = 'di_website.error.views.error_404_view'
-handler500 = 'di_website.error.views.error_500_view'

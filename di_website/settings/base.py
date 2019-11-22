@@ -49,7 +49,6 @@ INSTALLED_APPS = [
     'di_website.general',
     'di_website.project',
     'di_website.whatwedo',
-    'di_website.error',
     'di_website.publications',
     'di_website.downloads',
     'di_website.workforus',

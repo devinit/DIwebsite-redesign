@@ -15,7 +15,7 @@ from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.images.blocks import ImageChooserBlock
 from wagtailgeowidget.blocks import GeoBlock
 
-from di_website.common.constants import RICHTEXT_FEATURES
+from di_website.common.constants import RICHTEXT_FEATURES_NO_FOOTNOTES
 from di_website.common.blocks import ButtonBlock
 
 
@@ -27,7 +27,7 @@ class LocationsMapBlock(StructBlock):
     description = RichTextBlock(
         icon='fa-paragraph',
         template='blocks/paragraph_block.html',
-        features=RICHTEXT_FEATURES,
+        features=RICHTEXT_FEATURES_NO_FOOTNOTES,
         required=False)
     button = ButtonBlock()
     light = BooleanBlock(
@@ -65,14 +65,14 @@ class ExpertiseBlock(StructBlock):
     description = RichTextBlock(
         icon='fa-paragraph',
         template='blocks/paragraph_block.html',
-        features=RICHTEXT_FEATURES,
+        features=RICHTEXT_FEATURES_NO_FOOTNOTES,
         required=False)
     expertise_list = ListBlock(StructBlock([
         ('name', TextBlock(icon='fa-text')),
         ('description', RichTextBlock(
             icon='fa-paragraph',
             template='blocks/paragraph_block.html',
-            features=RICHTEXT_FEATURES,
+            features=RICHTEXT_FEATURES_NO_FOOTNOTES,
             required=False))
     ]), required=False)
     light = BooleanBlock(

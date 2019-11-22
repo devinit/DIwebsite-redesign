@@ -276,7 +276,7 @@
 			grid-row: inherit;
 		}
 	}
-	&__col, .card, .m-service {
+	&__col, .card, .m-service, .location {
 		margin-bottom: 3em;
 		@include respond-to($c-vp) {
 			float: left;

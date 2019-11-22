@@ -23,7 +23,7 @@
             padding: 8em 0 5em 0;
         }
     }
-    @include respond-to($e-vp) {
+    @include respond-to($d-vp + 200px) {
         padding: 20em 0 15em 0;
         &--minor{
             padding: 8em 0 15em 0;

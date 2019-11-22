@@ -298,7 +298,7 @@ a.m-stat {
     padding: 0.25em 0.5em;
     margin-bottom: 1em;
     display: inline-block;
-    line-height: 1;
+    line-height: 1.4;
     margin-right: 10px;
     max-width: 80%;
 }
@@ -437,6 +437,45 @@ a.m-stat {
         -webkit-transform: translateY(-50%);
         left: 30%;
         width: 70%;
+    }
+}
+
+// Notes //
+
+.m-notes {
+    position: relative;
+    background-color: #fff;
+    padding: 2em;
+    margin-top: 3em;
+    &__title {
+        @extend %font-heading;
+        @include font-size($eta);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 0.5em;
+    }
+    &__list {
+        @include font-size($epsilon);
+        li {
+            display: block;
+            margin-bottom: 1em;
+            sup {
+                vertical-align: super;
+                font-size: 80%;
+                margin: 0 1px;
+            }
+            a {
+                font-size: inherit;
+                text-decoration: underline;
+            }
+        }
+    }
+    &__copy {
+        @include font-size($epsilon);
+        a {
+            font-size: inherit;
+            text-decoration: underline;
+        }
     }
 }
 

@@ -193,6 +193,10 @@
 		@extend .para--typeset;
 	}
 
+	b, strong {
+		@extend %font-heading;
+	}
+
 	img {
 		@extend %max-width;
 		margin: ($para/$rembase) + em 0;

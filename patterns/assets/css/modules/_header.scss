@@ -22,6 +22,16 @@
 			width: 27%;
 		}
 	}
+	@include respond-to($max-vp) {
+		&:after {
+			width: 35%;
+		}
+	}
+	@include respond-to($max-vp + 500px) {
+		&:after {
+			width: 40%;
+		}
+	}
 	.row {
 		position: relative;
 		padding-top: 2em;

@@ -440,6 +440,45 @@ a.m-stat {
     }
 }
 
+// Notes //
+
+.m-notes {
+    position: relative;
+    background-color: #fff;
+    padding: 2em;
+    margin-top: 3em;
+    &__title {
+        @extend %font-heading;
+        @include font-size($eta);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 0.5em;
+    }
+    &__list {
+        @include font-size($epsilon);
+        li {
+            display: block;
+            margin-bottom: 1em;
+            sup {
+                vertical-align: super;
+                font-size: 80%;
+                margin: 0 1px;
+            }
+            a {
+                font-size: inherit;
+                text-decoration: underline;
+            }
+        }
+    }
+    &__copy {
+        @include font-size($epsilon);
+        a {
+            font-size: inherit;
+            text-decoration: underline;
+        }
+    }
+}
+
 // shareBlock -------------------------------------------------
 .share {
     position: relative;

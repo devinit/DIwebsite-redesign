@@ -282,6 +282,9 @@ class DatasetPage(DataSetMixin, TypesetBodyMixin, HeroMixin, Page):
 
         return reports
 
+    def get_download_name(self):
+        return self.title
+
 
 class DatasetDownloads(Orderable, BaseDownload):
     page = ParentalKey(
@@ -378,6 +381,9 @@ class FigurePage(DataSetMixin, TypesetBodyMixin, HeroMixin, Page):
 
     def get_name(self):
         return self.publication.title + ' - ' + self.name if self.publication else self.figure_title
+
+    def get_download_name(self):
+        return self.figure_title if self.figure_title else self.name + ' - ' + self.title
 
 
 class FigurePageDownloads(Orderable, BaseDownload):

@@ -9,7 +9,9 @@
     {% block html_header %}
 		{% include 'includes/scaffold/header-assets.html' %}
     {% endblock %}
+		{% block metadata %}
 		{% meta_tags %}
+		{% endblock %}
 </head>
 <body class="body body--{{ id }} {% block colour %}{% endblock %}" id="body-{{ id }}">
 	{% wagtailuserbar %}

@@ -162,6 +162,7 @@ function start_link_checker_processes {
 
     start_new_process "Starting celery"
     docker-compose exec -T web chown root '/etc/default/celeryd'
+    docker-compose exec -T web chmod 640 '/etc/default/celeryd'
     docker-compose exec -T web /etc/init.d/celeryd start
 
     log "Finished setting up link checker .."

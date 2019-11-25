@@ -25,11 +25,11 @@
               <li>
                   <i role="presentation" aria-hidden="true" class="ico ico--14 ico-clock-slate"></i>
                   {% if event.start_time and event.end_time %}
-                    {{ event.start_time }} - {{ event.end_time }}
+                    {{ event.start_time|date:"gA"|lower }} - {{ event.end_time|date:"gA"|lower }}
                   {% elif event.start_time %}
-                    {{ event.start_time }}
+                    {{ event.start_time|date:"gA"|lower }}
                   {% elif event.end_time %}
-                    {{ event.end_time }}
+                    {{ event.end_time|date:"gA"|lower }}
                   {% endif %}
               </li>
             {% endif %}

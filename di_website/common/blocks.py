@@ -15,7 +15,7 @@ from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.blocks import ImageChooserBlock
 
-from di_website.common.constants import RICHTEXT_FEATURES
+from di_website.common.constants import RICHTEXT_FEATURES, RICHTEXT_FEATURES_NO_FOOTNOTES
 
 
 class ValueBlock(StructBlock):
@@ -185,7 +185,7 @@ class BannerBlock(StructBlock):
 
 
 class SectionParagraphBlock(StructBlock):
-    text = RichTextBlock(features=RICHTEXT_FEATURES)
+    text = RichTextBlock(features=RICHTEXT_FEATURES_NO_FOOTNOTES)
     center = BooleanBlock(default=False, required=False)
 
     class Meta():
@@ -201,7 +201,7 @@ class BaseStreamBlock(StreamBlock):
     paragraph_block = RichTextBlock(
         icon='fa-paragraph',
         template='blocks/paragraph_block.html',
-        features=RICHTEXT_FEATURES
+        features=RICHTEXT_FEATURES_NO_FOOTNOTES
     )
     section_paragraph_block = SectionParagraphBlock()
     block_quote = BlockQuote()
@@ -222,7 +222,7 @@ class TestimonialBlock(StructBlock):
     body = RichTextBlock(
         icon='fa-paragraph',
         template='blocks/paragraph_block.html',
-        features=RICHTEXT_FEATURES
+        features=RICHTEXT_FEATURES_NO_FOOTNOTES
     )
     cite = TextBlock(help_text='The source of the testimonial')
     image = ImageChooserBlock(required=False)
@@ -239,6 +239,29 @@ class TypesetStreamBlock(StreamBlock):
     paragraph_block = RichTextBlock(
         icon='fa-paragraph',
         template='blocks/paragraph_block.html',
+        features=RICHTEXT_FEATURES_NO_FOOTNOTES
+    )
+    block_quote = BlockQuote()
+    button_block = ButtonBlock()
+    link_block = LinkBlock()
+    image = TypeSetImageBlock()
+    video = EmbedBlock(
+        help_text='Insert an embed URL e.g https://www.youtube.com/embed/SGJFWirQ3ks',
+        icon='fa-video-camera',
+        template='blocks/embed_block.html',
+        required=False
+    )
+
+    required = False
+
+
+class TypesetFootnoteStreamBlock(StreamBlock):
+    """
+    The custom blocks that can be used under an element with the typeset class (not sections)
+    """
+    paragraph_block = RichTextBlock(
+        icon='fa-paragraph',
+        template='blocks/paragraph_block_footnote.html',
         features=RICHTEXT_FEATURES
     )
     block_quote = BlockQuote()
@@ -265,7 +288,7 @@ class ImageDuoTextBlock(ImageBlock):
     heading = CharBlock(icon='fa-heading', required=False)
     side_text = RichTextBlock(
         icon='fa-paragraph',
-        features=RICHTEXT_FEATURES,
+        features=RICHTEXT_FEATURES_NO_FOOTNOTES,
         template='blocks/paragraph_block.html',
         required=True
     )
@@ -287,7 +310,7 @@ class VideoDuoTextBlock(StructBlock):
     )
     side_text = RichTextBlock(
         icon='fa-paragraph',
-        features=RICHTEXT_FEATURES,
+        features=RICHTEXT_FEATURES_NO_FOOTNOTES,
         template='blocks/paragraph_block.html',
         required=True
     )

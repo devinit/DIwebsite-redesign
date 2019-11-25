@@ -7,7 +7,7 @@ from wagtail.core.blocks import (
 )
 from wagtail.images.blocks import ImageChooserBlock
 
-from di_website.common.constants import RICHTEXT_FEATURES
+from di_website.common.constants import RICHTEXT_FEATURES_NO_FOOTNOTES
 from di_website.common.blocks import LinkBlock
 
 
@@ -18,7 +18,7 @@ class PlaceBlock(StructBlock):
     body = RichTextBlock(
         icon='fa-paragraph',
         template='blocks/paragraph_block.html',
-        features=RICHTEXT_FEATURES
+        features=RICHTEXT_FEATURES_NO_FOOTNOTES
     )
     side_section_title = TextBlock(required=False)
     links = StreamBlock([('link', LinkBlock())], required=False)

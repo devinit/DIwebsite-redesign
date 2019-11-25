@@ -3,7 +3,7 @@ from django.db import models
 from wagtail.core.models import Orderable
 from wagtail.core.fields import RichTextField, StreamField
 
-from .blocks import BaseStreamBlock, SectionStreamBlock, TypesetStreamBlock
+from .blocks import BaseStreamBlock, SectionStreamBlock, TypesetStreamBlock, TypesetFootnoteStreamBlock
 
 from wagtailmetadata.models import MetadataPageMixin
 
@@ -101,6 +101,18 @@ class BaseStreamBodyMixin(models.Model):
 class TypesetBodyMixin(models.Model):
     body = StreamField(
         TypesetStreamBlock(),
+        verbose_name="Page Body",
+        null=True,
+        blank=True
+    )
+
+    class Meta:
+        abstract = True
+
+
+class TypesetBodyFootnoteMixin(models.Model):
+    body = StreamField(
+        TypesetFootnoteStreamBlock(),
         verbose_name="Page Body",
         null=True,
         blank=True

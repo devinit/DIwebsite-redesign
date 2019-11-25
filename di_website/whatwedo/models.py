@@ -25,7 +25,7 @@ from di_website.common.base import hero_panels, get_related_pages
 from .blocks import ExpertiseBlock, FocusAreasBlock, LocationsMapBlock, MapStreamBlock
 from di_website.common.blocks import (
     BannerBlock, SectionStreamBlock, TestimonialBlock, VideoDuoTextBlock, ImageDuoTextBlock)
-from di_website.common.constants import MAX_OTHER_PAGES, RICHTEXT_FEATURES
+from di_website.common.constants import MAX_OTHER_PAGES, RICHTEXT_FEATURES_NO_FOOTNOTES
 from di_website.news.models import NewsStoryPage
 
 class WhatWeDoPage(TypesetBodyMixin, HeroMixin, Page):
@@ -165,7 +165,7 @@ class ServicesPage(TypesetBodyMixin, HeroMixin, Page):
     richtext_columns = StreamField([
         ('column', StructBlock([
             ('heading', TextBlock(required=False, icon='title')),
-            ('content', RichTextBlock(features=RICHTEXT_FEATURES, icon='fa-paragraph'))
+            ('content', RichTextBlock(features=RICHTEXT_FEATURES_NO_FOOTNOTES, icon='fa-paragraph'))
         ], template='blocks/richtext_column.html'))
     ], null=True, blank=True)
 

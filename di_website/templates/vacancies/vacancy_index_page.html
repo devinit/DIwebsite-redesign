@@ -39,17 +39,23 @@
     </div>
   </section>
 
-  {% if vacancies|length %}
-    <section class="section">
-      <div class="row row--narrow">
-        <div class="l-2up-3up">
+
+  <section class="section">
+    <div class="row row--narrow">
+      <div class="l-2up-3up">
+        {% if vacancies|length %}
           {% for vacancy in vacancies %}
             {% include 'includes/cards/card-job.html' %}
           {% endfor %}
-        </div>
+        {% endif %}
       </div>
-    </section>
-  {% endif %}
+      {% if not vacancies|length %}
+        <div class="is-typeset">
+          <p>We have no vacancies at the moment. Please sign up to our mailing list below to be notified when a new vacancy is listed</p>
+        </div>
+      {% endif %}
+    </div>
+  </section>
 
 
   <section class="section">

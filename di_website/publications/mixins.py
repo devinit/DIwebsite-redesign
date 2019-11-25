@@ -3,13 +3,6 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.functional import cached_property
 
-from wagtail.core.blocks import (
-    CharBlock,
-    RichTextBlock,
-    StructBlock,
-    IntegerBlock
-)
-from wagtail.core.fields import StreamField
 from wagtail.core.models import Page
 from wagtail.contrib.redirects.models import Redirect
 from wagtail.search import index
@@ -18,6 +11,17 @@ from di_website.common.templatetags.string_utils import uid
 
 from .fields import flexible_content_streamfield, content_streamfield
 from .utils import get_downloads
+
+
+class FilteredDatasetMixin(object):
+    @cached_property
+    def filtered_datasets(self):
+        results = []
+        all_pub_datasets = self.publication_datasets.all()
+        for pub_dataset in all_pub_datasets:
+            if type(pub_dataset.dataset.specific).__name__ == "DatasetPage":
+                results.append(pub_dataset)
+        return results
 
 
 class UniquePageMixin(object):

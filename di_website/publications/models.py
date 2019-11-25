@@ -41,7 +41,7 @@ from taggit.models import Tag, TaggedItemBase
 
 from .mixins import (
     FlexibleContentMixin, UniquePageMixin, PageSearchMixin, LegacyPageSearchMixin, ParentPageSearchMixin,
-    PublishedDateMixin, UUIDMixin, ReportChildMixin)
+    PublishedDateMixin, UUIDMixin, ReportChildMixin, FilteredDatasetMixin)
 from .utils import (
     ContentPanel, PublishedDatePanel, WagtailImageField,
     UUIDPanel, get_first_child_of_type, get_ordered_children_of_type, get_downloads)
@@ -235,7 +235,7 @@ class PublicationIndexPage(HeroMixin, Page):
         verbose_name = 'Publication Index Page'
 
 
-class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUIDMixin, Page):
+class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUIDMixin, FilteredDatasetMixin,Page):
 
     class Meta:
         verbose_name = 'Publication Page'
@@ -365,7 +365,7 @@ class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUID
             Redirect(old_path=old_path, redirect_page=self).save()
 
 
-class PublicationSummaryPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin, UniquePageMixin, UUIDMixin, Page):
+class PublicationSummaryPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin, UniquePageMixin, UUIDMixin, FilteredDatasetMixin, Page):
 
     class Meta:
         verbose_name = 'Publication Summary'
@@ -447,7 +447,7 @@ class PublicationSummaryPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
         return self.data_downloads.all()
 
 
-class PublicationChapterPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin, UUIDMixin, Page):
+class PublicationChapterPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin, UUIDMixin, FilteredDatasetMixin, Page):
 
     class Meta:
         verbose_name = 'Publication Chapter'
@@ -552,7 +552,7 @@ class PublicationChapterPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
         return self.data_downloads.all()
 
 
-class PublicationAppendixPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin, UUIDMixin, Page):
+class PublicationAppendixPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin, UUIDMixin, FilteredDatasetMixin, Page):
 
     class Meta:
         verbose_name = 'Publication Appendix'
@@ -652,7 +652,7 @@ class PublicationAppendixPage(HeroMixin, ReportChildMixin, FlexibleContentMixin,
         return self.data_downloads.all()
 
 
-class LegacyPublicationPage(HeroMixin, PublishedDateMixin, LegacyPageSearchMixin, Page):
+class LegacyPublicationPage(HeroMixin, PublishedDateMixin, LegacyPageSearchMixin, FilteredDatasetMixin, Page):
 
     class Meta:
         verbose_name = 'Legacy Publication'
@@ -758,7 +758,7 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, LegacyPageSearchMixin
         return self.data_downloads.all()
 
 
-class ShortPublicationPage(HeroMixin, PublishedDateMixin, FlexibleContentMixin, PageSearchMixin, UUIDMixin, Page):
+class ShortPublicationPage(HeroMixin, PublishedDateMixin, FlexibleContentMixin, PageSearchMixin, UUIDMixin, FilteredDatasetMixin, Page):
 
     class Meta:
         verbose_name = 'Short Publication'

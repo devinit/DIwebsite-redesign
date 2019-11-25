@@ -143,7 +143,8 @@ class ImageBlock(StructBlock):
 
 class BannerBlock(StructBlock):
     image = ImageChooserBlock(required=False)
-    image_credit = TextBlock(required=False, help_text='The source of the image')
+    image_credit_name = TextBlock(required=False, help_text='The name of the image source')
+    image_credit_url = URLBlock(required=False, help_text='A link to the image source, if any')
     video = EmbedBlock(
         help_text='Insert an embed URL e.g https://www.youtube.com/embed/SGJFWirQ3ks',
         icon='fa-video-camera',

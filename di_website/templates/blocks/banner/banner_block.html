@@ -13,8 +13,14 @@
               {% endif %}
               {% if self.image %}
                 {% responsiveimage self.image width-460 srcset=global.banner_srcs alt=self.image.title %}
-                {% if self.image_credit %}
-                  <span class="banner__credit">Image by <a href="#">{{self.image_credit}}</a></span>
+                {% if self.image_credit_name %}
+                  <span class="banner__credit">
+                  {% if self.image_credit_url %}
+                    Image by <a href="{{self.image_credit_url}}">{{self.image_credit_name}}</a>
+                  {% else %}
+                    Image by {{self.image_credit_name}}
+                  {% endif %}
+                  </span>
                 {% endif %}
               {% endif %}
           </div>

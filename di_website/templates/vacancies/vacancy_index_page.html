@@ -39,17 +39,22 @@
     </div>
   </section>
 
-  {% if vacancies|length %}
-    <section class="section">
-      <div class="row row--narrow">
-        <div class="l-2up-3up">
+
+  <section class="section">
+    <div class="row row--narrow">
+      <div class="l-2up-3up">
+        {% if vacancies|length %}
           {% for vacancy in vacancies %}
             {% include 'includes/cards/card-job.html' %}
           {% endfor %}
-        </div>
+        {% else %}
+          <div class="is-typeset max-meter">
+            <p>No vacancies available</p>
+          </div>
+        {% endif %}
       </div>
-    </section>
-  {% endif %}
+    </div>
+  </section>
 
 
   <section class="section">

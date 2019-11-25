@@ -1,11 +1,11 @@
 <form method="get" action="{{self.pageurl}}" class="form">
   <div class="form-field form-field--inline-four">
     <label for="topic" class="form-label form-label--hidden">
-      Filter by topic
+      All topics
     </label>
     <div class="form-field__select-dropdown">
       <select name="topic" id="topic">
-        <option value="" id="filter-by-topic">Filter by topic</option>
+        <option value="" id="filter-by-topic">All topics</option>
         {% for topic in topics %}
           <option value="{{topic.slug}}" id="{{topic.slug}}" {% if topic.slug == selected_topic %}selected{% endif %}>
             {{topic}}
@@ -16,11 +16,11 @@
   </div>
   <div class="form-field form-field--inline-four">
     <label for="country" class="form-label form-label--hidden">
-      Filter by country
+      All countries
     </label>
     <div class="form-field__select-dropdown">
       <select name="country" id="country">
-        <option value="" id="filter-by-country">Filter by country</option>
+        <option value="" id="filter-by-country">All countries</option>
         {% regroup countries by region as country_list %}
         {% for region in country_list %}
           <optgroup label="{{ region.grouper }}">

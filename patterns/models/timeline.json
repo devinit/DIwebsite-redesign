@@ -41,7 +41,7 @@
 		    ]
 		},
 		{
-		    "month": "Feb",
+		    "month": "",
 		    "year": "2000",
 		    "title": "Title for 2000",
 		    "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis commodo mattis nisi eu adipiscing. Vivamus euismod nisl a leo pellentesque sed lobortis ipsum commodo.",
@@ -81,7 +81,7 @@
 		    ]
 		},
 		{
-		    "month": "Apr",
+		    "month": "",
 		    "year": "2008",
 		    "title": "Title for 2008",
 		    "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis commodo mattis nisi eu adipiscing. Vivamus euismod nisl a leo pellentesque sed lobortis ipsum commodo.",
@@ -161,7 +161,7 @@
 		    ]
 		},
 		{
-		    "month": "Dec",
+		    "month": "",
 		    "year": "2013",
 		    "title": "Title for 2013",
 		    "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis commodo mattis nisi eu adipiscing. Vivamus euismod nisl a leo pellentesque sed lobortis ipsum commodo.",
@@ -262,5 +262,3 @@
 		}
     ]
 }
-
-

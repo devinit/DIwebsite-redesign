@@ -47,12 +47,13 @@
           {% for vacancy in vacancies %}
             {% include 'includes/cards/card-job.html' %}
           {% endfor %}
-        {% else %}
-          <div class="is-typeset max-meter">
-            <p>We have no vacancies at the moment. Please sign up to our mailing list below to be notified when a new vacancy is listed</p>
-          </div>
         {% endif %}
       </div>
+      {% if not vacancies|length %}
+        <div class="is-typeset">
+          <p>We have no vacancies at the moment. Please sign up to our mailing list below to be notified when a new vacancy is listed</p>
+        </div>
+      {% endif %}
     </div>
   </section>
 

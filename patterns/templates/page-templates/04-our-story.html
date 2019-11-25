@@ -63,7 +63,7 @@
             <div class="carousel">
                 <div class="slider timeline" id="timeline-control">
                     {% for item in timeline.timeline_list %}
-                    <div class="timeline__item"><span><span class="timeline__item__month">{{ item.month }}</span><span class="timeline__item__year">{{ item.year }}</span></span></div>
+                    <div class="timeline__item"><span>{% if item.month %}<span class="timeline__item__month">{{ item.month }}</span>{% endif %}{% if item.year %}<span class="timeline__item__year">{{ item.year }}</span>{% endif %}</span></div>
                     {% endfor %}
                 </div>
                 <div class="slider highlight" id="timeline-slide">

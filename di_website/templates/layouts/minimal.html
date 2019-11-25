@@ -1,0 +1,38 @@
+{% load wagtailuserbar wagtailmetadata_tags %}
+<!doctype html>
+<!--[if IE 9]> <html lang="en-GB" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--><html lang="en-GB" class="no-js"><!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>{% block title %}{{ page.seo_title|default:page.title }}{% if not global.is_home %} - {{ global.site_name }}{% endif %}{% endblock %}</title>
+    {% block html_header %}
+		{% include 'includes/scaffold/header-assets.html' %}
+    {% endblock %}
+		{% block metadata %}
+		{% meta_tags %}
+		{% endblock %}
+</head>
+<body class="body body--{{ id }} {% block colour %}{% endblock %}" id="body-{{ id }}">
+	{% wagtailuserbar %}
+	<div class="ui-base">
+		<a href="#pagecontent" class="skiplink" data-js="skiplink">Skip to main content</a>
+		<!-- ID and -nofocus required for proper skiplink operation -->
+		<main id="pagecontent" class="pagecontent -nofocus" role="main" tabindex="-1">
+			{% block body %}{% endblock %}
+		</main>
+
+	</div>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-151642254-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-151642254-1');
+  </script>
+
+</body>
+</html>

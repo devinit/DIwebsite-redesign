@@ -35,9 +35,11 @@
                                 class="chapter-nav-link--child js-chapter-link"
                                 tabindex="-1"
                             >
+                            {% if page.get_verbose_name != "Short Publication" %}
                                 <span class="chapter-sub-title">
                                     {% prepend_with_char section.value.section_id item.chapter_number %}
                                 </span>
+                            {% endif %}
                                 <span class="chapter-nav__title--child">{{ section.value.heading }}</span>
                             </a>
                         </li>

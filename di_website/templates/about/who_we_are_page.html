@@ -1,6 +1,6 @@
 {% extends "layouts/default.html" %}
 
-{% load navigation_tags static wagtailcore_tags wagtailimages_tags card_tags string_utils count_columns %}
+{% load navigation_tags static wagtailcore_tags wagtailimages_tags card_tags string_utils %}
 
 {% block hero %}
   {% include 'includes/heroes/hero.html' %}
@@ -66,7 +66,7 @@
           </div>
         </div>
 
-        <div class="l-{% columns %}up space-section-top">
+        <div class="l-4up space-section-top">
           {% for location in locations %}
             <div class="location">
               {% if location.location %}

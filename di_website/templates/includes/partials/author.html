@@ -14,7 +14,7 @@
         {% endif %}
     </div>
     <div class="m-author__body">
-        <h3 class="m-author__title">Written by {{name|default_if_none:""}}</h3>
+        <h3 class="m-author__title">{{author_prefix|default_if_none:"Written by"}} {{name|default_if_none:""}}</h3>
         <p class="m-author__job">{{position|default_if_none:""}}</p>
     </div>
 </div>

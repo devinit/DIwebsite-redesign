@@ -69,13 +69,21 @@
               {% if author.block_type == 'internal_author' %}
                 {% with page=author.value img=author.value.image name=author.value.name position=author.value.position %}
                   {% with class_name='m-author--spacing' author_prefix='Analysis by' %}
-                    {% include 'includes/partials/author-link.html' %}
+                    {% if page.live %}
+                      {% include 'includes/partials/author-link.html' %}
+                    {% else %}
+                      {% include 'includes/partials/author.html' %}
+                    {% endif %}
                   {% endwith %}
                 {% endwith %}
               {% else %}
                 {% with page=None img=author.value.photograph name=author.value.name position=author.value.title %}
                   {% with link=author.value.page class_name='m-author--spacing' author_prefix='Analysis by' %}
-                    {% include 'includes/partials/author-link.html' %}
+                    {% if link %}
+                      {% include 'includes/partials/author-link.html' %}
+                    {% else %}
+                      {% include 'includes/partials/author.html' %}
+                    {% endif %}
                   {% endwith %}
                 {% endwith %}
               {% endif %}

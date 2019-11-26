@@ -41,10 +41,10 @@
       </div>
     {% endif %}
     <div class="form-field form-field--inline-five">
-        <label for="country" class="form-label form-label--hidden">Geography</label>
+        <label for="country" class="form-label form-label--hidden">All countries</label>
         <div class="form-field__select-dropdown">
             <select name="country" id="country">
-                <option value="">All locations</option>
+                <option value="">All countries</option>
                 {% regroup countries by region as country_groups %}
                 {% for country_group in country_groups %}
                   <optgroup label="{{ country_group.grouper }}">

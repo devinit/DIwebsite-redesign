@@ -13,9 +13,15 @@
             <div class="filter">
                 <h3 class="filter__title">View blogs by topic:</h3>
                 <ul class="filter__list">
-                  <li class="filter__list__item">
-                      <a href="{% pageurl self %}">All topics</a>
-                  </li>
+                  {% if selected_topic == "" or not selected_topic %}
+                    <li class="filter__list__item filter__list__item--active">
+                        <a href="{% pageurl self %}">All topics</a>
+                    </li>
+                  {% else %}
+                    <li class="filter__list__item">
+                        <a href="{% pageurl self %}">All topics</a>
+                    </li>
+                  {% endif %}
                     {% for topic in topics %}
                         {% if topic.slug == selected_topic %}
                             <li class="filter__list__item filter__list__item--active">

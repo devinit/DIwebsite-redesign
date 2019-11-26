@@ -1,5 +1,7 @@
 {% load string_utils %}
 
+
+{% if page.get_verbose_name != "Short Publication" %}
 <li class="chapter-nav__item">
     <a
         href="{{ item.url }}"
@@ -35,11 +37,9 @@
                                 class="chapter-nav-link--child js-chapter-link"
                                 tabindex="-1"
                             >
-                            {% if page.get_verbose_name != "Short Publication" %}
                                 <span class="chapter-sub-title">
                                     {% prepend_with_char section.value.section_id item.chapter_number %}
                                 </span>
-                            {% endif %}
                                 <span class="chapter-nav__title--child">{{ section.value.heading }}</span>
                             </a>
                         </li>
@@ -49,3 +49,24 @@
         </li>
     </ul>
 </li>
+{% else %}
+  {% if item.sections %}
+  <li class="chapter-nav__item">
+      <div class="chapter-nav-link">
+           <h3 class="type-m type-m--trailer heading">Publication sections</h3>
+      </div>
+  </li>
+    {% for section in item.sections %}
+      <li class="chapter-nav__item">
+        <a
+            href="{{ item.url }}#section-{% section_id section.value.section_id item.chapter_number %}"
+            class="chapter-nav-link"
+            tabindex="-1"
+            data-has-sections="{{ item.sections | length }}"
+        >
+          <span class="chapter-nav__title">{{ section.value.heading }}</span>
+        </a>
+      </li>
+    {% endfor %}
+  {% endif %}
+{% endif %}

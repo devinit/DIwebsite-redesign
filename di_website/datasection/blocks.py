@@ -5,8 +5,8 @@ from wagtail.core.blocks import (
     StructBlock,
     TextBlock
 )
-from wagtail.core.fields import StreamField
 from wagtail.images.blocks import ImageChooserBlock
+from di_website.common.constants import RICHTEXT_FEATURES_NO_FOOTNOTES
 
 
 class TeamMemberQuoteBlock(StructBlock):
@@ -35,11 +35,11 @@ class QuoteStreamBlock(StreamBlock):
 
 
 class MetaDataDescriptionBlock(StructBlock):
-    description = RichTextBlock(icon="title", required=False)
-    provenance = RichTextBlock(icon="title", required=False)
-    variables = RichTextBlock(icon="title", required=False)
-    geography = RichTextBlock(icon="title", required=False)
-    topic = RichTextBlock(icon="title", required=False)
+    description = RichTextBlock(icon="title", required=False, features=RICHTEXT_FEATURES_NO_FOOTNOTES)
+    provenance = RichTextBlock(icon="title", required=False, features=RICHTEXT_FEATURES_NO_FOOTNOTES)
+    variables = RichTextBlock(icon="title", required=False, features=RICHTEXT_FEATURES_NO_FOOTNOTES)
+    geography = RichTextBlock(icon="title", required=False, features=RICHTEXT_FEATURES_NO_FOOTNOTES)
+    topic = RichTextBlock(icon="title", required=False, features=RICHTEXT_FEATURES_NO_FOOTNOTES)
 
 
 class MetaDataSourcesBlock(StructBlock):
@@ -47,5 +47,5 @@ class MetaDataSourcesBlock(StructBlock):
 
 
 class MetaDataSourcesStreamBlock(StreamBlock):
-    description = RichTextBlock(icon="title", required=False)
+    description = RichTextBlock(icon="title", required=False, features=RICHTEXT_FEATURES_NO_FOOTNOTES)
     sources = MetaDataSourcesBlock()

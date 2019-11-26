@@ -1,36 +1,21 @@
 from django.db import models
 
-from wagtail.core.blocks import (
-    PageChooserBlock,
-    RichTextBlock,
-    StreamBlock,
-    StructBlock,
-    TextBlock,
-    URLBlock
-)
-
 from wagtail.core.models import Page
 from wagtail.core.fields import StreamField, RichTextField
-from wagtail.core import blocks
 from wagtail.admin.edit_handlers import (
     FieldPanel,
     InlinePanel,
     MultiFieldPanel,
-    PageChooserPanel,
     StreamFieldPanel
 )
-from wagtail.images.blocks import ImageChooserBlock
-from wagtail.snippets.models import register_snippet
-from wagtail.snippets.edit_handlers import SnippetChooserPanel
-from wagtail.snippets.blocks import SnippetChooserBlock
 
 from di_website.common.base import hero_panels
 from di_website.common.blocks import ValueBlock
 from di_website.common.mixins import TypesetBodyMixin, HeroMixin
+from di_website.common.constants import RICHTEXT_FEATURES_NO_FOOTNOTES
 from di_website.vacancies.models import VacancyPage
 from .blocks import BenefitsStreamBlock, TeamStoryStreamBlock
 
-from modelcluster.fields import ParentalKey
 
 
 class WorkForUsPage(TypesetBodyMixin, HeroMixin, Page):
@@ -52,7 +37,8 @@ class WorkForUsPage(TypesetBodyMixin, HeroMixin, Page):
     value_section_sub_heading = RichTextField(
         blank=True,
         verbose_name='Value Sub-heading',
-        help_text='A brief description of the section contents'
+        help_text='A brief description of the section contents',
+        features=RICHTEXT_FEATURES_NO_FOOTNOTES
     )
     values = StreamField([
         ('value', ValueBlock()),
@@ -66,7 +52,8 @@ class WorkForUsPage(TypesetBodyMixin, HeroMixin, Page):
     team_story_section_sub_heading = RichTextField(
         blank=True,
         verbose_name='Section Sub-heading',
-        help_text='A brief description of the section contents'
+        help_text='A brief description of the section contents',
+        features=RICHTEXT_FEATURES_NO_FOOTNOTES
     )
     team_stories = StreamField(
         TeamStoryStreamBlock,
@@ -83,7 +70,8 @@ class WorkForUsPage(TypesetBodyMixin, HeroMixin, Page):
     vacancy_section_sub_heading = RichTextField(
         blank=True,
         verbose_name='Section Sub-heading',
-        help_text='A brief description of the section contents'
+        help_text='A brief description of the section contents',
+        features=RICHTEXT_FEATURES_NO_FOOTNOTES
     )
     content_panels = Page.content_panels + [
         hero_panels(),

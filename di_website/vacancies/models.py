@@ -1,6 +1,4 @@
-from django.db import models, DataError
-from django.core.validators import validate_email
-from django.core.exceptions import ValidationError
+from django.db import models
 from django.utils.functional import cached_property
 
 from wagtail.admin.edit_handlers import (
@@ -16,6 +14,7 @@ from wagtail.documents.edit_handlers import DocumentChooserPanel
 
 from di_website.common.base import hero_panels
 from di_website.common.mixins import HeroMixin, SectionBodyMixin, TypesetBodyMixin
+from di_website.common.constants import RICHTEXT_FEATURES_NO_FOOTNOTES
 
 from modelcluster.fields import ParentalKey
 
@@ -33,7 +32,8 @@ class OfficeLocation(models.Model):
     address = RichTextField(
         blank=True,
         null=True,
-        help_text="E.g. 'North Quay House Quay Side, Temple Back Bristol, BS1 6FL, UK'"
+        help_text="E.g. 'North Quay House Quay Side, Temple Back Bristol, BS1 6FL, UK'",
+        features=RICHTEXT_FEATURES_NO_FOOTNOTES
     )
     contact = models.CharField(
         blank=True,
@@ -82,6 +82,7 @@ class VacancyIndexPage(HeroMixin, Page):
         blank=True,
         verbose_name='Descriptive Text for Consent to Email Alerts',
         default='By checking this box you consent to us collecting the data submitted',
+        features=RICHTEXT_FEATURES_NO_FOOTNOTES
     )
 
     content_panels = Page.content_panels + [
@@ -141,6 +142,7 @@ class VacancyPage(TypesetBodyMixin, SectionBodyMixin, HeroMixin, Page):
         blank=True,
         verbose_name='Description',
         help_text='Optional: a brief description of what to do in this section',
+        features=RICHTEXT_FEATURES_NO_FOOTNOTES
     )
 
     content_panels = Page.content_panels + [

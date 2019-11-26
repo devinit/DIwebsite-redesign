@@ -34,7 +34,7 @@ from wagtail.documents.edit_handlers import DocumentChooserPanel
 
 from di_website.common.base import hero_panels, get_paginator_range
 from di_website.common.mixins import HeroMixin, OtherPageMixin
-from di_website.common.constants import MAX_PAGE_SIZE, MAX_RELATED_LINKS
+from di_website.common.constants import MAX_PAGE_SIZE, MAX_RELATED_LINKS, RICHTEXT_FEATURES
 from di_website.downloads.utils import DownloadsPanel
 
 from taggit.models import Tag, TaggedItemBase
@@ -678,7 +678,8 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, LegacyPageSearchMixin
     raw_content = models.TextField(null=True, blank=True)
     content = RichTextField(
         help_text='Content for the legacy report',
-        null=True, blank=True
+        null=True, blank=True,
+        features=RICHTEXT_FEATURES
     )
     summary_image = WagtailImageField(
         required=False,

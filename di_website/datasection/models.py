@@ -20,23 +20,19 @@ from wagtail.admin.edit_handlers import (
     PageChooserPanel, StreamFieldPanel
 )
 from wagtail.core.blocks import (
-    CharBlock, PageChooserBlock, RichTextBlock, StreamBlock, StructBlock, URLBlock)
+    CharBlock, PageChooserBlock, StructBlock, URLBlock)
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Orderable, Page
 from wagtail.snippets.models import register_snippet
-from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
 from di_website.common.base import get_paginator_range, hero_panels, other_pages_panel
-from di_website.common.constants import MAX_PAGE_SIZE, MAX_RELATED_LINKS
+from di_website.common.constants import MAX_PAGE_SIZE, MAX_RELATED_LINKS, RICHTEXT_FEATURES_NO_FOOTNOTES
 from di_website.common.mixins import HeroMixin, OtherPageMixin, SectionBodyMixin, TypesetBodyMixin
 from di_website.publications.models import Country
 from di_website.downloads.models import BaseDownload
-from di_website.publications.models import (
-    PublicationPage, LegacyPublicationPage, ShortPublicationPage,
-    PublicationAppendixPage, PublicationChapterPage, PublicationSummaryPage)
 
-from .blocks import QuoteStreamBlock, MetaDataDescriptionBlock, MetaDataSourcesBlock
+from .blocks import QuoteStreamBlock
 from .mixins import DataSetMixin, DataSetSourceMixin
 from .panels import metadata_panel
 
@@ -425,7 +421,7 @@ class DataSetListing(DatasetListingMetadataPageMixin, TypesetBodyMixin, Page):
     subpage_types = ['datasection.DatasetPage', 'datasection.FigurePage']
 
     hero_text = RichTextField(
-        null=True, blank=True, help_text='A description of the page content')
+        null=True, blank=True, help_text='A description of the page content', features=RICHTEXT_FEATURES_NO_FOOTNOTES)
     other_pages_heading = models.CharField(
         blank=True, max_length=255, verbose_name='Heading', default='More about')
 

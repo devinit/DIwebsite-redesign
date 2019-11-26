@@ -57,7 +57,7 @@ class DocumentBoxSectionBlock(StructBlock):
     A block for holding multiple document boxes.
     """
     section_heading = TextBlock(required=False)
-    section_sub_heading = RichTextBlock(required=False)
+    section_sub_heading = RichTextBlock(required=False, features=RICHTEXT_FEATURES_NO_FOOTNOTES)
     document_box_heading = CharBlock(icon="title", required=False)
     document_boxes = StreamBlock([
         ('document_box', DocumentBoxBlock()),
@@ -154,7 +154,7 @@ class BannerBlock(StructBlock):
     text = StreamBlock([
         ('text_heading', CharBlock(template='blocks/banner/text_heading.html', required=False, icon='title')),
         ('text', TextBlock(template='blocks/banner/text.html')),
-        ('richtext', RichTextBlock(template='blocks/banner/richtext.html')),
+        ('richtext', RichTextBlock(template='blocks/banner/richtext.html', features=RICHTEXT_FEATURES_NO_FOOTNOTES)),
         ('list', ListBlock(StructBlock([
             ('title', TextBlock(required=False, help_text='An optional title to the list item')),
             ('content', TextBlock(required=True, help_text='The list item content')),

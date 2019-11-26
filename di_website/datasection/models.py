@@ -173,7 +173,8 @@ class DataSectionPage(SectionBodyMixin, TypesetBodyMixin, HeroMixin, Page):
         MultiFieldPanel([
             FieldPanel('other_pages_heading'),
             InlinePanel('other_pages', label='Related pages')
-        ], heading='Other Pages/Related Links')
+        ], heading='Other Pages/Related Links'),
+        InlinePanel('page_notifications', label='Notifications')
 
     ]
 
@@ -238,7 +239,8 @@ class DatasetPage(DataSetMixin, TypesetBodyMixin, HeroMixin, Page):
             FieldPanel('related_datasets_title'),
             InlinePanel('related_datasets', label="Related Datasets")
         ], heading='Related Datasets'),
-        other_pages_panel()
+        other_pages_panel(),
+        InlinePanel('page_notifications', label='Notifications')
     ]
 
     def get_context(self, request):
@@ -356,7 +358,8 @@ class FigurePage(DataSetMixin, TypesetBodyMixin, HeroMixin, Page):
             FieldPanel('related_figures_title'),
             InlinePanel('related_figures', label="Related Figures")
         ], heading='Related Figures'),
-        other_pages_panel()
+        other_pages_panel(),
+        InlinePanel('page_notifications', label='Notifications')
     ]
 
     def get_context(self, request):

@@ -53,7 +53,8 @@ class OurStoryPage(SectionBodyMixin, TypesetBodyMixin, HeroMixin, Page):
         MultiFieldPanel([
             FieldPanel('other_pages_heading'),
             InlinePanel('other_pages', label='Related pages')
-        ], heading='Other Pages/Related Links')
+        ], heading='Other Pages/Related Links'),
+        InlinePanel('page_notifications', label='Notifications')
     ]
 
     class Meta():
@@ -89,7 +90,8 @@ class WhoWeArePage(SectionBodyMixin, TypesetBodyMixin, HeroMixin, Page):
         MultiFieldPanel([
             FieldPanel('other_pages_heading'),
             InlinePanel('other_pages', label='Related pages')
-        ], heading='Other Pages/Related Links')
+        ], heading='Other Pages/Related Links'),
+        InlinePanel('page_notifications', label='Notifications')
     ]
 
     class Meta():

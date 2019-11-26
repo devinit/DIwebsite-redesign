@@ -49,24 +49,22 @@
       </li>
     </ul>
   </li>
-{% else %}
-  {% if item.sections %}
+{% elif item.sections %}
+  <li class="chapter-nav__item">
+    <div class="chapter-nav-link">
+      <h3 class="type-m type-m--trailer heading">Publication sections</h3>
+    </div>
+  </li>
+  {% for section in item.sections %}
     <li class="chapter-nav__item">
-      <div class="chapter-nav-link">
-        <h3 class="type-m type-m--trailer heading">Publication sections</h3>
-      </div>
+      <a
+        href="{{ item.url }}#section-{% section_id section.value.section_id item.chapter_number %}"
+        class="chapter-nav-link"
+        tabindex="-1"
+        data-has-sections="{{ item.sections | length }}"
+      >
+        <span class="chapter-nav__title">{{ section.value.heading }}</span>
+      </a>
     </li>
-    {% for section in item.sections %}
-      <li class="chapter-nav__item">
-        <a
-          href="{{ item.url }}#section-{% section_id section.value.section_id item.chapter_number %}"
-          class="chapter-nav-link"
-          tabindex="-1"
-          data-has-sections="{{ item.sections | length }}"
-        >
-          <span class="chapter-nav__title">{{ section.value.heading }}</span>
-        </a>
-      </li>
-    {% endfor %}
-  {% endif %}
+  {% endfor %}
 {% endif %}

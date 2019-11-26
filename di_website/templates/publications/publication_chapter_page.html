@@ -12,7 +12,7 @@
 
     {% if page.chapter_number %}
       {% if page.get_verbose_name == "Short Publication" %}
-        {% include 'publications/chapter-nav/nav.html' with page=page menu_label='Contents' chapter_number=page.chapter_number %}
+        {% include 'publications/chapter-nav/nav.html' with page=page menu_label='Jump to section' chapter_number=page.chapter_number %}
       {% else %}
         {% include 'publications/chapter-nav/nav.html' with page=page.get_parent.specific menu_label='Contents' chapter_number=page.chapter_number %}
       {% endif %}

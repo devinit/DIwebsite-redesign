@@ -7,11 +7,15 @@
 {% endblock hero %}
 
 {% block body %}
+{% if topics %}
     <section class="section">
         <div class="row row--narrow">
             <div class="filter">
                 <h3 class="filter__title">View blogs by topic:</h3>
                 <ul class="filter__list">
+                  <li class="filter__list__item">
+                      <a href="{% pageurl self %}">All topics</a>
+                  </li>
                     {% for topic in topics %}
                         {% if topic.slug == selected_topic %}
                             <li class="filter__list__item filter__list__item--active">
@@ -27,6 +31,7 @@
             </div>
         </div>
     </section>
+{% endif %}
 
     <section class="section">
         <div class="row row--narrow">

@@ -6,6 +6,8 @@ from wagtail.core.blocks import CharBlock, PageChooserBlock, RichTextBlock, Stru
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
+from di_website.common.constants import RICHTEXT_FEATURES_NO_FOOTNOTES
+
 
 class DataSetMixin(models.Model):
     class Meta():
@@ -30,15 +32,15 @@ class DataSetMixin(models.Model):
     ], blank=True)
     meta_data = StreamField(
         [
-            ('description', RichTextBlock(required=True)),
-            ('provenance', RichTextBlock(required=False)),
-            ('variables', RichTextBlock(required=False)),
-            ('geography', RichTextBlock(required=False)),
-            ('geograpic_coding', RichTextBlock(required=False)),
-            ('unit', RichTextBlock(required=False)),
-            ('internal_notes', RichTextBlock(required=False)),
-            ('licence', RichTextBlock(required=False)),
-            ('citation', RichTextBlock(required=False, template="blocks/urlize_richtext.html")),
+            ('description', RichTextBlock(required=True, features=RICHTEXT_FEATURES_NO_FOOTNOTES)),
+            ('provenance', RichTextBlock(required=False, features=RICHTEXT_FEATURES_NO_FOOTNOTES)),
+            ('variables', RichTextBlock(required=False, features=RICHTEXT_FEATURES_NO_FOOTNOTES)),
+            ('geography', RichTextBlock(required=False, features=RICHTEXT_FEATURES_NO_FOOTNOTES)),
+            ('geograpic_coding', RichTextBlock(required=False, features=RICHTEXT_FEATURES_NO_FOOTNOTES)),
+            ('unit', RichTextBlock(required=False, features=RICHTEXT_FEATURES_NO_FOOTNOTES)),
+            ('internal_notes', RichTextBlock(required=False, features=RICHTEXT_FEATURES_NO_FOOTNOTES)),
+            ('licence', RichTextBlock(required=False, features=RICHTEXT_FEATURES_NO_FOOTNOTES)),
+            ('citation', RichTextBlock(required=False, template="blocks/urlize_richtext.html", features=RICHTEXT_FEATURES_NO_FOOTNOTES)),
         ],
         verbose_name='Content',
         help_text='A description is expected, but only one of each shall be shown'

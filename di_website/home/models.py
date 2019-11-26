@@ -2,7 +2,6 @@
 Home page models, reusable snippets, other common models
 """
 from django.db import models
-from django.conf import settings
 
 from wagtail.admin.edit_handlers import (
     FieldPanel,
@@ -24,7 +23,7 @@ from modelcluster.models import ClusterableModel
 
 from di_website.common.base import hero_panels, get_related_pages
 from di_website.common.mixins import HeroMixin, OtherPageMixin, SectionBodyMixin, TypesetBodyMixin
-from di_website.common.constants import SIMPLE_RICHTEXT_FEATURES
+from di_website.common.constants import SIMPLE_RICHTEXT_FEATURES, RICHTEXT_FEATURES_NO_FOOTNOTES
 
 
 class AbstractLink(models.Model):
@@ -218,7 +217,7 @@ class HomePage(HomePageMetaData, SectionBodyMixin, Page):
     featured_content = StreamField([
         ('content', StructBlock([
             ('title', CharBlock()),
-            ('body', RichTextBlock()),
+            ('body', RichTextBlock(features=RICHTEXT_FEATURES_NO_FOOTNOTES)),
             ('related_page', PageChooserBlock(required=False)),
             ('button_caption', CharBlock(required=False, help_text='Overwrite title text from the related page'))
         ], template='home/blocks/featured_content.html'))

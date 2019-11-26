@@ -4,6 +4,7 @@ from wagtail.core.models import Orderable
 from wagtail.core.fields import RichTextField, StreamField
 
 from .blocks import BaseStreamBlock, SectionStreamBlock, TypesetStreamBlock, TypesetFootnoteStreamBlock
+from .constants import RICHTEXT_FEATURES_NO_FOOTNOTES
 
 from wagtailmetadata.models import MetadataPageMixin
 
@@ -54,7 +55,8 @@ class HeroMixin(CustomMetadataPageMixin, models.Model):
     hero_text = RichTextField(
         null=True,
         blank=True,
-        help_text='A description of the page content'
+        help_text='A description of the page content',
+        features=RICHTEXT_FEATURES_NO_FOOTNOTES
     )
     hero_link = models.ForeignKey(
         'wagtailcore.Page',

@@ -18,7 +18,7 @@ from taggit.models import Tag, TaggedItemBase
 
 from di_website.common.base import hero_panels, get_paginator_range, get_related_pages
 from di_website.common.mixins import OtherPageMixin, HeroMixin, TypesetBodyMixin
-from di_website.common.constants import MAX_PAGE_SIZE, MAX_RELATED_LINKS
+from di_website.common.constants import MAX_PAGE_SIZE, MAX_RELATED_LINKS, RICHTEXT_FEATURES_NO_FOOTNOTES
 from di_website.home.models import NewsLetter
 
 
@@ -27,7 +27,7 @@ class NewsTopic(TaggedItemBase):
 
 
 class NewsIndexPage(HeroMixin, Page):
-    intro = RichTextField(blank=True, null=True, help_text="Something about our newsletters")
+    intro = RichTextField(blank=True, null=True, help_text="Something about our newsletters", features=RICHTEXT_FEATURES_NO_FOOTNOTES)
 
     content_panels = Page.content_panels + [
         hero_panels(),

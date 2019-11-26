@@ -5,17 +5,15 @@ from wagtail.core.blocks import (
     CharBlock,
     RichTextBlock,
     StructBlock,
-    StreamBlock,
     TextBlock
 )
 from wagtail.core.models import Page
-from wagtail.core.fields import RichTextField, StreamField
+from wagtail.core.fields import StreamField
 from wagtail.admin.edit_handlers import (
     FieldPanel, InlinePanel, MultiFieldPanel, PageChooserPanel, StreamFieldPanel)
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
-from wagtail.core.models import Orderable, Page
 
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
@@ -27,6 +25,7 @@ from di_website.common.blocks import (
     BannerBlock, SectionStreamBlock, TestimonialBlock, VideoDuoTextBlock, ImageDuoTextBlock)
 from di_website.common.constants import MAX_OTHER_PAGES, RICHTEXT_FEATURES_NO_FOOTNOTES
 from di_website.news.models import NewsStoryPage
+
 
 class WhatWeDoPage(TypesetBodyMixin, HeroMixin, Page):
     """
@@ -114,7 +113,7 @@ class ServicesPageRelatedExample(OtherPageMixin):
         ExampleTopic, related_name="+", null=True, blank=True, on_delete=models.SET_NULL)
 
     panels = [
-        PageChooserPanel('other_page'),  # TODO: Are these meant to be project pages?
+        PageChooserPanel('other_page'),
         SnippetChooserPanel('topics')
     ]
 
@@ -151,14 +150,14 @@ class ServicesPage(TypesetBodyMixin, HeroMixin, Page):
         ('speciality', StructBlock([
             ('image', ImageChooserBlock(required=False)),
             ('heading', CharBlock(required=False)),
-            ('body', RichTextBlock(required=False))
+            ('body', RichTextBlock(required=False, features=RICHTEXT_FEATURES_NO_FOOTNOTES))
         ]))
     ])
 
     skills = StreamField([
         ('skill', StructBlock([
             ('heading', CharBlock(required=False)),
-            ('body', RichTextBlock(required=False))
+            ('body', RichTextBlock(required=False, features=RICHTEXT_FEATURES_NO_FOOTNOTES))
         ]))
     ])
 

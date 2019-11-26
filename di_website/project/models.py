@@ -12,19 +12,11 @@ from wagtail.admin.edit_handlers import (
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.core.fields import StreamField, RichTextField
 from wagtail.core.models import Orderable, Page
-from wagtail.core.blocks import (
-    PageChooserBlock,
-    RichTextBlock,
-    StructBlock,
-    StreamBlock,
-    TextBlock,
-    URLBlock
-)
+from wagtail.core.blocks import PageChooserBlock
 
 from di_website.common.base import hero_panels, get_related_pages
 from di_website.common.mixins import HeroMixin, OtherPageMixin, TypesetBodyMixin
-from di_website.common.blocks import BaseStreamBlock
-from di_website.common.constants import MAX_RELATED_LINKS
+from di_website.common.constants import MAX_RELATED_LINKS, RICHTEXT_FEATURES_NO_FOOTNOTES
 
 
 class ProjectPage(TypesetBodyMixin, HeroMixin, Page):
@@ -84,7 +76,6 @@ class FocusAreasPage(TypesetBodyMixin, HeroMixin, Page):
     class Meta():
         verbose_name = 'Focus Areas Page'
 
-
     other_pages_heading = models.CharField(
         max_length=255,
         null=True,
@@ -134,7 +125,8 @@ class FocusAreasPageLink(Orderable):
     body = RichTextField(
         blank=True,
         null=True,
-        help_text="Something about focus areas"
+        help_text="Something about focus areas",
+        features=RICHTEXT_FEATURES_NO_FOOTNOTES
     )
     image = models.ForeignKey(
         'wagtailimages.Image',

@@ -11,6 +11,7 @@ from wagtail.core.fields import RichTextField
 
 from di_website.common.base import hero_panels
 from di_website.common.mixins import HeroMixin
+from di_website.common.constants import RICHTEXT_FEATURES_NO_FOOTNOTES
 from di_website.users.models import Department, JobTitle
 
 from wagtailmetadata.models import MetadataPageMixin
@@ -105,7 +106,8 @@ class TeamMemberPage(TeamMemberMetadataPageMixin, Page):
     my_story = RichTextField(
         blank=True,
         null=True,
-        help_text="Please say something about team member"
+        help_text="Please say something about team member",
+        features=RICHTEXT_FEATURES_NO_FOOTNOTES
     )
 
     other_pages_heading = models.CharField(

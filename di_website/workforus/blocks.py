@@ -1,5 +1,3 @@
-from django.db import models
-
 from wagtail.core.blocks import (
     PageChooserBlock,
     RichTextBlock,
@@ -8,13 +6,15 @@ from wagtail.core.blocks import (
     TextBlock)
 from wagtail.images.blocks import ImageChooserBlock
 
+from di_website.common.constants import RICHTEXT_FEATURES_NO_FOOTNOTES
+
 
 class BenefitBlock(StructBlock):
     """
     Allows the addition of a single benefit
     """
     title = TextBlock()
-    body = RichTextBlock(required=False)
+    body = RichTextBlock(required=False, features=RICHTEXT_FEATURES_NO_FOOTNOTES)
     image = ImageChooserBlock(required=False)
 
     class Meta():

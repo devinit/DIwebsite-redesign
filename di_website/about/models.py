@@ -12,8 +12,9 @@ from wagtail.core.blocks import (
 from wagtail.images.blocks import ImageChooserBlock
 
 from di_website.common.base import hero_panels
-from di_website.common.blocks import DocumentBoxBlock, BaseStreamBlock, ValueBlock
+from di_website.common.blocks import DocumentBoxBlock, ValueBlock
 from di_website.common.mixins import HeroMixin, SectionBodyMixin, TypesetBodyMixin
+from di_website.common.constants import RICHTEXT_FEATURES_NO_FOOTNOTES
 
 
 class TimelineItemBlock(StructBlock):
@@ -21,7 +22,7 @@ class TimelineItemBlock(StructBlock):
     year = CharBlock(required=False, help_text="Year E.g. 2008")
     title = CharBlock(required=False)
     image = ImageChooserBlock(required=False)
-    text = RichTextBlock(required=False)
+    text = RichTextBlock(required=False, features=RICHTEXT_FEATURES_NO_FOOTNOTES)
     documents = DocumentBoxBlock(required=False)
 
 

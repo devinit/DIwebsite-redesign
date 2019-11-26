@@ -3,14 +3,19 @@ from django.utils.text import slugify
 
 from wagtail.snippets.models import register_snippet
 from wagtail.admin.edit_handlers import FieldPanel
+from wagtail.search import index
 
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
 
 
 @register_snippet
-class JobTitle(models.Model):
+class JobTitle(index.Indexed, models.Model):
     name = models.CharField(max_length=255, unique=True)
+
+    search_fields = [
+        index.SearchField('name', partial_match=True)
+    ]
 
     def __str__(self):
         return self.name

@@ -232,11 +232,7 @@ class HomePage(HomePageMetaData, SectionBodyMixin, Page):
 
     content_panels = Page.content_panels + [
         MultiFieldPanel([
-            PageChooserPanel('featured_publication', [
-                'publications.PublicationPage',
-                'publications.ShortPublicationPage',
-                'publications.LegacyPublicationPage'
-            ]),
+            PageChooserPanel('featured_publication'),
             ImageChooserPanel('hero_image'),
             FieldPanel('hero_link_caption')
         ], heading='Hero Section'),

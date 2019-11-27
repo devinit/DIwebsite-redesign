@@ -30,7 +30,9 @@
   <div class="row row--narrow">
     <div class="hero__content">
       <ul class="hero__meta">
-        <li class="hero__meta-item hero__meta-item--block">{{ page.publication_type|default_if_none:"Publication" }}</li>
+        {% if page.publication_type %}
+        <li class="hero__meta-item hero__meta-item--block">{{ page.publication_type }}</li>
+        {% endif %}
       </ul>
       <h1 class="hero__title">
         <span>{{ page.title }}</span>

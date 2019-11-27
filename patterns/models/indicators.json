@@ -1,0 +1,154 @@
+{
+	"indicators": [
+	    {
+            "group_name": "Poverty and vulnerability",
+		    "group_indicators": [
+                {
+                	"indicator_name": "Poverty headcount",
+					"indicator_name": "Decent standard of living score",
+					"indicator_name": "Life expectancy",
+					"indicator_name": "Population with a disability (%)",
+					"indicator_name": "Population with a hearing disability (%)",
+					"indicator_name": "Population with a remembering disability (%)",
+					"indicator_name": "Population with a seeing disability (%)",
+					"indicator_name": "Population with a walking disability (%)",
+					"indicator_name": "Children ever married as a % of total child population",
+					"indicator_name": "Male children ever married as a % of total child population",
+					"indicator_name": "Female children ever married as a % of total child population",
+					"indicator_name": "Households receiving remittances (%)",
+					"indicator_name": "Households using electricity for cooking (%)",
+					"indicator_name": "Households using charcoal for cooking (%)",
+					"indicator_name": "Households using firewood for cooking (%)",
+					"indicator_name": "Households using gas for cooking (%)",
+					"indicator_name": "Households using a paraffin stove for cooking (%)",
+					"indicator_name": "Households using electricity for lighting (%)",
+					"indicator_name": "Households using a paraffin lantern for lighting (%)",
+					"indicator_name": "Households using gas for lighting (%)",
+					"indicator_name": "Households using candles for lighting (%)",
+					"indicator_name": "Households using a paraffin tadooba for lighting (%)",
+					"indicator_name": "Households using firewood for lighting (%)"
+				}
+			]
+		},
+		{
+			"group_name": "Population",
+		    "group_indicators": [
+                {
+                	"indicator_name": "Total population",
+					"indicator_name": "Population density (per sq km)",
+					"indicator_name": "Annual population growth rate",
+					"indicator_name": "Average household size",
+					"indicator_name": "Average dependency ratio",
+					"indicator_name": "Urban population (%)",
+					"indicator_name": "Sex ratio",
+					"indicator_name": "Number of households"
+				}
+			]
+		},
+		{
+			"group_name": "Education",
+		    "group_indicators": [
+                {
+                	"indicator_name": "Primary leaving exam performance index",
+					"indicator_name": "Primary net enrolment rate",
+					"indicator_name": "Primary pupil to classroom ratio (all schools)",
+					"indicator_name": "Primary pupil to classroom ratio (government schools)",
+					"indicator_name": "Primary pupil to classroom ratio (private schools)",
+					"indicator_name": "Primary pupil to teacher ratio (all schools)",
+					"indicator_name": "Primary pupil to teacher ratio (government schools)",
+					"indicator_name": "Primary pupil to teacher ratio (private schools)",
+					"indicator_name": "Primary pupil to toilet stance ratio (all schools)",
+					"indicator_name": "Primary pupil to toilet stance ratio (government schools)",
+					"indicator_name": "Primary pupil to toilet stance ratio (private schools)",
+					"indicator_name": "Primary pupils with adequate sitting and writing space (all schools, %)",
+					"indicator_name": "Primary pupils with adequate sitting and writing space (government schools, %)",
+					"indicator_name": "Primary education spending per child",
+					"indicator_name": "Primary education donor spending per child",
+					"indicator_name": "Secondary net enrolment rate",
+					"indicator_name": "Secondary students with adequate sitting and writing space (government schools)",
+					"indicator_name": "Secondary students with adequate sitting and writing space (total)",
+					"indicator_name": "Secondary students-teacher ratio (government schools)",
+					"indicator_name": "Secondary students-teacher ratio (total)",
+					"indicator_name": "Secondary student classroom ratio (all schools)",
+					"indicator_name": "Secondary student classroom ratio (government schools)",
+					"indicator_name": "Secondary student classroom ratio (private schools)",
+					"indicator_name": "Secondary student stance ratio (all schools)",
+					"indicator_name": "Secondary student stance ratio (government schools)",
+					"indicator_name": "Secondary student stance ratio (private schools)"
+				}
+			]
+		},
+		{
+			"group_name": "Health",
+		    "group_indicators": [
+                {
+                	"indicator_name": "District league table overall score",
+					"indicator_name": "Tuberculosis treatment success rate",
+					"indicator_name": "Diphtheria treatment coverage rate",
+					"indicator_name": "Tetanus vaccine coverage rate",
+					"indicator_name": "Antenatal care coverage rate",
+					"indicator_name": "Approved posts that are filled (%)",
+					"indicator_name": "HMIS reporting score",
+					"indicator_name": "Primary health spending per person"
+				}
+			]
+		},
+		{
+			"group_name": "Water and sanitation",
+		    "group_indicators": [
+                {
+                	"indicator_name": "District WASH performance score",
+					"indicator_name": "Household water coverage (%)",
+					"indicator_name": "Household sanitation coverage (%)",
+					"indicator_name": "Rural access to safe water (%)",
+					"indicator_name": "Rural water source functionality (%)",
+					"indicator_name": "Equality in improved water access, rural",
+					"indicator_name": "Functioning water source committees (%)",
+					"indicator_name": "Gender equality WSC"
+				}
+			]
+		},
+		{
+			"group_name": "District public resources",
+		    "group_indicators": [
+                {
+                	"indicator_name": "Agriculture allocation as a % of total expenditure",
+					"indicator_name": "Education allocation as a % of total expenditure",
+					"indicator_name": "Health allocation as a % of total expenditure",
+					"indicator_name": "Locally raised revenues",
+					"indicator_name": "Donor funds"
+				}
+			]
+		},
+		{
+			"group_name": "Agriculture",
+		    "group_indicators": [
+                {
+                	"indicator_name": "Indicator A",
+					"indicator_name": "Indicator B",
+					"indicator_name": "Indicator C",
+					"indicator_name": "Indicator D",
+					"indicator_name": "Indicator E",
+					"indicator_name": "Indicator F",
+					"indicator_name": "Indicator G",
+					"indicator_name": "Indicator H"
+				}
+			]
+		},
+		{
+			"group_name": "Climate Change",
+		    "group_indicators": [
+                {
+                	"indicator_name": "Indicator A",
+					"indicator_name": "Indicator B",
+					"indicator_name": "Indicator C",
+					"indicator_name": "Indicator D",
+					"indicator_name": "Indicator E",
+					"indicator_name": "Indicator F",
+					"indicator_name": "Indicator G",
+					"indicator_name": "Indicator H"
+				}
+			]
+		}
+	]
+}

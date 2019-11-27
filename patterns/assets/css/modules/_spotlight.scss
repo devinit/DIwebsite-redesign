@@ -1,0 +1,19 @@
+// ------------------------------------------------------------
+// Spotlight
+// ------------------------------------------------------------
+
+.spotlight-banner {
+    @extend %pie-clearfix;
+    background-color: #fff;
+    padding: 2em;
+    &__aside {
+        float: left;
+        width: 30%;
+        border-right: 1px solid $default-border-color;
+    }
+    &__main {
+        float: left;
+        width: 70%;
+        padding-left: 2em;
+    }
+}

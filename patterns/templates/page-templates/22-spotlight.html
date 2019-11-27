@@ -1,0 +1,52 @@
+{# 1. Extend the relevant layout #}
+{# --------------------------------------- #}
+
+{% extends 'default.html' %}
+
+
+{# --------------------------------------- #}
+{# 2. Assign Settings and variables #}
+{# --------------------------------------- #}
+
+{% set id = "general" %}
+{% set section = "Data" %}
+{% set title = "Spotlight" %}
+{% set excerpt = "" %}
+{% set image_name = "" %}
+{% set active_page = "" %}
+
+{# --------------------------------------- #}
+{# 3. Add models and macros #}
+{# --------------------------------------- #}
+
+{% model 'cards', as="card" %}
+{% model 'navigation', as="navigation" %}
+{% model 'timeline', as="timeline" %}
+
+{% import 'macros/icon.html' as icons %}
+{% import 'macros/secondary-navigation.html' as secondary_navigation %}
+
+{# --------------------------------------- #}
+{#
+   4. Add page content into relevant areas
+      Add/Delete blocks as necessary
+#}
+{# --------------------------------------- #}
+
+{% block body %}
+    {% include 'heroes/hero.html' %}
+
+    <section class="section">
+        <div class="row row--narrow">
+            <div class="spotlight-banner">
+                <div class="spotlight-banner__aside">
+                    <label for="indicator" class="form-lable">Indicator</label>
+                </div>
+                <div class="spotlight-banner__main">
+                    <input type="range" id="year" name="year" min="0" max="100" step="10">
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

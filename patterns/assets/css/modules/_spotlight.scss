@@ -7,13 +7,79 @@
     background-color: #fff;
     padding: 2em;
     &__aside {
-        float: left;
-        width: 30%;
-        border-right: 1px solid $default-border-color;
+        margin-bottom: 2em;
     }
-    &__main {
-        float: left;
-        width: 70%;
-        padding-left: 2em;
+    @include respond-to($c-vp) {
+        &__aside {
+            float: left;
+            width: 30%;
+            border-right: 1px solid $default-border-color;
+            padding-right: 2em;
+            margin-bottom: 0;
+        }
+        &__main {
+            float: left;
+            width: 70%;
+            padding-left: 2em;
+        }
     }
+
+}
+
+.spotlight {
+    @extend %pie-clearfix;
+    margin-top: 3px;
+    &__aside {
+        margin-bottom: 2em;
+        background-color: #fff;
+        padding: 2em;
+        overflow: hidden;
+    }
+    @include respond-to($c-vp) {
+        @supports (display: flex) {
+            display: flex;
+        }
+        &__aside {
+            float: left;
+            width: 30%;
+            margin-bottom: 0;
+        }
+        &__main {
+            float: left;
+            width: 70%;
+        }
+    }
+}
+
+.spotlight__heading {
+    position: relative;
+    @include font-size($beta);
+    .button {
+        float: right;
+    }
+}
+
+.spotlight__subheading {
+    @include font-size($delta);
+    margin-bottom: 0.5em;
+}
+
+.spotlight__excerpt {
+    @include font-size($zeta);
+}
+
+.spotlight__content {
+    overflow-y: scroll;
+    border-top: 1px solid $cloud;
+    margin-top: 1em;
+    padding-top: 1em;
+    .button {
+        margin-top: 1em;
+    }
+}
+
+.spotlight__interactive {
+    position: relative;
+	@include maintain-ratio(16 9);
+    border: 1px solid $poppy;
 }

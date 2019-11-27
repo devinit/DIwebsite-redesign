@@ -21,6 +21,7 @@
         }
         &--minor {
             padding: 8em 0 5em 0;
+            min-height: auto;
         }
     }
     @include respond-to($d-vp + 200px) {

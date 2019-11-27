@@ -198,6 +198,11 @@
 		@extend %font-heading;
 	}
 
+	sup {
+        vertical-align: super;
+        font-size: 80%;
+    }
+
 	img {
 		@extend %max-width;
 		margin: ($para/$rembase) + em 0;

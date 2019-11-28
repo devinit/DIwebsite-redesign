@@ -109,10 +109,58 @@
         <div class="row row--narrow">
             <div class="spotlight-banner">
                 <div class="spotlight-banner__aside">
-                    <label for="indicator" class="form-lable">Indicator</label>
+                    <label for="indicator" class="form-label">Indicator</label>
+                    <div class="form-field__select-dropdown">
+                		<select name="indicator-choice" id="indicator-choice">
+                			<option value="poverty-headcount" id="poverty-headcount">Poverty headcount</option>
+                		</select>
+                	</div>
                 </div>
                 <div class="spotlight-banner__main">
-                    <input type="range" id="year" name="year" min="0" max="100" step="10">
+                    <div class="m-timeline">
+                        <label for="year" class="form-label">Year</label>
+                        <input type="range" id="year" name="year" value="1" min="1" max="18" steps="18">
+                    </div>
+                    <ul class="m-timeline-labels">
+                        <li class="m-timeline-labels__active selected">2002</li>
+                        <li>2003</li>
+                        <li>2004</li>
+                        <li>2005</li>
+                        <li>2006</li>
+                        <li>2007</li>
+                        <li>2008</li>
+                        <li>2009</li>
+                        <li>2010</li>
+                        <li>2011</li>
+                        <li>2012</li>
+                        <li>2013</li>
+                        <li>2014</li>
+                        <li>2015</li>
+                        <li>2016</li>
+                        <li>2017</li>
+                        <li>2018</li>
+                        <li>2019</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="spotlight">
+                <div class="spotlight__aside">
+                    <h2 class="spotlight__heading">Uganda <button type="button" class="button button--minor"><i role="presentation" aria-hidden="true" class="ico ico--20 ico-arrow-down-blank"></i></button></h2>
+                    <ul class="breadcrumbs">
+                        <li class="breadcrumbs__item"><a href="#">Item</a></li>
+                        <li class="breadcrumbs__item"><a href="#">Item</a></li>
+                        <li class="breadcrumbs__item"><a href="#">Item</a></li>
+                    </ul>
+                    <div class="spotlight__content">
+                        <h3 class="spotlight__subheading">Poverty headcount</h3>
+                        <p class="spotlight__excerpt">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                        <a href="#" class="button">Compare this location to others</a>
+                        <a href="#" class="button">Share this visualisation</a>
+                    </div>
+                </div>
+                <div class="spotlight__main">
+                    <div class="spotlight__interactive" id="map"></div>
                 </div>
             </div>
         </div>

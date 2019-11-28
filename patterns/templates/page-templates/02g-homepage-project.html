@@ -1,0 +1,93 @@
+{# 1. Extend the relevant layout #}
+{# --------------------------------------- #}
+
+{% extends 'default.html' %}
+
+
+{# --------------------------------------- #}
+{# 2. Assign Settings and variables #}
+{# --------------------------------------- #}
+
+{% set id = "" %}
+{% set section = "" %}
+{% set title = "Project title" %}
+{% set excerpt = "The report explores how development finance is responding to the demands set by the Sustainable Development Goals and what changes and action are needed to ensure their aspirations become reality for all." %}
+{% set image_name = "hero-2.jpg" %}
+{% set button = "View project" %}
+
+{# --------------------------------------- #}
+{# 3. Add models and macros #}
+{# --------------------------------------- #}
+
+{% model 'cards', as="card" %}
+
+{% import 'macros/button.html' as buttons %}
+{% import 'macros/icon.html' as icons %}
+
+
+{# --------------------------------------- #}
+{#
+   4. Add page content into relevant areas
+      Add/Delete blocks as necessary
+#}
+{# --------------------------------------- #}
+
+{% block body %}
+    {% include 'heroes/hero-project.html' %}
+
+    <section class="section">
+        <div class="row row--narrow">
+            <div class="l-2up">
+                <div class="l-2up__col">
+                    <h2 class="section__heading">Who we are</h2>
+                    <div class="is-typeset max-meter">
+                        <p>Development Initiatives is a not-for-profit company dedicated to end extreme poverty by 2030</p>
+                        <p>We believe data is the backbone of efforts to realise a world without poverty that invest in human security and where everyone shares the benefits of opportunity and growth.</p>
+                    </div>
+                    <a href="#" class="button">Find out more about who we are</a>
+                </div>
+                <div class="l-2up__col">
+                    <h2 class="section__heading">What we do</h2>
+                    <div class="is-typeset max-meter">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
+                    </div>
+                    <a href="#" class="button">Find out more about what we do</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <h2 class="section__heading">Featured work</h2>
+            <div class="l-2up-3up">
+                {% for item in card.publication_home %}
+                    {% include 'cards/card-related.html' %}
+                {% endfor %}
+                {% for item in card.event_home %}
+                    {% include 'cards/card-events.html' %}
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <div class="banner">
+                <div class="l-banner">
+                    <div class="l-banner__aside">
+                        <div class="banner__media">
+                            <img src="{{ global.assets_root }}/img/content-image1.jpg" alt="alt tag">
+                            <span class="banner__credit">Image by <a href="#">Credit name</a></span>
+                        </div>
+                    </div>
+                    <div class="l-banner__main">
+                        <h2 class="banner__heading">Module title</h2>
+                        <p class="banner__excerpt">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<p>
+                        <a href="#" class="button button--reverse">Learn more about data services</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

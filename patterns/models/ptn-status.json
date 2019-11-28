@@ -32,6 +32,22 @@
 		"stage": "approved"
 	},
 	{
+		"name": "02d-homepage-news",
+		"stage": "review"
+	},
+	{
+		"name": "02e-homepage-blog",
+		"stage": "review"
+	},
+	{
+		"name": "02f-homepage-event",
+		"stage": "review"
+	},
+	{
+		"name": "02g-homepage-project",
+		"stage": "review"
+	},
+	{
 		"name": "03-who-we-are",
 		"stage": "approved"
 	},

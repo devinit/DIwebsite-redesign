@@ -235,7 +235,11 @@ class HomePage(HomePageMetaData, SectionBodyMixin, Page):
             PageChooserPanel('featured_publication', [
                 'publications.PublicationPage',
                 'publications.ShortPublicationPage',
-                'publications.LegacyPublicationPage'
+                'publications.LegacyPublicationPage',
+                'news.NewsStoryPage',
+                'blog.BlogArticlePage',
+                'events.EventPage',
+                'project.ProjectPage'
             ]),
             ImageChooserPanel('hero_image'),
             FieldPanel('hero_link_caption')

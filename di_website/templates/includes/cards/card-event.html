@@ -11,34 +11,7 @@
     <div class="card__body">
         <h3 class="card__title"><span>{{ event.title }}</span></h3>
         <ul class="card__list">
-            <li>
-                <i role="presentation" aria-hidden="true" class="ico ico--14 ico-calendar-slate"></i>
-                {% if event.start_date == event.end_date %}
-                    {{ event.start_date|date:"j F Y" }}
-                {% elif event.start_date.year == event.end_date.year %}
-                    {{ event.start_date|date:"j F" }} - {{ event.end_date|date:"j F Y" }}
-                {% else %}
-                    {{ event.start_date|date:"j F Y" }} - {{ event.end_date|date:"j F Y" }}
-                {% endif %}
-            </li>
-            {% if event.start_time or event.end_time %}
-              <li>
-                  <i role="presentation" aria-hidden="true" class="ico ico--14 ico-clock-slate"></i>
-                  {% if event.start_time and event.end_time %}
-                    {{ event.start_time|date:"gA"|lower }} - {{ event.end_time|date:"gA"|lower }}
-                  {% elif event.start_time %}
-                    {{ event.start_time|date:"gA"|lower }}
-                  {% elif event.end_time %}
-                    {{ event.end_time|date:"gA"|lower }}
-                  {% endif %}
-              </li>
-            {% endif %}
-            {% if event.location %}
-              <li>
-                  <i role="presentation" aria-hidden="true" class="ico ico--14 ico-location-slate"></i>
-                  {{ event.location }}
-              </li>
-            {% endif %}
+            {% include 'includes/partials/event-details-list.html' %}
         </ul>
     </div>
 </a>

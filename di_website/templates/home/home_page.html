@@ -8,6 +8,8 @@
     {% with page=page.featured_publication.specific hero_image=page.hero_image link_caption=page.hero_link_caption %}
       {% if page|classname in global.publication_classnames %}
         {% include 'includes/heroes/hero-home-pubs.html' %}
+      {% elif page|classname == global.news_classname %}
+        {% include 'includes/heroes/hero-home-news.html' %}
       {% endif %}
     {% endwith %}
   {% else %}

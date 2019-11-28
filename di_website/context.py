@@ -79,6 +79,7 @@ def globals(request):
             'figure_classname': 'FigurePage',
             'publication_classnames': ['PublicationPage', 'ShortPublicationPage', 'LegacyPublicationPage'],
             'event_classname': 'EventPage',
-            'news_classname': 'NewsStoryPage'
+            'news_classname': 'NewsStoryPage',
+            'project_classname': 'ProjectPage'
         },
     }

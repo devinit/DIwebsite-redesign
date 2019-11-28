@@ -14,6 +14,8 @@
         {% include 'includes/heroes/hero-home-blog.html' %}
       {% elif page|classname == global.event_classname %}
         {% include 'includes/heroes/hero-home-event.html' %}
+      {% elif page|classname == global.project_classname %}
+        {% include 'includes/heroes/hero-home-project.html' %}
       {% endif %}
     {% endwith %}
   {% else %}

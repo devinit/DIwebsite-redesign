@@ -1,0 +1,17 @@
+{% extends 'includes/heroes/hero-home.html' %}
+{% load wagtailcore_tags string_utils %}
+
+{% block content %}
+  <ul class="hero__meta">
+    <li class="hero__meta-item hero__meta-item--block">Event</li>
+  </ul>
+  <h1 class="hero__title">
+    <span>{{ page.title }}</span>
+  </h1>
+  <ul class="hero__list">
+    {% include 'includes/partials/event-details-list.html' with event=page %}
+  </ul>
+  {% if link_caption %}
+    <a href="{% pageurl page %}" class="button button--reverse">{{ link_caption }}</a>
+  {% endif %}
+{% endblock content %}

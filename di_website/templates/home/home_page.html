@@ -10,6 +10,8 @@
         {% include 'includes/heroes/hero-home-pubs.html' %}
       {% elif page|classname == global.news_classname %}
         {% include 'includes/heroes/hero-home-news.html' %}
+      {% elif page|classname == global.blog_classname %}
+        {% include 'includes/heroes/hero-home-blog.html' %}
       {% endif %}
     {% endwith %}
   {% else %}

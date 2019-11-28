@@ -1,12 +1,14 @@
 {% extends 'layouts/default.html' %}
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags generic_tags %}
 
 
 {% block body %}
 
   {% if page.featured_publication %}
     {% with page=page.featured_publication.specific hero_image=page.hero_image link_caption=page.hero_link_caption %}
-      {% include 'includes/heroes/hero-home.html' %}
+      {% if page|classname in global.publication_classnames %}
+        {% include 'includes/heroes/hero-home-pubs.html' %}
+      {% endif %}
     {% endwith %}
   {% else %}
     {% include 'includes/heroes/hero.html' %}

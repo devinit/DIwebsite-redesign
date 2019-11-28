@@ -198,7 +198,8 @@ class HomePage(HomePageMetaData, SectionBodyMixin, Page):
         blank=True,
         on_delete=models.SET_NULL,
         related_name='+',
-        help_text='The publication to showcase in the page hero'
+        help_text='The page to showcase in the page hero',
+        verbose_name='Featured page'
     )
     hero_image = models.ForeignKey(
         'wagtailimages.Image',
@@ -212,7 +213,7 @@ class HomePage(HomePageMetaData, SectionBodyMixin, Page):
         max_length=255,
         blank=True,
         help_text='Text to display on the link button',
-        default='View full report'
+        default='View full page'
     )
     featured_content = StreamField([
         ('content', StructBlock([
@@ -235,7 +236,11 @@ class HomePage(HomePageMetaData, SectionBodyMixin, Page):
             PageChooserPanel('featured_publication', [
                 'publications.PublicationPage',
                 'publications.ShortPublicationPage',
-                'publications.LegacyPublicationPage'
+                'publications.LegacyPublicationPage',
+                'news.NewsStoryPage',
+                'blog.BlogArticlePage',
+                'events.EventPage',
+                'project.ProjectPage'
             ]),
             ImageChooserPanel('hero_image'),
             FieldPanel('hero_link_caption')

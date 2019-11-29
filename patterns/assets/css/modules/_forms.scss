@@ -86,9 +86,10 @@
 	z-index: 1;
 	display: block;
 	margin-top: 1em;
-	@include respond-to($c-vp - 100px) {
+	@include respond-to($c-vp) {
 		display: inline-block;
 		width: 24.5%;
+		float: left;
 		.button {
 			display: block;
 			margin-left: 2px;

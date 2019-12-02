@@ -80,8 +80,15 @@
 
 .spotlight__interactive {
     position: relative;
-	@include maintain-ratio(16 9);
+	@include maintain-ratio(4 3);
     border: 1px solid $poppy;
+    div {
+        position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+    }
 }
 
 
@@ -99,4 +106,14 @@
     @extend %font-heading;
     @include font-size($alpha);
     color: $poppy-dark;
+}
+
+.spotlight__comparison {
+    @extend %pie-clearfix;
+    display: block;
+    + .spotlight__comparison {
+        border-top: 1px solid $cloud;
+        padding-top: 1em;
+        margin-top: 2em;
+    }
 }

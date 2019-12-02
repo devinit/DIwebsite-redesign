@@ -79,6 +79,12 @@
 			display: block;
 		}
 	}
+	.spotlight__comparison & {
+		margin-top: 0;
+		@include respond-to($c-vp - 100px) {
+			margin-right: 1em;
+		}
+	}
 }
 
 .form-field--inline-four {

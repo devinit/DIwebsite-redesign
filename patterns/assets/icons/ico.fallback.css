@@ -265,6 +265,34 @@
 
 
 
+.ico-info-blank {
+	background-image: url('png/info-blank.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-info-poppy {
+	background-image: url('png/info-poppy.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-info-poppydark {
+	background-image: url('png/info-poppydark.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-info-slate {
+	background-image: url('png/info-slate.png');
+	background-repeat: no-repeat;
+}
+
+
+
 .ico-link-blank {
 	background-image: url('png/link-blank.png');
 	background-repeat: no-repeat;

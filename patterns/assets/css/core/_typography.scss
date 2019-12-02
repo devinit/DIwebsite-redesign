@@ -184,7 +184,7 @@
 		}
 	}
 
-	a {
+	a:not(.button) {
 		text-decoration: underline;
 		word-break: break-word;
 	}
@@ -206,6 +206,10 @@
 	img {
 		@extend %max-width;
 		margin: ($para/$rembase) + em 0;
+	}
+
+	.button + .button {
+		margin-top: 1em;
 	}
 
 	// Tear out the initial top margin to allow things to flush together

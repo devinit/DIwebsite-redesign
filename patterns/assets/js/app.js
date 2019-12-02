@@ -12,6 +12,7 @@ import setupSharing from './utils/social';
 import sectionSharing from './utils/sectionSharing';
 import copyText from './utils/copyText';
 import chapterNav from './utils/chapterNav';
+import chapterNavSimple from './utils/chapterNavSimple';
 import './libs/slick';
 import './libs/jquery.responsiveTabs';
 import modal from './utils/modal';
@@ -42,6 +43,7 @@ function globals () {
 
     // Chapter nav
     chapterNav();
+    chapterNavSimple();
 
     // gmaps
     initGmaps('#map', 'AIzaSyAZAIjZtkBlsF0ZqvrlkvyLfVn6Bju6bJ4');

@@ -40,7 +40,7 @@ from di_website.downloads.utils import DownloadsPanel
 from taggit.models import Tag, TaggedItemBase
 
 from .mixins import (
-    FlexibleContentMixin, UniquePageMixin, PageSearchMixin, LegacyPageSearchMixin, ParentPageSearchMixin,
+    FlexibleContentMixin, UniqueForParentPageMixin, PageSearchMixin, LegacyPageSearchMixin, ParentPageSearchMixin,
     PublishedDateMixin, UUIDMixin, ReportChildMixin, FilteredDatasetMixin)
 from .utils import (
     ContentPanel, PublishedDatePanel, WagtailImageField,
@@ -365,7 +365,7 @@ class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUID
             Redirect(old_path=old_path, redirect_page=self).save()
 
 
-class PublicationSummaryPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin, UniquePageMixin, UUIDMixin, FilteredDatasetMixin, Page):
+class PublicationSummaryPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin, UniqueForParentPageMixin, UUIDMixin, FilteredDatasetMixin, Page):
 
     class Meta:
         verbose_name = 'Publication Summary'

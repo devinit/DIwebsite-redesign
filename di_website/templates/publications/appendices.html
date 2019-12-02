@@ -12,7 +12,7 @@
                             {% endif %}
                             <h2 class="chapter-block__heading heading type-xl type-s--trailer">{{ item.title }}</h2>
                             {% if item.hero_text %}
-                              <p class="para">{{ item.hero_text | content }}</p>
+                              <p class="para">{{ item.hero_text | return_content }}</p>
                             {% endif %}
                             <a href="{{ item.url }}" class="button button--a11y" title="Read {{ item.label | lower }}"><span>Read {{ item.label | lower }}</span></a>
                         </div>

@@ -10,29 +10,25 @@
 
 {% block body %}
 
-    <div class="chapter-block-wrapper space-section-both-med">
-
-        {% if page.summary_image %}
-            {% responsiveimage page.summary_image fill-680x320 srcset=global.summary_srcs as image %}
-            <div class="chapter-block_image subtle-move" {{ image | responsive_id }}>{{ image | responsive_css }}</div>
+        {% if page.authors|length > 0 %}
+        <section class="section section--post">
+            <div class="row row--narrow">
+              <div class="max-meter max-meter--center">
+                {% include 'includes/partials/multi-authors.html' with authors=page.authors %}
+              </div>
+            </div>
+        </section>
         {% endif %}
 
-        <div class="row">
-            <div class="larger-center">
-                <div class="chapter-block__item">
-                    <div class="chapter-block_content">
-                      {% if page.authors|length > 0 %}
-                        {% include 'includes/partials/multi-authors.html' with authors=page.authors %}
-                      {% endif %}
-                        <div class="is-typeset wysiwyg">
-                            {% content_with_footnotes page.content %}
-                            {{ page.raw_content | safe }}
-                        </div>
-                    </div>
-                </div>
+        <section class="section">
+            <div class="row row--narrow">
+              <div class="max-meter max-meter--center is-typeset wysiwyg">
+                  {% content_with_footnotes page.content %}
+                  {{ page.raw_content | safe }}
+              </div>
             </div>
-        </div>
-    </div>
+          </section>
+
 
     <div class="section">
         <div class="row row-narrow">

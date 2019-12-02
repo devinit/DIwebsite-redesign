@@ -2,20 +2,21 @@ import $ from 'jquery';
 
 export default function chapterNav () {
 
+    const nav = $('.js-chapter-nav');
+    if (!nav.length) return;
+
     const menu = $('.page__action__menu');
-
-    if (!menu.length) return;
-
     const toggle_active = $('.burger, .chapter-nav-wrapper');
     const toggle_hidden = $('body');
     const toggle_bottom = $('.page__action');
+    const nav_trigger = $('.js-chapter-trigger');
     const nav_wrapper = $('.chapter-nav-wrapper');
     const nav_links = $('.chapter-nav-link');
     const nav_triggers = $('.chapter-nav-link, .js-chapter-toggle');
     const nav_items = $('.chapter-nav__item');
     const sub_items = $('.js-chapter-link');
-    const element = $('.js-chapter-nav')[0];
-    const focusable = 'a[href], button, textarea, input[type="text"], input[type="radio"], input[type="checkbox"], select, .page__action_text';
+    const element = $('.js-chapter-nav').first();
+    const focusable = 'a[href], button, textarea, input[type="text"], input[type="radio"], input[type="checkbox"], select, .js-chapter-trigger';
     const KEYCODE_TAB = 9;
 
     // main menu
@@ -98,6 +99,7 @@ export default function chapterNav () {
         if (!isEscapePressed) {
             return;
         }
+        nav_trigger.focus();
         toggleActive();
         exit();
     }

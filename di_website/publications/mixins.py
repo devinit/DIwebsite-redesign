@@ -30,6 +30,13 @@ class UniquePageMixin(object):
         return super(UniquePageMixin, cls).can_create_at(parent) and not cls.objects.exists()
 
 
+class UniqueForParentPageMixin(object):
+    @classmethod
+    def can_create_at(cls, parent) -> bool:
+        return super(UniqueForParentPageMixin, cls).can_create_at(parent) \
+            and not parent.get_children().type(cls).exists()
+
+
 class ParentPageSearchMixin(object):
     search_fields = Page.search_fields + [
         index.SearchField('title', partial_match=True),

@@ -1,9 +1,11 @@
 import $ from 'jquery';
 
-export default function chapterNav () {
+export default function chapterNavSimple () {
 
-    const nav = $('.js-chapter-nav');
+    const nav = $('.js-chapter-nav-simple');
     if (!nav.length) return;
+
+    console.log('chapterNavSimple');
 
     const menu = $('.page__action__menu');
     const toggle_active = $('.burger, .chapter-nav-wrapper');
@@ -11,10 +13,7 @@ export default function chapterNav () {
     const toggle_bottom = $('.page__action');
     const nav_trigger = $('.js-chapter-trigger');
     const nav_wrapper = $('.chapter-nav-wrapper');
-    const nav_links = $('.chapter-nav-link');
-    const nav_triggers = $('.chapter-nav-link, .js-chapter-toggle');
-    const nav_items = $('.chapter-nav__item');
-    const sub_items = $('.js-chapter-link');
+    const nav_links = $('.js-chapter-link');
     const element = $('.js-chapter-nav').first();
     const focusable = 'a[href], button, textarea, input[type="text"], input[type="radio"], input[type="checkbox"], select, .js-chapter-trigger';
     const KEYCODE_TAB = 9;
@@ -33,41 +32,25 @@ export default function chapterNav () {
         }
     });
 
-    // chapter items
-    nav_triggers.on('click keypress', function(e) {
-        if (isValidAction(e)) {
-            e.preventDefault();
-
-            const parent = $(this).closest('.chapter-nav__item');
-            const isActive = parent.hasClass('active');
-
-            setSubNavInactive();
-
-            if (!isActive) {
-                parent
-                    .addClass('active')
-                    .find('*')
-                    .toggleClass('active');
-
-                parent
-                    .find('.js-chapter-link')
-                    .removeAttr('tabindex');
-
-                nav_wrapper.addClass('sub-active');
-            }
-        }
-    });
-
     // chapter sections
-    sub_items.on('click keypress', function(e) {
+    nav_links.on('click keypress', function(e) {
         if (isValidAction(e)) {
-            const chapter_link = $(this).closest('.chapter-nav__item').find('.chapter-nav-link');
-            if (chapter_link.data('current-chapter')) {
-                toggleActive();
-                exit();
-            }
+            e.stopPropagation();
+            toggleActive();
+            exit();
+            updateHash(e.currentTarget);
         }
     });
+
+    // update hash from selected link
+    function updateHash(elem) {
+        if (elem.href) {
+            const hash = elem.href.split('#');
+            if (hash.length > 1) {
+                window.location.hash = hash[1];
+            }
+        }
+    }
 
     // toggle main menu state
     function toggleActive() {
@@ -80,15 +63,15 @@ export default function chapterNav () {
     function enter() {
         nav_links.removeAttr('tabindex');
         $(document).on('keydown', onEscape);
+        $(document).on('click', onClickOutside);
         $(element).on('keydown', onFocus);
-        activateCurrentChapter();
     }
 
     // tear down on exit
     function exit() {
-        setMainNavInactive();
-        setSubNavInactive();
+        setNavInactive();
         $(document).off('keydown', onEscape);
+        $(document).off('click', onClickOutside);
         $(element).off('keydown', onFocus);
     }
 
@@ -102,6 +85,14 @@ export default function chapterNav () {
         nav_trigger.focus();
         toggleActive();
         exit();
+    }
+
+    // click outside handler
+    function onClickOutside(e) {
+        if (!$(e.target).closest(nav).length) {
+            toggleActive();
+            exit();
+        }
     }
 
     // trap focus for keyboard when active
@@ -134,26 +125,8 @@ export default function chapterNav () {
         return e.key === 'Enter' || e.type === 'click';
     }
 
-    // activate the current chapter
-    function activateCurrentChapter() {
-        nav_links.each((i, elem) => {
-            if ($(elem).data('current-chapter')) {
-                $(elem).trigger('click');
-            }
-        });
-    }
-
-    // deactivate the main nav
-    function setMainNavInactive() {
+    // deactivate the nav
+    function setNavInactive() {
         nav_links.attr('tabindex', '-1');
-    }
-
-    // deactivate the sub nav
-    function setSubNavInactive() {
-        nav_items
-            .removeClass('active')
-            .find('*')
-            .removeClass('active');
-        sub_items.attr('tabindex', '-1');
     }
 }

@@ -159,27 +159,24 @@ def format_date(start, end=None):
 
 
 # Helper function for content_excerpt
+@register.filter
 def return_content(content):
     return mark_safe(Truncator(strip_tags(str(content))).words(30))
 
 
 @register.filter
 def content_excerpt(item):
-    try:
+    if hasattr(item, "hero_text"):
         if item.hero_text != '':
             return return_content(item.hero_text)
-        else:
-            return return_content(item.content)
-    except (AttributeError, VariableDoesNotExist) as err:
+    if hasattr(item, "content"):
         try:
-            return return_content(item.content)
-        except (AttributeError, VariableDoesNotExist) as err:
-            return ''
-    except TypeError:
-        for block in item.content:
-            if type(block.block) is RichTextBlock:
-                return return_content(block.value.get(block.block_type))
-        return ''
+            for block in item.content:
+                if isinstance(block.block, RichTextBlock):
+                    return return_content(block.value.get(block.block_type))
+        except (AttributeError, VariableDoesNotExist, TypeError) as err:
+            pass
+    return ''
 
 
 @register.filter

@@ -174,6 +174,10 @@ def content_excerpt(item):
         try:
             return return_content(item.content)
         except (AttributeError, VariableDoesNotExist) as err:
+            if hasattr(item, "content"):
+                for block in item.content:
+                    if type(block.block) is RichTextBlock:
+                        return return_content(block.value.get(block.block_type))
             return ''
     except TypeError:
         for block in item.content:

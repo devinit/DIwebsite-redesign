@@ -65,7 +65,7 @@
     src: url('#{$font_path}#{$font}.eot?#iefix') format('embedded-opentype'),
          url('#{$font_path}#{$font}.woff') format('woff'),
          url('#{$font_path}#{$font}.ttf') format('truetype'),
-         url('#{$font_path}#{$font}##{$label}') format('svg');
+         url('#{$font_path}#{$font}.svg##{$label}') format('svg');
     font-weight: normal;
     font-style: normal;
   }

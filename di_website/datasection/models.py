@@ -540,7 +540,7 @@ class DataSetListing(DatasetListingMetadataPageMixin, TypesetBodyMixin, Page):
             models.Q(datasection_datasettopic_items__content_object__content_type=ds_content_type) |
             models.Q(datasection_figuretopic_items__content_object__content_type=fig_content_type)
         ).distinct().order_by('name')
-        context['countries'] = Country.objects.all()
+        context['countries'] = Country.objects.all().order_by('region', 'name')
         context['sources'] = DataSource.objects.all()
 
         context['reports'] = Page.objects.live().filter(

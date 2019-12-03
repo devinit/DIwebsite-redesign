@@ -19,11 +19,10 @@ def spotlights_navigation_view(request):
     """
     Handles the /api/spotlights/navigation/ endpoint, returning the navigation links (pri & seco)
     """
-    result = []
+    navigation = {'primary': [], 'secondary': []}
     root_page = request.site.root_page
     data_section_page = DataSectionPage.objects.live().first()
     primary_menu_items = get_menu_items(root_page, data_section_page)
-    navigation = {'primary': [], 'secondary': []}
     for menu_item in primary_menu_items:
         navigation['primary'].append(serialise_page(menu_item, request))
     if data_section_page:
@@ -31,9 +30,7 @@ def spotlights_navigation_view(request):
         for menu_item in secondary_menu_items:
             navigation['secondary'].append(serialise_page(menu_item, request))
 
-    result.append(navigation)
-
-    return JsonResponse(result, safe=False)
+    return JsonResponse(navigation, safe=False)
 
 
 @require_http_methods(["GET"])
@@ -41,7 +38,6 @@ def footer_view(request):
     """
     Handles the /api/footer endpoint, returning content required to render the footer
     """
-    result = []
     footer_text = get_footer_text()
     footer = {
         'newsletters': fetch_and_serialise_newsletters(),
@@ -50,6 +46,4 @@ def footer_view(request):
         'sections': fetch_and_serialise_footer_sections(request)
     }
 
-    result.append(footer)
-
-    return JsonResponse(result, safe=False)
+    return JsonResponse(footer, safe=False)

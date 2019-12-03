@@ -151,8 +151,8 @@ function start_link_checker_processes {
     cd $APP_DIR
 
     until docker-compose exec -T rabbitmq rabbitmqctl start_app; do
-      log "Rabbit is unavailable - sleeping"
-      sleep 10
+        log "Rabbit is unavailable - sleeping"
+        sleep 10
     done
 
     docker-compose exec -T rabbitmq rabbitmqctl add_user di_website $RABBITMQ_PASSWORD
@@ -167,6 +167,13 @@ function start_link_checker_processes {
 
     log "Finished setting up link checker .."
 
+}
+
+function enable_https_configs {
+
+    if [ $ENVIROMENT = 'production' ]; then
+        echo 'include /etc/nginx/conf.d/django_https;' >> config/nginx/django.conf
+    fi
 }
 
 
@@ -185,6 +192,8 @@ then
 
     mkdir -p $APP_DIR"/assets"
     mkdir -p $APP_DIR"/storage"
+
+    enable_https_configs
 
     start_new_process "Starting up services ..."
     cd $APP_DIR

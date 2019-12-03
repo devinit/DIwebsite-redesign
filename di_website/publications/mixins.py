@@ -46,9 +46,9 @@ class ParentPageSearchMixin(object):
 
 class PageSearchMixin(object):
     search_fields = Page.search_fields + [
-        index.SearchField('content', partial_match=True),
         index.SearchField('title', partial_match=True),
-        index.FilterField('slug')
+        index.FilterField('slug'),
+        index.SearchField('content', partial_match=True)
     ]
 
 

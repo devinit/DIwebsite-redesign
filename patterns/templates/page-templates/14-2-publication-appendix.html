@@ -35,6 +35,30 @@
 {% block body %}
     {% include 'heroes/hero-publication-alt.html' %}
 
+    <div class="js-chapter-nav">
+        <div class="page__action">
+            <div class="page__action__pagination">
+                <a href="" class="page__action__previous">
+                    {{ icons.icon('ico-arrow-left-blank', '16') }}
+                </a>
+                <span class="page-action__section">Chapter 2 of 7</span>
+                <a href="" class="page__action__next">
+                    {{ icons.icon('ico-arrow-right-blank', '16') }}
+                </a>
+            </div>
+            <div class="page__action__menu">
+                <p class="page__action_text">
+                    <a href="" class="page__action__no-js-link">Contents</a>
+                    <span class="page__action__js-text">Contents</span>
+                </p>
+                <div class="page__action__burgerWrapper">
+                    <div class="burger burger--reverse"><span></span></div>
+                </div>
+            </div>
+        </div>
+        {% include 'navigation/chapter-nav-two.html' %}
+    </div>
+
     <section class="section section--post">
         <div class="row row--narrow">
             <div class="max-meter max-meter--center">

@@ -25,6 +25,7 @@
 	&--minor {
 		padding: 0.5em;
 	}
+
 }
 
 // Give actual buttons some love
@@ -63,6 +64,17 @@ button.button {
 // ------------------------------------------------------------
 // Variation styles
 // ------------------------------------------------------------
+
+.button--summary {
+		.chapter-nav__list & {
+			margin-top: 2em;
+			margin-left: 2em;
+			@include respond-to($menu-respond) {
+				margin-left: 20%;
+				margin-top: 0;
+			}
+		}
+	}
 
 .button--block {
 	display: block;
@@ -121,6 +133,16 @@ button.button {
 	}
 }
 
+.button--secondary {
+	border-color: $action-respond;
+	color: $action-respond;
+	@include link-active-styles {
+		border-color: $action;
+		background-color: $action;
+		color: #fff;
+	}
+}
+
 .button--reverse {
 	border-color: #fff;
 	color: #fff;
@@ -133,25 +155,15 @@ button.button {
 	.button--faux__list a {
 		color: #fff;
 	}
-	@include link-active-styles {
-		border-color: #fff;
-		background-color: #fff;
-		color: $heading-color;
-	}
 	&.button--faux {
 		&:hover {
 			background-color: transparent;
 		}
 	}
-}
-
-.button--secondary {
-	border-color: $action-respond;
-	color: $action-respond;
 	@include link-active-styles {
-		border-color: $action;
-		background-color: $action;
-		color: #fff;
+		border-color: #fff;
+		background-color: #fff !important;
+		color: $heading-color;
 	}
 }
 

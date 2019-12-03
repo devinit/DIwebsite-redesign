@@ -369,13 +369,13 @@
 	height: 100vh;
 	overflow: scroll;
 	@include respond-to($menu-respond) {
-		height: 100%;
+		height: auto;
 		overflow: inherit;
 		position: absolute;
 		left: 5%;
-		top: 20%;
-		// transform: translateY(-50%);
-		// -webkit-transform: translateY(-50%);
+		top: 50%;
+		transform: translateY(-50%);
+		-webkit-transform: translateY(-50%);
 		width: 50%;
 		left: 0;
 		padding: 0;
@@ -565,9 +565,9 @@
 		padding-bottom: 0;
 		position: absolute;
 		z-index: 1;
-		top: -6%;
-		// transform: translateY(-50%);
-		// -webkit-transform: translateY(-50%);
+		top: 50%;
+		transform: translateY(-50%);
+		-webkit-transform: translateY(-50%);
 		transition: $transition;
 		// transition-delay: 0ms;
 		// max-height: calc(100vh - 4rem);

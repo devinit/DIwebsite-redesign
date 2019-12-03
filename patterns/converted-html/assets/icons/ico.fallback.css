@@ -356,6 +356,34 @@
 
 
 
+.ico-list-blank {
+	background-image: url('png/list-blank.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-list-poppy {
+	background-image: url('png/list-poppy.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-list-poppydark {
+	background-image: url('png/list-poppydark.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-list-slate {
+	background-image: url('png/list-slate.png');
+	background-repeat: no-repeat;
+}
+
+
+
 .ico-location-blank {
 	background-image: url('png/location-blank.png');
 	background-repeat: no-repeat;

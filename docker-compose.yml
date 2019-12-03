@@ -1,7 +1,6 @@
-version: '2.2'
+version: "2.2"
 
 services:
-
   db:
     image: postgres:10
     environment:
@@ -36,10 +35,10 @@ services:
       - "8090"
     env_file: .env
     environment:
-        - HS_API_KEY
-        - HS_TICKET_PIPELINE
-        - HS_TICKET_PIPELINE_STAGE
-        - ELASTIC_SEARCH_URL
+      - HS_API_KEY
+      - HS_TICKET_PIPELINE
+      - HS_TICKET_PIPELINE_STAGE
+      - ELASTIC_SEARCH_URL
     build:
       context: .
     volumes:
@@ -55,6 +54,8 @@ services:
       - ./config/nginx:/etc/nginx/conf.d
       - ./assets:/assets
       - ./storage:/media
+      - ./config/ssl:/etc/ssl/
+      - ./letsencrypt:/letsencrypt/
       - ../wp-content:/wp-content
     depends_on:
       - web

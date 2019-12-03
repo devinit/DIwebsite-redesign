@@ -14,11 +14,30 @@
         <div class="highlight">
             <span class="highlight__flag">{{ page.duration }}</span>
             <ul class="highlight__list">
-                <li><span>Location:</span>{{ page.location }}</li>
-                <li><span>Salary scale:</span>{{ page.salary_scale }}</li>
-                <li><span>Closing date:</span>{{ page.application_close_date|date:"j F Y" }}</li>
-                <li><span>First interview:</span>{{ page.first_interview_date|date:"j F Y" }}</li>
-                <li><span>Start date:</span>{{ page.job_start_date|date:"j F Y" }}</li>
+                {% if page.location %}
+                  <li><span>Location:</span>{{ page.location }}</li>
+                {% endif %}
+
+                {% if page.salary_scale %}
+                  <li><span>Salary scale:</span>{{ page.salary_scale }}</li>
+                {% endif %}
+
+                {% if page.application_close %}
+                  <li><span>Closing date:</span>{{ page.application_close|date:"j F Y" }}</li>
+                {% endif %}
+
+                {% if page.first_interview %}
+                  <li><span>First interview:</span>{{ page.first_interview|date:"j F Y" }}</li>
+                {% endif %}
+
+                {% if page.second_interview %}
+                  <li><span>Second interview:</span>{{ page.second_interview|date:"j F Y" }}</li>
+                {% endif %}
+
+                {% if page.job_start %}
+                  <li><span>Start date:</span>{{ page.job_start|date:"F Y" }}</li>
+                {% endif %}
+
             </ul>
         </div>
     </section>

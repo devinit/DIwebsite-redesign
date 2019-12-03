@@ -107,19 +107,25 @@ class VacancyPage(TypesetBodyMixin, SectionBodyMixin, HeroMixin, Page):
         related_name='+'
     )
     salary_scale = models.CharField(blank=True, max_length=255)
-    application_close_date = models.DateField(
+    application_close = models.DateField(
         blank=True,
         null=True,
         auto_now=False,
         auto_now_add=False
     )
-    first_interview_date = models.DateField(
+    first_interview = models.DateField(
         blank=True,
         null=True,
         auto_now=False,
         auto_now_add=False
     )
-    job_start_date = models.DateField(
+    second_interview = models.DateField(
+        blank=True,
+        null=True,
+        auto_now=False,
+        auto_now_add=False
+    )
+    job_start = models.DateField(
         blank=True,
         null=True,
         auto_now=False,
@@ -154,9 +160,10 @@ class VacancyPage(TypesetBodyMixin, SectionBodyMixin, HeroMixin, Page):
             FieldPanel('salary_scale')
         ], heading='Vacancy Info'),
         MultiFieldPanel([
-            FieldPanel('application_close_date'),
-            FieldPanel('first_interview_date'),
-            FieldPanel('job_start_date')
+            FieldPanel('application_close'),
+            FieldPanel('first_interview'),
+            FieldPanel('second_interview'),
+            FieldPanel('job_start')
         ], heading='Dates'),
         StreamFieldPanel('body'),
         MultiFieldPanel([

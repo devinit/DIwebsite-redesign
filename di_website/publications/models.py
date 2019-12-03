@@ -5,7 +5,7 @@ from functools import reduce
 
 from django import forms
 from django.db import models
-from django.db.models import Q
+from django.db.models import Q, FloatField, Value
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.contrib.contenttypes.models import ContentType
 from django.utils.functional import cached_property
@@ -193,19 +193,27 @@ class PublicationIndexPage(HeroMixin, Page):
             if stories:
                 child_count = reduce(operator.add, [len(pub.get_children()) for pub in stories])
                 if child_count:
-                    pub_children = reduce(operator.or_, [pub.get_children() for pub in stories]).live().specific().search(search_filter)
+                    pub_children = reduce(operator.or_, [pub.get_children() for pub in stories]).live().specific().search(search_filter).annotate_score("_child_score")
                     if pub_children:
-                        matching_parents = reduce(operator.or_, [stories.parent_of(child) for child in pub_children])
-                        stories = list(chain(stories.search(search_filter), matching_parents))
+                        matching_parents = reduce(operator.or_, [stories.parent_of(child).annotate(_score=Value(child._child_score, output_field=FloatField())) for child in pub_children])
+                        stories = list(chain(stories.search(search_filter).annotate_score("_score"), matching_parents))
                     else:
-                        stories = stories.search(search_filter)
+                        stories = stories.search(search_filter).annotate_score("_score")
                 else:
-                    stories = stories.search(search_filter)
-            legacy_pubs = legacy_pubs.search(search_filter)
-            short_pubs = short_pubs.search(search_filter)
+                    stories = stories.search(search_filter).annotate_score("_score")
+            legacy_pubs = legacy_pubs.search(search_filter).annotate_score("_score")
+            short_pubs = short_pubs.search(search_filter).annotate_score("_score")
 
         story_list = list(chain(stories, legacy_pubs, short_pubs))
-        story_list.sort(key=lambda x: x.published_date, reverse=True)
+        elasticsearch_is_active = True
+        for story in story_list:
+            if hasattr(story, "_score"):
+                if story._score is None:
+                    elasticsearch_is_active = False
+        if search_filter and elasticsearch_is_active:
+            story_list.sort(key=lambda x: x._score, reverse=True)
+        else:
+            story_list.sort(key=lambda x: x.published_date, reverse=True)
         paginator = Paginator(story_list, MAX_PAGE_SIZE)
         try:
             context['stories'] = paginator.page(page)
@@ -235,7 +243,7 @@ class PublicationIndexPage(HeroMixin, Page):
         verbose_name = 'Publication Index Page'
 
 
-class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUIDMixin, FilteredDatasetMixin,Page):
+class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUIDMixin, FilteredDatasetMixin, Page):
 
     class Meta:
         verbose_name = 'Publication Page'

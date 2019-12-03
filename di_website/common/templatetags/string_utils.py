@@ -78,7 +78,7 @@ def wysiwyg_tags(text):
         styles=STYLES,
         strip=True,
         strip_comments=True
-    ).replace('<p> </p>', ''))
+    ).replace('<p> </p>', '').replace('<p></p>', ''))
 
 
 @register.filter

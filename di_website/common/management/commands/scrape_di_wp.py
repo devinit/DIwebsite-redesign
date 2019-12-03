@@ -110,7 +110,7 @@ class Command(BaseCommand):
             blog = all_blogs[i]
             blog_url = "http://devinit.org/post/{}/".format(blog["slug"])
             blog_response = requests.get(blog_url)
-            soup = BeautifulSoup(blog_response.content, "lxml")
+            soup = BeautifulSoup(blog_response.content, "html.parser")
             meta_elem = soup.findAll(attrs={"name": "description"})
             if len(meta_elem) == 0:
                 meta_text = ""
@@ -166,7 +166,7 @@ class Command(BaseCommand):
             news_page = all_news[i]
             news_page_url = "http://devinit.org/post/{}/".format(news_page["slug"])
             news_page_response = requests.get(news_page_url)
-            soup = BeautifulSoup(news_page_response.content, "lxml")
+            soup = BeautifulSoup(news_page_response.content, "html.parser")
             meta_elem = soup.findAll(attrs={"name": "description"})
             if len(meta_elem) == 0:
                 meta_text = ""
@@ -223,7 +223,7 @@ class Command(BaseCommand):
             pub = all_pubs[i]
             pub_url = "http://devinit.org/post/{}/".format(pub["slug"])
             pub_response = requests.get(pub_url)
-            soup = BeautifulSoup(pub_response.content, "lxml")
+            soup = BeautifulSoup(pub_response.content, "html.parser")
             meta_elem = soup.findAll(attrs={"name": "description"})
             if len(meta_elem) == 0:
                 meta_text = ""
@@ -272,7 +272,7 @@ class Command(BaseCommand):
 
         staff_index_url = "http://devinit.org/about/meet-the-team/"
         staff_index_response = requests.get(staff_index_url)
-        soup = BeautifulSoup(staff_index_response.content, "lxml")
+        soup = BeautifulSoup(staff_index_response.content, "html.parser")
         staff_cards = soup.findAll("a", attrs={"class": "col-xs-6 col-sm-3 col-md-3 card person-card"})
         staff_dataset = []
         for card in staff_cards:
@@ -286,7 +286,7 @@ class Command(BaseCommand):
             except TypeError:
                 staff_img = ""
             staff_response = requests.get(staff_url)
-            sub_soup = BeautifulSoup(staff_response.content, "lxml")
+            sub_soup = BeautifulSoup(staff_response.content, "html.parser")
             staff_body = "".join([str(con) for con in sub_soup.find("div", attrs={"class": "body-text"}).contents if con != "\n"])
             staff_dat = {
                 "url": staff_url,
@@ -317,7 +317,7 @@ class Command(BaseCommand):
             event = all_events[i]
             event_url = "http://devinit.org/post/{}/".format(event["slug"])
             event_response = requests.get(event_url)
-            soup = BeautifulSoup(event_response.content, "lxml")
+            soup = BeautifulSoup(event_response.content, "html.parser")
             meta_elem = soup.findAll(attrs={"name": "description"})
             if len(meta_elem) == 0:
                 meta_text = ""

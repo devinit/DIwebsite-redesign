@@ -4,6 +4,7 @@
 
 .spotlight-banner {
     @extend %pie-clearfix;
+    position: relative;
     background-color: #fff;
     padding: 2em;
     &__aside {
@@ -29,11 +30,16 @@
 .spotlight {
     @extend %pie-clearfix;
     margin-top: 3px;
+    &--leader {
+        margin-top: 2em;
+    }
     &__aside {
         margin-bottom: 2em;
-        background-color: #fff;
-        padding: 2em;
         overflow: hidden;
+        &--padded {
+            background-color: #fff;
+            padding: 2em;
+        }
     }
     @include respond-to($c-vp) {
         @supports (display: flex) {
@@ -80,7 +86,7 @@
 
 .spotlight__interactive {
     position: relative;
-	@include maintain-ratio(4 3);
+	min-height: 500px;
     border: 1px solid $poppy;
     div {
         position: absolute;
@@ -88,6 +94,10 @@
 		left: 0;
 		width: 100%;
 		height: 100%;
+    }
+    .spotlight__stat & {
+        min-height: auto;
+        @include maintain-ratio(4 3);
     }
 }
 
@@ -115,5 +125,23 @@
         border-top: 1px solid $cloud;
         padding-top: 1em;
         margin-top: 2em;
+    }
+}
+
+.spotlight__comparison-legend {
+    width: 26px;
+    height: 26px;
+    background-color: $sunflower-dark;
+    display: inline-block;
+    float: left;
+    margin-top: 0;
+    margin-right: 1em;
+    &--alt {
+        background-color: $sunflower-light;
+    }
+    @include respond-to($c-vp - 100px) {
+        width: 70px;
+        height: 70px;
+        margin-top: 7px;
     }
 }

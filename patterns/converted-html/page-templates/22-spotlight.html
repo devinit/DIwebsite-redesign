@@ -145,7 +145,7 @@
             </div>
 
             <div class="spotlight">
-                <div class="spotlight__aside">
+                <div class="spotlight__aside spotlight__aside--padded">
                     <h2 class="spotlight__heading">Uganda <button type="button" class="button button--minor"><i role="presentation" aria-hidden="true" class="ico ico--20 ico-arrow-down-blank"></i></button></h2>
                     <ul class="breadcrumbs">
                         <li class="breadcrumbs__item"><a href="#">Item</a></li>
@@ -438,7 +438,7 @@
         <div class="row row--narrow">
             <h2 class="section__heading">Indicator comparison</h2>
             <div class="spotlight-banner">
-                <form class="spotlight__comparison">
+                <div class="spotlight__comparison">
                     <span class="spotlight__comparison-legend"></span>
                     <div class="form-field form-field--inline-three">
                         <label for="indicator" class="form-label">Indicator</label>
@@ -452,13 +452,13 @@
                         <label for="indicator" class="form-label">Year</label>
                         <div class="form-field__select-dropdown">
                             <select name="indicator-choice" id="indicator-choice">
-                                <option value="poverty-headcount" id="poverty-headcount">Poverty headcount</option>
+                                <option value="poverty-year" id="poverty-year">2018</option>
                             </select>
                         </div>
                     </div>
-                </form>
-                <form class="spotlight__comparison">
-                    <span class="spotlight__comparison-legend"></span>
+                </div>
+                <div class="spotlight__comparison">
+                    <span class="spotlight__comparison-legend spotlight__comparison-legend--alt"></span>
                     <div class="form-field form-field--inline-three">
                         <label for="indicator" class="form-label">Indicator</label>
                         <div class="form-field__select-dropdown">
@@ -471,11 +471,74 @@
                         <label for="indicator" class="form-label">Year</label>
                         <div class="form-field__select-dropdown">
                             <select name="indicator-choice" id="indicator-choice">
-                                <option value="poverty-headcount" id="poverty-headcount">Poverty headcount</option>
+                                <option value="poverty-year" id="poverty-year">2018</option>
                             </select>
                         </div>
                     </div>
-                </form>
+                </div>
+                <button type="submit" class="button button--compare">Compare</button>
+            </div>
+
+            <div class="spotlight spotlight--leader">
+                <div class="spotlight__aside">
+                    <h2 class="spotlight__heading">Current area</h2>
+                    <div class="spotlight__interactive" id="chart"></div>
+                </div>
+                <div class="spotlight__main">
+                    <h2 class="spotlight__heading">Constituencies (parts of current area)</h2>
+                    <div class="spotlight__interactive" id="chart"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <h2 class="section__heading">Revenue</h2>
+            <div class="spotlight-banner">
+                <div class="spotlight-banner__aside">
+                    <label for="indicator" class="form-label">Indicator</label>
+                    <div class="form-field__select-dropdown">
+                		<select name="indicator-choice" id="indicator-choice">
+                			<option value="poverty-headcount" id="poverty-headcount">Poverty headcount</option>
+                		</select>
+                	</div>
+                </div>
+                <div class="spotlight-banner__main">
+                    <div class="m-timeline">
+                        <label for="year" class="form-label">Year</label>
+                        <input type="range" id="year" name="year" value="1" min="1" max="18" steps="18">
+                    </div>
+                    <ul class="m-timeline-labels">
+                        <li class="m-timeline-labels__active selected">2002</li>
+                        <li>2003</li>
+                        <li>2004</li>
+                        <li>2005</li>
+                        <li>2006</li>
+                        <li>2007</li>
+                        <li>2008</li>
+                        <li>2009</li>
+                        <li>2010</li>
+                        <li>2011</li>
+                        <li>2012</li>
+                        <li>2013</li>
+                        <li>2014</li>
+                        <li>2015</li>
+                        <li>2016</li>
+                        <li>2017</li>
+                        <li>2018</li>
+                        <li>2019</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="spotlight">
+                <div class="spotlight__aside">
+                    <div class="spotlight__interactive" id="chart"></div>
+                </div>
+                <div class="spotlight__main">
+                    <div class="spotlight__interactive" id="chart"></div>
+                </div>
             </div>
         </div>
     </section>

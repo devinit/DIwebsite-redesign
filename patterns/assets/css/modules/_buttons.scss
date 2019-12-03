@@ -66,15 +66,25 @@ button.button {
 // ------------------------------------------------------------
 
 .button--summary {
-		.chapter-nav__list & {
-			margin-top: 2em;
-			margin-left: 2em;
-			@include respond-to($menu-respond) {
-				margin-left: 20%;
-				margin-top: 0;
-			}
+	.chapter-nav__list & {
+		margin-top: 2em;
+		margin-left: 2em;
+		@include respond-to($menu-respond) {
+			margin-left: 20%;
+			margin-top: 0;
 		}
 	}
+}
+
+.button--compare {
+	margin-top: 1em;
+	@include respond-to($c-vp - 100px) {
+		margin-top: 0;
+		position: absolute;
+		top: 6em;
+		right: 2em;
+	}
+}
 
 .button--block {
 	display: block;

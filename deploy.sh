@@ -171,7 +171,7 @@ function start_link_checker_processes {
 
 function enable_https_configs {
 
-    if [ "$ENVIROMENT" == 'production' ]; then
+    if [ "$ENVIRONMENT" == 'production' ]; then
         echo 'include /etc/nginx/conf.d/django_https;' >> $APP_DIR"/config/nginx/django.conf"
     fi
 }

@@ -55,7 +55,7 @@ services:
       - ./config/nginx:/etc/nginx/conf.d
       - ./assets:/assets
       - ./storage:/media
-      - ./config/ssl:/etc/ssl/
+      - ./ssl:/etc/ssl/
       - ./letsencrypt:/letsencrypt/
       - ../wp-content:/wp-content
     depends_on:

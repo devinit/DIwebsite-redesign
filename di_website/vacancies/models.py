@@ -119,6 +119,12 @@ class VacancyPage(TypesetBodyMixin, SectionBodyMixin, HeroMixin, Page):
         auto_now=False,
         auto_now_add=False
     )
+    second_interview_date = models.DateField(
+        blank=True,
+        null=True,
+        auto_now=False,
+        auto_now_add=False
+    )
     job_start_date = models.DateField(
         blank=True,
         null=True,
@@ -156,6 +162,7 @@ class VacancyPage(TypesetBodyMixin, SectionBodyMixin, HeroMixin, Page):
         MultiFieldPanel([
             FieldPanel('application_close_date'),
             FieldPanel('first_interview_date'),
+            FieldPanel('second_interview_date'),
             FieldPanel('job_start_date')
         ], heading='Dates'),
         StreamFieldPanel('body'),

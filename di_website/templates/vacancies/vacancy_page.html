@@ -16,9 +16,10 @@
             <ul class="highlight__list">
                 <li><span>Location:</span>{{ page.location }}</li>
                 <li><span>Salary scale:</span>{{ page.salary_scale }}</li>
-                <li><span>Closing date:</span>{{ page.application_close_date|date:"j F Y" }}</li>
-                <li><span>First interview:</span>{{ page.first_interview_date|date:"j F Y" }}</li>
-                <li><span>Start date:</span>{{ page.job_start_date|date:"j F Y" }}</li>
+                <li><span>Closing date:</span>{{ page.application_close|date:"j F Y" }}</li>
+                <li><span>First interview:</span>{{ page.first_interview|date:"j F Y" }}</li>
+                <li><span>Second interview:</span>{{ page.second_interview|date:"j F Y" }}</li>
+                <li><span>Start date:</span>{{ page.job_start|date:"F Y" }}</li>
             </ul>
         </div>
     </section>

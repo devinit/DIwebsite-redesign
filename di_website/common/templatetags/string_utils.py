@@ -2,6 +2,7 @@ import os
 
 import bleach
 import uuid
+import re
 
 from django import template
 from django.utils import formats
@@ -71,14 +72,16 @@ ATTRS['td'] = ['id', 'colspan', 'rowspan']
 
 @register.filter(name='wysiwyg_tags')
 def wysiwyg_tags(text):
-    return mark_safe(bleach.clean(
+    clean = bleach.clean(
         text,
         tags=WYSIWYG_LIST,
         attributes=ATTRS,
         styles=STYLES,
         strip=True,
         strip_comments=True
-    ).replace('<p> </p>', '').replace('<p></p>', ''))
+    )
+
+    return mark_safe(re.sub(r'<p>\s*</p>', '', clean))
 
 
 @register.filter

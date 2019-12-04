@@ -1,0 +1,11 @@
+{% load string_utils wagtailcore_tags %}
+{% if page.footnotes_list %}
+    <div class="m-notes">
+      <h3 class="m-notes__title">Notes</h3>
+      <ul class="m-notes__list">
+        {% for item in page.footnotes_list %}
+          <li><sup><a id="{{ item.footnote_id }}" href="#{{ item.source_id }}">{{ forloop.counter }}</a></sup>{{ item.text | urlize }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+{% endif %}

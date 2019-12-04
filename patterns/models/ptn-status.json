@@ -1,0 +1,198 @@
+[
+	{
+		"name": "e1-error",
+		"stage": "approved"
+	},
+	{
+		"name": "e2-500",
+		"stage": "approved"
+	},
+	{
+		"name": "01-general-page",
+		"stage": "approved"
+	},
+	{
+		"name": "01b-general-with-accounts-module",
+		"stage": "approved"
+	},
+	{
+		"name": "01d-media-center",
+		"stage": "approved"
+	},
+	{
+		"name": "02-homepage",
+		"stage": "approved"
+	},
+	{
+		"name": "02b-homepage-2-publications",
+		"stage": "approved"
+	},
+	{
+		"name": "02c-homepage-1-publication",
+		"stage": "approved"
+	},
+	{
+		"name": "02d-homepage-news",
+		"stage": "review"
+	},
+	{
+		"name": "02e-homepage-blog",
+		"stage": "review"
+	},
+	{
+		"name": "02f-homepage-event",
+		"stage": "review"
+	},
+	{
+		"name": "02g-homepage-project",
+		"stage": "review"
+	},
+	{
+		"name": "03-who-we-are",
+		"stage": "approved"
+	},
+	{
+		"name": "04-our-story",
+		"stage": "approved"
+	},
+	{
+		"name": "05-our-team",
+		"stage": "approved"
+	},
+	{
+		"name": "06-team-member",
+		"stage": "approved"
+	},
+	{
+		"name": "07-what-we-do",
+		"stage": "approved"
+	},
+	{
+		"name": "08-focus-areas",
+		"stage": "approved"
+	},
+	{
+		"name": "08a-where-we-work",
+		"stage": "approved"
+	},
+	{
+		"name": "08-1-project",
+		"stage": "approved"
+	},
+	{
+		"name": "08-1a-place",
+		"stage": "approved"
+	},
+	{
+		"name": "09-consultancy-services",
+		"stage": "approved"
+	},
+	{
+		"name": "11-blog-listing",
+		"stage": "approved"
+	},
+	{
+		"name": "11a-news-listing",
+		"stage": "approved"
+	},
+	{
+		"name": "11b-events-listing",
+		"stage": "approved"
+	},
+	{
+		"name": "12-blog-single",
+		"stage": "approved"
+	},
+	{
+		"name": "12a-blog-single-guest",
+		"stage": "approved"
+	},
+	{
+		"name": "12a-news-single",
+		"stage": "approved"
+	},
+	{
+		"name": "12b-event-single",
+		"stage": "approved"
+	},
+	{
+		"name": "13-publications",
+		"stage": "approved"
+	},
+	{
+		"name": "13a-publications-filtered",
+		"stage": "approved"
+	},
+	{
+		"name": "14-publication-summary",
+		"stage": "approved"
+	},
+	{
+		"name": "14-1-publication-long-form",
+		"stage": "approved"
+	},
+	{
+		"name": "14-1b-publication-long-form-pink",
+		"stage": "approved"
+	},
+	{
+		"name": "14-1c-publication-long-form-yellow",
+		"stage": "approved"
+	},
+	{
+		"name": "14-1d-publication-long-form-orange",
+		"stage": "approved"
+	},
+	{
+		"name": "14-1e-publication-long-form-purple",
+		"stage": "approved"
+	},
+	{
+		"name": "14-1f-publication-long-form-blue",
+		"stage": "approved"
+	},
+	{
+		"name": "14-1g-publication-long-form-green",
+		"stage": "approved"
+	},
+	{
+		"name": "14-1a-publication-short-form",
+		"stage": "approved"
+	},
+	{
+		"name": "14-2-publication-appendix",
+		"stage": "approved"
+	},
+	{
+		"name": "16-work-for-us",
+		"stage": "approved"
+	},
+	{
+		"name": "18-vacancy-listing",
+		"stage": "approved"
+	},
+	{
+		"name": "19-vacancy-single",
+		"stage": "approved"
+	},
+	{
+		"name": "20-contact",
+		"stage": "approved"
+	},
+	{
+		"name": "21-data-section",
+		"stage": "approved"
+	},
+	{
+		"name": "21-1-dataset-listing",
+		"stage": "approved"
+	},
+	{
+		"name": "21-2-dataset-single",
+		"stage": "approved"
+	},
+	{
+		"name": "22-spotlight",
+		"stage": "Template"
+	}
+]

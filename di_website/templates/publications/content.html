@@ -1,0 +1,5 @@
+{% load string_utils wagtailcore_tags %}
+
+{% for block in page.content %}
+    {% include_block block with id=block.id|string_start %}
+{% endfor %}

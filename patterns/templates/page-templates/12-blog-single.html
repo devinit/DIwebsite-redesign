@@ -1,0 +1,63 @@
+{# 1. Extend the relevant layout #}
+{# --------------------------------------- #}
+
+{% extends 'default.html' %}
+
+
+{# --------------------------------------- #}
+{# 2. Assign Settings and variables #}
+{# --------------------------------------- #}
+
+{% set id = "blog" %}
+{% set section = "Blog" %}
+{% set title = "Is using ODA for blending a good use of scarce concessional resources" %}
+{% set excerpt = "" %}
+{% set image_name = "42900842442_cc4630d48a_o-1600x780.jpg" %}
+
+{# --------------------------------------- #}
+{# 3. Add models and macros #}
+{# --------------------------------------- #}
+
+{% model 'cards', as="card" %}
+
+{% import 'macros/button.html' as buttons %}
+{% import 'macros/icon.html' as icons %}
+
+
+{# --------------------------------------- #}
+{#
+   4. Add page content into relevant areas
+      Add/Delete blocks as necessary
+#}
+{# --------------------------------------- #}
+
+{% block body %}
+    {% include 'heroes/hero-post.html' %}
+
+    <section class="section section--post">
+        <div class="row row--narrow">
+            <div class="max-meter max-meter--center">
+                <div class="is-typeset is-typeset--additionals wysiwyg">
+                    {% include 'content/wysiwyg-blog.html' %}
+                </div>
+                <div class="m-notes">
+                    <h3 class="m-notes__title">Notes</h3>
+                    <ul class="m-notes__list">
+                        <li><sup><a href="#">1</a></sup>Draft declaration of the Fifth Conference of African Ministers Responsible for Civil Registration, shared after the conference.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <h2 class="section__heading">Related content</h2>
+            <div class="l-2up-3up">
+                {% for item in card.blog_related %}
+                    {% include 'cards/card-blog.html' %}
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% load responsive string_utils wagtailcore_tags footnotes_utils %}
+<div class="pullout">
+  <div class="max-meter max-meter--center">
+      <div class="pullout__heading-wrapper">
+          <h3 class="pullout__heading heading type-xxl">{{ value.section_label }}</h3>
+      </div>
+  </div>
+  <div class="max-meter max-meter--center">
+      <div class="pullout__content pullout__content--first is-typeset">
+          <h1>{{ value.heading }}</h1>
+      </div>
+  </div>
+
+  {% for block in value.content %}
+      {% if block.block_type != 'infographic' %}
+          <div class="max-meter max-meter--center">
+              <div class="pullout__content is-typeset {% if block.block_type == 'captioned_image' %} pullout__content--media {% endif %}">
+                  {% if block.block_type == 'rich_text' %}
+                      {% content_with_footnotes block.value %}
+                  {% else %}
+                      {% include_block block with id=id|string_start %}
+                  {% endif %}
+              </div>
+          </div>
+      {% elif block.block_type == 'infographic' %}
+          {% include_block block with id=id|string_start %}
+      {% endif %}
+  {% endfor %}
+</div>

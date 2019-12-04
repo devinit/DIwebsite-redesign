@@ -1,0 +1,19 @@
+<article class="listing listing--article">
+	<header class="listing__header">
+		<h2 class="listing__heading"><a href="">{{ item.title }}</a></h2>
+		<ul class="listing__metadata">
+			<li class="listing__metadata__item">
+				Posed on <span class="listing__metadata__date">{{ item.date }}</span> 
+				{% if item.author =="" %}{% else %}
+				by <a href="" class="listing__metadata__author">{{ item.author }}</a>
+				{% endif %}
+			</li>
+			{% if item.taxonomy =="" %}{% else %}
+			<li class="listing__metadata__item">
+				<span class="listing__metadata__tax">{{ item.taxonomy }}</span>
+			</li>
+			{% endif %}
+		</ul>
+	</header>
+	<div class="listing__excerpt"><p>{{ item.excerpt }}</p></div>
+</article>

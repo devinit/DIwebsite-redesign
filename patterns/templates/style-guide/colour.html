@@ -1,0 +1,42 @@
+{% extends 'patterns.html' %}
+
+{# --------------------------------------- #}
+{# Settings, models, library variables #}
+{# --------------------------------------- #}
+
+{% model 'ptn-colour', as="color" %}
+
+{% set ui_title = "Colour" %}
+
+{% block ui_description %}
+	<p>Colour palette and role referencing for {{ global.client_name }}</p>
+{% endblock %}
+
+
+{# --------------------------------------- #}
+{# Main body content #}
+{# --------------------------------------- #}
+
+{% block body %}
+<div class="ui-row">
+	<div class="ui-section">
+		<div class="ui-section__header">
+			<h2>Web palette</h2>
+		</div>
+		<div class="ui-section__body">
+			<ul class="ui-swatches">
+				{% for item in color %}
+				<li class="swatch-{{ item.name }}">
+					<span class="swatch"></span>
+					<span class="swatch-name">{{ item.name }}</span>
+					<span class="swatch-color"></span>
+					<span class="swatch-usage">${{ item.name | lower }}</span>	
+					<span class="swatch-usage">.color-{{ item.name | lower }}</span>	
+					<span class="swatch-usage">.fill-{{ item.name | lower }}</span>			
+				</li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+</div>
+{% endblock %}

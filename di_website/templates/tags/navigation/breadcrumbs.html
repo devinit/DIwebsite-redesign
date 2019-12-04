@@ -1,0 +1,12 @@
+{% load wagtailcore_tags %}
+
+
+{% if ancestors %}
+    <ul class="breadcrumbs">
+        {% for ancestor in ancestors|slice:"1:" %}
+          <li class="breadcrumbs__item" aria-level="{{ forloop.counter }}">
+              <a href="{% pageurl ancestor %}">{{ ancestor }}</a>
+          </li>
+        {% endfor %}
+    </ul>
+{% endif %}

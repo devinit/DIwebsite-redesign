@@ -1,0 +1,40 @@
+// ------------------------------------------------------------
+// Header
+// ------------------------------------------------------------
+
+.header {
+	position: relative;
+	z-index: 1;
+	background-color: $poppy;
+	&:after {
+		content: "";
+		position: absolute;
+		z-index: -1;
+		top: 0;
+		left: 0;
+		width: 75%;
+		height: 100%;
+		background-color: $poppy;
+	}
+	@include respond-to($menu-respond) {
+		background-color: $body-color;
+		&:after {
+			width: 27%;
+		}
+	}
+	@include respond-to($max-vp) {
+		&:after {
+			width: 35%;
+		}
+	}
+	@include respond-to($max-vp + 500px) {
+		&:after {
+			width: 40%;
+		}
+	}
+	.row {
+		position: relative;
+		padding-top: 2em;
+		padding-bottom: 2em;
+	}
+}

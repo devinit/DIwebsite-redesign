@@ -1,0 +1,91 @@
+{% extends 'layouts/sidebar.html' %}
+
+{% load wagtailcore_tags navigation_tags card_tags string_utils %}
+{% get_site_root as site_root %}
+
+{% block hero %}
+    {% include 'includes/heroes/hero.html' %}
+{% endblock hero %}
+
+
+{% block main %}
+    <section class="section">
+        {% breadcrumbs %}
+        <div class="highlight">
+            <span class="highlight__flag">{{ page.duration }}</span>
+            <ul class="highlight__list">
+                {% if page.location %}
+                  <li><span>Location:</span>{{ page.location }}</li>
+                {% endif %}
+
+                {% if page.salary_scale %}
+                  <li><span>Salary scale:</span>{{ page.salary_scale }}</li>
+                {% endif %}
+
+                {% if page.application_close %}
+                  <li><span>Closing date:</span>{{ page.application_close|date:"j F Y" }}</li>
+                {% endif %}
+
+                {% if page.first_interview %}
+                  <li><span>First interview:</span>{{ page.first_interview|date:"j F Y" }}</li>
+                {% endif %}
+
+                {% if page.second_interview %}
+                  <li><span>Second interview:</span>{{ page.second_interview|date:"j F Y" }}</li>
+                {% endif %}
+
+                {% if page.job_start %}
+                  <li><span>Start date:</span>{{ page.job_start|date:"F Y" }}</li>
+                {% endif %}
+
+            </ul>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="is-typeset is-typeset--additionals wysiwyg">
+            {% for block in page.body %}
+              {% include_block block %}
+            {% endfor %}
+        </div>
+    </section>
+{% endblock main %}
+
+
+{% block aside %}
+    <div class="aside aside--clipping">
+        <h2 class="aside__heading">{{ page.downloads_title }}</h2>
+        <div class="aside__excerpt">{{ page.downloads_description|richtext }}</div>
+
+        {% if page.page_downloads %}
+            {% for item in page.get_page_downloads %}
+                <div class="button button--faux button--icon">
+                    <i role="presentation" aria-hidden="true" class="ico ico--24 ico-download-poppy"></i>
+                    <span class="button--faux__meta">Download</span>
+                    <h3 class="button--faux__heading">{{ item.title }}</h3>
+                    <ul class="button--faux__list">
+                        <li>
+                            <a
+                                href="{{ item.file.url }}"
+                                class="js-ga-download-click"
+                                data-event-label="Download {{ item.file }} / vacancy / {{ page.title }}"
+                                title="Download {{ item.file | file_label }}"
+                            >{{ item.file|file_info }}</a>
+                        </li>
+                    </ul>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock aside %}
+
+
+{% block after_content %}
+    {% for block in page.sections %}
+      {% include_block block %}
+    {% endfor %}
+
+    <section class="section">
+        {% get_other_pages calling_page=self heading=page.other_pages_heading %}
+    </section>
+{% endblock after_content %}

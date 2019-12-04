@@ -1,0 +1,54 @@
+// ------------------------------------------------------------
+// Colours and fills
+// Add more to the array to populate consistent names across
+// colors, fills (aka background) and rules (aka borders)
+// ------------------------------------------------------------
+
+@each $name, $color in
+		('slate', $slate),
+		('poppy', $poppy),
+		('poppy-light', $poppy-light),
+		('poppy-dark', $poppy-dark),
+		('sunflower', $sunflower),
+		('sunflower-light', $sunflower-light),
+		('sunflower-dark', $sunflower-dark),
+		('marigold', $marigold),
+		('marigold-light', $marigold-light),
+		('marigold-dark', $marigold-dark),
+		('rose', $rose),
+		('rose-light', $rose-light),
+		('rose-dark', $rose-dark),
+		('lavendar', $lavendar),
+		('lavendar-light', $lavendar-light),
+		('lavendar-dark', $lavendar-dark),
+		('bluebell', $bluebell),
+		('bluebell-light', $bluebell-light),
+		('bluebell-dark', $bluebell-dark),
+		('leaf', $leaf),
+		('leaf-light', $leaf-light),
+		('leaf-dark', $leaf-dark),
+		('cloud', $cloud),
+	{
+	.color-#{$name} {
+		color: $color;
+	}
+	.fill-#{$name} {
+		background-color: $color;
+	}
+// ------------------------------------------------------------
+// For Pattern library colour swatches. Remove if this isn't include in a project
+// If usings swatches, the names in the 'ptn-colour.json' file must match up with the defined colours above
+// ------------------------------------------------------------
+	.swatch-#{$name} {
+		.swatch {
+			background-color: $color;
+		}
+		.swatch-color {
+			display: block;
+			&:after {
+				content: "#{$color}";
+				display: block;
+			}
+		}
+	}
+}

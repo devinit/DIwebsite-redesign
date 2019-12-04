@@ -1,0 +1,37 @@
+{% extends "layouts/default.html" %}
+
+{% load navigation_tags static wagtailcore_tags wagtailimages_tags card_tags static %}
+
+{% block hero %}
+  {% include 'includes/heroes/hero.html' %}
+{% endblock hero %}
+
+{% block body %}
+  <section class="section">
+    <div class="row row--narrow">
+      <div class="highlight">
+        {% include 'includes/forms/publication-filter.html' %}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="row row--narrow">
+      {% if stories|length == 0 %}
+        <h2 class="section__heading">Sorry, no results found</h2>
+      {% else %}
+        {% if is_filtered %}
+          <h2 class="section__heading">
+            Showing page {{stories.number}} of {{stories.paginator.count}} result{% if stories|length > 1 %}s{% endif %}
+          </h2>
+        {% endif %}
+        <div class="l-2up-3up">
+          {% for item in stories %}
+            {% include 'includes/cards/card-publication.html' %}
+          {% endfor %}
+        </div>
+        {% include "includes/scaffold/pagination.html" with children=stories %}
+      {% endif %}
+    </div>
+  </section>
+{% endblock %}

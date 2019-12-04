@@ -1,0 +1,56 @@
+{# 1. Extend the relevant layout #}
+{# --------------------------------------- #}
+
+{% extends 'publication.html' %}
+
+
+{# --------------------------------------- #}
+{# 2. Assign Settings and variables #}
+{# --------------------------------------- #}
+
+{% set colour = "" %}
+{% set id = "publications" %}
+{% set section = "Publications" %}
+{% set title = "Publications" %}
+{% set excerpt = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." %}
+{% set image_name = "4Ben2-1600x780.jpg" %}
+
+{# --------------------------------------- #}
+{# 3. Add models and macros #}
+{# --------------------------------------- #}
+
+{% model 'cards', as="card" %}
+
+{% import 'macros/button.html' as buttons %}
+{% import 'macros/icon.html' as icons %}
+
+
+{# --------------------------------------- #}
+{#
+   4. Add page content into relevant areas
+      Add/Delete blocks as necessary
+#}
+{# --------------------------------------- #}
+
+{% block body %}
+    {% include 'heroes/hero.html' %}
+
+    <section class="section">
+        <div class="row row--narrow">
+            <div class="highlight">
+                {% include 'forms/publication-filter.html' %}
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <div class="l-2up-3up">
+                {% for item in card.publication_list %}
+                    {% include 'cards/card-related.html' %}
+                {% endfor %}
+            </div>
+            {% include 'partials/pagination.html' %}
+        </div>
+    </section>
+{% endblock %}

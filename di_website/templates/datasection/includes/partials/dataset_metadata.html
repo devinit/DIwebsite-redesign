@@ -1,0 +1,124 @@
+{% load wagtailcore_tags %}
+
+{% if page.meta_data %}
+  <section class="section">
+    <div class="row row--narrow">
+      <h2 class="section__heading">Metadata</h2>
+      <div id="responsive-tabs" class="responsive-tabs">
+        <ul class="tab__menu">
+          <li class="tab__link"><a href="#description">Description</a></li>
+          {% if page.get_dataset_sources or page.get_figure_sources %}
+            <li class="tab__link"><a href="#sources">Sources</a></li>
+          {% endif %}
+          <li class="tab__link"><a href="#legal">Legal & Suggested Citation</a></li>
+        </ul>
+        <div class="tab__container">
+          <section id="description" class="tab__content">
+            <div class="is-typeset max-meter">
+              {% for block in page.meta_data %}
+                {% if block.block_type == 'description' %}
+                  {% include_block block %}
+                {% endif %}
+              {% endfor %}
+            </div>
+            <div class="l-2up">
+              {% for block in page.meta_data %}
+                {% if block.block_type == 'provenance' or block.block_type == 'geography' or block.block_type == 'variables' %}
+                  <div class="l-2up__col">
+                    <div class="is-typeset">
+                      {% if block.block_type == 'provenance' %}
+                        <h3>Provenance</h3>
+                        {% include_block block %}
+                      {% endif %}
+
+                      {% if block.block_type == 'geography' %}
+                        <h3>Geography</h3>
+                        {% include_block block %}
+                      {% endif %}
+
+                      {% if block.block_type == 'variables' %}
+                        <h3>Variables</h3>
+                        {% include_block block %}
+                      {% endif %}
+                    </div>
+                  </div>
+                {% endif %}
+              {% endfor %}
+
+              {% if topics|length %}
+                <div class="l-2up__col">
+                  <div class="is-typeset">
+                    <h3>Topics</h3>
+                    <ul>
+                      {% for topic in topics %}
+                        <li>{{topic}}</li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                </div>
+              {% endif %}
+            </div>
+          </section>
+          {% if page.get_dataset_sources or page.get_figure_sources %}
+          <section id="sources" class="tab__content">
+            <div class="l-3up">
+              {% for source in page.get_dataset_sources %}
+                <div class="m-slip m-slip--alt m-slip--icon">
+                  <i role="presentation" aria-hidden="true" class="ico ico--24 ico-data-slate"></i>
+                  <p class="m-slip__copy">
+                    {% if source.source.link_to_metadata %}
+                      <a href="{{source.source.link_to_metadata}}">{{source.source.title}}</a>
+                    {% else %}
+                      {{source.source.title}}
+                    {% endif %}
+                  </p>
+                  {% if source.source.link_to_data %}
+                    <a href="{{source.source.link_to_data}}" class="button button--reverses">
+                      View source dataset
+                    </a>
+                  {% endif %}
+                </div>
+              {% endfor %}
+              {% for source in page.get_figure_sources %}
+                <div class="m-slip m-slip--alt m-slip--icon">
+                  <i role="presentation" aria-hidden="true" class="ico ico--24 ico-data-slate"></i>
+                  <p class="m-slip__copy">
+                    {% if source.source.link_to_metadata %}
+                      <a href="{{source.source.link_to_metadata}}">{{source.source.title}}</a>
+                    {% else %}
+                      {{source.source.title}}
+                    {% endif %}
+                  </p>
+                  {% if source.source.link_to_data %}
+                    <a href="{{source.source.link_to_data}}" class="button button--reverses">
+                      View source dataset
+                    </a>
+                  {% endif %}
+                </div>
+              {% endfor %}
+            </div>
+          </section>
+          {% endif %}
+          <section id="legal" class="tab__content">
+            <div class="is-typeset max-meter">
+              {% for block in page.meta_data %}
+                {% if block.block_type == 'licence' %}
+                  <h3>Licence</h3>
+                  {% include_block block %}
+                {% endif %}
+
+                {% if block.block_type == 'citation' %}
+                  <h3>Suggested Citation</h3>
+                  <div class="selectable">
+                    {% include_block block %}
+                  </div>
+                {% endif %}
+              {% endfor %}
+            </div>
+          </section>
+        </div>
+      </div>
+
+    </div>
+  </section>
+{% endif %}

@@ -1,0 +1,189 @@
+// -----------------------------------------
+// Cards
+// -----------------------------------------
+
+.card {
+    @extend %pie-clearfix;
+    position: relative;
+    background-color: #fff;
+    margin-top: 2em;
+    display: block;
+    &--duo {
+        @include respond-to($c-vp) {
+            .card__media {
+                position: relative;
+                float: left;
+                width: 40%;
+                transform:translate(-2em,-2em);
+                transition: all, ease-in-out, 0.3s;
+            }
+            .card__body {
+                float: left;
+                width: 60%;
+                transition: all, ease-in-out, 0.3s;
+            }
+        }
+    }
+    &--offset {
+        @include respond-to($menu-respond) {
+            .card__media {
+                transform:translate(-2em,-2em);
+                transition: all, ease-in-out, 0.3s;
+            }
+            .card__body {
+                padding-top: 1em;
+                transition: all, ease-in-out, 0.3s;
+            }
+        }
+    }
+    &--alt {
+        background-color: $cloud;
+        margin-top: 4em;
+    }
+    &--reverse {
+        background-color: $slate;
+    }
+    &:last-of-type {
+        margin-bottom: 0;
+    }
+}
+
+// hover transitions when whole card block is a link
+a.card {
+    &:hover {
+        .card__title {
+            a, span {
+                border-width: 2px;
+            }
+        }
+    }
+    &--offset, &--duo {
+        &:hover {
+            .card__media {
+                transform:translate(0,0);
+            }
+            .card__body {
+                transform: translateY(1em);
+            }
+        }
+    }
+}
+
+.card__tag {
+    @include font-size($eta);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 5;
+    background-color: $poppy-dark;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0.25em 0.5em;
+}
+
+.card__media {
+    @include maintain-ratio(4 3);
+    @extend .background-cover;
+    background-color: #fff;
+    position: relative;
+    img {
+        max-width: 100%;
+        display: block;
+    }
+    .card--feature & {
+        @include maintain-ratio(16 9);
+        width: 60%;
+    }
+    .card--duo & {
+        padding-bottom: 0;
+        height: auto;
+    }
+}
+
+.card__media__caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: rgba($slate, 0.9);
+    color: #fff;
+    padding: 1.5em 2em;
+    .card__title, .card__meta {
+        color: #fff;
+        span {
+            color: #fff;
+        }
+    }
+}
+
+.card__body {
+    padding: 3em;
+    .card--simple & {
+        padding-top: 6em;
+    }
+}
+
+.card__flag {
+    @include font-size($eta);
+    position: absolute;
+    top: -10px;
+    left: 3em;
+    padding: 0.25em 0.5em;
+    background-color: $poppy-dark;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.card__meta {
+    @include font-size($eta);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.5em;
+    display: block;
+    color: $heading-color;
+}
+
+.card__title {
+    @include font-size($gamma);
+    line-height: 1.5;
+    margin-bottom: 0.5em;
+    display: inline-block;
+    a, span {
+        position: relative;
+        color: $heading-color;
+        display: inline;
+        border-bottom: 0 solid $poppy;
+        transition: all, ease-in-out, 0.3s;
+    }
+    .card--reverse & {
+        a, span {
+            color: #fff;
+        }
+    }
+}
+
+.card__excerpt {
+    @include font-size($epsilon);
+    line-height: 1.6;
+    color: $heading-color;
+    .card--reverse & {
+        color: #fff;
+    }
+}
+
+.card__list {
+    @include font-size($epsilon);
+    color: $base-color;
+    margin-top: 1em;
+    li {
+        margin-bottom: 0.25em;
+        span {
+            font-weight: 600;
+        }
+        .ico {
+            margin-right: 5px;
+            margin-top: -2px;
+        }
+    }
+}

@@ -1,0 +1,28 @@
+<section class="hero {% if image_name %}hero--image{% else %}hero--minor{% endif %}">
+    {% if image_name %}
+        <div class="hero__image" style="background-image: url('{{ global.assets_root }}/img/{{ image_name }}');"></div>
+        <span class="hero__credit">Image by <a href="#">Credit name</a></span>
+    {% endif %}
+    <span class="hero__flourish"></span>
+    <span class="hero__flourish"></span>
+    <span class="hero__flourish"></span>
+    <span class="hero__flourish"></span>
+    <span class="hero__flourish"></span>
+    <span class="hero__flourish"></span>
+    <span class="hero__flourish"></span>
+    <span class="hero__flourish"></span>
+    <div class="row row--narrow">
+        <div class="hero__content">
+            <ul class="hero__meta">
+                <li class="hero__meta-item hero__meta-item--block">Project</li>
+            </ul>
+            <h1 class="hero__title"><span>{{ title }}</span></h1>
+            {% if excerpt %}
+                <p class="hero__excerpt"><span>{{ excerpt }}</span></p>
+            {% endif %}
+            {% if button %}
+                <a href="#" class="button button--reverse">{{ button }}</a>
+            {% endif %}
+        </div>
+    </div>
+</section>

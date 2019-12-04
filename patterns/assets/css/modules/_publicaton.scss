@@ -1,0 +1,1232 @@
+// ------------------------------------------------------------
+// Publications
+// Colour variations
+// ------------------------------------------------------------
+
+
+// Blue
+// ------------------------------------------------------------
+body.body--bluebell {
+    .branding {
+        background-image: url(/assets/img/logo-blue.png);
+    }
+    .header {
+        background-color: $bluebell;
+    	&:after {
+    		background-color: $bluebell;
+    	}
+    	@include respond-to($menu-respond) {
+    		background-color: $body-color;
+    	}
+    }
+    .hero {
+        background-color: $bluebell;
+    }
+    .hero__title span {
+        background-color: darken($bluebell, 10%);
+    }
+    .hero--image {
+        .hero__title span {
+            background-color: transparent;
+        }
+    }
+    .hero__image {
+        &:after {
+            background-color: $bluebell;
+        }
+    }
+    .hero__flourish {
+        background: $bluebell;
+    }
+    .navigation-primary__item {
+        @include respond-to($menu-respond) {
+            a {
+                @include link-active-styles {
+                    border-bottom: 2px solid $bluebell;
+                }
+            }
+            &--active a {
+                border-bottom: 2px solid $bluebell;
+            }
+        }
+    }
+    .m-authors {
+        a {
+            color: $bluebell
+        }
+    }
+    .is-typeset {
+        a:not(.button) {
+            color: $bluebell;
+            &:hover {
+                border-color: $bluebell;
+            }
+        }
+    }
+    .section-chapter {
+        &:before {
+            background-color: $bluebell;
+        }
+    }
+    .section-chapter__link {
+        color: $bluebell;
+    }
+    .media-caption {
+        a {
+            color: $bluebell;
+        }
+        border-color: $bluebell;
+    }
+    .is-typeset table,
+    .table-styled,
+    .table-styled table {
+        th {
+            background-color: $bluebell;
+        }
+    }
+    .footer .button {
+        background-color: $bluebell;
+        border-color: $bluebell;
+    }
+    .m-downloads {
+        &:after {
+            background-color: $bluebell;
+        }
+        &:before {
+            @include rgba($bluebell, 0.5%);
+        }
+    }
+    .m-downloads__list a {
+        color: $bluebell;
+    }
+    .share {
+        background-color: $bluebell;
+        .button {
+            background-color: $bluebell;
+            border-color: $bluebell;
+        }
+    }
+    .download__link {
+        color: $bluebell;
+    }
+    .orderReport__content .button {
+        color: $bluebell;
+        border-color: $bluebell;
+    }
+    .footnotes__text a {
+        color: $bluebell;
+    }
+    .footnotes__link {
+        color: $bluebell;
+    }
+    .footnotes__return {
+        color: $bluebell;
+    }
+    .card__tag {
+        background-color: $bluebell;
+    }
+    .card__title {
+        a, span {
+            border-color: $bluebell;
+        }
+    }
+    .section__heading {
+        &:after {
+            background-color: $bluebell;
+        }
+    }
+    blockquote {
+        &:before, &:after {
+            background-color: $bluebell;
+        }
+        p, cite {
+            color: $bluebell;
+        }
+    }
+    .pullout {
+        background-color: $bluebell;
+        &:before {
+            background-color: $bluebell;
+        }
+    }
+    .chapter-block-wrapper {
+        .button {
+            border-color: $bluebell;
+            color: $bluebell;
+            &:hover, &:focus {
+                background-color: $bluebell;
+                color: #fff;
+            }
+        }
+        .download-button {
+            &:hover, &:focus {
+                background-color: $slate;
+                border-color: $slate;
+                color: #fff;
+            }
+        }
+        &:after {
+            background-color: $bluebell;
+        }
+    }
+    .chapter-block-wrapper--alt {
+        .button {
+            border-color: #fff;
+            color: #fff;
+            &:hover, &:focus {
+                background-color: #fff;
+                color: $heading-color;
+            }
+        }
+        .download-button {
+            &:hover, &:focus {
+                background-color: $bluebell;
+                border-color: $bluebell;
+                color: #fff;
+            }
+        }
+    }
+    .orderReport .button {
+        &:hover, &:focus {
+            background-color: $bluebell;
+            color: #fff;
+        }
+    }
+    .pagination__item-link {
+        color: $bluebell;
+    }
+    .pagination__item-prev-link,
+    .pagination__item-next-link {
+        background-color: $bluebell;
+        border-color: $bluebell;
+    }
+    .form-field .button {
+        background-color: $bluebell;
+        border-color: $bluebell;
+    }
+}
+
+// Green
+// ------------------------------------------------------------
+body.body--leaf {
+    .branding {
+        background-image: url(/assets/img/logo-green.png);
+    }
+    .header {
+        background-color: $leaf;
+    	&:after {
+    		background-color: $leaf;
+    	}
+    	@include respond-to($menu-respond) {
+    		background-color: $body-color;
+    	}
+    }
+    .hero {
+        background-color: $leaf;
+    }
+    .hero__image {
+        &:after {
+            background-color: $leaf;
+        }
+    }
+    .hero__flourish {
+        background: $leaf;
+    }
+    .navigation-primary__item {
+        @include respond-to($menu-respond) {
+            a {
+                @include link-active-styles {
+                    border-bottom: 2px solid $leaf;
+                }
+            }
+            &--active a {
+                border-bottom: 2px solid $leaf;
+            }
+        }
+    }
+    .m-authors {
+        a {
+            color: $leaf;
+        }
+    }
+    .is-typeset {
+        a:not(.button) {
+            color: $leaf;
+            &:hover {
+                border-color: $leaf;
+            }
+        }
+    }
+    .section-chapter {
+        &:before {
+            background-color: $leaf;
+        }
+    }
+    .section-chapter__link {
+        color: $leaf;
+    }
+    .section-chapter__number {
+        color: $leaf;
+        border-color: $leaf;
+    }
+    .media-caption {
+        a {
+            color: $leaf;
+        }
+        border-color: $leaf;
+    }
+    .pullout {
+        background-color: $leaf;
+        &:before {
+            background-color: $leaf;
+        }
+    }
+    .is-typeset table,
+    .table-styled,
+    .table-styled table {
+        th {
+            background-color: $leaf;
+        }
+    }
+    .footer .button {
+        background-color: $leaf;
+        border-color: $leaf;
+    }
+    .m-downloads {
+        &:after {
+            background-color: $leaf;
+        }
+        &:before {
+            @include rgba($leaf, 0.5%);
+        }
+    }
+    .m-downloads__list a {
+        color: $leaf;
+    }
+    .share {
+        background-color: $leaf;
+        .button {
+            background-color: $leaf;
+            border-color: $leaf;
+        }
+    }
+    .download__link {
+        color: $leaf;
+    }
+    .orderReport__content .button {
+        color: $leaf;
+        border-color: $leaf;
+    }
+    .footnotes__text a {
+        color: $leaf;
+    }
+    .footnotes__link {
+        color: $leaf;
+    }
+    .footnotes__return {
+        color: $leaf;
+    }
+    .card__tag {
+        background-color: $leaf;
+    }
+    .card__title {
+        a, span {
+            border-color: $leaf;
+        }
+    }
+    .section__heading {
+        &:after {
+            background-color: $leaf;
+        }
+    }
+    blockquote {
+        &:before, &:after {
+            background-color: $leaf;
+        }
+        p, cite {
+            color: $leaf;
+        }
+    }
+    .chapter-block-wrapper {
+        .button {
+            border-color: $leaf;
+            color: $leaf;
+            &:hover, &:focus {
+                background-color: $leaf;
+                color: #fff;
+            }
+        }
+        .download-button {
+            &:hover, &:focus {
+                background-color: $slate;
+                border-color: $slate;
+                color: #fff;
+            }
+        }
+        &:after {
+            background-color: $leaf;
+        }
+    }
+    .chapter-block-wrapper--alt {
+        .button {
+            border-color: #fff;
+            color: #fff;
+            &:hover, &:focus {
+                background-color: #fff;
+                color: $heading-color;
+            }
+        }
+        .download-button {
+            &:hover, &:focus {
+                background-color: $leaf;
+                border-color: $leaf;
+                color: #fff;
+            }
+        }
+    }
+    .orderReport .button {
+        &:hover, &:focus {
+            background-color: $leaf;
+            color: #fff;
+        }
+    }
+    .pagination__item-link {
+        color: $leaf;
+    }
+    .pagination__item-prev-link,
+    .pagination__item-next-link {
+        background-color: $leaf;
+        border-color: $leaf;
+    }
+    .form-field .button {
+        background-color: $leaf;
+        border-color: $leaf;
+    }
+}
+
+// Yellow
+// ------------------------------------------------------------
+body.body--sunflower {
+    .branding {
+        background-image: url(/assets/img/logo-yellow.png);
+    }
+    .header {
+        background-color: $sunflower;
+    	&:after {
+    		background-color: $sunflower;
+    	}
+    	@include respond-to($menu-respond) {
+    		background-color: $body-color;
+    	}
+    }
+    .branding {
+
+    }
+    .hero {
+        background-color: $sunflower;
+    }
+    .hero__title span {
+        background-color: darken($sunflower, 10%);
+    }
+    .hero--image {
+        .hero__title span {
+            background-color: transparent;
+        }
+    }
+    .hero__image {
+        &:after {
+            background-color: $sunflower;
+        }
+    }
+    .hero__flourish {
+        background: $sunflower;
+    }
+    .navigation-primary__item {
+        @include respond-to($menu-respond) {
+            a {
+                @include link-active-styles {
+                    border-bottom: 2px solid $sunflower;
+                }
+            }
+            &--active a {
+                border-bottom: 2px solid $sunflower;
+            }
+        }
+    }
+    .m-authors {
+        a {
+            color: $sunflower;
+        }
+    }
+    .is-typeset {
+        a:not(.button) {
+            color: $sunflower;
+            &:hover {
+                border-color: $sunflower;
+            }
+        }
+    }
+    .section-chapter {
+        &:before {
+            background-color: $sunflower;
+        }
+    }
+    .section-chapter__link {
+        color: $sunflower;
+    }
+    .section-chapter__number {
+        color: $sunflower;
+        border-color: $sunflower;
+    }
+    .media-caption {
+        a {
+            color: $sunflower;
+        }
+        border-color: $sunflower;
+    }
+    .pullout {
+        background-color: $sunflower;
+        &:before {
+            background-color: $sunflower;
+        }
+    }
+    .is-typeset table,
+    .table-styled,
+    .table-styled table {
+        th {
+            background-color: $sunflower;
+        }
+    }
+    .footer .button {
+        background-color: $sunflower;
+        border-color: $sunflower;
+    }
+    .m-downloads {
+        &:after {
+            background-color: $sunflower;
+        }
+        &:before {
+            @include rgba($sunflower, 0.5%);
+        }
+    }
+    .m-downloads__list a {
+        color: $sunflower;
+    }
+    .share {
+        background-color: $sunflower;
+        .button {
+            background-color: $sunflower;
+            border-color: $sunflower;
+        }
+    }
+    .download__link {
+        color: $sunflower;
+    }
+    .orderReport__content .button {
+        color: $sunflower;
+        border-color: $sunflower;
+    }
+    .footnotes__text a {
+        color: $sunflower;
+    }
+    .footnotes__link {
+        color: $sunflower;
+    }
+    .footnotes__return {
+        color: $sunflower;
+    }
+    .card__tag {
+        background-color: $sunflower;
+    }
+    .card__title {
+        a, span {
+            border-color: $sunflower;
+        }
+    }
+    .section__heading {
+        &:after {
+            background-color: $sunflower;
+        }
+    }
+    blockquote {
+        &:before, &:after {
+            background-color: $sunflower;
+        }
+        p, cite {
+            color: $sunflower;
+        }
+    }
+    .chapter-block-wrapper {
+        .button {
+            border-color: $sunflower;
+            color: $sunflower;
+            &:hover, &:focus {
+                background-color: $sunflower;
+                color: #fff;
+            }
+        }
+        .download-button {
+            &:hover, &:focus {
+                background-color: $slate;
+                border-color: $slate;
+                color: #fff;
+            }
+        }
+        &:after {
+            background-color: $sunflower;
+        }
+    }
+    .chapter-block-wrapper--alt {
+        .button {
+            border-color: #fff;
+            color: #fff;
+            &:hover, &:focus {
+                background-color: #fff;
+                color: $heading-color;
+            }
+        }
+        .download-button {
+            &:hover, &:focus {
+                background-color: $sunflower;
+                border-color: $sunflower;
+                color: #fff;
+            }
+        }
+    }
+    .orderReport .button {
+        &:hover, &:focus {
+            background-color: $sunflower;
+            color: #fff;
+        }
+    }
+    .pagination__item-link {
+        color: $sunflower;
+    }
+    .pagination__item-prev-link,
+    .pagination__item-next-link {
+        background-color: $sunflower;
+        border-color: $sunflower;
+    }
+    .form-field .button {
+        background-color: $sunflower;
+        border-color: $sunflower;
+    }
+}
+
+// Orange
+// ------------------------------------------------------------
+body.body--marigold {
+    .branding {
+        background-image: url(/assets/img/logo-orange.png);
+    }
+    .header {
+        background-color: $marigold;
+    	&:after {
+    		background-color: $marigold;
+    	}
+    	@include respond-to($menu-respond) {
+    		background-color: $body-color;
+    	}
+    }
+    .hero {
+        background-color: $marigold;
+    }
+    .hero__title span {
+        background-color: darken($marigold, 10%);
+    }
+    .hero--image {
+        .hero__title span {
+            background-color: transparent;
+        }
+    }
+    .hero__image {
+        &:after {
+            background-color: $marigold;
+        }
+    }
+    .hero__flourish {
+        background: $marigold;
+    }
+    .navigation-primary__item {
+        @include respond-to($menu-respond) {
+            a {
+                @include link-active-styles {
+                    border-bottom: 2px solid $marigold;
+                }
+            }
+            &--active a {
+                border-bottom: 2px solid $marigold;
+            }
+        }
+    }
+    .m-authors {
+        a {
+            color: $marigold;
+        }
+    }
+    .is-typeset {
+        a:not(.button) {
+            color: $marigold;
+            &:hover {
+                border-color: $marigold;
+            }
+        }
+    }
+    .section-chapter {
+        &:before {
+            background-color: $marigold;
+        }
+    }
+    .section-chapter__link {
+        color: $marigold;
+    }
+    .section-chapter__number {
+        color: $marigold;
+        border-color: $marigold;
+    }
+    .media-caption {
+        a {
+            color: $marigold;
+        }
+        border-color: $marigold;
+    }
+    .pullout {
+        background-color: $marigold;
+        &:before {
+            background-color: $marigold;
+        }
+    }
+    .is-typeset table,
+    .table-styled,
+    .table-styled table {
+        th {
+            background-color: $marigold;
+        }
+    }
+    .footer .button {
+        background-color: $marigold;
+        border-color: $marigold;
+    }
+    .m-downloads {
+        &:after {
+            background-color: $marigold;
+        }
+        &:before {
+            @include rgba($marigold, 0.5%);
+        }
+    }
+    .m-downloads__list a {
+        color: $marigold;
+    }
+    .share {
+        background-color: $marigold;
+        .button {
+            background-color: $marigold;
+            border-color: $marigold;
+        }
+    }
+    .download__link {
+        color: $marigold;
+    }
+    .orderReport__content .button {
+        color: $marigold;
+        border-color: $marigold;
+    }
+    .footnotes__text a {
+        color: $marigold;
+    }
+    .footnotes__link {
+        color: $marigold;
+    }
+    .footnotes__return {
+        color: $marigold;
+    }
+    .card__tag {
+        background-color: $marigold;
+    }
+    .card__title {
+        a, span {
+            border-color: $marigold;
+        }
+    }
+    .section__heading {
+        &:after {
+            background-color: $marigold;
+        }
+    }
+    blockquote {
+        &:before, &:after {
+            background-color: $marigold;
+        }
+        p, cite {
+            color: $marigold;
+        }
+    }
+    .chapter-block-wrapper {
+        .button {
+            border-color: $marigold;
+            color: $marigold;
+            &:hover, &:focus {
+                background-color: $marigold;
+                color: #fff;
+            }
+        }
+        .download-button {
+            &:hover, &:focus {
+                background-color: $slate;
+                border-color: $slate;
+                color: #fff;
+            }
+        }
+        &:after {
+            background-color: $marigold;
+        }
+    }
+    .chapter-block-wrapper--alt {
+        .button {
+            border-color: #fff;
+            color: #fff;
+            &:hover, &:focus {
+                background-color: #fff;
+                color: $heading-color;
+            }
+        }
+        .download-button {
+            &:hover, &:focus {
+                background-color: $marigold;
+                border-color: $marigold;
+                color: #fff;
+            }
+        }
+    }
+    .orderReport .button {
+        &:hover, &:focus {
+            background-color: $marigold;
+            color: #fff;
+        }
+    }
+    .pagination__item-link {
+        color: $marigold;
+    }
+    .pagination__item-prev-link,
+    .pagination__item-next-link {
+        background-color: $marigold;
+        border-color: $marigold;
+    }
+    .form-field .button {
+        background-color: $marigold;
+        border-color: $marigold;
+    }
+}
+
+// Pink
+// ------------------------------------------------------------
+body.body--rose {
+    .branding {
+        background-image: url(/assets/img/logo-pink.png);
+    }
+    .header {
+        background-color: $rose;
+    	&:after {
+    		background-color: $rose;
+    	}
+    	@include respond-to($menu-respond) {
+    		background-color: $body-color;
+    	}
+    }
+    .hero {
+        background-color: $rose;
+    }
+    .hero__title span {
+        background-color: darken($rose, 10%);
+    }
+    .hero--image {
+        .hero__title span {
+            background-color: transparent;
+        }
+    }
+    .hero__image {
+        &:after {
+            background-color: $rose;
+        }
+    }
+    .hero__flourish {
+        background: $rose;
+    }
+    .navigation-primary__item {
+        @include respond-to($menu-respond) {
+            a {
+                @include link-active-styles {
+                    border-bottom: 2px solid $rose;
+                }
+            }
+            &--active a {
+                border-bottom: 2px solid $rose;
+            }
+        }
+    }
+    .m-authors {
+        a {
+            color: $rose;
+        }
+    }
+    .is-typeset {
+        a:not(.button) {
+            color: $rose;
+            &:hover {
+                border-color: $rose;
+            }
+        }
+    }
+    .section-chapter {
+        &:before {
+            background-color: $rose;
+        }
+    }
+    .section-chapter__link {
+        color: $rose;
+    }
+    .section-chapter__number {
+        color: $rose;
+        border-color: $rose;
+    }
+    .media-caption {
+        a {
+            color: $rose;
+        }
+        border-color: $rose;
+    }
+    .pullout {
+        background-color: $rose;
+        &:before {
+            background-color: $rose;
+        }
+    }
+    .is-typeset table,
+    .table-styled,
+    .table-styled table {
+        th {
+            background-color: $rose;
+        }
+    }
+    .footer .button {
+        background-color: $rose;
+        border-color: $rose;
+    }
+    .m-downloads {
+        &:after {
+            background-color: $rose;
+        }
+        &:before {
+            @include rgba($rose, 0.5%);
+        }
+    }
+    .m-downloads__list a {
+        color: $rose;
+    }
+    .share {
+        background-color: $rose;
+        .button {
+            background-color: $rose;
+            border-color: $rose;
+        }
+    }
+    .download__link {
+        color: $rose;
+    }
+    .orderReport__content .button {
+        color: $rose;
+        border-color: $rose;
+    }
+    .footnotes__text a {
+        color: $rose;
+    }
+    .footnotes__link {
+        color: $rose;
+    }
+    .footnotes__return {
+        color: $rose;
+    }
+    .card__tag {
+        background-color: $rose;
+    }
+    .card__title {
+        a, span {
+            border-color: $rose;
+        }
+    }
+    .section__heading {
+        &:after {
+            background-color: $rose;
+        }
+    }
+    blockquote {
+        &:before, &:after {
+            background-color: $rose;
+        }
+        p, cite {
+            color: $rose;
+        }
+    }
+    .chapter-block-wrapper {
+        .button {
+            border-color: $rose;
+            color: $rose;
+            &:hover, &:focus {
+                background-color: $rose;
+                color: #fff;
+            }
+        }
+        .download-button {
+            &:hover, &:focus {
+                background-color: $slate;
+                border-color: $slate;
+                color: #fff;
+            }
+        }
+        &:after {
+            background-color: $rose;
+        }
+    }
+    .chapter-block-wrapper--alt {
+        .button {
+            border-color: #fff;
+            color: #fff;
+            &:hover, &:focus {
+                background-color: #fff;
+                color: $heading-color;
+            }
+        }
+        .download-button {
+            &:hover, &:focus {
+                background-color: $rose;
+                border-color: $rose;
+                color: #fff;
+            }
+        }
+    }
+    .orderReport .button {
+        &:hover, &:focus {
+            background-color: $rose;
+            color: #fff;
+        }
+    }
+    .pagination__item-link {
+        color: $rose;
+    }
+    .pagination__item-prev-link,
+    .pagination__item-next-link {
+        background-color: $rose;
+        border-color: $rose;
+    }
+    .form-field .button {
+        background-color: $rose;
+        border-color: $rose;
+    }
+}
+
+// Purple
+// ------------------------------------------------------------
+body.body--lavendar {
+    .branding {
+        background-image: url(/assets/img/logo-purple.png);
+    }
+    .header {
+        background-color: $lavendar;
+    	&:after {
+    		background-color: $lavendar;
+    	}
+    	@include respond-to($menu-respond) {
+    		background-color: $body-color;
+    	}
+    }
+    .hero {
+        background-color: $lavendar;
+    }
+    .hero__title span {
+        background-color: darken($lavendar, 10%);
+    }
+    .hero--image {
+        .hero__title span {
+            background-color: transparent;
+        }
+    }
+    .hero__image {
+        &:after {
+            background-color: $lavendar;
+        }
+    }
+    .hero__flourish {
+        background: $lavendar;
+    }
+    .navigation-primary__item {
+        @include respond-to($menu-respond) {
+            a {
+                @include link-active-styles {
+                    border-bottom: 2px solid $lavendar;
+                }
+            }
+            &--active a {
+                border-bottom: 2px solid $lavendar;
+            }
+        }
+    }
+    .m-authors {
+        a {
+            color: $lavendar;
+        }
+    }
+    .is-typeset {
+        a:not(.button) {
+            color: $lavendar;
+            &:hover {
+                border-color: $lavendar;
+            }
+        }
+    }
+    .section-chapter {
+        &:before {
+            background-color: $lavendar;
+        }
+    }
+    .section-chapter__link {
+        color: $lavendar;
+    }
+    .section-chapter__number {
+        color: $lavendar;
+        border-color: $lavendar;
+    }
+    .media-caption {
+        a {
+            color: $lavendar;
+        }
+        border-color: $lavendar;
+    }
+    .pullout {
+        background-color: $lavendar;
+        &:before {
+            background-color: $lavendar;
+        }
+    }
+    .is-typeset table,
+    .table-styled,
+    .table-styled table {
+        th {
+            background-color: $lavendar;
+        }
+    }
+    .footer .button {
+        background-color: $lavendar;
+        border-color: $lavendar;
+    }
+    .m-downloads {
+        &:after {
+            background-color: $lavendar;
+        }
+        &:before {
+            @include rgba($lavendar, 0.5%);
+        }
+    }
+    .m-downloads__list a {
+        color: $lavendar;
+    }
+    .share {
+        background-color: $lavendar;
+        .button {
+            background-color: $lavendar;
+            border-color: $lavendar;
+        }
+    }
+    .download__link {
+        color: $lavendar;
+    }
+    .orderReport__content .button {
+        color: $lavendar;
+        border-color: $lavendar;
+    }
+    .footnotes__text a {
+        color: $lavendar;
+    }
+    .footnotes__link {
+        color: $lavendar;
+    }
+    .footnotes__return {
+        color: $lavendar;
+    }
+    .card__tag {
+        background-color: $lavendar;
+    }
+    .card__title {
+        a, span {
+            border-color: $lavendar;
+        }
+    }
+    .section__heading {
+        &:after {
+            background-color: $lavendar;
+        }
+    }
+    blockquote {
+        &:before, &:after {
+            background-color: $lavendar;
+        }
+        p, cite {
+            color: $lavendar;
+        }
+    }
+    .chapter-block-wrapper {
+        .button {
+            border-color: $lavendar;
+            color: $lavendar;
+            &:hover, &:focus {
+                background-color: $lavendar;
+                color: #fff;
+            }
+        }
+        .download-button {
+            &:hover, &:focus {
+                background-color: $slate;
+                border-color: $slate;
+                color: #fff;
+            }
+        }
+        &:after {
+            background-color: $lavendar;
+        }
+    }
+    .chapter-block-wrapper--alt {
+        .button {
+            border-color: #fff;
+            color: #fff;
+            &:hover, &:focus {
+                background-color: #fff;
+                color: $heading-color;
+            }
+        }
+        .download-button {
+            &:hover, &:focus {
+                background-color: $lavendar;
+                border-color: $lavendar;
+                color: #fff;
+            }
+        }
+    }
+    .orderReport .button {
+        &:hover, &:focus {
+            background-color: $lavendar;
+            color: #fff;
+        }
+    }
+    .pagination__item-link {
+        color: $lavendar;
+    }
+    .pagination__item-prev-link,
+    .pagination__item-next-link {
+        background-color: $lavendar;
+        border-color: $lavendar;
+    }
+    .form-field .button {
+        background-color: $lavendar;
+        border-color: $lavendar;
+    }
+}

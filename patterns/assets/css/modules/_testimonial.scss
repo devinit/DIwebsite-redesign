@@ -1,0 +1,58 @@
+// -----------------------------------------
+// Testimonial
+// -----------------------------------------
+
+.testimonial {
+    @extend %pie-clearfix;
+    position: relative;
+    &__main {
+        width: 75%;
+        float: left;
+        border-left: 3px solid $poppy;
+        padding-left: 2em;
+    }
+    &__aside {
+        width: 20%;
+        float: right;
+    }
+    &--reverse {
+        .testimonial__main {
+            float: right;
+            border-left: none;
+            padding-left: 1em;
+        }
+        .testimonial__aside {
+            float: left;
+        }
+    }
+}
+
+.testimonial__aside {
+    position: relative;
+    &:after {
+        content: "";
+        position: absolute;
+        z-index: 0;
+        top: -15px;
+        right: -10px;
+        width: 50px;
+        height: 50px;
+        background-color: $poppy;
+    }
+    img {
+        position: relative;
+        z-index: 2;
+        @extend %max-width;
+    }
+}
+
+.testimonial__copy {
+    @include font-size($para);
+    font-style: italic;
+}
+
+.testimonial__cite {
+    @include font-size($zeta);
+    margin-top: 1em;
+    display: block;
+}

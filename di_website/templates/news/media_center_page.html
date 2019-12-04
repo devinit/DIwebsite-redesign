@@ -1,0 +1,66 @@
+{% extends "layouts/default.html" %}
+
+{% load wagtailcore_tags string_utils %}
+
+{% block hero %}
+    {% include 'includes/heroes/hero.html' %}
+{% endblock hero %}
+
+{% block body %}
+    <section class="section">
+        <div class="row row--narrow">
+            <div class="l-sidebar">
+                <aside class="l-sidebar__aside">
+                  <div class="aside aside--clipping">
+                      <h2 class="aside__heading">Contact</h2>
+                      <ul class="aside__list">
+                        {% for contact in self.contact_box %}
+                          <li class="aside__list__item">
+                            {% if contact.value.name %}
+                              <span>{{ contact.value.name }}</span>
+                            {% endif %}
+                            {% if contact.value.telephone %}
+                              <p>Telephone: {{ contact.value.telephone }}</p>
+                            {% endif %}
+                            {% if contact.value.email %}
+                              <p>Email: <a href="mailto:{{ contact.value.email }}">{{ contact.value.email }}</a></p>
+                            {% endif %}
+                          </li>
+                        {% endfor %}
+                      </ul>
+                  </div>
+                </aside>
+                <div class="l-sidebar__body">
+                    <div class="is-typeset wysiwyg">
+                      {% for block in page.body %}
+                        {% include_block block %}
+                      {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <div class="l-5up">
+              {% for spokesperson in self.spokespeople %}
+                {% include_block spokesperson %}
+              {% endfor %}
+            </div>
+        </div>
+    </section>
+{% if stories %}
+    <section class="section">
+        <div class="row row--narrow">
+          <h2 class="section__heading">Press releases</h2>
+            <div class="l-2up-3up">
+                {% for item in stories %}
+                    {% include 'includes/cards/card-news.html' with show_tag=False %}
+                {% endfor %}
+            </div>
+            {% include "includes/scaffold/pagination.html" with children=stories %}
+        </div>
+    </section>
+  {% endif %}
+{% endblock %}

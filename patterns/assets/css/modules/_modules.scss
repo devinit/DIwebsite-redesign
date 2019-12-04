@@ -1,0 +1,720 @@
+// ------------------------------------------------------------
+// Modules
+// prefix with m-
+// ------------------------------------------------------------
+
+.m-author {
+    @extend %pie-clearfix;
+    background-color: $poppy-dark;
+    max-width: 300px;
+    .hero & {
+        position: absolute;
+        bottom: -85px;
+        left: $internal-spacing;
+        @include respond-to($menu-respond) {
+    		left: $internal-spacing*4;
+            bottom: -35px;
+    	}
+    }
+    .hero--image & {
+        @include respond-to($menu-respond) {
+            left: auto;
+    		right: $internal-spacing;
+    	}
+    }
+    .card & {
+        margin-top: 2em;
+        background-color: #fff;
+    }
+    &--spacing {
+        margin-bottom: 1em;
+    }
+}
+
+a.m-author {
+    display: block;
+    transition: all, ease-in-out, 0.3s;
+    @include link-active-styles {
+        background-color: darken($poppy-dark, 5%);
+        .m-author__title {
+            text-decoration: underline;
+        }
+    }
+}
+
+.m-author__image {
+    float: left;
+    width: 27%;
+    margin-right: 3%;
+    img {
+        @extend .max-width;
+    }
+}
+
+.m-author__body {
+    float: left;
+    width: 70%;
+    padding-top: 10px;
+}
+
+.m-author__meta {
+    @include font-size($eta);
+    color: lighten($base-color, 5%);
+    margin-bottom: 5px;
+    display: block;
+}
+
+.m-author__title {
+    @include font-size($zeta);
+    @extend %font-heading;
+    color: #fff;
+    .card & {
+        color: $heading-color;
+    }
+}
+
+.m-author__job {
+    @include font-size($zeta);
+    color: #fff;
+    line-height: 1.3;
+    .card & {
+        color: $base-color;
+    }
+}
+
+// Multiple authors //
+
+.m-authors {
+    position: relative;
+    background-color: #fff;
+    padding: 2em;
+    margin-bottom: 3em;
+    .chapter-block_content & {
+        background-color: transparent;
+        padding: 0;
+        padding-left: 2em;
+        border-left: 2px solid $default-border-color;
+    }
+    &__title {
+        @extend %font-heading;
+        @include font-size($eta);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 0.5em;
+    }
+    &__list {
+        @include font-size($epsilon);
+        li {
+            display: inline-block;
+            margin-right: 3px;
+            a {
+                font-size: inherit;
+                text-decoration: underline;
+            }
+        }
+    }
+    &__copy {
+        @include font-size($epsilon);
+        a {
+            font-size: inherit;
+            text-decoration: underline;
+        }
+    }
+}
+
+.m-text-major {
+    @extend .heading;
+    @include font-size($alpha);
+    border-left: 3px solid $poppy;
+    padding-left: 0.5em;
+    margin-bottom: 1em;
+    line-height: 1.3;
+    span {
+        font-size: 200%;
+    }
+}
+
+.m-stat {
+    border-top: 3px solid darken($cloud, 5%);
+    padding-top: 2em;
+    margin-top: 2em;
+    .ico {
+        margin-bottom: 1em;
+    }
+    &--simple {
+        border-top: none;
+        padding-top: 0;
+    }
+}
+
+a.m-stat {
+    span {
+        color: $heading-color;
+        position: relative;
+        border-bottom: 0 solid $poppy;
+        transition: all, ease-in-out, 0.3s;
+    }
+    &:hover {
+        span {
+            border-bottom-width: 2px;
+        }
+    }
+}
+
+.m-stat__icon {
+    width: auto;
+    margin-bottom: 2em;
+    img {
+        @extend %max-width;
+        height: 100px;
+        vertical-align: bottom;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+.m-stat__flourish {
+    position: relative;
+    display: block;
+    width: 30px;
+    height: 30px;
+    margin-bottom: 2em;
+    &:before {
+        content: "";
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        background-color: $poppy;
+        top: 0;
+        left: 0;
+        z-index: 1;
+    }
+    &:after {
+        content: "";
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background-color: lighten($poppy, 15%);
+        top: 15px;
+        left: 15px;
+        z-index: 2;
+    }
+}
+
+.m-stat__title {
+    @include font-size($gamma);
+    margin-bottom: 0.5em;
+    line-height: 1.3;
+    &--center {
+        text-align: center;
+    }
+    a {
+        color: $heading-color;
+        position: relative;
+        border-bottom: 0 solid $poppy;
+        transition: all, ease-in-out, 0.3s;
+        &:hover {
+            border-bottom-width: 2px;
+        }
+    }
+}
+
+.m-stat__excerpt {
+    @include font-size($para - 2);
+}
+
+.m-downloads {
+    position: relative;
+    background-color: #fff;
+    padding: 3em;
+    &:after {
+        content: "";
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        background-color: $poppy;
+        right: -15px;
+        bottom: -15px;
+        z-index: 1;
+    }
+    &:before {
+        content: "";
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        @include rgba($poppy, 0.5%);
+        right: 15px;
+        bottom: 15px;
+        z-index: 2;
+    }
+}
+
+.m-downloads__heading {
+    @include font-size($beta);
+    margin-bottom: 0.75em;
+}
+
+.m-downloads__list {
+    @include font-size($epsilon);
+    li {
+        margin-bottom: 0.5em;
+        a {
+            text-decoration: underline;
+        }
+    }
+    @include respond-to($c-vp) {
+        columns: 2;
+    }
+}
+
+.m-slip {
+    position: relative;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    background-color: #fff;
+    padding: 2em;
+    border: 1px solid $default-border-color;
+    .button {
+        margin-top: 1em;
+        padding: 0.5em 0.75em;
+    }
+    .ico {
+        position: absolute;
+        top: 1.5em;
+        right: 1.75em;
+    }
+    &--alt {
+        // background-color: $poppy-dark;
+        background-color: $cloud-dark
+    }
+}
+
+.m-slip__flag {
+    @include font-size($eta);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background-color: $slate;
+    color: #fff;
+    padding: 0.25em 0.5em;
+    margin-bottom: 1em;
+    display: inline-block;
+    line-height: 1.4;
+    margin-right: 10px;
+    max-width: 80%;
+}
+
+.m-slip__copy {
+    @include font-size($para + 1);
+    line-height: 1.5;
+    max-width: 90%;
+    a:hover {
+        text-decoration: underline;
+    }
+    .m-slip--alt & {
+        a {
+            // color: #fff;
+            color: $slate;
+        }
+    }
+}
+
+.m-slip__meta {
+    @include font-size($zeta);
+    margin-top: 0.75em;
+    display: block;
+    .m-slip--alt & {
+        // color: #fff;
+        color: $slate;
+    }
+}
+
+.m-notice {
+    @extend %font-heading;
+    background-color: #fff;
+    padding: 1em;
+    display: inline-block;
+    border-left: 2px solid $poppy;
+    margin-bottom: 1em;
+    @include font-size($para);
+}
+
+// Timeline range
+// ------------------------------------------------------------
+
+@mixin rangeThumb {
+    position: relative;
+    width: 18px;
+    height: 18px;
+    margin: -7px 0  0 -2px;
+    border-radius: 50%;
+    background: $poppy;
+    cursor: pointer;
+    border: 0 !important;
+    z-index: 10;
+}
+
+@mixin rangeTrack {
+    width: 100%;
+    height: 5px;
+    cursor: pointer;
+    background: darken($cloud, 10%);
+    border-radius: 1em;
+}
+
+.m-timeline {
+    position: relative;
+    input {
+        width: 100%;
+        position: absolute;
+        top: 4em;
+        height: 0;
+        -webkit-appearance: none;
+
+        // Thumb
+        &::-webkit-slider-thumb {
+            -webkit-appearance: none; // needed again for Chrome & Safari
+            @include rangeThumb;
+        }
+
+        &::-moz-range-thumb {
+            @include rangeThumb;
+        }
+
+        &::-ms-thumb {
+            @include rangeThumb;
+        }
+
+        // Track
+        &::-webkit-slider-runnable-track {
+            @include rangeTrack;
+        }
+
+        &::-moz-range-track {
+            @include rangeTrack;
+        }
+
+        &::-ms-track {
+            @include rangeTrack;
+        }
+
+        &:focus { // override outline/background on focus
+            background: none;
+            outline: none;
+        }
+
+        &::-ms-track { // A little somethin' somethin' for IE
+            width: 100%;
+            cursor: pointer;
+            background: transparent;
+            border-color: transparent;
+            color: transparent;
+            }
+    }
+}
+
+.m-timeline-labels {
+    margin-top: 34px;
+    margin-left: -13px;
+    padding: 0;
+    list-style: none;
+
+    li {
+        position: relative;
+        float: left;
+        width: calc(100%/18);
+        text-align: center;
+        @include font-size($eta);
+        //cursor: pointer;
+
+        &:before {
+            position: absolute;
+            top: -26px;
+            right: 0;
+            left: 0;
+            content: "";
+            margin: 0 auto;
+            width: 11px;
+            height: 12px;
+            background: darken($cloud, 10%);
+            border-radius: 50%;
+        }
+    }
+
+    &__active {
+        color: $poppy-dark;
+    }
+
+    &.selected::before {
+        background: $poppy;
+    }
+}
+
+// downloadChapter --------------------------------------------
+.mainAction {
+}
+
+.download {
+    margin-bottom: 3rem;
+    @include respond-to($d-vp) {
+        margin-bottom: 0;
+        width: 40%;
+        width: calc(40% - 40px);
+        float: left;
+    }
+    &-full {
+        @include respond-to($d-vp) {
+            width: 100%;
+        }
+        .download__item {
+            &:last-of-type {
+                border-bottom: 1px solid rgba($slate, 0.25);
+            }
+        }
+    }
+}
+
+.download__item {
+    position: relative;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba($slate, 0.25);
+    &:last-of-type {
+        border-bottom: 0;
+    }
+}
+
+.download__img {
+    position: relative;
+    display: inline-block;
+    background-size: cover;
+    background-position: center;
+    height: 50px;
+    width: 50px;
+}
+
+.download__label {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    @include font-size($eta / 1.25);
+    @include respond-to($d-vp) {
+        @include font-size($eta);
+    }
+}
+
+.download__link {
+    font-size: 1.3rem !important;
+    display: block;
+    margin-bottom: 0.5rem;
+    text-decoration: underline;
+}
+
+// orderReport ------------------------------------------------
+.orderReport {
+    position: relative;
+    @include respond-to($d-vp) {
+        width: 60%;
+        float: right;
+    }
+}
+
+.orderReport__img {
+    display: none;
+    @include respond-to($d-vp) {
+        display: block;
+        max-width: 250px;
+        width: 100%;
+        height: 350px;
+        background-size: cover;
+        background-position: center;
+    }
+    &-standardAction {
+        width: 100%;
+        height: 200px;
+        max-width: 100%;
+        @include respond-to($d-vp) {
+            max-width: 250px;
+            width: 100%;
+            height: 350px;
+        }
+    }
+}
+
+.orderReport__content {
+    background: #fff;
+    padding: 3rem;
+    @include respond-to($d-vp) {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        -webkit-transform: translateY(-50%);
+        left: 30%;
+        width: 70%;
+    }
+}
+
+// Notes //
+
+.m-notes {
+    position: relative;
+    background-color: #fff;
+    padding: 2em;
+    margin-top: 3em;
+    &__title {
+        @extend %font-heading;
+        @include font-size($eta);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 0.5em;
+    }
+    &__list {
+        @include font-size($epsilon);
+        li {
+            display: block;
+            margin-bottom: 1em;
+            sup {
+                vertical-align: super;
+                font-size: 80%;
+                margin: 0 1px;
+            }
+            a {
+                font-size: inherit;
+                text-decoration: underline;
+            }
+        }
+    }
+    &__copy {
+        @include font-size($epsilon);
+        a {
+            font-size: inherit;
+            text-decoration: underline;
+        }
+    }
+}
+
+// shareBlock -------------------------------------------------
+.share {
+    position: relative;
+    padding: 3rem;
+    overflow: hidden;
+    text-align: center;
+    background-color: $poppy;
+    @include respond-to($c-vp) {
+        text-align: left;
+    }
+}
+
+.share__wrapper {
+    @extend %pie-clearfix;
+    &[data-js="share-section"] {
+        @include leader($para);
+        @include trailer($beta);
+        .js & {
+            display: none;
+        }
+    }
+}
+
+.share__media {
+    @include respond-to($c-vp) {
+        float: left;
+    }
+}
+
+.share__item {
+    width: 40px;
+    display: inline-block;
+}
+
+
+.share__content {
+    background: #fff;
+    padding: 3rem;
+}
+
+.share__copy {
+    max-width: 100%;
+    width: 100%;
+    @include respond-to($c-vp) {
+        width: calc(100% - 140px);
+        float: left;
+        margin-left: 5px;
+    }
+    .button {
+        display: inline-block;
+        position: relative;
+        top: -4px;
+        width: auto;
+        border: 1px solid $action;
+        margin-left: 3px;
+        @include font-size($zeta);
+        .no-js & {
+            display: none;
+        }
+    }
+    input {
+        @include font-size($delta);
+        display: inline-block;
+        width: calc((100% - 74px);
+        padding: 9px 1.5rem;
+        border: 1px solid $slate;
+        opacity: 0.5;
+    }
+}
+
+// footnotes --------------------------------------------------
+.footnotes {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.footnotes__list {
+    margin-bottom: 1rem;
+    padding-left: 1rem;
+    @include respond-to($c-vp) {
+        padding-left: 3rem;
+    }
+}
+
+.footnotes__sub {
+    position: absolute;
+    top: -5px;
+    left: -1.5em;
+    padding-top: 1.5rem;
+    &:after {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 12px;
+        width: 100%;
+        height: 3px;
+        background: $slate;
+    }
+}
+
+.footnotes__item {
+    position: relative;
+    margin-bottom: 2rem
+}
+
+.footnotes__text {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    @include respond-to($c-vp) {
+        @include font-size($eta*1.25);
+    }
+    sup {
+        vertical-align: super;
+        font-size: 80%;
+        margin-left: 1px;
+    }
+}
+
+.footnotes__link {
+    word-break: break-all;
+    text-decoration: underline;
+}
+
+.footnotes__return {
+    text-transform: uppercase;
+    color: $action;
+
+}

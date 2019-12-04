@@ -1,0 +1,130 @@
+// ------------------------------------------------------------
+// Aligment and meter
+// ------------------------------------------------------------
+
+.max-meter 				{ max-width: 750px; }
+.max-meter--center 		{ margin-left: auto; margin-right: auto; }
+
+.align-center 			{ text-align: center; }
+.align-left 			{ text-align: left; }
+.align-right 			{ text-align: right; }
+
+
+// ------------------------------------------------------------
+// Additional typesetting
+// ------------------------------------------------------------
+
+// Make articles text more legible
+.is-typeset.is-typeset--article {
+	@include respond-to($menu-respond) {
+		p, li {
+			 @include font-size($para*1.25);
+		}
+		h1, h2 {
+			@include font-size($alpha*1.25);
+		}
+		h3, h4 {
+			@include font-size($beta*1.25);
+		}
+		h5 {
+			@include font-size($gamma*1.25);
+		}
+		h6 {
+			@include font-size($delta*1.25);
+		}
+	}
+}
+
+// Initial paragraph styles
+.is-typeset--additionals {
+	> p:first-of-type {
+		position: relative;
+		font-weight: 600;
+		color: $heading-color;
+		@include font-size($para + 4);
+		@include leading($base-font-size);
+		@include respond-to($d-vp) {
+			margin-bottom: 1em;
+			&:before {
+				content: "";
+				position: absolute;
+				top: -40px;
+				left: -60px;
+				width: 40px;
+				height: 40px;
+				background-color: #fff;
+				z-index: -1;
+			}
+		}
+	}
+}
+
+// ------------------------------------------------------------
+// Blockquotes
+// ------------------------------------------------------------
+
+.as-blockquote {
+	position: relative;
+	&:before, &:after {
+		content: "";
+		position: absolute;
+		width: 30px;
+		height: 30px;
+		background-color: $poppy;
+		z-index: -1;
+	}
+	&:before {
+		top: -20px;
+		left: -60px;
+		opacity: 0.5;
+	}
+	&:after {
+		top: -35px;
+    	left: -40px;
+		opacity: 0.75;
+	}
+	p {
+		color: $poppy-dark;
+		@include font-size($quote);
+	}
+	cite {
+		@include font-size($para);
+		color: $poppy-dark;
+		display: block;
+		font-style: italic;
+	}
+}
+
+.is-typeset {
+	blockquote {
+		@extend .as-blockquote;
+		margin: 9em 0 5em 0;
+		@include respond-to($d-vp) {
+			max-width: 80%;
+			margin-left: auto;
+			margin-right: auto;
+		}
+	}
+}
+
+// ------------------------------------------------------------
+// Selectable text
+// Enables selection with a single click
+// https://css-tricks.com/almanac/properties/u/user-select/
+// ------------------------------------------------------------
+
+.selectable {
+	-webkit-user-select: all;  /* Chrome 49+ */
+	-moz-user-select: all;     /* Firefox 43+ */
+	-ms-user-select: all;      /* No support yet */
+	user-select: all;          /* Likely future */
+}
+
+// ------------------------------------------------------------
+// Library CMS control. Delete / Add as required
+// ------------------------------------------------------------
+
+@import "libs/wagtail";
+// @import "libs/wordpress-wysiwyg";
+//@import "libs/wordpress-paging";
+//@import "libs/wordpress-comments";

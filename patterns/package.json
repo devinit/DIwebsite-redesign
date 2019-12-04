@@ -1,0 +1,22 @@
+{
+  "name": "Skelly",
+  "version": "1.0.0",
+  "description": "The skeleton app",
+  "repository": {
+    "type": "git",
+    "url": "https://bitbucket.org/fffunction/skelly.git"
+  },
+  "scripts": {
+    "start": "skelly serve",
+    "build": "skelly build"
+  },
+  "keywords": [],
+  "author": "Dan Reeves <danr@fffunction.co>",
+  "license": "MIT",
+  "dependencies": {
+    "fastclick": "^1.0.6",
+    "google-maps": "^3.3.0",
+    "jquery": "^3.4.0",
+    "skelly": "^2.0.0-rc.8"
+  }
+}

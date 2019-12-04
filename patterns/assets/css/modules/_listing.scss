@@ -1,0 +1,26 @@
+// ------------------------------------------------------------
+// Listing
+// ------------------------------------------------------------
+
+.listing {
+	margin-top: 3em;
+	&__heading {
+		@extend .type-xl;
+		@extend .heading;
+		margin-bottom: 0.25em;
+		a {
+			font-size: inherit;
+			line-height: inherit;
+		}
+	}
+	&__metadata {
+		display: block;
+		@include font-size($epsilon);
+		margin-bottom: 0.25em;
+	}
+	&__excerpt {
+		p {
+			@include font-size($epsilon);
+		}
+	}
+}

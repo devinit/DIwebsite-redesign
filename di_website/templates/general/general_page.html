@@ -1,0 +1,40 @@
+{% extends 'layouts/default.html' %}
+
+{% load static wagtailcore_tags wagtailimages_tags string_utils card_tags navigation_tags %}
+
+{% block hero %}
+    {% include 'includes/heroes/hero.html' %}
+{% endblock hero %}
+
+{% block body %}
+    <section class="section">
+        <div class="row row--narrow">
+            <div class="l-sidebar">
+                <aside class="l-sidebar__aside">
+                    <div class="aside aside--clipping">
+                      {% if self.depth > 3 %}
+                        {% secondary_menu parent=self.get_parent calling_page=self %}
+                      {% else %}
+                        {% secondary_menu parent=self calling_page=self %}
+                      {% endif %}
+                    </div>
+                </aside>
+                <div class="l-sidebar__body">
+                    <div class="is-typeset wysiwyg">
+                        {% for block in page.body %}
+                            {% include_block block %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% for section in page.sections %}
+        {% include_block section %}
+    {% endfor %}
+
+    <section class="section">
+        {% get_other_pages calling_page=self heading=page.other_pages_heading %}
+    </section>
+{% endblock %}

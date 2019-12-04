@@ -1,0 +1,51 @@
+{% extends 'layouts/default.html' %}
+{% load wagtailcore_tags generic_tags %}
+
+
+{% block body %}
+
+  {% if page.featured_publication %}
+    {% with page=page.featured_publication.specific hero_image=page.hero_image link_caption=page.hero_link_caption %}
+      {% if page|classname in global.publication_classnames %}
+        {% include 'includes/heroes/hero-home-pubs.html' %}
+      {% elif page|classname == global.news_classname %}
+        {% include 'includes/heroes/hero-home-news.html' %}
+      {% elif page|classname == global.blog_classname %}
+        {% include 'includes/heroes/hero-home-blog.html' %}
+      {% elif page|classname == global.event_classname %}
+        {% include 'includes/heroes/hero-home-event.html' %}
+      {% elif page|classname == global.project_classname %}
+        {% include 'includes/heroes/hero-home-project.html' %}
+      {% endif %}
+    {% endwith %}
+  {% else %}
+    {% include 'includes/heroes/hero.html' %}
+  {% endif %}
+
+
+  {% if page.featured_content %}
+    <section class="section">
+      <div class="row row--narrow">
+        <div class="l-2up">
+          {% for block in page.featured_content %}
+            {% include_block block %}
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+  {% endif %}
+
+  {% if featured_pages %}
+    {% with related_pages=featured_pages heading=page.featured_work_heading %}
+      {% if related_pages|length == 1 %}
+          {% include 'home/includes/featured_page.html' %}
+      {% else %}
+          {% include 'includes/partials/related_content.html' %}
+      {% endif %}
+    {% endwith %}
+  {% endif %}
+
+  {% for block in page.sections %}
+    {% include_block block %}
+  {% endfor %}
+{% endblock body %}

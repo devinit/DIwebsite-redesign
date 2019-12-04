@@ -1,0 +1,88 @@
+{% extends "layouts/default.html" %}
+{% load navigation_tags static wagtailcore_tags wagtailimages_tags card_tags team_tags static responsive %}
+
+{% block hero %}
+<section class="hero hero--profile">
+    <span class="hero__flourish"></span>
+    <span class="hero__flourish"></span>
+    <span class="hero__flourish"></span>
+    <span class="hero__flourish"></span>
+    <span class="hero__flourish"></span>
+    <span class="hero__flourish"></span>
+    <span class="hero__flourish"></span>
+    <span class="hero__flourish"></span>
+    <div class="row row--narrow">
+        <div class="hero__profile">
+            {% if self.image %}
+              {% image self.image fill-260x260-c100 as img %}
+              {% if img.url != '/media/not-found' %}
+                <img height="260px" width="260px" src="{{img.url}}" alt="{{self.name}} photograph">
+              {% else %}
+                <img height="260px" width="260px" src="{% static 'img/profile-fallback.jpg' %}"
+                  alt="Placeholder profile picture">
+              {% endif %}
+            {% else %}
+              <img height="260px" width="260px" src="{% static 'img/profile-fallback.jpg' %}"
+                  alt="Placeholder profile picture">
+            {% endif %}
+        </div>
+        <div class="hero__content">
+            <h1 class="hero__title"><span>{{self.name|default_if_none:""}}</span></h1>
+            <h2 class="hero__subtitle"><span>{{self.position|default_if_none:""}}</span></h2>
+            <ul class="hero__list">
+                {% if self.telephone %}
+                <li>
+                    <i role="presentation" aria-hidden="true" class="ico ico--16 ico-phone-blank"></i>
+                    <a href="tel:{{self.telephone}}">{{self.telephone}}</a>
+                </li>
+                {% endif %}
+                {% if self.email %}
+                <li>
+                    <i role="presentation" aria-hidden="true" class="ico ico--16 ico-mail-blank"></i>
+                    <a href="mailto:{{self.email}}">{{self.email}}</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</section>
+{% endblock hero %}
+
+{% block body %}
+
+<section class="section">
+    <div class="row row--narrow">
+        <div class="l-sidebar">
+            <aside class="l-sidebar__aside">
+                <div class="aside aside--clipping">
+                    {% secondary_menu parent=self.get_parent.get_parent calling_page=self %}
+                </div>
+            </aside>
+            <div class="l-sidebar__body">
+                <div class="is-typeset wysiwyg">
+                    {{self.my_story|richtext}}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% user_content self as content %}
+{% if content %}
+<section class="section">
+    <div class="row row--narrow">
+        <h2 class="section__heading">Content by {{self.name}}:</h2>
+        <div class="l-2up-3up">
+            {% for item in content %}
+            {% include 'includes/cards/card-member-content.html' %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<section class="section">
+    {% get_other_pages calling_page=self%}
+</section>
+
+{% endblock %}

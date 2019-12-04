@@ -1,0 +1,65 @@
+{# 1. Extend the relevant layout #}
+{# --------------------------------------- #}
+
+{% extends 'sidebar.html' %}
+
+
+{# --------------------------------------- #}
+{# 2. Assign Settings and variables #}
+{# --------------------------------------- #}
+
+{% set id = "news" %}
+{% set section = "What we do" %}
+{% set title = "Is using ODA for blending a good use of scarce concessional resources" %}
+{% set excerpt = "" %}
+{% set image_name = "10421405993_5959a64424_o-1600x780.jpg" %}
+{% set active_page = "News" %}
+
+{# --------------------------------------- #}
+{# 3. Add models and macros #}
+{# --------------------------------------- #}
+
+{% model 'cards', as="card" %}
+{% model 'navigation', as="navigation" %}
+{% import 'macros/secondary-navigation.html' as secondary_navigation %}
+{% import 'macros/button.html' as buttons %}
+{% import 'macros/icon.html' as icons %}
+
+
+{# --------------------------------------- #}
+{#
+   4. Add page content into relevant areas
+      Add/Delete blocks as necessary
+#}
+{# --------------------------------------- #}
+
+{% block hero %}
+    {% include 'heroes/hero-news.html' %}
+{% endblock %}
+
+{% block main %}
+    <section class="section section--post">
+        <div class="is-typeset is-typeset--additionals wysiwyg">
+            {% include 'content/longform.html' %}
+        </div>
+    </section>
+{% endblock %}
+
+{% block aside %}
+    <div class="aside aside--clipping">
+        {{ secondary_navigation.active(active_page, section, navigation.secondary_what_we_do) }}
+    </div>
+{% endblock %}
+
+{% block after_content %}
+    <section class="section">
+        <div class="row row--narrow">
+            <h2 class="section__heading">Related content</h2>
+            <div class="l-2up-3up">
+                {% for item in card.news_related %}
+                    {% include 'cards/card-related.html' %}
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,70 @@
+{% load string_utils %}
+
+
+{% if page.get_verbose_name != "Short Publication" %}
+  <li class="chapter-nav__item">
+    <a
+        href="{{ item.url }}"
+        class="chapter-nav-link"
+        tabindex="-1"
+        data-has-sections="{{ item.sections | length }}"
+        {% if chapter_number == item.chapter_number %}
+            data-current-chapter="{{ chapter_number }}"
+        {% endif %}
+    >
+      <span class="chapter-title">{{ item.label | title }}:</span>
+      <span class="chapter-nav__title">{{ item.title }}</span>
+    </a>
+    <button type="button" tabindex="-1" class="chapter-nav__child-toggle js-chapter-toggle">
+      {% include 'publications/icon.html' with file='ico-arrow-down-blank' size=18 %}
+    </button>
+    <ul class="chapter-nav__child">
+      <li class="chapter-nav__button">
+        <a
+          href="{{ item.url }}"
+          class="button button--a11y button--reverse js-chapter-link"
+          tabindex="-1"
+          title="Read whole {{ item.label_type }}"
+        >
+          <span>Read whole {{ item.label_type }}</span>
+        </a>
+        {% if item.sections %}
+          <ul class="chapter-nav__child__overflow">
+            {% for section in item.sections %}
+              <li>
+                <a
+                  href="{{ item.url }}#section-{% section_id section.value.section_id item.chapter_number %}"
+                  class="chapter-nav-link--child js-chapter-link"
+                  tabindex="-1"
+                >
+                  <span class="chapter-sub-title">
+                    {% prepend_with_char section.value.section_id item.chapter_number %}
+                  </span>
+                  <span class="chapter-nav__title--child">{{ section.value.heading }}</span>
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </li>
+    </ul>
+  </li>
+{% elif item.sections %}
+  <li class="chapter-nav__item">
+    <div class="chapter-nav-link">
+      <h3 class="type-m type-m--trailer heading">Publication sections</h3>
+    </div>
+  </li>
+  {% for section in item.sections %}
+    <li class="chapter-nav__item">
+      <a
+        href="{{ item.url }}#section-{% section_id section.value.section_id item.chapter_number %}"
+        class="chapter-nav-link js-chapter-link"
+        tabindex="-1"
+        data-has-sections="{{ item.sections | length }}"
+      >
+        <span class="chapter-nav__title">{{ section.value.heading }}</span>
+      </a>
+    </li>
+  {% endfor %}
+{% endif %}

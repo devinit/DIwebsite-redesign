@@ -1,0 +1,17 @@
+<div class="share__wrapper" data-js="{{ data_js }}" data-id="{{ data_id }}">
+    <ul class="share__media">
+        <li class="share__item">
+            <a class="js-social-share" data-event-label="Share {{ share_type }} with Facebook / {{ share_title }} / {{ short_url }}" data-event-category="Share" href="https://www.facebook.com/sharer/sharer.php?u={{ short_url | urlencode }}" target="_blank"><img src="{{ global.assets_root }}/svg/source/facebook.svg" alt="Share with Facebook"></a>
+        </li>
+        <li class="share__item">
+            <a class="js-social-share" data-event-label="Share {{ share_type }}  with Twitter / {{ share_title }} / {{ short_url }}" data-event-category="Share" href="https://twitter.com/intent/tweet/?text={{ share_title | urlencode }}&url={{ short_url | urlencode }}" target="_blank"><img src="{{ global.assets_root }}/svg/source/twitter.svg" alt="Share with Twitter"></a>
+        </li>
+        <li class="share__item">
+            <a class="js-social-share" data-event-label="Share {{ share_type }}  with LinkedIn / {{ share_title }} / {{ short_url }}" data-event-category="Share" href="https://www.linkedin.com/shareArticle?mini=true&url={{ short_url | urlencode }}&title={{ share_title | urlencode }}" target="_blank"><img src="{{ global.assets_root }}/svg/source/linkedin.svg" alt="Share with LinkedIn"></a>
+        </li>
+    </ul>
+    <div class="share__copy">
+        <input readonly class="js-copy-field" type="text" value="{{ short_url }}" title="Short URL for sharing">
+        <button class="button js-copy-trigger">Copy</button>
+    </div>
+</div>

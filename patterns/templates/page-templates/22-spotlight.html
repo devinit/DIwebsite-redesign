@@ -1,0 +1,477 @@
+{# 1. Extend the relevant layout #}
+{# --------------------------------------- #}
+
+{% extends 'default.html' %}
+
+
+{# --------------------------------------- #}
+{# 2. Assign Settings and variables #}
+{# --------------------------------------- #}
+
+{% set id = "general" %}
+{% set section = "Data" %}
+{% set title = "Spotlight" %}
+{% set excerpt = "" %}
+{% set image_name = "" %}
+{% set active_page = "" %}
+
+{# --------------------------------------- #}
+{# 3. Add models and macros #}
+{# --------------------------------------- #}
+
+{% model 'cards', as="card" %}
+{% model 'navigation', as="navigation" %}
+{% model 'timeline', as="timeline" %}
+
+{% import 'macros/icon.html' as icons %}
+{% import 'macros/secondary-navigation.html' as secondary_navigation %}
+
+{# --------------------------------------- #}
+{#
+   4. Add page content into relevant areas
+      Add/Delete blocks as necessary
+#}
+{# --------------------------------------- #}
+
+{% block body %}
+    {% include 'heroes/hero.html' %}
+
+    <section class="section">
+        <div class="row row--narrow">
+            <div class="spotlight-banner">
+                <div class="spotlight-banner__aside">
+                    <label for="indicator" class="form-label">Indicator</label>
+                    <div class="form-field__select-dropdown">
+                		<select name="indicator-choice" id="indicator-choice">
+                			<option value="poverty-headcount" id="poverty-headcount">Poverty headcount</option>
+                		</select>
+                	</div>
+                </div>
+                <div class="spotlight-banner__main">
+                    <div class="m-timeline">
+                        <label for="year" class="form-label">Year</label>
+                        <input type="range" id="year" name="year" value="1" min="1" max="18" steps="18">
+                    </div>
+                    <ul class="m-timeline-labels">
+                        <li class="m-timeline-labels__active selected">2002</li>
+                        <li>2003</li>
+                        <li>2004</li>
+                        <li>2005</li>
+                        <li>2006</li>
+                        <li>2007</li>
+                        <li>2008</li>
+                        <li>2009</li>
+                        <li>2010</li>
+                        <li>2011</li>
+                        <li>2012</li>
+                        <li>2013</li>
+                        <li>2014</li>
+                        <li>2015</li>
+                        <li>2016</li>
+                        <li>2017</li>
+                        <li>2018</li>
+                        <li>2019</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="spotlight">
+                <div class="spotlight__aside spotlight__aside--padded">
+                    <h2 class="spotlight__heading">Uganda <button type="button" class="button button--minor">{{ icons.icon('ico-arrow-down-blank', '20') }}</button></h2>
+                    <ul class="breadcrumbs">
+                        <li class="breadcrumbs__item"><a href="#">Item</a></li>
+                        <li class="breadcrumbs__item"><a href="#">Item</a></li>
+                        <li class="breadcrumbs__item"><a href="#">Item</a></li>
+                    </ul>
+                    <div class="spotlight__content">
+                        <h3 class="spotlight__subheading">Poverty headcount</h3>
+                        <p class="spotlight__excerpt">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                        <a href="#" class="button">Compare this location to others</a>
+                        <a href="#" class="button">Share this visualisation</a>
+                    </div>
+                </div>
+                <div class="spotlight__main">
+                    <div class="spotlight__interactive" id="map"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <h2 class="section__heading">Overview for [Location]</h2>
+            <div class="tabs">
+                <section class="tabs__container" id="resources">
+                    <input class="tabs__input" type="radio" name="sections" id="resources-option" checked>
+                    <label class="tabs__label" for="resources-option">Resources</label>
+                    <article class="tabs__content">
+                        <div class="tabs__content__header">
+                            <label for="currency" class="form-label">Currency</label>
+                            <div class="form-field__select-dropdown">
+                        		<select name="currency-choice" id="currency-choice">
+                        			<option value="usd" id="usd">Constant 2015 USD</option>
+                        		</select>
+                        	</div>
+                        </div>
+                        <div class="l-3up">
+                            <div class="l-3up_col">
+                                <div class="spotlight__stat">
+                                    <h3 class="spotlight__stat-heading">What percentage of people in Buvuma live below the national poverty line? <span class="spotlight__stat-icon">{{ icons.icon('ico-info-slate', '12') }}</span></h3>
+                                    <p class="spotlight__stat-data">97.1%</p>
+                                </div>
+                            </div>
+                            <div class="l-3up_col">
+                                <div class="spotlight__stat">
+                                    <h3 class="spotlight__stat-heading">What resources are available to local governments in Buvuma? <span class="spotlight__stat-icon">{{ icons.icon('ico-info-slate', '12') }}</span></h3>
+                                    <p class="spotlight__stat-data">US$ 1.7m</p>
+                                    <div class="spotlight__interactive">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="l-3up_col">
+                                <div class="spotlight__stat">
+                                    <h3 class="spotlight__stat-heading">How much does the local government spend per person? <span class="spotlight__stat-icon">{{ icons.icon('ico-info-slate', '12') }}</span></h3>
+                                    <p class="spotlight__stat-data">US$ 13.6</p>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </section>
+                <section class="tabs__container" id="poverty">
+                    <input class="tabs__input" type="radio" name="sections" id="poverty-option">
+                    <label class="tabs__label" for="poverty-option">Poverty</label>
+                    <article class="tabs__content">
+                        <div class="tabs__content__header">
+                            <label for="currency" class="form-label">Currency</label>
+                            <div class="form-field__select-dropdown">
+                        		<select name="currency-choice" id="currency-choice">
+                        			<option value="usd" id="usd">Constant 2015 USD</option>
+                        		</select>
+                        	</div>
+                        </div>
+                        <div class="l-3up">
+                            <div class="l-3up_col">
+                                <div class="spotlight__stat">
+                                    <h3 class="spotlight__stat-heading">What percentage of people in Buvuma live below the national poverty line? <span class="spotlight__stat-icon">{{ icons.icon('ico-info-slate', '12') }}</span></h3>
+                                    <p class="spotlight__stat-data">97.1%</p>
+                                </div>
+                            </div>
+                            <div class="l-3up_col">
+                                <div class="spotlight__stat">
+                                    <h3 class="spotlight__stat-heading">What resources are available to local governments in Buvuma? <span class="spotlight__stat-icon">{{ icons.icon('ico-info-slate', '12') }}</span></h3>
+                                    <p class="spotlight__stat-data">US$ 1.7m</p>
+                                    <div class="spotlight__interactive">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="l-3up_col">
+                                <div class="spotlight__stat">
+                                    <h3 class="spotlight__stat-heading">How much does the local government spend per person? <span class="spotlight__stat-icon">{{ icons.icon('ico-info-slate', '12') }}</span></h3>
+                                    <p class="spotlight__stat-data">US$ 13.6</p>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </section>
+                <section class="tabs__container" id="population">
+                    <input class="tabs__input" type="radio" name="sections" id="population-option">
+                    <label class="tabs__label" for="population-option">Population</label>
+                    <article class="tabs__content">
+                        <div class="tabs__content__header">
+                            <label for="currency" class="form-label">Currency</label>
+                            <div class="form-field__select-dropdown">
+                        		<select name="currency-choice" id="currency-choice">
+                        			<option value="usd" id="usd">Constant 2015 USD</option>
+                        		</select>
+                        	</div>
+                        </div>
+                        <div class="l-3up">
+                            <div class="l-3up_col">
+                                <div class="spotlight__stat">
+                                    <h3 class="spotlight__stat-heading">What percentage of people in Buvuma live below the national poverty line? <span class="spotlight__stat-icon">{{ icons.icon('ico-info-slate', '12') }}</span></h3>
+                                    <p class="spotlight__stat-data">97.1%</p>
+                                </div>
+                            </div>
+                            <div class="l-3up_col">
+                                <div class="spotlight__stat">
+                                    <h3 class="spotlight__stat-heading">What resources are available to local governments in Buvuma? <span class="spotlight__stat-icon">{{ icons.icon('ico-info-slate', '12') }}</span></h3>
+                                    <p class="spotlight__stat-data">US$ 1.7m</p>
+                                    <div class="spotlight__interactive">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="l-3up_col">
+                                <div class="spotlight__stat">
+                                    <h3 class="spotlight__stat-heading">How much does the local government spend per person? <span class="spotlight__stat-icon">{{ icons.icon('ico-info-slate', '12') }}</span></h3>
+                                    <p class="spotlight__stat-data">US$ 13.6</p>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </section>
+                <section class="tabs__container" id="education">
+                    <input class="tabs__input" type="radio" name="sections" id="education-option">
+                    <label class="tabs__label" for="education-option">Education</label>
+                    <article class="tabs__content">
+                        <div class="tabs__content__header">
+                            <label for="currency" class="form-label">Currency</label>
+                            <div class="form-field__select-dropdown">
+                        		<select name="currency-choice" id="currency-choice">
+                        			<option value="usd" id="usd">Constant 2015 USD</option>
+                        		</select>
+                        	</div>
+                        </div>
+                        <div class="l-3up">
+                            <div class="l-3up_col">
+                                <div class="spotlight__stat">
+                                    <h3 class="spotlight__stat-heading">What percentage of people in Buvuma live below the national poverty line? <span class="spotlight__stat-icon">{{ icons.icon('ico-info-slate', '12') }}</span></h3>
+                                    <p class="spotlight__stat-data">97.1%</p>
+                                </div>
+                            </div>
+                            <div class="l-3up_col">
+                                <div class="spotlight__stat">
+                                    <h3 class="spotlight__stat-heading">What resources are available to local governments in Buvuma? <span class="spotlight__stat-icon">{{ icons.icon('ico-info-slate', '12') }}</span></h3>
+                                    <p class="spotlight__stat-data">US$ 1.7m</p>
+                                    <div class="spotlight__interactive">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="l-3up_col">
+                                <div class="spotlight__stat">
+                                    <h3 class="spotlight__stat-heading">How much does the local government spend per person? <span class="spotlight__stat-icon">{{ icons.icon('ico-info-slate', '12') }}</span></h3>
+                                    <p class="spotlight__stat-data">US$ 13.6</p>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </section>
+                <section class="tabs__container" id="health">
+                    <input class="tabs__input" type="radio" name="sections" id="health-option">
+                    <label class="tabs__label" for="health-option">Health</label>
+                    <article class="tabs__content">
+                        <div class="tabs__content__header">
+                            <label for="currency" class="form-label">Currency</label>
+                            <div class="form-field__select-dropdown">
+                        		<select name="currency-choice" id="currency-choice">
+                        			<option value="usd" id="usd">Constant 2015 USD</option>
+                        		</select>
+                        	</div>
+                        </div>
+                        <div class="l-3up">
+                            <div class="l-3up_col">
+                                <div class="spotlight__stat">
+                                    <h3 class="spotlight__stat-heading">What percentage of people in Buvuma live below the national poverty line? <span class="spotlight__stat-icon">{{ icons.icon('ico-info-slate', '12') }}</span></h3>
+                                    <p class="spotlight__stat-data">97.1%</p>
+                                </div>
+                            </div>
+                            <div class="l-3up_col">
+                                <div class="spotlight__stat">
+                                    <h3 class="spotlight__stat-heading">What resources are available to local governments in Buvuma? <span class="spotlight__stat-icon">{{ icons.icon('ico-info-slate', '12') }}</span></h3>
+                                    <p class="spotlight__stat-data">US$ 1.7m</p>
+                                    <div class="spotlight__interactive">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="l-3up_col">
+                                <div class="spotlight__stat">
+                                    <h3 class="spotlight__stat-heading">How much does the local government spend per person? <span class="spotlight__stat-icon">{{ icons.icon('ico-info-slate', '12') }}</span></h3>
+                                    <p class="spotlight__stat-data">US$ 13.6</p>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </section>
+                <section class="tabs__container" id="agriculture">
+                    <input class="tabs__input" type="radio" name="sections" id="agriculture-option">
+                    <label class="tabs__label" for="agriculture-option">Agriculture</label>
+                    <article class="tabs__content">
+                        <div class="tabs__content__header">
+                            <label for="currency" class="form-label">Currency</label>
+                            <div class="form-field__select-dropdown">
+                        		<select name="currency-choice" id="currency-choice">
+                        			<option value="usd" id="usd">Constant 2015 USD</option>
+                        		</select>
+                        	</div>
+                        </div>
+                        <div class="l-3up">
+                            <div class="l-3up_col">
+                                <div class="spotlight__stat">
+                                    <h3 class="spotlight__stat-heading">What percentage of people in Buvuma live below the national poverty line? <span class="spotlight__stat-icon">{{ icons.icon('ico-info-slate', '12') }}</span></h3>
+                                    <p class="spotlight__stat-data">97.1%</p>
+                                </div>
+                            </div>
+                            <div class="l-3up_col">
+                                <div class="spotlight__stat">
+                                    <h3 class="spotlight__stat-heading">What resources are available to local governments in Buvuma? <span class="spotlight__stat-icon">{{ icons.icon('ico-info-slate', '12') }}</span></h3>
+                                    <p class="spotlight__stat-data">US$ 1.7m</p>
+                                    <div class="spotlight__interactive">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="l-3up_col">
+                                <div class="spotlight__stat">
+                                    <h3 class="spotlight__stat-heading">How much does the local government spend per person? <span class="spotlight__stat-icon">{{ icons.icon('ico-info-slate', '12') }}</span></h3>
+                                    <p class="spotlight__stat-data">US$ 13.6</p>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </section>
+                <section class="tabs__container" id="climate">
+                    <input class="tabs__input" type="radio" name="sections" id="climate-option">
+                    <label class="tabs__label" for="climate-option">Climate change</label>
+                    <article class="tabs__content">
+                        <div class="tabs__content__header">
+                            <label for="currency" class="form-label">Currency</label>
+                            <div class="form-field__select-dropdown">
+                        		<select name="currency-choice" id="currency-choice">
+                        			<option value="usd" id="usd">Constant 2015 USD</option>
+                        		</select>
+                        	</div>
+                        </div>
+                        <div class="l-3up">
+                            <div class="l-3up_col">
+                                <div class="spotlight__stat">
+                                    <h3 class="spotlight__stat-heading">What percentage of people in Buvuma live below the national poverty line? <span class="spotlight__stat-icon">{{ icons.icon('ico-info-slate', '12') }}</span></h3>
+                                    <p class="spotlight__stat-data">97.1%</p>
+                                </div>
+                            </div>
+                            <div class="l-3up_col">
+                                <div class="spotlight__stat">
+                                    <h3 class="spotlight__stat-heading">What resources are available to local governments in Buvuma? <span class="spotlight__stat-icon">{{ icons.icon('ico-info-slate', '12') }}</span></h3>
+                                    <p class="spotlight__stat-data">US$ 1.7m</p>
+                                    <div class="spotlight__interactive">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="l-3up_col">
+                                <div class="spotlight__stat">
+                                    <h3 class="spotlight__stat-heading">How much does the local government spend per person? <span class="spotlight__stat-icon">{{ icons.icon('ico-info-slate', '12') }}</span></h3>
+                                    <p class="spotlight__stat-data">US$ 13.6</p>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </section>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <h2 class="section__heading">Indicator comparison</h2>
+            <div class="spotlight-banner">
+                <div class="spotlight__comparison">
+                    <span class="spotlight__comparison-legend"></span>
+                    <div class="form-field form-field--inline-three">
+                        <label for="indicator" class="form-label">Indicator</label>
+                        <div class="form-field__select-dropdown">
+                            <select name="indicator-choice" id="indicator-choice">
+                                <option value="poverty-headcount" id="poverty-headcount">Poverty headcount</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-field form-field--inline-three">
+                        <label for="indicator" class="form-label">Year</label>
+                        <div class="form-field__select-dropdown">
+                            <select name="indicator-choice" id="indicator-choice">
+                                <option value="poverty-year" id="poverty-year">2018</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="spotlight__comparison">
+                    <span class="spotlight__comparison-legend spotlight__comparison-legend--alt"></span>
+                    <div class="form-field form-field--inline-three">
+                        <label for="indicator" class="form-label">Indicator</label>
+                        <div class="form-field__select-dropdown">
+                            <select name="indicator-choice" id="indicator-choice">
+                                <option value="poverty-headcount" id="poverty-headcount">Poverty headcount</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-field form-field--inline-three">
+                        <label for="indicator" class="form-label">Year</label>
+                        <div class="form-field__select-dropdown">
+                            <select name="indicator-choice" id="indicator-choice">
+                                <option value="poverty-year" id="poverty-year">2018</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="button button--compare">Compare</button>
+            </div>
+
+            <div class="spotlight spotlight--leader">
+                <div class="spotlight__aside">
+                    <h2 class="spotlight__heading">Current area</h2>
+                    <div class="spotlight__interactive" id="chart"></div>
+                </div>
+                <div class="spotlight__main">
+                    <h2 class="spotlight__heading">Constituencies (parts of current area)</h2>
+                    <div class="spotlight__interactive" id="chart"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <h2 class="section__heading">Revenue</h2>
+            <div class="spotlight-banner">
+                <div class="spotlight-banner__aside">
+                    <label for="indicator" class="form-label">Indicator</label>
+                    <div class="form-field__select-dropdown">
+                		<select name="indicator-choice" id="indicator-choice">
+                			<option value="poverty-headcount" id="poverty-headcount">Poverty headcount</option>
+                		</select>
+                	</div>
+                </div>
+                <div class="spotlight-banner__main">
+                    <div class="m-timeline">
+                        <label for="year" class="form-label">Year</label>
+                        <input type="range" id="year" name="year" value="1" min="1" max="18" steps="18">
+                    </div>
+                    <ul class="m-timeline-labels">
+                        <li class="m-timeline-labels__active selected">2002</li>
+                        <li>2003</li>
+                        <li>2004</li>
+                        <li>2005</li>
+                        <li>2006</li>
+                        <li>2007</li>
+                        <li>2008</li>
+                        <li>2009</li>
+                        <li>2010</li>
+                        <li>2011</li>
+                        <li>2012</li>
+                        <li>2013</li>
+                        <li>2014</li>
+                        <li>2015</li>
+                        <li>2016</li>
+                        <li>2017</li>
+                        <li>2018</li>
+                        <li>2019</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="spotlight">
+                <div class="spotlight__aside">
+                    <div class="spotlight__interactive" id="chart"></div>
+                </div>
+                <div class="spotlight__main">
+                    <div class="spotlight__interactive" id="chart"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

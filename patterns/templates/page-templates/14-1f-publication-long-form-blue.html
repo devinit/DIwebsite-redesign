@@ -1,0 +1,346 @@
+{# 1. Extend the relevant layout #}
+{# --------------------------------------- #}
+
+{% extends 'publication.html' %}
+
+
+{# --------------------------------------- #}
+{# 2. Assign Settings and variables #}
+{# --------------------------------------- #}
+
+{% set colour = "bluebell" %}
+{% set id = "publication" %}
+{% set section = "Publications" %}
+{% set title = "Title of chapter" %}
+{% set excerpt = "" %}
+{% set image_name = "14424153032_17636d4ef7_o-1600x780.jpg" %}
+
+{# --------------------------------------- #}
+{# 3. Add models and macros #}
+{# --------------------------------------- #}
+
+{% model 'cards', as="card" %}
+
+{% import 'macros/button.html' as buttons %}
+{% import 'macros/icon.html' as icons %}
+
+
+{# --------------------------------------- #}
+{#
+   4. Add page content into relevant areas
+      Add/Delete blocks as necessary
+#}
+{# --------------------------------------- #}
+
+{% block body %}
+    {% include 'heroes/hero-publication.html' %}
+
+    <div class="js-chapter-nav">
+        <div class="page__action">
+            <div class="page__action__pagination">
+                <a href="" class="page__action__previous">
+                    {{ icons.icon('ico-arrow-left-blank', '16') }}
+                </a>
+                <span class="page-action__section">Chapter 2 of 7</span>
+                <a href="" class="page__action__next">
+                    {{ icons.icon('ico-arrow-right-blank', '16') }}
+                </a>
+            </div>
+            <div class="page__action__menu">
+                <p class="page__action_text">
+                    <a href="" class="page__action__no-js-link">Contents</a>
+                    <span class="page__action__js-text">Contents</span>
+                </p>
+                <div class="page__action__burgerWrapper">
+                    <div class="burger burger--reverse"><span></span></div>
+                </div>
+            </div>
+        </div>
+        {% include 'navigation/chapter-nav-two.html' %}
+    </div>
+
+    <section class="section section--post">
+        <div class="row row--narrow">
+            <div class="max-meter max-meter--center">
+                <div class="is-typeset is-typeset--additionals wysiwyg">
+                    {% include 'content/longform.html' %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <div class="section-chapter">
+                <div class="max-meter max-meter--center">
+                    <!-- <span class="section-chapter__number">2-1.1</span> -->
+                    <a href="#" id="2-1.1" class="section-chapter__link">{{ icons.icon('ico-link-bluebell', '16') }}Share section</a>
+                    <h2 class="section-chapter__heading">Global data for most of the global nutrition targets</h2>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <div class="max-meter max-meter--center is-typeset wysiwyg">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            {% include 'content/infographic_ver4.html' %}
+        </div>
+    </section>
+
+    <!-- case study -->
+    <section class="section">
+        <div class="row row--narrow">
+            <div class="pullout">
+                <div class="max-meter max-meter--center">
+                    <div class="pullout__heading-wrapper">
+                        <h3 class="pullout__heading heading type-xxl">Case Study</h3>
+                    </div>
+                </div>
+                <div class="max-meter max-meter--center">
+                    <div class="pullout__content pullout__content--first is-typeset">
+                        <h1>SPOTLIGHT 2.1</h1>
+                    </div>
+                </div>
+                <div class="max-meter max-meter--center">
+                    <div class="pullout__content is-typeset">
+                        <div class="rich-text">
+                            <h3>New nutrition policies for China</h3>
+                            <p>Kevin Chen and Zimeiyi Wang</p>
+                            <p>China’s agricultural and economic success has enabled it to supply enough nutritious food for its large population as well as significantly reduce rates of stunting and wasting. However, China still has high levels of undernutrition, with poor regions and vulnerable groups such as children, women, older people and migrants disproportionally affected. The shortage of essential micronutrients also affects millions of Chinese people, and while undernutrition remains a problem, overweight and obesity resulting from excessive saturated fats, calories and/or sugar are increasing at alarming rates. Amid urbanisation, an ageing population and industrialisation, diet-related NCDs such as diabetes are on the rise.</p><p></p><p>In this context the government of China has developed two plans with the potential to transform malnutrition in China. Healthy China 2030 (2016) is the first national medium to long-term strategic plan in the health sector – more than 20 government departments were involved in its development using an explicit ‘health-in-all-policies’ approach. With the direct involvement of the President of China, the plan underlines the significant political will to enhance the health status of Chinese citizens. One of the five core strategies of the plan is prevention through healthier living, using premature death from NCDs as one of its indicators of progress.</p><p></p><p>A year later the government released a new National Nutrition Plan (2017–2030), with a range of malnutrition targets including stunting, obesity, anaemia, breastfeeding and folic acid deficiency among vulnerable people. Emphasis has been placed on nationwide actions and programmes targeting vulnerable populations with disproportionate burdens. The plan reinforces existing nutrition programs benefitting infants, children, primary and middle school students, and pregnant women. It also proposes new interventions for people who are older, ill or living in poor areas. Given the historically unbalanced focus on rural populations, especially infants and children, another goal is to reduce the difference in height between urban and rural students.</p>
+                        </div>
+                    </div>
+                </div>
+                {% include 'content/infographic_ver4.html' %}
+                <div class="max-meter max-meter--center">
+                    <div class="pullout__content is-typeset">
+                        <div class="rich-text">
+                            <h3>GAIN - Understanding Why adolescents may care about better diets</h3>
+                            <p><i>Sarah Parkinson, Ashish Kumar Deo, Siddharth Kanoria and Justin Stokes.</i></p>
+                            <p>Much nutritional programming tends to assume that the recipients have already concluded, on both a rational and emotional level, that it is important to improve their diets, and then focuses on imparting knowledge and information about how to do so. However, an understanding of behavioural economics and limited programming success suggests that there is still much work to be done in persuading people of the benefits of nutritious diets. This is particularly important for adolescents for whom health & nutrition are rarely a primary factor in decision-making. GAIN recently partnered with Quantum Consumer Solutions on an ‘Adolescent Motivations Study’ in Bangladesh. This approach represents a new & innovative starting point; the study used ethnographic and qualitative methods to explore unstated, irrational
+                                <a name="note-212-1-return"></a>
+                                    <a href="#note-212-1" title="Footnote">
+                                        <sup>[1]</sup></a> and compelling life-insights and unearthed deeper life motivations. If we now connect nutritional messages with these larger motivations, we have the opportunity to link improved quality of diets to fulfilment of adolescents’ desires and future goals.
+                            </p>
+                            <h2>WFP – Fill the Nutrient Gap</h2>
+                            <p><i>Lynnda Keiss, Saskia DePee, Indira Bose, Fathia Terki</i></p>
+                            <p>WFPs innovative ‘Fill the Nutrient Gap’ analysis has been conducted in various low-middle income countries. It uses prices of local foods and applies the ‘Cost of the Diet’ software developed by Save the Children. The analysis uncovered some surprising results: that a sufficiently nutritious diet for an adolescent girl is often the most expensive in the household; more expensive than that of an adolescent boy or adult man and similar to, or higher than that of a lactating woman. This is due to the higher nutrient requirements of an adolescent girl during this period of rapid growth and development, particularly for micronutrients. Foods with micronutrient density (i.e. high amount of vitamins or minerals/100 kcal) are typically more expensive, such as animal source foods, vegetables, nuts, fruits, pulses.</p>
+                            <p>In many countries/cultures, it is highly unlikely that she will meet her micronutrient requirements when households already have difficulty to afford a nutritious diet for the family, resulting in a higher risk of micronutrient deficiencies. Data from Laos shows that if the adolescent girl is pregnant or lactating, the cost of her diet is considerably more expensive than for an adult pregnant or lactating woman. These results are particularly compelling in Laos where 40% of women are either mothers or pregnant with their first child by the age of 19. Resulting deficiencies will mean there is a higher risk of a poor birth outcome, thus perpetuating the intergenerational cycle of malnutrition.</p>
+                            <h2>The TALENT study</h2>
+                            <p><i>Caroline Fall</i></p>
+                            <p>TALENT (“Transforming Adolescent Lives through Nutrition”) is a consortium of researchers in the UK, India, Ethiopia, Ivory Coast, Kenya, The Gambia and South Africa, dedicated to understanding what adolescents are eating, what influences their diet, and what would work to make their diets healthier. The group is currently funded by the UK Medical Research Council for a year of formative work: it is using this to train teams in nine Indian and African centres in qualitative research and to collect qualitative data from young (10-12 y) and older (15-17 y) adolescents, using harmonised methods across all centres. The aim is to understand what drives adolescents’ food choices and behaviours, and how these drivers change through adolescence. TALENT will use this new understanding to develop and evaluate context-specific and age-specific interventions to improve adolescent nutrition, co-created with adolescents themselves, their communities, and policy-makers. The TALENT study is novel in its focus on nutrition, and in its degree of engagement with adolescents of all ages and in varied settings to improve their health, both now and in the future.</p>
+                            <h2>Inclusion of Adolescents in policy - Bangladesh</h2>
+                            <p><i>Sabiha Sultana and Rudaba Khondker</i>
+                            <p>The policy environment in Bangladesh is inclusive and supportive of adolescents’ health and nutrition. Developments since 2010 include:</p>
+                            <ul>
+                                <li>The education policy of 2010, the child labour elimination policy of 2010 and the nutrition policy of 2015 all contribute to address adolescent health and nutrition issues.</li>
+                                <li>National Health Policy (2011) included adolescent health through its focus on addressing good quality health care for all citizens of Bangladesh;</li>
+                                <li>The Bangladesh Population Policy (2012) has the objective of raising awareness among adolescents on family planning, reproductive health, reproductive tract infections, HIV/AIDS;</li>
+                                <li>Bangladesh National Children’s Policy (2013) focuses on adolescent development especially the development of adolescent girls.</li>
+                            </ul>
+                            <p>In 2017, the Ministry of Health and Family Welfare endorsed the National Strategy for Adolescent Health 2017-2030, aligning all the existing guiding principles of national policies as well as the global adolescent strategy.  The strategy is unique because involved adolescents themselves in the design and it considered the broad and holistic understanding of the concept of health to address the overall health and nutritional needs of adolescents. This strategy has gone further than the previous version (2006) in that it has included Violence against Adolescents, Adolescent Nutrition and Mental Health of Adolescents, and the cross cutting issues are Social and Behaviour Change Communication, Vulnerable Adolescents, and Adolescents in Challenging Circumstances.</p>
+                            <h2>Young lives – Peru</h2>
+                            <p><i>Mary Penny</i></p>
+                            <p>Linear growth in the first 1000 days of life is slowed by adverse socioeconomic environmental and nutritional inadequacy and leads to stunting, which has long thought to be irreversible.  Young Lives is an international study of childhood poverty following the lives of 12,000 children in Ethiopia, India (in the states of Andhra Pradesh and Telangana), Peru and Vietnam over 15 years. This multinational cohort study is contributing to emerging evidence that, under favourable conditions (including targeted programmes such as conditional cash transfers), catch-up growth is possible during childhood/adolescence and is associated with improved cognitive function. Adolescence can therefore provide an important opportunity for growth recovery.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="max-meter max-meter--center">
+                    <div class="pullout__content pullout__content--media is-typeset">
+                        {% include 'partials/media-image.html' %}
+                    </div>
+                </div>
+                <div class="max-meter max-meter--center">
+                    <div class="pullout__content is-typeset">
+                        <div class="rich-text">
+                            <p>While these results are exciting, this study has also revealed an alarming increase in childhood overweight and obesity; especially in Peru and to a lesser extent in India. While accelerated weight gain in infancy is predictive of later obesity, hypercaloric diets and lack of physical activity in childhood are also important determinants of overweight and obesity that persist into adulthood, and in women, is associated with earlier age of menarche and markedly increased obesity in young adult women.</p>
+                            <h2>The Co-CREATE study</h2>
+                            <p><i>Knut-Inge Klepp</i></p>
+                            <p>Co-CREATE is a recently launched study, to be implemented by a consortium of partner organisations including university research departments, national public health institutions and civil society organisations concerned with health policies and youth well-being. The project will run until 2023 and aims to prevent overweight and obesity in adoelscents in Europe through policy actions to promote a healthier food and physical activity environment. This will be achieved through providing knowledge and infrastructure on policies, to support making the healthiest choices the preferred ones.</p>
+                            <p>The key innovative aspects of the project is the inclusion and involvement of youth in all aspects of the project, including a youth organization (PRESS) as a formal partner of the consortium; the focus on policy and a system approach to policy analysis (rather than focus on a single policy or intervention measure characterizing much of the research in this field); and a strong focus on social inequality, as the potential differential impact policy measures and interventions have/might have on different social groups are investigated.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <div class="max-meter max-meter--center">
+                <div class="table-styled">
+                    {% include 'content/table.html' %}
+                </div>
+                <figcaption class="media-caption">
+                    <p>Figure 4.4: Framework for implementing infant and young child feeding programs at scale</p>
+                    <ul>
+                        <li><a href="https://www.aliveandthrive.org/wp-content/uploads/2017/10/1017-EthiopiaCountryBrief.pdf">Source: Alive and Thrive</a></li>
+                    </ul>
+                </figcaption>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <div class="max-meter max-meter--center">
+                <div class="is-typeset wysiwyg">
+                    <div class="media-figure">
+                    	<img src="{{ global.assets_root }}/img/9918645274_95e022b2ce_o-800x500.jpg" alt="Inline image">
+                    	<figcaption class="media-figure__caption">Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.</figcaption>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <div class="max-meter max-meter--center">
+                <div class="m-downloads">
+                    <h3 class="m-downloads__heading">Downloads</h3>
+                    <ul class="m-downloads__list">
+                        <li><a href="#">Title of dataset download <span class="downloadSize">XLS, 897kb</span></a></li>
+                        <li><a href="#">Dataset download<span class="downloadSize">CSV, 465kb</span></a></li>
+                        <li><a href="#">Title of dataset download<span class="downloadSize">XLS, 897kb</span></a></li>
+                        <li><a href="#">Iodine deficiency, UNICEF</a> {{ icons.icon('ico-external-sunset', '12') }}</li>
+                        <li><a href="#">Dataset download<span class="downloadSize">CSV, 465kb</span></a></li>
+                        <li><a href="#">Title of dataset download<span class="downloadSize">XLS, 897kb</span></a></li>
+                        <li><a href="#">Dataset download<span class="downloadSize">CSV, 465kb</span></a></li>
+                        <li><a href="#">Health, Nutrition and Population Dashboard, The World Bank</a> {{ icons.icon('ico-external-sunset', '12') }}</li>
+                        <li><a href="#">Title of dataset download<span class="downloadSize">XLS, 897kb</span></a></li>
+                        <li><a href="#">Dataset download<span class="downloadSize">CSV, 465kb</span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <div class="share space-section-bottom-med">
+                <div class="share__content">
+                    <h2 class="type-m type-s--trailer">Share chapter two</h2>
+                    <div class="share__wrapper">
+                        <ul class="share__media">
+                            <li class="share__item">
+                                <img src="{{ global.assets_root }}/svg/source/facebook.svg" alt="facebook">
+                            </li>
+                            <li class="share__item">
+                                <img src="{{ global.assets_root }}/svg/source/twitter.svg" alt="twitter">
+                            </li>
+                            <li class="share__item">
+                                <img src="{{ global.assets_root }}/svg/source/linkedin.svg" alt="linkedin">
+                            </li>
+                        </ul>
+                        <div class="share__copy">
+                            <input readonly class="js-copy-field" type="text" value="http://development-initiatives.org/[Short URL]" title="Short URL for sharing">
+                            <button class="button js-copy-trigger">Copy</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="space-section-both" id="downloads">
+                <div class="download">
+                    <h2 class="type-m type-s--trailer">Publication downloads</h2>
+                    <ul class="download__list">
+                        <li class="download__item">
+                            <span class="download__label">English</span>
+                            <a href="" class="download__link">Chapter 2: The global impact of malnutrition (PDF, 1.2Mb)</a>
+                            <a href="" class="download__link">Global Nutrition Report 2018 (PDF, 4.2Mb)</a>
+                        </li>
+                        <li class="download__item">
+                            <span class="download__label">Spanish</span>
+                            <a href="" class="download__link">Chapter 2: The global impact of malnutrition (PDF, 1.2Mb)</a>
+                            <a href="" class="download__link">Global Nutrition Report 2018 (PDF, 4.2Mb)</a>
+                        </li>
+                    </ul>
+                    <h2 class="type-m type-s--trailer space-section-top--small">Data downloads</h2>
+                    <ul class="download__list">
+                        <li class="download__item">
+                            <span class="download__label">Data</span>
+                            <a href="" class="download__link">Chapter 2 data (XLSX, 1.2Mb)</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="orderReport">
+                    <div class="orderReport__img" style="background-image: url({{ global.assets_root }}/img/14279715726_ef9da4106c_o-800x500.jpg);"></div>
+                    <div class="orderReport__content">
+                        <h2 class="type-m type-s--trailer">Download this report</h2>
+                        <p class="para type-l--trailer">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+                        <a href="#" id="" class="button button--a11y" title="Download now"><span>Download now</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section--alt">
+        <div class="row row--narrow">
+            <div class="footnotes">
+                <h2 class="heading type-l type-l--trailer">Footnotes</h2>
+                <ol class="footnotes__list">
+                    <li class="footnotes__item">
+                        <span class="heading type-m type-m--trailer footnotes__sub">1</span>
+                        <a id="note-20-1"></a>
+                        <p class="footnotes__text">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae.</p>
+                        {% set share_type='footnote' %}
+                        {% set share_title='Sample footnote' %}
+                        {% set short_url='https://globalnutritionreport.org/50bff8#note-20-1' %}
+                        {% set data_js='share-section' %}
+                        {% set data_id='note-20-1' %}
+                        {% include 'partials/share-block.html' %}
+                        <a class="footnotes__return" href="#note-20-1" data-id="note-20-1" data-js="share-section-trigger">Share footnote</a>
+                    </li>
+                </ol>
+                <ul class="footnotes__list">
+                    <li class="footnotes__item">
+                        <span class="heading type-m type-m--trailer footnotes__sub">2</span>
+                        <a id="note-21-1"></a>
+                        <p class="footnotes__text">Sed ut perspiciatis unde omnis iste natus error sit volused ut perspiciatis unde omnis iste natus error sit voluptatem accusantium <a class="footnotes__link" href="#">http://iresearch.worldbank.org/PovcalNet/povOnDemand.aspx</a> doloremque laudantptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae.</p>
+                        {% set share_type='footnote' %}
+                        {% set share_title='Sample footnote' %}
+                        {% set short_url='https://globalnutritionreport.org/50bff8#note-21-1' %}
+                        {% set data_js='share-section' %}
+                        {% set data_id='note-21-1' %}
+                        {% include 'partials/share-block.html' %}
+                        <a class="footnotes__return" href="#note-21-1" data-id="note-21-1" data-js="share-section-trigger">Share footnote</a>
+                    </li>
+                </ul>
+                <ul class="footnotes__list">
+                    <li class="footnotes__item">
+                        <span class="heading type-m type-m--trailer footnotes__sub">3</span>
+                        <a id="note-212-1"></a>
+                        <p class="footnotes__text">Sed ut perspiciatis unde omnis iste natus error sit volused ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudanttus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae.</p>
+                        {% set share_type='footnote' %}
+                        {% set share_title='Sample footnote' %}
+                        {% set short_url='https://globalnutritionreport.org/50bff8#note-212-1' %}
+                        {% set data_js='share-section' %}
+                        {% set data_id='note-212-1' %}
+                        {% include 'partials/share-block.html' %}
+                        <a class="footnotes__return" href="#note-212-1" data-id="note-212-1" data-js="share-section-trigger">Share footnote</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <h2 class="section__heading">Related content</h2>
+            <div class="l-2up-3up">
+                {% for item in card.news_related %}
+                    {% include 'cards/card-related.html' %}
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% load wagtailcore_tags %}
+
+{% if event %}
+<a href="{% pageurl event %}" class="card card--{% if card_type %}{{card_type}}{% else %}offset{% endif %}">
+    {% if show_tag %}
+        <span class="card__tag">Event</span>
+    {% endif %}
+
+    {% include 'includes/cards/card-image.html' with item=event %}
+
+    <div class="card__body">
+        <h3 class="card__title"><span>{{ event.title }}</span></h3>
+        <ul class="card__list">
+            {% include 'includes/partials/event-details-list.html' %}
+        </ul>
+    </div>
+</a>
+{% endif %}

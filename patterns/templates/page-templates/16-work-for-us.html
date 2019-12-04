@@ -1,0 +1,145 @@
+{# 1. Extend the relevant layout #}
+{# --------------------------------------- #}
+
+{% extends 'default.html' %}
+
+
+{# --------------------------------------- #}
+{# 2. Assign Settings and variables #}
+{# --------------------------------------- #}
+
+{% set id = "vacancies" %}
+{% set section = "Work for us" %}
+{% set title = "Work for us" %}
+{% set excerpt = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque commodi repudiandae illum corporis expedita, autem nam! Nostrum ab voluptate, doloremque obcaecati, sint velit tempore facere officia quod repellat est ullam?" %}
+{% set button = "View current vacancies" %}
+{% set image_name = "18489328769_459d036f20_o-1600x780.jpg" %}
+
+{# --------------------------------------- #}
+{# 3. Add models and macros #}
+{# --------------------------------------- #}
+
+{% model 'cards', as="card" %}
+{% model 'form-jobs', as="form" %}
+
+{% import 'macros/button.html' as buttons %}
+{% import 'macros/icon.html' as icons %}
+
+
+{# --------------------------------------- #}
+{#
+   4. Add page content into relevant areas
+      Add/Delete blocks as necessary
+#}
+{# --------------------------------------- #}
+
+{% block body %}
+    {% include 'heroes/hero.html' %}
+
+    <section class="section">
+        <div class="row row--narrow">
+            <div class="is-typeset is-typeset--additionals max-meter">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                <p>View our <a href="#">Recruitment Policy</a> and <a href="#">GDPR policy</a></p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <h2 class="section__heading">Benefits of working at DI</h2>
+            <div class="l-sidebar">
+                <div class="l-sidebar__body">
+                    <div class="project">
+                        <div class="project__main">
+                            <div class="project__header">
+                                <div class="project__media">
+                                    <img src="{{ global.assets_root }}/img/9918645274_95e022b2ce_o-800x500.jpg" alt="alt">
+                                </div>
+                                <h2 class="project__heading">Flexible working</h2>
+                            </div>
+                            <div class="is-typeset">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project">
+                        <div class="project__main">
+                            <div class="project__header">
+                                <div class="project__media">
+                                    <img src="{{ global.assets_root }}/img/19410933764_d3a52450bd_o-800x500.jpg" alt="alt">
+                                </div>
+                                <h2 class="project__heading">Fair play</h2>
+                            </div>
+                            <div class="is-typeset">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project">
+                        <div class="project__main">
+                            <div class="project__header">
+                                <div class="project__media">
+                                    <img src="{{ global.assets_root }}/img/16783598394_cb7feb3062_o-800x500.jpg" alt="alt">
+                                </div>
+                                <h2 class="project__heading">Finacial and wellbeing benefits</h2>
+                            </div>
+                            <div class="is-typeset">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <aside class="l-sidebar__aside">
+                    <div class="aside">
+                        <div class="aside__media">
+                            <img src="{{ global.assets_root }}/img/logo-living-wage.jpg" alt="alt">
+                        </div>
+                    </div>
+                    <div class="aside">
+                        <div class="aside__media">
+                            <img src="{{ global.assets_root }}/img/logo-disability.jpg" alt="alt">
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <h2 class="section__heading">Our values</h2>
+            <div class="is-typeset">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo alias quia facere, animi dignissimos commodi repellendus.</p>
+            </div>
+            {% include 'partials/values.html' %}
+        </div>
+    </section>
+
+    <section class="section section--alt">
+        <div class="row row--narrow">
+            <h2 class="section__heading">Team stories</h2>
+            <div class="is-typeset max-meter">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+            </div>
+            {% include 'partials/team-stories.html' %}
+        </div>
+    </section>
+
+    <section class="section" id="vacancies">
+        <div class="row row--narrow">
+            <h2 class="section__heading">Latest vacancies</h2>
+            <div class="is-typeset max-meter">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+            </div>
+            <div class="l-2up-3up">
+                {% for item in card.job_listing %}
+                    {% include 'cards/card-job.html' %}
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

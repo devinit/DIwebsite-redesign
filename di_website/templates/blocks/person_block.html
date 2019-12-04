@@ -1,0 +1,23 @@
+{% load wagtailcore_tags wagtailimages_tags static responsive %}
+
+<div class="l-5up__col">
+  <a href="{% pageurl self.person %}" class="profile">
+    <div class="profile__media">
+    {% if self.person.image %}
+      {% image self.person.image fill-200x200-c100 as image %}
+      {% if image.url != '/media/not-found' %}
+        <img src="{{ image.url }}" alt="{{ self.person.name }}">
+      {% else %}
+        <img height="200px" width="200px" src="{% static 'img/profile-fallback.jpg' %}" alt="Placeholder profile picture">
+      {% endif %}
+    {% else %}
+      <img height="200px" width="200px" src="{% static 'img/profile-fallback.jpg' %}" alt="Placeholder profile picture">
+    {% endif %}
+    </div>
+
+    <div class="profile__caption">
+      <h3 class="profile__title">{{ self.person.name }}</h3>
+      <p class="profile__meta">{{ self.person.position }}</p>
+    </div>
+  </a>
+</div>

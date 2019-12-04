@@ -1,0 +1,65 @@
+// ------------------------------------------------------------
+// Asides
+// ------------------------------------------------------------
+
+.aside {
+	background-color: #fff;
+	padding: 2em;
+	&--clipping {
+		@include respond-to($c-vp) {
+			&:first-of-type {
+				margin-top: -150px;
+			}
+		}
+	}
+	+ .aside {
+		margin-top: 3em;
+	}
+}
+
+.aside__media {
+	background-color: #fff;
+	padding: 3em;
+	img {
+		@extend %max-width;
+	}
+}
+
+.aside__heading {
+	position: relative;
+	display: inline-block;
+	margin-bottom: 1em;
+	@include font-size($gamma);
+	@include respond-to($menu-respond) {
+		&:after {
+			content: "";
+			position: absolute;
+			top: 18px;
+			right: -1.5em;
+			height: 1px;
+			width: 1em;
+			background-color: $poppy;
+		}
+	}
+}
+
+.aside__excerpt {
+	@include font-size($para);
+	margin-bottom: 1em;
+}
+
+.aside__button-group {
+	.button {
+		margin-bottom: 1em;
+	}
+}
+
+.aside__list {
+	@include font-size($para);
+	&__item {
+		margin-bottom: 1em;
+	}
+	span {
+		@extend %font-heading;
+	}
+}

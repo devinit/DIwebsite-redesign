@@ -1,0 +1,14 @@
+{% load string_utils %}
+
+{% if item.page_data_downloads %}
+    {% for download in item.page_data_downloads %}
+        {% if download.download.file %}
+            <a
+                href="{{ download.download.file.url }}"
+                class="button button--a11y {{ button_class }} js-ga-download-click"
+                data-event-label="{{ download_title }} / {{ page.title }}"
+                title="Download data"
+            ><span>{{ download_title }} {{ download.download.file|file_info }}</span></a>
+        {% endif %}
+    {% endfor %}
+{% endif %}

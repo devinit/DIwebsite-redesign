@@ -1,0 +1,10 @@
+{% load wagtailcore_tags %}
+
+<div class="m-slip m-slip--icon">
+  <i role="presentation" aria-hidden="true" class="ico ico--24 ico-data-poppydark"></i>
+  {% if item.specific.name %}
+    <span class="m-slip__flag">{{ item.specific.get_name }}</span>
+  {% endif %}
+  <p class="m-slip__copy"><a href="{% pageurl item %}">{{ item.title }}</a></p>
+  <span class="m-slip__meta">Released: {{ item.specific.release_date|date:"j F Y" }}</span>
+</div>

@@ -1,0 +1,7 @@
+[
+	{ 
+		"name": "Example image",
+		"image_name": "ptn-example.jpg",
+		"direction": "<p>Add art direction using simple html tags</p>" 
+	}
+]

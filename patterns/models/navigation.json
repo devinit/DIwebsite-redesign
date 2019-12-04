@@ -1,0 +1,60 @@
+{
+    "primary": [
+	    {
+		    "label": "Who we are",
+		    "in_section": "Who we are",
+		    "hidden": false
+		},
+		{
+		    "label": "What we do",
+		    "in_section": "What we do",
+		    "hidden": false
+		},
+		{
+		    "label": "How we work",
+		    "in_section": "How we work",
+		    "hidden": false
+		},
+		{
+		    "label": "Publications",
+		    "in_section": "Publications",
+		    "hidden": false
+		},
+        {
+		    "label": "Data",
+		    "in_section": "Data",
+		    "hidden": false
+		},
+		{
+		    "label": "Blog",
+		    "in_section": "Blog",
+		    "hidden": false
+		},
+        {
+		    "label": "Work for us",
+		    "in_section": "Work for us",
+		    "hidden": false
+		}
+    ],
+    "secondary_who_we_are": [
+        {"label": "Our story"},
+        {"label": "Team"},
+        {"label": "2020 strategy"},
+        {"label": "Our funding"},
+        {"label": "Finances"}
+    ],
+    "secondary_what_we_do": [
+        {"label": "Focus areas"},
+        {"label": "Where we work"},
+        {"label": "Consultancy services"},
+        {"label": "Data support services"},
+        {"label": "News"},
+        {"label": "Events"}
+    ],
+    "secondary_data": [
+        {"label": "Datasets"},
+        {"label": "Approach and methodology"},
+        {"label": "Code of practice"},
+        {"label": "QA process"}
+    ]
+}

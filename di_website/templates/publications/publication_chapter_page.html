@@ -16,6 +16,8 @@
       {% else %}
         {% include 'publications/chapter-nav/nav.html' with page=page.get_parent.specific menu_label='Contents' chapter_number=page.chapter_number %}
       {% endif %}
+    {% else %}
+      {% include 'publications/chapter-nav/nav.html' with page=page.get_parent.specific menu_label='Jump to chapter' chapter_number=0 %}
     {% endif %}
 
     {% if page.authors|length > 0 %}

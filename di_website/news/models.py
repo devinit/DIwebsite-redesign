@@ -46,9 +46,9 @@ class NewsIndexPage(HeroMixin, Page):
         page = request.GET.get('page', None)
         topic_filter = request.GET.get('topic', None)
         if topic_filter:
-            news_stories = NewsStoryPage.objects.live().filter(topics__slug=topic_filter)
+            news_stories = NewsStoryPage.objects.live().filter(topics__slug=topic_filter).order_by('-first_published_at')
         else:
-            news_stories = NewsStoryPage.objects.live()
+            news_stories = NewsStoryPage.objects.live().order_by('-first_published_at')
 
         paginator = Paginator(news_stories, MAX_PAGE_SIZE)
         try:
@@ -139,7 +139,7 @@ class MediaCenterPage(TypesetBodyMixin, HeroMixin, Page):
     def get_context(self, request):
         context = super(MediaCenterPage, self).get_context(request)
         page = request.GET.get('page', None)
-        news_stories = NewsStoryPage.objects.live().filter(press_release=True)
+        news_stories = NewsStoryPage.objects.live().filter(press_release=True).order_by('-first_published_at')
 
         paginator = Paginator(news_stories, MAX_PAGE_SIZE)
         try:

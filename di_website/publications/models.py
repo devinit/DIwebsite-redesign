@@ -356,13 +356,21 @@ class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUID
     def listing(self):
         children = [self.summary]
         children += list(self.chapters)
-        return filter(None, children)
+        return list(filter(None, children))
 
     @cached_property
     def meta_and_appendices(self):
         children = list()
         children += list(self.appendices)
-        return filter(None, children)
+        return list(filter(None, children))
+
+    @cached_property
+    def listing_and_appendicies(self):
+        return self.listing + self.meta_and_appendices
+
+    @cached_property
+    def chapter_max(self):
+        return max([chapter.chapter_number for chapter in self.chapters])
 
     def save(self, *args, **kwargs):
         super(PublicationPage, self).save(*args, **kwargs)
@@ -453,6 +461,14 @@ class PublicationSummaryPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
     @cached_property
     def page_data_downloads(self):
         return self.data_downloads.all()
+
+    @cached_property
+    def sections(self):
+        sections = []
+        for block in self.content:
+            if block.block_type == 'section_heading':
+                sections.append(block)
+        return sections
 
 
 class PublicationChapterPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin, UUIDMixin, FilteredDatasetMixin, Page):
@@ -659,6 +675,14 @@ class PublicationAppendixPage(HeroMixin, ReportChildMixin, FlexibleContentMixin,
     def page_data_downloads(self):
         return self.data_downloads.all()
 
+    @cached_property
+    def sections(self):
+        sections = []
+        for block in self.content:
+            if block.block_type == 'section_heading':
+                sections.append(block)
+        return sections
+
 
 class LegacyPublicationPage(HeroMixin, PublishedDateMixin, LegacyPageSearchMixin, FilteredDatasetMixin, Page):
 
@@ -862,6 +886,10 @@ class ShortPublicationPage(HeroMixin, PublishedDateMixin, FlexibleContentMixin, 
 
     @cached_property
     def chapters(self):
+        return [self]
+
+    @cached_property
+    def listing_and_appendicies(self):
         return [self]
 
     @cached_property

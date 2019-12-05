@@ -5,6 +5,7 @@ import childTabIndex from './utils/childTabIndex';
 import skipLinks from './utils/skipLinks';
 import iframer from './utils/iframer';
 import mNav from './utils/mNav';
+import showHide from './utils/showHide';
 import initGmaps from './utils/gmaps';
 import accordion from './utils/accordion';
 import initSVGmap from './utils/svgmap';
@@ -31,6 +32,13 @@ function globals () {
         'navigation-primary-toggle--active',
         '#navigation-primary',
         'navigation-primary--active'
+    );
+
+    // Spotlight menu
+    showHide(
+        '#spotlight-menu-trigger',
+        '.spotlight-menu',
+        'spotlight-menu--active'
     );
 
     // Set child tab index for nav
@@ -149,4 +157,3 @@ $(function run () {
     console.log('ᕕ( ᐛ )ᕗ Running...');
     globals();
 });
-

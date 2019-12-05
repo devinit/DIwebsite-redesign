@@ -77,13 +77,39 @@
 
             <div class="spotlight">
                 <div class="spotlight__aside spotlight__aside--padded">
-                    <h2 class="spotlight__heading">Uganda <button type="button" class="button button--minor">{{ icons.icon('ico-arrow-down-blank', '20') }}</button></h2>
-                    <ul class="breadcrumbs">
+                    <h2 class="spotlight__heading">Uganda <button id="spotlight-menu-trigger" type="button" class="button button--minor">{{ icons.icon('ico-arrow-down-blank', '20') }}</button></h2>
+                    <!-- <ul class="breadcrumbs">
                         <li class="breadcrumbs__item"><a href="#">Item</a></li>
                         <li class="breadcrumbs__item"><a href="#">Item</a></li>
                         <li class="breadcrumbs__item"><a href="#">Item</a></li>
-                    </ul>
+                    </ul> -->
                     <div class="spotlight__content">
+                        <nav id="menu" class="spotlight-menu">
+                            <ul>
+                                <li><a href="/">Home</a></li>
+                                <li><a href="/work">Our work</a></li>
+                                <li><span>About us</span>
+                                    <ul>
+                                        <li><a href="/about/history">History</a></li>
+                                        <li><span>The team</span>
+                                            <ul>
+                                                <li><a href="/about/team/management">Management</a></li>
+                                                <li><a href="/about/team/sales">Sales</a></li>
+                                                <li><a href="/about/team/development">Development</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><span>Services</span>
+                                    <ul>
+                                        <li><a href="/services/design">Design</a></li>
+                                        <li><a href="/services/development">Development</a></li>
+                                        <li><a href="/services/marketing">Marketing</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="/contact">Contact</a></li>
+                            </ul>
+                        </nav>
                         <h3 class="spotlight__subheading">Poverty headcount</h3>
                         <p class="spotlight__excerpt">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
                         <a href="#" class="button">Compare this location to others</a>

@@ -48,6 +48,9 @@
             padding: 2em;
         }
     }
+    &__main--interactive {
+        position: relative;
+    }
     @include respond-to($c-vp) {
         @supports (display: flex) {
             display: flex;
@@ -92,7 +95,7 @@
 }
 
 .spotlight__content {
-    overflow-y: scroll;
+    position: relative;
     border-top: 1px solid $cloud;
     margin-top: 1em;
     padding-top: 1em;
@@ -192,5 +195,13 @@
         width: 70px;
         height: 70px;
         margin-top: 7px;
+    }
+}
+
+.spotlight-menu {
+    transform: translateX(-100%);
+    transition: all ease-in-out, 0.3s;
+    &--active {
+        transform: translateX(0);
     }
 }

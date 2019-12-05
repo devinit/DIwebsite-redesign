@@ -1,0 +1,31 @@
+/* mmneu overrides */
+
+.mm-menu {
+    z-index: 10 !important;
+    background-color: #fff !important;
+    @include font-size($zeta);
+}
+
+.mm-panel {
+    background-color: #fff !important;
+}
+
+.mm-navbar {
+    background-color: #fff !important;
+    text-align: left !important;
+    border-bottom: 1px solid $cloud !important;
+    color: $heading-color !important;
+}
+
+.mm-listitem {
+    border-bottom: 1px solid $cloud !important;
+    &:after {
+        left: 0 !important;
+        border-bottom: 0 !important;
+    }
+}
+
+.mm-listitem__text {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}

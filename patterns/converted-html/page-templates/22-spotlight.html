@@ -14,7 +14,10 @@
 </script>
 <noscript><link href="/assets/icons/ico.fallback.css" rel="stylesheet"></noscript>
 <script src="/assets/js/libs/modernizr.js"></script>
+<script src="/assets/js/libs/mmenu.js"></script>
+<link href="/assets/css/libs/mmenu.css" rel="stylesheet" />
 <link rel="icon" type="image/png" href="/assets/favicons/favicon.png" sizes="">
+
     
 </head>
 <body class="body body--general" id="body-general">
@@ -146,13 +149,39 @@
 
             <div class="spotlight">
                 <div class="spotlight__aside spotlight__aside--padded">
-                    <h2 class="spotlight__heading">Uganda <button type="button" class="button button--minor"><i role="presentation" aria-hidden="true" class="ico ico--20 ico-arrow-down-blank"></i></button></h2>
-                    <ul class="breadcrumbs">
+                    <h2 class="spotlight__heading">Uganda <button id="spotlight-menu-trigger" type="button" class="button button--minor"><i role="presentation" aria-hidden="true" class="ico ico--20 ico-arrow-down-blank"></i></button></h2>
+                    <!-- <ul class="breadcrumbs">
                         <li class="breadcrumbs__item"><a href="#">Item</a></li>
                         <li class="breadcrumbs__item"><a href="#">Item</a></li>
                         <li class="breadcrumbs__item"><a href="#">Item</a></li>
-                    </ul>
+                    </ul> -->
                     <div class="spotlight__content">
+                        <nav id="menu" class="spotlight-menu">
+                            <ul>
+                                <li><a href="/">Home</a></li>
+                                <li><a href="/work">Our work</a></li>
+                                <li><span>About us</span>
+                                    <ul>
+                                        <li><a href="/about/history">History</a></li>
+                                        <li><span>The team</span>
+                                            <ul>
+                                                <li><a href="/about/team/management">Management</a></li>
+                                                <li><a href="/about/team/sales">Sales</a></li>
+                                                <li><a href="/about/team/development">Development</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><span>Services</span>
+                                    <ul>
+                                        <li><a href="/services/design">Design</a></li>
+                                        <li><a href="/services/development">Development</a></li>
+                                        <li><a href="/services/marketing">Marketing</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="/contact">Contact</a></li>
+                            </ul>
+                        </nav>
                         <h3 class="spotlight__subheading">Poverty headcount</h3>
                         <p class="spotlight__excerpt">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
                         <a href="#" class="button">Compare this location to others</a>
@@ -672,6 +701,17 @@
 		
 	</div>
 	<script src="/assets/js/app.bundle.js"></script>
+<!-- Fire the plugin -->
+    <script>
+        document.addEventListener(
+       "DOMContentLoaded", () => {
+           new Mmenu( "#menu", {
+              "offCanvas": false
+           });
+       }
+   );
+    </script>
+
 	
 	
 </body>

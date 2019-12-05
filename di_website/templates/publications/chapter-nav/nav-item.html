@@ -10,6 +10,10 @@
         data-has-sections="{{ item.sections | length }}"
         {% if chapter_number == item.chapter_number %}
             data-current-chapter="{{ chapter_number }}"
+        {% elif chapter_number == 0 and item.get_verbose_name == "Publication Summary" %}
+            data-current-chapter="1"
+        {% elif chapter_number == item.appendix_number|add:page.chapter_max and item.get_verbose_name == "Publication Appendix" %}
+            data-current-chapter="1"
         {% endif %}
     >
       <span class="chapter-title">{{ item.label | title }}:</span>

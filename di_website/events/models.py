@@ -87,7 +87,7 @@ class EventIndexPage(TypesetBodyMixin, HeroMixin, Page):
     def get_context(self, request):
         context = super(EventIndexPage, self).get_context(request)
         page = request.GET.get('page', None)
-        events = EventPage.objects.live()
+        events = EventPage.objects.live().order_by('-start_date')
 
         paginator = Paginator(events, MAX_PAGE_SIZE)
         try:

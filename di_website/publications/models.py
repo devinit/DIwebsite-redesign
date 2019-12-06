@@ -32,6 +32,7 @@ from wagtail.contrib.search_promotions.templatetags.wagtailsearchpromotions_tags
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.documents.edit_handlers import DocumentChooserPanel
+from wagtail.search.models import Query
 
 
 from di_website.common.base import hero_panels, get_paginator_range
@@ -192,6 +193,8 @@ class PublicationIndexPage(HeroMixin, Page):
             short_pubs = short_pubs.filter(page_countries__country__slug=country_filter)
 
         if search_filter:
+            query = Query.get(search_filter)
+            query.add_hit()
             if stories:
                 child_count = reduce(operator.add, [len(pub.get_children()) for pub in stories])
                 if child_count:

@@ -27,9 +27,12 @@ from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, StreamFieldPane
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.contrib.redirects.models import Redirect
+from wagtail.contrib.search_promotions.templatetags.wagtailsearchpromotions_tags import \
+    get_search_promotions
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.documents.edit_handlers import DocumentChooserPanel
+from wagtail.search.models import Query
 
 
 from di_website.common.base import hero_panels, get_paginator_range
@@ -190,6 +193,8 @@ class PublicationIndexPage(HeroMixin, Page):
             short_pubs = short_pubs.filter(page_countries__country__slug=country_filter)
 
         if search_filter:
+            query = Query.get(search_filter)
+            query.add_hit()
             if stories:
                 child_count = reduce(operator.add, [len(pub.get_children()) for pub in stories])
                 if child_count:
@@ -214,6 +219,13 @@ class PublicationIndexPage(HeroMixin, Page):
             story_list.sort(key=lambda x: x._score, reverse=True)
         else:
             story_list.sort(key=lambda x: x.published_date, reverse=True)
+
+        promos = get_search_promotions(search_filter)
+        promo_pages = [promo.page.specific for promo in promos if promo.page.live and isinstance(promo.page.specific, (PublicationPage, ShortPublicationPage, LegacyPublicationPage))]
+        if promo_pages:
+            story_list = [story for story in story_list if story not in promo_pages]
+            story_list = list(chain(promo_pages, story_list))
+
         paginator = Paginator(story_list, MAX_PAGE_SIZE)
         try:
             context['stories'] = paginator.page(page)

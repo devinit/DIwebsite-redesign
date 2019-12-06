@@ -27,7 +27,8 @@ from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, StreamFieldPane
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.contrib.redirects.models import Redirect
-from wagtail.contrib.search_promotions.templatetags import get_search_promotions
+from wagtail.contrib.search_promotions.templatetags.wagtailsearchpromotions_tags import \
+    get_search_promotions
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.documents.edit_handlers import DocumentChooserPanel

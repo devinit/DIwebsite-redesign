@@ -218,7 +218,7 @@ class PublicationIndexPage(HeroMixin, Page):
             story_list.sort(key=lambda x: x.published_date, reverse=True)
 
         promos = get_search_promotions(search_filter)
-        promo_pages = [promo.page.specific for promo in promos]
+        promo_pages = [promo.page.specific for promo in promos if promo.page.live]
         if promo_pages:
             story_list = [story for story in story_list if story not in promo_pages]
             story_list = list(chain(promo_pages, story_list))

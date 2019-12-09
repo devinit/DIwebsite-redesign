@@ -229,6 +229,14 @@ body.body--leaf {
             background-color: $leaf;
         }
     }
+    .hero__title span {
+        background-color: darken($leaf, 10%);
+    }
+    .hero--image {
+        .hero__title span {
+            background-color: transparent;
+        }
+    }
     .hero__flourish {
         background: $leaf;
     }

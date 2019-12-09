@@ -340,7 +340,7 @@
 	@media screen and (max-height: 500px) {
 		position: relative;
 		height: 100vh;
-		overflow: scroll;
+		//overflow: scroll;
 	}
 
 }
@@ -369,24 +369,28 @@
 	height: 100vh;
 	overflow: scroll;
 	@include respond-to($menu-respond) {
-		height: auto;
-		overflow: inherit;
+		//height: auto;
+		//overflow: inherit;
+		overflow-y: scroll;
 		position: absolute;
-		left: 5%;
+		//left: 5%;
+		left: 0;
 		top: 50%;
 		transform: translateY(-50%);
 		-webkit-transform: translateY(-50%);
-		width: 50%;
+		//width: 50%;
+		width: 100%;
 		left: 0;
-		padding: 0;
+		padding: 5% 0;
 		.chapter-nav-wrapper--simple & {
 			top: 0;
 			transform: translateY(0);
+			padding: 5% 0;
 		}
 	}
 	@include respond-to($e-vp) {
-		left: 10%;
-		width: 40%;
+		// left: 10%;
+		// width: 40%;
 	}
 	@media screen and (max-height: 500px) {
 		position: relative;
@@ -479,7 +483,7 @@
 	&:after {
 		content: '';
 		position: absolute;
-		right: 30px;
+		right: 50%;
 		top: 0;
 		width: 30px;
 		height: 100%;
@@ -492,8 +496,11 @@
 	}
 	&.active {
 		&:after {
-			right: -29px;
-			transition-delay: 400ms;
+			transform: translateX(30px);
+			transition-delay: 0;
+			@include respond-to($menu-respond) {
+				right: 50%;
+			}
 		}
 	}
 	html.no-js & {
@@ -505,17 +512,22 @@
 			color: #fff;
 		}
 		&:after {
-			background: $slate;
+			content: none;
 		}
 	}
 }
 
 .chapter-nav__title {
 	display: block;
+	max-width: 90%;
 	@include font-size($zeta);
 	@extend %font-heading;
 	@include respond-to($c-vp) {
 		@include font-size($delta)
+		max-width: 40%;
+		.chapter-nav-wrapper--simple & {
+			max-width: 100%;
+		}
 	}
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
@@ -564,7 +576,7 @@
 		display: block;
 		padding-bottom: 0;
 		position: absolute;
-		z-index: 1;
+		z-index: 10;
 		top: 50%;
 		transform: translateY(-50%);
 		-webkit-transform: translateY(-50%);
@@ -573,8 +585,8 @@
 		// max-height: calc(100vh - 4rem);
 		opacity: 0;
 		pointer-events: none;
-		left: 100%;
-		width: 100%;
+		left: 50%;
+		width: 50%;
 	}
 	@media screen and (max-height: 500px) {
 		top: 0;
@@ -623,12 +635,26 @@
 		max-height: 400px;
 	}
 	@include respond-to($menu-respond) {
-		overflow: scroll;
+		//position: fixed;
+		overflow-y: scroll;
 		height: 100vh;
 		max-height: 450px;
 		// --
 		padding: 0 15%;
-		-ms-overflow-style: -ms-autohiding-scrollbar;
+		margin-right: 15%;
+		scrollbar-color: $cloud $slate;
+		&::-webkit-scrollbar {
+		    -webkit-appearance: none;
+		    width: 7px;
+		}
+		&::-webkit-scrollbar-track {
+		    background-color: none;
+		}
+		&::-webkit-scrollbar-thumb {
+		    border-radius: 4px;
+		    background-color: $cloud;
+		    box-shadow: 0 0 1px rgba(255,255,255,.5);
+		}
 	}
 	html.no-js & {
 		height: 250px;

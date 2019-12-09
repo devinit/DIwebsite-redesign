@@ -22,7 +22,7 @@
       {% else %}
         {% if is_filtered %}
           <h2 class="section__heading">
-            Showing {{stores.start_index}}-{{stories.end_index}} of {{stories.paginator.count}} result{% if stories|length > 1 %}s{% endif %}
+            Showing {{stories.start_index}}-{{stories.end_index}} of {{stories.paginator.count}} result{% if stories|length > 1 %}s{% endif %}
           </h2>
         {% endif %}
         <div class="l-2up-3up">

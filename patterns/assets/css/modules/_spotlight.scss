@@ -23,8 +23,15 @@
             width: 70%;
             padding-left: 2em;
         }
+        &--alt {
+            .spotlight-banner__aside {
+                width: 40%;
+            }
+            .spotlight-banner__main {
+                width: 60%;
+            }
+        }
     }
-
 }
 
 .spotlight {
@@ -41,6 +48,9 @@
             padding: 2em;
         }
     }
+    &__main--interactive {
+        position: relative;
+    }
     @include respond-to($c-vp) {
         @supports (display: flex) {
             display: flex;
@@ -53,6 +63,16 @@
         &__main {
             float: left;
             width: 70%;
+            &--interactive {
+                border: 1px solid $poppy;
+                div {
+                    position: absolute;
+            		top: 0;
+            		left: 0;
+            		width: 100%;
+            		height: 100%;
+                }
+            }
         }
     }
 }
@@ -75,12 +95,44 @@
 }
 
 .spotlight__content {
-    overflow-y: scroll;
+    position: relative;
     border-top: 1px solid $cloud;
     margin-top: 1em;
     padding-top: 1em;
     .button {
         margin-top: 1em;
+    }
+}
+
+.spotlight-legend {
+    margin-top: 2em;
+    @include font-size($zeta);
+    span {
+        display: block;
+        text-align: center;
+        padding: 0.5em;
+        background-color: $cloud;
+    }
+    &--red {
+        span {
+            &:first-child {
+                background-color: lighten($poppy-light, 20%);
+            }
+            &:nth-child(2) {
+                background-color: lighten($poppy-light, 10%);
+            }
+            &:nth-child(3) {
+                background-color: $poppy-light;
+            }
+            &:nth-child(4) {
+                background-color: $poppy;
+                color: #fff;
+            }
+            &:nth-child(5) {
+                background-color: $poppy-dark;
+                color: #fff;
+            }
+        }
     }
 }
 
@@ -143,5 +195,13 @@
         width: 70px;
         height: 70px;
         margin-top: 7px;
+    }
+}
+
+.spotlight-menu {
+    transform: translateX(-100%);
+    transition: all ease-in-out, 0.3s;
+    &--active {
+        transform: translateX(0);
     }
 }

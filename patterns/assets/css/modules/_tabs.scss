@@ -7,6 +7,7 @@
 	margin: auto;
 	width: 100%;
 	position: relative;
+	min-height: 800px;
 	@include respond-to($c-vp) {
 		min-height: 450px;
 	}

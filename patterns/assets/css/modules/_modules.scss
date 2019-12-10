@@ -408,7 +408,10 @@ a.m-stat {
             background: transparent;
             border-color: transparent;
             color: transparent;
-            }
+        }
+    }
+    @include respond-to-max($c-vp) {
+        display: none;
     }
 }
 
@@ -444,6 +447,9 @@ a.m-stat {
 
     &.selected::before {
         background: $poppy;
+    }
+    @include respond-to-max($c-vp) {
+        display: none;
     }
 }
 

@@ -101,45 +101,47 @@
                         <li class="breadcrumbs__item"><a href="#">Item</a></li>
                     </ul> -->
                     <div class="spotlight__content">
-                        <nav id="menu" class="spotlight-menu">
-                            <ul>
-                                {% for item in location.locations_uganda %}
-                                    {% for region in item.regions %}
-                                    <li><span>{{ region.region_name }}</span>
-                                        <ul>
-                                            {% for district in region.districts %}
-                                                <li><span>{{ district.district_name }}</span>
-                                                <ul>
-                                                    {% for county in district.counties %}
-                                                        <li><span>{{ county.county_name }}</span>
-                                                            <ul>
-                                                                {% for sub_county in county.sub_counties %}
-                                                                    <li><span>{{ sub_county.sub_county_name }}</span>
-                                                                        <ul>
-                                                                            {% for parish in sub_county.parishes %}
-                                                                                <li><span>{{ parish.parish_name }}</span>
-                                                                                    <ul>
-                                                                                        {% for village in parish.villages %}
-                                                                                            <li><a href="/">{{ village.village_name }}</a></li>
-                                                                                        {% endfor %}
-                                                                                    </ul>
-                                                                                </li>
-                                                                            {% endfor %}
-                                                                        </ul>
-                                                                    </li>
-                                                                {% endfor %}
-                                                            </ul>
-                                                        </li>
-                                                    {% endfor %}
-                                                </ul>
-                                            </li>
-                                            {% endfor %}
-                                        </ul>
-                                    </li>
+                        <div id="spotlight-menu">
+                            <nav id="menu">
+                                <ul>
+                                    {% for item in location.locations_uganda %}
+                                        {% for region in item.regions %}
+                                        <li><span>{{ region.region_name }}</span>
+                                            <ul>
+                                                {% for district in region.districts %}
+                                                    <li><span>{{ district.district_name }}</span>
+                                                    <ul>
+                                                        {% for county in district.counties %}
+                                                            <li><span>{{ county.county_name }}</span>
+                                                                <ul>
+                                                                    {% for sub_county in county.sub_counties %}
+                                                                        <li><span>{{ sub_county.sub_county_name }}</span>
+                                                                            <ul>
+                                                                                {% for parish in sub_county.parishes %}
+                                                                                    <li><span>{{ parish.parish_name }}</span>
+                                                                                        <ul>
+                                                                                            {% for village in parish.villages %}
+                                                                                                <li><a href="/">{{ village.village_name }}</a></li>
+                                                                                            {% endfor %}
+                                                                                        </ul>
+                                                                                    </li>
+                                                                                {% endfor %}
+                                                                            </ul>
+                                                                        </li>
+                                                                    {% endfor %}
+                                                                </ul>
+                                                            </li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                </li>
+                                                {% endfor %}
+                                            </ul>
+                                        </li>
+                                        {% endfor %}
                                     {% endfor %}
-                                {% endfor %}
-                            </ul>
-                        </nav>
+                                </ul>
+                            </nav>
+                        </div>
                         <h3 class="spotlight__subheading">Poverty headcount</h3>
                         <p class="spotlight__excerpt">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
                         <a href="#" class="button">Compare this location to others</a>

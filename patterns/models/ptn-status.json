@@ -194,5 +194,9 @@
 	{
 		"name": "22-spotlight",
 		"stage": "Template"
+	},
+	{
+		"name": "23-spotlight-location-comparison",
+		"stage": "Template"
 	}
 ]

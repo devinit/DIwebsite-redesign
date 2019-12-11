@@ -12,7 +12,7 @@ export default function chapterNav () {
     const nav_trigger = $('.js-chapter-trigger');
     const nav_wrapper = $('.chapter-nav-wrapper');
     const nav_links = $('.chapter-nav-link');
-    const nav_triggers = $('.chapter-nav-link, .js-chapter-toggle');
+    const nav_triggers = $('.chapter-nav-link[data-has-sections], .js-chapter-toggle');
     const nav_items = $('.chapter-nav__item');
     const sub_items = $('.js-chapter-link');
     const element = $('.js-chapter-nav').first();

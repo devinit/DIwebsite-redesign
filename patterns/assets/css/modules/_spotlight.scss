@@ -34,6 +34,18 @@
     }
 }
 
+.spotlight-banner__form-sc {
+    display: block;
+    @include respond-to($b-vp) {
+        button.button {
+            margin-top: 2em;
+        }
+    }
+    @include respond-to($c-vp) {
+        display: none;
+    }
+}
+
 .spotlight {
     @extend %pie-clearfix;
     margin-top: 3px;
@@ -168,6 +180,14 @@
     @extend %font-heading;
     @include font-size($alpha);
     color: $poppy-dark;
+    &__note {
+        font-size: 45%;
+        color: $base-color;
+        @extend %font-sans;
+        display: block;
+        text-align: center;
+        transform: translateY(-0.75em);
+    }
 }
 
 .spotlight__comparison {

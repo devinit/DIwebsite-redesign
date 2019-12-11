@@ -1,0 +1,100 @@
+{# 1. Extend the relevant layout #}
+{# --------------------------------------- #}
+
+{% extends 'default.html' %}
+
+
+{# --------------------------------------- #}
+{# 2. Assign Settings and variables #}
+{# --------------------------------------- #}
+
+{% set id = "general" %}
+{% set section = "Data" %}
+{% set title = "Location & Indicator comparison" %}
+{% set excerpt = "" %}
+{% set image_name = "" %}
+{% set active_page = "" %}
+
+{# --------------------------------------- #}
+{# 3. Add models and macros #}
+{# --------------------------------------- #}
+
+{% model 'cards', as="card" %}
+{% model 'navigation', as="navigation" %}
+{% model 'timeline', as="timeline" %}
+{% model 'locations_uganda', as="location" %}
+
+{% import 'macros/icon.html' as icons %}
+{% import 'macros/secondary-navigation.html' as secondary_navigation %}
+
+{# --------------------------------------- #}
+{#
+   4. Add page content into relevant areas
+      Add/Delete blocks as necessary
+#}
+{# --------------------------------------- #}
+
+{% block body %}
+    {% include 'heroes/hero.html' %}
+
+    <section class="section">
+        <div class="row row--narrow">
+            <div class="spotlight-banner">
+                <div class="spotlight-banner__aside">
+
+                </div>
+                <div class="spotlight-banner__main">
+                    <form>
+                        <div class="form-field form-field--inline-three">
+                            <label for="indicator" class="form-label">Indicator</label>
+                            <div class="form-field__select-dropdown">
+                        		<select name="indicator-choice" id="indicator-choice">
+                        			<option value="poverty-headcount" id="poverty-headcount">Poverty headcount</option>
+                        		</select>
+                        	</div>
+                        </div>
+                        <div class="form-field form-field--inline-three">
+                            <label for="indicator" class="form-label">Year</label>
+                            <div class="form-field__select-dropdown">
+                        		<select name="year-choice" id="year-choice">
+                        			<option value="2018" id="2018">2018</option>
+                        		</select>
+                        	</div>
+                        </div>
+                        <div class="form-field form-field--inline-three">
+                            <button type="button" class="button">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="spotlight spotlight--full">
+                <div class="max-meter">
+                    <div class="form-field">
+                        <label for="indicator" class="form-label">Indicator</label>
+                        <div class="form-field__select-dropdown">
+                            <select name="indicator-choice" id="indicator-choice">
+                                <option value="poverty-headcount" id="poverty-headcount">Poverty headcount</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="spotlight__main">
+                    <div class="spotlight__interactive" id="chart"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <h2 class="section__heading">Data & Sources</h2>
+            <div class="is-typeset max-meter">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <p><a href="#">Read about the methodologies used</a></p>
+                <p><a href="#">View and download data sources</a></p>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

@@ -73,6 +73,9 @@
         @supports (display: flex) {
             display: flex;
         }
+        &--full {
+            display: block;
+        }
         &__aside {
             float: left;
             width: 30%;
@@ -81,6 +84,11 @@
         &__main {
             float: left;
             width: 70%;
+            .spotlight--full & {
+                width: 100%;
+                float: none;
+                display: block;
+            }
             &--interactive {
                 border: 1px solid $poppy;
                 div {
@@ -354,10 +362,10 @@
     }
 }
 
-.spotlight-menu {
+#spotlight-menu {
     transform: translateX(-100%);
     transition: all ease-in-out, 0.3s;
-    &--active {
+    &.spotlight-menu--active {
         transform: translateX(0);
     }
     display: none;

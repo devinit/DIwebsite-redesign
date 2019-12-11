@@ -341,6 +341,21 @@ a.m-stat {
 // Timeline range
 // ------------------------------------------------------------
 
+.m-timeline-container {
+    @include respond-to-max($c-vp) {
+        display: none;
+        html.js & {
+            display: none;
+        }
+    }
+    @include respond-to($c-vp) {
+        display: none;
+        html.js & {
+            display: block;
+        }
+    }
+}
+
 @mixin rangeThumb {
     position: relative;
     width: 18px;
@@ -410,9 +425,6 @@ a.m-stat {
             color: transparent;
         }
     }
-    @include respond-to-max($c-vp) {
-        display: none;
-    }
 }
 
 .m-timeline-labels {
@@ -447,9 +459,6 @@ a.m-stat {
 
     &.selected::before {
         background: $poppy;
-    }
-    @include respond-to-max($c-vp) {
-        display: none;
     }
 }
 

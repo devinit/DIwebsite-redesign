@@ -363,10 +363,12 @@
 }
 
 #spotlight-menu {
-    transform: translateX(-100%);
-    transition: all ease-in-out, 0.3s;
+    // transform: translateX(-100%);
+    // transition: all ease-in-out, 0.3s;
+    display: none;
     &.spotlight-menu--active {
-        transform: translateX(0);
+        // transform: translateX(0);
+        display: block;
     }
     display: none;
     html.js & {

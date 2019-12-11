@@ -37,12 +37,18 @@
 .spotlight-banner__form-sc {
     display: block;
     @include respond-to($b-vp) {
+        .form-field--inline {
+            margin-top: 0;
+        }
         button.button {
-            margin-top: 2em;
+            margin-top: 1.9em;
         }
     }
     @include respond-to($c-vp) {
-        display: none;
+        display: block;
+        html.js & {
+            display: none;
+        }
     }
 }
 
@@ -93,7 +99,11 @@
     position: relative;
     @include font-size($beta);
     .button {
-        float: right;
+        display: none;
+        html.js & {
+            display: block;
+            float: right;
+        }
     }
 }
 
@@ -142,6 +152,132 @@
             }
             &:nth-child(5) {
                 background-color: $poppy-dark;
+                color: #fff;
+            }
+        }
+    }
+    &--blue {
+        span {
+            &:first-child {
+                background-color: lighten($bluebell-light, 20%);
+            }
+            &:nth-child(2) {
+                background-color: lighten($bluebell-light, 10%);
+            }
+            &:nth-child(3) {
+                background-color: $bluebell-light;
+            }
+            &:nth-child(4) {
+                background-color: $bluebell;
+                color: #fff;
+            }
+            &:nth-child(5) {
+                background-color: $bluebell-dark;
+                color: #fff;
+            }
+        }
+    }
+    &--yellow {
+        span {
+            &:first-child {
+                background-color: lighten($sunflower-light, 20%);
+            }
+            &:nth-child(2) {
+                background-color: lighten($sunflower-light, 10%);
+            }
+            &:nth-child(3) {
+                background-color: $sunflower-light;
+            }
+            &:nth-child(4) {
+                background-color: $sunflower;
+                color: #fff;
+            }
+            &:nth-child(5) {
+                background-color: $sunflower-dark;
+                color: #fff;
+            }
+        }
+    }
+    &--orange {
+        span {
+            &:first-child {
+                background-color: lighten($marigold-light, 20%);
+            }
+            &:nth-child(2) {
+                background-color: lighten($marigold-light, 10%);
+            }
+            &:nth-child(3) {
+                background-color: $marigold-light;
+            }
+            &:nth-child(4) {
+                background-color: $marigold;
+                color: #fff;
+            }
+            &:nth-child(5) {
+                background-color: $marigold-dark;
+                color: #fff;
+            }
+        }
+    }
+    &--pink {
+        span {
+            &:first-child {
+                background-color: lighten($rose-light, 20%);
+            }
+            &:nth-child(2) {
+                background-color: lighten($rose-light, 10%);
+            }
+            &:nth-child(3) {
+                background-color: $rose-light;
+            }
+            &:nth-child(4) {
+                background-color: $rose;
+                color: #fff;
+            }
+            &:nth-child(5) {
+                background-color: $rose-dark;
+                color: #fff;
+            }
+        }
+    }
+    &--purple {
+        span {
+            &:first-child {
+                background-color: lighten($lavendar-light, 20%);
+            }
+            &:nth-child(2) {
+                background-color: lighten($lavendar-light, 10%);
+            }
+            &:nth-child(3) {
+                background-color: $lavendar-light;
+            }
+            &:nth-child(4) {
+                background-color: $lavendar;
+                color: #fff;
+            }
+            &:nth-child(5) {
+                background-color: $lavendar-dark;
+                color: #fff;
+            }
+        }
+    }
+    &--green {
+        span {
+            &:first-child {
+                background-color: lighten($leaf-light, 20%);
+            }
+            &:nth-child(2) {
+                background-color: lighten($leaf-light, 10%);
+            }
+            &:nth-child(3) {
+                background-color: $leaf-light;
+            }
+            &:nth-child(4) {
+                background-color: $leaf;
+                color: #fff;
+            }
+            &:nth-child(5) {
+                background-color: $leaf-dark;
                 color: #fff;
             }
         }
@@ -223,5 +359,9 @@
     transition: all ease-in-out, 0.3s;
     &--active {
         transform: translateX(0);
+    }
+    display: none;
+    html.js & {
+        display: block;
     }
 }

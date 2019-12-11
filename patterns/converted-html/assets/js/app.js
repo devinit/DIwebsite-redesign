@@ -37,7 +37,7 @@ function globals () {
     // Spotlight menu
     showHide(
         '#spotlight-menu-trigger',
-        '#spotlight-menu',
+        '.spotlight-menu',
         'spotlight-menu--active'
     );
 

@@ -15,3 +15,4 @@
 .space-section-both 	{ @extend .space-section-top; @extend .space-section-bottom; }
 
 .space-section-top--small { margin-top: $internal-spacing/2; }
+.space-section-bottom--small { margin-bottom: $internal-spacing/2; }

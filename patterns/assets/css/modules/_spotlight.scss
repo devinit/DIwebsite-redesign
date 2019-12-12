@@ -14,7 +14,6 @@
         &__aside {
             float: left;
             width: 30%;
-            border-right: 1px solid $default-border-color;
             padding-right: 2em;
             margin-bottom: 0;
         }
@@ -22,6 +21,7 @@
             float: left;
             width: 70%;
             padding-left: 2em;
+            border-left: 1px solid $default-border-color;
         }
         &--alt {
             .spotlight-banner__aside {
@@ -34,7 +34,7 @@
     }
 }
 
-.spotlight-banner__form-sc {
+.spotlight-banner__form {
     display: block;
     @include respond-to($b-vp) {
         .form-field--inline {
@@ -44,18 +44,21 @@
             margin-top: 1.9em;
         }
     }
-    @include respond-to($c-vp) {
-        display: block;
-        html.js & {
-            display: none;
-        }
-    }
+    // @include respond-to($c-vp) {
+    //     display: block;
+    //     html.js & {
+    //         display: none;
+    //     }
+    // }
 }
 
 .spotlight {
     @extend %pie-clearfix;
     margin-top: 3px;
     &--leader {
+        margin-top: 2em;
+    }
+    &--full {
         margin-top: 2em;
     }
     &__aside {
@@ -101,6 +104,34 @@
             }
         }
     }
+}
+
+.spotlight__select {
+    .button {
+        transform: translateY(2px);
+    }
+}
+
+.spotlight__select-container {
+    display: block;
+    width: 100%;
+}
+
+.select2-results__option {
+    @include font-size($para);
+}
+
+.select2-selection--multiple  {
+    @include font-size($para);
+    min-height: 53px !important;
+    border-color: $default-border-color;
+}
+
+.select2-selection__choice {
+    background-color: $cloud !important;
+    color: $heading-color;
+    border-color: $default-border-color !important;
+    margin-top: 10px !important;
 }
 
 .spotlight__heading {

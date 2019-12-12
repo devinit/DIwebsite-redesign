@@ -462,6 +462,22 @@ a.m-stat {
     }
 }
 
+.m-text-link {
+    @include font-size($para);
+    span {
+        border-bottom: 1px solid $poppy-dark;
+    }
+    .ico {
+        margin-right: 5px;
+    }
+    .spotlight-banner & {
+        position: relative;
+        display: block;
+        top: -50%;
+        transform: translateY(50%);
+    }
+}
+
 // downloadChapter --------------------------------------------
 .mainAction {
 }

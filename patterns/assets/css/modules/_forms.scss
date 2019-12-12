@@ -65,6 +65,34 @@
 			margin-left: 2px;
 			display: block;
 		}
+		.spotlight-banner & {
+			margin-top: 0;
+		}
+	}
+}
+
+.form-field--offset {
+	position: relative;
+	z-index: 1;
+	display: block;
+	margin-top: 1em;
+	@include respond-to($c-vp - 100px) {
+		display: inline-block;
+		width: 74.5%;
+		+ .form-field--offset {
+			width: 25%;
+		}
+		&:nth-child(2n) {
+			margin-right: 0;
+		}
+		.button {
+			margin-top: 1px;
+			margin-left: 2px;
+			display: block;
+		}
+		.spotlight-banner & {
+			margin-top: 0;
+		}
 	}
 }
 
@@ -76,7 +104,10 @@
 	@include respond-to($c-vp - 100px) {
 		display: inline-block;
 		width: 32.5%;
-		float: left;
+		//float: left;
+		&:nth-child(3n) {
+			margin-right: 0;
+		}
 		.button {
 			margin-top: 1px;
 			margin-left: 2px;
@@ -99,7 +130,7 @@
 	@include respond-to($c-vp) {
 		display: inline-block;
 		width: 24.5%;
-		float: left;
+		//float: left;
 		.button {
 			display: block;
 			margin-left: 2px;

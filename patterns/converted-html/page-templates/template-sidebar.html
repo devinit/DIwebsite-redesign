@@ -14,7 +14,10 @@
 </script>
 <noscript><link href="/assets/icons/ico.fallback.css" rel="stylesheet"></noscript>
 <script src="/assets/js/libs/modernizr.js"></script>
+<script src="/assets/js/libs/mmenu.js"></script>
+<link href="/assets/css/libs/mmenu.css" rel="stylesheet" />
 <link rel="icon" type="image/png" href="/assets/favicons/favicon.png" sizes="">
+
     
 </head>
 <body class="body body--" id="body-">
@@ -157,6 +160,17 @@
 		
 	</div>
 	<script src="/assets/js/app.bundle.js"></script>
+<!-- Fire the plugin -->
+    <script>
+        document.addEventListener(
+       "DOMContentLoaded", () => {
+           new Mmenu( "#menu", {
+              "offCanvas": false
+           });
+       }
+   );
+    </script>
+
 	
 	
 </body>

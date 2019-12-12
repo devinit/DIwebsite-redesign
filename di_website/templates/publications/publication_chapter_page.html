@@ -16,6 +16,10 @@
       {% else %}
         {% include 'publications/chapter-nav/nav.html' with page=page.get_parent.specific menu_label='Contents' chapter_number=page.chapter_number %}
       {% endif %}
+    {% elif page.appendix_number %}
+      {% include 'publications/chapter-nav/nav.html' with page=page.get_parent.specific menu_label='Contents' chapter_number=page.get_parent.specific.chapter_max|add:page.appendix_number %}
+    {% else %}
+      {% include 'publications/chapter-nav/nav.html' with page=page.get_parent.specific menu_label='Contents' chapter_number=0 %}
     {% endif %}
 
     {% if page.authors|length > 0 %}

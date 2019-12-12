@@ -256,7 +256,7 @@ class HomePage(HomePageMetaData, SectionBodyMixin, Page):
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
-        context['featured_pages'] = [link.other_page for link in self.featured_pages.all()]
+        context['featured_pages'] = [link.other_page for link in self.featured_pages.all().order_by('sort_order') if link.other_page.live]
 
         return context
 
@@ -264,6 +264,9 @@ class HomePage(HomePageMetaData, SectionBodyMixin, Page):
 class HomePageFeaturedWork(OtherPageMixin):
     page = ParentalKey(
         Page, related_name='featured_pages', on_delete=models.CASCADE)
+
+    class Meta:
+        ordering = ('sort_order',)
 
     panels = [
         PageChooserPanel('other_page', [

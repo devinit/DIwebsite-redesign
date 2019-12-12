@@ -408,7 +408,10 @@ a.m-stat {
             background: transparent;
             border-color: transparent;
             color: transparent;
-            }
+        }
+    }
+    @include respond-to-max($c-vp) {
+        display: none;
     }
 }
 
@@ -417,15 +420,13 @@ a.m-stat {
     margin-left: -13px;
     padding: 0;
     list-style: none;
-
     li {
         position: relative;
         float: left;
-        width: calc(100%/18);
+        // width: calc(100%/18);
         text-align: center;
         @include font-size($eta);
         //cursor: pointer;
-
         &:before {
             position: absolute;
             top: -26px;
@@ -446,6 +447,9 @@ a.m-stat {
 
     &.selected::before {
         background: $poppy;
+    }
+    @include respond-to-max($c-vp) {
+        display: none;
     }
 }
 

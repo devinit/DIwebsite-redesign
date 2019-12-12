@@ -56,6 +56,10 @@
 		display: inline-block;
 		width: 47.5%;
 		float: left;
+		margin-right: 10px;
+		&:nth-child(2n) {
+			margin-right: 0;
+		}
 		.button {
 			margin-top: 1px;
 			margin-left: 2px;

@@ -39,7 +39,7 @@
     {% include 'heroes/hero.html' %}
 
     <section class="section">
-        <div class="row row--narrow">
+        <div class="row row--wide">
             <div class="spotlight-banner">
                 <div class="spotlight-banner__aside">
                     <label for="indicator" class="form-label">Indicator</label>
@@ -59,46 +59,23 @@
                     </select>
                 </div>
                 <div class="spotlight-banner__main">
-                    <!-- mobile dropdown -->
                     <div class="spotlight-banner__form">
-                        <div class="form-field form-field--inline">
+                        <div class="form-field form-field--inline-block">
                             <label for="indicator" class="form-label">Year</label>
                             <div class="form-field__select-dropdown">
                         		<select name="year-choice" id="year-choice">
                         			<option value="2018" id="2018">2018</option>
+                                    <option value="2017" id="2017">2017</option>
+                                    <option value="2016" id="2016">2016</option>
+                                    <option value="2015" id="2015">2015</option>
                         		</select>
                         	</div>
                         </div>
-                        <div class="form-field form-field--inline">
+                        <div class="form-field form-field--inline-block">
                             <button type="button" class="button">Update</button>
                         </div>
                     </div>
-                    <!-- <div class="m-timeline-container">
-                        <div class="m-timeline">
-                            <label for="year" class="form-label">Year</label>
-                            <input type="range" id="year" name="year" value="1" min="1" max="18" steps="18">
-                        </div>
-                        <ul class="m-timeline-labels">
-                            <li class="m-timeline-labels__active selected" style="width: calc(100%/18);">2002</li>
-                            <li style="width: calc(100%/18);">2003</li>
-                            <li style="width: calc(100%/18);">2004</li>
-                            <li style="width: calc(100%/18);">2005</li>
-                            <li style="width: calc(100%/18);">2006</li>
-                            <li style="width: calc(100%/18);">2007</li>
-                            <li style="width: calc(100%/18);">2008</li>
-                            <li style="width: calc(100%/18);">2009</li>
-                            <li style="width: calc(100%/18);">2010</li>
-                            <li style="width: calc(100%/18);">2011</li>
-                            <li style="width: calc(100%/18);">2012</li>
-                            <li style="width: calc(100%/18);">2013</li>
-                            <li style="width: calc(100%/18);">2014</li>
-                            <li style="width: calc(100%/18);">2015</li>
-                            <li style="width: calc(100%/18);">2016</li>
-                            <li style="width: calc(100%/18);">2017</li>
-                            <li style="width: calc(100%/18);">2018</li>
-                            <li style="width: calc(100%/18);">2019</li>
-                        </ul>
-                    </div> -->
+
                 </div>
             </div>
 
@@ -165,7 +142,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="spotlight__main spotlight__main--interactive">
+                <div class="spotlight__main spotlight__interactive">
                     <div id="map"></div>
                 </div>
             </div>
@@ -173,7 +150,7 @@
     </section>
 
     <section class="section">
-        <div class="row row--narrow">
+        <div class="row row--wide">
             <h2 class="section__heading">Overview for [Location]</h2>
             <div class="tabs">
                 <section class="tabs__container" id="resources">
@@ -182,9 +159,10 @@
                     <article class="tabs__content">
                         <div class="tabs__content__header">
                             <label for="currency" class="form-label">Currency</label>
-                            <div class="form-field__select-dropdown">
+                            <div class="form-field__select-dropdown form-field__select-dropdown--block">
                         		<select name="currency-choice" id="currency-choice">
                         			<option value="usd" id="usd">Constant 2015 USD</option>
+                                    <option value="ugx" id="ugx">Current UGX</option>
                         		</select>
                         	</div>
                         </div>
@@ -222,6 +200,7 @@
                             <div class="form-field__select-dropdown">
                         		<select name="currency-choice" id="currency-choice">
                         			<option value="usd" id="usd">Constant 2015 USD</option>
+                                    <option value="ugx" id="ugx">Current UGX</option>
                         		</select>
                         	</div>
                         </div>
@@ -256,6 +235,7 @@
                             <div class="form-field__select-dropdown">
                         		<select name="currency-choice" id="currency-choice">
                         			<option value="usd" id="usd">Constant 2015 USD</option>
+                                    <option value="ugx" id="ugx">Current UGX</option>
                         		</select>
                         	</div>
                         </div>
@@ -300,6 +280,7 @@
                             <div class="form-field__select-dropdown">
                         		<select name="currency-choice" id="currency-choice">
                         			<option value="usd" id="usd">Constant 2015 USD</option>
+                                    <option value="ugx" id="ugx">Current UGX</option>
                         		</select>
                         	</div>
                         </div>
@@ -340,6 +321,7 @@
                             <div class="form-field__select-dropdown">
                         		<select name="currency-choice" id="currency-choice">
                         			<option value="usd" id="usd">Constant 2015 USD</option>
+                                    <option value="ugx" id="ugx">Current UGX</option>
                         		</select>
                         	</div>
                         </div>
@@ -377,6 +359,7 @@
                             <div class="form-field__select-dropdown">
                         		<select name="currency-choice" id="currency-choice">
                         			<option value="usd" id="usd">Constant 2015 USD</option>
+                                    <option value="ugx" id="ugx">Current UGX</option>
                         		</select>
                         	</div>
                         </div>
@@ -414,6 +397,7 @@
                             <div class="form-field__select-dropdown">
                         		<select name="currency-choice" id="currency-choice">
                         			<option value="usd" id="usd">Constant 2015 USD</option>
+                                    <option value="ugx" id="ugx">Current UGX</option>
                         		</select>
                         	</div>
                         </div>
@@ -448,12 +432,12 @@
     </section>
 
     <section class="section">
-        <div class="row row--narrow">
+        <div class="row row--wide">
             <h2 class="section__heading">Indicator comparison</h2>
             <div class="spotlight-banner">
                 <div class="spotlight__comparison">
                     <span class="spotlight__comparison-legend"></span>
-                    <div class="form-field form-field--inline-three">
+                    <div class="form-field form-field--inline-block">
                         <label for="indicator" class="form-label">Indicator</label>
                         <!-- <div class="form-field__select-dropdown">
                     		<select name="indicator-choice" id="indicator-choice">
@@ -470,18 +454,21 @@
                             {% endfor  %}
                         </select>
                     </div>
-                    <div class="form-field form-field--inline-three">
+                    <div class="form-field form-field--inline-block">
                         <label for="indicator" class="form-label">Year</label>
                         <div class="form-field__select-dropdown">
                             <select name="indicator-choice" id="indicator-choice">
                                 <option value="poverty-year" id="poverty-year">2018</option>
+                                <option value="2017" id="2017">2017</option>
+                                <option value="2016" id="2016">2016</option>
+                                <option value="2015" id="2015">2015</option>
                             </select>
                         </div>
                     </div>
                 </div>
                 <div class="spotlight__comparison">
                     <span class="spotlight__comparison-legend spotlight__comparison-legend--alt"></span>
-                    <div class="form-field form-field--inline-three">
+                    <div class="form-field form-field--inline-block">
                         <label for="indicator" class="form-label">Indicator</label>
                         <!-- <div class="form-field__select-dropdown">
                     		<select name="indicator-choice" id="indicator-choice">
@@ -498,11 +485,14 @@
                             {% endfor  %}
                         </select>
                     </div>
-                    <div class="form-field form-field--inline-three">
+                    <div class="form-field form-field--inline-block">
                         <label for="indicator" class="form-label">Year</label>
                         <div class="form-field__select-dropdown">
                             <select name="indicator-choice" id="indicator-choice">
                                 <option value="poverty-year" id="poverty-year">2018</option>
+                                <option value="2017" id="2017">2017</option>
+                                <option value="2016" id="2016">2016</option>
+                                <option value="2015" id="2015">2015</option>
                             </select>
                         </div>
                     </div>
@@ -524,7 +514,7 @@
     </section>
 
     <section class="section">
-        <div class="row row--narrow">
+        <div class="row row--wide">
             <h2 class="section__heading">Revenue</h2>
             <div class="spotlight-banner spotlight-banner--alt">
                 <div class="spotlight-banner__aside">
@@ -541,6 +531,7 @@
                         <div class="form-field__select-dropdown">
                     		<select name="currency-choice" id="currency-choice">
                     			<option value="2015-usd" id="2015-usd">Constant 2015 USD</option>
+                                <option value="ugx" id="ugx">Current UGX</option>
                     		</select>
                     	</div>
                     </div>
@@ -553,6 +544,9 @@
                             <div class="form-field__select-dropdown">
                         		<select name="year-choice" id="year-choice">
                         			<option value="2018" id="2018">2018</option>
+                                    <option value="2017" id="2017">2017</option>
+                                    <option value="2016" id="2016">2016</option>
+                                    <option value="2015" id="2015">2015</option>
                         		</select>
                         	</div>
                         </div>
@@ -560,22 +554,6 @@
                             <button type="button" class="button">Update</button>
                         </div>
                     </div>
-                    <!-- <div class="m-timeline-container">
-                        <div class="m-timeline">
-                            <label for="year" class="form-label">Year</label>
-                            <input type="range" id="year" name="year" value="1" min="1" max="8" steps="8">
-                        </div>
-                        <ul class="m-timeline-labels">
-                            <li class="m-timeline-labels__active selected" style="width: calc(100%/8);">2012</li>
-                            <li style="width: calc(100%/8);">2013</li>
-                            <li style="width: calc(100%/8);">2014</li>
-                            <li style="width: calc(100%/8);">2015</li>
-                            <li style="width: calc(100%/8);">2016</li>
-                            <li style="width: calc(100%/8);">2017</li>
-                            <li style="width: calc(100%/8);">2018</li>
-                            <li style="width: calc(100%/8);">2019</li>
-                        </ul>
-                    </div> -->
                 </div>
             </div>
 
@@ -591,7 +569,7 @@
     </section>
 
     <section class="section">
-        <div class="row row--narrow">
+        <div class="row row--wide">
             <h2 class="section__heading">Expenditure</h2>
             <div class="spotlight-banner spotlight-banner--alt">
                 <div class="spotlight-banner__aside">
@@ -608,6 +586,7 @@
                         <div class="form-field__select-dropdown">
                     		<select name="currency-choice" id="currency-choice">
                     			<option value="2015-usd" id="2015-usd">Constant 2015 USD</option>
+                                <option value="ugx" id="ugx">Current UGX</option>
                     		</select>
                     	</div>
                     </div>
@@ -620,6 +599,9 @@
                             <div class="form-field__select-dropdown">
                         		<select name="year-choice" id="year-choice">
                         			<option value="2018" id="2018">2018</option>
+                                    <option value="2017" id="2017">2017</option>
+                                    <option value="2016" id="2016">2016</option>
+                                    <option value="2015" id="2015">2015</option>
                         		</select>
                         	</div>
                         </div>
@@ -627,22 +609,6 @@
                             <button type="button" class="button">Update</button>
                         </div>
                     </div>
-                    <!-- <div class="m-timeline-container">
-                        <div class="m-timeline">
-                            <label for="year" class="form-label">Year</label>
-                            <input type="range" id="year" name="year" value="1" min="1" max="8" steps="8">
-                        </div>
-                        <ul class="m-timeline-labels">
-                            <li class="m-timeline-labels__active selected" style="width: calc(100%/8);">2012</li>
-                            <li style="width: calc(100%/8);">2013</li>
-                            <li style="width: calc(100%/8);">2014</li>
-                            <li style="width: calc(100%/8);">2015</li>
-                            <li style="width: calc(100%/8);">2016</li>
-                            <li style="width: calc(100%/8);">2017</li>
-                            <li style="width: calc(100%/8);">2018</li>
-                            <li style="width: calc(100%/8);">2019</li>
-                        </ul>
-                    </div> -->
                 </div>
             </div>
 
@@ -658,7 +624,7 @@
     </section>
 
     <section class="section">
-        <div class="row row--narrow">
+        <div class="row row--wide">
             <h2 class="section__heading">Data & Sources</h2>
             <div class="is-typeset max-meter">
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>

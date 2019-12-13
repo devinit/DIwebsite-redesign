@@ -115,6 +115,10 @@
 .spotlight__select-container {
     display: block;
     width: 100%;
+    .spotlight--full & {
+        width: auto;
+        min-width: 250px;
+    }
 }
 
 .select2-selection {
@@ -393,13 +397,13 @@
 .spotlight__comparison-legend {
     width: 26px;
     height: 26px;
-    background-color: $sunflower-dark;
+    background-color: $bluebell;
     display: inline-block;
     float: left;
     margin-top: 0;
     margin-right: 1em;
     &--alt {
-        background-color: $sunflower-light;
+        background-color: $marigold;
     }
     @include respond-to($c-vp - 100px) {
         width: 70px;

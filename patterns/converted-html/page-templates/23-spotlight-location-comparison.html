@@ -123,41 +123,246 @@
                     <a href="#" class="m-text-link"><i role="presentation" aria-hidden="true" class="ico ico--16 ico-plus-poppy"></i> <span>Add another location</span></a>
                 </div>
                 <div class="spotlight-banner__main">
-                    <form class="spotlight__select">
-                        <div class="form-field form-field--offset">
-                            <label for="indicator" class="form-label form-label--hidden">Locations</label>
-                            <!-- <div class="form-field__select-dropdown">
-                                <select name="indicator-choice" id="indicator-choice">
-                                    <option value="poverty-headcount" id="poverty-headcount">Location select2</option>
-                                </select>
-                            </div> -->
-                            <select class="spotlight__select-container js-example-basic-multiple" name="states[]" multiple="multiple">
-                                <optgroup label="Uganda">
-                                   <option value="WY">Wyoming</option>
-                                </optgroup>
-
-                              <optgroup label="Uganda">
-                                 <option value="WY">Wyoming</option>
-                              </optgroup>
-                            </select>
-                        </div>
-                        <div class="form-field form-field--offset">
-                            <button type="button" class="button">Compare</button>
-                        </div>
-                    </form>
+                    <ul class="m-pills">
+                        <li class="m-pills__item"><button type="button"><i role="presentation" aria-hidden="true" class="ico ico--16 ico-plus-blank"></i></button> Bungoma</li>
+                        <li class="m-pills__item"><button type="button"><i role="presentation" aria-hidden="true" class="ico ico--16 ico-plus-blank"></i></button> Kisumu</li>
+                        <li class="m-pills__item"><button type="button"><i role="presentation" aria-hidden="true" class="ico ico--16 ico-plus-blank"></i></button> Nakuru</li>
+                    </ul>
+                    <button type="button" class="button button--compare">Compare</button>
                 </div>
             </div>
 
             <div class="spotlight spotlight--full">
-                <div class="max-meter space-section-bottom--small">
-                    <div class="form-field">
-                        <label for="indicator" class="form-label">Indicator</label>
-                        <div class="form-field__select-dropdown">
-                            <select name="indicator-choice" id="indicator-choice">
-                                <option value="poverty-headcount" id="poverty-headcount">Poverty headcount</option>
-                            </select>
-                        </div>
-                    </div>
+                <div class="space-section-bottom--small">
+                    <label for="indicator" class="form-label">Indicator</label>
+                    <!-- <div class="form-field__select-dropdown">
+                		<select name="indicator-choice" id="indicator-choice">
+                			<option value="poverty-headcount" id="poverty-headcount">Poverty headcount</option>
+                		</select>
+                	</div> -->
+                    <select class="spotlight__select-container js-example-basic-single " name="states[]">
+                        
+                            <optgroup label="Poverty and vulnerability">
+                                
+                                    <option value="Poverty headcount">Poverty headcount</option>
+                                
+                                    <option value="Decent standard of living score">Decent standard of living score</option>
+                                
+                                    <option value="Life expectancy">Life expectancy</option>
+                                
+                                    <option value="Population with a disability (%)">Population with a disability (%)</option>
+                                
+                                    <option value="Population with a hearing disability (%)">Population with a hearing disability (%)</option>
+                                
+                                    <option value="Population with a remembering disability (%)">Population with a remembering disability (%)</option>
+                                
+                                    <option value="Population with a seeing disability (%)">Population with a seeing disability (%)</option>
+                                
+                                    <option value="Population with a walking disability (%)">Population with a walking disability (%)</option>
+                                
+                                    <option value="Children ever married as a % of total child population">Children ever married as a % of total child population</option>
+                                
+                                    <option value="Male children ever married as a % of total child population">Male children ever married as a % of total child population</option>
+                                
+                                    <option value="Female children ever married as a % of total child population">Female children ever married as a % of total child population</option>
+                                
+                                    <option value="Households receiving remittances (%)">Households receiving remittances (%)</option>
+                                
+                                    <option value="Households using electricity for cooking (%)">Households using electricity for cooking (%)</option>
+                                
+                                    <option value="Households using charcoal for cooking (%)">Households using charcoal for cooking (%)</option>
+                                
+                                    <option value="Households using firewood for cooking (%)">Households using firewood for cooking (%)</option>
+                                
+                                    <option value="Households using gas for cooking (%)">Households using gas for cooking (%)</option>
+                                
+                                    <option value="Households using a paraffin stove for cooking (%)">Households using a paraffin stove for cooking (%)</option>
+                                
+                                    <option value="Households using electricity for lighting (%)">Households using electricity for lighting (%)</option>
+                                
+                                    <option value="Households using a paraffin lantern for lighting (%)">Households using a paraffin lantern for lighting (%)</option>
+                                
+                                    <option value="Households using gas for lighting (%)">Households using gas for lighting (%)</option>
+                                
+                                    <option value="Households using candles for lighting (%)">Households using candles for lighting (%)</option>
+                                
+                                    <option value="Households using a paraffin tadooba for lighting (%)">Households using a paraffin tadooba for lighting (%)</option>
+                                
+                                    <option value="Households using firewood for lighting (%)">Households using firewood for lighting (%)</option>
+                                
+                            </optgroup>
+                        
+                            <optgroup label="Population">
+                                
+                                    <option value="Total population">Total population</option>
+                                
+                                    <option value="Population density (per sq km)">Population density (per sq km)</option>
+                                
+                                    <option value="Annual population growth rate">Annual population growth rate</option>
+                                
+                                    <option value="Average household size">Average household size</option>
+                                
+                                    <option value="Average dependency ratio">Average dependency ratio</option>
+                                
+                                    <option value="Urban population (%)">Urban population (%)</option>
+                                
+                                    <option value="Sex ratio">Sex ratio</option>
+                                
+                                    <option value="Number of households">Number of households</option>
+                                
+                            </optgroup>
+                        
+                            <optgroup label="Education">
+                                
+                                    <option value="Primary leaving exam performance index">Primary leaving exam performance index</option>
+                                
+                                    <option value="Primary net enrolment rate">Primary net enrolment rate</option>
+                                
+                                    <option value="Primary pupil to classroom ratio (all schools)">Primary pupil to classroom ratio (all schools)</option>
+                                
+                                    <option value="Primary pupil to classroom ratio (government schools)">Primary pupil to classroom ratio (government schools)</option>
+                                
+                                    <option value="Primary pupil to classroom ratio (private schools)">Primary pupil to classroom ratio (private schools)</option>
+                                
+                                    <option value="Primary pupil to teacher ratio (all schools)">Primary pupil to teacher ratio (all schools)</option>
+                                
+                                    <option value="Primary pupil to teacher ratio (government schools)">Primary pupil to teacher ratio (government schools)</option>
+                                
+                                    <option value="Primary pupil to teacher ratio (private schools)">Primary pupil to teacher ratio (private schools)</option>
+                                
+                                    <option value="Primary pupil to toilet stance ratio (all schools)">Primary pupil to toilet stance ratio (all schools)</option>
+                                
+                                    <option value="Primary pupil to toilet stance ratio (government schools)">Primary pupil to toilet stance ratio (government schools)</option>
+                                
+                                    <option value="Primary pupil to toilet stance ratio (private schools)">Primary pupil to toilet stance ratio (private schools)</option>
+                                
+                                    <option value="Primary pupils with adequate sitting and writing space (all schools, %)">Primary pupils with adequate sitting and writing space (all schools, %)</option>
+                                
+                                    <option value="Primary pupils with adequate sitting and writing space (government schools, %)">Primary pupils with adequate sitting and writing space (government schools, %)</option>
+                                
+                                    <option value="Primary education spending per child">Primary education spending per child</option>
+                                
+                                    <option value="Primary education donor spending per child">Primary education donor spending per child</option>
+                                
+                                    <option value="Secondary net enrolment rate">Secondary net enrolment rate</option>
+                                
+                                    <option value="Secondary students with adequate sitting and writing space (government schools)">Secondary students with adequate sitting and writing space (government schools)</option>
+                                
+                                    <option value="Secondary students with adequate sitting and writing space (total)">Secondary students with adequate sitting and writing space (total)</option>
+                                
+                                    <option value="Secondary students-teacher ratio (government schools)">Secondary students-teacher ratio (government schools)</option>
+                                
+                                    <option value="Secondary students-teacher ratio (total)">Secondary students-teacher ratio (total)</option>
+                                
+                                    <option value="Secondary student classroom ratio (all schools)">Secondary student classroom ratio (all schools)</option>
+                                
+                                    <option value="Secondary student classroom ratio (government schools)">Secondary student classroom ratio (government schools)</option>
+                                
+                                    <option value="Secondary student classroom ratio (private schools)">Secondary student classroom ratio (private schools)</option>
+                                
+                                    <option value="Secondary student stance ratio (all schools)">Secondary student stance ratio (all schools)</option>
+                                
+                                    <option value="Secondary student stance ratio (government schools)">Secondary student stance ratio (government schools)</option>
+                                
+                                    <option value="Secondary student stance ratio (private schools)">Secondary student stance ratio (private schools)</option>
+                                
+                            </optgroup>
+                        
+                            <optgroup label="Health">
+                                
+                                    <option value="District league table overall score">District league table overall score</option>
+                                
+                                    <option value="Tuberculosis treatment success rate">Tuberculosis treatment success rate</option>
+                                
+                                    <option value="Diphtheria treatment coverage rate">Diphtheria treatment coverage rate</option>
+                                
+                                    <option value="Tetanus vaccine coverage rate">Tetanus vaccine coverage rate</option>
+                                
+                                    <option value="Antenatal care coverage rate">Antenatal care coverage rate</option>
+                                
+                                    <option value="Approved posts that are filled (%)">Approved posts that are filled (%)</option>
+                                
+                                    <option value="HMIS reporting score">HMIS reporting score</option>
+                                
+                                    <option value="Primary health spending per person">Primary health spending per person</option>
+                                
+                            </optgroup>
+                        
+                            <optgroup label="Water and sanitation">
+                                
+                                    <option value="District WASH performance score">District WASH performance score</option>
+                                
+                                    <option value="Household water coverage (%)">Household water coverage (%)</option>
+                                
+                                    <option value="Household sanitation coverage (%)">Household sanitation coverage (%)</option>
+                                
+                                    <option value="Rural access to safe water (%)">Rural access to safe water (%)</option>
+                                
+                                    <option value="Rural water source functionality (%)">Rural water source functionality (%)</option>
+                                
+                                    <option value="Equality in improved water access, rural">Equality in improved water access, rural</option>
+                                
+                                    <option value="Functioning water source committees (%)">Functioning water source committees (%)</option>
+                                
+                                    <option value="Gender equality WSC">Gender equality WSC</option>
+                                
+                            </optgroup>
+                        
+                            <optgroup label="District public resources">
+                                
+                                    <option value="Agriculture allocation as a % of total expenditure">Agriculture allocation as a % of total expenditure</option>
+                                
+                                    <option value="Education allocation as a % of total expenditure">Education allocation as a % of total expenditure</option>
+                                
+                                    <option value="Health allocation as a % of total expenditure">Health allocation as a % of total expenditure</option>
+                                
+                                    <option value="Locally raised revenues">Locally raised revenues</option>
+                                
+                                    <option value="Donor funds">Donor funds</option>
+                                
+                            </optgroup>
+                        
+                            <optgroup label="Agriculture">
+                                
+                                    <option value="Indicator A">Indicator A</option>
+                                
+                                    <option value="Indicator B">Indicator B</option>
+                                
+                                    <option value="Indicator C">Indicator C</option>
+                                
+                                    <option value="Indicator D">Indicator D</option>
+                                
+                                    <option value="Indicator E">Indicator E</option>
+                                
+                                    <option value="Indicator F">Indicator F</option>
+                                
+                                    <option value="Indicator G">Indicator G</option>
+                                
+                                    <option value="Indicator H">Indicator H</option>
+                                
+                            </optgroup>
+                        
+                            <optgroup label="Climate Change">
+                                
+                                    <option value="Indicator A">Indicator A</option>
+                                
+                                    <option value="Indicator B">Indicator B</option>
+                                
+                                    <option value="Indicator C">Indicator C</option>
+                                
+                                    <option value="Indicator D">Indicator D</option>
+                                
+                                    <option value="Indicator E">Indicator E</option>
+                                
+                                    <option value="Indicator F">Indicator F</option>
+                                
+                                    <option value="Indicator G">Indicator G</option>
+                                
+                                    <option value="Indicator H">Indicator H</option>
+                                
+                            </optgroup>
+                        
+                    </select>
                 </div>
                 <div class="spotlight__main">
                     <div class="spotlight__interactive" id="chart"></div>
@@ -169,15 +374,236 @@
     <section class="section">
         <div class="row row--narrow">
             <div class="spotlight spotlight--full">
-                <div class="max-meter space-section-bottom--small">
-                    <div class="form-field">
-                        <label for="indicator" class="form-label">Indicator</label>
-                        <div class="form-field__select-dropdown">
-                            <select name="indicator-choice" id="indicator-choice">
-                                <option value="poverty-headcount" id="poverty-headcount">Poverty headcount</option>
-                            </select>
-                        </div>
-                    </div>
+                <div class="space-section-bottom--small">
+                    <label for="indicator" class="form-label">Indicator</label>
+                    <!-- <div class="form-field__select-dropdown">
+                		<select name="indicator-choice" id="indicator-choice">
+                			<option value="poverty-headcount" id="poverty-headcount">Poverty headcount</option>
+                		</select>
+                	</div> -->
+                    <select class="spotlight__select-container js-example-basic-single " name="states[]">
+                        
+                            <optgroup label="Poverty and vulnerability">
+                                
+                                    <option value="Poverty headcount">Poverty headcount</option>
+                                
+                                    <option value="Decent standard of living score">Decent standard of living score</option>
+                                
+                                    <option value="Life expectancy">Life expectancy</option>
+                                
+                                    <option value="Population with a disability (%)">Population with a disability (%)</option>
+                                
+                                    <option value="Population with a hearing disability (%)">Population with a hearing disability (%)</option>
+                                
+                                    <option value="Population with a remembering disability (%)">Population with a remembering disability (%)</option>
+                                
+                                    <option value="Population with a seeing disability (%)">Population with a seeing disability (%)</option>
+                                
+                                    <option value="Population with a walking disability (%)">Population with a walking disability (%)</option>
+                                
+                                    <option value="Children ever married as a % of total child population">Children ever married as a % of total child population</option>
+                                
+                                    <option value="Male children ever married as a % of total child population">Male children ever married as a % of total child population</option>
+                                
+                                    <option value="Female children ever married as a % of total child population">Female children ever married as a % of total child population</option>
+                                
+                                    <option value="Households receiving remittances (%)">Households receiving remittances (%)</option>
+                                
+                                    <option value="Households using electricity for cooking (%)">Households using electricity for cooking (%)</option>
+                                
+                                    <option value="Households using charcoal for cooking (%)">Households using charcoal for cooking (%)</option>
+                                
+                                    <option value="Households using firewood for cooking (%)">Households using firewood for cooking (%)</option>
+                                
+                                    <option value="Households using gas for cooking (%)">Households using gas for cooking (%)</option>
+                                
+                                    <option value="Households using a paraffin stove for cooking (%)">Households using a paraffin stove for cooking (%)</option>
+                                
+                                    <option value="Households using electricity for lighting (%)">Households using electricity for lighting (%)</option>
+                                
+                                    <option value="Households using a paraffin lantern for lighting (%)">Households using a paraffin lantern for lighting (%)</option>
+                                
+                                    <option value="Households using gas for lighting (%)">Households using gas for lighting (%)</option>
+                                
+                                    <option value="Households using candles for lighting (%)">Households using candles for lighting (%)</option>
+                                
+                                    <option value="Households using a paraffin tadooba for lighting (%)">Households using a paraffin tadooba for lighting (%)</option>
+                                
+                                    <option value="Households using firewood for lighting (%)">Households using firewood for lighting (%)</option>
+                                
+                            </optgroup>
+                        
+                            <optgroup label="Population">
+                                
+                                    <option value="Total population">Total population</option>
+                                
+                                    <option value="Population density (per sq km)">Population density (per sq km)</option>
+                                
+                                    <option value="Annual population growth rate">Annual population growth rate</option>
+                                
+                                    <option value="Average household size">Average household size</option>
+                                
+                                    <option value="Average dependency ratio">Average dependency ratio</option>
+                                
+                                    <option value="Urban population (%)">Urban population (%)</option>
+                                
+                                    <option value="Sex ratio">Sex ratio</option>
+                                
+                                    <option value="Number of households">Number of households</option>
+                                
+                            </optgroup>
+                        
+                            <optgroup label="Education">
+                                
+                                    <option value="Primary leaving exam performance index">Primary leaving exam performance index</option>
+                                
+                                    <option value="Primary net enrolment rate">Primary net enrolment rate</option>
+                                
+                                    <option value="Primary pupil to classroom ratio (all schools)">Primary pupil to classroom ratio (all schools)</option>
+                                
+                                    <option value="Primary pupil to classroom ratio (government schools)">Primary pupil to classroom ratio (government schools)</option>
+                                
+                                    <option value="Primary pupil to classroom ratio (private schools)">Primary pupil to classroom ratio (private schools)</option>
+                                
+                                    <option value="Primary pupil to teacher ratio (all schools)">Primary pupil to teacher ratio (all schools)</option>
+                                
+                                    <option value="Primary pupil to teacher ratio (government schools)">Primary pupil to teacher ratio (government schools)</option>
+                                
+                                    <option value="Primary pupil to teacher ratio (private schools)">Primary pupil to teacher ratio (private schools)</option>
+                                
+                                    <option value="Primary pupil to toilet stance ratio (all schools)">Primary pupil to toilet stance ratio (all schools)</option>
+                                
+                                    <option value="Primary pupil to toilet stance ratio (government schools)">Primary pupil to toilet stance ratio (government schools)</option>
+                                
+                                    <option value="Primary pupil to toilet stance ratio (private schools)">Primary pupil to toilet stance ratio (private schools)</option>
+                                
+                                    <option value="Primary pupils with adequate sitting and writing space (all schools, %)">Primary pupils with adequate sitting and writing space (all schools, %)</option>
+                                
+                                    <option value="Primary pupils with adequate sitting and writing space (government schools, %)">Primary pupils with adequate sitting and writing space (government schools, %)</option>
+                                
+                                    <option value="Primary education spending per child">Primary education spending per child</option>
+                                
+                                    <option value="Primary education donor spending per child">Primary education donor spending per child</option>
+                                
+                                    <option value="Secondary net enrolment rate">Secondary net enrolment rate</option>
+                                
+                                    <option value="Secondary students with adequate sitting and writing space (government schools)">Secondary students with adequate sitting and writing space (government schools)</option>
+                                
+                                    <option value="Secondary students with adequate sitting and writing space (total)">Secondary students with adequate sitting and writing space (total)</option>
+                                
+                                    <option value="Secondary students-teacher ratio (government schools)">Secondary students-teacher ratio (government schools)</option>
+                                
+                                    <option value="Secondary students-teacher ratio (total)">Secondary students-teacher ratio (total)</option>
+                                
+                                    <option value="Secondary student classroom ratio (all schools)">Secondary student classroom ratio (all schools)</option>
+                                
+                                    <option value="Secondary student classroom ratio (government schools)">Secondary student classroom ratio (government schools)</option>
+                                
+                                    <option value="Secondary student classroom ratio (private schools)">Secondary student classroom ratio (private schools)</option>
+                                
+                                    <option value="Secondary student stance ratio (all schools)">Secondary student stance ratio (all schools)</option>
+                                
+                                    <option value="Secondary student stance ratio (government schools)">Secondary student stance ratio (government schools)</option>
+                                
+                                    <option value="Secondary student stance ratio (private schools)">Secondary student stance ratio (private schools)</option>
+                                
+                            </optgroup>
+                        
+                            <optgroup label="Health">
+                                
+                                    <option value="District league table overall score">District league table overall score</option>
+                                
+                                    <option value="Tuberculosis treatment success rate">Tuberculosis treatment success rate</option>
+                                
+                                    <option value="Diphtheria treatment coverage rate">Diphtheria treatment coverage rate</option>
+                                
+                                    <option value="Tetanus vaccine coverage rate">Tetanus vaccine coverage rate</option>
+                                
+                                    <option value="Antenatal care coverage rate">Antenatal care coverage rate</option>
+                                
+                                    <option value="Approved posts that are filled (%)">Approved posts that are filled (%)</option>
+                                
+                                    <option value="HMIS reporting score">HMIS reporting score</option>
+                                
+                                    <option value="Primary health spending per person">Primary health spending per person</option>
+                                
+                            </optgroup>
+                        
+                            <optgroup label="Water and sanitation">
+                                
+                                    <option value="District WASH performance score">District WASH performance score</option>
+                                
+                                    <option value="Household water coverage (%)">Household water coverage (%)</option>
+                                
+                                    <option value="Household sanitation coverage (%)">Household sanitation coverage (%)</option>
+                                
+                                    <option value="Rural access to safe water (%)">Rural access to safe water (%)</option>
+                                
+                                    <option value="Rural water source functionality (%)">Rural water source functionality (%)</option>
+                                
+                                    <option value="Equality in improved water access, rural">Equality in improved water access, rural</option>
+                                
+                                    <option value="Functioning water source committees (%)">Functioning water source committees (%)</option>
+                                
+                                    <option value="Gender equality WSC">Gender equality WSC</option>
+                                
+                            </optgroup>
+                        
+                            <optgroup label="District public resources">
+                                
+                                    <option value="Agriculture allocation as a % of total expenditure">Agriculture allocation as a % of total expenditure</option>
+                                
+                                    <option value="Education allocation as a % of total expenditure">Education allocation as a % of total expenditure</option>
+                                
+                                    <option value="Health allocation as a % of total expenditure">Health allocation as a % of total expenditure</option>
+                                
+                                    <option value="Locally raised revenues">Locally raised revenues</option>
+                                
+                                    <option value="Donor funds">Donor funds</option>
+                                
+                            </optgroup>
+                        
+                            <optgroup label="Agriculture">
+                                
+                                    <option value="Indicator A">Indicator A</option>
+                                
+                                    <option value="Indicator B">Indicator B</option>
+                                
+                                    <option value="Indicator C">Indicator C</option>
+                                
+                                    <option value="Indicator D">Indicator D</option>
+                                
+                                    <option value="Indicator E">Indicator E</option>
+                                
+                                    <option value="Indicator F">Indicator F</option>
+                                
+                                    <option value="Indicator G">Indicator G</option>
+                                
+                                    <option value="Indicator H">Indicator H</option>
+                                
+                            </optgroup>
+                        
+                            <optgroup label="Climate Change">
+                                
+                                    <option value="Indicator A">Indicator A</option>
+                                
+                                    <option value="Indicator B">Indicator B</option>
+                                
+                                    <option value="Indicator C">Indicator C</option>
+                                
+                                    <option value="Indicator D">Indicator D</option>
+                                
+                                    <option value="Indicator E">Indicator E</option>
+                                
+                                    <option value="Indicator F">Indicator F</option>
+                                
+                                    <option value="Indicator G">Indicator G</option>
+                                
+                                    <option value="Indicator H">Indicator H</option>
+                                
+                            </optgroup>
+                        
+                    </select>
                 </div>
                 <div class="spotlight__main">
                     <div class="spotlight__interactive" id="chart"></div>
@@ -193,28 +619,7 @@
                     <a href="#" class="m-text-link"><i role="presentation" aria-hidden="true" class="ico ico--16 ico-plus-poppy"></i> <span>Add another location</span></a>
                 </div>
                 <div class="spotlight-banner__main">
-                    <form class="spotlight__select">
-                        <div class="form-field form-field--offset">
-                            <label for="indicator" class="form-label form-label--hidden">Locations</label>
-                            <!-- <div class="form-field__select-dropdown">
-                                <select name="indicator-choice" id="indicator-choice">
-                                    <option value="poverty-headcount" id="poverty-headcount">Location select2</option>
-                                </select>
-                            </div> -->
-                            <select class="spotlight__select-container js-example-basic-multiple" name="states[]" multiple="multiple">
-                                <optgroup label="Uganda">
-                                   <option value="WY">Wyoming</option>
-                                </optgroup>
 
-                              <optgroup label="Uganda">
-                                 <option value="WY">Wyoming</option>
-                              </optgroup>
-                            </select>
-                        </div>
-                        <div class="form-field form-field--offset">
-                            <button type="button" class="button">Compare</button>
-                        </div>
-                    </form>
                 </div>
             </div>
         </div>

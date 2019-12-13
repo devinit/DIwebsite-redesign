@@ -22,7 +22,7 @@
 {% model 'cards', as="card" %}
 {% model 'navigation', as="navigation" %}
 {% model 'timeline', as="timeline" %}
-{% model 'locations_uganda', as="location" %}
+{% model 'indicators', as="indicator" %}
 
 {% import 'macros/icon.html' as icons %}
 {% import 'macros/secondary-navigation.html' as secondary_navigation %}
@@ -44,41 +44,32 @@
                     <a href="#" class="m-text-link">{{ icons.icon('ico-plus-poppy', '16') }} <span>Add another location</span></a>
                 </div>
                 <div class="spotlight-banner__main">
-                    <form class="spotlight__select">
-                        <div class="form-field form-field--offset">
-                            <label for="indicator" class="form-label form-label--hidden">Locations</label>
-                            <!-- <div class="form-field__select-dropdown">
-                                <select name="indicator-choice" id="indicator-choice">
-                                    <option value="poverty-headcount" id="poverty-headcount">Location select2</option>
-                                </select>
-                            </div> -->
-                            <select class="spotlight__select-container js-example-basic-multiple" name="states[]" multiple="multiple">
-                                <optgroup label="Uganda">
-                                   <option value="WY">Wyoming</option>
-                                </optgroup>
-
-                              <optgroup label="Uganda">
-                                 <option value="WY">Wyoming</option>
-                              </optgroup>
-                            </select>
-                        </div>
-                        <div class="form-field form-field--offset">
-                            <button type="button" class="button">Compare</button>
-                        </div>
-                    </form>
+                    <ul class="m-pills">
+                        <li class="m-pills__item"><button type="button">{{ icons.icon('ico-plus-blank', '16') }}</button> Bungoma</li>
+                        <li class="m-pills__item"><button type="button">{{ icons.icon('ico-plus-blank', '16') }}</button> Kisumu</li>
+                        <li class="m-pills__item"><button type="button">{{ icons.icon('ico-plus-blank', '16') }}</button> Nakuru</li>
+                    </ul>
+                    <button type="button" class="button button--compare">Compare</button>
                 </div>
             </div>
 
             <div class="spotlight spotlight--full">
-                <div class="max-meter space-section-bottom--small">
-                    <div class="form-field">
-                        <label for="indicator" class="form-label">Indicator</label>
-                        <div class="form-field__select-dropdown">
-                            <select name="indicator-choice" id="indicator-choice">
-                                <option value="poverty-headcount" id="poverty-headcount">Poverty headcount</option>
-                            </select>
-                        </div>
-                    </div>
+                <div class="space-section-bottom--small">
+                    <label for="indicator" class="form-label">Indicator</label>
+                    <!-- <div class="form-field__select-dropdown">
+                		<select name="indicator-choice" id="indicator-choice">
+                			<option value="poverty-headcount" id="poverty-headcount">Poverty headcount</option>
+                		</select>
+                	</div> -->
+                    <select class="spotlight__select-container js-example-basic-single " name="states[]">
+                        {% for item in indicator.indicators %}
+                            <optgroup label="{{ item.group_name }}">
+                                {% for name in item.group_indicators %}
+                                    <option value="{{ name.indicator_name }}">{{ name.indicator_name }}</option>
+                                {% endfor %}
+                            </optgroup>
+                        {% endfor  %}
+                    </select>
                 </div>
                 <div class="spotlight__main">
                     <div class="spotlight__interactive" id="chart"></div>
@@ -90,15 +81,22 @@
     <section class="section">
         <div class="row row--narrow">
             <div class="spotlight spotlight--full">
-                <div class="max-meter space-section-bottom--small">
-                    <div class="form-field">
-                        <label for="indicator" class="form-label">Indicator</label>
-                        <div class="form-field__select-dropdown">
-                            <select name="indicator-choice" id="indicator-choice">
-                                <option value="poverty-headcount" id="poverty-headcount">Poverty headcount</option>
-                            </select>
-                        </div>
-                    </div>
+                <div class="space-section-bottom--small">
+                    <label for="indicator" class="form-label">Indicator</label>
+                    <!-- <div class="form-field__select-dropdown">
+                		<select name="indicator-choice" id="indicator-choice">
+                			<option value="poverty-headcount" id="poverty-headcount">Poverty headcount</option>
+                		</select>
+                	</div> -->
+                    <select class="spotlight__select-container js-example-basic-single " name="states[]">
+                        {% for item in indicator.indicators %}
+                            <optgroup label="{{ item.group_name }}">
+                                {% for name in item.group_indicators %}
+                                    <option value="{{ name.indicator_name }}">{{ name.indicator_name }}</option>
+                                {% endfor %}
+                            </optgroup>
+                        {% endfor  %}
+                    </select>
                 </div>
                 <div class="spotlight__main">
                     <div class="spotlight__interactive" id="chart"></div>
@@ -114,28 +112,7 @@
                     <a href="#" class="m-text-link">{{ icons.icon('ico-plus-poppy', '16') }} <span>Add another location</span></a>
                 </div>
                 <div class="spotlight-banner__main">
-                    <form class="spotlight__select">
-                        <div class="form-field form-field--offset">
-                            <label for="indicator" class="form-label form-label--hidden">Locations</label>
-                            <!-- <div class="form-field__select-dropdown">
-                                <select name="indicator-choice" id="indicator-choice">
-                                    <option value="poverty-headcount" id="poverty-headcount">Location select2</option>
-                                </select>
-                            </div> -->
-                            <select class="spotlight__select-container js-example-basic-multiple" name="states[]" multiple="multiple">
-                                <optgroup label="Uganda">
-                                   <option value="WY">Wyoming</option>
-                                </optgroup>
 
-                              <optgroup label="Uganda">
-                                 <option value="WY">Wyoming</option>
-                              </optgroup>
-                            </select>
-                        </div>
-                        <div class="form-field form-field--offset">
-                            <button type="button" class="button">Compare</button>
-                        </div>
-                    </form>
                 </div>
             </div>
         </div>

@@ -71,6 +71,20 @@
 	}
 }
 
+.form-field--inline-block {
+	z-index: 1;
+	display: block;
+	margin-top: 1em;
+	min-width: 100%;
+	@include respond-to($c-vp) {
+		margin-top: 0;
+		display: inline-block;
+		float: left;
+		min-width: 250px;
+		margin-right: 10px;
+	}
+}
+
 .form-field--offset {
 	position: relative;
 	z-index: 1;
@@ -254,7 +268,7 @@ textarea.form-item {
 	@include font-size($para);
 	background-color: #fff;
 	select {
-		width: 100%;
+		min-width: 100%;
 		display: block;
 		height: $form-item-height;
 		background-color: transparent;
@@ -276,6 +290,11 @@ textarea.form-item {
 		}
 		&::-ms-expand {
 			display: none;
+		}
+	}
+	&--block {
+		select {
+			min-width: 250px;
 		}
 	}
 }

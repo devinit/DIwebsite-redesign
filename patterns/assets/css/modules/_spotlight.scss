@@ -117,6 +117,21 @@
     width: 100%;
 }
 
+.select2-selection {
+    border-color: $default-border-color !important;
+    border-radius: 0 !important;
+    height: $form-item-height !important;
+    @include font-size($para);
+}
+
+.select2-selection__rendered {
+    padding-top: 7px;
+}
+
+.select2-selection__arrow {
+    top: 10px !important;
+}
+
 .select2-results__option {
     @include font-size($para);
 }

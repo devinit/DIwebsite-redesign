@@ -23,6 +23,7 @@
 {% model 'navigation', as="navigation" %}
 {% model 'timeline', as="timeline" %}
 {% model 'locations_uganda', as="location" %}
+{% model 'indicators', as="indicator" %}
 
 {% import 'macros/icon.html' as icons %}
 {% import 'macros/secondary-navigation.html' as secondary_navigation %}
@@ -42,11 +43,20 @@
             <div class="spotlight-banner">
                 <div class="spotlight-banner__aside">
                     <label for="indicator" class="form-label">Indicator</label>
-                    <div class="form-field__select-dropdown">
+                    <!-- <div class="form-field__select-dropdown">
                 		<select name="indicator-choice" id="indicator-choice">
                 			<option value="poverty-headcount" id="poverty-headcount">Poverty headcount</option>
                 		</select>
-                	</div>
+                	</div> -->
+                    <select class="spotlight__select-container js-example-basic-single " name="states[]">
+                        {% for item in indicator.indicators %}
+                            <optgroup label="{{ item.group_name }}">
+                                {% for name in item.group_indicators %}
+                                    <option value="{{ name.indicator_name }}">{{ name.indicator_name }}</option>
+                                {% endfor %}
+                            </optgroup>
+                        {% endfor  %}
+                    </select>
                 </div>
                 <div class="spotlight-banner__main">
                     <!-- mobile dropdown -->
@@ -445,11 +455,20 @@
                     <span class="spotlight__comparison-legend"></span>
                     <div class="form-field form-field--inline-three">
                         <label for="indicator" class="form-label">Indicator</label>
-                        <div class="form-field__select-dropdown">
-                            <select name="indicator-choice" id="indicator-choice">
-                                <option value="poverty-headcount" id="poverty-headcount">Poverty headcount</option>
-                            </select>
-                        </div>
+                        <!-- <div class="form-field__select-dropdown">
+                    		<select name="indicator-choice" id="indicator-choice">
+                    			<option value="poverty-headcount" id="poverty-headcount">Poverty headcount</option>
+                    		</select>
+                    	</div> -->
+                        <select class="spotlight__select-container js-example-basic-single " name="states[]">
+                            {% for item in indicator.indicators %}
+                                <optgroup label="{{ item.group_name }}">
+                                    {% for name in item.group_indicators %}
+                                        <option value="{{ name.indicator_name }}">{{ name.indicator_name }}</option>
+                                    {% endfor %}
+                                </optgroup>
+                            {% endfor  %}
+                        </select>
                     </div>
                     <div class="form-field form-field--inline-three">
                         <label for="indicator" class="form-label">Year</label>
@@ -464,11 +483,20 @@
                     <span class="spotlight__comparison-legend spotlight__comparison-legend--alt"></span>
                     <div class="form-field form-field--inline-three">
                         <label for="indicator" class="form-label">Indicator</label>
-                        <div class="form-field__select-dropdown">
-                            <select name="indicator-choice" id="indicator-choice">
-                                <option value="poverty-headcount" id="poverty-headcount">Poverty headcount</option>
-                            </select>
-                        </div>
+                        <!-- <div class="form-field__select-dropdown">
+                    		<select name="indicator-choice" id="indicator-choice">
+                    			<option value="poverty-headcount" id="poverty-headcount">Poverty headcount</option>
+                    		</select>
+                    	</div> -->
+                        <select class="spotlight__select-container js-example-basic-single " name="states[]">
+                            {% for item in indicator.indicators %}
+                                <optgroup label="{{ item.group_name }}">
+                                    {% for name in item.group_indicators %}
+                                        <option value="{{ name.indicator_name }}">{{ name.indicator_name }}</option>
+                                    {% endfor %}
+                                </optgroup>
+                            {% endfor  %}
+                        </select>
                     </div>
                     <div class="form-field form-field--inline-three">
                         <label for="indicator" class="form-label">Year</label>

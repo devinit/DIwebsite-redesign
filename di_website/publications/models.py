@@ -382,7 +382,10 @@ class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUID
 
     @cached_property
     def chapter_max(self):
-        return max([chapter.chapter_number for chapter in self.chapters])
+        try:
+            return max([chapter.chapter_number for chapter in self.chapters])
+        except ValueError:
+            return 0
 
     def save(self, *args, **kwargs):
         super(PublicationPage, self).save(*args, **kwargs)

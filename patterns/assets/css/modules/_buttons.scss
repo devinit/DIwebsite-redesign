@@ -92,6 +92,12 @@ button.button {
 	}
 }
 
+.button--show {
+	margin-top: 1em;
+	transform: translateX(-50%);
+	left: 50%;
+}
+
 .button--block {
 	display: block;
 	width: 100%;

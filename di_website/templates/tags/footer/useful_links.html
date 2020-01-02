@@ -8,14 +8,14 @@
             {% if section.menu_items or section.links %}
                 <ul class="footer__list">
                     {% for menu_item in section.menu_items %}
-                        <li><a href="{% pageurl menu_item %}">{{ menu_item.title }}</a></li>
+                        <li><a href="{% pageurl menu_item %}?nav=footer">{{ menu_item.title }}</a></li>
                     {% endfor %}
 
                     {% for link in section.links %}
                         {% if link.page %}
-                            <li><a href="{% pageurl link.page %}">{{ link.page.title }}</a></li>
+                            <li><a href="{% pageurl link.page %}?nav=footer">{{ link.page.title }}</a></li>
                         {% elif link.link_url %}
-                            <li><a href="{{ link.link_url }}">{{ link.label }}</a></li>
+                            <li><a href="{{ link.link_url }}?nav=footer">{{ link.label }}</a></li>
                         {% endif %}
                     {% endfor %}
                 </ul>

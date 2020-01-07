@@ -7,7 +7,7 @@
         <span class="card__meta">{{ vacancy.location }}</span>
         <ul class="card__list">
             <li><span>Salary scale: </span>{{ vacancy.salary_scale }}</li>
-            <li><span>Closing date: </span>{{ vacancy.application_close_date|date:"j F Y" }}</li>
+            <li><span>Closing date: </span>{{ vacancy.application_close|date:"j F Y" }}</li>
         </ul>
     </div>
 </a>

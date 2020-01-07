@@ -23,13 +23,19 @@
     {% endif %}
 
     {% if page.authors|length > 0 %}
-    <section class="section section--post">
-        <div class="row row--narrow">
-          <div class="max-meter max-meter--center">
-            {% include 'includes/partials/multi-authors.html' with authors=page.authors %}
+      <section class="section section--large">
+        <div class="chapter-block-wrapper">
+          <div class="row row--narrow">
+            <div class="larger-center">
+              <div class="chapter-block__item">
+                <div class="chapter-block_content">
+                  {% include 'includes/partials/multi-authors.html' with authors=page.authors %}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-    </section>
+      </section>
     {% endif %}
 
     {% for block in page.content %}

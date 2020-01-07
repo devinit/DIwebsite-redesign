@@ -4,6 +4,7 @@
     <div class="row row--narrow">
         <h2 class="section__heading">{{heading}}</h2>
         <div class="l-2up{% if related_pages|length > 2 %}-3up{% endif %}">
+          {% with nav_param="?nav=more-about" %}
             {% for page in related_pages %}
               {% if page.specific|classname == global.blog_classname %}
                   {% with blog=page.specific show_tag=True %}
@@ -27,6 +28,7 @@
                   {% endwith %}
               {% endif %}
             {% endfor %}
+          {% endwith %}
         </div>
     </div>
 </section>

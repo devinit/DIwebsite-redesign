@@ -1,7 +1,7 @@
 {% load wagtailcore_tags %}
 
 {% if event %}
-<a href="{% pageurl event %}" class="card card--{% if card_type %}{{card_type}}{% else %}offset{% endif %}">
+<a href="{% pageurl event %}{{ nav_param|default_if_none:'' }}" class="card card--{% if card_type %}{{card_type}}{% else %}offset{% endif %}">
     {% if show_tag %}
         <span class="card__tag">Event</span>
     {% endif %}

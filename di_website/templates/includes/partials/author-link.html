@@ -1,6 +1,6 @@
 {% load wagtailimages_tags wagtailcore_tags static responsive %}
 
-<a href="{% if page %}{% pageurl page %}{% else %}{{link}}{% endif %}" class="m-author">
+<a href="{% if page %}{% pageurl page %}{% else %}{{link}}{% endif %}?referrer=author" class="m-author">
   <div class="m-author__image">
     {% if img %}
       {% image img fill-200x200 as image %}

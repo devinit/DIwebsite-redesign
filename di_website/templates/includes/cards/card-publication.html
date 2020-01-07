@@ -1,7 +1,7 @@
 {% load wagtailcore_tags wagtailimages_tags static %}
 
 {% if item %}
-  <a href="{% pageurl item %}" class="card card--offset">
+  <a href="{% pageurl item %}{{ nav_param|default_if_none:'' }}" class="card card--offset">
     <span class="card__tag">{{ item.publication_type|default_if_none:"Publication" }}</span>
 
     {% include 'includes/cards/card-image.html' with item=item %}

@@ -6,7 +6,7 @@
 	<ul class="navigation-primary__items">
 		{% for item in menu_items %}
 			<li class="navigation-primary__item {% if item.active %}navigation-primary__item--active{% endif %}">
-				<a href="{% pageurl item %}">{{ item.title }}</a>
+				<a href="{% pageurl item %}?nav=header">{{ item.title }}</a>
 			</li>
 		{% endfor %}
 	</ul>

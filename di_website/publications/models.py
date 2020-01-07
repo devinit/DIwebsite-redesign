@@ -35,7 +35,7 @@ from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.search.models import Query
 
 
-from di_website.common.base import hero_panels, get_paginator_range
+from di_website.common.base import hero_panels, get_paginator_range, get_related_pages
 from di_website.common.mixins import HeroMixin, OtherPageMixin
 from di_website.common.constants import MAX_PAGE_SIZE, MAX_RELATED_LINKS, RICHTEXT_FEATURES
 from di_website.downloads.utils import DownloadsPanel
@@ -396,6 +396,15 @@ class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUID
             Redirect(old_path=old_path, redirect_page=self).save()
 
 
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+
+        context['related_pages'] = get_related_pages(
+            self.publication_related_links.all(), PublicationPage.objects)
+
+        return context;
+
+
 class PublicationSummaryPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin, UniqueForParentPageMixin, UUIDMixin, FilteredDatasetMixin, Page):
 
     class Meta:
@@ -589,6 +598,15 @@ class PublicationChapterPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
     @cached_property
     def page_data_downloads(self):
         return self.data_downloads.all()
+
+
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+
+        context['related_pages'] = get_related_pages(
+            self.publication_related_links.all(), PublicationChapterPage.objects)
+
+        return context;
 
 
 class PublicationAppendixPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin, UUIDMixin, FilteredDatasetMixin, Page):
@@ -804,6 +822,15 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, LegacyPageSearchMixin
     @cached_property
     def page_data_downloads(self):
         return self.data_downloads.all()
+
+
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+
+        context['related_pages'] = get_related_pages(
+            self.publication_related_links.all(), LegacyPublicationPage.objects)
+
+        return context;
 
 
 class ShortPublicationPage(HeroMixin, PublishedDateMixin, FlexibleContentMixin, PageSearchMixin, UUIDMixin, FilteredDatasetMixin, Page):

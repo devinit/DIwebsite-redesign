@@ -1,0 +1,127 @@
+{# 1. Extend the relevant layout #}
+{# --------------------------------------- #}
+
+{% extends 'default.html' %}
+
+
+{# --------------------------------------- #}
+{# 2. Assign Settings and variables #}
+{# --------------------------------------- #}
+
+{% set id = "general" %}
+{% set section = "Data" %}
+{% set title = "Location & Indicator comparison" %}
+{% set excerpt = "" %}
+{% set image_name = "" %}
+{% set active_page = "" %}
+
+{# --------------------------------------- #}
+{# 3. Add models and macros #}
+{# --------------------------------------- #}
+
+{% model 'cards', as="card" %}
+{% model 'navigation', as="navigation" %}
+{% model 'timeline', as="timeline" %}
+{% model 'indicators', as="indicator" %}
+
+{% import 'macros/icon.html' as icons %}
+{% import 'macros/secondary-navigation.html' as secondary_navigation %}
+
+{# --------------------------------------- #}
+{#
+   4. Add page content into relevant areas
+      Add/Delete blocks as necessary
+#}
+{# --------------------------------------- #}
+
+{% block body %}
+    {% include 'heroes/hero.html' %}
+
+    <section class="section">
+        <div class="row row--narrow">
+            <div class="spotlight-banner">
+                <div class="spotlight-banner__aside">
+                    <a href="#" class="m-text-link">{{ icons.icon('ico-plus-poppy', '16') }} <span>Add another location</span></a>
+                </div>
+                <div class="spotlight-banner__main">
+                    <ul class="m-pills">
+                        <li class="m-pills__item"><button type="button">{{ icons.icon('ico-plus-blank', '16') }}</button> Bungoma</li>
+                        <li class="m-pills__item"><button type="button">{{ icons.icon('ico-plus-blank', '16') }}</button> Kisumu</li>
+                        <li class="m-pills__item"><button type="button">{{ icons.icon('ico-plus-blank', '16') }}</button> Nakuru</li>
+                    </ul>
+                    <button type="button" class="button button--compare">Compare</button>
+                </div>
+            </div>
+
+            <div class="spotlight spotlight--full">
+                <div class="space-section-bottom--small">
+                    <label for="indicator" class="form-label">Indicator</label>
+                    <!-- <div class="form-field__select-dropdown">
+                		<select name="indicator-choice" id="indicator-choice">
+                			<option value="poverty-headcount" id="poverty-headcount">Poverty headcount</option>
+                		</select>
+                	</div> -->
+                    <select class="spotlight__select-container js-example-basic-single " name="states[]">
+                        {% for item in indicator.indicators %}
+                            <optgroup label="{{ item.group_name }}">
+                                {% for name in item.group_indicators %}
+                                    <option value="{{ name.indicator_name }}">{{ name.indicator_name }}</option>
+                                {% endfor %}
+                            </optgroup>
+                        {% endfor  %}
+                    </select>
+                </div>
+                <div class="spotlight__main">
+                    <div class="spotlight__interactive" id="chart"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <div class="spotlight spotlight--full">
+                <div class="space-section-bottom--small">
+                    <label for="indicator" class="form-label">Indicator</label>
+                    <!-- <div class="form-field__select-dropdown">
+                		<select name="indicator-choice" id="indicator-choice">
+                			<option value="poverty-headcount" id="poverty-headcount">Poverty headcount</option>
+                		</select>
+                	</div> -->
+                    <select class="spotlight__select-container js-example-basic-single " name="states[]">
+                        {% for item in indicator.indicators %}
+                            <optgroup label="{{ item.group_name }}">
+                                {% for name in item.group_indicators %}
+                                    <option value="{{ name.indicator_name }}">{{ name.indicator_name }}</option>
+                                {% endfor %}
+                            </optgroup>
+                        {% endfor  %}
+                    </select>
+                </div>
+                <div class="spotlight__main">
+                    <div class="spotlight__interactive" id="chart"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <div class="spotlight-banner">
+                <div class="spotlight-banner__aside">
+                    <a href="#" class="m-text-link">{{ icons.icon('ico-plus-poppy', '16') }} <span>Add another location</span></a>
+                </div>
+                <div class="spotlight-banner__main">
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <button type="button" class="button">Share visualisation</button>
+        </div>
+    </section>
+
+{% endblock %}

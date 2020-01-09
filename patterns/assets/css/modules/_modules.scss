@@ -3,6 +3,35 @@
 // prefix with m-
 // ------------------------------------------------------------
 
+.m-pills {
+    @extend %pie-clearfix;
+}
+
+.m-pills__item {
+    position: relative;
+    display: block;
+    float: left;
+    margin-right: 10px;
+    @include font-size($para);
+    background-color: #fff;
+    border: 1px solid $poppy-dark;
+    padding: 0.5em 1em;
+    padding-left: 3.5em;
+    button {
+        background-color: $poppy-dark;
+        position: absolute;
+        width: 45px;
+        height: 45px;
+        top: 0;
+        left: 0;
+        .ico {
+            position: relative;
+            left: 7px;
+            transform: rotate(45deg);
+        }
+    }
+}
+
 .m-author {
     @extend %pie-clearfix;
     background-color: $poppy-dark;
@@ -341,6 +370,21 @@ a.m-stat {
 // Timeline range
 // ------------------------------------------------------------
 
+.m-timeline-container {
+    @include respond-to-max($c-vp) {
+        display: none;
+        html.js & {
+            display: none;
+        }
+    }
+    @include respond-to($c-vp) {
+        display: none;
+        html.js & {
+            display: block;
+        }
+    }
+}
+
 @mixin rangeThumb {
     position: relative;
     width: 18px;
@@ -410,9 +454,6 @@ a.m-stat {
             color: transparent;
         }
     }
-    @include respond-to-max($c-vp) {
-        display: none;
-    }
 }
 
 .m-timeline-labels {
@@ -448,8 +489,20 @@ a.m-stat {
     &.selected::before {
         background: $poppy;
     }
-    @include respond-to-max($c-vp) {
-        display: none;
+}
+
+.m-text-link {
+    @include font-size($para);
+    span {
+        border-bottom: 1px solid $poppy-dark;
+    }
+    .ico {
+        margin-right: 5px;
+    }
+    .spotlight-banner & {
+        position: relative;
+        display: block;
+        margin-top: 0.5em;
     }
 }
 

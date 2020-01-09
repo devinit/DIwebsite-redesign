@@ -17,6 +17,14 @@
 <script src="/assets/js/libs/modernizr.js"></script>
 <script src="/assets/js/libs/mmenu.js"></script>
 <link href="/assets/css/libs/mmenu.css" rel="stylesheet" />
+
+
+<script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
 <link rel="icon" type="image/png" href="/assets/favicons/favicon.png" sizes="">
 
 		<script src="http://yandex.st/highlightjs/8.0/highlight.min.js"></script>
@@ -317,6 +325,11 @@
 				<div class="ui-roadmap__cell ui-roadmap__cell--type2">Template</div>
 			</div>
 			
+			<div class="ui-roadmap__row ui-roadmap__row--Template">
+				<div class="ui-roadmap__cell ui-roadmap__cell--type1"><a href="/page-templates/23-spotlight-location-comparison">23-spotlight-location-comparison</a></div>
+				<div class="ui-roadmap__cell ui-roadmap__cell--type2">Template</div>
+			</div>
+			
 		</div>
 	</div>
 </div>
@@ -335,15 +348,25 @@
 	
 		<script src="/assets/js/app.bundle.js"></script>
 <!-- Fire the plugin -->
-    <script>
-        document.addEventListener(
+<script type="text/javascript">
+    document.addEventListener(
        "DOMContentLoaded", () => {
            new Mmenu( "#menu", {
               "offCanvas": false
            });
        }
-   );
-    </script>
+    );
+</script>
+
+<!-- Select2 -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.js-example-basic-multiple').select2();
+    });
+    $(document).ready(function() {
+        $('.js-example-basic-single').select2();
+    });
+</script>
 
 	
 </body>

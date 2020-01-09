@@ -14,7 +14,6 @@
         &__aside {
             float: left;
             width: 30%;
-            border-right: 1px solid $default-border-color;
             padding-right: 2em;
             margin-bottom: 0;
         }
@@ -22,6 +21,7 @@
             float: left;
             width: 70%;
             padding-left: 2em;
+            border-left: 1px solid $default-border-color;
         }
         &--alt {
             .spotlight-banner__aside {
@@ -34,22 +34,31 @@
     }
 }
 
-.spotlight-banner__form-sc {
+.spotlight-banner__form {
     display: block;
     @include respond-to($b-vp) {
+        .form-field--inline {
+            margin-top: 0;
+        }
         button.button {
-            margin-top: 2em;
+            margin-top: 1.9em;
         }
     }
-    @include respond-to($c-vp) {
-        display: none;
-    }
+    // @include respond-to($c-vp) {
+    //     display: block;
+    //     html.js & {
+    //         display: none;
+    //     }
+    // }
 }
 
 .spotlight {
     @extend %pie-clearfix;
     margin-top: 3px;
     &--leader {
+        margin-top: 2em;
+    }
+    &--full {
         margin-top: 2em;
     }
     &__aside {
@@ -67,6 +76,9 @@
         @supports (display: flex) {
             display: flex;
         }
+        &--full {
+            display: block;
+        }
         &__aside {
             float: left;
             width: 30%;
@@ -75,6 +87,11 @@
         &__main {
             float: left;
             width: 70%;
+            .spotlight--full & {
+                width: 100%;
+                float: none;
+                display: block;
+            }
             &--interactive {
                 border: 1px solid $poppy;
                 div {
@@ -89,11 +106,62 @@
     }
 }
 
+.spotlight__select {
+    .button {
+        transform: translateY(2px);
+    }
+}
+
+.spotlight__select-container {
+    display: block;
+    width: 100%;
+    .spotlight--full & {
+        width: auto;
+        min-width: 250px;
+    }
+}
+
+.select2-selection {
+    border-color: $default-border-color !important;
+    border-radius: 0 !important;
+    height: $form-item-height !important;
+    @include font-size($para);
+}
+
+.select2-selection__rendered {
+    padding-top: 7px;
+}
+
+.select2-selection__arrow {
+    top: 10px !important;
+}
+
+.select2-results__option {
+    @include font-size($para);
+}
+
+.select2-selection--multiple  {
+    @include font-size($para);
+    min-height: 53px !important;
+    border-color: $default-border-color;
+}
+
+.select2-selection__choice {
+    background-color: $cloud !important;
+    color: $heading-color;
+    border-color: $default-border-color !important;
+    margin-top: 10px !important;
+}
+
 .spotlight__heading {
     position: relative;
     @include font-size($beta);
     .button {
-        float: right;
+        display: none;
+        html.js & {
+            display: block;
+            float: right;
+        }
     }
 }
 
@@ -142,6 +210,132 @@
             }
             &:nth-child(5) {
                 background-color: $poppy-dark;
+                color: #fff;
+            }
+        }
+    }
+    &--blue {
+        span {
+            &:first-child {
+                background-color: lighten($bluebell-light, 20%);
+            }
+            &:nth-child(2) {
+                background-color: lighten($bluebell-light, 10%);
+            }
+            &:nth-child(3) {
+                background-color: $bluebell-light;
+            }
+            &:nth-child(4) {
+                background-color: $bluebell;
+                color: #fff;
+            }
+            &:nth-child(5) {
+                background-color: $bluebell-dark;
+                color: #fff;
+            }
+        }
+    }
+    &--yellow {
+        span {
+            &:first-child {
+                background-color: lighten($sunflower-light, 20%);
+            }
+            &:nth-child(2) {
+                background-color: lighten($sunflower-light, 10%);
+            }
+            &:nth-child(3) {
+                background-color: $sunflower-light;
+            }
+            &:nth-child(4) {
+                background-color: $sunflower;
+                color: #fff;
+            }
+            &:nth-child(5) {
+                background-color: $sunflower-dark;
+                color: #fff;
+            }
+        }
+    }
+    &--orange {
+        span {
+            &:first-child {
+                background-color: lighten($marigold-light, 20%);
+            }
+            &:nth-child(2) {
+                background-color: lighten($marigold-light, 10%);
+            }
+            &:nth-child(3) {
+                background-color: $marigold-light;
+            }
+            &:nth-child(4) {
+                background-color: $marigold;
+                color: #fff;
+            }
+            &:nth-child(5) {
+                background-color: $marigold-dark;
+                color: #fff;
+            }
+        }
+    }
+    &--pink {
+        span {
+            &:first-child {
+                background-color: lighten($rose-light, 20%);
+            }
+            &:nth-child(2) {
+                background-color: lighten($rose-light, 10%);
+            }
+            &:nth-child(3) {
+                background-color: $rose-light;
+            }
+            &:nth-child(4) {
+                background-color: $rose;
+                color: #fff;
+            }
+            &:nth-child(5) {
+                background-color: $rose-dark;
+                color: #fff;
+            }
+        }
+    }
+    &--purple {
+        span {
+            &:first-child {
+                background-color: lighten($lavendar-light, 20%);
+            }
+            &:nth-child(2) {
+                background-color: lighten($lavendar-light, 10%);
+            }
+            &:nth-child(3) {
+                background-color: $lavendar-light;
+            }
+            &:nth-child(4) {
+                background-color: $lavendar;
+                color: #fff;
+            }
+            &:nth-child(5) {
+                background-color: $lavendar-dark;
+                color: #fff;
+            }
+        }
+    }
+    &--green {
+        span {
+            &:first-child {
+                background-color: lighten($leaf-light, 20%);
+            }
+            &:nth-child(2) {
+                background-color: lighten($leaf-light, 10%);
+            }
+            &:nth-child(3) {
+                background-color: $leaf-light;
+            }
+            &:nth-child(4) {
+                background-color: $leaf;
+                color: #fff;
+            }
+            &:nth-child(5) {
+                background-color: $leaf-dark;
                 color: #fff;
             }
         }
@@ -203,13 +397,13 @@
 .spotlight__comparison-legend {
     width: 26px;
     height: 26px;
-    background-color: $sunflower-dark;
+    background-color: $bluebell;
     display: inline-block;
     float: left;
     margin-top: 0;
     margin-right: 1em;
     &--alt {
-        background-color: $sunflower-light;
+        background-color: $marigold;
     }
     @include respond-to($c-vp - 100px) {
         width: 70px;
@@ -223,5 +417,9 @@
     transition: all ease-in-out, 0.3s;
     &--active {
         transform: translateX(0);
+    }
+    display: none;
+    html.js & {
+        display: block;
     }
 }

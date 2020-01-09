@@ -15,6 +15,13 @@
 	max-width: $max-grid;
 	padding-left: $internal-spacing;
 	padding-right: $internal-spacing;
+	&--wide {
+		max-width: 100%;
+		padding-left: 0;
+		padding-right: 0;
+		margin-left: 5%;
+		margin-right: 5%;
+	}
 	@include respond-to($menu-respond) {
 		&--narrow {
 			padding-left: $internal-spacing*2;
@@ -25,6 +32,12 @@
 		&--narrow {
 			padding-left: $internal-spacing*4;
 			padding-right: $internal-spacing*4;
+		}
+	}
+	@include respond-to($max-grid) {
+		&--wide {
+			margin-left: 10%;
+			margin-right: 10%;
 		}
 	}
 }

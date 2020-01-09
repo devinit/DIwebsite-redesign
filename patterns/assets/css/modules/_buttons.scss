@@ -79,12 +79,23 @@ button.button {
 
 .button--compare {
 	margin-top: 1em;
-	@include respond-to($c-vp - 100px) {
+	@include respond-to($d-vp) {
 		margin-top: 0;
 		position: absolute;
 		top: 6em;
 		right: 2em;
+		.spotlight-banner__main & {
+			top: 1.35em;
+			height: 46px;
+			line-height: 1;
+		}
 	}
+}
+
+.button--show {
+	margin-top: 1em;
+	transform: translateX(-50%);
+	left: 50%;
 }
 
 .button--block {

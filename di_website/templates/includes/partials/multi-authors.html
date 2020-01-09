@@ -21,7 +21,7 @@
           {% if author.value.page %}
             <a href="{{ author.value.page }}">{{ author.value.name }}</a>{% if not forloop.last %}, {% endif %}
           {% else %}
-            <a href="#">{{ author.value.name }}</a>{% if not forloop.last %}, {% endif %}
+            {{ author.value.name }}{% if not forloop.last %}, {% endif %}
           {% endif %}
         {% endif %}
       {% endfor %}

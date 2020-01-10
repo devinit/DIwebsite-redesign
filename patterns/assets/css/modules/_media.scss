@@ -65,7 +65,7 @@
 
 .media-map {
 	position: relative;
-	@include maintain-ratio(16 9);
+	min-height: 400px;
 	margin-bottom: 1em;
 	&__location {
 		position: absolute;
@@ -74,8 +74,12 @@
 		width: 100%;
 		height: 100%;
 	}
-	&--minor {
-		@include maintain-ratio(16 6);
+	@include respond-to($menu-respond) {
+		@include maintain-ratio(16 9);
+		min-height: auto;
+		&--minor {
+			@include maintain-ratio(16 6);
+		}
 	}
 }
 

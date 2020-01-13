@@ -1,12 +1,6 @@
 from django import template
 
-from di_website.home.models import (
-    FooterLink,
-    FooterText,
-    FooterSection,
-    NewsLetter,
-    SocialLink
-)
+from di_website.home.models import FooterText, FooterSection, NewsLetter
 from di_website.home.templatetags.navigation_tags import get_menu_items
 
 from di_website.context import globals

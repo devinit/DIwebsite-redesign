@@ -175,7 +175,7 @@ class DataSectionPage(SectionBodyMixin, TypesetBodyMixin, HeroMixin, Page):
     ]
 
     parent_page_types = ['home.HomePage']
-    subpage_types = ['general.General', 'datasection.DataSetListing']
+    subpage_types = ['general.General', 'datasection.DataSetListing', 'spotlight.SpotlightPage']
 
     class Meta:
         verbose_name = "Data Section Page"

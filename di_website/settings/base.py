@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'di_website.workforus',
     'di_website.datasection',
     'di_website.api',
+    'di_website.spotlight',
 
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',

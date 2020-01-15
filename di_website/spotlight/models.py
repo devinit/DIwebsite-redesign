@@ -5,7 +5,7 @@ from wagtail.core.fields import StreamField
 from wagtail.admin.edit_handlers import StreamFieldPanel
 
 from .blocks import ThemeBlock
-from .snippets import Source, Colour
+from .snippets import SpotlightSource, SpotlightColour
 
 
 class SpotlightPage(Page):

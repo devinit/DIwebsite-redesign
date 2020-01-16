@@ -12,8 +12,12 @@ from wagtail.snippets.edit_handlers import SnippetChooserPanel
 @register_snippet
 class Spotlight(ClusterableModel):
     name = models.CharField(max_length=200)
+    slug = models.CharField(max_length=200, default='')
 
-    panels = [FieldPanel('name')]
+    panels = [
+        FieldPanel('name'),
+        FieldPanel('slug')
+    ]
 
     def __str__(self):
         return self.name

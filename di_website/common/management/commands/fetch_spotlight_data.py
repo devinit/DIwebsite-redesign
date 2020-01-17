@@ -7,23 +7,36 @@ class Command(BaseCommand):
     """
     Downloads Spotlight data from the GitHub CMS
     """
+    base_url = 'https://raw.githubusercontent.com/'
 
     def add_arguments(self, parser):
         """Add custom command arguments."""
         parser.add_argument('branch', nargs='?', type=str, default='master')
 
     def handle(self, *args, **options):
-        base_url = 'https://raw.githubusercontent.com/'
         content_path = 'devinit/datahub-cms/' + options['branch']
 
+        self.fetch_uganda_data(content_path)
+
+    def fetch_uganda_data(self, content_path):
+        uganda_content_url = self.base_url + content_path + '/spotlight-uganda/'
+        prefix = 'spotlight-uganda-'
         # Fetch Indicators
         indicator_file_name = 'concept.csv'
-        response = requests.get(base_url + content_path + '/spotlight-uganda/' + indicator_file_name)
-        indicator_file = open('uganda-' + indicator_file_name, 'w')
-        indicator_file.write(response.text)
+        self.fetch_csv(indicator_file_name, uganda_content_url, prefix)
 
         # Fetch Themes
         theme_file_name = 'theme.csv'
-        response = requests.get(base_url + content_path + '/spotlight-uganda/' + theme_file_name)
-        theme_file = open('uganda-' + theme_file_name, 'w')
-        theme_file.write(response.text)
+        self.fetch_csv(theme_file_name, uganda_content_url, prefix)
+
+    def fetch_csv(self, file_name, url, csv_prefix):
+        """Fetch CSV data from GitHub content URL
+
+        Arguments:
+            file_name {string} -- Name of the file in the GitHub folder
+            url {string} -- Base GitHub URL
+            csv_prefix {string} -- Used to ensure unique filenames when saving
+        """
+        response = requests.get(url + file_name)
+        csv_file = open(csv_prefix + file_name, 'w')
+        csv_file.write(response.text)

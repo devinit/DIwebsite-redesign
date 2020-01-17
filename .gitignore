@@ -120,5 +120,4 @@ deploy_key
 .vscode
 
 # Downloaded Spotlight Files
-/*-concept.csv
-/*-theme.csv
+/spotlight-*.csv

@@ -1,5 +1,3 @@
-html {background-color: red;}
-
 @import "core/reset";
 @import "core/settings";
 @import "core/mixins";
@@ -7,73 +5,66 @@ html {background-color: red;}
 
 /* ------------------------------------------------------------ */
 
-html { font-size: 10px; }
+html {
+	font-size: 10px;
+	font-size: 62.5%;
+	// Mobile (iPhone) can sometimes be a git about font resizing. Adding to a max-media query solves it
+	@include respond-to-max($device-safezone-vp) {
+		-webkit-text-size-adjust: 100%;
+	}
+}
 
 body {
 	@extend %font-body;
-	font-size: $base-font-size + px;
-	line-height: ($base-rhythm/$base-font-size);
+	@include leading($base-font-size);
 	background: $body-color;
 	color: $base-color;
 }
 
-.pagecontent {
-	overflow-x: hidden;
-}
-
-.ui-base {
-	width: $ie-fixed-vp;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-/* :: Basic styling for coherent, simple content */
+/* :: Granular and Modular styles */
 /* ------------------------------------------------------------ */
 
-// Basic type styles for browsers that don't understand REM
-h1 		{ font-size: ($alpha + px); margin: ($base-rhythm/2 +px) auto; }
-h2 		{ font-size: ($beta + px); margin: ($base-rhythm/2 +px) auto;}
-h3, h4 	{ font-size: ($gamma + px); margin: ($base-rhythm/2 +px) auto;}
-h5, h6 	{ font-size: ($delta + px); margin: ($base-rhythm/2 +px) auto;}
-p,li 	{ font-size: ($para + px); margin: ($para) auto;}
-ul, ol 	{ margin: ($base-rhythm/2 +px) auto; }
-img 	{ margin: ($base-rhythm/2 +px) auto; max-width: $ie-fixed-vp; }
+// Import core modules that pertain to styling
+@import "core/base";
+@import "core/forms";
+@import "core/fonts";
+@import "core/typography";
 
-// Header
-*[role="banner"] {
-	border-bottom: $default-border-width solid $default-border-color;
-	padding-bottom: 20px;
-	margin-bottom: 19px;
-	display: block;
-}
+// Import modules for spotlight specific templates
+@import "modules/priority-extends/*";
+@import "modules/branding";
+@import "modules/breadcrumbs";
+@import "modules/buttons";
+@import "modules/footer";
+@import "modules/forms";
+@import "modules/header";
+@import "modules/heroes";
+@import "modules/icons";
+@import "modules/keyframes";
+@import "modules/layout";
+@import "modules/media";
+@import "modules/modules";
+@import "modules/navigation";
+@import "modules/rows";
+@import "modules/sections";
+@import "modules/spotlight";
+@import "modules/tabs";
+@import "modules/typography-additions";
 
-// Navigation items
-*[role="navigation"] {
-	display: block;
-	li {
-		display: inline-block;
-		margin-right: 8px;
-	}
-}
-
-// Footer
-*[role="contentinfo"] {
-	border-top: $default-border-width solid $default-border-color;
-	padding-top: 20px;
-	margin-top: 19px;
-	display: block;
-}
-
-/* :: Get core styling for basic layout */
-/* ------------------------------------------------------------ */
-
-// @import "core/base";
-// @import "core/forms";
-// @import "core/fonts";
-// @import "core/typography";
+@import "libs/menu";
 
 
 /* ::Print */
 /* ------------------------------------------------------------ */
 
-@media print { body { font-size: percentage(10 / 16); } }
+@media print {
+	body {
+		font-size: percentage(10 / 16);
+		color: #000!important;
+		background-color: #fff!important;
+	}
+	*[role="navigation"],
+	*[role="footer"] {
+		display: none!important;
+	}
+}

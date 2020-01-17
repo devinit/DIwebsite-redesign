@@ -16,7 +16,14 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         content_path = 'devinit/datahub-cms/' + options['branch']
 
+        self.fetch_colours(content_path)
+
         self.fetch_uganda_data(content_path)
+
+    def fetch_colours(self, content_path):
+        content_url = self.base_url + content_path + '/global/'
+        file_name = 'colors.csv'
+        self.fetch_csv(file_name, content_url, 'spotlight-')
 
     def fetch_uganda_data(self, content_path):
         uganda_content_url = self.base_url + content_path + '/spotlight-uganda/'

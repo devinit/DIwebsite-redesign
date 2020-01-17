@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.text import slugify
 
 from modelcluster.models import ClusterableModel
 
@@ -12,7 +13,7 @@ from wagtail.snippets.edit_handlers import SnippetChooserPanel
 @register_snippet
 class Spotlight(ClusterableModel):
     name = models.CharField(max_length=200)
-    slug = models.CharField(max_length=200, default='')
+    slug = models.CharField(max_length=200, unique=True, blank=True, null=True)
 
     panels = [
         FieldPanel('name'),
@@ -26,10 +27,16 @@ class Spotlight(ClusterableModel):
         verbose_name = "Spotlight"
         verbose_name_plural = "Spotlights"
 
+    def save(self, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super(Spotlight, self).save(**kwargs)
+
 
 @register_snippet
 class SpotlightTheme(index.Indexed, ClusterableModel):
     name = models.CharField(max_length=200)
+    slug = models.CharField(max_length=200, blank=True, null=True)
     spotlight = models.ForeignKey(
         Spotlight,
         null=True,
@@ -41,6 +48,7 @@ class SpotlightTheme(index.Indexed, ClusterableModel):
 
     panels = [
         FieldPanel('name'),
+        FieldPanel('slug'),
         SnippetChooserPanel('spotlight')
     ]
 
@@ -55,6 +63,11 @@ class SpotlightTheme(index.Indexed, ClusterableModel):
     class Meta:
         verbose_name = "Spotlight Theme"
         verbose_name_plural = "Spotlight Themes"
+
+    def save(self, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super(SpotlightTheme, self).save(**kwargs)
 
 
 @register_snippet

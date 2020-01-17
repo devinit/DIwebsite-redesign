@@ -2,7 +2,7 @@ import pandas
 
 from django.core.management.base import BaseCommand
 
-from di_website.spotlight.snippets import Spotlight, SpotlightTheme
+from di_website.spotlight.snippets import SpotlightColour, Spotlight, SpotlightTheme
 
 
 class Command(BaseCommand):
@@ -15,7 +15,20 @@ class Command(BaseCommand):
         parser.add_argument('branch', nargs='?', type=str, default='master')
 
     def handle(self, *args, **options):
+        self.import_colours()
         self.import_uganda_themes()
+
+    def import_colours(self):
+        SpotlightColour.objects.all().delete()
+
+        try:
+            file_name = 'spotlight-colors.csv'
+            data = pandas.read_csv(file_name)
+            for _, j in data.iterrows():
+                colour = SpotlightColour(name=j['id'], code=j['value'])
+                colour.save()
+        except FileNotFoundError:
+            print('No import of colour data done. File "spotlight-colors.csv" not found')
 
     def import_uganda_themes(self):
         """Import uganda themes from the csv file
@@ -33,7 +46,7 @@ class Command(BaseCommand):
             self.create_themes_from_csv(theme_file_name, uganda)
             print('Uganda theme data successfully imported')
         except FileNotFoundError:
-            print('No import of Uganda theme data done. File "theme.csv" not found')
+            print('No import of Uganda theme data done. File "spotlight-uganda-theme.csv" not found')
 
     def create_themes_from_csv(self, file_name, spotlight):
         """Create theme objects from processed csv file

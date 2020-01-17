@@ -130,12 +130,12 @@ class SpotlightIndicator(index.Indexed, ClusterableModel):
         on_delete=models.SET_NULL,
         related_name='+'
     )
-    start_year = models.IntegerField()
-    end_year = models.IntegerField()
+    start_year = models.IntegerField(blank=True, null=True)
+    end_year = models.IntegerField(blank=True, null=True)
     range = models.CharField(max_length=100, null=True, blank=True, help_text='The range of values shown on the legend')
     value_prefix = models.CharField(max_length=100, null=True, blank=True)
     value_suffix = models.CharField(max_length=100, null=True, blank=True)
-    tooltip_template = models.TextField(help_text='Text for the tooltip.Template strings can be used to substitute values e.g. {name}')
+    tooltip_template = models.TextField(blank=True, null=True, help_text='Text for the tooltip.Template strings can be used to substitute values e.g. {name}')
 
     panels = [
         FieldPanel('ddw_id'),

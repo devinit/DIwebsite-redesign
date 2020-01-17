@@ -168,6 +168,7 @@
 .spotlight__subheading {
     @include font-size($delta);
     margin-bottom: 0.5em;
+    margin-top: 1em;
 }
 
 .spotlight__excerpt {
@@ -177,8 +178,8 @@
 .spotlight__content {
     position: relative;
     border-top: 1px solid $cloud;
-    margin-top: 1em;
-    padding-top: 1em;
+    // margin-top: 1em;
+    // padding-top: 1em;
     .button {
         margin-top: 1em;
     }

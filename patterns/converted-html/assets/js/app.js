@@ -18,7 +18,35 @@ import './libs/slick';
 import './libs/jquery.responsiveTabs';
 import modal from './utils/modal';
 
+    // For prototype
+    import countryNav from './utils/countryNav';
+    import countrySearch from './utils/countrySearch';
+
 function globals () {
+
+    // prototype map nav
+        // Countries menu
+        countryNav(
+            '#js-countries-menu-container',
+            '#js-countries-menu',
+            'countries-menu-list__item--open',
+            '.countries-menu-list__item--parent-third',
+            'countries-menu-list__countries',
+            'countries-menu-list__countries--selected',
+            'countries-menu-list--selected',
+            '.js-countries-menu-trigger',
+        );
+
+        // Countries search
+        countrySearch(
+            '#js-profile-search-container',
+            '#js-profile-search',
+            '.js-search-item',
+            '#js-profile-results',
+            '#js-countries-menu',
+            '#js-profile-nav',
+            'countries__searched__highlight__typed'
+        );
 
     // FastClick
     fastClick(document.body);
@@ -54,7 +82,7 @@ function globals () {
     chapterNavSimple();
 
     // gmaps
-    initGmaps('#map', 'AIzaSyAZAIjZtkBlsF0ZqvrlkvyLfVn6Bju6bJ4');
+    // initGmaps('#map', 'AIzaSyAZAIjZtkBlsF0ZqvrlkvyLfVn6Bju6bJ4');
 
     // Accordion
     accordion(

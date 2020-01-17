@@ -1,8 +1,10 @@
 import pandas
+import math
 
 from django.core.management.base import BaseCommand
 
-from di_website.spotlight.snippets import SpotlightColour, Spotlight, SpotlightTheme
+from di_website.spotlight.snippets import (
+    SpotlightColour, Spotlight, SpotlightIndicator, SpotlightSource, SpotlightTheme)
 
 
 class Command(BaseCommand):
@@ -17,6 +19,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         self.import_colours()
         self.import_uganda_themes()
+        self.import_uganda_indicators()
 
     def import_colours(self):
         SpotlightColour.objects.all().delete()
@@ -59,3 +62,73 @@ class Command(BaseCommand):
         for _, j in data.iterrows():
             theme = SpotlightTheme(name=j['name'], slug=j['id'], spotlight=spotlight)
             theme.save()
+
+    def import_uganda_indicators(self):
+        SpotlightIndicator.objects.all().delete()
+        try:
+            file_name = 'spotlight-uganda-concept.csv'
+            data = pandas.read_csv(file_name)
+            spotlight = self.get_spotlight_by_slug('spotlight-uganda')
+            if not spotlight:
+                print('Please first create a Spotlight snippet and import the related themes')
+
+                return
+
+            for _, j in data.iterrows():
+                theme = self.get_theme_by_slug_and_spotlight(j['theme'], spotlight)
+                if not theme:
+                    continue
+                colour = self.get_colour_by_name(j['color'])
+                source = self.get_source_by_name(j['source'])
+                start_year = None if math.isnan(j['start_year']) else j['start_year']
+                end_year = None if math.isnan(j['end_year']) else j['end_year']
+
+                indicator = SpotlightIndicator(
+                    ddw_id=j['id'], name=j['name'], description=j['description'],
+                    theme=theme, color=colour, source=source, start_year=start_year,
+                    end_year=end_year, range=j['range'], value_prefix=j['uom_display'],
+                    tooltip_template=j['tooltip'])
+                indicator.save()
+            print('Uganda indicators successfully imported')
+        except FileNotFoundError:
+            print('No import of Uganda theme data done. File "spotlight-uganda-theme.csv" not found')
+
+    def get_spotlight_by_slug(self, slug, name=None):
+        try:
+            spotlight = Spotlight.objects.filter(slug=slug)[0]
+
+            return spotlight
+        except IndexError:
+            if name:
+                spotlight = Spotlight(name=name, slug=slug)
+
+                return spotlight
+
+            return None
+
+    def get_theme_by_slug_and_spotlight(self, slug, spotlight):
+        try:
+            theme = SpotlightTheme.objects.filter(slug=slug, spotlight=spotlight)[0]
+
+            return theme
+        except IndexError:
+            return None
+
+    def get_colour_by_name(self, name):
+        try:
+            colour = SpotlightColour.objects.filter(name=name)[0]
+
+            return colour
+        except IndexError:
+            return None
+
+    def get_source_by_name(self, name):
+        try:
+            source = SpotlightSource.objects.filter(name=name)[0]
+
+            return source
+        except IndexError:
+            source = SpotlightSource(name=name)
+            source.save()
+
+            return source

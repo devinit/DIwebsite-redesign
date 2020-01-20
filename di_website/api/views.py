@@ -11,7 +11,10 @@ from di_website.datasection.models import DataSectionPage
 from .utils import (
     serialise_page,
     fetch_and_serialise_newsletters,
-    fetch_and_serialise_footer_sections)
+    fetch_and_serialise_footer_sections,
+    serialise_spotlight_theme)
+from di_website.spotlight.models import SpotlightPage
+from di_website.spotlight.snippets import SpotlightTheme
 
 
 @require_http_methods(["GET"])
@@ -24,11 +27,11 @@ def spotlights_navigation_view(request):
     data_section_page = DataSectionPage.objects.live().first()
     primary_menu_items = get_menu_items(root_page, data_section_page)
     for menu_item in primary_menu_items:
-        navigation['primary'].append(serialise_page(menu_item, request))
+        navigation['primary'].append(serialise_page(request, menu_item))
     if data_section_page:
         secondary_menu_items = get_menu_items(data_section_page, None) # FIXME: replace calling page with SpotlightsPage
         for menu_item in secondary_menu_items:
-            navigation['secondary'].append(serialise_page(menu_item, request))
+            navigation['secondary'].append(serialise_page(request, menu_item))
 
     return JsonResponse(navigation, safe=False)
 
@@ -47,3 +50,21 @@ def footer_view(request):
     }
 
     return JsonResponse(footer, safe=False)
+
+
+@require_http_methods(["GET"])
+def spotlight_pages_view(request):
+    pages = []
+    spotlights = SpotlightPage.objects.all().live()
+    for spotlight in spotlights:
+        page = serialise_page(request, spotlight, fields=['title', 'full_url'])
+        meta = spotlight.meta
+        page['themes'] = []
+        if meta:
+            themes = SpotlightTheme.objects.filter(spotlight=meta)
+            for theme in themes:
+                serialised_theme = serialise_spotlight_theme(theme)
+                page['themes'].append(serialised_theme)
+        pages.append(page)
+
+    return JsonResponse(pages, safe=False)

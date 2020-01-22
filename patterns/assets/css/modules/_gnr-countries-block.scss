@@ -45,6 +45,7 @@ $gnr-slate-a11y                     : #2E3C48;
 .countries__searched {
 	display: none;
 	margin-bottom: 4rem;
+	z-index: 1000;
 	&.active {
 		display: block;
 	}

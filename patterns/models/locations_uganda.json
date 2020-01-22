@@ -4,7 +4,7 @@
             "country": "Uganda",
 		    "regions": [
                 {
-                	"region_name": "Central",
+                	"region_name": "Central Uganda",
                 	"districts": [
                 		{
 							"district_name": "Buikwe",
@@ -16257,7 +16257,7 @@
                 	]
 				},
                 {
-                	"region_name": "Eastern",
+                	"region_name": "Eastern Uganda",
                 	"districts": [
                 		{
 							"district_name": "Amuria",
@@ -36572,7 +36572,7 @@
                 	]
 				},
 				{
-                	"region_name": "Northern",
+                	"region_name": "Northern Uganda",
                 	"districts": [
                 		{
 							"district_name": "Abim",
@@ -56659,7 +56659,7 @@
                 	]
 				},
 				{
-                	"region_name": "Western",
+                	"region_name": "Western Uganda",
                 	"districts": [
                 		{
 							"district_name": "Buhweju",

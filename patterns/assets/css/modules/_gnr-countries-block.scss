@@ -209,8 +209,8 @@ $gnr-slate-a11y                     : #2E3C48;
 }
 
 .countries-menu-list__item--parent-first {
-	@extend .heading;
-	text-transform: uppercase;
+	// @extend .heading;
+	// text-transform: uppercase;
 	letter-spacing: 1px;
 	background: darken($gnr-slate, 10%);
 	@include respond-to($c-vp) {

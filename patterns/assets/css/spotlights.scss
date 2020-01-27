@@ -1,0 +1,70 @@
+@import "core/reset";
+@import "core/settings";
+@import "core/mixins";
+@import "core/placeholders";
+
+/* ------------------------------------------------------------ */
+
+html {
+	font-size: 10px;
+	font-size: 62.5%;
+	// Mobile (iPhone) can sometimes be a git about font resizing. Adding to a max-media query solves it
+	@include respond-to-max($device-safezone-vp) {
+		-webkit-text-size-adjust: 100%;
+	}
+}
+
+body {
+	@extend %font-body;
+	@include leading($base-font-size);
+	background: $body-color;
+	color: $base-color;
+}
+
+/* :: Granular and Modular styles */
+/* ------------------------------------------------------------ */
+
+// Import core modules that pertain to styling
+@import "core/base";
+@import "core/forms";
+@import "core/fonts";
+@import "core/typography";
+
+// Import modules for spotlight specific templates
+@import "modules/priority-extends/*";
+@import "modules/branding";
+@import "modules/breadcrumbs";
+@import "modules/buttons";
+@import "modules/footer";
+@import "modules/forms";
+@import "modules/header";
+@import "modules/heroes";
+@import "modules/icons";
+@import "modules/keyframes";
+@import "modules/layout";
+@import "modules/media";
+@import "modules/modules";
+@import "modules/navigation";
+@import "modules/rows";
+@import "modules/sections";
+@import "modules/spotlight";
+@import "modules/tabs";
+@import "modules/typography-additions";
+
+@import "libs/menu";
+
+
+/* ::Print */
+/* ------------------------------------------------------------ */
+
+@media print {
+	body {
+		font-size: percentage(10 / 16);
+		color: #000!important;
+		background-color: #fff!important;
+	}
+	*[role="navigation"],
+	*[role="footer"] {
+		display: none!important;
+	}
+}

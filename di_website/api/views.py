@@ -75,7 +75,7 @@ def spotlight_page_view(request, slug=None):
     if slug:
         try:
             spotlight = SpotlightPage.objects.filter(slug=slug)[0]
-            page = serialise_page(request, spotlight, fields=['title', 'full_url'])
+            page = serialise_page(request, spotlight, fields=['title', 'full_url', 'country_code'])
             meta = spotlight.meta
             page['themes'] = []
             if meta:

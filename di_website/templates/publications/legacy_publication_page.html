@@ -10,27 +10,16 @@
 
 {% block body %}
 
-        {% if page.authors|length > 0 %}
-          <section class="section section--large">
-            <div class="chapter-block-wrapper">
-              <div class="row row--narrow">
-                <div class="larger-center">
-                  <div class="chapter-block__item">
-                    <div class="chapter-block_content">
-                      {% include 'includes/partials/multi-authors.html' with authors=page.authors %}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-        {% endif %}
-
-        <section class="section">
+        <section class="section section--post">
             <div class="row row--narrow">
-              <div class="max-meter max-meter--center is-typeset wysiwyg">
+              <div class="max-meter max-meter--center">
+                {% if page.authors|length > 0 %}
+                  {% include 'includes/partials/multi-authors.html' with authors=page.authors %}
+                {% endif %}
+                <div class="is-typeset is-typeset--additionals wysiwyg">
                   {% content_with_footnotes page.content %}
                   {{ page.raw_content | safe }}
+                </div>
               </div>
             </div>
           </section>

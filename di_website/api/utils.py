@@ -1,4 +1,5 @@
 from di_website.home.models import FooterSection, NewsLetter
+from di_website.spotlight.snippets import SpotlightColour, SpotlightSource, SpotlightIndicator
 
 
 def object_to_dict(obj, fields):
@@ -12,11 +13,11 @@ def object_to_dict(obj, fields):
     return result
 
 
-def serialise_page(page, request):
+def serialise_page(request, page, fields=['title', 'full_url', 'active']):
     """
     Returns a dictionary of the required fields from a Wagtail page (mostly for spotlights)
     """
-    result = object_to_dict(page, ['title', 'full_url', 'active'])
+    result = object_to_dict(page, fields)
     result['relative_url'] = page.relative_url(request.site, request)
 
     return result
@@ -60,3 +61,26 @@ def fetch_and_serialise_footer_sections(request):
         result.append(serialised_section)
 
     return result
+
+
+def serialise_spotlight_theme(theme):
+    serialised_theme = object_to_dict(theme, ['name', 'slug'])
+    indicators = SpotlightIndicator.objects.filter(theme=theme)
+    serialised_theme['indicators'] = []
+    if indicators:
+        for indicator in indicators:
+            serialised_indicator = serialise_spotlight_indicator(indicator)
+            serialised_theme['indicators'].append(serialised_indicator)
+
+    return serialised_theme
+
+
+def serialise_spotlight_indicator(indicator):
+    serialised_indicator = object_to_dict(indicator, [
+        'ddw_id', 'name', 'description', 'start_year', 'end_year', 'range',
+        'value_prefix', 'value_suffix', 'tooltip_template'])
+
+    serialised_indicator['colour'] = indicator.color.code
+    serialised_indicator['source'] = indicator.source.name
+
+    return serialised_indicator

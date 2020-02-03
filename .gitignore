@@ -118,3 +118,6 @@ $RECYCLE.BIN/
 storage/
 deploy_key
 .vscode
+
+# Downloaded Spotlight Files
+/spotlight-*.csv

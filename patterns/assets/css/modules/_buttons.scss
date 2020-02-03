@@ -26,7 +26,10 @@
 		background-color: $poppy-dark;
 		padding: 0.5em;
 	}
-
+	.spotlight & {
+		height: $form-item-height;
+		transform: translateY(1px);
+	}
 }
 
 // Give actual buttons some love

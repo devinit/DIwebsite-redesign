@@ -10,7 +10,7 @@
 
 {% set id = "spotlight" %}
 {% set section = "Data" %}
-{% set title = "Spotlight" %}
+{% set title = "Spotlight on [Location]" %}
 {% set excerpt = "" %}
 {% set image_name = "" %}
 {% set active_page = "" %}
@@ -40,74 +40,53 @@
 
     <section class="section">
         <div class="row row--wide">
-            <div class="spotlight-banner">
-                <div class="spotlight-banner__aside">
-                    <label for="indicator" class="form-label">Indicator</label>
-                    <!-- <div class="form-field__select-dropdown">
-                		<select name="indicator-choice" id="indicator-choice">
-                			<option value="poverty-headcount" id="poverty-headcount">Poverty headcount</option>
-                		</select>
-                	</div> -->
-                    <select class="spotlight__select-container js-example-basic-single " name="states[]">
-                        {% for item in indicator.indicators %}
-                            <optgroup label="{{ item.group_name }}">
-                                {% for name in item.group_indicators %}
-                                    <option value="{{ name.indicator_name }}">{{ name.indicator_name }}</option>
-                                {% endfor %}
-                            </optgroup>
-                        {% endfor  %}
-                    </select>
-                </div>
-                <div class="spotlight-banner__main">
-                    <div class="spotlight-banner__form">
-                        <div class="form-field form-field--inline-block">
-                            <label for="indicator" class="form-label">Year</label>
-                            <div class="form-field__select-dropdown">
-                        		<select name="year-choice" id="year-choice">
-                        			<option value="2018" id="2018">2018</option>
-                                    <option value="2017" id="2017">2017</option>
-                                    <option value="2016" id="2016">2016</option>
-                                    <option value="2015" id="2015">2015</option>
-                        		</select>
-                        	</div>
-                        </div>
-                        <div class="form-field form-field--inline-block">
-                            <button type="button" class="button">Update</button>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
 
             <div class="spotlight">
                 <div class="spotlight__aside spotlight__aside--padded">
-                    <h2 class="spotlight__heading">Uganda <button id="spotlight-menu-trigger" type="button" class="button button--minor">{{ icons.icon('ico-arrow-down-blank', '20') }}</button></h2>
-                    <!-- <ul class="breadcrumbs">
-                        <li class="breadcrumbs__item"><a href="#">Item</a></li>
-                        <li class="breadcrumbs__item"><a href="#">Item</a></li>
-                        <li class="breadcrumbs__item"><a href="#">Item</a></li>
-                    </ul> -->
                     <div class="spotlight__content">
-                        <nav id="menu" class="spotlight-menu">
-                            <ul>
-                                {% for item in location.locations_uganda %}
-                                    {% for region in item.regions %}
-                                    <li><span>{{ region.region_name }}</span>
-                                        <ul>
-                                            {% for district in region.districts %}
-                                                <li><span>{{ district.district_name }}</span>
-                                                <ul>
-                                                    {% for county in district.counties %}
-                                                        <li><span>{{ county.county_name }}</span>
-                                                            <ul>
-                                                                {% for sub_county in county.sub_counties %}
-                                                                    <li><span>{{ sub_county.sub_county_name }}</span>
-                                                                        <ul>
-                                                                            {% for parish in sub_county.parishes %}
-                                                                                <li><span>{{ parish.parish_name }}</span>
-                                                                                    <ul>
-                                                                                        {% for village in parish.villages %}
-                                                                                            <li><a href="/">{{ village.village_name }}</a></li>
+
+                        <div id="js-countries-menu-container">
+                            <nav class="countries-menu-list js-countries-menu-trigger">
+                                <a class="countries-menu-list__item countries-menu-list__parent" href="#"><span>Uganda</span></a>
+                            </nav>
+                            <nav class="countries-menu-list animated inactive" id="js-countries-menu">
+                                <a class="countries-menu-list__item countries-menu-list__parent countries-menu-list__item--open js-countries-menu-trigger" href="#">Uganda</a>
+                                <a href="#profile" class="countries-menu__profile countries-menu__link js-profile-item" aria-hidden="true" title="View Uganda">View</a>
+                                <ul class="countries-menu-list__content" id="js-profile-nav">
+                                    {% for item in location.locations_uganda %}
+                                        {% for region in item.regions %}
+                                            <li class="countries-menu-list--has-children js-profile-region-item">
+                                                <a href="#" class="countries-menu-list__item countries-menu-list__item--parent-first js-menu-item js-search-item active " data-has-children="1" aria-label="View {{ region.region_name }}">{{ region.region_name }}</a>
+                                                <a href="#profile" class="countries-menu__profile countries-menu__link js-profile-item" aria-hidden="true" title="View {{ region.region_name }}">View</a>
+                                                <ul class="js-profile-subregion-list">
+                                                    {% for district in region.districts %}
+                                                        <li class="countries-menu-list--has-children js-profile-subregion-item">
+                                                            <a href="#" class="countries-menu-list__item countries-menu-list__item--parent-second js-menu-item js-search-item" data-has-children="1" aria-label="View {{ district.district_name }}">{{ district.district_name }}</a>
+                                                            <a href="#profile" class="countries-menu__profile countries-menu__link js-profile-item" aria-hidden="true" title="View {{ district.district_name }}">View</a>
+                                                            <ul class="js-profile-country-list">
+                                                                {% for county in district.counties %}
+                                                                    <li class="countries-menu-list__countries js-profile-country-item">
+                                                                        <a href="#" class="countries-menu-list__item countries-menu-list__item--parent-third js-menu-item js-search-item"  data-has-children="1" title="View {{ county.county_name }}">{{ county.county_name }}</a>
+                                                                        <a href="#profile" aria-hidden="true" class="countries-menu__profile countries-menu__link js-profile-item" title="View {{ county.county_name }}">View</a>
+                                                                        <ul class="js-profile-country-list">
+                                                                            {% for sub_county in county.sub_counties %}
+                                                                                <li class="countries-menu-list__countries js-profile-country-item">
+                                                                                    <a href="#" class="countries-menu-list__item countries-menu-list__item--parent-fourth js-menu-item js-search-item"  data-has-children="1" title="View {{ sub_county.sub_county_name }}">{{ sub_county.sub_county_name }}</a>
+                                                                                    <a href="#profile" aria-hidden="true" class="countries-menu__profile countries-menu__link js-profile-item" title="View {{ sub_county.sub_county_name }}">View</a>
+                                                                                    <ul class="js-profile-country-list">
+                                                                                        {% for parish in sub_county.parishes %}
+                                                                                            <li class="countries-menu-list__countries js-profile-country-item">
+                                                                                                <a href="#" class="countries-menu-list__item countries-menu-list__item--parent-fifth js-menu-item js-search-item"  data-has-children="1" title="View {{ parish.parish_name }}">{{ parish.parish_name }}</a>
+                                                                                                <a href="#profile" aria-hidden="true" class="countries-menu__profile countries-menu__link js-profile-item" title="View {{ parish.parish_name }}">View</a>
+                                                                                                <ul class="js-profile-country-list">
+                                                                                                    {% for village in parish.villages %}
+                                                                                                    <li class="countries-menu-list__countries js-profile-country-item">
+                                                                                                        <a href="#" class="countries-menu-list__item countries-menu-list__item--parent-sixth js-search-item" title="View {{ village.village_name }}">{{ village.village_name }}</a>
+                                                                                                        <a href="#profile" aria-hidden="true" class="countries-menu__profile countries-menu__link js-profile-item" title="View {{ village.village_name }}">View</a>
+                                                                                                    </li>
+                                                                                                    {% endfor %}
+                                                                                                </ul>
+                                                                                            </li>
                                                                                         {% endfor %}
                                                                                     </ul>
                                                                                 </li>
@@ -120,13 +99,58 @@
                                                     {% endfor %}
                                                 </ul>
                                             </li>
-                                            {% endfor %}
-                                        </ul>
-                                    </li>
+                                        {% endfor %}
                                     {% endfor %}
-                                {% endfor %}
-                            </ul>
-                        </nav>
+                                </ul>
+                            </nav>
+                        </div>
+
+                        <div id="js-profile-search-container" class="spotlight__search">
+                            <label class="form-label form-label--hidden" for="country-search" aria-hidden="true">Search for a location</label>
+                            <input id="js-profile-search" class="form-item" type="text" name="country-search" id="country-search" placeholder="Search for a location">
+                            <nav class="countries__searched" aria-hidden="true">
+                                <ul class="countries__searched__list" id="js-profile-results"></ul>
+                            </nav>
+                        </div>
+
+                        <form class="form">
+                            <div class="form-field">
+                                <label for="indicator" class="form-label">Select a topic to explore</label>
+                                <div class="form-field__select-dropdown">
+                                    <select name="indicator" id="indicator">
+                                        <option value="poverty-vulnerability">Poverty & Vulnerability</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-field form-field--spaced-minor">
+                                <label for="indicator" class="form-label">Choose an indicator</label>
+                                <div class="form-field__select-dropdown">
+                                    <select name="topic" id="topic">
+                                        {% for item in indicator.indicators %}
+                                            <optgroup label="{{ item.group_name }}">
+                                                {% for name in item.group_indicators %}
+                                                    <option value="{{ name.indicator_name }}">{{ name.indicator_name }}</option>
+                                                {% endfor %}
+                                            </optgroup>
+                                        {% endfor  %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-field form-field--inline">
+                                <label for="indicator" class="form-label">Choose a Year</label>
+                                <div class="form-field__select-dropdown">
+                            		<select name="year-choice" id="year-choice">
+                            			<option value="2018" id="2018">2018</option>
+                                        <option value="2017" id="2017">2017</option>
+                                        <option value="2016" id="2016">2016</option>
+                                        <option value="2015" id="2015">2015</option>
+                            		</select>
+                            	</div>
+                            </div>
+                            <div class="form-field form-field--inline">
+                                <button type="button" class="button">Update</button>
+                            </div>
+                        </form>
                         <h3 class="spotlight__subheading">Poverty headcount</h3>
                         <p class="spotlight__excerpt">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
                         <a href="#" class="button">Compare this location to others</a>
@@ -142,8 +166,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="spotlight__main spotlight__interactive">
-                    <div id="map"></div>
+                <div class="spotlight__main spotlight__main--map">
+                    <div class="spotlight__interactive">
+                        <div id="map"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -151,7 +177,7 @@
 
     <section class="section">
         <div class="row row--wide">
-            <h2 class="section__heading">Overview for [Location]</h2>
+            <h2 class="section__heading">Key facts for [Location]</h2>
             <div class="tabs">
                 <section class="tabs__container" id="resources">
                     <input class="tabs__input" type="radio" name="sections" id="resources-option" checked>
@@ -433,18 +459,33 @@
 
     <section class="section">
         <div class="row row--wide">
-            <h2 class="section__heading">Indicator comparison</h2>
+            <h2 class="section__heading">Compare indicators for [Location]</h2>
+            <h3 class="section__sub-heading">Poverty Headcount vs. Domestic Spending</h3>
             <div class="spotlight-banner">
                 <div class="spotlight__comparison">
                     <span class="spotlight__comparison-legend"></span>
-                    <div class="form-field form-field--inline-block">
+                    <div class="form-field form-field--inline-three">
+                        <label for="indicator" class="form-label">Topic</label>
+                        <div class="form-field__select-dropdown">
+                            <select name="indicator" id="indicator">
+                                <option value="poverty-vulnerability">Poverty & Vulnerability</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-field form-field--inline-three">
                         <label for="indicator" class="form-label">Indicator</label>
-                        <!-- <div class="form-field__select-dropdown">
-                    		<select name="indicator-choice" id="indicator-choice">
-                    			<option value="poverty-headcount" id="poverty-headcount">Poverty headcount</option>
-                    		</select>
-                    	</div> -->
-                        <select class="spotlight__select-container js-example-basic-single " name="states[]">
+                        <div class="form-field__select-dropdown">
+                            <select name="topic" id="topic">
+                                {% for item in indicator.indicators %}
+                                    <optgroup label="{{ item.group_name }}">
+                                        {% for name in item.group_indicators %}
+                                            <option value="{{ name.indicator_name }}">{{ name.indicator_name }}</option>
+                                        {% endfor %}
+                                    </optgroup>
+                                {% endfor  %}
+                            </select>
+                        </div>
+                        <!-- <select class="spotlight__select-container js-example-basic-single " name="states[]">
                             {% for item in indicator.indicators %}
                                 <optgroup label="{{ item.group_name }}">
                                     {% for name in item.group_indicators %}
@@ -452,9 +493,9 @@
                                     {% endfor %}
                                 </optgroup>
                             {% endfor  %}
-                        </select>
+                        </select> -->
                     </div>
-                    <div class="form-field form-field--inline-block">
+                    <div class="form-field form-field--inline-three">
                         <label for="indicator" class="form-label">Year</label>
                         <div class="form-field__select-dropdown">
                             <select name="indicator-choice" id="indicator-choice">
@@ -466,16 +507,31 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="spotlight__comparison">
                     <span class="spotlight__comparison-legend spotlight__comparison-legend--alt"></span>
-                    <div class="form-field form-field--inline-block">
+                    <div class="form-field form-field--inline-three">
+                        <label for="indicator" class="form-label">Topic</label>
+                        <div class="form-field__select-dropdown">
+                            <select name="indicator" id="indicator">
+                                <option value="poverty-vulnerability">Poverty & Vulnerability</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-field form-field--inline-three">
                         <label for="indicator" class="form-label">Indicator</label>
-                        <!-- <div class="form-field__select-dropdown">
-                    		<select name="indicator-choice" id="indicator-choice">
-                    			<option value="poverty-headcount" id="poverty-headcount">Poverty headcount</option>
-                    		</select>
-                    	</div> -->
-                        <select class="spotlight__select-container js-example-basic-single " name="states[]">
+                        <div class="form-field__select-dropdown">
+                            <select name="topic" id="topic">
+                                {% for item in indicator.indicators %}
+                                    <optgroup label="{{ item.group_name }}">
+                                        {% for name in item.group_indicators %}
+                                            <option value="{{ name.indicator_name }}">{{ name.indicator_name }}</option>
+                                        {% endfor %}
+                                    </optgroup>
+                                {% endfor  %}
+                            </select>
+                        </div>
+                        <!-- <select class="spotlight__select-container js-example-basic-single " name="states[]">
                             {% for item in indicator.indicators %}
                                 <optgroup label="{{ item.group_name }}">
                                     {% for name in item.group_indicators %}
@@ -483,9 +539,9 @@
                                     {% endfor %}
                                 </optgroup>
                             {% endfor  %}
-                        </select>
+                        </select> -->
                     </div>
-                    <div class="form-field form-field--inline-block">
+                    <div class="form-field form-field--inline-three">
                         <label for="indicator" class="form-label">Year</label>
                         <div class="form-field__select-dropdown">
                             <select name="indicator-choice" id="indicator-choice">
@@ -502,11 +558,11 @@
 
             <div class="spotlight spotlight--leader">
                 <div class="spotlight__aside">
-                    <h2 class="spotlight__heading">Current area</h2>
+                    <h2 class="spotlight__heading">[Location]</h2>
                     <div class="spotlight__interactive" id="chart"></div>
                 </div>
                 <div class="spotlight__main">
-                    <h2 class="spotlight__heading">Constituencies (parts of current area)</h2>
+                    <h2 class="spotlight__heading">Countries in [Location]</h2>
                     <div class="spotlight__interactive" id="chart"></div>
                     <button type="button" class="button button--show">Show more</button>
                 </div>
@@ -516,7 +572,7 @@
 
     <section class="section">
         <div class="row row--wide">
-            <h2 class="section__heading">Revenue</h2>
+            <h2 class="section__heading">Revenue in [Location]</h2>
             <div class="spotlight-banner spotlight-banner--alt">
                 <div class="spotlight-banner__aside">
                     <div class="form-field form-field--inline">
@@ -571,7 +627,7 @@
 
     <section class="section">
         <div class="row row--wide">
-            <h2 class="section__heading">Expenditure</h2>
+            <h2 class="section__heading">Expenditure in [Location]</h2>
             <div class="spotlight-banner spotlight-banner--alt">
                 <div class="spotlight-banner__aside">
                     <div class="form-field form-field--inline">

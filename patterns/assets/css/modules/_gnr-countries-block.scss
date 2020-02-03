@@ -1,12 +1,6 @@
 // ------------------------------------------------------------
 // countries
 // ------------------------------------------------------------
-$gnr-sunrise                        : #f39000;
-$gnr-slate                          : #475c6d;
-$gnr-cloud                          : #cfd9e5;
-$gnr-concrete                       : #a0adbb;
-
-$gnr-slate-a11y                     : #2E3C48;
 
 .countries-wrapper {
 	position: relative;
@@ -23,9 +17,9 @@ $gnr-slate-a11y                     : #2E3C48;
 	display: block;
 	margin-bottom: 2rem;
 	.countries-search__form {
-		border: 1px solid $gnr-slate;
+		border: 1px solid $slate;
 		&::placeholder {
-			color: $gnr-slate;
+			color: $slate;
 		}
 	}
 	html.no-js & {
@@ -52,14 +46,14 @@ $gnr-slate-a11y                     : #2E3C48;
 	@include respond-to($menu-respond) {
 		html.js & {
 			position: absolute;
-			width: 100%;
+			width: calc(100% - 4em);
 		}
 	}
 }
 
 .countries__searched__list {
 	padding: 2rem;
-	background: $gnr-slate;
+	background: $slate;
 	@include font-size($zeta/1.25);
 	@include respond-to($c-vp) {
 		@include font-size($zeta);
@@ -96,17 +90,17 @@ $gnr-slate-a11y                     : #2E3C48;
 
 .countries__searched__highlight {
 	padding: 0.5rem 1rem;
-	background: rgba($gnr-sunrise, 0.5);
+	background: rgba($sunflower, 0.5);
 	color: #fff;
 	transition: $transition;
 	&:hover {
-		background: rgba($gnr-sunrise, 0.75);
+		background: rgba($sunflower, 0.75);
 	}
 }
 
 .countries__searched__highlight__typed {
 	padding: 0.5rem 0 0.5rem;
-	background: $gnr-sunrise;
+	background: $sunflower;
 	color: #fff;
 }
 
@@ -115,7 +109,7 @@ $gnr-slate-a11y                     : #2E3C48;
 // ------------------------------------------------------------
 .countries-menu-list {
 	position: relative;
-	margin: 0 0 2rem 0;
+	margin-bottom: 1em;
 	&.inactive {
 		display: none;
 	}
@@ -133,8 +127,8 @@ $gnr-slate-a11y                     : #2E3C48;
 	position: relative;
 	display: block;
 	padding: 14px 100px 14px 40px;
-	background: darken($gnr-slate, 15%);
-	box-shadow: inset 0 -1px $gnr-cloud;
+	background: darken($slate, 15%);
+	box-shadow: inset 0 -1px $cloud;
 	color: $body-color;
 	transition: $transition;
 	font-size: 16px!important;
@@ -204,7 +198,7 @@ $gnr-slate-a11y                     : #2E3C48;
 	letter-spacing: 1px;
 	box-shadow: none;
 	&:hover {
-		background: darken($gnr-slate, 15%);
+		background: darken($slate, 15%);
 	}
 }
 
@@ -212,7 +206,7 @@ $gnr-slate-a11y                     : #2E3C48;
 	// @extend .heading;
 	// text-transform: uppercase;
 	letter-spacing: 1px;
-	background: darken($gnr-slate, 10%);
+	background: darken($slate, 10%);
 	@include respond-to($c-vp) {
 		padding-left: 60px;
 		&:before {
@@ -230,7 +224,7 @@ $gnr-slate-a11y                     : #2E3C48;
 }
 
 .countries-menu-list__item--parent-second {
-	background: darken($gnr-slate, 5%);
+	background: darken($slate, 5%);
 	@include respond-to($c-vp) {
 		padding-left: 72px;
 		&:before {
@@ -248,8 +242,11 @@ $gnr-slate-a11y                     : #2E3C48;
 }
 
 .countries-menu-list__item--parent-third {
-	background: $gnr-concrete;
-	color: $gnr-slate-a11y;
+	background: $cloud-dark;
+	color: $slate;
+	&:before {
+		background: url(../img/arrow-down-slate.svg) no-repeat;
+	}
 	@include respond-to($c-vp) {
 		padding-left: 84px;
 		&:before {
@@ -262,13 +259,16 @@ $gnr-slate-a11y                     : #2E3C48;
 		}
 	}
 	.countries-menu-list__countries--selected & {
-		background: $gnr-sunrise;
+		background: $poppy-dark;
 	}
 }
 
 .countries-menu-list__item--parent-fourth {
-	background: $gnr-concrete;
-	color: $gnr-slate-a11y;
+	background: $cloud-dark;
+	color: $slate;
+	&:before {
+		background: url(../img/arrow-down-slate.svg) no-repeat;
+	}
 	@include respond-to($c-vp) {
 		padding-left: 96px;
 		&:before {
@@ -281,13 +281,16 @@ $gnr-slate-a11y                     : #2E3C48;
 		}
 	}
 	.countries-menu-list__countries--selected & {
-		background: $gnr-sunrise;
+		background: $poppy-dark;
 	}
 }
 
 .countries-menu-list__item--parent-fifth {
-	background: $gnr-concrete;
-	color: $gnr-slate-a11y;
+	background: $cloud-dark;
+	color: $slate;
+	&:before {
+		background: url(../img/arrow-down-slate.svg) no-repeat;
+	}
 	@include respond-to($c-vp) {
 		padding-left: 108px;
 		&:before {
@@ -300,13 +303,16 @@ $gnr-slate-a11y                     : #2E3C48;
 		}
 	}
 	.countries-menu-list__countries--selected & {
-		background: $gnr-sunrise;
+		background: $poppy-dark;
 	}
 }
 
 .countries-menu-list__item--parent-sixth {
-	background: $gnr-concrete;
-	color: $gnr-slate-a11y;
+	background: $cloud-dark;
+	color: $slate;
+	&:before {
+		background: url(../img/arrow-down-slate.svg) no-repeat;
+	}
 	@include respond-to($c-vp) {
 		padding-left: 120px;
 		&:before {
@@ -319,13 +325,16 @@ $gnr-slate-a11y                     : #2E3C48;
 		}
 	}
 	.countries-menu-list__countries--selected & {
-		background: $gnr-sunrise;
+		background: $poppy-dark;
 	}
 }
 
 .countries-menu-list__item--parent-seventh {
-	background: $gnr-concrete;
-	color: $gnr-slate-a11y;
+	background: $cloud-dark;
+	color: $slate;
+	&:before {
+		background: url(../img/arrow-down-slate.svg) no-repeat;
+	}
 	@include respond-to($c-vp) {
 		padding-left: 132px;
 		&:before {
@@ -338,7 +347,7 @@ $gnr-slate-a11y                     : #2E3C48;
 		}
 	}
 	.countries-menu-list__countries--selected & {
-		background: $gnr-sunrise;
+		background: $poppy-dark;
 	}
 }
 
@@ -364,7 +373,7 @@ $gnr-slate-a11y                     : #2E3C48;
 		display: none;
 	}
 	&:hover, &:focus  {
-		background: $gnr-sunrise;
+		background: $poppy-dark;
 		color: $body-color;
 	}
 }

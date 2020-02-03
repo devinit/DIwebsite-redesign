@@ -10,7 +10,7 @@
 
 {% set id = "spotlight" %}
 {% set section = "Data" %}
-{% set title = "Location & Indicator comparison" %}
+{% set title = "Spotlight on [Location]" %}
 {% set excerpt = "" %}
 {% set image_name = "" %}
 {% set active_page = "" %}
@@ -39,6 +39,7 @@
 
     <section class="section">
         <div class="row row--narrow">
+            <h2 class="section__heading">Location comparison</h2>
             <div class="spotlight-banner">
                 <div class="spotlight-banner__aside">
                     <a href="#" class="m-text-link">{{ icons.icon('ico-plus-poppy', '16') }} <span>Add another location</span></a>
@@ -55,21 +56,33 @@
 
             <div class="spotlight spotlight--full">
                 <div class="space-section-bottom--small">
-                    <label for="indicator" class="form-label">Indicator</label>
-                    <!-- <div class="form-field__select-dropdown">
-                		<select name="indicator-choice" id="indicator-choice">
-                			<option value="poverty-headcount" id="poverty-headcount">Poverty headcount</option>
-                		</select>
-                	</div> -->
-                    <select class="spotlight__select-container js-example-basic-single " name="states[]">
-                        {% for item in indicator.indicators %}
-                            <optgroup label="{{ item.group_name }}">
-                                {% for name in item.group_indicators %}
-                                    <option value="{{ name.indicator_name }}">{{ name.indicator_name }}</option>
-                                {% endfor %}
-                            </optgroup>
-                        {% endfor  %}
-                    </select>
+                    <form class="">
+                        <div class="form-field form-field--inline-three">
+                            <label for="indicator" class="form-label">Select a topic to explore</label>
+                            <div class="form-field__select-dropdown">
+                                <select name="indicator" id="indicator">
+                                    <option value="poverty-vulnerability">Poverty & Vulnerability</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-field form-field--inline-three">
+                            <label for="indicator" class="form-label">Choose and Indicator</label>
+                            <div class="form-field__select-dropdown">
+                                <select name="topic" id="topic">
+                                    {% for item in indicator.indicators %}
+                                        <optgroup label="{{ item.group_name }}">
+                                            {% for name in item.group_indicators %}
+                                                <option value="{{ name.indicator_name }}">{{ name.indicator_name }}</option>
+                                            {% endfor %}
+                                        </optgroup>
+                                    {% endfor  %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-field form-field--inline-three">
+                            <button type="button" class="button">Update</button>
+                        </div>
+                    </form>
                 </div>
                 <div class="spotlight__main">
                     <div class="spotlight__interactive" id="chart"></div>
@@ -82,21 +95,33 @@
         <div class="row row--narrow">
             <div class="spotlight spotlight--full">
                 <div class="space-section-bottom--small">
-                    <label for="indicator" class="form-label">Indicator</label>
-                    <!-- <div class="form-field__select-dropdown">
-                		<select name="indicator-choice" id="indicator-choice">
-                			<option value="poverty-headcount" id="poverty-headcount">Poverty headcount</option>
-                		</select>
-                	</div> -->
-                    <select class="spotlight__select-container js-example-basic-single " name="states[]">
-                        {% for item in indicator.indicators %}
-                            <optgroup label="{{ item.group_name }}">
-                                {% for name in item.group_indicators %}
-                                    <option value="{{ name.indicator_name }}">{{ name.indicator_name }}</option>
-                                {% endfor %}
-                            </optgroup>
-                        {% endfor  %}
-                    </select>
+                    <form class="">
+                        <div class="form-field form-field--inline-three">
+                            <label for="indicator" class="form-label">Select a topic to explore</label>
+                            <div class="form-field__select-dropdown">
+                                <select name="indicator" id="indicator">
+                                    <option value="poverty-vulnerability">Poverty & Vulnerability</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-field form-field--inline-three">
+                            <label for="indicator" class="form-label">Choose and Indicator</label>
+                            <div class="form-field__select-dropdown">
+                                <select name="topic" id="topic">
+                                    {% for item in indicator.indicators %}
+                                        <optgroup label="{{ item.group_name }}">
+                                            {% for name in item.group_indicators %}
+                                                <option value="{{ name.indicator_name }}">{{ name.indicator_name }}</option>
+                                            {% endfor %}
+                                        </optgroup>
+                                    {% endfor  %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-field form-field--inline-three">
+                            <button type="button" class="button">Update</button>
+                        </div>
+                    </form>
                 </div>
                 <div class="spotlight__main">
                     <div class="spotlight__interactive" id="chart"></div>

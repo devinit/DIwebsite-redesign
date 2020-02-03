@@ -63,7 +63,7 @@
     }
     &__aside {
         margin-bottom: 2em;
-        // overflow: hidden;
+        overflow: hidden;
         overflow-y: scroll;
         z-index: 10000;
         &--padded {
@@ -71,10 +71,10 @@
             padding: 2em;
         }
     }
-    &__main--interactive {
+    &__main {
         position: relative;
     }
-    @include respond-to($c-vp) {
+    @include respond-to($c-vp + 50px) {
         @supports (display: flex) {
             display: flex;
         }
@@ -93,16 +93,6 @@
                 width: 100%;
                 float: none;
                 display: block;
-            }
-            &--interactive {
-                border: 1px solid $poppy;
-                div {
-                    position: absolute;
-            		top: 0;
-            		left: 0;
-            		width: 100%;
-            		height: 100%;
-                }
             }
         }
     }
@@ -178,8 +168,7 @@
 }
 
 .spotlight__content {
-    position: relative;
-    border-top: 1px solid $cloud;
+    // position: relative;
     // margin-top: 1em;
     // padding-top: 1em;
     .button {
@@ -360,6 +349,14 @@
         min-height: auto;
         @include maintain-ratio(4 3);
     }
+    .spotlight__main--map & {
+        @include respond-to($c-vp + 50px) {
+            position: absolute;
+            top: 88px;
+            height: calc(100% - 88px);
+            width: 100%;
+        }
+    }
 }
 
 
@@ -412,6 +409,19 @@
         width: 70px;
         height: 70px;
         margin-top: 7px;
+    }
+}
+
+.spotlight__search {
+    margin-bottom: 2em;
+    @include respond-to($c-vp + 50px) {
+        position: absolute;
+        background-color: #fff;
+        padding: 2em;
+        width: calc(100% - 30%);
+        top: 0;
+        right: 0;
+        margin-bottom: 0;
     }
 }
 

@@ -10,6 +10,9 @@
     &--post {
         margin-top: $internal-spacing*3.5;
     }
+    &--scroll {
+        overflow-y: scroll;
+    }
     &__heading {
         position: relative;
         display: inline-block;
@@ -26,6 +29,10 @@
                 background-color: $poppy;
             }
         }
+    }
+    &__sub-heading {
+        @include font-size($gamma);
+        margin-bottom: 1em;
     }
     &--alt {
         background-color: #fff;

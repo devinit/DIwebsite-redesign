@@ -279,3 +279,6 @@ GOOGLE_MAPS_V3_APIKEY = "AIzaSyAZAIjZtkBlsF0ZqvrlkvyLfVn6Bju6bJ4"
 
 # Celery
 CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL')
+
+# Disable update notifications on CMS
+WAGTAIL_ENABLE_UPDATE_CHECK = False

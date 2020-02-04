@@ -43,7 +43,7 @@
 
             <div class="spotlight">
                 <div class="spotlight__aside spotlight__aside--padded">
-                    <div class="spotlight__content">
+                    <div class="spotlight__header">
 
                         <div id="js-countries-menu-container">
                             <nav class="countries-menu-list js-countries-menu-trigger">
@@ -112,7 +112,8 @@
                                 <ul class="countries__searched__list" id="js-profile-results"></ul>
                             </nav>
                         </div>
-
+                    </div>
+                    <div class="spotlight__content">
                         <form class="form">
                             <div class="form-field">
                                 <label for="indicator" class="form-label">Select a topic to explore</label>
@@ -151,10 +152,15 @@
                                 <button type="button" class="button">Update</button>
                             </div>
                         </form>
-                        <h3 class="spotlight__subheading">Poverty headcount</h3>
-                        <p class="spotlight__excerpt">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                        <a href="#" class="button">Compare this location to others</a>
-                        <a href="#" class="button">Share this visualisation</a>
+
+                        <div class="spotlight__interactive spotlight__interactive--ss">
+                            <div id="map"></div>
+                        </div>
+
+                        <div class="spotlight-description">
+                            <h3 class="spotlight__subheading">Poverty headcount</h3>
+                            <p class="spotlight__excerpt">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                        </div>
 
                         <div class="spotlight-legend spotlight-legend--red">
                             <span>&lt;30%</span>
@@ -163,6 +169,11 @@
                             <span>70-90</span>
                             <span>&gt;90%</span>
                             <span>no data / not applicable</span>
+                        </div>
+
+                        <div class="spotlight-buttons">
+                            <a href="#" class="button">Compare this location to others</a>
+                            <a href="#" class="button">Share this visualisation</a>
                         </div>
                     </div>
                 </div>
@@ -175,7 +186,7 @@
         </div>
     </section>
 
-    <section class="section">
+    <section class="section section--alt-dark">
         <div class="row row--wide">
             <h2 class="section__heading">Key facts for [Location]</h2>
             <div class="tabs">
@@ -485,15 +496,6 @@
                                 {% endfor  %}
                             </select>
                         </div>
-                        <!-- <select class="spotlight__select-container js-example-basic-single " name="states[]">
-                            {% for item in indicator.indicators %}
-                                <optgroup label="{{ item.group_name }}">
-                                    {% for name in item.group_indicators %}
-                                        <option value="{{ name.indicator_name }}">{{ name.indicator_name }}</option>
-                                    {% endfor %}
-                                </optgroup>
-                            {% endfor  %}
-                        </select> -->
                     </div>
                     <div class="form-field form-field--inline-three">
                         <label for="indicator" class="form-label">Year</label>
@@ -531,15 +533,6 @@
                                 {% endfor  %}
                             </select>
                         </div>
-                        <!-- <select class="spotlight__select-container js-example-basic-single " name="states[]">
-                            {% for item in indicator.indicators %}
-                                <optgroup label="{{ item.group_name }}">
-                                    {% for name in item.group_indicators %}
-                                        <option value="{{ name.indicator_name }}">{{ name.indicator_name }}</option>
-                                    {% endfor %}
-                                </optgroup>
-                            {% endfor  %}
-                        </select> -->
                     </div>
                     <div class="form-field form-field--inline-three">
                         <label for="indicator" class="form-label">Year</label>
@@ -570,7 +563,7 @@
         </div>
     </section>
 
-    <section class="section">
+    <section class="section section--alt-dark">
         <div class="row row--wide">
             <h2 class="section__heading">Revenue in [Location]</h2>
             <div class="spotlight-banner spotlight-banner--alt">
@@ -623,58 +616,58 @@
                 </div>
             </div>
         </div>
-    </section>
 
-    <section class="section">
-        <div class="row row--wide">
-            <h2 class="section__heading">Expenditure in [Location]</h2>
-            <div class="spotlight-banner spotlight-banner--alt">
-                <div class="spotlight-banner__aside">
-                    <div class="form-field form-field--inline">
-                        <label for="indicator" class="form-label">Budget type</label>
-                        <div class="form-field__select-dropdown">
-                    		<select name="budget-type-choice" id="budget-type-choice">
-                    			<option value="actual" id="actual">Actual</option>
-                    		</select>
-                    	</div>
-                    </div>
-                    <div class="form-field form-field--inline">
-                        <label for="indicator" class="form-label">Currency</label>
-                        <div class="form-field__select-dropdown">
-                    		<select name="currency-choice" id="currency-choice">
-                    			<option value="2015-usd" id="2015-usd">Constant 2015 USD</option>
-                                <option value="ugx" id="ugx">Current UGX</option>
-                    		</select>
-                    	</div>
-                    </div>
-                </div>
-                <div class="spotlight-banner__main">
-                    <!-- mobile dropdown -->
-                    <div class="spotlight-banner__form">
+        <div class="space-section-top">
+            <div class="row row--wide">
+                <h2 class="section__heading">Expenditure in [Location]</h2>
+                <div class="spotlight-banner spotlight-banner--alt">
+                    <div class="spotlight-banner__aside">
                         <div class="form-field form-field--inline">
-                            <label for="indicator" class="form-label">Year</label>
+                            <label for="indicator" class="form-label">Budget type</label>
                             <div class="form-field__select-dropdown">
-                        		<select name="year-choice" id="year-choice">
-                        			<option value="2018" id="2018">2018</option>
-                                    <option value="2017" id="2017">2017</option>
-                                    <option value="2016" id="2016">2016</option>
-                                    <option value="2015" id="2015">2015</option>
+                        		<select name="budget-type-choice" id="budget-type-choice">
+                        			<option value="actual" id="actual">Actual</option>
                         		</select>
                         	</div>
                         </div>
                         <div class="form-field form-field--inline">
-                            <button type="button" class="button">Update</button>
+                            <label for="indicator" class="form-label">Currency</label>
+                            <div class="form-field__select-dropdown">
+                        		<select name="currency-choice" id="currency-choice">
+                        			<option value="2015-usd" id="2015-usd">Constant 2015 USD</option>
+                                    <option value="ugx" id="ugx">Current UGX</option>
+                        		</select>
+                        	</div>
+                        </div>
+                    </div>
+                    <div class="spotlight-banner__main">
+                        <!-- mobile dropdown -->
+                        <div class="spotlight-banner__form">
+                            <div class="form-field form-field--inline">
+                                <label for="indicator" class="form-label">Year</label>
+                                <div class="form-field__select-dropdown">
+                            		<select name="year-choice" id="year-choice">
+                            			<option value="2018" id="2018">2018</option>
+                                        <option value="2017" id="2017">2017</option>
+                                        <option value="2016" id="2016">2016</option>
+                                        <option value="2015" id="2015">2015</option>
+                            		</select>
+                            	</div>
+                            </div>
+                            <div class="form-field form-field--inline">
+                                <button type="button" class="button">Update</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="spotlight">
-                <div class="spotlight__aside">
-                    <div class="spotlight__interactive" id="chart"></div>
-                </div>
-                <div class="spotlight__main">
-                    <div class="spotlight__interactive" id="chart"></div>
+                <div class="spotlight">
+                    <div class="spotlight__aside">
+                        <div class="spotlight__interactive" id="chart"></div>
+                    </div>
+                    <div class="spotlight__main">
+                        <div class="spotlight__interactive" id="chart"></div>
+                    </div>
                 </div>
             </div>
         </div>

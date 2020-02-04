@@ -46,7 +46,7 @@
 	@include respond-to($menu-respond) {
 		html.js & {
 			position: absolute;
-			width: calc(100% - 4em);
+			width: calc(100% - 2em);
 		}
 	}
 }
@@ -118,7 +118,7 @@
 	html.js & {
 		position: absolute;
 		width: 100%;
-		z-index: 2;
+		z-index: 100000;
 	}
 }
 

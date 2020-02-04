@@ -17,10 +17,8 @@ import chapterNavSimple from './utils/chapterNavSimple';
 import './libs/slick';
 import './libs/jquery.responsiveTabs';
 import modal from './utils/modal';
-
-    // For prototype
-    import countryNav from './utils/countryNav';
-    import countrySearch from './utils/countrySearch';
+import countryNav from './utils/countryNav';
+import countrySearch from './utils/countrySearch';
 
 function globals () {
 

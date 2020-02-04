@@ -90,17 +90,17 @@
 
 .countries__searched__highlight {
 	padding: 0.5rem 1rem;
-	background: rgba($sunflower, 0.5);
+	background: rgba($poppy-dark, 0.5);
 	color: #fff;
 	transition: $transition;
 	&:hover {
-		background: rgba($sunflower, 0.75);
+		background: rgba($poppy-dark, 0.75);
 	}
 }
 
 .countries__searched__highlight__typed {
 	padding: 0.5rem 0 0.5rem;
-	background: $sunflower;
+	background: $poppy-dark;
 	color: #fff;
 }
 
@@ -109,7 +109,6 @@
 // ------------------------------------------------------------
 .countries-menu-list {
 	position: relative;
-	margin-bottom: 1em;
 	&.inactive {
 		display: none;
 	}
@@ -242,11 +241,8 @@
 }
 
 .countries-menu-list__item--parent-third {
-	background: $cloud-dark;
-	color: $slate;
-	&:before {
-		background: url(../img/arrow-down-slate.svg) no-repeat;
-	}
+	background: lighten($slate, 2%);
+	color: #fff;
 	@include respond-to($c-vp) {
 		padding-left: 84px;
 		&:before {
@@ -264,11 +260,8 @@
 }
 
 .countries-menu-list__item--parent-fourth {
-	background: $cloud-dark;
-	color: $slate;
-	&:before {
-		background: url(../img/arrow-down-slate.svg) no-repeat;
-	}
+	background: lighten($slate, 4%);
+	color: #fff;
 	@include respond-to($c-vp) {
 		padding-left: 96px;
 		&:before {
@@ -286,11 +279,8 @@
 }
 
 .countries-menu-list__item--parent-fifth {
-	background: $cloud-dark;
-	color: $slate;
-	&:before {
-		background: url(../img/arrow-down-slate.svg) no-repeat;
-	}
+	background: lighten($slate, 6%);
+	color: #fff;
 	@include respond-to($c-vp) {
 		padding-left: 108px;
 		&:before {
@@ -308,11 +298,8 @@
 }
 
 .countries-menu-list__item--parent-sixth {
-	background: $cloud-dark;
-	color: $slate;
-	&:before {
-		background: url(../img/arrow-down-slate.svg) no-repeat;
-	}
+	background: lighten($slate, 8%);
+	color: #fff;
 	@include respond-to($c-vp) {
 		padding-left: 120px;
 		&:before {
@@ -330,11 +317,8 @@
 }
 
 .countries-menu-list__item--parent-seventh {
-	background: $cloud-dark;
-	color: $slate;
-	&:before {
-		background: url(../img/arrow-down-slate.svg) no-repeat;
-	}
+	background: lighten($slate, 10%);
+	color: #fff;
 	@include respond-to($c-vp) {
 		padding-left: 132px;
 		&:before {

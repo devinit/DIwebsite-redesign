@@ -39,6 +39,11 @@
         padding-top: $internal-spacing*1.5;
         padding-bottom: $internal-spacing*1.5;
     }
+    &--alt-dark {
+        background-color: darken($cloud, 2%);
+        padding-top: $internal-spacing*1.5;
+        padding-bottom: $internal-spacing*1.5;
+    }
     &--large {
         margin: $internal-spacing*3 0;
     }

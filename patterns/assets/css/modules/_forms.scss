@@ -56,6 +56,20 @@
 	z-index: 1;
 	display: block;
 	margin-top: 1em;
+	.spotlight__content & {
+		display: inline-block;
+		width: 47.5%;
+		float: left;
+		margin-right: 10px;
+		&:nth-child(2n) {
+			margin-right: 0;
+		}
+		.button {
+			width: 100%;
+			text-align: center;
+			margin-top: 2em;
+		}
+	}
 	@include respond-to($c-vp - 100px) {
 		display: inline-block;
 		width: 47.5%;

@@ -22,29 +22,38 @@ import countrySearch from './utils/countrySearch';
 
 function globals () {
 
-    // prototype map nav
-        // Countries menu
-        countryNav(
-            '#js-countries-menu-container',
-            '#js-countries-menu',
-            'countries-menu-list__item--open',
-            '.countries-menu-list__item--parent-third',
-            'countries-menu-list__countries',
-            'countries-menu-list__countries--selected',
-            'countries-menu-list--selected',
-            '.js-countries-menu-trigger',
-        );
+    // Spotlight countries menu
+    countryNav(
+        '#js-countries-menu-container',
+        '#js-countries-menu',
+        'countries-menu-list__item--open',
+        '.countries-menu-list__item--parent-third',
+        'countries-menu-list__countries',
+        'countries-menu-list__countries--selected',
+        'countries-menu-list--selected',
+        '.js-countries-menu-trigger',
+    );
 
-        // Countries search
-        countrySearch(
-            '#js-profile-search-container',
-            '#js-profile-search',
-            '.js-search-item',
-            '#js-profile-results',
-            '#js-countries-menu',
-            '#js-profile-nav',
-            'countries__searched__highlight__typed'
-        );
+    // Spotlight countries search
+    countrySearch(
+        '#js-profile-search-container',
+        '#js-profile-search',
+        '.js-search-item',
+        '#js-profile-results',
+        '#js-countries-menu',
+        '#js-profile-nav',
+        'countries__searched__highlight__typed'
+    );
+
+    // Spotlight comparison show/hide
+    // trigger = the button that triggers
+    // target = the thing to add a class to
+    // targetActive = the class to add.
+    showHide(
+        '#spotlight-comparison-trigger',
+        '#spotlight-comparison__parts',
+        'spotlight__interactive--max-height--active'
+    );
 
     // FastClick
     fastClick(document.body);
@@ -58,13 +67,6 @@ function globals () {
         'navigation-primary-toggle--active',
         '#navigation-primary',
         'navigation-primary--active'
-    );
-
-    // Spotlight menu
-    showHide(
-        '#spotlight-menu-trigger',
-        '.spotlight-menu',
-        'spotlight-menu--active'
     );
 
     // Set child tab index for nav

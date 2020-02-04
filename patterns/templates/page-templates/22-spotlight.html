@@ -42,7 +42,7 @@
         <div class="row row--wide">
 
             <div class="spotlight">
-                <div class="spotlight__aside spotlight__aside--padded">
+                <div class="spotlight__aside">
                     <div class="spotlight__header">
 
                         <div id="js-countries-menu-container">
@@ -153,10 +153,37 @@
                             </div>
                         </form>
 
-                        <div class="spotlight__interactive spotlight__interactive--ss">
-                            <div id="map"></div>
-                        </div>
+                        <div class="spotlight__hide-ss">
+                            <div class="spotlight-description">
+                                <h3 class="spotlight__subheading">Poverty headcount</h3>
+                                <p class="spotlight__excerpt">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                            </div>
 
+                            <div class="spotlight-legend spotlight-legend--red">
+                                <span>&lt;30%</span>
+                                <span>30-50</span>
+                                <span>50-70</span>
+                                <span>70-90</span>
+                                <span>&gt;90%</span>
+                                <span>no data / not applicable</span>
+                            </div>
+
+                            <div class="spotlight-buttons">
+                                <a href="#" class="button">Compare this location to others</a>
+                                <a href="#" class="button">Share this visualisation</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="spotlight__main spotlight__main--map">
+                    <div class="spotlight__interactive">
+                        <div id="map"></div>
+                    </div>
+                </div>
+
+                <!-- for mobile content -->
+                <div class="spotlight__aside spotlight__aside--ss">
+                    <div class="spotlight__content">
                         <div class="spotlight-description">
                             <h3 class="spotlight__subheading">Poverty headcount</h3>
                             <p class="spotlight__excerpt">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
@@ -175,11 +202,6 @@
                             <a href="#" class="button">Compare this location to others</a>
                             <a href="#" class="button">Share this visualisation</a>
                         </div>
-                    </div>
-                </div>
-                <div class="spotlight__main spotlight__main--map">
-                    <div class="spotlight__interactive">
-                        <div id="map"></div>
                     </div>
                 </div>
             </div>

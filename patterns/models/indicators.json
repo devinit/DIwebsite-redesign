@@ -322,5 +322,76 @@
 				}
 			]
 		}
+	],
+	"poverty_indicators": [
+		{
+			"indicator_name": "Poverty headcount"
+		},
+		{
+			"indicator_name": "Decent standard of living score"
+		},
+		{
+			"indicator_name": "Life expectancy"
+		},
+		{
+			"indicator_name": "Population with a disability (%)"
+		},
+		{
+			"indicator_name": "Population with a hearing disability (%)"
+		},
+		{
+			"indicator_name": "Population with a remembering disability (%)"
+		},
+		{
+			"indicator_name": "Population with a seeing disability (%)"
+		},
+		{
+			"indicator_name": "Population with a walking disability (%)"
+		},
+		{
+			"indicator_name": "Children ever married as a % of total child population"
+		},
+		{
+			"indicator_name": "Male children ever married as a % of total child population"
+		},
+		{
+			"indicator_name": "Female children ever married as a % of total child population"
+		},
+		{
+			"indicator_name": "Households receiving remittances (%)"
+		},
+		{
+			"indicator_name": "Households using electricity for cooking (%)"
+		},
+		{
+			"indicator_name": "Households using charcoal for cooking (%)"
+		},
+		{
+			"indicator_name": "Households using firewood for cooking (%)"
+		},
+		{
+			"indicator_name": "Households using gas for cooking (%)"
+		},
+		{
+			"indicator_name": "Households using a paraffin stove for cooking (%)"
+		},
+		{
+			"indicator_name": "Households using electricity for lighting (%)"
+		},
+		{
+			"indicator_name": "Households using a paraffin lantern for lighting (%)"
+		},
+		{
+			"indicator_name": "Households using gas for lighting (%)"
+		},
+		{
+			"indicator_name": "Households using candles for lighting (%)"
+		},
+		{
+			"indicator_name": "Households using a paraffin tadooba for lighting (%)"
+		},
+		{
+			"indicator_name": "Households using firewood for lighting (%)"
+		}
 	]
 }

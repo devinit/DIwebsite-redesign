@@ -370,6 +370,18 @@
             width: 100%;
         }
     }
+    .tabs__content & {
+        @include respond-to($c-vp) {
+            min-height: 200px;
+            padding-bottom: 0;
+        }
+        @include respond-to($e-vp + 200px) {
+            min-height: 250px;
+        }
+        @include respond-to($e-vp + 400px) {
+            min-height: 300px;
+        }
+    }
 }
 
 

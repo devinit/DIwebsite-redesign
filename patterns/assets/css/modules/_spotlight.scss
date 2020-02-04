@@ -62,7 +62,7 @@
         margin-top: 2em;
     }
     &__aside {
-        margin-bottom: 2em;
+        //margin-bottom: 2em;
         overflow: hidden;
         overflow-y: scroll;
         z-index: 10000;
@@ -81,6 +81,9 @@
             float: left;
             width: 30%;
             margin-bottom: 0;
+            &--ss {
+                display: none;
+            }
         }
         &__main {
             float: left;
@@ -91,6 +94,13 @@
                 display: block;
             }
         }
+    }
+}
+
+.spotlight__hide-ss {
+    display: none;
+    @include respond-to($c-vp + 50px) {
+        display: block;
     }
 }
 
@@ -350,9 +360,7 @@
         @include maintain-ratio(4 3);
     }
     .spotlight__main--map & {
-        display: none;
         @include respond-to($c-vp + 50px) {
-            display: block;
             position: absolute;
             top: 100px;
             height: calc(100% - 100px);

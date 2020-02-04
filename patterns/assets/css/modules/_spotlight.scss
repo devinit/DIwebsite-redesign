@@ -66,10 +66,6 @@
         overflow: hidden;
         overflow-y: scroll;
         z-index: 10000;
-        &--padded {
-            background-color: #fff;
-            padding: 2em;
-        }
     }
     &__main {
         position: relative;
@@ -113,38 +109,6 @@
     }
 }
 
-.select2-selection {
-    border-color: $default-border-color !important;
-    border-radius: 0 !important;
-    height: $form-item-height !important;
-    @include font-size($para);
-}
-
-.select2-selection__rendered {
-    padding-top: 7px;
-}
-
-.select2-selection__arrow {
-    top: 10px !important;
-}
-
-.select2-results__option {
-    @include font-size($para);
-}
-
-.select2-selection--multiple  {
-    @include font-size($para);
-    min-height: 53px !important;
-    border-color: $default-border-color;
-}
-
-.select2-selection__choice {
-    background-color: $cloud !important;
-    color: $heading-color;
-    border-color: $default-border-color !important;
-    margin-top: 10px !important;
-}
-
 .spotlight__heading {
     position: relative;
     @include font-size($beta);
@@ -167,12 +131,38 @@
     @include font-size($zeta);
 }
 
+.spotlight__header {
+    padding: 2em;
+    background-color: darken($cloud, 10%);
+    margin-bottom: 12px;
+}
+
 .spotlight__content {
-    // position: relative;
-    // margin-top: 1em;
-    // padding-top: 1em;
+    @extend %pie-clearfix;
+    background-color: #fff;
+    padding: 2em;
     .button {
         margin-top: 1em;
+    }
+    .spotlight-description {
+        width: 47.5%;
+        float: left;
+        @include respond-to($c-vp) {
+            width: 100%;
+            float: none;
+        }
+    }
+    .spotlight-legend {
+        width: 47.5%;
+        float: right;
+        @include respond-to($c-vp) {
+            width: 100%;
+            float: none;
+        }
+    }
+    .spotlight-buttons {
+        clear: both;
+        display: block;
     }
 }
 
@@ -336,7 +326,7 @@
 
 .spotlight__interactive {
     position: relative;
-	min-height: 500px;
+    min-height: 500px;
     border: 1px solid $poppy;
     div {
         position: absolute;
@@ -345,15 +335,27 @@
 		width: 100%;
 		height: 100%;
     }
+    &--ss {
+        display: block;
+        min-height: 350px;
+        margin-top: 2em;
+    }
+    @include respond-to($c-vp + 50px) {
+        &--ss {
+            display: none;
+        }
+    }
     .spotlight__stat & {
         min-height: auto;
         @include maintain-ratio(4 3);
     }
     .spotlight__main--map & {
+        display: none;
         @include respond-to($c-vp + 50px) {
+            display: block;
             position: absolute;
-            top: 88px;
-            height: calc(100% - 88px);
+            top: 100px;
+            height: calc(100% - 100px);
             width: 100%;
         }
     }
@@ -413,15 +415,15 @@
 }
 
 .spotlight__search {
-    margin-bottom: 2em;
+    margin-top: 2em;
     @include respond-to($c-vp + 50px) {
         position: absolute;
-        background-color: #fff;
+        background-color: darken($cloud, 10%);
         padding: 2em;
         width: calc(100% - 30%);
         top: 0;
         right: 0;
-        margin-bottom: 0;
+        margin-top: 0;
     }
 }
 

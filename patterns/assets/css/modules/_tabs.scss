@@ -10,8 +10,12 @@
 	@include respond-to($c-vp) {
 		min-height: 450px;
 	}
+	@include respond-to($e-vp + 200px) {
+		min-height: 500px;
+	}
+
 	@include respond-to($e-vp + 400px) {
-		min-height: 600px;
+		min-height: 550px;
 	}
 }
 

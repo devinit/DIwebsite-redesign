@@ -364,6 +364,9 @@
         }
         &--active {
             max-height: 100%;
+            &:after {
+                content: none;
+            }
         }
     }
     @include respond-to($c-vp + 50px) {

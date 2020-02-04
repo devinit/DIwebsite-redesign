@@ -350,6 +350,9 @@
         min-height: 350px;
         margin-top: 2em;
     }
+    &--max-height {
+        max-height: 500px;
+    }
     @include respond-to($c-vp + 50px) {
         &--ss {
             display: none;

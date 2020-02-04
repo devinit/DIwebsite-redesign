@@ -351,7 +351,20 @@
         margin-top: 2em;
     }
     &--max-height {
+        overflow: hidden;
         max-height: 500px;
+        &:after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            background: rgb(243,243,243);
+            background: linear-gradient(0deg, rgba(243,243,243,1) 0%, rgba(243,243,243,0) 35%);
+        }
+        &--active {
+            max-height: 100%;
+        }
     }
     @include respond-to($c-vp + 50px) {
         &--ss {

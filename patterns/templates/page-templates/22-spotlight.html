@@ -118,22 +118,20 @@
                             <div class="form-field">
                                 <label for="indicator" class="form-label">Select a topic to explore</label>
                                 <div class="form-field__select-dropdown">
-                                    <select name="indicator" id="indicator">
-                                        <option value="poverty-vulnerability">Poverty & Vulnerability</option>
+                                    <select name="topic" id="topic">
+                                        {% for item in indicator.indicators %}
+                                            <option value="{{ item.group_name }}">{{ item.group_name }}</option>
+                                        {% endfor %}
                                     </select>
                                 </div>
                             </div>
                             <div class="form-field form-field--spaced-minor">
                                 <label for="indicator" class="form-label">Choose an indicator</label>
                                 <div class="form-field__select-dropdown">
-                                    <select name="topic" id="topic">
-                                        {% for item in indicator.indicators %}
-                                            <optgroup label="{{ item.group_name }}">
-                                                {% for name in item.group_indicators %}
-                                                    <option value="{{ name.indicator_name }}">{{ name.indicator_name }}</option>
-                                                {% endfor %}
-                                            </optgroup>
-                                        {% endfor  %}
+                                    <select name="indicator" id="indicator">
+                                        {% for item in indicator.poverty_indicators %}
+                                            <option value="{{ item.indicator_name }}">{{ item.indicator_name }}</option>
+                                        {% endfor %}
                                     </select>
                                 </div>
                             </div>
@@ -225,14 +223,14 @@
                         		</select>
                         	</div>
                         </div>
-                        <div class="l-3up">
-                            <div class="l-3up_col">
+                        <div class="l-2up-3up">
+                            <div class="l-2up-3up__col">
                                 <div class="spotlight__stat">
                                     <h3 class="spotlight__stat-heading">What percentage of people in Serere live below the national poverty line? <span class="spotlight__stat-icon">{{ icons.icon('ico-info-slate', '12') }}</span></h3>
                                     <p class="spotlight__stat-data">50.0%</p>
                                 </div>
                             </div>
-                            <div class="l-3up_col">
+                            <div class="l-2up-3up__col">
                                 <div class="spotlight__stat">
                                     <h3 class="spotlight__stat-heading">What resources are available to local governments in Serere? <span class="spotlight__stat-icon">{{ icons.icon('ico-info-slate', '12') }}</span></h3>
                                     <p class="spotlight__stat-data">US$ 6.7m</p>
@@ -241,7 +239,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="l-3up_col">
+                            <div class="l-2up-3up__col">
                                 <div class="spotlight__stat">
                                     <h3 class="spotlight__stat-heading">How much does the local government spend per person? <span class="spotlight__stat-icon">{{ icons.icon('ico-info-slate', '12') }}</span></h3>
                                     <p class="spotlight__stat-data">US$ 12.7</p>
@@ -263,20 +261,20 @@
                         		</select>
                         	</div>
                         </div>
-                        <div class="l-3up">
-                            <div class="l-3up_col">
+                        <div class="l-2up-3up">
+                            <div class="l-2up-3up__col">
                                 <div class="spotlight__stat">
                                     <h3 class="spotlight__stat-heading">What percentage of people in Serere live below the national poverty line? <span class="spotlight__stat-icon">{{ icons.icon('ico-info-slate', '12') }}</span></h3>
                                     <p class="spotlight__stat-data">50.0%</p>
                                 </div>
                             </div>
-                            <div class="l-3up_col">
+                            <div class="l-2up-3up__col">
                                 <div class="spotlight__stat">
                                     <h3 class="spotlight__stat-heading">What is the average life expectancy? <span class="spotlight__stat-icon">{{ icons.icon('ico-info-slate', '12') }}</span></h3>
                                     <p class="spotlight__stat-data">53.6</p>
                                 </div>
                             </div>
-                            <div class="l-3up_col">
+                            <div class="l-2up-3up__col">
                                 <div class="spotlight__stat">
                                     <h3 class="spotlight__stat-heading">What is the standard of living score? <span class="spotlight__stat-icon">{{ icons.icon('ico-info-slate', '12') }}</span></h3>
                                     <p class="spotlight__stat-data">26.4</p>
@@ -298,8 +296,8 @@
                         		</select>
                         	</div>
                         </div>
-                        <div class="l-3up">
-                            <div class="l-3up_col">
+                        <div class="l-2up-3up">
+                            <div class="l-2up-3up__col">
                                 <div class="spotlight__stat">
                                     <h3 class="spotlight__stat-heading">What is the population?</h3>
                                     <p class="spotlight__stat-data">343.2k</p>
@@ -309,7 +307,7 @@
                                     <p class="spotlight__stat-data">191.0</p>
                                 </div>
                             </div>
-                            <div class="l-3up_col">
+                            <div class="l-2up-3up__col">
                                 <div class="spotlight__stat">
                                     <h3 class="spotlight__stat-heading">What is the urban vs rural split? <span class="spotlight__stat-icon">{{ icons.icon('ico-info-slate', '12') }}</span></h3>
                                     <div class="spotlight__interactive">
@@ -317,7 +315,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="l-3up_col">
+                            <div class="l-2up-3up__col">
                                 <div class="spotlight__stat">
                                     <h3 class="spotlight__stat-heading">What is the average dependency ratio? <span class="spotlight__stat-icon">{{ icons.icon('ico-info-slate', '12') }}</span></h3>
                                     <p class="spotlight__stat-data">127.6</p>
@@ -343,8 +341,8 @@
                         		</select>
                         	</div>
                         </div>
-                        <div class="l-3up">
-                            <div class="l-3up_col">
+                        <div class="l-2up-3up">
+                            <div class="l-2up-3up__col">
                                 <div class="spotlight__stat">
                                     <h3 class="spotlight__stat-heading">What is the pupil-teacher ratio in primary education? <span class="spotlight__stat-icon">{{ icons.icon('ico-info-slate', '12') }}</span></h3>
                                     <p class="spotlight__stat-data">73.0 <span class="spotlight__stat-data__note">in government schools</span></p>
@@ -353,7 +351,7 @@
                                     <p class="spotlight__stat-data">51.0 <span class="spotlight__stat-data__note">in all schools</span></p>
                                 </div>
                             </div>
-                            <div class="l-3up_col">
+                            <div class="l-2up-3up__col">
                                 <div class="spotlight__stat">
                                     <h3 class="spotlight__stat-heading">What precentage of students pass the primary leaving exam? <span class="spotlight__stat-icon">{{ icons.icon('ico-info-slate', '12') }}</span></h3>
                                     <p class="spotlight__stat-data">37.2% <span class="spotlight__stat-data__note">and is ranked in</span></p>
@@ -362,7 +360,7 @@
                                     <p class="spotlight__stat-data">98th <span class="spotlight__stat-data__note">place overall</span></p>
                                 </div>
                             </div>
-                            <div class="l-3up_col">
+                            <div class="l-2up-3up__col">
                                 <div class="spotlight__stat">
                                     <h3 class="spotlight__stat-heading">How much primary education funding is there per pupil? <span class="spotlight__stat-icon">{{ icons.icon('ico-info-slate', '12') }}</span></h3>
                                     <p class="spotlight__stat-data">US$ 18.9</p>
@@ -384,8 +382,8 @@
                         		</select>
                         	</div>
                         </div>
-                        <div class="l-3up">
-                            <div class="l-3up_col">
+                        <div class="l-2up-3up">
+                            <div class="l-2up-3up__col">
                                 <div class="spotlight__stat">
                                     <h3 class="spotlight__stat-heading">What is the district league health performance score? <span class="spotlight__stat-icon">{{ icons.icon('ico-info-slate', '12') }}</span></h3>
                                     <p class="spotlight__stat-data">72.5 <span class="spotlight__stat-data__note">out of 100, and is ranked</span></p>
@@ -394,13 +392,13 @@
                                     <p class="spotlight__stat-data">15th <span class="spotlight__stat-data__note">place overall</span></p>
                                 </div>
                             </div>
-                            <div class="l-3up_col">
+                            <div class="l-2up-3up__col">
                                 <div class="spotlight__stat">
                                     <h3 class="spotlight__stat-heading">What percentage of tuberculosis cases have been successfully treated? <span class="spotlight__stat-icon">{{ icons.icon('ico-info-slate', '12') }}</span></h3>
                                     <p class="spotlight__stat-data">95.3%</p>
                                 </div>
                             </div>
-                            <div class="l-3up_col">
+                            <div class="l-2up-3up__col">
                                 <div class="spotlight__stat">
                                     <h3 class="spotlight__stat-heading">How much local government healthcare funding is there per person? <span class="spotlight__stat-icon">{{ icons.icon('ico-info-slate', '12') }}</span></h3>
                                     <p class="spotlight__stat-data">US$ 2.1</p>
@@ -422,14 +420,14 @@
                         		</select>
                         	</div>
                         </div>
-                        <div class="l-3up">
-                            <div class="l-3up_col">
+                        <div class="l-2up-3up">
+                            <div class="l-2up-3up__col">
                                 <div class="spotlight__stat">
                                     <h3 class="spotlight__stat-heading">What percentage of people in Buvuma live below the national poverty line? <span class="spotlight__stat-icon">{{ icons.icon('ico-info-slate', '12') }}</span></h3>
                                     <p class="spotlight__stat-data">97.1%</p>
                                 </div>
                             </div>
-                            <div class="l-3up_col">
+                            <div class="l-2up-3up__col">
                                 <div class="spotlight__stat">
                                     <h3 class="spotlight__stat-heading">What resources are available to local governments in Buvuma? <span class="spotlight__stat-icon">{{ icons.icon('ico-info-slate', '12') }}</span></h3>
                                     <p class="spotlight__stat-data">US$ 1.7m</p>
@@ -438,7 +436,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="l-3up_col">
+                            <div class="_l-2up-3up_col">
                                 <div class="spotlight__stat">
                                     <h3 class="spotlight__stat-heading">How much does the local government spend per person? <span class="spotlight__stat-icon">{{ icons.icon('ico-info-slate', '12') }}</span></h3>
                                     <p class="spotlight__stat-data">US$ 13.6</p>
@@ -460,14 +458,14 @@
                         		</select>
                         	</div>
                         </div>
-                        <div class="l-3up">
-                            <div class="l-3up_col">
+                        <div class="l-2up-3up">
+                            <div class="l-2up-3up__col">
                                 <div class="spotlight__stat">
                                     <h3 class="spotlight__stat-heading">What percentage of people in Buvuma live below the national poverty line? <span class="spotlight__stat-icon">{{ icons.icon('ico-info-slate', '12') }}</span></h3>
                                     <p class="spotlight__stat-data">97.1%</p>
                                 </div>
                             </div>
-                            <div class="l-3up_col">
+                            <div class="l-2up-3up__col">
                                 <div class="spotlight__stat">
                                     <h3 class="spotlight__stat-heading">What resources are available to local governments in Buvuma? <span class="spotlight__stat-icon">{{ icons.icon('ico-info-slate', '12') }}</span></h3>
                                     <p class="spotlight__stat-data">US$ 1.7m</p>
@@ -476,7 +474,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="l-3up_col">
+                            <div class="l-2up-3up__col">
                                 <div class="spotlight__stat">
                                     <h3 class="spotlight__stat-heading">How much does the local government spend per person? <span class="spotlight__stat-icon">{{ icons.icon('ico-info-slate', '12') }}</span></h3>
                                     <p class="spotlight__stat-data">US$ 13.6</p>
@@ -500,22 +498,20 @@
                     <div class="form-field form-field--inline-three">
                         <label for="indicator" class="form-label">Topic</label>
                         <div class="form-field__select-dropdown">
-                            <select name="indicator" id="indicator">
-                                <option value="poverty-vulnerability">Poverty & Vulnerability</option>
+                            <select name="topic" id="topic">
+                                {% for item in indicator.indicators %}
+                                    <option value="{{ item.group_name }}">{{ item.group_name }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                     </div>
                     <div class="form-field form-field--inline-three">
                         <label for="indicator" class="form-label">Indicator</label>
                         <div class="form-field__select-dropdown">
-                            <select name="topic" id="topic">
-                                {% for item in indicator.indicators %}
-                                    <optgroup label="{{ item.group_name }}">
-                                        {% for name in item.group_indicators %}
-                                            <option value="{{ name.indicator_name }}">{{ name.indicator_name }}</option>
-                                        {% endfor %}
-                                    </optgroup>
-                                {% endfor  %}
+                            <select name="indicator" id="indicator">
+                                {% for item in indicator.poverty_indicators %}
+                                    <option value="{{ item.indicator_name }}">{{ item.indicator_name }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                     </div>
@@ -537,22 +533,20 @@
                     <div class="form-field form-field--inline-three">
                         <label for="indicator" class="form-label">Topic</label>
                         <div class="form-field__select-dropdown">
-                            <select name="indicator" id="indicator">
-                                <option value="poverty-vulnerability">Poverty & Vulnerability</option>
+                            <select name="topic" id="topic">
+                                {% for item in indicator.indicators %}
+                                    <option value="{{ item.group_name }}">{{ item.group_name }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                     </div>
                     <div class="form-field form-field--inline-three">
                         <label for="indicator" class="form-label">Indicator</label>
                         <div class="form-field__select-dropdown">
-                            <select name="topic" id="topic">
-                                {% for item in indicator.indicators %}
-                                    <optgroup label="{{ item.group_name }}">
-                                        {% for name in item.group_indicators %}
-                                            <option value="{{ name.indicator_name }}">{{ name.indicator_name }}</option>
-                                        {% endfor %}
-                                    </optgroup>
-                                {% endfor  %}
+                            <select name="indicator" id="indicator">
+                                {% for item in indicator.poverty_indicators %}
+                                    <option value="{{ item.indicator_name }}">{{ item.indicator_name }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                     </div>
@@ -578,7 +572,7 @@
                 </div>
                 <div class="spotlight__main">
                     <h2 class="spotlight__heading">Countries in [Location]</h2>
-                    <div class="spotlight__interactive" id="chart"></div>
+                    <div class="spotlight__interactive spotlight__interactive--max-height" id="chart"></div>
                     <button type="button" class="button button--show">Show more</button>
                 </div>
             </div>

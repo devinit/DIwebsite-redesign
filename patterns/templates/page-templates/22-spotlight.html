@@ -116,9 +116,9 @@
                     <div class="spotlight__content">
                         <form class="form">
                             <div class="form-field">
-                                <label for="indicator" class="form-label">Select a topic to explore</label>
+                                <label for="topic" class="form-label">Select a topic to explore</label>
                                 <div class="form-field__select-dropdown">
-                                    <select name="topic" id="topic">
+                                    <select name="country-topic" id="country-topic">
                                         {% for item in indicator.indicators %}
                                             <option value="{{ item.group_name }}">{{ item.group_name }}</option>
                                         {% endfor %}
@@ -128,7 +128,7 @@
                             <div class="form-field form-field--spaced-minor">
                                 <label for="indicator" class="form-label">Choose an indicator</label>
                                 <div class="form-field__select-dropdown">
-                                    <select name="indicator" id="indicator">
+                                    <select name="country-indicator" id="country-indicator">
                                         {% for item in indicator.poverty_indicators %}
                                             <option value="{{ item.indicator_name }}">{{ item.indicator_name }}</option>
                                         {% endfor %}
@@ -136,7 +136,7 @@
                                 </div>
                             </div>
                             <div class="form-field form-field--inline">
-                                <label for="indicator" class="form-label">Choose a Year</label>
+                                <label for="year" class="form-label">Choose a Year</label>
                                 <div class="form-field__select-dropdown">
                             		<select name="year-choice" id="year-choice">
                             			<option value="2018" id="2018">2018</option>
@@ -217,9 +217,9 @@
                         <div class="tabs__content__header">
                             <label for="currency" class="form-label">Currency</label>
                             <div class="form-field__select-dropdown form-field__select-dropdown--block">
-                        		<select name="currency-choice" id="currency-choice">
-                        			<option value="usd" id="usd">Constant 2015 USD</option>
-                                    <option value="ugx" id="ugx">Current UGX</option>
+                        		<select name="resources-currency-choice" id="resources-currency-choice">
+                        			<option value="usd" id="resources-usd">Constant 2015 USD</option>
+                                    <option value="ugx" id="resources-ugx">Current UGX</option>
                         		</select>
                         	</div>
                         </div>
@@ -255,9 +255,9 @@
                         <div class="tabs__content__header">
                             <label for="currency" class="form-label">Currency</label>
                             <div class="form-field__select-dropdown">
-                        		<select name="currency-choice" id="currency-choice">
-                        			<option value="usd" id="usd">Constant 2015 USD</option>
-                                    <option value="ugx" id="ugx">Current UGX</option>
+                        		<select name="poverty-currency-choice" id="poverty-currency-choice">
+                        			<option value="usd" id="poverty-usd">Constant 2015 USD</option>
+                                    <option value="ugx" id="poverty-ugx">Current UGX</option>
                         		</select>
                         	</div>
                         </div>
@@ -290,9 +290,9 @@
                         <div class="tabs__content__header">
                             <label for="currency" class="form-label">Currency</label>
                             <div class="form-field__select-dropdown">
-                        		<select name="currency-choice" id="currency-choice">
-                        			<option value="usd" id="usd">Constant 2015 USD</option>
-                                    <option value="ugx" id="ugx">Current UGX</option>
+                        		<select name="population-currency-choice" id="population-currency-choice">
+                        			<option value="usd" id="population-usd">Constant 2015 USD</option>
+                                    <option value="ugx" id="population-ugx">Current UGX</option>
                         		</select>
                         	</div>
                         </div>
@@ -335,9 +335,9 @@
                         <div class="tabs__content__header">
                             <label for="currency" class="form-label">Currency</label>
                             <div class="form-field__select-dropdown">
-                        		<select name="currency-choice" id="currency-choice">
-                        			<option value="usd" id="usd">Constant 2015 USD</option>
-                                    <option value="ugx" id="ugx">Current UGX</option>
+                        		<select name="education-currency-choice" id="education-currency-choice">
+                        			<option value="usd" id="education-usd">Constant 2015 USD</option>
+                                    <option value="ugx" id="education-ugx">Current UGX</option>
                         		</select>
                         	</div>
                         </div>
@@ -376,9 +376,9 @@
                         <div class="tabs__content__header">
                             <label for="currency" class="form-label">Currency</label>
                             <div class="form-field__select-dropdown">
-                        		<select name="currency-choice" id="currency-choice">
-                        			<option value="usd" id="usd">Constant 2015 USD</option>
-                                    <option value="ugx" id="ugx">Current UGX</option>
+                        		<select name="health-currency-choice" id="health-currency-choice">
+                        			<option value="usd" id="health-usd">Constant 2015 USD</option>
+                                    <option value="ugx" id="health-ugx">Current UGX</option>
                         		</select>
                         	</div>
                         </div>
@@ -414,9 +414,9 @@
                         <div class="tabs__content__header">
                             <label for="currency" class="form-label">Currency</label>
                             <div class="form-field__select-dropdown">
-                        		<select name="currency-choice" id="currency-choice">
-                        			<option value="usd" id="usd">Constant 2015 USD</option>
-                                    <option value="ugx" id="ugx">Current UGX</option>
+                        		<select name="agriculture-currency-choice" id="agriculture-currency-choice">
+                        			<option value="usd" id="agriculture-usd">Constant 2015 USD</option>
+                                    <option value="ugx" id="agriculture-ugx">Current UGX</option>
                         		</select>
                         	</div>
                         </div>
@@ -452,9 +452,9 @@
                         <div class="tabs__content__header">
                             <label for="currency" class="form-label">Currency</label>
                             <div class="form-field__select-dropdown">
-                        		<select name="currency-choice" id="currency-choice">
-                        			<option value="usd" id="usd">Constant 2015 USD</option>
-                                    <option value="ugx" id="ugx">Current UGX</option>
+                        		<select name="climate-currency-choice" id="climate-currency-choice">
+                        			<option value="usd" id="climate-usd">Constant 2015 USD</option>
+                                    <option value="ugx" id="climate-ugx">Current UGX</option>
                         		</select>
                         	</div>
                         </div>
@@ -496,9 +496,9 @@
                 <div class="spotlight__comparison">
                     <span class="spotlight__comparison-legend"></span>
                     <div class="form-field form-field--inline-three">
-                        <label for="indicator" class="form-label">Topic</label>
+                        <label for="topic" class="form-label">Topic</label>
                         <div class="form-field__select-dropdown">
-                            <select name="topic" id="topic">
+                            <select name="compare-topic" id="compare-topic">
                                 {% for item in indicator.indicators %}
                                     <option value="{{ item.group_name }}">{{ item.group_name }}</option>
                                 {% endfor %}
@@ -508,7 +508,7 @@
                     <div class="form-field form-field--inline-three">
                         <label for="indicator" class="form-label">Indicator</label>
                         <div class="form-field__select-dropdown">
-                            <select name="indicator" id="indicator">
+                            <select name="compare-indicator" id="compare-indicator">
                                 {% for item in indicator.poverty_indicators %}
                                     <option value="{{ item.indicator_name }}">{{ item.indicator_name }}</option>
                                 {% endfor %}
@@ -516,13 +516,13 @@
                         </div>
                     </div>
                     <div class="form-field form-field--inline-three">
-                        <label for="indicator" class="form-label">Year</label>
+                        <label for="year" class="form-label">Year</label>
                         <div class="form-field__select-dropdown">
-                            <select name="indicator-choice" id="indicator-choice">
-                                <option value="poverty-year" id="poverty-year">2018</option>
-                                <option value="2017" id="2017">2017</option>
-                                <option value="2016" id="2016">2016</option>
-                                <option value="2015" id="2015">2015</option>
+                            <select name="compare-indicator-choice" id="compare-indicator-choice">
+                                <option value="poverty-year" id="compare-poverty-year">2018</option>
+                                <option value="2017" id="compare-2017">2017</option>
+                                <option value="2016" id="compare-2016">2016</option>
+                                <option value="2015" id="compare-2015">2015</option>
                             </select>
                         </div>
                     </div>
@@ -531,9 +531,9 @@
                 <div class="spotlight__comparison">
                     <span class="spotlight__comparison-legend spotlight__comparison-legend--alt"></span>
                     <div class="form-field form-field--inline-three">
-                        <label for="indicator" class="form-label">Topic</label>
+                        <label for="topic" class="form-label">Topic</label>
                         <div class="form-field__select-dropdown">
-                            <select name="topic" id="topic">
+                            <select name="compare-alt-topic" id="compare-alt-topic">
                                 {% for item in indicator.indicators %}
                                     <option value="{{ item.group_name }}">{{ item.group_name }}</option>
                                 {% endfor %}
@@ -543,7 +543,7 @@
                     <div class="form-field form-field--inline-three">
                         <label for="indicator" class="form-label">Indicator</label>
                         <div class="form-field__select-dropdown">
-                            <select name="indicator" id="indicator">
+                            <select name="compare-alt-indicator" id="compare-alt-indicator">
                                 {% for item in indicator.poverty_indicators %}
                                     <option value="{{ item.indicator_name }}">{{ item.indicator_name }}</option>
                                 {% endfor %}
@@ -551,13 +551,13 @@
                         </div>
                     </div>
                     <div class="form-field form-field--inline-three">
-                        <label for="indicator" class="form-label">Year</label>
+                        <label for="year" class="form-label">Year</label>
                         <div class="form-field__select-dropdown">
-                            <select name="indicator-choice" id="indicator-choice">
-                                <option value="poverty-year" id="poverty-year">2018</option>
-                                <option value="2017" id="2017">2017</option>
-                                <option value="2016" id="2016">2016</option>
-                                <option value="2015" id="2015">2015</option>
+                            <select name="compare-alt-indicator-choice" id="compare-alt-indicator-choice">
+                                <option value="poverty-year" id="compare-alt-poverty-year">2018</option>
+                                <option value="2017" id="compare-alt-2017">2017</option>
+                                <option value="2016" id="compare-alt-2016">2016</option>
+                                <option value="2015" id="compare-alt-2015">2015</option>
                             </select>
                         </div>
                     </div>
@@ -568,11 +568,11 @@
             <div class="spotlight spotlight--leader">
                 <div class="spotlight__aside">
                     <h2 class="spotlight__heading">[Location]</h2>
-                    <div class="spotlight__interactive" id="spotlight-comparison"></div>
+                    <div class="spotlight__interactive" id="chart"></div>
                 </div>
                 <div class="spotlight__main">
-                    <h2 class="spotlight__heading">Counties in [Location]</h2>
-                    <div class="spotlight__interactive spotlight__interactive--max-height" id="spotlight-comparison__parts">
+                    <h2 class="spotlight__heading">Countries in [Location]</h2>
+                    <div class="spotlight__interactive spotlight__interactive--max-height" id="chart2">
                         <h4>This is some content to enable us to create the "show more" button interaction</h4>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis commodo mattis nisi eu adipiscing. Vivamus euismod nisl a leo pellentesque sed lobortis ipsum commodo. Nullam id turpis libero, sit amet posuere est. Fusce porttitor odio sit amet justo aliquet ac porta turpis vulputate. Nulla mi enim, venenatis at consectetur nec, aliquet a turpis. Phasellus tempus ante euismod massa luctus fermentum. Maecenas aliquam velit eget ante ullamcorper faucibus.</p>
                         <p>In dignissim mollis felis non malesuada. Morbi ullamcorper tempus metus sed lobortis. Aenean in justo dapibus quam hendrerit auctor. Phasellus vehicula nisl in felis laoreet lobortis. Suspendisse pretium rutrum diam, eget venenatis ligula placerat fringilla. Nam vitae sapien eu tortor sagittis sagittis eget vel sem. Sed aliquam porta consectetur. Quisque mattis consectetur risus, quis rutrum libero feugiat nec. In vehicula diam et elit pretium vel aliquam nisi pretium. Donec viverra posuere risus in adipiscing. Nullam at diam nisi. In vehicula sem aliquet felis suscipit et euismod neque blandit. Nam dapibus mauris feugiat est porta dignissim. Ut sit amet blandit lacus.</p>
@@ -584,7 +584,7 @@
                         <p>In dignissim mollis felis non malesuada. Morbi ullamcorper tempus metus sed lobortis. Aenean in justo dapibus quam hendrerit auctor. Phasellus vehicula nisl in felis laoreet lobortis. Suspendisse pretium rutrum diam, eget venenatis ligula placerat fringilla. Nam vitae sapien eu tortor sagittis sagittis eget vel sem. Sed aliquam porta consectetur. Quisque mattis consectetur risus, quis rutrum libero feugiat nec. In vehicula diam et elit pretium vel aliquam nisi pretium. Donec viverra posuere risus in adipiscing. Nullam at diam nisi. In vehicula sem aliquet felis suscipit et euismod neque blandit. Nam dapibus mauris feugiat est porta dignissim. Ut sit amet blandit lacus.</p>
                         <p>Nullam sagittis volutpat purus, id tristique diam vestibulum vitae. In a nulla enim, pharetra condimentum ante. Ut suscipit lacinia sem, ac rhoncus lacus fringilla non. Donec adipiscing posuere imperdiet. Vestibulum non purus tellus, vitae luctus mauris. Nunc at tempus turpis. Maecenas pharetra, felis id aliquam feugiat, felis purus imperdiet elit, malesuada varius quam odio quis elit. Donec in velit nec dui euismod gravida quis vitae elit. Praesent eget lacus sit amet ante mollis pretium. Fusce sit amet leo quam. Praesent volutpat diam quis libero consectetur lobortis. Suspendisse quam arcu, auctor non pharetra congue, mattis eu urna.</p>
                     </div>
-                    <button type="button" class="button button--show" id="spotlight-comparison-trigger">Show more</button>
+                    <button type="button" class="button button--show">Show more</button>
                 </div>
             </div>
         </div>
@@ -596,19 +596,19 @@
             <div class="spotlight-banner spotlight-banner--alt">
                 <div class="spotlight-banner__aside">
                     <div class="form-field form-field--inline">
-                        <label for="indicator" class="form-label">Budget type</label>
+                        <label for="budget" class="form-label">Budget type</label>
                         <div class="form-field__select-dropdown">
-                    		<select name="budget-type-choice" id="budget-type-choice">
+                    		<select name="revenue-budget-type-choice" id="revenue-budget-type-choice">
                     			<option value="actual" id="actual">Actual</option>
                     		</select>
                     	</div>
                     </div>
                     <div class="form-field form-field--inline">
-                        <label for="indicator" class="form-label">Currency</label>
+                        <label for="currency" class="form-label">Currency</label>
                         <div class="form-field__select-dropdown">
-                    		<select name="currency-choice" id="currency-choice">
-                    			<option value="2015-usd" id="2015-usd">Constant 2015 USD</option>
-                                <option value="ugx" id="ugx">Current UGX</option>
+                    		<select name="revenue-currency-choice" id="revenue-currency-choice">
+                    			<option value="usd" id="revenue-usd">Constant 2015 USD</option>
+                                <option value="ugx" id="revenue-ugx">Current UGX</option>
                     		</select>
                     	</div>
                     </div>
@@ -617,13 +617,13 @@
                     <!-- mobile dropdown -->
                     <div class="spotlight-banner__form">
                         <div class="form-field form-field--inline">
-                            <label for="indicator" class="form-label">Year</label>
+                            <label for="year" class="form-label">Year</label>
                             <div class="form-field__select-dropdown">
-                        		<select name="year-choice" id="year-choice">
-                        			<option value="2018" id="2018">2018</option>
-                                    <option value="2017" id="2017">2017</option>
-                                    <option value="2016" id="2016">2016</option>
-                                    <option value="2015" id="2015">2015</option>
+                        		<select name="revenue-year-choice" id="revenue-year-choice">
+                        			<option value="2018" id="revenue-2018">2018</option>
+                                    <option value="2017" id="revenue-2017">2017</option>
+                                    <option value="2016" id="revenue-2016">2016</option>
+                                    <option value="2015" id="revenue-2015">2015</option>
                         		</select>
                         	</div>
                         </div>
@@ -636,10 +636,10 @@
 
             <div class="spotlight">
                 <div class="spotlight__aside">
-                    <div class="spotlight__interactive" id="chart"></div>
+                    <div class="spotlight__interactive" id="chart3"></div>
                 </div>
                 <div class="spotlight__main">
-                    <div class="spotlight__interactive" id="chart"></div>
+                    <div class="spotlight__interactive" id="chart4"></div>
                 </div>
             </div>
         </div>
@@ -650,19 +650,19 @@
                 <div class="spotlight-banner spotlight-banner--alt">
                     <div class="spotlight-banner__aside">
                         <div class="form-field form-field--inline">
-                            <label for="indicator" class="form-label">Budget type</label>
+                            <label for="budget" class="form-label">Budget type</label>
                             <div class="form-field__select-dropdown">
-                        		<select name="budget-type-choice" id="budget-type-choice">
+                        		<select name="expenditure-budget-type-choice" id="expenditure-budget-type-choice">
                         			<option value="actual" id="actual">Actual</option>
                         		</select>
                         	</div>
                         </div>
                         <div class="form-field form-field--inline">
-                            <label for="indicator" class="form-label">Currency</label>
+                            <label for="currency" class="form-label">Currency</label>
                             <div class="form-field__select-dropdown">
-                        		<select name="currency-choice" id="currency-choice">
-                        			<option value="2015-usd" id="2015-usd">Constant 2015 USD</option>
-                                    <option value="ugx" id="ugx">Current UGX</option>
+                        		<select name="expenditure-currency-choice" id="expenditure-currency-choice">
+                        			<option value="usd" id="expenditure-usd">Constant 2015 USD</option>
+                                    <option value="ugx" id="expenditure-ugx">Current UGX</option>
                         		</select>
                         	</div>
                         </div>
@@ -671,13 +671,13 @@
                         <!-- mobile dropdown -->
                         <div class="spotlight-banner__form">
                             <div class="form-field form-field--inline">
-                                <label for="indicator" class="form-label">Year</label>
+                                <label for="year" class="form-label">Year</label>
                                 <div class="form-field__select-dropdown">
-                            		<select name="year-choice" id="year-choice">
-                            			<option value="2018" id="2018">2018</option>
-                                        <option value="2017" id="2017">2017</option>
-                                        <option value="2016" id="2016">2016</option>
-                                        <option value="2015" id="2015">2015</option>
+                            		<select name="expenditure-year-choice" id="expenditure-year-choice">
+                            			<option value="2018" id="expenditure-2018">2018</option>
+                                        <option value="2017" id="expenditure-2017">2017</option>
+                                        <option value="2016" id="expenditure-2016">2016</option>
+                                        <option value="2015" id="expenditure-2015">2015</option>
                             		</select>
                             	</div>
                             </div>
@@ -690,10 +690,10 @@
 
                 <div class="spotlight">
                     <div class="spotlight__aside">
-                        <div class="spotlight__interactive" id="chart"></div>
+                        <div class="spotlight__interactive" id="chart5"></div>
                     </div>
                     <div class="spotlight__main">
-                        <div class="spotlight__interactive" id="chart"></div>
+                        <div class="spotlight__interactive" id="chart6"></div>
                     </div>
                 </div>
             </div>

@@ -49,7 +49,7 @@ function globals () {
     // trigger = the button that triggers
     // target = the thing to add a class to
     // targetActive = the class to add.
-    // Optional - Trigger should have data attributes of labelinactive and labelactive to swap the text around
+    // Optional - trigger should have data attributes of labelinactive and labelactive to swap the text around
     showHide(
         '#spotlight-comparison-trigger',
         '#spotlight-comparison__parts',

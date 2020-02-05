@@ -12,6 +12,7 @@
     display: block;
     float: left;
     margin-right: 10px;
+    margin-bottom: 10px;
     @include font-size($para);
     background-color: #fff;
     border: 1px solid $poppy-dark;
@@ -29,6 +30,9 @@
             left: 7px;
             transform: rotate(45deg);
         }
+    }
+    @include respond-to($menu-respond) {
+        margin-bottom: 0;
     }
 }
 

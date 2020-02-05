@@ -8,7 +8,6 @@ import mNav from './utils/mNav';
 import showHide from './utils/showHide';
 import initGmaps from './utils/gmaps';
 import accordion from './utils/accordion';
-import initSVGmap from './utils/svgmap';
 import setupSharing from './utils/social';
 import sectionSharing from './utils/sectionSharing';
 import copyText from './utils/copyText';

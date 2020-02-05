@@ -54,6 +54,8 @@
 .countries__searched__list {
 	padding: 2rem;
 	background: $slate;
+	max-height: 80vh;
+	overflow-y: scroll;
 	@include font-size($zeta/1.25);
 	@include respond-to($c-vp) {
 		@include font-size($zeta);
@@ -109,12 +111,15 @@
 // ------------------------------------------------------------
 .countries-menu-list {
 	position: relative;
+
 	&.inactive {
 		display: none;
 	}
 }
 
 .countries-menu-list__content {
+	max-height: 80vh;
+	overflow-y: scroll;
 	html.js & {
 		position: absolute;
 		width: 100%;

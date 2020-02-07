@@ -10,6 +10,9 @@
     &--post {
         margin-top: $internal-spacing*3.5;
     }
+    &--scroll {
+        overflow-y: scroll;
+    }
     &__heading {
         position: relative;
         display: inline-block;
@@ -27,8 +30,17 @@
             }
         }
     }
+    &__sub-heading {
+        @include font-size($gamma);
+        margin-bottom: 1em;
+    }
     &--alt {
         background-color: #fff;
+        padding-top: $internal-spacing*1.5;
+        padding-bottom: $internal-spacing*1.5;
+    }
+    &--alt-dark {
+        background-color: darken($cloud, 2%);
         padding-top: $internal-spacing*1.5;
         padding-bottom: $internal-spacing*1.5;
     }

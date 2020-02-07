@@ -5,6 +5,7 @@ import $ from 'jquery';
 export default function initGmaps (selector = '.media-map__location', APIKey = undefined) {
     const $el = $(selector);
     const el = $el[0];
+
     if (!el) return;
 
     if (APIKey) {

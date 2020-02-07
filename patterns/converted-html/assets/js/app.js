@@ -8,7 +8,6 @@ import mNav from './utils/mNav';
 import showHide from './utils/showHide';
 import initGmaps from './utils/gmaps';
 import accordion from './utils/accordion';
-import initSVGmap from './utils/svgmap';
 import setupSharing from './utils/social';
 import sectionSharing from './utils/sectionSharing';
 import copyText from './utils/copyText';
@@ -17,8 +16,44 @@ import chapterNavSimple from './utils/chapterNavSimple';
 import './libs/slick';
 import './libs/jquery.responsiveTabs';
 import modal from './utils/modal';
+import countryNav from './utils/countryNav';
+import countrySearch from './utils/countrySearch';
 
 function globals () {
+
+    // Spotlight countries menu
+    countryNav(
+        '#js-countries-menu-container',
+        '#js-countries-menu',
+        'countries-menu-list__item--open',
+        '.countries-menu-list__item--parent-third',
+        'countries-menu-list__countries',
+        'countries-menu-list__countries--selected',
+        'countries-menu-list--selected',
+        '.js-countries-menu-trigger',
+    );
+
+    // Spotlight countries search
+    countrySearch(
+        '#js-profile-search-container',
+        '#js-profile-search',
+        '.js-search-item',
+        '#js-profile-results',
+        '#js-countries-menu',
+        '#js-profile-nav',
+        'countries__searched__highlight__typed'
+    );
+
+    // Spotlight comparison show/hide
+    // trigger = the button that triggers
+    // target = the thing to add a class to
+    // targetActive = the class to add.
+    // Optional - trigger should have data attributes of labelinactive and labelactive to swap the text around
+    showHide(
+        '#spotlight-comparison-trigger',
+        '#spotlight-comparison__parts',
+        'spotlight__interactive--max-height--active'
+    );
 
     // FastClick
     fastClick(document.body);
@@ -34,13 +69,6 @@ function globals () {
         'navigation-primary--active'
     );
 
-    // Spotlight menu
-    showHide(
-        '#spotlight-menu-trigger',
-        '.spotlight-menu',
-        'spotlight-menu--active'
-    );
-
     // Set child tab index for nav
     childTabIndex(
         '#navigation-primary-toggle',
@@ -54,7 +82,7 @@ function globals () {
     chapterNavSimple();
 
     // gmaps
-    initGmaps('#map', 'AIzaSyAZAIjZtkBlsF0ZqvrlkvyLfVn6Bju6bJ4');
+    // initGmaps('#map', 'AIzaSyAZAIjZtkBlsF0ZqvrlkvyLfVn6Bju6bJ4');
 
     // Accordion
     accordion(

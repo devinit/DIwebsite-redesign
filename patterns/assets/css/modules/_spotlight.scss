@@ -79,8 +79,6 @@
     &__aside {
         margin-bottom: 2em;
         overflow: hidden;
-        overflow-y: scroll;
-        z-index: 10000;
         &--no-margin {
             margin-bottom: 0;
         }

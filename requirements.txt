@@ -25,3 +25,5 @@ pycparser==2.19
 pyjwt==1.7.1
 wagtail-metadata==3.0.0
 whitenoise==4.1.4
+Cython==0.29.14
+pandas==0.24.2

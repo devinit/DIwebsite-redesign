@@ -5,6 +5,9 @@
 
 .m-pills {
     @extend %pie-clearfix;
+    @include respond-to($d-vp + 100px) {
+        max-width: 75%;
+    }
 }
 
 .m-pills__item {

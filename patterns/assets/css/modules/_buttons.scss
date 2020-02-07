@@ -82,7 +82,7 @@ button.button {
 
 .button--compare {
 	margin-top: 1em;
-	@include respond-to($d-vp) {
+	@include respond-to($d-vp + 100px) {
 		margin-top: 0;
 		position: absolute;
 		top: 6em;
@@ -96,7 +96,8 @@ button.button {
 }
 
 .button--show {
-	margin-top: -8em;
+	bottom: 2em;
+	position: absolute;
 	transform: translateX(-50%);
 	left: 50%;
 }

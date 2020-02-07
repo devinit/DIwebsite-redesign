@@ -1,4 +1,5 @@
 import pandas
+import csv
 import math
 
 from django.core.management.base import BaseCommand
@@ -18,18 +19,22 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         self.import_colours()
-        self.import_uganda_themes()
-        self.import_uganda_indicators()
+        # self.import_uganda_themes()
+        # self.import_uganda_indicators()
 
     def import_colours(self):
         SpotlightColour.objects.all().delete()
 
         try:
             file_name = 'spotlight-colors.csv'
-            data = pandas.read_csv(file_name)
-            for _, j in data.iterrows():
-                colour = SpotlightColour(name=j['id'], code=j['value'])
-                colour.save()
+            with open(file_name, 'rt') as my_file:
+                reader = csv.reader(my_file)
+                count = 0
+                for row in reader:
+                    if count != 0:
+                        colour = SpotlightColour(name=row[0], code=row[1])
+                        colour.save()
+                    count += 1
         except FileNotFoundError:
             print('No import of colour data done. File "spotlight-colors.csv" not found')
 

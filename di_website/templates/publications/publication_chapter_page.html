@@ -22,21 +22,6 @@
       {% include 'publications/chapter-nav/nav.html' with page=page.get_parent.specific menu_label='Contents' chapter_number=0 %}
     {% endif %}
 
-    {% if page.authors|length > 0 %}
-      <section class="section section--large">
-        <div class="chapter-block-wrapper">
-          <div class="row row--narrow">
-            <div class="larger-center">
-              <div class="chapter-block__item">
-                <div class="chapter-block_content">
-                  {% include 'includes/partials/multi-authors.html' with authors=page.authors %}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    {% endif %}
 
     {% for block in page.content %}
         <section class="section">
@@ -46,6 +31,11 @@
             {% endif %}
 
                 <div class="row row--narrow">
+                  {% if forloop.first %}
+                    {% if page.authors|length > 0 %}
+                      {% include 'includes/partials/multi-authors.html' with authors=page.authors %}
+                    {% endif %}
+                  {% endif %}
                     {% include_block block with id=block.id|string_start  %}
                 </div>
 

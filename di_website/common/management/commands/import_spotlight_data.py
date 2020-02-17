@@ -17,8 +17,8 @@ class Command(BaseCommand):
         parser.add_argument('branch', nargs='?', type=str, default='master')
 
     def handle(self, *args, **options):
-        self.import_colours()
-        self.import_uganda_themes()
+        # self.import_colours()
+        # self.import_uganda_themes()
         self.import_uganda_indicators()
 
     def import_colours(self):
@@ -91,8 +91,15 @@ class Command(BaseCommand):
                             continue
                         colour = self.get_colour_by_name(row[2])
                         source = self.get_source_by_name(row[14])
-                        start_year = None if math.isnan(int(row[3])) else int(row[3])
-                        end_year = None if math.isnan(int(row[4])) else int(row[4])
+                        try:
+                            start_year = int(row[3])
+                        except ValueError:
+                            start_year = None
+
+                        try:
+                            end_year = int(row[4])
+                        except ValueError:
+                            end_year = None
 
                         indicator = SpotlightIndicator(
                             ddw_id=row[0], name=row[10], description=row[13],

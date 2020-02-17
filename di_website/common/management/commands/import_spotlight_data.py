@@ -1,5 +1,4 @@
 import csv
-import math
 
 from django.core.management.base import BaseCommand
 
@@ -17,8 +16,8 @@ class Command(BaseCommand):
         parser.add_argument('branch', nargs='?', type=str, default='master')
 
     def handle(self, *args, **options):
-        # self.import_colours()
-        # self.import_uganda_themes()
+        self.import_colours()
+        self.import_uganda_themes()
         self.import_uganda_indicators()
 
     def import_colours(self):

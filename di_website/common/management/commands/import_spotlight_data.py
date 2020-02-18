@@ -1,5 +1,4 @@
-import pandas
-import math
+import csv
 
 from django.core.management.base import BaseCommand
 
@@ -26,10 +25,14 @@ class Command(BaseCommand):
 
         try:
             file_name = 'spotlight-colors.csv'
-            data = pandas.read_csv(file_name)
-            for _, j in data.iterrows():
-                colour = SpotlightColour(name=j['id'], code=j['value'])
-                colour.save()
+            with open(file_name, 'rt') as my_file:
+                reader = csv.reader(my_file)
+                count = 0
+                for row in reader:
+                    if count != 0:
+                        colour = SpotlightColour(name=row[0], code=row[1])
+                        colour.save()
+                    count += 1
         except FileNotFoundError:
             print('No import of colour data done. File "spotlight-colors.csv" not found')
 
@@ -58,37 +61,52 @@ class Command(BaseCommand):
             file_name {string} -- The name of the csv file that contains the theme data
             spotlight {Spotlight} -- The Spotlight model object to relate to the theme
         """
-        data = pandas.read_csv(file_name)
-        for _, j in data.iterrows():
-            theme = SpotlightTheme(name=j['name'], slug=j['id'], spotlight=spotlight)
-            theme.save()
+        with open(file_name, 'rt') as my_file:
+            reader = csv.reader(my_file)
+            count = 0
+            for row in reader:
+                if count != 0:
+                    theme = SpotlightTheme(slug=row[0], name=row[1], spotlight=spotlight)
+                    theme.save()
+                count += 1
 
     def import_uganda_indicators(self):
         SpotlightIndicator.objects.all().delete()
         try:
             file_name = 'spotlight-uganda-concept.csv'
-            data = pandas.read_csv(file_name)
             spotlight = self.get_spotlight_by_slug('spotlight-uganda')
             if not spotlight:
                 print('Please first create a Spotlight snippet and import the related themes')
 
                 return
 
-            for _, j in data.iterrows():
-                theme = self.get_theme_by_slug_and_spotlight(j['theme'], spotlight)
-                if not theme:
-                    continue
-                colour = self.get_colour_by_name(j['color'])
-                source = self.get_source_by_name(j['source'])
-                start_year = None if math.isnan(j['start_year']) else j['start_year']
-                end_year = None if math.isnan(j['end_year']) else j['end_year']
+            with open(file_name, 'rt') as my_file:
+                reader = csv.reader(my_file)
+                count = 0
+                for row in reader:
+                    if count != 0:
+                        theme = self.get_theme_by_slug_and_spotlight(row[1], spotlight)
+                        if not theme:
+                            continue
+                        colour = self.get_colour_by_name(row[2])
+                        source = self.get_source_by_name(row[14])
+                        try:
+                            start_year = int(row[3])
+                        except ValueError:
+                            start_year = None
 
-                indicator = SpotlightIndicator(
-                    ddw_id=j['id'], name=j['name'], description=j['description'],
-                    theme=theme, color=colour, source=source, start_year=start_year,
-                    end_year=end_year, range=j['range'], value_prefix=j['uom_display'],
-                    tooltip_template=j['tooltip'])
-                indicator.save()
+                        try:
+                            end_year = int(row[4])
+                        except ValueError:
+                            end_year = None
+
+                        indicator = SpotlightIndicator(
+                            ddw_id=row[0], name=row[10], description=row[13],
+                            theme=theme, color=colour, source=source, start_year=start_year,
+                            end_year=end_year, range=row[5], value_prefix=row[7],
+                            tooltip_template=row[12])
+                        indicator.save()
+                    count += 1
             print('Uganda indicators successfully imported')
         except FileNotFoundError:
             print('No import of Uganda theme data done. File "spotlight-uganda-theme.csv" not found')

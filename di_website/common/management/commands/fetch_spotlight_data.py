@@ -18,23 +18,23 @@ class Command(BaseCommand):
 
         self.fetch_colours(content_path)
 
-        self.fetch_uganda_data(content_path)
+        self.fetch_data(content_path + '/spotlight-uganda/', prefix='spotlight-uganda-')
+        self.fetch_data(content_path + '/spotlight-kenya/', prefix='spotlight-kenya-')
 
     def fetch_colours(self, content_path):
         content_url = self.base_url + content_path + '/global/'
         file_name = 'colors.csv'
         self.fetch_csv(file_name, content_url, 'spotlight-')
 
-    def fetch_uganda_data(self, content_path):
-        uganda_content_url = self.base_url + content_path + '/spotlight-uganda/'
-        prefix = 'spotlight-uganda-'
+    def fetch_data(self, content_path, prefix):
+        content_url = self.base_url + content_path
         # Fetch Indicators
         indicator_file_name = 'concept.csv'
-        self.fetch_csv(indicator_file_name, uganda_content_url, prefix)
+        self.fetch_csv(indicator_file_name, content_url, prefix)
 
         # Fetch Themes
         theme_file_name = 'theme.csv'
-        self.fetch_csv(theme_file_name, uganda_content_url, prefix)
+        self.fetch_csv(theme_file_name, content_url, prefix)
 
     def fetch_csv(self, file_name, url, csv_prefix):
         """Fetch CSV data from GitHub content URL

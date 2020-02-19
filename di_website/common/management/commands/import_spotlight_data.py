@@ -125,7 +125,7 @@ class Command(BaseCommand):
                         indicator = SpotlightIndicator(
                             ddw_id=row[0], name=row[10], description=row[13],
                             theme=theme, color=colour, source=source, start_year=start_year,
-                            end_year=end_year, range=row[5], value_prefix=row[7],
+                            end_year=end_year, range=row[5], value_suffix=row[7],
                             tooltip_template=row[12])
                         indicator.save()
                     count += 1

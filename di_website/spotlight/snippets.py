@@ -37,6 +37,11 @@ class Spotlight(ClusterableModel):
 class SpotlightTheme(index.Indexed, ClusterableModel):
     name = models.CharField(max_length=200)
     slug = models.CharField(max_length=200, blank=True, null=True)
+    section = models.CharField(
+        max_length=200,
+        blank=True,
+        null=True,
+        help_text='Determines which section on the spotlights a particular theme and its indicators appears e.g map,facts')
     spotlight = models.ForeignKey(
         Spotlight,
         null=True,
@@ -49,6 +54,7 @@ class SpotlightTheme(index.Indexed, ClusterableModel):
     panels = [
         FieldPanel('name'),
         FieldPanel('slug'),
+        FieldPanel('section'),
         SnippetChooserPanel('spotlight')
     ]
 
@@ -135,7 +141,14 @@ class SpotlightIndicator(index.Indexed, ClusterableModel):
     range = models.CharField(max_length=100, null=True, blank=True, help_text='The range of values shown on the legend')
     value_prefix = models.CharField(max_length=100, null=True, blank=True)
     value_suffix = models.CharField(max_length=100, null=True, blank=True)
-    tooltip_template = models.TextField(blank=True, null=True, help_text='Text for the tooltip.Template strings can be used to substitute values e.g. {name}')
+    tooltip_template = models.TextField(
+        blank=True,
+        null=True,
+        help_text='Text for the tooltip.Template strings can be used to substitute values e.g. {name}')
+    content_template = models.TextField(
+        blank=True,
+        null=True,
+        help_text='Template strings can be used to substitute values e.g. {name} | {value} is the value template string')
 
     panels = [
         FieldPanel('ddw_id'),
@@ -149,7 +162,8 @@ class SpotlightIndicator(index.Indexed, ClusterableModel):
         FieldPanel('range'),
         FieldPanel('value_prefix'),
         FieldPanel('value_suffix'),
-        FieldPanel('tooltip_template')
+        FieldPanel('tooltip_template'),
+        FieldPanel('content_template')
     ]
 
     search_fields = [index.SearchField('ddw_id'), index.SearchField('name')]

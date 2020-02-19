@@ -44,6 +44,7 @@ class Command(BaseCommand):
             uganda = Spotlight.objects.filter(slug='spotlight-uganda')[0]
         except IndexError:
             uganda = Spotlight(name='Spotlight on Uganda', slug='spotlight-uganda')
+            uganda.save();
 
         SpotlightTheme.objects.filter(spotlight=uganda).delete()
         # Spotlight Themes

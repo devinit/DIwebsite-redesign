@@ -17,8 +17,11 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         self.import_colours()
+        SpotlightIndicator.objects.all().delete()
         self.import_uganda_themes()
-        self.import_uganda_indicators()
+        self.import_indicators('spotlight-uganda')
+        self.import_kenya_themes()
+        self.import_indicators('spotlight-kenya')
 
     def import_colours(self):
         SpotlightColour.objects.all().delete()
@@ -55,6 +58,25 @@ class Command(BaseCommand):
         except FileNotFoundError:
             print('No import of Uganda theme data done. File "spotlight-uganda-theme.csv" not found')
 
+    def import_kenya_themes(self):
+        """Import Kenya themes from the csv file
+        """
+        # Find Spotlight on Uganda Page
+        try:
+            spotlight = Spotlight.objects.filter(slug='spotlight-kenya')[0]
+        except IndexError:
+            spotlight = Spotlight(name='Spotlight on Kenya', slug='spotlight-kenya')
+            spotlight.save();
+
+        SpotlightTheme.objects.filter(spotlight=spotlight).delete()
+        # Spotlight Themes
+        try:
+            theme_file_name = 'spotlight-kenya-theme.csv'
+            self.create_themes_from_csv(theme_file_name, spotlight)
+            print('Kenya theme data successfully imported')
+        except FileNotFoundError:
+            print('No import of Kenya theme data done. File "spotlight-kenya-theme.csv" not found')
+
     def create_themes_from_csv(self, file_name, spotlight):
         """Create theme objects from processed csv file
 
@@ -71,11 +93,10 @@ class Command(BaseCommand):
                     theme.save()
                 count += 1
 
-    def import_uganda_indicators(self):
-        SpotlightIndicator.objects.all().delete()
+    def import_indicators(self, slug):
         try:
-            file_name = 'spotlight-uganda-concept.csv'
-            spotlight = self.get_spotlight_by_slug('spotlight-uganda')
+            file_name = slug + '-concept.csv'
+            spotlight = self.get_spotlight_by_slug(slug)
             if not spotlight:
                 print('Please first create a Spotlight snippet and import the related themes')
 
@@ -108,9 +129,9 @@ class Command(BaseCommand):
                             tooltip_template=row[12])
                         indicator.save()
                     count += 1
-            print('Uganda indicators successfully imported')
+            print(slug + ' indicators successfully imported')
         except FileNotFoundError:
-            print('No import of Uganda theme data done. File "spotlight-uganda-theme.csv" not found')
+            print('No import of ' + slug + ' theme data done. File "' + slug + '-theme.csv" not found')
 
     def get_spotlight_by_slug(self, slug, name=None):
         try:

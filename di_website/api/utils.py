@@ -64,7 +64,7 @@ def fetch_and_serialise_footer_sections(request):
 
 
 def serialise_spotlight_theme(theme):
-    serialised_theme = object_to_dict(theme, ['name', 'slug'])
+    serialised_theme = object_to_dict(theme, ['name', 'slug', 'section'])
     indicators = SpotlightIndicator.objects.filter(theme=theme)
     serialised_theme['indicators'] = []
     if indicators:
@@ -78,7 +78,7 @@ def serialise_spotlight_theme(theme):
 def serialise_spotlight_indicator(indicator):
     serialised_indicator = object_to_dict(indicator, [
         'ddw_id', 'name', 'description', 'start_year', 'end_year', 'range',
-        'value_prefix', 'value_suffix', 'tooltip_template'])
+        'value_prefix', 'value_suffix', 'tooltip_template', 'content_template'])
 
     serialised_indicator['colour'] = indicator.color.code
     serialised_indicator['source'] = indicator.source.name

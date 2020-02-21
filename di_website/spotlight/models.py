@@ -15,6 +15,7 @@ class SpotlightPage(Page):
     parent_page_types = ['datasection.DataSectionPage']
 
     country_code = models.CharField(max_length=100, help_text='e.g. UG, KE', default='')
+    currency_code = models.CharField(max_length=100, help_text='UGX, KES', default='')
     meta = models.ForeignKey(
         'spotlight.Spotlight',
         null=True,
@@ -25,7 +26,8 @@ class SpotlightPage(Page):
 
     content_panels = Page.content_panels + [
         MultiFieldPanel([
-            FieldPanel('country_code')
+            FieldPanel('country_code'),
+            FieldPanel('currency_code')
         ], heading='Settings'),
         SnippetChooserPanel('meta'),
     ]

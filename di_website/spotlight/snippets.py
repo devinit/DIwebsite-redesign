@@ -138,6 +138,12 @@ class SpotlightIndicator(index.Indexed, ClusterableModel):
     )
     start_year = models.IntegerField(blank=True, null=True)
     end_year = models.IntegerField(blank=True, null=True)
+    DATA_FORMAT_CHOICES = [
+        ('percent', 'Percentage'),
+        ('plain', 'Plain'),
+        ('currency', 'Currency')
+    ]
+    data_format = models.TextField(max_length=100, choices=DATA_FORMAT_CHOICES, default='plain')
     range = models.CharField(max_length=100, null=True, blank=True, help_text='The range of values shown on the legend')
     value_prefix = models.CharField(max_length=100, null=True, blank=True)
     value_suffix = models.CharField(max_length=100, null=True, blank=True)
@@ -160,6 +166,7 @@ class SpotlightIndicator(index.Indexed, ClusterableModel):
         SnippetChooserPanel('color'),
         FieldPanel('start_year'),
         FieldPanel('end_year'),
+        FieldPanel('data_format'),
         FieldPanel('range'),
         FieldPanel('value_prefix'),
         FieldPanel('value_suffix'),

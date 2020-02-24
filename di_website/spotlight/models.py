@@ -17,20 +17,12 @@ class SpotlightPage(Page):
 
     country_code = models.CharField(max_length=100, help_text='e.g. UG, KE', default='')
     currency_code = models.CharField(max_length=100, help_text='UGX, KES', default='')
-    meta = models.ForeignKey(
-        'spotlight.Spotlight',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+'
-    )
 
     content_panels = Page.content_panels + [
         MultiFieldPanel([
             FieldPanel('country_code'),
             FieldPanel('currency_code')
-        ], heading='Settings'),
-        SnippetChooserPanel('meta'),
+        ], heading='Settings')
     ]
 
 
@@ -40,7 +32,6 @@ class SpotlightTheme(Page):
 
     parent_page_types = [SpotlightPage]
 
-    name = models.CharField(max_length=200)
     section = models.CharField(
         max_length=200,
         blank=True,
@@ -48,12 +39,11 @@ class SpotlightTheme(Page):
         help_text='Determines which section on the spotlights a particular theme and its indicators appears e.g map,facts')
 
     content_panels = Page.content_panels +  [
-        FieldPanel('name'),
         FieldPanel('section'),
     ]
 
     search_fields = [
-        index.SearchField('name')
+        index.SearchField('title')
     ]
 
 
@@ -64,7 +54,6 @@ class SpotlightIndicator(Page):
     parent_page_types = [SpotlightTheme]
 
     ddw_id = models.CharField(max_length=255)
-    name = models.TextField()
     description = models.TextField(help_text='A description of this indicator', null=True, blank=True)
     source = models.ForeignKey(
         SpotlightSource,
@@ -103,7 +92,6 @@ class SpotlightIndicator(Page):
 
     content_panels = Page.content_panels +  [
         FieldPanel('ddw_id'),
-        FieldPanel('name'),
         FieldPanel('description'),
         SnippetChooserPanel('source'),
         SnippetChooserPanel('color'),
@@ -117,4 +105,4 @@ class SpotlightIndicator(Page):
         FieldPanel('content_template')
     ]
 
-    search_fields = [index.SearchField('ddw_id'), index.SearchField('name')]
+    search_fields = [index.SearchField('ddw_id'), index.SearchField('title')]

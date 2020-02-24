@@ -90,7 +90,7 @@ class SpotlightIndicator(Page):
     content_template = models.TextField(
         blank=True,
         null=True,
-        default='[]',
+        default='',
         help_text='Template strings can be used to substitute values e.g. {name} | {value} is the value template string')
 
     content_panels = Page.content_panels +  [

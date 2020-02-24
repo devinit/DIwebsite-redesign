@@ -46,6 +46,9 @@ class SpotlightTheme(Page):
         index.SearchField('title')
     ]
 
+    def get_admin_display_title(self):
+        return '[' + self.section + '] - ' + self.title if self.section else self.title
+
 
 class SpotlightIndicator(Page):
     class Meta():

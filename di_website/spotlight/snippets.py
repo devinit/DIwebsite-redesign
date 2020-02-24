@@ -11,29 +11,6 @@ from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
 
 @register_snippet
-class Spotlight(ClusterableModel):
-    name = models.CharField(max_length=200)
-    slug = models.CharField(max_length=200, unique=True, blank=True, null=True)
-
-    panels = [
-        FieldPanel('name'),
-        FieldPanel('slug')
-    ]
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = "Spotlight"
-        verbose_name_plural = "Spotlights"
-
-    def save(self, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.name)
-        super(Spotlight, self).save(**kwargs)
-
-
-@register_snippet
 class SpotlightSource(index.Indexed, ClusterableModel):
     name = models.TextField()
 

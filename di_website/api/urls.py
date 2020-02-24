@@ -1,7 +1,7 @@
 from django.urls import path
 
 from di_website.api.views import (
-    footer_view, spotlights_navigation_view, spotlight_pages_view, spotlight_page_view)
+    footer_view, spotlights_navigation_view, spotlight_page_view, spotlight_pages_view)
 
 urlpatterns = [
     path('spotlights/navigation/', spotlights_navigation_view, name='spotlight-navigation'),

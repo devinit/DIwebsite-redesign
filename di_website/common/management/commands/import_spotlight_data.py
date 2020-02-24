@@ -108,7 +108,7 @@ class Command(BaseCommand):
             count = 0
             for row in reader:
                 if count != 0:
-                    theme = SpotlightTheme(slug=prefix + row[0], title=row[1])
+                    theme = SpotlightTheme(slug=prefix + row[0], title=row[1], section='map')
                     spotlight.add_child(instance=theme)
                     theme.save_revision().publish()
                     theme.save()

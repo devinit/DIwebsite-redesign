@@ -14,7 +14,6 @@ from .utils import (
     fetch_and_serialise_footer_sections,
     serialise_spotlight_theme)
 from di_website.spotlight.models import SpotlightPage
-from di_website.spotlight.snippets import SpotlightTheme
 
 
 @require_http_methods(["GET"])
@@ -57,14 +56,12 @@ def spotlight_pages_view(request):
     pages = []
     spotlights = SpotlightPage.objects.all().live()
     for spotlight in spotlights:
-        page = serialise_page(request, spotlight, fields=['title', 'full_url'])
-        meta = spotlight.meta
+        page = serialise_page(request, spotlight, fields=['title', 'full_url', 'country_code', 'currency_code'])
+        themes = spotlight.get_children().live()
         page['themes'] = []
-        if meta:
-            themes = SpotlightTheme.objects.filter(spotlight=meta)
-            for theme in themes:
-                serialised_theme = serialise_spotlight_theme(theme)
-                page['themes'].append(serialised_theme)
+        for theme in themes:
+            serialised_theme = serialise_spotlight_theme(theme.specific)
+            page['themes'].append(serialised_theme)
         pages.append(page)
 
     return JsonResponse(pages, safe=False)
@@ -75,14 +72,12 @@ def spotlight_page_view(request, slug=None):
     if slug:
         try:
             spotlight = SpotlightPage.objects.filter(slug=slug)[0]
-            page = serialise_page(request, spotlight, fields=['title', 'full_url', 'country_code'])
-            meta = spotlight.meta
+            page = serialise_page(request, spotlight, fields=['title', 'full_url', 'country_code', 'currency_code'])
+            themes = spotlight.get_children().live()
             page['themes'] = []
-            if meta:
-                themes = SpotlightTheme.objects.filter(spotlight=meta)
-                for theme in themes:
-                    serialised_theme = serialise_spotlight_theme(theme)
-                    page['themes'].append(serialised_theme)
+            for theme in themes:
+                serialised_theme = serialise_spotlight_theme(theme.specific)
+                page['themes'].append(serialised_theme)
 
             return JsonResponse(page, safe=False)
         except IndexError:

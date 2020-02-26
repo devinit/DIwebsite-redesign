@@ -2,8 +2,9 @@ import csv
 
 from django.core.management.base import BaseCommand
 
-from di_website.spotlight.snippets import (
-    SpotlightColour, Spotlight, SpotlightIndicator, SpotlightSource, SpotlightTheme)
+from di_website.spotlight.models import SpotlightPage, SpotlightIndicator, SpotlightTheme
+from di_website.spotlight.snippets import SpotlightColour, SpotlightSource
+from di_website.datasection.models import DataSectionPage
 
 
 class Command(BaseCommand):
@@ -17,11 +18,11 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         self.import_colours()
-        SpotlightIndicator.objects.all().delete()
+        SpotlightPage.objects.all().delete()
         self.import_uganda_themes()
-        self.import_indicators('spotlight-uganda')
+        self.import_indicators('spotlight-uganda', 'uganda_')
         self.import_kenya_themes()
-        self.import_indicators('spotlight-kenya')
+        self.import_indicators('spotlight-kenya', 'kenya_')
 
     def import_colours(self):
         SpotlightColour.objects.all().delete()
@@ -44,16 +45,25 @@ class Command(BaseCommand):
         """
         # Find Spotlight on Uganda Page
         try:
-            uganda = Spotlight.objects.filter(slug='spotlight-uganda')[0]
+            uganda = SpotlightPage.objects.filter(slug='spotlight-uganda')[0]
         except IndexError:
-            uganda = Spotlight(name='Spotlight on Uganda', slug='spotlight-uganda')
-            uganda.save();
+            data_page = DataSectionPage.objects.live()[0]
+            if (data_page):
+                uganda = SpotlightPage(
+                    title='Spotlight on Uganda',
+                    slug='spotlight-uganda',
+                    country_code='UG',
+                    currency_code='UGX')
+                data_page.add_child(instance=uganda)
+                uganda.save_revision().publish()
+                data_page.save();
+            else:
+                print('Cannot create SpotlightPage ... No DataSection page found')
 
-        SpotlightTheme.objects.filter(spotlight=uganda).delete()
         # Spotlight Themes
         try:
             theme_file_name = 'spotlight-uganda-theme.csv'
-            self.create_themes_from_csv(theme_file_name, uganda)
+            self.create_themes_from_csv(theme_file_name, uganda, "uganda_")
             print('Uganda theme data successfully imported')
         except FileNotFoundError:
             print('No import of Uganda theme data done. File "spotlight-uganda-theme.csv" not found')
@@ -63,21 +73,30 @@ class Command(BaseCommand):
         """
         # Find Spotlight on Uganda Page
         try:
-            spotlight = Spotlight.objects.filter(slug='spotlight-kenya')[0]
+            spotlight = SpotlightPage.objects.filter(slug='spotlight-kenya')[0]
         except IndexError:
-            spotlight = Spotlight(name='Spotlight on Kenya', slug='spotlight-kenya')
-            spotlight.save();
+            data_page = DataSectionPage.objects.live()[0]
+            if (data_page):
+                spotlight = SpotlightPage(
+                    title='Spotlight on Kenya',
+                    slug='spotlight-kenya',
+                    country_code='KE',
+                    currency_code='KES')
+                data_page.add_child(instance=spotlight)
+                spotlight.save_revision().publish()
+                data_page.save();
+            else:
+                print('Cannot create SpotlightPage ... No DataSection page found')
 
-        SpotlightTheme.objects.filter(spotlight=spotlight).delete()
         # Spotlight Themes
         try:
             theme_file_name = 'spotlight-kenya-theme.csv'
-            self.create_themes_from_csv(theme_file_name, spotlight)
+            self.create_themes_from_csv(theme_file_name, spotlight, "kenya_")
             print('Kenya theme data successfully imported')
         except FileNotFoundError:
             print('No import of Kenya theme data done. File "spotlight-kenya-theme.csv" not found')
 
-    def create_themes_from_csv(self, file_name, spotlight):
+    def create_themes_from_csv(self, file_name, spotlight, prefix):
         """Create theme objects from processed csv file
 
         Arguments:
@@ -89,11 +108,13 @@ class Command(BaseCommand):
             count = 0
             for row in reader:
                 if count != 0:
-                    theme = SpotlightTheme(slug=row[0], name=row[1], spotlight=spotlight)
+                    theme = SpotlightTheme(slug=prefix + row[0], title=row[1], section='map')
+                    spotlight.add_child(instance=theme)
+                    theme.save_revision().publish()
                     theme.save()
                 count += 1
 
-    def import_indicators(self, slug):
+    def import_indicators(self, slug, prefix):
         try:
             file_name = slug + '-concept.csv'
             spotlight = self.get_spotlight_by_slug(slug)
@@ -107,8 +128,9 @@ class Command(BaseCommand):
                 count = 0
                 for row in reader:
                     if count != 0:
-                        theme = self.get_theme_by_slug_and_spotlight(row[1], spotlight)
+                        theme = self.get_theme_by_slug_and_spotlight(prefix + row[1], spotlight)
                         if not theme:
+                            print('No theme found with slug ' + row[1] + ' for spotlight slug ' + spotlight.slug)
                             continue
                         colour = self.get_colour_by_name(row[2])
                         source = self.get_source_by_name(row[14])
@@ -123,11 +145,12 @@ class Command(BaseCommand):
                             end_year = None
 
                         indicator = SpotlightIndicator(
-                            ddw_id=row[0], name=row[10], description=row[13],
-                            theme=theme, color=colour, source=source, start_year=start_year,
-                            end_year=end_year, range=row[5], value_prefix=row[7],
+                            ddw_id=row[0], title=row[10], description=row[13], color=colour, source=source,
+                            start_year=start_year, end_year=end_year, range=row[5], value_suffix=row[7],
                             tooltip_template=row[12])
-                        indicator.save()
+                        theme.add_child(instance=indicator)
+                        indicator.save_revision().publish()
+                        theme.save()
                     count += 1
             print(slug + ' indicators successfully imported')
         except FileNotFoundError:
@@ -135,12 +158,12 @@ class Command(BaseCommand):
 
     def get_spotlight_by_slug(self, slug, name=None):
         try:
-            spotlight = Spotlight.objects.filter(slug=slug)[0]
+            spotlight = SpotlightPage.objects.filter(slug=slug)[0]
 
             return spotlight
         except IndexError:
             if name:
-                spotlight = Spotlight(name=name, slug=slug)
+                spotlight = SpotlightPage(title=name, slug=slug)
 
                 return spotlight
 
@@ -148,7 +171,7 @@ class Command(BaseCommand):
 
     def get_theme_by_slug_and_spotlight(self, slug, spotlight):
         try:
-            theme = SpotlightTheme.objects.filter(slug=slug, spotlight=spotlight)[0]
+            theme = spotlight.get_children().filter(slug=slug)[0]
 
             return theme
         except IndexError:

@@ -79,7 +79,11 @@ class SpotlightIndicator(Page):
         ('plain', 'Plain'),
         ('currency', 'Currency')
     ]
-    data_format = models.TextField(max_length=100, choices=DATA_FORMAT_CHOICES, default='plain')
+    data_format = models.TextField(
+        max_length=100,
+        choices=DATA_FORMAT_CHOICES,
+        default='plain',
+        help_text='Options are plain, currency, percent')
     range = models.CharField(max_length=100, null=True, blank=True, help_text='The range of values shown on the legend')
     value_prefix = models.CharField(max_length=100, null=True, blank=True)
     value_suffix = models.CharField(max_length=100, null=True, blank=True)
@@ -91,7 +95,7 @@ class SpotlightIndicator(Page):
         blank=True,
         null=True,
         default='',
-        help_text='Template strings can be used to substitute values e.g. {name} | {value} is the value template string')
+        help_text='JSON config of the indicator content. A bit complex - talk to Edwin')
 
     content_panels = Page.content_panels +  [
         FieldPanel('ddw_id'),

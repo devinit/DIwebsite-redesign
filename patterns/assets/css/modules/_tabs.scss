@@ -75,6 +75,12 @@
 	border-bottom: 1px solid $cloud;
 	padding-bottom: 2em;
 	margin-bottom: 1.5em;
+	@include respond-to($c-vp) {
+		.form-field__select-dropdown select {
+			width: auto;
+			min-width: 300px;
+		}
+	}
 }
 
 .tabs .tabs__container .tabs__content:after {

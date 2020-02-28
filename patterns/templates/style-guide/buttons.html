@@ -17,7 +17,7 @@
 
 {% block body %}
 <div class="ui-row">
-	
+
 	<!-- Duplicate -->
 	<div class="ui-section">
 		<div class="ui-section__header">
@@ -49,7 +49,7 @@
 		</div>
 	</div>
 	<!-- end Duplicate -->
-	
+
 	<!-- Duplicate -->
 	<div class="ui-section">
 		<div class="ui-section__header">
@@ -71,7 +71,33 @@
 				<div class="ui-section__notes">
 					<h4>Notes</h4>
 					<p>You can extend buttons as you would any other element using BEMS</p>
-					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end Duplicate -->
+
+	<!-- Duplicate -->
+	<div class="ui-section">
+		<div class="ui-section__header">
+			<h2>Disabled button</h2>
+		</div>
+		<div class="ui-section__component">
+{% capture as="html" -%}
+{{ buttons.button('button-example2', 'button--disabled', 'Button Label', 'Fully A11y Label') }}
+{%- endcapture %}
+{{ html }}
+		</div>
+		<div class="ui-section__body">
+			<div class="ui-section__main">
+				<div class="ui-section__code">
+					<pre><code>{{ html | e | trim }}</code></pre>
+				</div>
+			</div>
+			<div class="ui-section__aside">
+				<div class="ui-section__notes">
+					<h4>Notes</h4>
+					<p>Example of a disabled button</p>
 				</div>
 			</div>
 		</div>

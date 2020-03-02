@@ -56,6 +56,7 @@
 	background: $slate;
 	max-height: 80vh;
 	overflow-y: scroll;
+	-ms-overflow-style: -ms-autohiding-scrollbar;
 	@include font-size($zeta/1.25);
 	@include respond-to($c-vp) {
 		@include font-size($zeta);
@@ -120,6 +121,7 @@
 .countries-menu-list__content {
 	max-height: 80vh;
 	overflow-y: scroll;
+	-ms-overflow-style: -ms-autohiding-scrollbar;
 	html.js & {
 		position: absolute;
 		width: 100%;

@@ -53,6 +53,7 @@ class Command(BaseCommand):
                     title='Spotlight on Uganda',
                     slug='spotlight-uganda',
                     country_code='UG',
+                    country_name='Uganda',
                     currency_code='UGX')
                 data_page.add_child(instance=uganda)
                 uganda.save_revision().publish()
@@ -81,6 +82,7 @@ class Command(BaseCommand):
                     title='Spotlight on Kenya',
                     slug='spotlight-kenya',
                     country_code='KE',
+                    country_name='Kenya',
                     currency_code='KES')
                 data_page.add_child(instance=spotlight)
                 spotlight.save_revision().publish()

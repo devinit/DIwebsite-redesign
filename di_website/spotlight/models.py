@@ -16,11 +16,13 @@ class SpotlightPage(Page):
     parent_page_types = ['datasection.DataSectionPage']
 
     country_code = models.CharField(max_length=100, help_text='e.g. UG, KE', default='')
+    country_name = models.CharField(max_length=255)
     currency_code = models.CharField(max_length=100, help_text='UGX, KES', default='')
 
     content_panels = Page.content_panels + [
         MultiFieldPanel([
             FieldPanel('country_code'),
+            FieldPanel('country_name'),
             FieldPanel('currency_code')
         ], heading='Settings')
     ]

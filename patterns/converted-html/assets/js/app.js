@@ -18,6 +18,7 @@ import './libs/jquery.responsiveTabs';
 import modal from './utils/modal';
 import countryNav from './utils/countryNav';
 import countrySearch from './utils/countrySearch';
+import spotlights from './utils/spotlights';
 
 function globals () {
 
@@ -54,6 +55,8 @@ function globals () {
         '#spotlight-comparison__parts',
         'spotlight__interactive--max-height--active'
     );
+
+    spotlights();
 
     // FastClick
     fastClick(document.body);

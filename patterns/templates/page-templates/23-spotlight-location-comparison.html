@@ -22,6 +22,7 @@
 {% model 'cards', as="card" %}
 {% model 'navigation', as="navigation" %}
 {% model 'timeline', as="timeline" %}
+{% model 'locations_uganda', as="location" %}
 {% model 'indicators', as="indicator" %}
 
 {% import 'macros/icon.html' as icons %}
@@ -42,16 +43,34 @@
             <h2 class="section__heading">Location comparison</h2>
             <div class="spotlight-banner">
                 <div class="spotlight-banner__aside">
-                    <a href="#" class="m-text-link">{{ icons.icon('ico-plus-poppy', '16') }} <span>Add another location</span></a>
+                    <a href="#" class="m-text-link spotlight__location spotlight__location--active">{{ icons.icon('ico-plus-poppy', '16') }} <span>Add another location</span></a>
+                    {% include 'partials/country-list.html' %}
                 </div>
                 <div class="spotlight-banner__main">
-                    <ul class="m-pills">
-                        <li class="m-pills__item"><button type="button">{{ icons.icon('ico-plus-blank', '16') }}</button> Bungoma</li>
-                        <li class="m-pills__item"><button type="button">{{ icons.icon('ico-plus-blank', '16') }}</button> Kisumu</li>
-                        <li class="m-pills__item"><button type="button">{{ icons.icon('ico-plus-blank', '16') }}</button> Nakuru</li>
-                    </ul>
-                    <button type="button" class="button button--compare">Compare</button>
+                    <div id="js-profile-search-container" class="spotlight__countries">
+                        <label class="form-label form-label--hidden" for="country-search" aria-hidden="true">Search for a location</label>
+                        <input id="js-profile-search" class="form-item form-item--auto" type="text" name="country-search" id="country-search" placeholder="Search for a location">
+                        <button type="button" class="countries__searched-cancel"><span>Cancel</span></button>
+                        <nav class="countries__searched countries__searched--minor" aria-hidden="true">
+                            <ul class="countries__searched__list" id="js-profile-results"></ul>
+                        </nav>
+                    </div>
                 </div>
+            </div>
+
+            <div class="spotlight-banner spotlight-banner--alt">
+                <ul class="m-pills">
+                    <li class="m-pills__item">Masaka <button type="button">{{ icons.icon('ico-cross-slate', '20') }}</button></li>
+                    <li class="m-pills__item">Kalangala <button type="button">{{ icons.icon('ico-cross-slate', '20') }}</button></li>
+                    <li class="m-pills__item">Kyesiiga <button type="button">{{ icons.icon('ico-cross-slate', '20') }}</button></li>
+                    <li class="m-pills__item">Butebo <button type="button">{{ icons.icon('ico-cross-slate', '20') }}</button></li>
+                    <li class="m-pills__item">Wakiso <button type="button">{{ icons.icon('ico-cross-slate', '20') }}</button></li>
+                    <li class="m-pills__item">Lwengo <button type="button">{{ icons.icon('ico-cross-slate', '20') }}</button></li>
+                    <li class="m-pills__item">Lyantonde <button type="button">{{ icons.icon('ico-cross-slate', '20') }}</button></li>
+                    <li class="m-pills__item">Kisumu <button type="button">{{ icons.icon('ico-cross-slate', '20') }}</button></li>
+                    <li class="m-pills__item">Nakuru <button type="button">{{ icons.icon('ico-cross-slate', '20') }}</button></li>
+                </ul>
+                <button type="button" class="button button--compare">Compare</button>
             </div>
 
             <div class="spotlight spotlight--full">
@@ -130,10 +149,18 @@
         <div class="row row--narrow">
             <div class="spotlight-banner">
                 <div class="spotlight-banner__aside">
-                    <a href="#" class="m-text-link">{{ icons.icon('ico-plus-poppy', '16') }} <span>Add another location</span></a>
+                    <a href="#" class="m-text-link spotlight__location spotlight__location--active">{{ icons.icon('ico-plus-poppy', '16') }} <span>Add another location</span></a>
+                    {% include 'partials/country-list.html' %}
                 </div>
                 <div class="spotlight-banner__main">
-
+                    <div id="js-profile-search-container" class="spotlight__countries">
+                        <label class="form-label form-label--hidden" for="country-search" aria-hidden="true">Search for a location</label>
+                        <input id="js-profile-search" class="form-item form-item--auto" type="text" name="country-search" id="country-search" placeholder="Search for a location">
+                        <button type="button" class="countries__searched-cancel"><span>Cancel</span></button>
+                        <nav class="countries__searched countries__searched--minor" aria-hidden="true">
+                            <ul class="countries__searched__list" id="js-profile-results"></ul>
+                        </nav>
+                    </div>
                 </div>
             </div>
         </div>

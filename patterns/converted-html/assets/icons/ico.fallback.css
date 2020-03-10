@@ -146,6 +146,34 @@
 
 
 
+.ico-cross-blank {
+	background-image: url('png/cross-blank.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-cross-poppy {
+	background-image: url('png/cross-poppy.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-cross-poppydark {
+	background-image: url('png/cross-poppydark.png');
+	background-repeat: no-repeat;
+}
+
+
+
+.ico-cross-slate {
+	background-image: url('png/cross-slate.png');
+	background-repeat: no-repeat;
+}
+
+
+
 .ico-data-blank {
 	background-image: url('png/data-blank.png');
 	background-repeat: no-repeat;

@@ -87,9 +87,9 @@ button.button {
 		position: absolute;
 		top: 6em;
 		right: 2em;
-		.spotlight-banner__main & {
-			top: 0em;
-			height: 46px;
+		.spotlight-banner & {
+			top: 50%;
+			transform: translateY(-50%);
 			line-height: 1;
 		}
 	}

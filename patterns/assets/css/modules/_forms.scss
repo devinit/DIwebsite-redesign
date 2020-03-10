@@ -214,6 +214,10 @@
 		outline: none;
 		border-color: $action;
 	}
+	&--auto {
+		max-width: 300px;
+		display: inline-block;
+	}
 }
 
 // Turn off spinners for number input field, as flipping ugly

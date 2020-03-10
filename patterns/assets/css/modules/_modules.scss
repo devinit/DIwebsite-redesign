@@ -6,36 +6,30 @@
 .m-pills {
     @extend %pie-clearfix;
     @include respond-to($d-vp + 100px) {
-        max-width: 75%;
+        max-width: 85%;
     }
 }
 
 .m-pills__item {
     position: relative;
-    display: block;
-    float: left;
-    margin-right: 10px;
+    width: 100%;
     margin-bottom: 10px;
     @include font-size($para);
     background-color: #fff;
-    border: 1px solid $poppy-dark;
+    border: 1px solid $slate;
     padding: 0.5em 1em;
-    padding-left: 3.5em;
+    padding-right: 3.5em;
+    border-radius: 3em;
     button {
-        background-color: $poppy-dark;
         position: absolute;
-        width: 45px;
-        height: 45px;
-        top: 0;
-        left: 0;
-        .ico {
-            position: relative;
-            left: 7px;
-            transform: rotate(45deg);
-        }
+        top: 11px;
+        right: 7px;
     }
-    @include respond-to($menu-respond) {
-        margin-bottom: 0;
+    @include respond-to($b-vp) {
+        display: block;
+        float: left;
+        margin-right: 10px;
+        width: auto;
     }
 }
 
@@ -508,7 +502,6 @@ a.m-stat {
     }
     .spotlight-banner & {
         position: relative;
-        display: block;
         margin-top: 0.5em;
     }
 }

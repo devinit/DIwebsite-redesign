@@ -17,12 +17,18 @@
 		padding-top: 50px;
 		padding-bottom: 50px;
 	}
+	&--share {
+		display: none;
+	}
+	&--share-open {
+		display: block;
+	}
 }
 
 .modal__content {
 	position: relative;
 	background-color: #fefefe;
-	margin: auto;
+	margin: 0 auto;
 	padding: 20px;
 	border-radius: 8px;
 	max-width: 680px;
@@ -32,6 +38,11 @@
 	@include respond-to($c-vp) {
 		height: 100%;
 		overflow-y: auto;
+		&--minor {
+			height: auto;
+			transform: translateY(-50%);
+			top: 50%;
+		}
 	}
 	iframe {
 		width: 100% !important;
@@ -44,6 +55,7 @@
 
 .modal__heading {
 	@include font-size($beta);
+	margin-bottom: 0.5em;
 }
 
 .is-hidden { display: none; }

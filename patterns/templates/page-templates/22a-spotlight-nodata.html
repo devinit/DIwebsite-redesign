@@ -115,7 +115,7 @@
 
                             <div class="spotlight-buttons">
                                 <a href="#" class="button">Compare this location to others</a>
-                                <a href="#" class="button">Share this visualisation</a>
+                                <a href="#" class="button js-modal-trigger">Share this visualisation</a>
                             </div>
                         </div>
                     </div>
@@ -145,13 +145,46 @@
 
                         <div class="spotlight-buttons">
                             <a href="#" class="button">Compare this location to others</a>
-                            <a href="#" class="button">Share this visualisation</a>
+                            <a href="#" class="button js-modal-trigger">Share this visualisation</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
+    <div id="share-modal" class="modal modal--share">
+        <div class="modal__content modal__content--minor">
+            <button type="button" class="modal-button-close js-modal-trigger">&times;</button>
+            <h2 class="modal__heading">Share this visualisation</h2>
+            <form class="form">
+                <div class="form-field">
+                    <div for="share" class="form-label form-label--hidden">Share</div>
+                    <div id="share">
+                        <div class="form-field__radio-buttons">
+                            <div class="form-radio-group cp-form-radio-group-share">
+                                <input class="form-radio" type="radio" name="default" id="default" value="" />
+                                <label class="form-label" for="default">In default view</label>
+                            </div>
+                            <div class="form-radio-group cp-form-radio-group-share">
+                                <input class="form-radio" type="radio" name="configured" id="configured" value="" />
+                                <label class="form-label" for="configured">As I configured it</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label for="url" class="form-label form-label--hidden">url</label>
+                    <input class="form-item" type="text" name="url" id="url">
+                </div>
+            </form>
+            <ul class="footer__social">
+                <li><a href="#"><img src="{{ global.assets_root }}/svg/source/twitter.svg" alt="Twitter"></a></li>
+                <li><a href="#"><img src="{{ global.assets_root }}/svg/source/facebook.svg" alt="Facebook"></a></li>
+                <li><a href="#"><img src="{{ global.assets_root }}/svg/source/email.svg" alt="Email"></a></li>
+            </ul>
+        </div>
+    </div>
 
     <section class="section section--alt-dark">
         <div class="row row--wide">

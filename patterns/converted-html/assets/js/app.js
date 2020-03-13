@@ -19,6 +19,7 @@ import modal from './utils/modal';
 import countryNav from './utils/countryNav';
 import countrySearch from './utils/countrySearch';
 import spotlights from './utils/spotlights';
+import simpleModal from './utils/simpleModal';
 
 function globals () {
 
@@ -181,6 +182,8 @@ function globals () {
     // trigger = class of item to open the modal
     // parentcontainer = id of <section> containing the trigger
     modal('download-modal','.modal-button-open', 'modal-container');
+
+    simpleModal('.js-modal-trigger','.modal--share', 'modal--share-open');
 
 }
 

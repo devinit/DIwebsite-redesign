@@ -77,6 +77,10 @@
 .footer__social {
     @extend %pie-clearfix;
     margin-top: 1.5em;
+    .modal__content & {
+        margin-top: 2em;
+        display: block;
+    }
     li {
         width: 30px;
         display: inline-block;

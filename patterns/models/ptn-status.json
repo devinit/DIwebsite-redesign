@@ -196,6 +196,10 @@
 		"stage": "Template"
 	},
 	{
+		"name": "22a-spotlight-nodata",
+		"stage": "Template"
+	},
+	{
 		"name": "23-spotlight-location-comparison",
 		"stage": "Template"
 	}

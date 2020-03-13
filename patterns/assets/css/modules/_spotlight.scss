@@ -104,11 +104,15 @@
         &__main {
             float: left;
             width: 70%;
+            padding-left: 1em;
             .spotlight--full & {
                 width: 100%;
                 float: none;
                 display: block;
             }
+        }
+        &__main--map {
+            padding-left: 0;
         }
     }
 }

@@ -18,12 +18,17 @@ class SpotlightPage(Page):
     country_code = models.CharField(max_length=100, help_text='e.g. UG, KE', default='')
     country_name = models.CharField(max_length=255)
     currency_code = models.CharField(max_length=100, help_text='UGX, KES', default='')
-
+    datasources_description = models.TextField(help_text='A description for data sources section', default='')
+    datasources_url_title = models.TextField(help_text='A title for data sources url link', default='')
+    datasources_url = models.URLField(help_text='A url link to data sources for download', default='')
     content_panels = Page.content_panels + [
         MultiFieldPanel([
             FieldPanel('country_code'),
             FieldPanel('country_name'),
-            FieldPanel('currency_code')
+            FieldPanel('currency_code'),
+            FieldPanel('datasources_description'),
+            FieldPanel('datasources_url_title'),
+            FieldPanel('datasources_url')
         ], heading='Settings')
     ]
 

@@ -56,7 +56,7 @@ def spotlight_pages_view(request):
     pages = []
     spotlights = SpotlightPage.objects.all().live()
     for spotlight in spotlights:
-        page = serialise_page(request, spotlight, fields=['title', 'full_url', 'country_code', 'country_name', 'currency_code'])
+        page = serialise_page(request, spotlight, fields=['title', 'full_url', 'country_code', 'country_name', 'currency_code', 'datasources_description', 'datasources_url', 'datasources_url_title'])
         themes = spotlight.get_children().live()
         page['themes'] = []
         for theme in themes:
@@ -72,7 +72,7 @@ def spotlight_page_view(request, slug=None):
     if slug:
         try:
             spotlight = SpotlightPage.objects.filter(slug=slug)[0]
-            page = serialise_page(request, spotlight, fields=['title', 'full_url', 'country_code', 'country_name', 'currency_code'])
+            page = serialise_page(request, spotlight, fields=['title', 'full_url', 'country_code', 'country_name', 'currency_code', 'datasources_description', 'datasources_url', 'datasources_url_title'])
             themes = spotlight.get_children().live()
             page['themes'] = []
             for theme in themes:

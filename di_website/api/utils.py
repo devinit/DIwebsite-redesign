@@ -1,3 +1,5 @@
+import json
+
 from di_website.home.models import FooterSection, NewsLetter
 from di_website.spotlight.snippets import SpotlightColour, SpotlightSource
 
@@ -19,9 +21,17 @@ def serialise_page(request, page, fields=['title', 'full_url', 'active']):
     """
     result = object_to_dict(page, fields)
     result['relative_url'] = page.relative_url(request.site, request)
-
     return result
 
+def serialiseDatasources(request, spotlightPage):
+    dataSourceLinks = []
+    for item in spotlightPage.datasources_links:
+        page = {}
+        page['caption'] = item.value['caption']
+        page['url'] = item.value['url']
+        page['page_url'] = item.value['page'].get_url(request, request.site) if item.value['page'] else ''
+        dataSourceLinks.append(page)
+    return dataSourceLinks
 
 def fetch_and_serialise_newsletters():
     """

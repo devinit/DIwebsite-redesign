@@ -113,7 +113,6 @@ class AbstractLinkBlock(StructBlock):
 class DatasourcesLinkBlock(StructBlock):
     caption = CharBlock(
         required=False,
-        help_text='Leave blank if you wish to use the page title as a caption'
     )
     page = PageChooserBlock(
         required=False,

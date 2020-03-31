@@ -71,7 +71,7 @@ class NewsIndexPage(HeroMixin, Page):
         return context
 
 
-class NewsStoryPage(TypesetBodyMixin, PublishedDateMixin, HeroMixin, Page):
+class NewsStoryPage(TypesetBodyMixin, HeroMixin, PublishedDateMixin, Page):
     topics = ClusterTaggableManager(through=NewsTopic, blank=True)
     press_release = models.BooleanField(
         default=False, help_text="Should this page appear in the Media Center?")

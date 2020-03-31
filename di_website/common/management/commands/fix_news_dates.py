@@ -3,7 +3,7 @@
 
 from django.core.management.base import BaseCommand
 
-from di_website.news import NewsStoryPage
+from di_website.news.models import NewsStoryPage
 
 
 class Command(BaseCommand):

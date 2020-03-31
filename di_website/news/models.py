@@ -20,6 +20,8 @@ from di_website.common.base import hero_panels, get_paginator_range, get_related
 from di_website.common.mixins import OtherPageMixin, HeroMixin, TypesetBodyMixin
 from di_website.common.constants import MAX_PAGE_SIZE, MAX_RELATED_LINKS, RICHTEXT_FEATURES_NO_FOOTNOTES
 from di_website.home.models import NewsLetter
+from di_website.publications.mixins import PublishedDateMixin
+from di_website.publications.utils import PublishedDatePanel
 
 
 class NewsTopic(TaggedItemBase):
@@ -46,9 +48,9 @@ class NewsIndexPage(HeroMixin, Page):
         page = request.GET.get('page', None)
         topic_filter = request.GET.get('topic', None)
         if topic_filter:
-            news_stories = NewsStoryPage.objects.live().filter(topics__slug=topic_filter).order_by('-first_published_at')
+            news_stories = NewsStoryPage.objects.live().filter(topics__slug=topic_filter).order_by('-published_date')
         else:
-            news_stories = NewsStoryPage.objects.live().order_by('-first_published_at')
+            news_stories = NewsStoryPage.objects.live().order_by('-published_date')
 
         paginator = Paginator(news_stories, MAX_PAGE_SIZE)
         try:
@@ -69,13 +71,14 @@ class NewsIndexPage(HeroMixin, Page):
         return context
 
 
-class NewsStoryPage(TypesetBodyMixin, HeroMixin, Page):
+class NewsStoryPage(TypesetBodyMixin, HeroMixin, PublishedDateMixin, Page):
     topics = ClusterTaggableManager(through=NewsTopic, blank=True)
     press_release = models.BooleanField(
         default=False, help_text="Should this page appear in the Media Center?")
 
     content_panels = Page.content_panels + [
         hero_panels(),
+        PublishedDatePanel(),
         FieldPanel('press_release'),
         FieldPanel('topics'),
         StreamFieldPanel('body'),
@@ -139,7 +142,7 @@ class MediaCenterPage(TypesetBodyMixin, HeroMixin, Page):
     def get_context(self, request):
         context = super(MediaCenterPage, self).get_context(request)
         page = request.GET.get('page', None)
-        news_stories = NewsStoryPage.objects.live().filter(press_release=True).order_by('-first_published_at')
+        news_stories = NewsStoryPage.objects.live().filter(press_release=True).order_by('-published_date')
 
         paginator = Paginator(news_stories, MAX_PAGE_SIZE)
         try:

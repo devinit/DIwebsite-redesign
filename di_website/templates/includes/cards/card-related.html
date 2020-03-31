@@ -9,7 +9,9 @@
     {% include 'includes/cards/card-image.html' with item=item %}
 
     <div class="card__body">
-      {% if item.first_published_at %}
+      {% if item.published_date %}
+        <span class="card__meta">{{ item.published_date|date:"j F Y" }}</span>
+      {% else %}
         <span class="card__meta">{{ item.first_published_at|date:"j F Y" }}</span>
       {% endif %}
         <h3 class="card__title"><span>{{ item.title }}</span></h3>

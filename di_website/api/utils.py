@@ -29,7 +29,7 @@ def serialiseDatasources(request, spotlightPage):
         page = {}
         page['caption'] = item.value['caption']
         page['url'] = item.value['url']
-        page['page_url'] = item.value['page'].get_url(request, request.site) if item.value['page'] else ''
+        page['page_url'] = item.value['page'].full_url if item.value['page'] else ''
         dataSourceLinks.append(page)
     return dataSourceLinks
 

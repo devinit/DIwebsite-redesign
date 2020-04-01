@@ -27,9 +27,15 @@ def serialiseDatasources(request, spotlightPage):
     dataSourceLinks = []
     for item in spotlightPage.datasources_links:
         page = {}
-        page['caption'] = item.value['caption']
-        page['url'] = item.value['url']
-        page['page_url'] = item.value['page'].full_url if item.value['page'] else ''
+        if item.value['caption']:
+            page['caption'] = item.value['caption']
+        elif item.value['page']:
+            page['caption'] = item.value['page'].title
+
+        if item.value['url']:
+            page['url'] = item.value['url']
+        elif item.value['page']:
+            page['url'] = item.value['page'].full_url
         dataSourceLinks.append(page)
     return dataSourceLinks
 

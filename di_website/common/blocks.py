@@ -110,21 +110,9 @@ class AbstractLinkBlock(StructBlock):
         icon = 'fa-link'
         abstract = True
 
-class DatasourcesLinkBlock(StructBlock):
-    caption = CharBlock(
-        required=False,
-    )
-    page = PageChooserBlock(
-        required=False,
-        help_text='For the link/button to show, either this or the url are required'
-    )
-    url = URLBlock(required=False, help_text='An alternative to an internal page')
-
-    class Meta:
-        icon = 'fa-link'
 
 class DatasourcesStreamBlock(StreamBlock):
-    link = DatasourcesLinkBlock()
+    link = AbstractLinkBlock()
     required = False
 
 

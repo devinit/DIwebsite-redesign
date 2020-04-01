@@ -111,11 +111,6 @@ class AbstractLinkBlock(StructBlock):
         abstract = True
 
 
-class DatasourcesStreamBlock(StreamBlock):
-    link = AbstractLinkBlock()
-    required = False
-
-
 class LinkBlock(AbstractLinkBlock):
     class Meta:
         icon = 'fa-link'

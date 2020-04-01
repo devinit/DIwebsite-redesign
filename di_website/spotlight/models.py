@@ -20,8 +20,9 @@ class SpotlightPage(Page):
     country_code = models.CharField(max_length=100, help_text='e.g. UG, KE', default='')
     country_name = models.CharField(max_length=255)
     currency_code = models.CharField(max_length=100, help_text='UGX, KES', default='')
-    datasources_description = models.TextField(help_text='A description for data sources section', default='')
-    datasources_links = StreamField([ ('link', LinkBlock()), ], null=True, blank=True)
+    datasources_description = models.TextField(
+        help_text='A description for data sources section', null=True, blank=True, verbose_name='Description')
+    datasources_links = StreamField([ ('link', LinkBlock()), ], null=True, blank=True, verbose_name='Links')
     content_panels = Page.content_panels + [
         MultiFieldPanel([
             FieldPanel('country_code'),

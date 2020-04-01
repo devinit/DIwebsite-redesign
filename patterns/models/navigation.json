@@ -52,6 +52,7 @@
         {"label": "Events"}
     ],
     "secondary_data": [
+    	{"label": "Country spotlights"},
         {"label": "Datasets"},
         {"label": "Approach and methodology"},
         {"label": "Code of practice"},

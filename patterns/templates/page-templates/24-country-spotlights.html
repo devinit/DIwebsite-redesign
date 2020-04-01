@@ -1,0 +1,120 @@
+{# 1. Extend the relevant layout #}
+{# --------------------------------------- #}
+
+{% extends 'default.html' %}
+
+
+{# --------------------------------------- #}
+{# 2. Assign Settings and variables #}
+{# --------------------------------------- #}
+
+{% set id = "country-spotlights" %}
+{% set section = "Country Spotlights" %}
+{% set title = "Country Spotlights" %}
+{% set excerpt = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis commodo mattis nisi eu adipiscing." %}
+{% set image_name = "Pin-at-Open-Up-conference-2-1600x780.jpg" %}
+
+{# --------------------------------------- #}
+{# 3. Add models and macros #}
+{# --------------------------------------- #}
+
+{% model 'navigation', as="navigation" %}
+
+{% import 'macros/icon.html' as icons %}
+{% import 'macros/secondary-navigation.html' as secondary_navigation %}
+
+
+{# --------------------------------------- #}
+{#
+   4. Add page content into relevant areas
+	  Add/Delete blocks as necessary
+#}
+{# --------------------------------------- #}
+
+{% block body %}
+	{% include 'heroes/hero.html' %}
+
+	<section class="section">
+		<div class="row row--narrow">
+			<div class="l-sidebar">
+				<aside class="l-sidebar__aside">
+					<div class="aside aside--clipping">
+						{{ secondary_navigation.active(active_page, section, navigation.secondary_data) }}
+					</div>
+				</aside>
+				<div class="l-sidebar__body">
+					<div class="is-typeset wysiwyg">
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="section section--alt">
+		<div class="row row--narrow">
+			<h2 class="m-text-major">Kenya</h2>
+			<div class="l-3up">
+				<div class="l-3up__col">
+					<div class="is-typeset">
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis commodo mattis nisi eu adipiscing. <a href="#none">Vivamus euismod</a> nisl a leo pellentesque sed lobortis ipsum commodo. </p>
+						<p>In dignissim mollis felis non malesuada. Morbi ullamcorper tempus metus sed lobortis. Aenean in justo dapibus quam hendrerit auctor. Phasellus vehicula nisl in felis laoreet lobortis. </p>
+						<p>Nullam sagittis volutpat purus, id tristique diam vestibulum vitae. In a nulla enim, pharetra condimentum ante. Ut suscipit lacinia sem, ac rhoncus lacus fringilla non. Donec adipiscing posuere imperdiet. </p>
+					</div>
+				</div>
+				<div class="l-3up__col">
+					<a href="#" class="card card--mid card--offset">
+						<div class="card__media" style="background-image: url({{ global.assets_root }}/img/ptn-example.jpg);"></div>
+						<div class="card__body">
+							<h3 class="card__title"><span>Spotlight on Kenya</span></h3>
+							<p class="card__excerpt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab laboriosam fugiat, sequi suscipit impedit amet, molestiae earum ipsa a corrupti, repudiandae illo deleniti, qui esse porro!</p>
+						</div>
+					</a>
+				</div>
+				<div class="l-3up__col">
+					<a href="#" class="card card--mid card--offset">
+						<div class="card__media" style="background-image: url({{ global.assets_root }}/img/ptn-example.jpg);"></div>
+						<div class="card__body">
+							<h3 class="card__title"><span>Kenya location comparison tool</span></h3>
+							<p class="card__excerpt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab laboriosam fugiat, sequi suscipit impedit amet, molestiae earum ipsa a corrupti, repudiandae illo deleniti, qui esse porro!</p>
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="section">
+		<div class="row row--narrow">
+			<h2 class="m-text-major">Uganda</h2>
+			<div class="l-3up">
+				<div class="l-3up__col">
+					<div class="is-typeset">
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis commodo mattis nisi eu adipiscing. <a href="#none">Vivamus euismod</a> nisl a leo pellentesque sed lobortis ipsum commodo. </p>
+						<p>In dignissim mollis felis non malesuada. Morbi ullamcorper tempus metus sed lobortis. Aenean in justo dapibus quam hendrerit auctor. Phasellus vehicula nisl in felis laoreet lobortis. </p>
+						<p>Nullam sagittis volutpat purus, id tristique diam vestibulum vitae. In a nulla enim, pharetra condimentum ante. Ut suscipit lacinia sem, ac rhoncus lacus fringilla non. Donec adipiscing posuere imperdiet. </p>
+					</div>
+				</div>
+				<div class="l-3up__col">
+					<a href="#" class="card card--offset">
+						<div class="card__media" style="background-image: url({{ global.assets_root }}/img/ptn-example.jpg);"></div>
+						<div class="card__body">
+							<h3 class="card__title"><span>Spotlight on Uganda</span></h3>
+							<p class="card__excerpt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab laboriosam fugiat, sequi suscipit impedit amet, molestiae earum ipsa a corrupti, repudiandae illo deleniti, qui esse porro!</p>
+						</div>
+					</a>
+				</div>
+				<div class="l-3up__col">
+					<a href="#" class="card card--offset">
+						<div class="card__media" style="background-image: url({{ global.assets_root }}/img/ptn-example.jpg);"></div>
+						<div class="card__body">
+							<h3 class="card__title"><span>Uganda location comparison tool</span></h3>
+							<p class="card__excerpt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab laboriosam fugiat, sequi suscipit impedit amet, molestiae earum ipsa a corrupti, repudiandae illo deleniti, qui esse porro!</p>
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+{% endblock %}

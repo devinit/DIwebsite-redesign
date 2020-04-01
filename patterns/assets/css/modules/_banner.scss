@@ -66,6 +66,13 @@
     }
 }
 
+.banner__content {
+    a {
+        color: #fff;
+        text-decoration: underline;
+    }
+}
+
 .banner__excerpt {
     @include font-size($para);
     color: #fff;

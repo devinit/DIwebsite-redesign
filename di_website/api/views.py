@@ -10,6 +10,7 @@ from di_website.home.templatetags.footer_tags import get_footer_text
 from di_website.datasection.models import DataSectionPage
 from .utils import (
     serialise_page,
+    serialiseDatasources,
     fetch_and_serialise_newsletters,
     fetch_and_serialise_footer_sections,
     serialise_spotlight_theme)
@@ -56,7 +57,7 @@ def spotlight_pages_view(request):
     pages = []
     spotlights = SpotlightPage.objects.all().live()
     for spotlight in spotlights:
-        page = serialise_page(request, spotlight, fields=['title', 'full_url', 'country_code', 'country_name', 'currency_code'])
+        page = serialise_page(request, spotlight, fields=['title', 'full_url', 'country_code', 'country_name', 'currency_code', 'datasources_description'])
         themes = spotlight.get_children().live()
         page['themes'] = []
         for theme in themes:
@@ -72,7 +73,8 @@ def spotlight_page_view(request, slug=None):
     if slug:
         try:
             spotlight = SpotlightPage.objects.filter(slug=slug)[0]
-            page = serialise_page(request, spotlight, fields=['title', 'full_url', 'country_code', 'country_name', 'currency_code'])
+            page = serialise_page(request, spotlight, fields=['title', 'full_url', 'country_code', 'country_name', 'currency_code', 'datasources_description'])
+            page['datasource_links'] = serialiseDatasources(request, spotlight)
             themes = spotlight.get_children().live()
             page['themes'] = []
             for theme in themes:

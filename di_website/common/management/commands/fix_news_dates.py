@@ -15,7 +15,7 @@ class Command(BaseCommand):
 
         all_news = NewsStoryPage.objects.live()
         for news_story in all_news:
-            news_story.publication_date = news_story.first_published_at
+            news_story.published_date = news_story.first_published_at
             news_story.save_revision().publish()
 
         self.stdout.write(self.style.SUCCESS('Called successfully'))

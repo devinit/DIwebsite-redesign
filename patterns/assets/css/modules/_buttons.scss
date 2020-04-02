@@ -167,6 +167,11 @@ button.button {
 		background-color: $action;
 		color: #fff;
 	}
+	&--fill {
+		border-color: $action-respond;
+		background-color: $action-respond;
+		color: #fff;
+	}
 }
 
 .button--reverse {

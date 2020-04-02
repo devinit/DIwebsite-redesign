@@ -282,3 +282,6 @@ CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL')
 
 # Disable update notifications on CMS
 WAGTAIL_ENABLE_UPDATE_CHECK = False
+
+# Fix for max fields error message
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 10000

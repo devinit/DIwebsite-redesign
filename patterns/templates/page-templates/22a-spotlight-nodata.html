@@ -114,14 +114,14 @@
                             </div>
 
                             <div class="spotlight-buttons">
-                                <a href="#" class="button">Compare this location to others</a>
-                                <a href="#" class="button js-modal-trigger">Share this visualisation</a>
+                                <button type="button" class="button js-modal-trigger">Share this visualisation</button>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="spotlight__main spotlight__main--map">
                     <div class="spotlight__interactive">
+                        <a href="#" class="button button--secondary--fill">Compare this location to others</a>
                         <div id="map"></div>
                     </div>
                 </div>
@@ -144,8 +144,7 @@
                         </div>
 
                         <div class="spotlight-buttons">
-                            <a href="#" class="button">Compare this location to others</a>
-                            <a href="#" class="button js-modal-trigger">Share this visualisation</a>
+                            <button type="button" class="button js-modal-trigger">Share this visualisation</button>
                         </div>
                     </div>
                 </div>
@@ -153,38 +152,7 @@
         </div>
     </section>
 
-    <div id="share-modal" class="modal modal--share">
-        <div class="modal__content modal__content--minor">
-            <button type="button" class="modal-button-close js-modal-trigger">&times;</button>
-            <h2 class="modal__heading">Share this visualisation</h2>
-            <form class="form">
-                <div class="form-field">
-                    <div for="share" class="form-label form-label--hidden">Share</div>
-                    <div id="share">
-                        <div class="form-field__radio-buttons">
-                            <div class="form-radio-group cp-form-radio-group-share">
-                                <input class="form-radio" type="radio" name="default" id="default" value="" />
-                                <label class="form-label" for="default">In default view</label>
-                            </div>
-                            <div class="form-radio-group cp-form-radio-group-share">
-                                <input class="form-radio" type="radio" name="configured" id="configured" value="" />
-                                <label class="form-label" for="configured">As I configured it</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-field">
-                    <label for="url" class="form-label form-label--hidden">url</label>
-                    <input class="form-item" type="text" name="url" id="url">
-                </div>
-            </form>
-            <ul class="footer__social">
-                <li><a href="#"><img src="{{ global.assets_root }}/svg/source/twitter.svg" alt="Twitter"></a></li>
-                <li><a href="#"><img src="{{ global.assets_root }}/svg/source/facebook.svg" alt="Facebook"></a></li>
-                <li><a href="#"><img src="{{ global.assets_root }}/svg/source/email.svg" alt="Email"></a></li>
-            </ul>
-        </div>
-    </div>
+    {% include 'partials/share-modal.html' %}
 
     <section class="section section--alt-dark">
         <div class="row row--wide">
@@ -502,8 +470,10 @@
                 </div>
                 <div class="spotlight__main">
                     <h2 class="spotlight__heading">Countries in [Location]</h2>
-                    <div class="alert alert--notice"><i role="presentation" aria-hidden="true" class="ico ico-warning-warning"></i>
-                        <p>Unfortunately, we do not have data for this location</p>
+                    <div class="spotlight__interactive">
+                        <div class="alert alert--notice"><i role="presentation" aria-hidden="true" class="ico ico-warning-warning"></i>
+                            <p>Unfortunately, we do not have data for this location</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -590,8 +560,10 @@
             <div class="spotlight spotlight--leader">
                 <div class="spotlight__aside">
                     <h2 class="spotlight__heading">[Location]</h2>
-                    <div class="alert alert--notice"><i role="presentation" aria-hidden="true" class="ico ico-warning-warning"></i>
-                        <p>Unfortunately, we do not have data for this location, but you can see data for the countries that make up this area to the right.</p>
+                    <div class="spotlight__interactive">
+                        <div class="alert alert--notice"><i role="presentation" aria-hidden="true" class="ico ico-warning-warning"></i>
+                            <p>Unfortunately, we do not have data for this location, but you can see data for the countries that make up this area to the right.</p>
+                        </div>
                     </div>
                 </div>
                 <div class="spotlight__main">

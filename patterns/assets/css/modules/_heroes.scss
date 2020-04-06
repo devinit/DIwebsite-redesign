@@ -100,6 +100,30 @@
             float: left;
         }
     }
+    .hero--spotlight & {
+        @include respond-to($c-vp) {
+            width: 50%;
+            float: left;
+        }
+    }
+}
+
+.hero__aside {
+    background-color: #fff;
+    padding: 2em;
+    margin-top: 2em;
+    @include respond-to($c-vp) {
+        margin-top: 0;
+        position: relative;
+        top: -60%;
+        transform: translateY(60%);
+    }
+    .hero--spotlight & {
+        @include respond-to($c-vp) {
+            width: 30%;
+            float: right;
+        }
+    }
 }
 
 .hero__profile {

@@ -33,19 +33,19 @@
 	},
 	{
 		"name": "02d-homepage-news",
-		"stage": "review"
+		"stage": "approved"
 	},
 	{
 		"name": "02e-homepage-blog",
-		"stage": "review"
+		"stage": "approved"
 	},
 	{
 		"name": "02f-homepage-event",
-		"stage": "review"
+		"stage": "approved"
 	},
 	{
 		"name": "02g-homepage-project",
-		"stage": "review"
+		"stage": "approved"
 	},
 	{
 		"name": "03-who-we-are",
@@ -193,10 +193,18 @@
 	},
 	{
 		"name": "22-spotlight",
-		"stage": "Template"
+		"stage": "approved"
+	},
+	{
+		"name": "22a-spotlight-nodata",
+		"stage": "approved"
 	},
 	{
 		"name": "23-spotlight-location-comparison",
+		"stage": "approved"
+	},
+	{
+		"name": "24-country-spotlights",
 		"stage": "Template"
 	}
 ]

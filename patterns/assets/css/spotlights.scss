@@ -32,6 +32,7 @@ body {
 
 // Import modules for spotlight specific templates
 @import "modules/priority-extends/*";
+@import "modules/alerts";
 @import "modules/branding";
 @import "modules/breadcrumbs";
 @import "modules/buttons";
@@ -43,6 +44,7 @@ body {
 @import "modules/keyframes";
 @import "modules/layout";
 @import "modules/media";
+@import "modules/modal";
 @import "modules/modules";
 @import "modules/navigation";
 @import "modules/rows";

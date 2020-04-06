@@ -42,15 +42,16 @@
         <div class="row row--narrow">
             <h2 class="section__heading">Location comparison</h2>
             <div class="spotlight-banner">
+                <h3 class="spotlight-banner__heading">Add location</h3>
                 <div class="spotlight-banner__aside">
-                    <a href="#" class="m-text-link spotlight__location spotlight__location--active">{{ icons.icon('ico-plus-poppy', '16') }} <span>Add a location</span></a>
+                    <!-- <a href="#" class="m-text-link spotlight__location spotlight__location--active">{{ icons.icon('ico-plus-poppy', '16') }} <span>Add a location</span></a> -->
                     {% include 'partials/country-list.html' %}
                 </div>
                 <div class="spotlight-banner__main">
-                    <div id="js-profile-search-container" class="spotlight__countries">
+                    <div id="js-profile-search-container">
                         <label class="form-label form-label--hidden" for="country-search" aria-hidden="true">Search for a location</label>
                         <input id="js-profile-search" class="form-item form-item--auto" type="text" name="country-search" id="country-search" placeholder="Search for a location">
-                        <button type="button" class="countries__searched-cancel"><span>Cancel</span></button>
+                        <!-- <button type="button" class="countries__searched-cancel"><span>Cancel</span></button> -->
                         <nav class="countries__searched countries__searched--minor" aria-hidden="true">
                             <ul class="countries__searched__list" id="js-profile-results"></ul>
                         </nav>
@@ -150,7 +151,7 @@
             <div class="spotlight-banner">
                 <div class="spotlight-banner__aside">
                     <a href="#" class="m-text-link spotlight__location spotlight__location--active">{{ icons.icon('ico-plus-poppy', '16') }} <span>Add another comparison</span></a>
-                    {% include 'partials/country-list.html' %}
+                    {% include 'partials/country-list-showhide.html' %}
                 </div>
                 <div class="spotlight-banner__main">
                     <div id="js-profile-search-container" class="spotlight__countries">

@@ -1,0 +1,59 @@
+<div id="js-countries-menu-container" class="spotlight__countries">
+    <nav class="countries-menu-list js-countries-menu-trigger">
+        <a class="countries-menu-list__item countries-menu-list__parent" href="#"><span>Uganda</span></a>
+    </nav>
+    <nav class="countries-menu-list animated inactive" id="js-countries-menu">
+        <a class="countries-menu-list__item countries-menu-list__parent countries-menu-list__item--open js-countries-menu-trigger" href="#">Uganda</a>
+        <a href="#profile" class="countries-menu__profile countries-menu__link js-profile-item" aria-hidden="true" title="View Uganda">View</a>
+        <ul class="countries-menu-list__content" id="js-profile-nav">
+            {% for item in location.locations_uganda %}
+                {% for region in item.regions %}
+                    <li class="countries-menu-list--has-children js-profile-region-item">
+                        <a href="#" class="countries-menu-list__item countries-menu-list__item--parent-first js-menu-item js-search-item active " data-has-children="1" aria-label="View {{ region.region_name }}">{{ region.region_name }}</a>
+                        <a href="#profile" class="countries-menu__profile countries-menu__link js-profile-item" aria-hidden="true" title="View {{ region.region_name }}">View</a>
+                        <ul class="js-profile-subregion-list">
+                            {% for district in region.districts %}
+                                <li class="countries-menu-list--has-children js-profile-subregion-item">
+                                    <a href="#" class="countries-menu-list__item countries-menu-list__item--parent-second js-menu-item js-search-item" data-has-children="1" aria-label="View {{ district.district_name }}">{{ district.district_name }}</a>
+                                    <a href="#profile" class="countries-menu__profile countries-menu__link js-profile-item" aria-hidden="true" title="View {{ district.district_name }}">View</a>
+                                    <ul class="js-profile-country-list">
+                                        {% for county in district.counties %}
+                                            <li class="countries-menu-list__countries js-profile-country-item">
+                                                <a href="#" class="countries-menu-list__item countries-menu-list__item--parent-third js-menu-item js-search-item"  data-has-children="1" title="View {{ county.county_name }}">{{ county.county_name }}</a>
+                                                <a href="#profile" aria-hidden="true" class="countries-menu__profile countries-menu__link js-profile-item" title="View {{ county.county_name }}">View</a>
+                                                <ul class="js-profile-country-list">
+                                                    {% for sub_county in county.sub_counties %}
+                                                        <li class="countries-menu-list__countries js-profile-country-item">
+                                                            <a href="#" class="countries-menu-list__item countries-menu-list__item--parent-fourth js-menu-item js-search-item"  data-has-children="1" title="View {{ sub_county.sub_county_name }}">{{ sub_county.sub_county_name }}</a>
+                                                            <a href="#profile" aria-hidden="true" class="countries-menu__profile countries-menu__link js-profile-item" title="View {{ sub_county.sub_county_name }}">View</a>
+                                                            <ul class="js-profile-country-list">
+                                                                {% for parish in sub_county.parishes %}
+                                                                    <li class="countries-menu-list__countries js-profile-country-item">
+                                                                        <a href="#" class="countries-menu-list__item countries-menu-list__item--parent-fifth js-menu-item js-search-item"  data-has-children="1" title="View {{ parish.parish_name }}">{{ parish.parish_name }}</a>
+                                                                        <a href="#profile" aria-hidden="true" class="countries-menu__profile countries-menu__link js-profile-item" title="View {{ parish.parish_name }}">View</a>
+                                                                        <ul class="js-profile-country-list">
+                                                                            {% for village in parish.villages %}
+                                                                            <li class="countries-menu-list__countries js-profile-country-item">
+                                                                                <a href="#" class="countries-menu-list__item countries-menu-list__item--parent-sixth js-search-item" title="View {{ village.village_name }}">{{ village.village_name }}</a>
+                                                                                <a href="#profile" aria-hidden="true" class="countries-menu__profile countries-menu__link js-profile-item" title="View {{ village.village_name }}">View</a>
+                                                                            </li>
+                                                                            {% endfor %}
+                                                                        </ul>
+                                                                    </li>
+                                                                {% endfor %}
+                                                            </ul>
+                                                        </li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+    </nav>
+</div>

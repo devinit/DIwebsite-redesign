@@ -49,6 +49,11 @@
     }
 }
 
+.spotlight-banner__heading {
+    @include font-size($epsilon);
+    margin-bottom: 0.5em;
+}
+
 .spotlight-banner__form {
     display: block;
     @include respond-to($b-vp) {

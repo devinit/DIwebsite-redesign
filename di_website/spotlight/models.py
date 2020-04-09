@@ -84,6 +84,7 @@ class SpotlightIndicator(Page):
     )
     start_year = models.IntegerField(blank=True, null=True)
     end_year = models.IntegerField(blank=True, null=True)
+    excluded_years = models.TextField(blank=True, null=True, help_text='Comma separated values e.g. 2002,2004,2017')
     DATA_FORMAT_CHOICES = [
         ('percent', 'Percentage'),
         ('plain', 'Plain'),

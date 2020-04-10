@@ -140,21 +140,25 @@
 	z-index: 1;
 	display: block;
 	margin-top: 1em;
-	@include respond-to($c-vp - 100px) {
+	@include respond-to($c-vp) {
 		width: 32.5%;
 		float: left;
 		margin-left: 5px;
+		&:first-of-type {
+			margin-left: 0;
+		}
 		&:nth-child(3n) {
 			margin-right: 0;
 		}
 		.button {
 			margin-top: 2em;
-			display: block;
+			display: inline-block;
+			margin-right: 3px;
 		}
 	}
 	.spotlight__comparison & {
 		margin-top: 0;
-		@include respond-to($c-vp - 100px) {
+		@include respond-to($c-vp) {
 			margin-right: 1em;
 			&:last-of-type {
 				width: 10%;

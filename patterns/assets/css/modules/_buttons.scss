@@ -38,7 +38,18 @@ button.button {
 	color: #fff;
 	@include link-active-styles {
 		background-color: $slate;
-	};
+	}
+}
+
+button.button--alt {
+	background-color: transparent;
+	color: $slate;
+	border: 1px solid $slate;
+	@include link-active-styles {
+		background-color: transparent;
+		color: $poppy-dark;
+		border-color: $poppy-dark;
+	}
 }
 
 // ------------------------------------------------------------
@@ -156,6 +167,16 @@ button.button {
 		position: absolute;
 		top: 14px;
 		right: 14px;
+	}
+}
+
+.button--icon-l {
+	position: relative;
+	padding-left: 3em;
+	.ico {
+		position: absolute;
+		top: 14px;
+		left: 14px;
 	}
 }
 

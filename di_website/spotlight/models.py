@@ -10,6 +10,9 @@ from wagtail.core.blocks import StreamBlock
 from .snippets import SpotlightSource, SpotlightColour
 
 from di_website.common.blocks import LinkBlock
+from di_website.common.base import hero_panels
+from di_website.common.mixins import HeroMixin
+
 
 class SpotlightPage(Page):
     class Meta():
@@ -125,3 +128,15 @@ class SpotlightIndicator(Page):
     ]
 
     search_fields = [index.SearchField('ddw_id'), index.SearchField('title')]
+
+
+class CountrySpotlight(HeroMixin, Page):
+    class Meta():
+        verbose_name = 'Country Spotlight'
+
+    parent_page_types = ['datasection.DataSectionPage']
+    subpage_types = ['SpotlightPage']
+
+    content_panels = Page.content_panels + [
+        hero_panels(),
+    ]

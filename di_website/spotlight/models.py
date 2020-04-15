@@ -11,6 +11,7 @@ from wagtail.core.blocks import (
     StructBlock,
     StreamBlock,
     RichTextBlock,
+    ChoiceBlock
 )
 
 from .snippets import SpotlightSource, SpotlightColour
@@ -30,11 +31,10 @@ class SpotlightPage(Page):
     country_code = models.CharField(max_length=100, help_text='e.g. UG, KE', default='')
     country_name = models.CharField(max_length=255)
     currency_code = models.CharField(max_length=100, help_text='UGX, KES', default='')
-    description = RichTextField(
+    description = models.TextField(
         blank=True,
         verbose_name='Description',
         help_text='Optional: a brief description about this page',
-        features=RICHTEXT_FEATURES_NO_FOOTNOTES
     )
     datasources_description = models.TextField(
         help_text='A description for data sources section', null=True, blank=True, verbose_name='Description')
@@ -165,6 +165,10 @@ class CountrySpotlight(TypesetBodyMixin, HeroMixin, Page):
                 features=RICHTEXT_FEATURES_NO_FOOTNOTES
             )),
             ('spotlight_page', add_country_spotlight),
+            ('background_theme', ChoiceBlock(choices=[
+                ('light', 'Light'),
+                ('dark', 'Dark'),
+            ], help_text='Select background theme for this section')),
         ])),
     ], blank=True, help_text="Add Country Spotlight.")
 

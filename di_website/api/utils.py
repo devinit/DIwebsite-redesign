@@ -1,7 +1,6 @@
 import json
 
 from di_website.home.models import FooterSection, NewsLetter
-from di_website.spotlight.snippets import SpotlightColour, SpotlightSource
 
 
 def object_to_dict(obj, fields):

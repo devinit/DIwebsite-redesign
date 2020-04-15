@@ -11,22 +11,6 @@ from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
 
 @register_snippet
-class SpotlightSource(index.Indexed, ClusterableModel):
-    name = models.TextField()
-
-    panels = [FieldPanel('name')]
-
-    search_fields = [index.SearchField('name')]
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = "Spotlight Source"
-        verbose_name_plural = "Spotlight Sources"
-
-
-@register_snippet
 class SpotlightColour(ClusterableModel):
     name = models.CharField(max_length=200)
     code = models.CharField(max_length=7)

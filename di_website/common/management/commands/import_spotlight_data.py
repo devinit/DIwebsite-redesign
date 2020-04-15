@@ -3,7 +3,7 @@ import csv
 from django.core.management.base import BaseCommand
 
 from di_website.spotlight.models import SpotlightPage, SpotlightIndicator, SpotlightTheme
-from di_website.spotlight.snippets import SpotlightColour, SpotlightSource
+from di_website.spotlight.snippets import SpotlightColour
 from di_website.datasection.models import DataSectionPage
 
 
@@ -135,7 +135,6 @@ class Command(BaseCommand):
                             print('No theme found with slug ' + row[1] + ' for spotlight slug ' + spotlight.slug)
                             continue
                         colour = self.get_colour_by_name(row[2])
-                        source = self.get_source_by_name(row[14])
                         try:
                             start_year = int(row[3])
                         except ValueError:
@@ -147,7 +146,7 @@ class Command(BaseCommand):
                             end_year = None
 
                         indicator = SpotlightIndicator(
-                            ddw_id=row[0], title=row[10], description=row[13], color=colour, source=source,
+                            ddw_id=row[0], title=row[10], description=row[13], color=colour, source=row[14],
                             start_year=start_year, end_year=end_year, range=row[5], value_suffix=row[7],
                             tooltip_template=row[12])
                         theme.add_child(instance=indicator)
@@ -186,14 +185,3 @@ class Command(BaseCommand):
             return colour
         except IndexError:
             return None
-
-    def get_source_by_name(self, name):
-        try:
-            source = SpotlightSource.objects.filter(name=name)[0]
-
-            return source
-        except IndexError:
-            source = SpotlightSource(name=name)
-            source.save()
-
-            return source

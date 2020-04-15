@@ -2,27 +2,40 @@ from django.db import models
 
 from wagtail.search import index
 from wagtail.core.models import Page
-from wagtail.core.fields import StreamField
+from wagtail.core.fields import StreamField, RichTextField
 from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, StreamFieldPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
-from wagtail.core.blocks import StreamBlock
+from wagtail.core.blocks import (
+    CharBlock,
+    PageChooserBlock,
+    StructBlock,
+    StreamBlock,
+    RichTextBlock,
+)
 
 from .snippets import SpotlightSource, SpotlightColour
 
 from di_website.common.blocks import LinkBlock
 from di_website.common.base import hero_panels
-from di_website.common.mixins import HeroMixin
+from di_website.common.mixins import HeroMixin, TypesetBodyMixin
+from di_website.common.constants import RICHTEXT_FEATURES_NO_FOOTNOTES
 
 
 class SpotlightPage(Page):
     class Meta():
         verbose_name = 'Spotlight Page'
 
-    parent_page_types = ['datasection.DataSectionPage']
+    parent_page_types = ['spotlight.CountrySpotlight']
 
     country_code = models.CharField(max_length=100, help_text='e.g. UG, KE', default='')
     country_name = models.CharField(max_length=255)
     currency_code = models.CharField(max_length=100, help_text='UGX, KES', default='')
+    description = RichTextField(
+        blank=True,
+        verbose_name='Description',
+        help_text='Optional: a brief description about this page',
+        features=RICHTEXT_FEATURES_NO_FOOTNOTES
+    )
     datasources_description = models.TextField(
         help_text='A description for data sources section', null=True, blank=True, verbose_name='Description')
     datasources_links = StreamField([ ('link', LinkBlock()), ], null=True, blank=True, verbose_name='Links')
@@ -30,7 +43,8 @@ class SpotlightPage(Page):
         MultiFieldPanel([
             FieldPanel('country_code'),
             FieldPanel('country_name'),
-            FieldPanel('currency_code')
+            FieldPanel('currency_code'),
+            FieldPanel('description')
         ], heading='Settings'),
         MultiFieldPanel([
             FieldPanel('datasources_description'),
@@ -130,13 +144,38 @@ class SpotlightIndicator(Page):
     search_fields = [index.SearchField('ddw_id'), index.SearchField('title')]
 
 
-class CountrySpotlight(HeroMixin, Page):
-    class Meta():
-        verbose_name = 'Country Spotlight'
-
-    parent_page_types = ['datasection.DataSectionPage']
-    subpage_types = ['SpotlightPage']
+class CountrySpotlight(TypesetBodyMixin, HeroMixin, Page):
+    spotlight_page = models.ForeignKey(
+        'wagtailcore.Page',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        help_text="Country Spotlight Page"
+    )
+    add_country_spotlight = StreamBlock([
+        ('add_spotlight_page', PageChooserBlock(required=False, target_model='spotlight.SpotlightPage')),
+    ], blank=True, help_text="Add Page")
+    country_spotlight = StreamField([
+        ('country_information', StructBlock([
+            ('title', CharBlock(required=False)),
+            ('description', RichTextBlock(
+                icon='fa-paragraph',
+                template='blocks/paragraph_block.html',
+                features=RICHTEXT_FEATURES_NO_FOOTNOTES
+            )),
+            ('spotlight_page', add_country_spotlight),
+        ])),
+    ], blank=True, help_text="Add Country Spotlight.")
 
     content_panels = Page.content_panels + [
         hero_panels(),
+        StreamFieldPanel('body'),
+        StreamFieldPanel('country_spotlight'),
     ]
+
+    parent_page_types = ['datasection.DataSectionPage']
+    subpage_types = ['spotlight.SpotlightPage']
+
+    class Meta():
+        verbose_name = 'Country Spotlight'

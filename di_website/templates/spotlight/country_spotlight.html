@@ -27,29 +27,25 @@
   </section>
 
   {% for block in page.country_spotlight %}
-    <section class="section {% if block.value.background_theme == 'light' %}section--alt{% endif %}">
-		<div class="row row--narrow">
-			<h2 class="m-text-major">{{block.value.title}}</h2>
-			<div class="l-3up">
-				<div class="l-3up__col">
-					<div class="is-typeset">
-            {{block.value.description}}
-					</div>
-				</div>
-        {% for spotlight_page in block.value.spotlight_page %}
-          <div class="l-3up__col">
-					<a href="#" class="card card--mid card--offset">
-						<div class="card__media" style="background-image: url(/assets/img/ptn-example.jpg);"></div>
-						<div class="card__body">
-							<h3 class="card__title"><span>{{spotlight_page.value.title}}</span></h3>
-							<p class="card__excerpt">{{spotlight_page.value.description}}</p>
-						</div>
-					</a>
-				</div>
-        {% endfor %}
-			</div>
-		</div>
-	</section>
+    {% with block.value.spotlight_page as spotlight_pages %}
+      <section class="section {% if block.value.background_theme == 'light' %}section--alt{% endif %}">
+        <div class="row row--narrow">
+          <h2 class="m-text-major">{{block.value.title}}</h2>
+          <div class="l-3up">
+            <div class="l-3up__col">
+              <div class="is-typeset">
+                {{block.value.description}}
+              </div>
+            </div>
+            {% for spotlight_page in spotlight_pages %}
+              <div class="l-3up__col">
+                {% include 'includes/cards/card-spotlights.html' with item=spotlight_page.value %}
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </section>
+    {% endwith %}
   {% endfor %}
 
 {% endblock %}

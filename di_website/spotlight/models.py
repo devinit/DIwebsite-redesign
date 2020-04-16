@@ -160,11 +160,13 @@ class CountrySpotlight(TypesetBodyMixin, HeroMixin, Page):
     country_spotlight = StreamField([
         ('country_information', StructBlock([
             ('title', CharBlock(required=False)),
-            ('description', RichTextBlock(
-                icon='fa-paragraph',
-                template='blocks/paragraph_block.html',
-                features=RICHTEXT_FEATURES_NO_FOOTNOTES
-            )),
+            ('spotlight_description', StreamBlock([
+                ('description', RichTextBlock(
+                    icon='fa-paragraph',
+                    template='blocks/paragraph_block.html',
+                    features=RICHTEXT_FEATURES_NO_FOOTNOTES
+                )),
+            ], blank=True, max_num=2)),
             ('spotlight_page', add_country_spotlight),
             ('background_theme', ChoiceBlock(choices=[
                 ('light', 'Light'),

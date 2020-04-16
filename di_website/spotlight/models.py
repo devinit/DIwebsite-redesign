@@ -11,7 +11,8 @@ from wagtail.core.blocks import (
     StructBlock,
     StreamBlock,
     RichTextBlock,
-    ChoiceBlock
+    ChoiceBlock,
+    TextBlock
 )
 
 from .snippets import SpotlightSource, SpotlightColour
@@ -28,6 +29,7 @@ class SpotlightPage(HeroMixin, Page):
         verbose_name = 'Spotlight Page'
 
     parent_page_types = ['spotlight.CountrySpotlight']
+    subpage_types =['spotlight.SpotlightLocationComparisonPage']
 
     country_code = models.CharField(max_length=100, help_text='e.g. UG, KE', default='')
     country_name = models.CharField(max_length=255)
@@ -47,6 +49,24 @@ class SpotlightPage(HeroMixin, Page):
             StreamFieldPanel('datasources_links')
         ], heading='Data Sources Section')
     ]
+
+
+class SpotlightLocationComparisonPage(HeroMixin, Page):
+    default_locations = StreamField([
+        ('locations', StructBlock([
+            ('name', TextBlock()),
+            ('geocode', TextBlock()),
+        ]))
+    ], null=True, blank=True, verbose_name='Default Locations')
+    content_panels = Page.content_panels + [
+        hero_panels(),
+        StreamFieldPanel('default_locations'),
+    ]
+
+    parent_page_types = ['spotlight.SpotlightPage']
+
+    class Meta():
+        verbose_name = 'Spotlight Location Comparison Page'
 
 
 class SpotlightTheme(Page):

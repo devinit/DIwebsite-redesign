@@ -20,6 +20,7 @@ from di_website.common.blocks import LinkBlock
 from di_website.common.base import hero_panels
 from di_website.common.mixins import HeroMixin, TypesetBodyMixin
 from di_website.common.constants import RICHTEXT_FEATURES_NO_FOOTNOTES
+from .blocks import CountryInfoStreamBlock
 
 
 class SpotlightPage(HeroMixin, Page):
@@ -31,11 +32,6 @@ class SpotlightPage(HeroMixin, Page):
     country_code = models.CharField(max_length=100, help_text='e.g. UG, KE', default='')
     country_name = models.CharField(max_length=255)
     currency_code = models.CharField(max_length=100, help_text='UGX, KES', default='')
-    body = models.TextField(
-        blank=True,
-        verbose_name='Description',
-        help_text='Optional: a brief description about this page',
-    )
     datasources_description = models.TextField(
         help_text='A description for data sources section', null=True, blank=True, verbose_name='Description')
     datasources_links = StreamField([ ('link', LinkBlock()), ], null=True, blank=True, verbose_name='Links')
@@ -44,8 +40,7 @@ class SpotlightPage(HeroMixin, Page):
         MultiFieldPanel([
             FieldPanel('country_code'),
             FieldPanel('country_name'),
-            FieldPanel('currency_code'),
-            FieldPanel('body')
+            FieldPanel('currency_code')
         ], heading='Settings'),
         MultiFieldPanel([
             FieldPanel('datasources_description'),
@@ -146,35 +141,11 @@ class SpotlightIndicator(Page):
 
 
 class CountrySpotlight(TypesetBodyMixin, HeroMixin, Page):
-    spotlight_page = models.ForeignKey(
-        'wagtailcore.Page',
-        null=True,
+    country_spotlight = StreamField(
+        CountryInfoStreamBlock(),
         blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+',
-        help_text="Country Spotlight Page"
+        help_text="Add Country Spotlight."
     )
-    add_country_spotlight = StreamBlock([
-        ('add_spotlight_page', PageChooserBlock(required=False, target_model='spotlight.SpotlightPage')),
-    ], blank=True, help_text="Add Page", max_num=2)
-    country_spotlight = StreamField([
-        ('country_information', StructBlock([
-            ('title', CharBlock(required=False)),
-            ('spotlight_description', StreamBlock([
-                ('description', RichTextBlock(
-                    icon='fa-paragraph',
-                    template='blocks/paragraph_block.html',
-                    features=RICHTEXT_FEATURES_NO_FOOTNOTES
-                )),
-            ], blank=True, max_num=2)),
-            ('spotlight_page', add_country_spotlight),
-            ('background_theme', ChoiceBlock(choices=[
-                ('light', 'Light'),
-                ('dark', 'Dark'),
-            ], help_text='Select background theme for this section')),
-        ])),
-    ], blank=True, help_text="Add Country Spotlight.")
-
     content_panels = Page.content_panels + [
         hero_panels(),
         StreamFieldPanel('body'),

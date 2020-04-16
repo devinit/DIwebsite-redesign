@@ -156,7 +156,7 @@ class CountrySpotlight(TypesetBodyMixin, HeroMixin, Page):
     )
     add_country_spotlight = StreamBlock([
         ('add_spotlight_page', PageChooserBlock(required=False, target_model='spotlight.SpotlightPage')),
-    ], blank=True, help_text="Add Page")
+    ], blank=True, help_text="Add Page", max_num=2)
     country_spotlight = StreamField([
         ('country_information', StructBlock([
             ('title', CharBlock(required=False)),

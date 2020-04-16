@@ -1,0 +1,19 @@
+{% load wagtailcore_tags wagtailimages_tags static %}
+
+{% if item %}
+  <a href="{% pageurl item %}{{ nav_param|default_if_none:'' }}" class="card card--offset">
+
+    {% include 'includes/cards/card-image.html' with item=item %}
+
+    <div class="card__body">
+      <h3 class="card__title"><span>{{ item.title }}</span></h3>
+      <div class="card__excerpt">
+        {% if item.hero_text %}
+          {{item.hero_text|richtext}}
+        {% else %}
+          {{ item.body }}
+        {% endif %}
+      </div>
+    </div>
+  </a>
+{% endif %}

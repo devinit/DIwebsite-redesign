@@ -164,6 +164,9 @@ a.card {
             color: #fff;
         }
     }
+    &.card__title--large {
+        @include font-size($beta);
+    }
 }
 
 .card__excerpt {

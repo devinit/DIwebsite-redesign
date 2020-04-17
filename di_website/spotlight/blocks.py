@@ -20,8 +20,16 @@ class CountryInfoBlock(StructBlock):
         ))
     ], blank=True, max_num=2)
     spotlight_page = StreamBlock([
-        ('add_spotlight_page', PageChooserBlock(required=False, target_model='spotlight.SpotlightPage'))
-    ], blank=True, max_num=2)
+        ('add_spotlight_page', PageChooserBlock(required=False, target_model='spotlight.SpotlightPage')),
+        ('add_location_comparison_page', PageChooserBlock(required=False, target_model='spotlight.SpotlightLocationComparisonPage'))
+    ],
+        blank=True,
+        max_num=2,
+        block_counts={
+            'add_spotlight_page': {'max_num': 1},
+            'add_location_comparison_page': {'max_num': 1}
+        }
+    )
     background_theme = ChoiceBlock(choices=[
         ('light', 'Light'),
         ('dark', 'Dark'),

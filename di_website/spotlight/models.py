@@ -29,7 +29,7 @@ class SpotlightPage(HeroMixin, Page):
         verbose_name = 'Spotlight Page'
 
     parent_page_types = ['spotlight.CountrySpotlight']
-    subpage_types =['spotlight.SpotlightLocationComparisonPage']
+    subpage_types =['spotlight.SpotlightLocationComparisonPage', 'spotlight.SpotlightTheme']
 
     country_code = models.CharField(max_length=100, help_text='e.g. UG, KE', default='')
     country_name = models.CharField(max_length=255)

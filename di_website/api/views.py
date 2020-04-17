@@ -11,10 +11,11 @@ from di_website.datasection.models import DataSectionPage
 from .utils import (
     serialise_page,
     serialiseDatasources,
+    serialise_location_comparison_page,
     fetch_and_serialise_newsletters,
     fetch_and_serialise_footer_sections,
     serialise_spotlight_theme)
-from di_website.spotlight.models import SpotlightPage
+from di_website.spotlight.models import SpotlightPage, SpotlightTheme, SpotlightLocationComparisonPage
 
 
 @require_http_methods(["GET"])
@@ -58,7 +59,9 @@ def spotlight_pages_view(request):
     spotlights = SpotlightPage.objects.all().live()
     for spotlight in spotlights:
         page = serialise_page(request, spotlight, fields=['title', 'full_url', 'country_code', 'country_name', 'currency_code', 'datasources_description'])
-        themes = spotlight.get_children().live()
+        themes = spotlight.get_children().live().type(SpotlightTheme)
+        location_comparison_pages = spotlight.get_children().live().type(SpotlightLocationComparisonPage)
+        page['compare'] = serialise_location_comparison_page(location_comparison_pages)
         page['themes'] = []
         for theme in themes:
             serialised_theme = serialise_spotlight_theme(theme.specific)
@@ -75,7 +78,9 @@ def spotlight_page_view(request, slug=None):
             spotlight = SpotlightPage.objects.filter(slug=slug)[0]
             page = serialise_page(request, spotlight, fields=['title', 'full_url', 'country_code', 'country_name', 'currency_code', 'datasources_description'])
             page['datasource_links'] = serialiseDatasources(request, spotlight)
-            themes = spotlight.get_children().live()
+            themes = spotlight.get_children().live().type(SpotlightTheme)
+            location_comparison_pages = spotlight.get_children().live().type(SpotlightLocationComparisonPage)
+            page['compare'] = serialise_location_comparison_page(location_comparison_pages)
             page['themes'] = []
             for theme in themes:
                 serialised_theme = serialise_spotlight_theme(theme.specific)

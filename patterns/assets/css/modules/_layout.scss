@@ -145,7 +145,7 @@
 				}
 			}
 			@supports (display: grid) {
-				width: auto;
+				width: 100%;
 				margin-right: 0;
 			}
 		}
@@ -193,11 +193,7 @@
 				}
 			}
 			@supports (display: grid) {
-				width: auto;
-				margin-right: 0;
-			}
-			@supports (display: grid) {
-				width: auto;
+				width: 100%;
 				margin-right: 0;
 			}
 		}
@@ -249,7 +245,7 @@
 				}
 			}
 			@supports (display: grid) {
-				width: auto;
+				width: 100%;
 				margin-right: 0;
 				&:nth-child(2n) {
 					margin-right: 0;
@@ -294,7 +290,7 @@
 				}
 			}
 			@supports (display: grid) {
-				width: auto;
+				width: 100%;
 				margin-right: 0;
 				&:nth-child(3n) {
 					margin-right: 0;

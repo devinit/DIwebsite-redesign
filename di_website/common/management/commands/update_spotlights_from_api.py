@@ -151,8 +151,8 @@ class Command(BaseCommand):
     def update_spotlight_indicator(self, spotlight_indicator, indicator):
         colour = self.get_colour_by_code(indicator['colour'])
         spotlight_indicator.title = indicator['name']
-        spotlight_indicator.slug = indicator['slug']
-        spotlight_indicator.ddw_id = indicator['ddw_id']
+        spotlight_indicator.slug = spotlight_indicator.slug or indicator['slug']
+        spotlight_indicator.ddw_id = spotlight_indicator.ddw_id if hasattr(spotlight_indicator, 'ddw_id') else indicator['ddw_id']
         spotlight_indicator.description = indicator['description']
         spotlight_indicator.start_year = indicator['start_year'] or None
         spotlight_indicator.end_year = indicator['end_year'] or None

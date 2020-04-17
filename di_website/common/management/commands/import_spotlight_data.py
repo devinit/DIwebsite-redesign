@@ -54,7 +54,8 @@ class Command(BaseCommand):
                     slug='spotlight-uganda',
                     country_code='UG',
                     country_name='Uganda',
-                    currency_code='UGX')
+                    currency_code='UGX',
+                    hero_link_caption='')
                 data_page.add_child(instance=uganda)
                 uganda.save_revision().publish()
                 data_page.save();

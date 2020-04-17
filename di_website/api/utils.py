@@ -103,3 +103,13 @@ def serialise_spotlight_indicator(indicator):
     serialised_indicator['source'] = indicator.source and indicator.source.name
 
     return serialised_indicator
+
+
+def serialise_location_comparison_page(live_pages):
+    serialised_data = {}
+    serialised_data['default_locations'] = []
+    for page in live_pages:
+        for block in page.specific.default_locations:
+            serialised_data['default_locations'].append(block.value)
+
+    return serialised_data

@@ -162,7 +162,15 @@ class SpotlightIndicator(Page):
 
 class CountrySpotlight(TypesetBodyMixin, HeroMixin, Page):
     country_spotlight = StreamField(
-        CountryInfoStreamBlock(),
+        StreamBlock([
+        ('add_spotlight_page', PageChooserBlock(required=False, target_model='spotlight.SpotlightPage')),
+    ],
+        blank=True,
+        max_num=2,
+        block_counts={
+            'add_spotlight_page': {'max_num': 2},
+        }
+    ),
         blank=True,
         help_text="Add Country Spotlight."
     )

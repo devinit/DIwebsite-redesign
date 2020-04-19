@@ -10,8 +10,8 @@ from wagtail.core.blocks import (
 from di_website.common.constants import RICHTEXT_FEATURES_NO_FOOTNOTES
 
 
-class CountryInfoBlock(StructBlock):
-    spotlight_page = StreamBlock([
+class CountryInfoStreamBlock(StreamBlock):
+    country_info = StreamBlock([
         ('add_spotlight_page', PageChooserBlock(required=False, target_model='spotlight.SpotlightPage')),
     ],
         blank=True,
@@ -20,15 +20,4 @@ class CountryInfoBlock(StructBlock):
             'add_spotlight_page': {'max_num': 2},
         }
     )
-    background_theme = ChoiceBlock(choices=[
-        ('light', 'Light'),
-        ('dark', 'Dark'),
-    ], help_text='Select background theme for this section')
-
-    class Meta():
-        icon = 'fa-globe'
-
-
-class CountryInfoStreamBlock(StreamBlock):
-    country_info = CountryInfoBlock()
     required = False

@@ -26,31 +26,16 @@
     </div>
   </section>
 
-  {% for block in page.country_spotlight %}
-    {% with block as main_block %}
-      {% with main_block.value.spotlight_page as spotlight_pages %}
-        <section class="section {% if main_block.value.background_theme == 'light' %}section--alt{% endif %}">
-          <div class="row row--narrow">
-            <h2 class="m-text-major">{{main_block.value.title}}</h2>
-            <div class="l-3up">
-              <div class="l-3up__col">
-                <div class="is-typeset">
-                  {% for block in main_block.value.spotlight_description %}
-                    {% include_block block %}
-                  {% endfor %}
-                </div>
-              </div>
-              {% for spotlight_page in spotlight_pages %}
-                <div class="l-3up__col">
-                  {% include 'includes/cards/card-spotlights.html' with item=spotlight_page.value %}
-                </div>
-              {% endfor %}
-            </div>
+  <section class="section section--alt">
+    <div class="row row--narrow">
+      <div class="l-2up">
+        {% for block in page.country_spotlight %}
+          <div class="l-2up__col">
+            {% include 'includes/cards/card-spotlights.html' with item=block.value %}
           </div>
-        </section>
-      {% endwith %}
-
-    {% endwith %}
-  {% endfor %}
+        {% endfor %}
+      </div>
+    </div>
+  </section>
 
 {% endblock %}

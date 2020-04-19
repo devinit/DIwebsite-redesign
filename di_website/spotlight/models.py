@@ -21,7 +21,6 @@ from di_website.common.blocks import LinkBlock
 from di_website.common.base import hero_panels
 from di_website.common.mixins import HeroMixin, TypesetBodyMixin
 from di_website.common.constants import RICHTEXT_FEATURES_NO_FOOTNOTES
-from .blocks import CountryInfoStreamBlock
 
 
 class SpotlightPage(HeroMixin, Page):

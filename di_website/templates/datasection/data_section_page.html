@@ -72,6 +72,29 @@
   {% endfor %}
 
   <section class="section">
+    <div class="row row--narrow">
+      <div class="banner">
+        <div class="l-banner l-banner--reverse">
+          <div class="l-banner__aside">
+            <div class="banner__media">
+              {% image page.image fill-464x300 as spotlight_image %}
+              <img src="{{spotlight_image.url}}" alt="alt tag">
+              <p class="banner__credit">{{ page.image_subtitle }}</p>
+            </div>
+          </div>
+          <div class="l-banner__main">
+            <h3 class="banner__heading">{{ page.spotlights_heading }}</h3>
+            <div class="banner__content is-typeset">
+                {{ page.content | content }}
+            </div>
+            <a href="{{ page.button_url }}" class="button button--reverse">{{ page.button_label }}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
     {% get_other_pages calling_page=self heading=page.other_pages_heading %}
   </section>
 

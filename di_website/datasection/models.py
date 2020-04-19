@@ -22,6 +22,7 @@ from wagtail.admin.edit_handlers import (
 from wagtail.core.blocks import (
     CharBlock, PageChooserBlock, StructBlock, URLBlock)
 from wagtail.images.blocks import ImageChooserBlock
+from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Orderable, Page
 from wagtail.snippets.models import register_snippet
@@ -160,12 +161,38 @@ class DataSectionPage(SectionBodyMixin, TypesetBodyMixin, HeroMixin, Page):
     other_pages_heading = models.CharField(
         blank=True, max_length=255, verbose_name='Heading', default='More about')
 
+    spotlights_heading = models.TextField(
+        null=True, blank=True)
+    content = RichTextField(
+        null=True, blank=True, help_text='Spotlight content')
+    image_subtitle = models.CharField(
+        blank=True, max_length=255, verbose_name='Image Subtitle')
+    image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        help_text='Spotlight image'
+    )
+    button_label = models.CharField(
+        blank=True, max_length=255, verbose_name='Button label')
+    button_url = models.URLField(blank=True, verbose_name='Button URL')
+
     content_panels = Page.content_panels + [
         hero_panels(allowed_pages=['datasection.DataSetListing']),
         StreamFieldPanel('body'),
         StreamFieldPanel('quotes'),
         FieldPanel('dataset_info'),
         StreamFieldPanel('sections'),
+        MultiFieldPanel([
+            FieldPanel('spotlights_heading'),
+            FieldPanel('content'),
+            FieldPanel('image_subtitle'),
+            ImageChooserPanel('image'),
+            FieldPanel('button_label'),
+            FieldPanel('button_url'),
+        ], heading='Country Spotlight Information'),
         MultiFieldPanel([
             FieldPanel('other_pages_heading'),
             InlinePanel('other_pages', label='Related pages')

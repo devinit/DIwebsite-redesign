@@ -1,7 +1,6 @@
 import json
 
 from di_website.home.models import FooterSection, NewsLetter
-from di_website.spotlight.snippets import SpotlightColour, SpotlightSource
 
 
 def object_to_dict(obj, fields):
@@ -80,7 +79,6 @@ def fetch_and_serialise_footer_sections(request):
 
 
 def serialise_spotlight_theme(theme):
-    print(theme)
     serialised_theme = object_to_dict(theme, ['slug', 'section'])
     serialised_theme['name'] = theme.title
     indicators = theme.get_children().live()
@@ -95,12 +93,11 @@ def serialise_spotlight_theme(theme):
 
 def serialise_spotlight_indicator(indicator):
     serialised_indicator = object_to_dict(indicator, [
-        'ddw_id', 'slug', 'description', 'start_year', 'end_year', 'excluded_years', 'data_format', 'range',
+        'ddw_id', 'slug', 'description', 'source', 'start_year', 'end_year', 'excluded_years', 'data_format', 'range',
         'value_prefix', 'value_suffix', 'tooltip_template', 'content_template'])
     serialised_indicator['name'] = indicator.title
 
     serialised_indicator['colour'] = indicator.color and indicator.color.code
-    serialised_indicator['source'] = indicator.source and indicator.source.name
 
     return serialised_indicator
 

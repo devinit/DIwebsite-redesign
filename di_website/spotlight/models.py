@@ -15,7 +15,7 @@ from wagtail.core.blocks import (
     TextBlock
 )
 
-from .snippets import SpotlightSource, SpotlightColour
+from .snippets import SpotlightColour
 
 from di_website.common.blocks import LinkBlock
 from di_website.common.base import hero_panels
@@ -100,13 +100,7 @@ class SpotlightIndicator(Page):
 
     ddw_id = models.CharField(max_length=255)
     description = models.TextField(help_text='A description of this indicator', null=True, blank=True)
-    source = models.ForeignKey(
-        SpotlightSource,
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+'
-    )
+    source = models.TextField(help_text='Where is the data from?', null=True, blank=True)
     color = models.ForeignKey(
         SpotlightColour,
         null=True,
@@ -143,7 +137,7 @@ class SpotlightIndicator(Page):
     content_panels = Page.content_panels +  [
         FieldPanel('ddw_id'),
         FieldPanel('description'),
-        SnippetChooserPanel('source'),
+        FieldPanel('source'),
         SnippetChooserPanel('color'),
         FieldPanel('start_year'),
         FieldPanel('end_year'),

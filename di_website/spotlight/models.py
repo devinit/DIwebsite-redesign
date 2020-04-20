@@ -164,17 +164,12 @@ class CountrySpotlight(TypesetBodyMixin, HeroMixin, Page):
         StreamBlock([
         ('add_spotlight_page', PageChooserBlock(required=False, target_model='spotlight.SpotlightPage')),
     ],
-        blank=True,
-        max_num=2,
-        block_counts={
-            'add_spotlight_page': {'max_num': 2},
-        }
+        blank=True
     ),
         blank=True,
         help_text="Add Country Spotlight."
     )
     content_panels = Page.content_panels + [
-        hero_panels(),
         StreamFieldPanel('body'),
         StreamFieldPanel('country_spotlight'),
     ]

@@ -170,6 +170,7 @@ class CountrySpotlight(TypesetBodyMixin, HeroMixin, Page):
         help_text="Add Country Spotlight."
     )
     content_panels = Page.content_panels + [
+        hero_panels(),
         StreamFieldPanel('body'),
         StreamFieldPanel('country_spotlight'),
     ]

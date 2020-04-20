@@ -1,0 +1,41 @@
+{% extends "layouts/default.html" %}
+{% load wagtailimages_tags wagtailcore_tags responsive string_utils navigation_tags static card_tags %}
+
+{% block hero %}
+  {% include 'includes/heroes/hero.html' %}
+{% endblock hero %}
+
+{% block body %}
+
+  <section class="section">
+    <div class="row row--narrow">
+      <div class="l-sidebar">
+        <aside class="l-sidebar__aside">
+          <div class="aside aside--clipping">
+            {% secondary_menu parent=self.get_parent calling_page=self %}
+          </div>
+        </aside>
+        <div class="l-sidebar__body">
+          <div class="is-typeset wysiwyg">
+            {% for block in page.body %}
+              {% include_block block %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="row row--narrow">
+      <div class="l-2up">
+        {% for block in page.country_spotlight %}
+          <div class="l-2up__col">
+            {% include 'includes/cards/card-spotlights.html' with item=block.value %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+{% endblock %}

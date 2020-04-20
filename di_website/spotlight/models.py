@@ -2,20 +2,33 @@ from django.db import models
 
 from wagtail.search import index
 from wagtail.core.models import Page
-from wagtail.core.fields import StreamField
+from wagtail.core.fields import StreamField, RichTextField
 from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, StreamFieldPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
-from wagtail.core.blocks import StreamBlock
+from wagtail.core.blocks import (
+    CharBlock,
+    PageChooserBlock,
+    StructBlock,
+    StreamBlock,
+    RichTextBlock,
+    ChoiceBlock,
+    TextBlock
+)
 
 from .snippets import SpotlightSource, SpotlightColour
 
 from di_website.common.blocks import LinkBlock
+from di_website.common.base import hero_panels
+from di_website.common.mixins import HeroMixin, TypesetBodyMixin
+from di_website.common.constants import RICHTEXT_FEATURES_NO_FOOTNOTES
 
-class SpotlightPage(Page):
+
+class SpotlightPage(HeroMixin, Page):
     class Meta():
         verbose_name = 'Spotlight Page'
 
-    parent_page_types = ['datasection.DataSectionPage']
+    parent_page_types = ['spotlight.CountrySpotlight']
+    subpage_types =['spotlight.SpotlightLocationComparisonPage', 'spotlight.SpotlightTheme']
 
     country_code = models.CharField(max_length=100, help_text='e.g. UG, KE', default='')
     country_name = models.CharField(max_length=255)
@@ -24,6 +37,7 @@ class SpotlightPage(Page):
         help_text='A description for data sources section', null=True, blank=True, verbose_name='Description')
     datasources_links = StreamField([ ('link', LinkBlock()), ], null=True, blank=True, verbose_name='Links')
     content_panels = Page.content_panels + [
+        hero_panels(),
         MultiFieldPanel([
             FieldPanel('country_code'),
             FieldPanel('country_name'),
@@ -34,6 +48,24 @@ class SpotlightPage(Page):
             StreamFieldPanel('datasources_links')
         ], heading='Data Sources Section')
     ]
+
+
+class SpotlightLocationComparisonPage(HeroMixin, Page):
+    default_locations = StreamField([
+        ('locations', StructBlock([
+            ('name', TextBlock()),
+            ('geocode', TextBlock()),
+        ]))
+    ], null=True, blank=True, verbose_name='Default Locations')
+    content_panels = Page.content_panels + [
+        hero_panels(),
+        StreamFieldPanel('default_locations'),
+    ]
+
+    parent_page_types = ['spotlight.SpotlightPage']
+
+    class Meta():
+        verbose_name = 'Spotlight Location Comparison Page'
 
 
 class SpotlightTheme(Page):
@@ -125,3 +157,26 @@ class SpotlightIndicator(Page):
     ]
 
     search_fields = [index.SearchField('ddw_id'), index.SearchField('title')]
+
+
+class CountrySpotlight(TypesetBodyMixin, HeroMixin, Page):
+    country_spotlight = StreamField(
+        StreamBlock([
+        ('add_spotlight_page', PageChooserBlock(required=False, target_model='spotlight.SpotlightPage')),
+    ],
+        blank=True
+    ),
+        blank=True,
+        help_text="Add Country Spotlight."
+    )
+    content_panels = Page.content_panels + [
+        hero_panels(),
+        StreamFieldPanel('body'),
+        StreamFieldPanel('country_spotlight'),
+    ]
+
+    parent_page_types = ['datasection.DataSectionPage']
+    subpage_types = ['spotlight.SpotlightPage']
+
+    class Meta():
+        verbose_name = 'Country Spotlight'

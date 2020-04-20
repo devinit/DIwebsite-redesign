@@ -52,12 +52,20 @@ server {
         root /;
     }
 
-    location /data-section/spotlight-uganda {
+    location /data/country-spotlights/spotlight-uganda {
         proxy_pass http://spotlights/spotlight/spotlight-uganda;
     }
 
-    location /data-section/spotlight-kenya {
+    location /data/country-spotlights/spotlight-uganda/compare {
+        proxy_pass http://spotlights/spotlight/spotlight-uganda/compare;
+    }
+
+    location /data/country-spotlights/spotlight-kenya {
         proxy_pass http://spotlights/spotlight/spotlight-kenya;
+    }
+
+    location /data/country-spotlights/spotlight-kenya/compare {
+        proxy_pass http://spotlights/spotlight/spotlight-kenya/compare;
     }
 
     location /_next {

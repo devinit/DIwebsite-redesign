@@ -49,6 +49,11 @@
     }
 }
 
+.spotlight-banner__heading {
+    @include font-size($epsilon);
+    margin-bottom: 0.5em;
+}
+
 .spotlight-banner__form {
     display: block;
     @include respond-to($b-vp) {
@@ -104,7 +109,7 @@
         &__main {
             float: left;
             width: 70%;
-            padding-left: 1em;
+            //padding-left: 1em;
             .spotlight--full & {
                 width: 100%;
                 float: none;

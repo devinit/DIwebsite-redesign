@@ -8,7 +8,7 @@
 {# 2. Assign Settings and variables #}
 {# --------------------------------------- #}
 
-{% set id = "spotlight" %}
+{% set id = "spotlight-comparison" %}
 {% set section = "Data" %}
 {% set title = "Spotlight on [Location]" %}
 {% set excerpt = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." %}
@@ -36,21 +36,22 @@
 {# --------------------------------------- #}
 
 {% block body %}
-    {% include 'heroes/hero.html' %}
+    {% include 'heroes/hero-spotlight.html' %}
 
     <section class="section">
         <div class="row row--narrow">
             <h2 class="section__heading">Location comparison</h2>
             <div class="spotlight-banner">
+                <h3 class="spotlight-banner__heading">Add location</h3>
                 <div class="spotlight-banner__aside">
-                    <a href="#" class="m-text-link spotlight__location spotlight__location--active">{{ icons.icon('ico-plus-poppy', '16') }} <span>Add a location</span></a>
+                    <!-- <a href="#" class="m-text-link spotlight__location spotlight__location--active">{{ icons.icon('ico-plus-poppy', '16') }} <span>Add a location</span></a> -->
                     {% include 'partials/country-list.html' %}
                 </div>
                 <div class="spotlight-banner__main">
-                    <div id="js-profile-search-container" class="spotlight__countries">
+                    <div id="js-profile-search-container">
                         <label class="form-label form-label--hidden" for="country-search" aria-hidden="true">Search for a location</label>
                         <input id="js-profile-search" class="form-item form-item--auto" type="text" name="country-search" id="country-search" placeholder="Search for a location">
-                        <button type="button" class="countries__searched-cancel"><span>Cancel</span></button>
+                        <!-- <button type="button" class="countries__searched-cancel"><span>Cancel</span></button> -->
                         <nav class="countries__searched countries__searched--minor" aria-hidden="true">
                             <ul class="countries__searched__list" id="js-profile-results"></ul>
                         </nav>
@@ -74,7 +75,7 @@
             </div>
 
             <div class="spotlight spotlight--full">
-                <div class="space-section-bottom--small">
+                <div class="spotlight-banner">
                     <form class="form">
                         <div class="form-field form-field--inline-three">
                             <label for="indicator" class="form-label">Select a topic to explore</label>
@@ -98,6 +99,7 @@
                         </div>
                         <div class="form-field form-field--inline-three">
                             <button type="button" class="button">Update</button>
+                            <button type="button" class="button button--alt button--icon-l">{{ icons.icon('ico-cross-slate', '20') }} Remove chart</button>
                         </div>
                     </form>
                 </div>
@@ -111,7 +113,7 @@
     <section class="section">
         <div class="row row--narrow">
             <div class="spotlight spotlight--full">
-                <div class="space-section-bottom--small">
+                <div class="spotlight-banner">
                     <form class="form">
                         <div class="form-field form-field--inline-three">
                             <label for="indicator" class="form-label">Select a topic to explore</label>
@@ -135,6 +137,7 @@
                         </div>
                         <div class="form-field form-field--inline-three">
                             <button type="button" class="button">Update</button>
+                            <button type="button" class="button button--alt button--icon-l">{{ icons.icon('ico-cross-slate', '20') }} Remove chart</button>
                         </div>
                     </form>
                 </div>
@@ -150,7 +153,7 @@
             <div class="spotlight-banner">
                 <div class="spotlight-banner__aside">
                     <a href="#" class="m-text-link spotlight__location spotlight__location--active">{{ icons.icon('ico-plus-poppy', '16') }} <span>Add another comparison</span></a>
-                    {% include 'partials/country-list.html' %}
+                    {% include 'partials/country-list-showhide.html' %}
                 </div>
                 <div class="spotlight-banner__main">
                     <div id="js-profile-search-container" class="spotlight__countries">

@@ -2,9 +2,8 @@ import csv
 
 from django.core.management.base import BaseCommand
 
-from di_website.spotlight.models import SpotlightPage, SpotlightIndicator, SpotlightTheme
+from di_website.spotlight.models import CountrySpotlight, SpotlightPage, SpotlightIndicator, SpotlightTheme
 from di_website.spotlight.snippets import SpotlightColour
-from di_website.datasection.models import DataSectionPage
 
 
 class Command(BaseCommand):
@@ -47,7 +46,7 @@ class Command(BaseCommand):
         try:
             uganda = SpotlightPage.objects.filter(slug='spotlight-uganda')[0]
         except IndexError:
-            data_page = DataSectionPage.objects.live()[0]
+            data_page = CountrySpotlight.objects.live()[0]
             if (data_page):
                 uganda = SpotlightPage(
                     title='Spotlight on Uganda',
@@ -60,7 +59,7 @@ class Command(BaseCommand):
                 uganda.save_revision().publish()
                 data_page.save();
             else:
-                print('Cannot create SpotlightPage ... No DataSection page found')
+                print('Cannot create SpotlightPage ... No CountrySpotlight page found')
 
         # Spotlight Themes
         try:
@@ -77,7 +76,7 @@ class Command(BaseCommand):
         try:
             spotlight = SpotlightPage.objects.filter(slug='spotlight-kenya')[0]
         except IndexError:
-            data_page = DataSectionPage.objects.live()[0]
+            data_page = CountrySpotlight.objects.live()[0]
             if (data_page):
                 spotlight = SpotlightPage(
                     title='Spotlight on Kenya',
@@ -89,7 +88,7 @@ class Command(BaseCommand):
                 spotlight.save_revision().publish()
                 data_page.save();
             else:
-                print('Cannot create SpotlightPage ... No DataSection page found')
+                print('Cannot create SpotlightPage ... No CountrySpotlight page found')
 
         # Spotlight Themes
         try:

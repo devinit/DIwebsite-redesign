@@ -28,14 +28,14 @@ class SpotlightPage(HeroMixin, Page):
         verbose_name = 'Spotlight Page'
 
     parent_page_types = ['spotlight.CountrySpotlight']
-    subpage_types =['spotlight.SpotlightLocationComparisonPage', 'spotlight.SpotlightTheme']
+    subpage_types = ['spotlight.SpotlightLocationComparisonPage', 'spotlight.SpotlightTheme']
 
     country_code = models.CharField(max_length=100, help_text='e.g. UG, KE', default='')
     country_name = models.CharField(max_length=255)
     currency_code = models.CharField(max_length=100, help_text='UGX, KES', default='')
     datasources_description = models.TextField(
         help_text='A description for data sources section', null=True, blank=True, verbose_name='Description')
-    datasources_links = StreamField([ ('link', LinkBlock()), ], null=True, blank=True, verbose_name='Links')
+    datasources_links = StreamField([('link', LinkBlock()), ], null=True, blank=True, verbose_name='Links')
     content_panels = Page.content_panels + [
         hero_panels(),
         MultiFieldPanel([
@@ -50,7 +50,7 @@ class SpotlightPage(HeroMixin, Page):
     ]
 
 
-class SpotlightLocationComparisonPage(HeroMixin, Page):
+class SpotlightLocationComparisonPage(Page):
     default_locations = StreamField([
         ('locations', StructBlock([
             ('name', TextBlock()),
@@ -58,7 +58,6 @@ class SpotlightLocationComparisonPage(HeroMixin, Page):
         ]))
     ], null=True, blank=True, verbose_name='Default Locations')
     content_panels = Page.content_panels + [
-        hero_panels(),
         StreamFieldPanel('default_locations'),
     ]
 
@@ -154,19 +153,9 @@ class SpotlightIndicator(Page):
 
 
 class CountrySpotlight(TypesetBodyMixin, HeroMixin, Page):
-    country_spotlight = StreamField(
-        StreamBlock([
-        ('add_spotlight_page', PageChooserBlock(required=False, target_model='spotlight.SpotlightPage')),
-    ],
-        blank=True
-    ),
-        blank=True,
-        help_text="Add Country Spotlight."
-    )
     content_panels = Page.content_panels + [
         hero_panels(),
-        StreamFieldPanel('body'),
-        StreamFieldPanel('country_spotlight'),
+        StreamFieldPanel('body')
     ]
 
     parent_page_types = ['datasection.DataSectionPage']

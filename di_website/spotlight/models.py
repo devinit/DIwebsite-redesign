@@ -162,4 +162,14 @@ class CountrySpotlight(TypesetBodyMixin, HeroMixin, Page):
     subpage_types = ['spotlight.SpotlightPage']
 
     class Meta():
+        verbose_name = 'Country Spotlights Page'
+
+
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+        context['spotlights'] = self.get_children().specific().type(SpotlightPage).live()
+
+        return context
+
+    class Meta():
         verbose_name = 'Country Spotlight'

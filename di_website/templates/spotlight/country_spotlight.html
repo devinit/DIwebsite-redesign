@@ -26,16 +26,18 @@
     </div>
   </section>
 
-  <section class="section section--alt">
-    <div class="row row--narrow">
-      <div class="l-2up">
-        {% for block in page.country_spotlight %}
-          <div class="l-2up__col">
-            {% include 'includes/cards/card-spotlights.html' with item=block.value %}
-          </div>
-        {% endfor %}
+  {% if spotlights|length > 0 %}
+    <section class="section section--alt">
+      <div class="row row--narrow">
+        <div class="l-2up">
+          {% for item in spotlights %}
+            <div class="l-2up__col">
+              {% include 'includes/cards/card-spotlights.html' %}
+            </div>
+          {% endfor %}
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  {% endif %}
 
 {% endblock %}

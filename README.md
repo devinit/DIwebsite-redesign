@@ -90,4 +90,18 @@ To enable rabbitmq management
    ```
    docker-compose exec rabbitmq rabbitmq-plugins enable rabbitmq_management
    ```
-   
+
+
+## For Spotlights
+1. Fetch data from the old CMS repo
+
+        python3 manage.py fetch_spotlight_data
+
+2. Process downloaded files and import data into your database
+
+        python3 manage.py import_spotlight_data
+
+3. If you'd added Spotlight data in one environment and wish to import it into the current one
+
+        python3 manage.py update_spotlights_from_api base_url=[Specify Source URL]
+    NB: default base_url is http://178.128.102.213/

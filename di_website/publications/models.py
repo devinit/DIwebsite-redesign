@@ -958,6 +958,14 @@ class ShortPublicationPage(HeroMixin, PublishedDateMixin, FlexibleContentMixin, 
                 sections.append(block)
         return sections
 
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+
+        context['related_pages'] = get_related_pages(
+            self.publication_related_links.all(), ShortPublicationPage.objects)
+
+        return context;
+
 
 class PublicationPageRelatedLink(OtherPageMixin):
     page = ParentalKey(Page, related_name='publication_related_links', on_delete=models.CASCADE)

@@ -28,7 +28,7 @@ class SpotlightPage(HeroMixin, Page):
         verbose_name = 'Spotlight Page'
 
     parent_page_types = ['spotlight.CountrySpotlight']
-    subpage_types = ['spotlight.SpotlightLocationComparisonPage', 'spotlight.SpotlightTheme']
+    subpage_types = ['spotlight.SpotlightLocationComparisonPage', 'spotlight.SpotlightTheme', 'general.General']
 
     country_code = models.CharField(max_length=100, help_text='e.g. UG, KE', default='')
     country_name = models.CharField(max_length=255)
@@ -159,7 +159,7 @@ class CountrySpotlight(TypesetBodyMixin, HeroMixin, Page):
     ]
 
     parent_page_types = ['datasection.DataSectionPage']
-    subpage_types = ['spotlight.SpotlightPage']
+    subpage_types = ['spotlight.SpotlightPage', 'general.General']
 
     class Meta():
         verbose_name = 'Country Spotlights Page'

@@ -5,9 +5,9 @@
 
 .responsive-object {
     position: relative;
-    padding-bottom: 0 !important;
 }
 
+.responsive-object div,
 .responsive-object iframe,
 .responsive-object object,
 .responsive-object embed {

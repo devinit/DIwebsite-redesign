@@ -2,8 +2,6 @@
 
 from django.db import migrations
 
-from di_website.common.blocks import AceEditorJSONBlock
-
 
 def copy_to_config(apps, schema_editor):
     SpotlightIndicator = apps.get_model('spotlight', 'SpotlightIndicator')

@@ -126,11 +126,6 @@ class SpotlightIndicator(Page):
         blank=True,
         null=True,
         help_text='Text for the tooltip.Template strings can be used to substitute values e.g. {name}')
-    content_template = models.TextField(
-        blank=True,
-        null=True,
-        default='',
-        help_text='JSON config of the indicator content. A bit complex - talk to Edwin')
     config = StreamField(
         AceEditorStreamBlock(max_num=1, block_counts={'JSON': {'max_num':1}}),
         null=True, blank=True, verbose_name='JSON Config')
@@ -148,10 +143,7 @@ class SpotlightIndicator(Page):
         FieldPanel('value_prefix'),
         FieldPanel('value_suffix'),
         FieldPanel('tooltip_template'),
-        MultiFieldPanel([
-            FieldPanel('content_template'),
-            StreamFieldPanel('config')
-        ], heading="Advanced Config")
+        StreamFieldPanel('config')
     ]
 
     search_fields = [index.SearchField('ddw_id'), index.SearchField('title')]

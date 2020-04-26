@@ -1,3 +1,5 @@
+from django.forms import Media
+
 from wagtail.core.blocks import (
     BooleanBlock,
     CharBlock,
@@ -230,6 +232,36 @@ class TestimonialBlock(StructBlock):
     class Meta:
         icon = 'fa-quote-left'
         template = 'blocks/testimonial_block.html'
+
+
+class AceEditorJSONBlock(StructBlock):
+    """
+    Renders the Ace Editor, allowing addition of JSON with limited intellisense
+    """
+
+    @property
+    def media(self):
+        return Media(
+            js=[
+                'https://pagecdn.io/lib/ace/1.4.7/ace.js',
+                'https://pagecdn.io/lib/ace/1.4.7/theme-monokai.js'
+            ]
+        )
+
+    content = TextBlock(
+        label='JSON Content',
+        help_text='Enter your JSON here',
+        classname='ace-editor-json-block'
+    )
+
+    class Meta:
+        form_classname = 'ace-editor-json-struct-block struct-block'
+
+
+class AceEditorStreamBlock(StreamBlock):
+    JSON = AceEditorJSONBlock()
+
+    required = False
 
 
 class TypesetStreamBlock(StreamBlock):

@@ -93,9 +93,12 @@ def serialise_spotlight_theme(theme):
 
 def serialise_spotlight_indicator(indicator):
     serialised_indicator = object_to_dict(indicator, [
-        'ddw_id', 'slug', 'description', 'source', 'start_year', 'end_year', 'excluded_years', 'data_format', 'range',
-        'value_prefix', 'value_suffix', 'tooltip_template', 'content_template'])
+        'ddw_id', 'slug', 'description', 'source', 'start_year', 'end_year', 'excluded_years',
+        'data_format', 'range', 'value_prefix', 'value_suffix', 'tooltip_template'])
     serialised_indicator['name'] = indicator.title
+    if indicator.config:
+        child = indicator.config[0];
+        serialised_indicator['advanced_config'] = child.value['content']
 
     serialised_indicator['colour'] = indicator.color and indicator.color.code
 

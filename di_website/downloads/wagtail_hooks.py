@@ -20,5 +20,45 @@ def global_admin_js():
 
             }});
         </script>
+        <script>
+            $().ready(function() {{
+                function transformConfigElements() {{
+                    $('.ace-editor-json-block textarea').each(function() {{
+                        const textarea = this;
+                        const aced = textarea.classList.contains('ace-editor-json-block-aced') || textarea.classList.contains('ace_text-input');
+                        if (!aced) {{
+                            textarea.style.display = 'none';
+                            const aceElement = document.createElement('div');
+                            aceElement.innerHTML = textarea.innerHTML;
+                            aceElement.style.height = '400px';
+
+                            const parent = textarea.parentNode;
+                            parent.appendChild(aceElement);
+
+                            const editor = ace.edit(aceElement);
+                            editor.setTheme("ace/theme/monokai");
+                            editor.session.setMode("ace/mode/json");
+
+                            textarea.classList.add('ace-editor-json-block-aced');
+
+                            editor.getSession().on('change', function() {{
+                                textarea.innerHTML = editor.getSession().getValue();
+                            }});
+                        }}
+                    }});
+                }};
+
+                transformConfigElements();
+
+                $('.c-sf-add-button').each(function() {{
+                    const button = this;
+                    button.addEventListener('click', function() {{
+                        window.setTimeout(function() {{
+                            transformConfigElements();
+                        }}, 300);
+                    }});
+                }});
+            }});
+        </script>
         """
     )

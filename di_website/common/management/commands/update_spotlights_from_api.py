@@ -138,7 +138,7 @@ class Command(BaseCommand):
             value_prefix=indicator['value_prefix'],
             value_suffix=indicator['value_suffix'],
             tooltip_template=indicator['tooltip_template'],
-            content_template=indicator['content_template'],
+            config=indicator['config'] if hasattr(indicator, 'config') else None,
             source=indicator['source'],
             color=colour)
         theme.add_child(instance=indicator)
@@ -162,7 +162,7 @@ class Command(BaseCommand):
         spotlight_indicator.value_prefix = indicator['value_prefix']
         spotlight_indicator.value_suffix = indicator['value_suffix']
         spotlight_indicator.tooltip_template = indicator['tooltip_template']
-        spotlight_indicator.content_template = indicator['content_template']
+        spotlight_indicator.config = indicator['config'] if hasattr(indicator, 'config') else None
         spotlight_indicator.source = indicator['source']
         spotlight_indicator.colour = colour
 

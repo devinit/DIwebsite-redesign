@@ -255,7 +255,6 @@ class AceEditorJSONBlock(StructBlock):
     )
 
     class Meta:
-        template = 'blocks/ace_editor_json_block.html'
         form_classname = 'ace-editor-json-struct-block struct-block'
 
 

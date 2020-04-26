@@ -9,7 +9,6 @@ from wagtail.core.blocks import (
     CharBlock,
     PageChooserBlock,
     StructBlock,
-    StreamBlock,
     RichTextBlock,
     ChoiceBlock,
     TextBlock
@@ -17,7 +16,7 @@ from wagtail.core.blocks import (
 
 from .snippets import SpotlightColour
 
-from di_website.common.blocks import LinkBlock
+from di_website.common.blocks import AceEditorStreamBlock, LinkBlock
 from di_website.common.base import hero_panels
 from di_website.common.mixins import HeroMixin, TypesetBodyMixin
 from di_website.common.constants import RICHTEXT_FEATURES_NO_FOOTNOTES
@@ -132,6 +131,9 @@ class SpotlightIndicator(Page):
         null=True,
         default='',
         help_text='JSON config of the indicator content. A bit complex - talk to Edwin')
+    config = StreamField(
+        AceEditorStreamBlock(max_num=1, block_counts={'JSON': {'max_num':1}}),
+        null=True, blank=True, verbose_name='JSON Config')
 
     content_panels = Page.content_panels +  [
         FieldPanel('ddw_id'),
@@ -146,7 +148,10 @@ class SpotlightIndicator(Page):
         FieldPanel('value_prefix'),
         FieldPanel('value_suffix'),
         FieldPanel('tooltip_template'),
-        FieldPanel('content_template')
+        MultiFieldPanel([
+            FieldPanel('content_template'),
+            StreamFieldPanel('config')
+        ], heading="Advanced Config")
     ]
 
     search_fields = [index.SearchField('ddw_id'), index.SearchField('title')]

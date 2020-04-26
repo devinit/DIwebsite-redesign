@@ -5,6 +5,7 @@
 
 .responsive-object {
     position: relative;
+    padding-bottom: 56.25% !important;
 }
 
 .responsive-object div,

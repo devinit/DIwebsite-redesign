@@ -86,7 +86,7 @@ function globals () {
     chapterNavSimple();
 
     // gmaps
-    // initGmaps('#map', 'AIzaSyAZAIjZtkBlsF0ZqvrlkvyLfVn6Bju6bJ4');
+    initGmaps('#map', 'AIzaSyAZAIjZtkBlsF0ZqvrlkvyLfVn6Bju6bJ4');
 
     // Accordion
     accordion(

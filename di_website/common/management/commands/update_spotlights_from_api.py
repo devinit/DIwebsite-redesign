@@ -64,8 +64,10 @@ class Command(BaseCommand):
 
         if not spotlight_indicator:
             spotlight_indicator = self.create_spotlight_indicator(theme, indicator)
-
-        self.update_spotlight_indicator(spotlight_indicator, indicator)
+        else:
+            # self.update_spotlight_indicator(theme, indicator)
+            spotlight_indicator.delete()
+            self.create_spotlight_indicator(theme, indicator)
 
 
     def get_slug_from_relative_url(self, relative_url):
@@ -125,7 +127,7 @@ class Command(BaseCommand):
 
     def create_spotlight_indicator(self, theme, indicator):
         colour = self.get_colour_by_code(indicator['colour'])
-        indicator = SpotlightIndicator(
+        spotlight_indicator = SpotlightIndicator(
             title=indicator['name'],
             slug=indicator['slug'],
             ddw_id=indicator['ddw_id'],
@@ -138,17 +140,19 @@ class Command(BaseCommand):
             value_prefix=indicator['value_prefix'],
             value_suffix=indicator['value_suffix'],
             tooltip_template=indicator['tooltip_template'],
-            config=indicator['config'] if hasattr(indicator, 'config') else None,
+            config=[('JSON', {'content':indicator['advanced_config']})] if 'advanced_config' in indicator else None,
             source=indicator['source'],
             color=colour)
-        theme.add_child(instance=indicator)
-        indicator.save_revision().publish()
+        theme.add_child(instance=spotlight_indicator)
         theme.save()
 
         return theme
 
 
     def update_spotlight_indicator(self, spotlight_indicator, indicator):
+        """
+        This is not properly functional, quite buggy.
+        """
         colour = self.get_colour_by_code(indicator['colour'])
         spotlight_indicator.title = indicator['name']
         spotlight_indicator.slug = spotlight_indicator.slug or indicator['slug']
@@ -162,11 +166,15 @@ class Command(BaseCommand):
         spotlight_indicator.value_prefix = indicator['value_prefix']
         spotlight_indicator.value_suffix = indicator['value_suffix']
         spotlight_indicator.tooltip_template = indicator['tooltip_template']
-        spotlight_indicator.config = indicator['config'] if hasattr(indicator, 'config') else None
         spotlight_indicator.source = indicator['source']
         spotlight_indicator.colour = colour
+        if 'advanced_config' in indicator:
+            spotlight_indicator.config = [('JSON', {'content':indicator['advanced_config']})]
 
-        spotlight_indicator.save()
+        try:
+            spotlight_indicator.save_revision().publish()
+        except:
+            spotlight_indicator.save()
 
 
     def get_colour_by_code(self, code):

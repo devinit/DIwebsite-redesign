@@ -55,7 +55,7 @@ def global_admin_js():
                     button.addEventListener('click', function() {{
                         window.setTimeout(function() {{
                             transformConfigElements();
-                        }}, 300);
+                        }}, 500);
                     }});
                 }});
             }});

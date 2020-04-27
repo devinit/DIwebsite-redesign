@@ -87,7 +87,22 @@ class SpotlightTheme(Page):
     ]
 
     def get_admin_display_title(self):
-        return '[' + self.section + '] - ' + self.title if self.section else self.title
+        if self.section:
+            if self.section == 'map':
+                return '[Map Section] - ' + self.draft_title.upper() if self.section else self.draft_title.upper()
+
+            if self.section == 'facts':
+                return '[Location Key Facts Section] - ' + self.draft_title.upper() if self.section else self.draft_title.upper()
+
+            if self.section == 'country-facts':
+                return '[Country Key Facts Section] - ' + self.draft_title.upper() if self.section else self.draft_title.upper()
+
+            if self.section == 'revenue-expenditure':
+                return '[Revenue/Expenditure/Finance Section] - ' + self.draft_title.upper() if self.section else self.draft_title.upper()
+
+            return '[' + self.section + '] - ' + self.draft_title.upper() if self.section else self.draft_title.upper()
+        else:
+            return self.title
 
 
 class SpotlightIndicator(Page):

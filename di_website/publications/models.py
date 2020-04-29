@@ -147,7 +147,8 @@ class ResourceCategory(ClusterableModel):
 
     class Meta:
         ordering = ["name"]
-        verbose_name = 'Resource Categories'
+        verbose_name = 'Resource Category'
+        verbose_name_plural = 'Resource Categories'
 
     def __str__(self):
         return self.name
@@ -198,8 +199,6 @@ class PublicationIndexPage(HeroMixin, Page):
         country_filter = request.GET.get('country', None)
         types_filter = request.GET.get('types', None)
         search_filter = request.GET.get('q', None)
-
-        print('types ' + types_filter if types_filter else 'not set')
 
         if topic_filter:
             stories = PublicationPage.objects.live().filter(topics__slug=topic_filter)
@@ -270,9 +269,10 @@ class PublicationIndexPage(HeroMixin, Page):
             Q(publications_legacypublicationtopic_items__content_object__content_type=leg_pubs_content_type) |
             Q(publications_shortpublicationtopic_items__content_object__content_type=short_pubs_content_type)
         ).distinct().order_by('name')
+        context['resource_types'] = PublicationType.objects.all().order_by('resource_category', 'name')
+        context['selected_type'] = types_filter
         context['selected_topic'] = topic_filter
         context['countries'] = Country.objects.all().order_by('region', 'name')
-        context['resource_types'] = PublicationType.objects.all().order_by('resource_category', 'name')
         context['selected_country'] = country_filter
         context['search_filter'] = search_filter
         context['is_filtered'] = search_filter or topic_filter or country_filter
@@ -281,7 +281,7 @@ class PublicationIndexPage(HeroMixin, Page):
         return context
 
     class Meta():
-        verbose_name = 'Resources Page'
+        verbose_name = 'Resources Index Page'
 
 
 class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUIDMixin, FilteredDatasetMixin, Page):

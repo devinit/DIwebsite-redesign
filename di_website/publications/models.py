@@ -36,7 +36,7 @@ from wagtail.search.models import Query
 
 
 from di_website.common.base import hero_panels, get_paginator_range, get_related_pages
-from di_website.common.mixins import HeroMixin, OtherPageMixin
+from di_website.common.mixins import HeroMixin, OtherPageMixin, SectionBodyMixin, TypesetBodyMixin
 from di_website.common.constants import MAX_PAGE_SIZE, MAX_RELATED_LINKS, RICHTEXT_FEATURES
 from di_website.downloads.utils import DownloadsPanel
 
@@ -189,7 +189,7 @@ class PublicationIndexPage(HeroMixin, Page):
         InlinePanel('page_notifications', label='Notifications')
     ]
 
-    subpage_types = ['PublicationPage', 'LegacyPublicationPage', 'ShortPublicationPage', 'general.General']
+    subpage_types = ['PublicationPage', 'LegacyPublicationPage', 'ShortPublicationPage', 'general.General', 'AudioVisualMedia']
     parent_page_types = ['home.HomePage']
 
     def get_context(self, request):
@@ -204,10 +204,12 @@ class PublicationIndexPage(HeroMixin, Page):
             stories = PublicationPage.objects.live().filter(topics__slug=topic_filter)
             legacy_pubs = LegacyPublicationPage.objects.live().filter(topics__slug=topic_filter)
             short_pubs = ShortPublicationPage.objects.live().filter(topics__slug=topic_filter)
+            audio_visual_media = AudioVisualMedia.objects.live().filter(topics__slug=topic_filter)
         else:
             stories = PublicationPage.objects.live()
             legacy_pubs = LegacyPublicationPage.objects.live()
             short_pubs = ShortPublicationPage.objects.live()
+            audio_visual_media = AudioVisualMedia.objects.live()
 
         if country_filter:
             stories = stories.filter(page_countries__country__slug=country_filter)
@@ -218,6 +220,7 @@ class PublicationIndexPage(HeroMixin, Page):
             stories = stories.filter(publication_type__slug=types_filter)
             legacy_pubs = legacy_pubs.filter(publication_type__slug=types_filter)
             short_pubs = short_pubs.filter(publication_type__slug=types_filter)
+            audio_visual_media = audio_visual_media.filter(publication_type__slug=types_filter)
 
         if search_filter:
             query = Query.get(search_filter)
@@ -236,7 +239,7 @@ class PublicationIndexPage(HeroMixin, Page):
             legacy_pubs = legacy_pubs.search(search_filter).annotate_score("_score")
             short_pubs = short_pubs.search(search_filter).annotate_score("_score")
 
-        story_list = list(chain(stories, legacy_pubs, short_pubs))
+        story_list = list(chain(stories, legacy_pubs, short_pubs, audio_visual_media))
         elasticsearch_is_active = True
         for story in story_list:
             if hasattr(story, "_score"):
@@ -986,6 +989,43 @@ class ShortPublicationPage(HeroMixin, PublishedDateMixin, FlexibleContentMixin, 
             if block.block_type == 'section_heading':
                 sections.append(block)
         return sections
+
+
+class AudioVisualMedia(PublishedDateMixin, TypesetBodyMixin, HeroMixin, SectionBodyMixin, Page):
+
+    """
+    Audio Visual page to be used as a child of the Resources Index Page
+    """
+
+    template = 'publications/audio_visual_media.html'
+
+    other_pages_heading = models.CharField(
+        blank=True,
+        max_length=255,
+        verbose_name='Heading',
+        default='More about'
+    )
+    publication_type = models.ForeignKey(
+        PublicationType, related_name="+", null=True, blank=False, on_delete=models.SET_NULL, verbose_name="Resource Type")
+
+    content_panels = Page.content_panels + [
+        hero_panels(),
+        StreamFieldPanel('body'),
+        StreamFieldPanel('sections'),
+        FieldPanel('publication_type'),
+        PublishedDatePanel(),
+        MultiFieldPanel([
+            FieldPanel('other_pages_heading'),
+            InlinePanel('other_pages', label='Related pages')
+        ], heading='Other Pages/Related Links'),
+        InlinePanel('page_notifications', label='Notifications')
+    ]
+
+    parent_page_types = ['PublicationIndexPage']
+    subpage_types = []
+
+    class Meta:
+        verbose_name = 'Audio and Visual Media Page'
 
 
 class PublicationPageRelatedLink(OtherPageMixin):

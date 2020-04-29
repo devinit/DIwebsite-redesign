@@ -1,5 +1,25 @@
 <form method="get" action="{{self.pageurl}}" class="form">
   <div class="form-field form-field--inline-four">
+    <label for="country" class="form-label form-label--hidden">
+      All Types
+    </label>
+    <div class="form-field__select-dropdown">
+      <select name="types" id="types">
+        <option value="" id="filter-by-country">All Types</option>
+        {% regroup resource_types by resource_category as resources_list %}
+        {% for category in resources_list %}
+          <optgroup label="{{ category.grouper }}">
+            {% for resource_type in category.list %}
+              <option value="{{resource_type.slug}}" id="{{resource_type.slug}}" {% if resource_type.slug == selected_country %}selected{% endif %}>
+                {{resource_type}}
+              </option>
+            {% endfor %}
+          </optgroup>
+        {% endfor %}
+      </select>
+    </div>
+  </div>
+  <div class="form-field form-field--inline-four">
     <label for="topic" class="form-label form-label--hidden">
       All topics
     </label>

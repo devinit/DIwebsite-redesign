@@ -138,19 +138,39 @@ class PageCountry(Orderable):
 
 
 @register_snippet
+class ResourceCategory(ClusterableModel):
+    name = models.CharField(max_length=255, unique=True)
+
+    panels = [
+        FieldPanel('name'),
+    ]
+
+    class Meta:
+        ordering = ["name"]
+        verbose_name = 'Resource Categories'
+
+    def __str__(self):
+        return self.name
+
+
+@register_snippet
 class PublicationType(ClusterableModel):
     name = models.CharField(max_length=255, unique=True)
+    resource_category = models.ForeignKey(
+        ResourceCategory, related_name="+", on_delete=models.CASCADE, null=True, blank=False)
     slug = models.SlugField(
         max_length=255, blank=True, null=True,
         help_text="Optional. Will be auto-generated from name if left blank.")
 
     panels = [
         FieldPanel('name'),
+        SnippetChooserPanel('resource_category'),
         FieldPanel('slug'),
     ]
 
     class Meta:
         ordering = ["name"]
+        verbose_name = 'Resource Type'
 
     def __str__(self):
         return self.name
@@ -176,7 +196,10 @@ class PublicationIndexPage(HeroMixin, Page):
         page = request.GET.get('page', None)
         topic_filter = request.GET.get('topic', None)
         country_filter = request.GET.get('country', None)
+        types_filter = request.GET.get('types', None)
         search_filter = request.GET.get('q', None)
+
+        print('types ' + types_filter if types_filter else 'not set')
 
         if topic_filter:
             stories = PublicationPage.objects.live().filter(topics__slug=topic_filter)
@@ -191,6 +214,11 @@ class PublicationIndexPage(HeroMixin, Page):
             stories = stories.filter(page_countries__country__slug=country_filter)
             legacy_pubs = legacy_pubs.filter(page_countries__country__slug=country_filter)
             short_pubs = short_pubs.filter(page_countries__country__slug=country_filter)
+
+        if types_filter:
+            stories = stories.filter(publication_type__slug=types_filter)
+            legacy_pubs = legacy_pubs.filter(publication_type__slug=types_filter)
+            short_pubs = short_pubs.filter(publication_type__slug=types_filter)
 
         if search_filter:
             query = Query.get(search_filter)
@@ -244,6 +272,7 @@ class PublicationIndexPage(HeroMixin, Page):
         ).distinct().order_by('name')
         context['selected_topic'] = topic_filter
         context['countries'] = Country.objects.all().order_by('region', 'name')
+        context['resource_types'] = PublicationType.objects.all().order_by('resource_category', 'name')
         context['selected_country'] = country_filter
         context['search_filter'] = search_filter
         context['is_filtered'] = search_filter or topic_filter or country_filter
@@ -252,7 +281,7 @@ class PublicationIndexPage(HeroMixin, Page):
         return context
 
     class Meta():
-        verbose_name = 'Publication Index Page'
+        verbose_name = 'Resources Page'
 
 
 class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUIDMixin, FilteredDatasetMixin, Page):
@@ -284,7 +313,7 @@ class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUID
     ], blank=True)
 
     publication_type = models.ForeignKey(
-        PublicationType, related_name="+", null=True, blank=True, on_delete=models.SET_NULL)
+        PublicationType, related_name="+", null=True, blank=True, on_delete=models.SET_NULL, verbose_name="Resource Type")
     topics = ClusterTaggableManager(through=PublicationTopic, blank=True, verbose_name="Topics")
 
     download_report_cover = WagtailImageField()
@@ -737,7 +766,7 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, LegacyPageSearchMixin
     ], blank=True)
 
     publication_type = models.ForeignKey(
-        PublicationType, related_name="+", null=True, blank=True, on_delete=models.SET_NULL)
+        PublicationType, related_name="+", null=True, blank=True, on_delete=models.SET_NULL, verbose_name="Resource Type")
     topics = ClusterTaggableManager(through=LegacyPublicationTopic, blank=True, verbose_name="Topics")
 
     raw_content = models.TextField(null=True, blank=True)
@@ -854,7 +883,7 @@ class ShortPublicationPage(HeroMixin, PublishedDateMixin, FlexibleContentMixin, 
         ]))
     ], blank=True)
     publication_type = models.ForeignKey(
-        PublicationType, related_name="+", null=True, blank=True, on_delete=models.SET_NULL)
+        PublicationType, related_name="+", null=True, blank=True, on_delete=models.SET_NULL, verbose_name="Resource Type")
     topics = ClusterTaggableManager(through=ShortPublicationTopic, blank=True, verbose_name="Topics")
 
     download_report_cover = WagtailImageField()

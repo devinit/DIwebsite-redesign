@@ -313,7 +313,7 @@ class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUID
     ], blank=True)
 
     publication_type = models.ForeignKey(
-        PublicationType, related_name="+", null=True, blank=True, on_delete=models.SET_NULL, verbose_name="Resource Type")
+        PublicationType, related_name="+", null=True, blank=False, on_delete=models.SET_NULL, verbose_name="Resource Type")
     topics = ClusterTaggableManager(through=PublicationTopic, blank=True, verbose_name="Topics")
 
     download_report_cover = WagtailImageField()
@@ -766,7 +766,7 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, LegacyPageSearchMixin
     ], blank=True)
 
     publication_type = models.ForeignKey(
-        PublicationType, related_name="+", null=True, blank=True, on_delete=models.SET_NULL, verbose_name="Resource Type")
+        PublicationType, related_name="+", null=True, blank=False, on_delete=models.SET_NULL, verbose_name="Resource Type")
     topics = ClusterTaggableManager(through=LegacyPublicationTopic, blank=True, verbose_name="Topics")
 
     raw_content = models.TextField(null=True, blank=True)
@@ -883,7 +883,7 @@ class ShortPublicationPage(HeroMixin, PublishedDateMixin, FlexibleContentMixin, 
         ]))
     ], blank=True)
     publication_type = models.ForeignKey(
-        PublicationType, related_name="+", null=True, blank=True, on_delete=models.SET_NULL, verbose_name="Resource Type")
+        PublicationType, related_name="+", null=True, blank=False, on_delete=models.SET_NULL, verbose_name="Resource Type")
     topics = ClusterTaggableManager(through=ShortPublicationTopic, blank=True, verbose_name="Topics")
 
     download_report_cover = WagtailImageField()

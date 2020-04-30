@@ -30,6 +30,14 @@
         </div>
     </section>
 
+    <section class="section">
+      <div class="row row--narrow">
+        <div class="l-sidebar">
+          {% include_block page.full_width_video %}
+        </div>
+      </div>
+    </section>
+
     {% for section in page.sections %}
         {% include_block section %}
     {% endfor %}

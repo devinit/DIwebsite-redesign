@@ -33,6 +33,7 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.search.models import Query
+from wagtail.embeds.blocks import EmbedBlock
 
 
 from di_website.common.base import hero_panels, get_paginator_range, get_related_pages
@@ -1015,11 +1016,20 @@ class AudioVisualMedia(PublishedDateMixin, TypesetBodyMixin, HeroMixin, SectionB
     )
     publication_type = models.ForeignKey(
         PublicationType, related_name="+", null=True, blank=False, on_delete=models.SET_NULL, verbose_name="Resource Type")
+    full_width_video = StreamField([
+        ('full_width_video', EmbedBlock(
+            help_text='Insert an embed URL e.g https://www.youtube.com/embed/SGJFWirQ3ks',
+            icon='fa-video-camera',
+            template='blocks/full_width_embed.html',
+            required=False
+        ))
+    ], blank=True)
 
     content_panels = Page.content_panels + [
         hero_panels(),
         StreamFieldPanel('body'),
         StreamFieldPanel('sections'),
+        StreamFieldPanel('full_width_video'),
         FieldPanel('publication_type'),
         PublishedDatePanel(),
         MultiFieldPanel([

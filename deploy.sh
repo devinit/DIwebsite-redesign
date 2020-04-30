@@ -175,6 +175,26 @@ function enable_https_configs {
     fi
 }
 
+function build_with_docker_compose {
+    if [ $(docker ps -f name=blue -q) ]
+    then
+        ENV="green"
+        OLD="blue"
+    else
+        ENV="blue"
+        OLD="green"
+    fi
+
+    echo "Starting "$ENV" container"
+
+    docker-compose --project-name=$ENV up -d --build
+
+    echo "Waiting..."
+    sleep 5s
+
+    echo "Stopping "$OLD" container"
+    docker-compose --project-name=$OLD stop
+}
 
 if [ ${args[0]} == 'run' ]
 then
@@ -197,7 +217,8 @@ then
     start_new_process "Starting up services ..."
     cd $APP_DIR
     sudo chown -R di_website:di_website storage
-    docker-compose up -d --build
+
+    build_with_docker_compose
 
     sleep 60;
     start_link_checker_processes

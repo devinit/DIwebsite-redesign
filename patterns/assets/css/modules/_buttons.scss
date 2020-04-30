@@ -207,15 +207,18 @@ button.button--alt {
 	.button--faux__list a {
 		color: #fff;
 	}
-	&.button--faux {
-		&:hover {
-			background-color: transparent;
-		}
-	}
 	@include link-active-styles {
 		border-color: #fff;
 		background-color: #fff !important;
 		color: $heading-color;
+		&.button--faux {
+			background-color: transparent !important;
+		}
+		.button--faux__list a {
+			&:hover {
+				text-decoration: underline;
+			}
+		}
 	}
 }
 

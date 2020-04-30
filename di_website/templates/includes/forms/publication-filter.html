@@ -1,5 +1,5 @@
 <form method="get" action="{{self.pageurl}}" class="form">
-  <div class="form-field form-field--inline-five">
+  <div class="form-field resources-filters form-field--inline-five">
     <label for="types" class="form-label form-label--hidden">
       All Types
     </label>
@@ -19,7 +19,7 @@
       </select>
     </div>
   </div>
-  <div class="form-field form-field--inline-five">
+  <div class="form-field resources-filters form-field--inline-five">
     <label for="topic" class="form-label form-label--hidden">
       All topics
     </label>
@@ -34,7 +34,7 @@
       </select>
     </div>
   </div>
-  <div class="form-field form-field--inline-five">
+  <div class="form-field resources-filters form-field--inline-five">
     <label for="country" class="form-label form-label--hidden">
       All countries
     </label>
@@ -54,11 +54,11 @@
       </select>
     </div>
   </div>
-  <div class="form-field form-field--inline-five">
+  <div class="form-field resources-filters form-field--inline-five">
     <label for="q" class="form-label form-label--hidden">Search by keyword</label>
     <input class="form-item" type="text" name="q" placeholder="Search..." value="{{search_filter|default_if_none:''}}">
   </div>
-  <div class="form-field form-field--inline-five resources_filter_button">
+  <div class="form-field resources-filters form-field--inline-five resources-filter--button">
     <button type="submit" class="button">Filter</button>
   </div>
 </form>

@@ -1,4 +1,4 @@
-version: "2.2"
+version: "3.4"
 
 services:
   db:
@@ -10,6 +10,10 @@ services:
     restart: always
     volumes:
       - diwebsite_db:/var/lib/postgresql/data
+    networks:
+      - internal
+    labels:
+      - traefik.enable=false
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.2.4
@@ -26,12 +30,24 @@ services:
     restart: always
     volumes:
       - index_db:/usr/share/elasticsearch/data
+    networks:
+      - internal
+    labels:
+      - traefik.enable=false
 
   web:
     depends_on:
       - db
       - rabbitmq
       - elasticsearch
+    labels:
+      - "traefik.enable=true"
+      - "traefik.backend=web"
+      - "traefik.backend.healthcheck.path=/health"
+      - "traefik.backend.healthcheck.interval=1s"
+      - "traefik.frontend.rule=Host:localhost"
+      - "traefik.port=8090"
+      - "traefik.docker.network=web"
     expose:
       - "8090"
     env_file: .env
@@ -47,22 +63,9 @@ services:
       - ./config/celery/default:/etc/default
       - ./config/celery/init.d:/etc/init.d
     restart: always
-
-  nginx:
-    image: nginx:latest
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./config/nginx:/etc/nginx/conf.d
-      - ./assets:/assets
-      - ./storage:/media
-      - ./ssl:/etc/ssl/
-      - ./letsencrypt:/letsencrypt/
-      - ../wp-content:/wp-content
-    depends_on:
-      - web
-    restart: always
+    networks:
+      - internal
+      - traefik
 
   rabbitmq:
     image: rabbitmq:latest
@@ -72,6 +75,11 @@ services:
       - 5672:5672
       - 15672:15672
     restart: always
+    networks:
+      - internal
+    labels:
+      - traefik.enable=false
+
 
 volumes:
   diwebsite_db:
@@ -79,3 +87,10 @@ volumes:
   index_db:
     driver: local
     external: true
+
+networks:
+  traefik:
+      external:
+          name: traefik_webgateway
+  internal:
+      external: false

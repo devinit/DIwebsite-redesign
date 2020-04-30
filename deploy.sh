@@ -20,7 +20,7 @@ DATABASE_BACKUP=$SCRIPT_DIR'/database_backup'
 DATABASE_NAME='di_website'
 DOCKER_STORAGE='diwebsite_db;index_db'
 REPOSITORY="git@github.com:devinit/"$APP_NAME".git"
-ACTIVE_BRANCH=$BRANCH || 'develop'
+ACTIVE_BRANCH=$TRAVIS_BRANCH || 'develop'
 STAGING_IP=
 ENVIROMENT_VARIABLES='ENVIRONMENT;SECRET_KEY;DEFAULT_FROM_EMAIL;EMAIL_HOST;EMAIL_BACKEND;EMAIL_HOST_USER;EMAIL_HOST_PASSWORD;HS_API_KEY;HS_TICKET_PIPELINE;HS_TICKET_PIPELINE_STAGE;ELASTIC_USERNAME;ELASTIC_PASSWORD;RABBITMQ_PASSWORD;DATABASE_URL;CELERY_BROKER_URL;ELASTIC_SEARCH_URL'
 
@@ -213,6 +213,9 @@ then
     mkdir -p $APP_DIR"/storage"
 
     enable_https_configs
+
+    # run the traefik container
+    docker-compose --project-name=traefik -f docker-compose.traefik.yml up -d
 
     start_new_process "Starting up services ..."
     cd $APP_DIR

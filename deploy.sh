@@ -123,7 +123,6 @@ function perform_git_operations {
         cd $APP_DIR
 
         {
-            docker-compose down
             # Move back to root director
             log  "Cloning new content from active branch "$ACTIVE_BRANCH
             git fetch

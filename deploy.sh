@@ -20,9 +20,9 @@ DATABASE_BACKUP=$SCRIPT_DIR'/database_backup'
 DATABASE_NAME='di_website'
 DOCKER_STORAGE='diwebsite_db;index_db'
 REPOSITORY="git@github.com:devinit/"$APP_NAME".git"
-ACTIVE_BRANCH=$TRAVIS_BRANCH || 'develop'
+ACTIVE_BRANCH=$BRANCH
 STAGING_IP=
-ENVIROMENT_VARIABLES='ENVIRONMENT;SECRET_KEY;DEFAULT_FROM_EMAIL;EMAIL_HOST;EMAIL_BACKEND;EMAIL_HOST_USER;EMAIL_HOST_PASSWORD;HS_API_KEY;HS_TICKET_PIPELINE;HS_TICKET_PIPELINE_STAGE;ELASTIC_USERNAME;ELASTIC_PASSWORD;RABBITMQ_PASSWORD;DATABASE_URL;CELERY_BROKER_URL;ELASTIC_SEARCH_URL'
+ENVIROMENT_VARIABLES='ENVIRONMENT;SECRET_KEY;DEFAULT_FROM_EMAIL;EMAIL_HOST;EMAIL_BACKEND;EMAIL_HOST_USER;EMAIL_HOST_PASSWORD;HS_API_KEY;HS_TICKET_PIPELINE;HS_TICKET_PIPELINE_STAGE;ELASTIC_USERNAME;ELASTIC_PASSWORD;RABBITMQ_PASSWORD;DATABASE_URL;CELERY_BROKER_URL;ELASTIC_SEARCH_URL;BRANCH'
 
 OIFS=$IFS
 IFS=';'
@@ -135,7 +135,9 @@ function perform_git_operations {
         }
     else
         {
-            git clone --branch $ACTIVE_BRANCH $REPOSITORY
+            pwd
+            git clone -b $ACTIVE_BRANCH $REPOSITORY
+
             } || {
             log "Failed to perform git clone on $REPOSITORY with branch $ACTIVE_BRANCH "
             exit 20;
@@ -176,24 +178,8 @@ function enable_https_configs {
 }
 
 function build_with_docker_compose {
-    if [ $(docker ps -f name=blue -q) ]
-    then
-        ENV="green"
-        OLD="blue"
-    else
-        ENV="blue"
-        OLD="green"
-    fi
+    docker-compose up -d --build
 
-    echo "Starting "$ENV" container"
-
-    docker-compose --project-name=$ENV up -d --build
-
-    echo "Waiting..."
-    sleep 5s
-
-    echo "Stopping "$OLD" container"
-    docker-compose --project-name=$OLD stop
 }
 
 if [ ${args[0]} == 'run' ]

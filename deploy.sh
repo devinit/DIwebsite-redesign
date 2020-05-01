@@ -200,13 +200,10 @@ then
 
     enable_https_configs
 
-    # run the traefik container
-    docker-compose --project-name=traefik -f docker-compose.traefik.yml up -d
-
     start_new_process "Starting up services ..."
     cd $APP_DIR
     sudo chown -R di_website:di_website storage
-
+    docker network create web_gateway
     build_with_docker_compose
 
     sleep 60;

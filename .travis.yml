@@ -11,7 +11,7 @@ before_install:
 - echo "DATABASE_URL=postgresql://di_website:di_website_pw@db/di_website" > .env
 - docker volume create --name=diwebsite_db
 - docker volume create --name="index_db"
-- docker network create traefik_webgateway
+- docker network create web_gateway
 - docker-compose up --build -d
 script:
 - docker-compose run web /bin/sh -c "python3 -m coverage run manage.py test && python3 -m coverage xml && mv coverage.xml shared" && cd shared && python3 -m codecov

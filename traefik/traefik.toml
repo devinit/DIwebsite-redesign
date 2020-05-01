@@ -1,12 +1,9 @@
-defaultEntryPoints = ["http"]
-logLevel = "DEBUG"
 
-[api]
-address = ":8080"
+defaultEntryPoints = ["http"]
 
 [entryPoints]
-    [entryPoints.http]
-    address = ":80"
+  [entryPoints.http]
+  address = ":80"
 
 [retry]
 attempts = 3
@@ -14,6 +11,15 @@ maxMem = 3
 
 [docker]
 endpoint = "unix:///var/run/docker.sock"
-domain = "localhost"
+domain = "docker.localhost"
 watch = true
 exposedbydefault = false
+network = "web_gateway"
+
+[file]
+watch = true
+
+[log]
+  level = "DEBUG"
+
+

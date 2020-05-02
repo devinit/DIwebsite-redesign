@@ -6,10 +6,15 @@ services:
     networks:
         - web_gateway
     ports:
-        - "80:80"
+        - "80"
     volumes:
         - /var/run/docker.sock:/var/run/docker.sock
         - ./traefik/traefik.toml:/traefik.toml
+        - ./assets:/assets
+        - ./storage:/media
+        - ./ssl:/etc/ssl/
+        - ./letsencrypt:/letsencrypt/
+        - ../wp-content:/wp-content
     depends_on:
       - web
     restart: always
@@ -38,8 +43,8 @@ services:
         soft: -1
         hard: -1
     ports:
-      - "8900:9200"
-      - "9700:9300"
+      - "9200"
+      - "9300"
     restart: always
     volumes:
       - index_db:/usr/share/elasticsearch/data
@@ -82,10 +87,10 @@ services:
   rabbitmq:
     image: rabbitmq:latest
     ports:
-      - 4369:4369
-      - 5671:5671
-      - 5672:5672
-      - 15672:15672
+      - "4369"
+      - "5671"
+      - "5672"
+      - "15672"
     restart : always
     networks:
       - internal

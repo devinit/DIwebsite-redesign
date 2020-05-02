@@ -52,7 +52,7 @@ function setup_docker_storage {
             log "Docker volume $storage already exits. Skipping ...."
         else
             docker volume create $storage > /dev/null
-            log "Created new docker volume $storage witth status "$?
+            log "Created new docker volume $storage with status "$?
         fi
     done
 
@@ -92,7 +92,7 @@ function backup_database {
     cd $APP_DIR
 
     log "Starting backup from remote docker machine $(docker-compose ps -q db)"
-    docker-compose exec -T db pg_dump -U di_website -d di_website >  $file_name
+    docker-compose --project-name=$ENV exec -T db pg_dump -U di_website -d di_website >  $file_name
 
     log "Database backup completed..."
 
@@ -111,7 +111,7 @@ function elastic_search_reindex {
     start_new_process "Re-indexing elastic search"
     cd $APP_DIR
 
-    docker-compose exec -T $ENV_web python manage.py update_index
+    docker-compose --project-name=$ENV exec -T web python manage.py update_index
 
 }
 
@@ -150,20 +150,20 @@ function start_link_checker_processes {
     start_new_process "Creating Rabbit MQ user and vhost for celery"
     cd $APP_DIR
 
-    until docker-compose exec -T $ENV_rabbitmq rabbitmqctl start_app; do
+    until docker-compose --project-name=$ENV exec -T rabbitmq rabbitmqctl start_app; do
         log "Rabbit is unavailable - sleeping"
         sleep 10
     done
 
-    docker-compose exec -T $ENV_rabbitmq rabbitmqctl add_user di_website $RABBITMQ_PASSWORD
-    docker-compose exec -T $ENV_rabbitmq rabbitmqctl add_vhost myvhost
-    docker-compose exec -T $ENV_rabbitmq rabbitmqctl set_user_tags di_website di_website
-    docker-compose exec -T $ENV_rabbitmq rabbitmqctl set_permissions -p myvhost di_website ".*" ".*" ".*"
+    docker-compose --project-name=$ENV exec -T rabbitmq rabbitmqctl add_user di_website $RABBITMQ_PASSWORD
+    docker-compose --project-name=$ENV exec -T rabbitmq rabbitmqctl add_vhost myvhost
+    docker-compose --project-name=$ENV exec -T rabbitmq rabbitmqctl set_user_tags di_website di_website
+    docker-compose --project-name=$ENV exec -T rabbitmq rabbitmqctl set_permissions -p myvhost di_website ".*" ".*" ".*"
 
     start_new_process "Starting celery"
-    docker-compose exec -T $ENV_web chown root '/etc/default/celeryd'
-    docker-compose exec -T $ENV_web chmod 640 '/etc/default/celeryd'
-    docker-compose exec -T $ENV_web /etc/init.d/celeryd start
+    docker-compose --project-name=$ENV exec -T web chown root '/etc/default/celeryd'
+    docker-compose --project-name=$ENV exec -T web chmod 640 '/etc/default/celeryd'
+    docker-compose --project-name=$ENV exec -T web /etc/init.d/celeryd start
 
     log "Finished setting up link checker .."
 
@@ -218,7 +218,7 @@ then
     start_new_process "Starting up services ..."
     cd $APP_DIR
     sudo chown -R di_website:di_website storage
-    docker network create web_gateway
+    docker-compose --project-name=traefik -f traefik/docker-compose.traefik.yml up -d
     build_with_docker_compose
 
     sleep 60;
@@ -226,7 +226,7 @@ then
     elastic_search_reindex
 
     start_new_process "Generating static assets"
-    docker-compose exec -T $ENV_web python manage.py collectstatic --noinput
+    docker-compose --project-name=$ENV exec -T web python manage.py collectstatic --noinput
     sudo chown -R di_website:di_website assets
     exit 0
 

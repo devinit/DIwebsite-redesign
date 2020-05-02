@@ -1,24 +1,6 @@
 version: "3.4"
 
 services:
-  traefik:
-    image: traefik:v1.7.16
-    networks:
-        - web_gateway
-    ports:
-        - "80"
-    volumes:
-        - /var/run/docker.sock:/var/run/docker.sock
-        - ./traefik/traefik.toml:/traefik.toml
-        - ./assets:/assets
-        - ./storage:/media
-        - ./ssl:/etc/ssl/
-        - ./letsencrypt:/letsencrypt/
-        - ../wp-content:/wp-content
-    depends_on:
-      - web
-    restart: always
-
   db:
     image: postgres:10
     environment:
@@ -42,7 +24,7 @@ services:
       memlock:
         soft: -1
         hard: -1
-    ports:
+    expose:
       - "9200"
       - "9300"
     restart: always
@@ -63,7 +45,7 @@ services:
       - "traefik.backend=web"
       - "traefik.frontend.rule=PathPrefixStrip:/"
       - "traefik.port=8090"
-      - "traefik.docker.network=web_gateway"
+      - "traefik.docker.network=traefik_webgateway"
       - "traefik.frontend.entryPoints=http"
     expose:
       - "8090"
@@ -82,11 +64,11 @@ services:
     restart: always
     networks:
       - internal
-      - web_gateway
+      - traefik_webgateway
 
   rabbitmq:
     image: rabbitmq:latest
-    ports:
+    expose:
       - "4369"
       - "5671"
       - "5672"
@@ -106,7 +88,8 @@ volumes:
     external: true
 
 networks:
-  web_gateway:
+  traefik_webgateway:
       external: true
   internal:
       external: false
+

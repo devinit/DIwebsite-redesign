@@ -1,5 +1,5 @@
-
 defaultEntryPoints = ["http"]
+logLevel = "DEBUG"
 
 [entryPoints]
   [entryPoints.http]
@@ -14,7 +14,7 @@ endpoint = "unix:///var/run/docker.sock"
 domain = "docker.localhost"
 watch = true
 exposedbydefault = false
-network = "web_gateway"
+network = "traefik_webgateway"
 
 [file]
 watch = true

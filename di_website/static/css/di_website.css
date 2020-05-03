@@ -23,7 +23,7 @@
     margin-top: 7px;
 }
 
-.form-field--inline-five.resources-filters {
+.resources-filters .form-field--inline-five {
     width: 19%;
     margin-right: 3px;
 }

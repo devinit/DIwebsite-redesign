@@ -7,7 +7,6 @@ services:
             - webgateway
         ports:
             - "80:80"
-            - "8080:8080"
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
             - ./traefik.toml:/traefik.toml
@@ -16,7 +15,7 @@ services:
             - ./ssl:/etc/ssl/
             - ./letsencrypt:/letsencrypt/
             - ../wp-content:/wp-content
-        restart: always
+        restart: unless-stopped
 
 networks:
     webgateway:

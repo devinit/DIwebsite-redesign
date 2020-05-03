@@ -92,7 +92,8 @@ function backup_database {
     cd $APP_DIR
 
     log "Starting backup from remote docker machine $(docker-compose ps -q db)"
-    docker-compose --project-name=$ENV exec -T db pg_dump -U di_website -d di_website >  $file_name
+    project_name="$(docker ps --format "table {{.ID}}  {{.Names}}  {{.CreatedAt}}" | grep db | tail -n 1 | awk -F  "  " '{print $2}' | awk -F  "  " '{print $2}' | awk -F '[/_]' '{print $1}')"
+    docker-compose --project-name=$project_name exec -T db pg_dump -U di_website -d di_website >  $file_name
 
     log "Database backup completed..."
 
@@ -187,13 +188,9 @@ function build_with_docker_compose {
     fi
 
     echo "Starting "$ENV" container"
+    docker-compose --project-name=$OLD stop elasticsearch
     docker-compose --project-name=$ENV up -d --build
-
-    echo "Waiting..."
-    sleep 5s
-
-    echo "Stopping "$OLD" container"
-    docker-compose --project-name=$OLD stop
+    docker-compose --project-name=traefik -f traefik/docker-compose.traefik.yml restart traefik
 
 }
 
@@ -228,6 +225,8 @@ then
     start_new_process "Generating static assets"
     docker-compose --project-name=$ENV exec -T web python manage.py collectstatic --noinput
     sudo chown -R di_website:di_website assets
+    echo "Stopping "$OLD" container"
+    docker-compose --project-name=$OLD stop
     exit 0
 
 elif [ ${args[0]} == 'backup' ]

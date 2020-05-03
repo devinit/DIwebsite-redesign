@@ -34,6 +34,8 @@ from wagtail.images.blocks import ImageChooserBlock
 from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.search.models import Query
 from wagtail.embeds.blocks import EmbedBlock
+from wagtailmedia.edit_handlers import MediaChooserPanel
+
 
 
 from di_website.common.base import hero_panels, get_paginator_range, get_related_pages
@@ -51,6 +53,59 @@ from .utils import (
     UUIDPanel, get_first_child_of_type, get_ordered_children_of_type, get_downloads)
 from .edit_handlers import MultiFieldPanel
 from .inlines import *
+
+from wagtailmedia.blocks import AbstractMediaChooserBlock
+from django.forms.utils import flatatt
+from django.utils.html import format_html, format_html_join
+
+from wagtail.core import hooks
+
+@hooks.register('construct_media_chooser_queryset')
+def show_my_uploaded_media_only(media, request):
+    # Only show uploaded media
+    media = media.filter(type='audio')
+
+    return media
+
+
+class TestMediaBlock(AbstractMediaChooserBlock):
+    def render_basic(self, value, context=None):
+        print(value.sources[0])
+        if not value:
+            return ''
+
+        if value.type == 'video':
+            player_code = '''
+            <div>
+                <video width="320" height="240" controls>
+                    {0}
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            '''
+        else:
+            player_code = '''
+            <div>
+                <audio controls duration class='audio-tag'>
+                    {0}
+                    Your browser does not support audio using the HTML 5 audio element.
+                </audio>
+                <div>
+                    <a href="{1}" class='download-audio'>Download Audio</a>
+                </div>
+            </div>
+            '''
+
+        return format_html(player_code, format_html_join(
+            '\n', "<source{0}>",
+            [[flatatt(s)] for s in value.sources]
+        ),
+        value.sources[0].get('src'))
+
+    def get_context(self, value, parent_context=None):
+        context = super().get_context(value, parent_context=parent_context)
+        context['src'] = value.sources[0].src
+        return context
 
 
 RED = 'poppy'
@@ -1024,12 +1079,18 @@ class AudioVisualMedia(PublishedDateMixin, TypesetBodyMixin, HeroMixin, SectionB
             required=False
         ))
     ], blank=True)
+    media_content = StreamField([
+        ('media', TestMediaBlock(icon='media')),
+    ],
+    null=True,
+    blank=True)
 
     content_panels = Page.content_panels + [
         hero_panels(),
         StreamFieldPanel('body'),
         StreamFieldPanel('sections'),
         StreamFieldPanel('full_width_video'),
+        StreamFieldPanel('media_content'),
         FieldPanel('publication_type'),
         PublishedDatePanel(),
         MultiFieldPanel([

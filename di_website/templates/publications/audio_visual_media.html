@@ -38,6 +38,15 @@
       </div>
     </section>
 
+    <section class="section">
+      <div class="row row--narrow">
+        <h1 class="audio-player-title">Listen to audio</h1>
+        <div class="l-sidebar">
+          {{page.media_content}}
+        </div>
+      </div>
+    </section>
+
     {% for section in page.sections %}
         {% include_block section %}
     {% endfor %}

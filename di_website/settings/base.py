@@ -73,6 +73,7 @@ INSTALLED_APPS = [
     'wagtail.core',
     'wagtaillinkchecker',
     'wagtailgeowidget',
+    'wagtailmedia',
 
     'modelcluster',
     'taggit',

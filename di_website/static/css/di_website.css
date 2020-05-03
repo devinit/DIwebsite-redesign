@@ -27,3 +27,12 @@
     width: 19%;
     margin-right: 3px;
 }
+
+.audio-tag {
+    width: 100%;
+}
+
+.download-audio, .audio-player-title {
+    font-size: 14px;
+    padding-bottom: 10px;
+}

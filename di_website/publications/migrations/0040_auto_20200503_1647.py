@@ -19,6 +19,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='audiovisualmedia',
             name='media_content',
-            field=wagtail.core.fields.StreamField([('media', di_website.publications.models.TestMediaBlock(icon='media'))], blank=True, null=True),
+            field=wagtail.core.fields.StreamField(di_website.publications.blocks.AudioMediaStreamBlock(max_num=1), blank=True, null=True),
         ),
     ]

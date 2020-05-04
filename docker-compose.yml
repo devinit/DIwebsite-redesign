@@ -1,6 +1,27 @@
 version: "3.4"
 
 services:
+  nginx:
+    image: nginx:latest
+    labels:
+      - "traefik.enable=true"
+      - 'traefik.frontend.rule=PathPrefixStrip:/'
+      - "traefik.port=80"
+      - "traefik.docker.network=traefik_webgateway"
+      - "traefik.backend=nginx"
+    volumes:
+      - ./config/nginx:/etc/nginx/conf.d
+      - ./assets:/assets
+      - ./storage:/media
+      - ./ssl:/etc/ssl/
+      - ./letsencrypt:/letsencrypt/
+      - ../wp-content:/wp-content
+    depends_on:
+      - web
+    restart: always
+    networks:
+      - internal
+      - traefik_webgateway
   db:
     image: postgres:10
     environment:
@@ -40,13 +61,6 @@ services:
       - db
       - rabbitmq
       - elasticsearch
-    labels:
-      - "traefik.enable=true"
-      - "traefik.backend=web"
-      - "traefik.frontend.rule=PathPrefixStrip:/"
-      - "traefik.port=8090"
-      - "traefik.docker.network=traefik_webgateway"
-      - "traefik.frontend.entryPoints=http"
     expose:
       - "8090"
     env_file: .env

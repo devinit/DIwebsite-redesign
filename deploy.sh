@@ -21,6 +21,7 @@ DATABASE_NAME='di_website'
 DOCKER_STORAGE='diwebsite_db;index_db'
 REPOSITORY="git@github.com:devinit/"$APP_NAME".git"
 ACTIVE_BRANCH=$BRANCH
+ENVIRONMENT=$ENVIRONMENT
 STAGING_IP=
 ENVIROMENT_VARIABLES='ENVIRONMENT;SECRET_KEY;DEFAULT_FROM_EMAIL;EMAIL_HOST;EMAIL_BACKEND;EMAIL_HOST_USER;EMAIL_HOST_PASSWORD;HS_API_KEY;HS_TICKET_PIPELINE;HS_TICKET_PIPELINE_STAGE;ELASTIC_USERNAME;ELASTIC_PASSWORD;RABBITMQ_PASSWORD;DATABASE_URL;CELERY_BROKER_URL;ELASTIC_SEARCH_URL;BRANCH'
 
@@ -92,8 +93,8 @@ function backup_database {
     cd $APP_DIR
 
     log "Starting backup from remote docker machine $(docker-compose ps -q db)"
-    project_name="$(docker ps --format "table {{.ID}}  {{.Names}}  {{.CreatedAt}}" | grep db | tail -n 1 | awk -F  "  " '{print $2}' | awk -F  "  " '{print $2}' | awk -F '[/_]' '{print $1}')"
-    docker-compose --project-name=$project_name exec -T db pg_dump -U di_website -d di_website >  $file_name
+    PROJECTNAME=$(docker ps --format "table {{.ID}}  {{.Names}}  {{.CreatedAt}}" | grep db | tail -n 1 | awk -F  "  " '{print $2}' | cut -d"_" -f1)
+    docker-compose --project-name=$PROJECTNAME exec -T db pg_dump -U di_website -d di_website >  $file_name
 
     log "Database backup completed..."
 
@@ -188,7 +189,6 @@ function build_with_docker_compose {
     fi
 
     echo "Starting "$ENV" container"
-    docker-compose --project-name=$OLD stop elasticsearch
     sudo chown -R di_website:di_website core
     docker-compose --project-name=$ENV up -d --build
     docker-compose --project-name=traefik -f traefik/docker-compose.traefik.yml restart traefik
@@ -225,6 +225,7 @@ then
 
     start_new_process "Generating static assets"
     docker-compose --project-name=$ENV exec -T web python manage.py collectstatic --noinput
+    sudo chown -R di_website:di_website assets
 
     echo "Stopping "$OLD" container"
     docker-compose --project-name=$OLD stop

@@ -10,11 +10,6 @@ services:
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
             - ./traefik.toml:/traefik.toml
-            - ./assets:/assets
-            - ./storage:/media
-            - ./ssl:/etc/ssl/
-            - ./letsencrypt:/letsencrypt/
-            - ../wp-content:/wp-content
         restart: unless-stopped
 
 networks:

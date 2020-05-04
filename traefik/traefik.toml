@@ -22,16 +22,5 @@ watch = true
 [log]
   level = "INFO"
 
-[backends]
-  [backends.spotlights]
-    [backends.spotlights.servers]
-      [backends.spotlights.servers.server1]
-      url = "http://157.245.39.153"
 
-[frontends]
-  [frontends.frontend1]
-   backend = "spotlights"
-   passHostHeader = true
-   [frontends.frontend1.routes]
-         [frontends.frontend1.routes.route1]
-       rule = "PathPrefixStrip:/data/spotlights-on-kenya-and-uganda/spotlight-uganda;AddPrefix:/spotlight/spotlight-uganda"
+

@@ -1,9 +1,12 @@
-defaultEntryPoints = ["http"]
+defaultEntryPoints = ["http","https"]
 logLevel = "DEBUG"
 
 [entryPoints]
   [entryPoints.http]
   address = ":80"
+
+  [entryPoints.https]
+  address= ":443"
 
 [retry]
 attempts = 3

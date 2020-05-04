@@ -9,6 +9,7 @@ services:
       - "traefik.port=80"
       - "traefik.docker.network=traefik_webgateway"
       - "traefik.backend=nginx"
+      - "traefik.frontend.entryPoints=http,https"
     volumes:
       - ./config/nginx:/etc/nginx/conf.d
       - ./assets:/assets

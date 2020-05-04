@@ -56,7 +56,7 @@ services:
       - HS_TICKET_PIPELINE_STAGE
       - ELASTIC_SEARCH_URL
     build:
-      context: .
+      context: ./
     volumes:
       - ./:/code/
       - ./config/celery/default:/etc/default

@@ -189,6 +189,7 @@ function build_with_docker_compose {
 
     echo "Starting "$ENV" container"
     docker-compose --project-name=$OLD stop elasticsearch
+    sudo chown -R di_website:di_website core
     docker-compose --project-name=$ENV up -d --build
     docker-compose --project-name=traefik -f traefik/docker-compose.traefik.yml restart traefik
 
@@ -224,7 +225,7 @@ then
 
     start_new_process "Generating static assets"
     docker-compose --project-name=$ENV exec -T web python manage.py collectstatic --noinput
-    sudo chown -R di_website:di_website assets
+
     echo "Stopping "$OLD" container"
     docker-compose --project-name=$OLD stop
     exit 0

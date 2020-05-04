@@ -24,7 +24,7 @@ class AudioMediaBlock(AbstractMediaChooserBlock):
             player_code = '''
             <h1 class="audio-player-title">Listen to audio</h1>
             <div>
-                <audio controls='controls' preload='auto' autoplay='autoplay' class='audio-tag'>
+                <audio controls='controls' preload='auto' class='audio-tag'>
                     {0}
                     Your browser does not support audio using the HTML 5 audio element.
                 </audio>

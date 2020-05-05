@@ -1,5 +1,25 @@
 <form method="get" action="{{self.pageurl}}" class="form">
-  <div class="form-field form-field--inline-four">
+  <div class="form-field form-field--inline-five">
+    <label for="types" class="form-label form-label--hidden">
+      All Types
+    </label>
+    <div class="form-field__select-dropdown">
+      <select name="types" id="types">
+        <option value="" id="filter-by-types">All Types</option>
+        {% regroup resource_types by resource_category as resources_list %}
+        {% for category in resources_list %}
+          <optgroup label="{{ category.grouper }}">
+            {% for resource_type in category.list %}
+              <option value="{{resource_type.slug}}" id="{{resource_type.slug}}" {% if resource_type.slug == selected_type %}selected{% endif %}>
+                {{resource_type}}
+              </option>
+            {% endfor %}
+          </optgroup>
+        {% endfor %}
+      </select>
+    </div>
+  </div>
+  <div class="form-field form-field--inline-five">
     <label for="topic" class="form-label form-label--hidden">
       All topics
     </label>
@@ -14,7 +34,7 @@
       </select>
     </div>
   </div>
-  <div class="form-field form-field--inline-four">
+  <div class="form-field form-field--inline-five">
     <label for="country" class="form-label form-label--hidden">
       All countries
     </label>
@@ -34,11 +54,11 @@
       </select>
     </div>
   </div>
-  <div class="form-field form-field--inline-four">
+  <div class="form-field form-field--inline-five">
     <label for="q" class="form-label form-label--hidden">Search by keyword</label>
     <input class="form-item" type="text" name="q" placeholder="Search..." value="{{search_filter|default_if_none:''}}">
   </div>
-  <div class="form-field form-field--inline-four">
+  <div class="form-field form-field--inline-five resources_filter_button">
     <button type="submit" class="button">Filter</button>
   </div>
 </form>

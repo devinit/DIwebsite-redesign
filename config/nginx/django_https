@@ -12,6 +12,10 @@ server {
 
     client_max_body_size 10M;
 
+    if ($host ~* data.devinit.org) {
+        return 301 https://devinit.org/data/;
+    }
+
    location / {
         proxy_read_timeout 600;
         proxy_buffering off;

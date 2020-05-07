@@ -91,7 +91,7 @@ function backup_database {
     fi
 
     cd $APP_DIR
-
+    
     log "Starting backup from remote docker machine $(docker-compose ps -q db)"
     PROJECTNAME=$(docker ps --format "table {{.ID}}  {{.Names}}  {{.CreatedAt}}" | grep db | tail -n 1 | awk -F  "  " '{print $2}' | cut -d"_" -f1)
     docker-compose --project-name=$PROJECTNAME exec -T db pg_dump -U di_website -d di_website >  $file_name

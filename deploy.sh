@@ -229,6 +229,7 @@ then
 
     echo "Stopping "$OLD" container"
     docker-compose --project-name=$OLD stop
+    docker-compose --project-name=$OLD rm
     exit 0
 
 elif [ ${args[0]} == 'backup' ]

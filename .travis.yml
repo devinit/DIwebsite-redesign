@@ -16,18 +16,9 @@ before_install:
 script:
 - docker-compose run web /bin/sh -c "python3 -m coverage run manage.py test && python3 -m coverage xml && mv coverage.xml shared" && cd shared && python3 -m codecov
 deploy:
- - provider: script
-   skip_cleanup: true
-   script: cd .. && chmod 600 ./deploy_key && scp -o StrictHostKeyChecking=no -i ./deploy_key -r ./deploy.sh di_website@178.128.102.213:~/ && ssh -o StrictHostKeyChecking=no -o SendEnv=BRANCH -o SendEnv=CELERY_BROKER_URL -o SendEnv=DEFAULT_FROM_EMAIL -o SendEnv=EMAIL_BACKEND -o SendEnv=EMAIL_HOST -o SendEnv=EMAIL_HOST_USER -o SendEnv=EMAIL_HOST_PASSWORD -o SendEnv=DATABASE_URL -o SendEnv=ELASTIC_PASSWORD -o SendEnv=ELASTIC_SEARCH_URL -o SendEnv=ELASTIC_USERNAME -o SendEnv=HS_API_KEY -o SendEnv=HS_TICKET_PIPELINE -o SendEnv=HS_TICKET_PIPELINE_STAGE -o SendEnv=RABBITMQ_PASSWORD -o SendEnv=ENVIRONMENT -o SendEnv=SECRET_KEY -i ./deploy_key di_website@178.128.102.213 ./deploy.sh run
-   on:
-     branch: develop
- - provider: script
-   skip_cleanup: true
-   script: cd .. && chmod 600 ./deploy_key && scp -o StrictHostKeyChecking=no -i ./deploy_key -r ./deploy.sh test-user@165.22.113.7:~/ && ssh -o StrictHostKeyChecking=no -o SendEnv=BRANCH -o SendEnv=CELERY_BROKER_URL -o SendEnv=DEFAULT_FROM_EMAIL -o SendEnv=EMAIL_BACKEND -o SendEnv=EMAIL_HOST -o SendEnv=EMAIL_HOST_USER -o SendEnv=EMAIL_HOST_PASSWORD -o SendEnv=DATABASE_URL -o SendEnv=ELASTIC_PASSWORD -o SendEnv=ELASTIC_SEARCH_URL -o SendEnv=ELASTIC_USERNAME -o SendEnv=HS_API_KEY -o SendEnv=HS_TICKET_PIPELINE -o SendEnv=HS_TICKET_PIPELINE_STAGE -o SendEnv=RABBITMQ_PASSWORD -o SendEnv=ENVIRONMENT -o SendEnv=SECRET_KEY -i ./deploy_key test-user@165.22.113.7 ./deploy.sh run
-   on:
-     branch: fix/blue-green-deployment 
- - provider: script
-   skip_cleanup: true
-   script: cd .. && chmod 600 ./deploy_key && scp -o StrictHostKeyChecking=no -i ./deploy_key -r ./deploy.sh di_website@159.65.56.142:~/ && ssh -o StrictHostKeyChecking=no -o SendEnv=BRANCH -o SendEnv=CELERY_BROKER_URL -o SendEnv=DEFAULT_FROM_EMAIL -o SendEnv=EMAIL_BACKEND -o SendEnv=EMAIL_HOST -o SendEnv=EMAIL_HOST_USER -o SendEnv=EMAIL_HOST_PASSWORD -o SendEnv=DATABASE_URL -o SendEnv=ELASTIC_PASSWORD -o SendEnv=ELASTIC_SEARCH_URL -o SendEnv=ELASTIC_USERNAME -o SendEnv=HS_API_KEY -o SendEnv=HS_TICKET_PIPELINE -o SendEnv=HS_TICKET_PIPELINE_STAGE -o SendEnv=RABBITMQ_PASSWORD -o SendEnv=ENVIRONMENT -o SendEnv=SECRET_KEY -i ./deploy_key di_website@159.65.56.142 ./deploy.sh run
-   on:
-     branch: master
+  - provider: script
+    skip_cleanup: true
+    script: cd .. && chmod 600 ./deploy_key && scp -o StrictHostKeyChecking=no -i ./deploy_key -r ./deploy.sh test-user@165.22.113.7:~/ && ssh -o StrictHostKeyChecking=no -o SendEnv=BRANCH -o SendEnv=CELERY_BROKER_URL -o SendEnv=DEFAULT_FROM_EMAIL -o SendEnv=EMAIL_BACKEND -o SendEnv=EMAIL_HOST -o SendEnv=EMAIL_HOST_USER -o SendEnv=EMAIL_HOST_PASSWORD -o SendEnv=DATABASE_URL -o SendEnv=ELASTIC_PASSWORD -o SendEnv=ELASTIC_SEARCH_URL -o SendEnv=ELASTIC_USERNAME -o SendEnv=HS_API_KEY -o SendEnv=HS_TICKET_PIPELINE -o SendEnv=HS_TICKET_PIPELINE_STAGE -o SendEnv=RABBITMQ_PASSWORD -o SendEnv=ENVIRONMENT -o SendEnv=SECRET_KEY -i ./deploy_key test-user@165.22.113.7 ./deploy.sh run
+    on:
+      branch: fix/blue-green-deployment
+

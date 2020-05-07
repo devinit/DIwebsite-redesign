@@ -94,6 +94,7 @@ services:
     labels:
       - traefik.enable=false
 
+
 volumes:
   diwebsite_db:
     external: true

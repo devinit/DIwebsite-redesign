@@ -138,10 +138,10 @@ class SpotlightIndicator(Page):
         null=True,
         help_text='Text for the tooltip.Template strings can be used to substitute values e.g. {name}')
     config = StreamField(
-        AceEditorStreamBlock(max_num=1, block_counts={'JSON': {'max_num':1}}),
+        AceEditorStreamBlock(max_num=1, block_counts={'JSON': {'max_num': 1}}),
         null=True, blank=True, verbose_name='JSON Config')
 
-    content_panels = Page.content_panels +  [
+    content_panels = Page.content_panels + [
         FieldPanel('ddw_id'),
         FieldPanel('description'),
         FieldPanel('source'),
@@ -157,7 +157,7 @@ class SpotlightIndicator(Page):
         StreamFieldPanel('config')
     ]
 
-    search_fields = [index.SearchField('ddw_id')]
+    search_fields = [index.SearchField('ddw_id'), index.SearchField('title')]
 
 
 class CountrySpotlight(TypesetBodyMixin, HeroMixin, Page):

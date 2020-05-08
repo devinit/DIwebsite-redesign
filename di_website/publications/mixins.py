@@ -39,14 +39,12 @@ class UniqueForParentPageMixin(object):
 
 class ParentPageSearchMixin(object):
     search_fields = Page.search_fields + [
-        index.SearchField('title', partial_match=True, boost=2),
         index.FilterField('slug')
     ]
 
 
 class PageSearchMixin(object):
     search_fields = Page.search_fields + [
-        index.SearchField('title', partial_match=True, boost=2),
         index.FilterField('slug'),
         index.SearchField('content', partial_match=True, boost=1)
     ]
@@ -54,15 +52,10 @@ class PageSearchMixin(object):
 
 class LegacyPageSearchMixin(object):
     search_fields = Page.search_fields + [
-        index.SearchField('title', partial_match=True, boost=2),
         index.FilterField('slug'),
         index.SearchField('raw_content', partial_match=True, boost=1),
         index.SearchField('content', partial_match=True, boost=1)
     ]
-
-
-def CustomPageSearchFields(fields):
-    return Page.search_fields + [index.SearchField(x, partial_match=True) for x in fields]
 
 
 class PublishedDateMixin(models.Model):

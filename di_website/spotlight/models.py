@@ -78,12 +78,8 @@ class SpotlightTheme(Page):
         null=True,
         help_text='Determines which section on the spotlights a particular theme and its indicators appears e.g map,facts')
 
-    content_panels = Page.content_panels +  [
+    content_panels = Page.content_panels + [
         FieldPanel('section'),
-    ]
-
-    search_fields = [
-        index.SearchField('title')
     ]
 
     def get_admin_display_title(self):
@@ -161,7 +157,7 @@ class SpotlightIndicator(Page):
         StreamFieldPanel('config')
     ]
 
-    search_fields = [index.SearchField('ddw_id'), index.SearchField('title')]
+    search_fields = [index.SearchField('ddw_id')]
 
 
 class CountrySpotlight(TypesetBodyMixin, HeroMixin, Page):

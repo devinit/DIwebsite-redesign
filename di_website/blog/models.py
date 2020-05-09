@@ -30,6 +30,23 @@ from di_website.common.constants import MAX_PAGE_SIZE, MAX_RELATED_LINKS
 from di_website.ourteam.models import TeamMemberPage
 
 
+RED = 'poppy'
+BLUE = 'bluebell'
+PINK = 'rose'
+YELLOW = 'sunflower'
+ORANGE = 'marigold'
+PURPLE = 'lavendar'
+GREEN = 'leaf'
+COLOUR_CHOICES = (
+    (RED, 'Red'),
+    (BLUE, 'Blue'),
+    (PINK, 'Pink'),
+    (YELLOW, 'Yellow'),
+    (ORANGE, 'Orange'),
+    (PURPLE, 'Purple'),
+    (GREEN, 'Green')
+)
+
 class BlogTopic(TaggedItemBase):
     content_object = ParentalKey('blog.BlogArticlePage', on_delete=models.CASCADE, related_name='blog_topics')
 
@@ -100,7 +117,10 @@ class BlogArticlePage(TypesetBodyFootnoteMixin, HeroMixin, Page):
         help_text='This date will be used for display and ordering',
     )
 
+    colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=RED)
+
     content_panels = Page.content_panels + [
+        FieldPanel('colour'),
         hero_panels(),
         MultiFieldPanel([
             PageChooserPanel('internal_author_page', TeamMemberPage),

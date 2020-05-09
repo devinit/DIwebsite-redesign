@@ -20,7 +20,7 @@ DATABASE_BACKUP=$SCRIPT_DIR'/database_backup'
 DATABASE_NAME='di_website'
 DOCKER_STORAGE='diwebsite_db;index_db'
 REPOSITORY="git@github.com:devinit/"$APP_NAME".git"
-ACTIVE_BRANCH="fix/blue-green-deployment"
+ACTIVE_BRANCH=$BRANCH
 ENVIRONMENT=$ENVIRONMENT
 STAGING_IP=
 ENVIROMENT_VARIABLES='ENVIRONMENT;SECRET_KEY;DEFAULT_FROM_EMAIL;EMAIL_HOST;EMAIL_BACKEND;EMAIL_HOST_USER;EMAIL_HOST_PASSWORD;HS_API_KEY;HS_TICKET_PIPELINE;HS_TICKET_PIPELINE_STAGE;ELASTIC_USERNAME;ELASTIC_PASSWORD;RABBITMQ_PASSWORD;DATABASE_URL;CELERY_BROKER_URL;ELASTIC_SEARCH_URL;BRANCH'
@@ -91,10 +91,10 @@ function backup_database {
     fi
 
     cd $APP_DIR
-    
+
     log "Starting backup from remote docker machine $(docker-compose ps -q db)"
     PROJECTNAME=$(docker ps --format "table {{.ID}}  {{.Names}}  {{.CreatedAt}}" | grep db | tail -n 1 | awk -F  "  " '{print $2}' | cut -d"_" -f1)
-    docker-compose --project-name=$PROJECTNAME exec -T db pg_dump -U test-user -d test-user >  $file_name
+    docker-compose --project-name=$PROJECTNAME exec -T db pg_dump -U di_website -d di_website >  $file_name
 
     log "Database backup completed..."
 
@@ -191,7 +191,6 @@ function build_with_docker_compose {
     echo "Starting "$ENV" container"
     sudo chown -R test-user:test-user core
     docker-compose --project-name=$ENV up -d --build
-    docker-compose --project-name=traefik -f traefik/docker-compose.traefik.yml restart traefik
 
 }
 
@@ -226,10 +225,10 @@ then
     start_new_process "Generating static assets"
     docker-compose --project-name=$ENV exec -T web python manage.py collectstatic --noinput
     sudo chown -R test-user:test-user assets
-
     echo "Stopping "$OLD" container"
     docker-compose --project-name=$OLD stop
     exit 0
+
 
 elif [ ${args[0]} == 'backup' ]
 then

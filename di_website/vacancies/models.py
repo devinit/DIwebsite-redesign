@@ -107,26 +107,28 @@ class VacancyPage(TypesetBodyMixin, SectionBodyMixin, HeroMixin, Page):
         related_name='+'
     )
     salary_scale = models.CharField(blank=True, max_length=255)
-    application_close = models.CharField(
+    application_close = models.DateField(
         blank=True,
         null=True,
-        max_length=255
+        auto_now=False,
+        auto_now_add=False
     )
-    first_interview = models.CharField(
+    first_interview = models.TextField(
         blank=True,
-        null=True,
-        max_length=255
+        null=True
     )
-    second_interview = models.CharField(
-        blank=True,
-        null=True,
-        max_length=255
-    )
-    job_start = models.CharField(
-        blank=True,
-        null=True,
-        max_length=255
 
+    second_interview = models.DateField(
+        blank=True,
+        null=True,
+        auto_now=False,
+        auto_now_add=False
+    )
+    job_start = models.DateField(
+        blank=True,
+        null=True,
+        auto_now=False,
+        auto_now_add=False
     )
     other_pages_heading = models.CharField(
         blank=True,

@@ -41,10 +41,8 @@ from di_website.common.base import hero_panels, get_paginator_range, get_related
 from di_website.common.mixins import HeroMixin, OtherPageMixin, SectionBodyMixin, TypesetBodyMixin
 from di_website.common.constants import MAX_PAGE_SIZE, MAX_RELATED_LINKS, RICHTEXT_FEATURES
 from di_website.downloads.utils import DownloadsPanel
-from .blocks import AudioMediaStreamBlock
 
 from taggit.models import Tag, TaggedItemBase
-
 from .mixins import (
     FlexibleContentMixin, UniqueForParentPageMixin, PageSearchMixin, LegacyPageSearchMixin, ParentPageSearchMixin,
     PublishedDateMixin, UUIDMixin, ReportChildMixin, FilteredDatasetMixin)
@@ -1026,26 +1024,11 @@ class AudioVisualMedia(PublishedDateMixin, TypesetBodyMixin, HeroMixin, SectionB
     )
     publication_type = models.ForeignKey(
         PublicationType, related_name="+", null=True, blank=False, on_delete=models.SET_NULL, verbose_name="Resource Type")
-    full_width_video = StreamField([
-        ('full_width_video', EmbedBlock(
-            help_text='Insert an embed URL e.g https://www.youtube.com/embed/SGJFWirQ3ks',
-            icon='fa-video-camera',
-            template='blocks/full_width_embed.html',
-            required=False
-        ))
-    ], blank=True)
-    media_content = StreamField(
-        AudioMediaStreamBlock(max_num=1),
-        null=True,
-        blank=True
-    )
 
     content_panels = Page.content_panels + [
         hero_panels(),
         StreamFieldPanel('body'),
         StreamFieldPanel('sections'),
-        StreamFieldPanel('full_width_video'),
-        StreamFieldPanel('media_content'),
         FieldPanel('publication_type'),
         PublishedDatePanel(),
         MultiFieldPanel([

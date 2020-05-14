@@ -22,20 +22,10 @@
     </section>
 
     {% for section in page.sections %}
-        {% if section.block_type == 'full_width_video_block' %}
+        {% if section.block_type == 'audio_block' %}
           <section class="section">
-            <div class="row">
-              <div class="l-sidebar">
-                {% include_block section.value.full_width %}
-              </div>
-            </div>
-          </section>
-        {% elif section.block_type == 'audio_block' %}
-          <section class="section">
-            <div class="row">
-              <div class="l-sidebar">
-                {% include_block section %}
-              </div>
+            <div class="row row--narrow">
+              {% include_block section %}
             </div>
           </section>
         {% else %}

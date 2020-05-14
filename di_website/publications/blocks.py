@@ -12,7 +12,7 @@ class AudioMediaBlock(AbstractMediaChooserBlock):
 
         if value.type == 'video':
             player_code = '''
-            <h1 class="audio-player-title">Watch to video</h1>
+            <h1 class="audio-player-title">Watch video</h1>
             <div>
                 <video width="320" height="240" controls>
                     {0}
@@ -42,6 +42,7 @@ class AudioMediaBlock(AbstractMediaChooserBlock):
 
     class Meta():
         icon = 'media'
+        label = 'Audio'
 
 
 class AudioMediaStreamBlock(StreamBlock):

@@ -54,12 +54,12 @@ class Infographic(StructBlock):
 
     class Meta:
         help_text = HELP_TEXT
-        template = 'publications/blocks/infographic.html'
         value_class = InfographicStructValue
         icon = 'form'
         label = 'Infographic'
         form_classname = 'custom__itemlist struct-block'
         form_template = 'publications/block_forms/custom_struct.html'
+        abstract = True
 
     heading = CharBlock(
         required=False,
@@ -176,3 +176,13 @@ class Infographic(StructBlock):
         SnippetChooserBlock('downloads.PublicationDownload', required=False),
         help_text='Optional: list of downloads to appear below the image or table'
     )
+
+
+class BlogInfographic(Infographic):
+    class Meta:
+        template = 'blog/blocks/infographic.html'
+
+
+class PublicationInfographic(Infographic):
+    class Meta:
+        template = 'publications/blocks/infographic.html'

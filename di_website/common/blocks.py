@@ -334,7 +334,7 @@ class ImageDuoTextBlock(ImageBlock):
 
 
 class FullWidthVideoBlock(StructBlock):
-    full_width = EmbedBlock(
+    video = EmbedBlock(
         help_text='Insert an embed URL e.g https://www.youtube.com/embed/SGJFWirQ3ks',
         required=False
     )
@@ -342,6 +342,7 @@ class FullWidthVideoBlock(StructBlock):
     class Meta:
         template = 'blocks/full_width_embed.html'
         icon = 'fa-video-camera'
+        label = 'Full Width Video'
 
 
 class VideoDuoTextBlock(StructBlock):

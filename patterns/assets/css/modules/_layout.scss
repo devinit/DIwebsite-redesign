@@ -88,7 +88,7 @@
 		padding: 3em;
         @include respond-to($c-vp) {
             float: right;
-            width: 55%;
+            width: 50%;
 			padding-left: 0;
 			.l-banner--reverse & {
 				float: left;

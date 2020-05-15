@@ -1,0 +1,128 @@
+{# 1. Extend the relevant layout #}
+{# --------------------------------------- #}
+
+{% extends 'default.html' %}
+
+
+{# --------------------------------------- #}
+{# 2. Assign Settings and variables #}
+{# --------------------------------------- #}
+
+{% set id = "data" %}
+{% set section = "Data" %}
+{% set title = "Tools (or Data tools)" %}
+{% set excerpt = "These easy-to-use tools allow you to explore and understand official data on poverty, health, education, public spending and more across Kenya and Uganda." %}
+{% set image_name = "Pin-at-Open-Up-conference-2-1600x780.jpg" %}
+
+{# --------------------------------------- #}
+{# 3. Add models and macros #}
+{# --------------------------------------- #}
+
+{% model 'navigation', as="navigation" %}
+
+{% import 'macros/icon.html' as icons %}
+{% import 'macros/secondary-navigation.html' as secondary_navigation %}
+
+
+{# --------------------------------------- #}
+{#
+   4. Add page content into relevant areas
+	  Add/Delete blocks as necessary
+#}
+{# --------------------------------------- #}
+
+{% block body %}
+	{% include 'heroes/hero.html' %}
+
+	<section class="section">
+		<div class="row row--narrow">
+			<div class="l-sidebar">
+				<aside class="l-sidebar__aside">
+					<div class="aside aside--clipping">
+						{{ secondary_navigation.active(active_page, section, navigation.secondary_data) }}
+					</div>
+				</aside>
+				<div class="l-sidebar__body">
+					<div class="is-typeset wysiwyg">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    </div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <div class="banner">
+                <div class="l-banner l-banner--reverse">
+                    <div class="l-banner__aside">
+                        <div class="banner__media">
+                            <img src="/assets/img/Primary-leaving-exam-performance-index-map-of-Uganda-800x500.jpg" alt="alt tag">
+                        </div>
+                        <div class="banner__buttons">
+                            <a href="#none" class="button button--reverse">Use the Spotlight on Kenya</a>
+                            <a href="#none" class="button button--reverse">Use the Spotlight on Uganda</a>
+                        </div>
+                    </div>
+                    <div class="l-banner__main">
+                        <h3 class="banner__heading">Country Spotlights</h3>
+                        <div class="banner__content is-typeset">
+                            <p>The purpose of the spotlights is to help government agencies and ministries, advocacy and civil society organisations, international donors and others who are working to reduce poverty and promote sustaninable development</p>
+                            <p>They make it possible for technical and non-technical audiences alike to easily access and understand information about what is happening in both countries across a wide range of socioeconomic indicators as wel as public spending.</p>
+                            <p>From national to county levels you can map data, see key statistics, and compare different areas and indicators in detail. Where data does not exist, this is highlighted in the tool to show where efforts to improve data coverage in each country need to be focused.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <div class="banner banner--light">
+                <div class="l-banner l-banner--reverse">
+                    <div class="l-banner__aside">
+                        <div class="banner__media">
+                            <img src="/assets/img/19410933764_d3a52450bd_o-800x500.jpg" alt="alt tag">
+                        </div>
+                        <div class="banner__buttons">
+                            <a href="#none" class="button">Use the COVID Tracker</a>
+                        </div>
+                    </div>
+                    <div class="l-banner__main">
+                        <h3 class="banner__heading">COVID tracker tool</h3>
+                        <div class="banner__content is-typeset">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row row--narrow">
+            <div class="banner">
+                <div class="l-banner l-banner--reverse">
+                    <div class="l-banner__aside">
+                        <div class="banner__media banner__media--video">
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/akm8RAHX4MU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                        <div class="banner__buttons">
+                            <a href="#none" class="button button--reverse">Use [tool name]</a>
+                        </div>
+                    </div>
+                    <div class="l-banner__main">
+                        <h3 class="banner__heading">Another tool</h3>
+                        <div class="banner__content is-typeset">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

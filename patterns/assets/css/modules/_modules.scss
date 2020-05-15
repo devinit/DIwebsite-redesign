@@ -679,6 +679,10 @@ a.m-stat {
 .share__item {
     width: 40px;
     display: inline-block;
+    vertical-align: top;
+    img {
+        height: 40px;
+    }
 }
 
 

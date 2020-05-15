@@ -181,7 +181,7 @@
 	},
 	{
 		"name": "21-data-section",
-		"stage": "approved"
+		"stage": "review"
 	},
 	{
 		"name": "21-1-dataset-listing",
@@ -204,7 +204,7 @@
 		"stage": "approved"
 	},
 	{
-		"name": "24-country-spotlights",
-		"stage": "Template"
+		"name": "24-data-tools",
+		"stage": "review"
 	}
 ]

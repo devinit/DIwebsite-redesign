@@ -13,7 +13,8 @@
     }
     &__aside {
         width: 20%;
-        float: right;
+        margin-left: 5%;
+        float: left;
     }
     &--reverse {
         .testimonial__main {
@@ -23,6 +24,32 @@
         }
         .testimonial__aside {
             float: left;
+            margin-left: 0;
+            margin-right: 5%;
+        }
+    }
+    &--minor {
+        @include respond-to($b-vp) {
+            .testimonial__main {
+                width: 100%;
+                display: block;
+            }
+            .testimonial__aside {
+                display: none;
+            }
+        }
+        @include respond-to($c-vp) {
+            .testimonial__main {
+                float: right;
+                border-left: none;
+                width: 75%;
+            }
+            .testimonial__aside {
+                float: left;
+                margin-left: 0;
+                margin-right: 5%;
+                display: block;
+            }
         }
     }
 }
@@ -43,6 +70,18 @@
         position: relative;
         z-index: 2;
         @extend %max-width;
+    }
+    .testimonial--minor & {
+        &:after {
+            width: 25px;
+            height: 25px;
+            top: -7px;
+            left: 52px;
+            right: auto;
+        }
+        img {
+            max-width: 70px;
+        }
     }
 }
 

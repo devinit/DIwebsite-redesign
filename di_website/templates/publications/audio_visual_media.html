@@ -21,24 +21,16 @@
         </div>
     </section>
 
-    <section class="section">
-      <div class="row row--narrow">
-        <div class="l-sidebar">
-          {% include_block page.full_width_video %}
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="row row--narrow">
-        <div class="l-sidebar">
-          {{page.media_content}}
-        </div>
-      </div>
-    </section>
-
     {% for section in page.sections %}
-        {% include_block section %}
+        {% if section.block_type == 'audio_block' %}
+          <section class="section">
+            <div class="row row--narrow">
+              {% include_block section %}
+            </div>
+          </section>
+        {% else %}
+            {% include_block section %}
+        {% endif %}
     {% endfor %}
 
     <section class="section">

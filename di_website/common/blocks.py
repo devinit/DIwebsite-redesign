@@ -18,6 +18,7 @@ from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.blocks import ImageChooserBlock
 
 from di_website.common.constants import RICHTEXT_FEATURES, RICHTEXT_FEATURES_NO_FOOTNOTES
+from di_website.publications.blocks import AudioMediaBlock
 
 
 class ValueBlock(StructBlock):
@@ -332,6 +333,18 @@ class ImageDuoTextBlock(ImageBlock):
         icon = 'fa-image'
 
 
+class FullWidthVideoBlock(StructBlock):
+    video = EmbedBlock(
+        help_text='Insert an embed URL e.g https://www.youtube.com/embed/SGJFWirQ3ks',
+        required=False
+    )
+
+    class Meta:
+        template = 'blocks/full_width_embed.html'
+        icon = 'fa-video-camera'
+        label = 'Full Width Video'
+
+
 class VideoDuoTextBlock(StructBlock):
     heading = CharBlock(icon='fa-heading', required=False, help_text='Section heading')
     video = EmbedBlock(
@@ -364,6 +377,8 @@ class SectionStreamBlock(StreamBlock):
     downloads = DocumentBoxSectionBlock()
     image = MediaImageBlock()
     image_duo = ImageDuoTextBlock()
+    audio_block = AudioMediaBlock(max_num=1)
     video_duo = VideoDuoTextBlock()
+    full_width_video_block = FullWidthVideoBlock()
 
     required = False

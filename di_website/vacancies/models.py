@@ -113,16 +113,16 @@ class VacancyPage(TypesetBodyMixin, SectionBodyMixin, HeroMixin, Page):
         auto_now=False,
         auto_now_add=False
     )
-    first_interview = models.TextField(
-        blank=True,
-        null=True
-    )
-
-    second_interview = models.DateField(
+    first_interview = models.CharField(
         blank=True,
         null=True,
-        auto_now=False,
-        auto_now_add=False
+        max_length=255
+    )
+
+    second_interview = models.CharField(
+        blank=True,
+        null=True,
+        max_length=255
     )
     job_start = models.DateField(
         blank=True,

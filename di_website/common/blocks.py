@@ -19,6 +19,7 @@ from wagtail.images.blocks import ImageChooserBlock
 
 from di_website.common.constants import RICHTEXT_FEATURES, RICHTEXT_FEATURES_NO_FOOTNOTES
 from di_website.publications.blocks import AudioMediaBlock
+from di_website.publications.infographic import Infographic
 
 
 class ValueBlock(StructBlock):
@@ -288,6 +289,11 @@ class TypesetStreamBlock(StreamBlock):
     required = False
 
 
+class BasicInfographicBlock(Infographic):
+    class Meta:
+        template = 'blocks/basic_infographic.html'
+
+
 class TypesetFootnoteStreamBlock(StreamBlock):
     """
     The custom blocks that can be used under an element with the typeset class (not sections)
@@ -307,8 +313,10 @@ class TypesetFootnoteStreamBlock(StreamBlock):
         template='blocks/embed_block.html',
         required=False
     )
+    infographic = BasicInfographicBlock()
 
     required = False
+
 
 
 class MediaImageBlock(ImageBlock):

@@ -178,11 +178,6 @@ class Infographic(StructBlock):
     )
 
 
-class BlogInfographic(Infographic):
-    class Meta:
-        template = 'blog/blocks/infographic.html'
-
-
 class PublicationInfographic(Infographic):
     class Meta:
         template = 'publications/blocks/infographic.html'

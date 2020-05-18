@@ -157,10 +157,10 @@ function start_link_checker_processes {
         sleep 10
     done
 
-    docker-compose --project-name=$ENV exec -T rabbitmq rabbitmqctl add_user test-user $RABBITMQ_PASSWORD
+    docker-compose --project-name=$ENV exec -T rabbitmq rabbitmqctl add_user di_website $RABBITMQ_PASSWORD
     docker-compose --project-name=$ENV exec -T rabbitmq rabbitmqctl add_vhost myvhost
-    docker-compose --project-name=$ENV exec -T rabbitmq rabbitmqctl set_user_tags test-user test-user
-    docker-compose --project-name=$ENV exec -T rabbitmq rabbitmqctl set_permissions -p myvhost test-user ".*" ".*" ".*"
+    docker-compose --project-name=$ENV exec -T rabbitmq rabbitmqctl set_user_tags di_website di_website
+    docker-compose --project-name=$ENV exec -T rabbitmq rabbitmqctl set_permissions -p myvhost di_website ".*" ".*" ".*"
 
     start_new_process "Starting celery"
     docker-compose --project-name=$ENV exec -T web chown root '/etc/default/celeryd'
@@ -189,7 +189,7 @@ function build_with_docker_compose {
     fi
 
     echo "Starting "$ENV" container"
-    sudo chown -R test-user:test-user core
+    sudo chown -R di_website:di_website core
     docker-compose --project-name=$ENV up -d --build
 
 }
@@ -214,7 +214,7 @@ then
 
     start_new_process "Starting up services ..."
     cd $APP_DIR
-    sudo chown -R test-user:test-user storage
+    sudo chown -R di_website:di_website storage
     docker-compose --project-name=traefik -f traefik/docker-compose.traefik.yml up -d
     build_with_docker_compose
 
@@ -224,7 +224,7 @@ then
 
     start_new_process "Generating static assets"
     docker-compose --project-name=$ENV exec -T web python manage.py collectstatic --noinput
-    sudo chown -R test-user:test-user assets
+    sudo chown -R di_website:di_website assets
     echo "Stopping "$OLD" container"
     docker-compose --project-name=$OLD stop
     exit 0

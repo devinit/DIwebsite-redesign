@@ -20,9 +20,10 @@ DATABASE_BACKUP=$SCRIPT_DIR'/database_backup'
 DATABASE_NAME='di_website'
 DOCKER_STORAGE='diwebsite_db;index_db'
 REPOSITORY="git@github.com:devinit/"$APP_NAME".git"
-ACTIVE_BRANCH=$BRANCH || 'develop'
+ACTIVE_BRANCH=$BRANCH
+ENVIRONMENT=$ENVIRONMENT
 STAGING_IP=
-ENVIROMENT_VARIABLES='ENVIRONMENT;SECRET_KEY;DEFAULT_FROM_EMAIL;EMAIL_HOST;EMAIL_BACKEND;EMAIL_HOST_USER;EMAIL_HOST_PASSWORD;HS_API_KEY;HS_TICKET_PIPELINE;HS_TICKET_PIPELINE_STAGE;ELASTIC_USERNAME;ELASTIC_PASSWORD;RABBITMQ_PASSWORD;DATABASE_URL;CELERY_BROKER_URL;ELASTIC_SEARCH_URL'
+ENVIROMENT_VARIABLES='ENVIRONMENT;SECRET_KEY;DEFAULT_FROM_EMAIL;EMAIL_HOST;EMAIL_BACKEND;EMAIL_HOST_USER;EMAIL_HOST_PASSWORD;HS_API_KEY;HS_TICKET_PIPELINE;HS_TICKET_PIPELINE_STAGE;ELASTIC_USERNAME;ELASTIC_PASSWORD;RABBITMQ_PASSWORD;DATABASE_URL;CELERY_BROKER_URL;ELASTIC_SEARCH_URL;BRANCH'
 
 OIFS=$IFS
 IFS=';'
@@ -52,7 +53,7 @@ function setup_docker_storage {
             log "Docker volume $storage already exits. Skipping ...."
         else
             docker volume create $storage > /dev/null
-            log "Created new docker volume $storage witth status "$?
+            log "Created new docker volume $storage with status "$?
         fi
     done
 
@@ -92,7 +93,8 @@ function backup_database {
     cd $APP_DIR
 
     log "Starting backup from remote docker machine $(docker-compose ps -q db)"
-    docker-compose exec -T db pg_dump -U di_website -d di_website >  $file_name
+    PROJECTNAME=$(docker ps --format "table {{.ID}}  {{.Names}}  {{.CreatedAt}}" | grep db | tail -n 1 | awk -F  "  " '{print $2}' | cut -d"_" -f1)
+    docker-compose --project-name=$PROJECTNAME exec -T db pg_dump -U di_website -d di_website >  $file_name
 
     log "Database backup completed..."
 
@@ -111,7 +113,7 @@ function elastic_search_reindex {
     start_new_process "Re-indexing elastic search"
     cd $APP_DIR
 
-    docker-compose exec -T web python manage.py update_index
+    docker-compose --project-name=$ENV exec -T web python manage.py update_index
 
 }
 
@@ -135,7 +137,8 @@ function perform_git_operations {
         }
     else
         {
-            git clone --branch $ACTIVE_BRANCH $REPOSITORY
+            git clone -b $ACTIVE_BRANCH $REPOSITORY
+
             } || {
             log "Failed to perform git clone on $REPOSITORY with branch $ACTIVE_BRANCH "
             exit 20;
@@ -149,20 +152,20 @@ function start_link_checker_processes {
     start_new_process "Creating Rabbit MQ user and vhost for celery"
     cd $APP_DIR
 
-    until docker-compose exec -T rabbitmq rabbitmqctl start_app; do
+    until docker-compose --project-name=$ENV exec -T rabbitmq rabbitmqctl start_app; do
         log "Rabbit is unavailable - sleeping"
         sleep 10
     done
 
-    docker-compose exec -T rabbitmq rabbitmqctl add_user di_website $RABBITMQ_PASSWORD
-    docker-compose exec -T rabbitmq rabbitmqctl add_vhost myvhost
-    docker-compose exec -T rabbitmq rabbitmqctl set_user_tags di_website di_website
-    docker-compose exec -T rabbitmq rabbitmqctl set_permissions -p myvhost di_website ".*" ".*" ".*"
+    docker-compose --project-name=$ENV exec -T rabbitmq rabbitmqctl add_user di_website $RABBITMQ_PASSWORD
+    docker-compose --project-name=$ENV exec -T rabbitmq rabbitmqctl add_vhost myvhost
+    docker-compose --project-name=$ENV exec -T rabbitmq rabbitmqctl set_user_tags di_website di_website
+    docker-compose --project-name=$ENV exec -T rabbitmq rabbitmqctl set_permissions -p myvhost di_website ".*" ".*" ".*"
 
     start_new_process "Starting celery"
-    docker-compose exec -T web chown root '/etc/default/celeryd'
-    docker-compose exec -T web chmod 640 '/etc/default/celeryd'
-    docker-compose exec -T web /etc/init.d/celeryd start
+    docker-compose --project-name=$ENV exec -T web chown root '/etc/default/celeryd'
+    docker-compose --project-name=$ENV exec -T web chmod 640 '/etc/default/celeryd'
+    docker-compose --project-name=$ENV exec -T web /etc/init.d/celeryd start
 
     log "Finished setting up link checker .."
 
@@ -175,6 +178,21 @@ function enable_https_configs {
     fi
 }
 
+function build_with_docker_compose {
+    if [ $(docker ps -f name=blue -q) ]
+    then
+        ENV="green"
+        OLD="blue"
+    else
+        ENV="blue"
+        OLD="green"
+    fi
+
+    echo "Starting "$ENV" container"
+    sudo chown -R di_website:di_website core
+    docker-compose --project-name=$ENV up -d --build
+
+}
 
 if [ ${args[0]} == 'run' ]
 then
@@ -197,16 +215,20 @@ then
     start_new_process "Starting up services ..."
     cd $APP_DIR
     sudo chown -R di_website:di_website storage
-    docker-compose up -d --build
+    docker-compose --project-name=traefik -f traefik/docker-compose.traefik.yml up -d
+    build_with_docker_compose
 
     sleep 60;
     start_link_checker_processes
     elastic_search_reindex
 
     start_new_process "Generating static assets"
-    docker-compose exec -T web python manage.py collectstatic --noinput
+    docker-compose --project-name=$ENV exec -T web python manage.py collectstatic --noinput
     sudo chown -R di_website:di_website assets
+    echo "Stopping "$OLD" container"
+    docker-compose --project-name=$OLD stop
     exit 0
+
 
 elif [ ${args[0]} == 'backup' ]
 then

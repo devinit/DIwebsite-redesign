@@ -1,6 +1,28 @@
-version: "2.2"
+version: "3.4"
 
 services:
+  nginx:
+    image: nginx:latest
+    labels:
+      - "traefik.enable=true"
+      - 'traefik.frontend.rule=PathPrefixStrip:/'
+      - "traefik.port=80"
+      - "traefik.docker.network=traefik_webgateway"
+      - "traefik.backend=nginx"
+      - "traefik.frontend.entryPoints=http,https"
+    volumes:
+      - ./config/nginx:/etc/nginx/conf.d
+      - ./assets:/assets
+      - ./storage:/media
+      - ./ssl:/etc/ssl/
+      - ./letsencrypt:/letsencrypt/
+      - ../wp-content:/wp-content
+    depends_on:
+      - web
+    restart: always
+    networks:
+      - internal
+      - traefik_webgateway
   db:
     image: postgres:10
     environment:
@@ -10,6 +32,10 @@ services:
     restart: always
     volumes:
       - diwebsite_db:/var/lib/postgresql/data
+    networks:
+      - internal
+    labels:
+      - traefik.enable=false
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.2.4
@@ -20,12 +46,16 @@ services:
       memlock:
         soft: -1
         hard: -1
-    ports:
-      - "8900:9200"
-      - "9700:9300"
+    expose:
+      - "9200"
+      - "9300"
     restart: always
     volumes:
       - index_db:/usr/share/elasticsearch/data
+    networks:
+      - internal
+    labels:
+      - traefik.enable=false
 
   web:
     depends_on:
@@ -41,37 +71,29 @@ services:
       - HS_TICKET_PIPELINE_STAGE
       - ELASTIC_SEARCH_URL
     build:
-      context: .
+      context: ./
     volumes:
       - ./:/code/
       - ./config/celery/default:/etc/default
       - ./config/celery/init.d:/etc/init.d
     restart: always
-
-  nginx:
-    image: nginx:latest
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./config/nginx:/etc/nginx/conf.d
-      - ./assets:/assets
-      - ./storage:/media
-      - ./ssl:/etc/ssl/
-      - ./letsencrypt:/letsencrypt/
-      - ../wp-content:/wp-content
-    depends_on:
-      - web
-    restart: always
+    networks:
+      - internal
+      - traefik_webgateway
 
   rabbitmq:
     image: rabbitmq:latest
-    ports:
-      - 4369:4369
-      - 5671:5671
-      - 5672:5672
-      - 15672:15672
-    restart: always
+    expose:
+      - "4369"
+      - "5671"
+      - "5672"
+      - "15672"
+    restart : always
+    networks:
+      - internal
+    labels:
+      - traefik.enable=false
+
 
 volumes:
   diwebsite_db:
@@ -79,3 +101,10 @@ volumes:
   index_db:
     driver: local
     external: true
+
+networks:
+  traefik_webgateway:
+      external: true
+  internal:
+      external: false
+

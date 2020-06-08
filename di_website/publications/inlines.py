@@ -57,7 +57,7 @@ class ShortPublicationPageDataDownloads(Orderable, DataDownloadItem):
 
 
 class PublicationDataset(Orderable):
-    class Meta():
+    class Meta(Orderable.Meta):
         abstract = True
 
     dataset = models.ForeignKey(

@@ -3,7 +3,7 @@
 {% uid_url page as short_url %}
 <div class="share space-section-bottom-med">
     <div class="share__content">
-        <h2 class="type-m type-s--trailer">Share {{ page.title }}</h2>
+        <h2 class="type-m type-s--trailer"><b>Share</b> {{ page.title }}</h2>
         {% if page %}
             {% include 'publications/share-block.html' with share_type='page' title=page.title short_url=short_url %}
         {% endif %}

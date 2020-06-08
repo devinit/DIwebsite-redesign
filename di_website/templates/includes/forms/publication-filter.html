@@ -5,7 +5,7 @@
     </label>
     <div class="form-field__select-dropdown">
       <select name="types" id="types">
-        <option value="" id="filter-by-types">All Types</option>
+        <option value="" id="filter-by-types">All types</option>
         {% regroup resource_types by resource_category as resources_list %}
         {% for category in resources_list %}
           <optgroup label="{{ category.grouper }}">

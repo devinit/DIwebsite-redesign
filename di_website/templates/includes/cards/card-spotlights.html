@@ -1,9 +1,22 @@
-{% load wagtailcore_tags wagtailimages_tags static %}
+{% load wagtailcore_tags wagtailimages_tags static responsive %}
 
 {% if item %}
   <a href="{% pageurl item %}{{ nav_param|default_if_none:'' }}" class="card card--mid card--offset">
 
-    {% include 'includes/cards/card-image.html' %}
+    {% if item.hero_image %}
+      {% if card_type == "duo" %}
+        {% image item.hero_image fill-560x420 as hero_img %}
+        <div class="card__media">
+          <img src="{{hero_img.url}}" alt="{{hero_img.alt}}"/>
+        </div>
+      {% else %}
+        {% image item.hero_image fill-560x420 as hero_img %}
+        <div class="card__media" style="background-image: url({{hero_img.url}});"></div>
+      {% endif %}
+    {% else %}
+      <div class="card__media" style="background-image: url({% static 'img/fallback-image.jpg' %});"></div>
+    {% endif %}
+
 
     <div class="card__body">
       <h3 class="card__title"><span>{{ item.title }}</span></h3>

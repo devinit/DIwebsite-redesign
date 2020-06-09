@@ -14,12 +14,12 @@
   {% if page.get_verbose_name == "Short Publication" %}
     {% include 'publications/chapter-nav/nav.html' with page=page menu_label='Jump to section' chapter_number=page.chapter_number %}
   {% else %}
-    {% include 'publications/chapter-nav/nav-full.html' with page=page.get_parent.specific menu_label='Contents' chapter_number=page.chapter_number %}
+    {% include 'publications/chapter-nav/nav.html' with page=page.get_parent.specific menu_label='Contents' chapter_number=page.chapter_number %}
   {% endif %}
 {% elif page.appendix_number %}
-  {% include 'publications/chapter-nav/nav-full.html' with page=page.get_parent.specific menu_label='Contents' chapter_number=page.get_parent.specific.chapter_max|add:page.appendix_number %}
+  {% include 'publications/chapter-nav/nav.html' with page=page.get_parent.specific menu_label='Contents' chapter_number=page.get_parent.specific.chapter_max|add:page.appendix_number %}
 {% else %}
-  {% include 'publications/chapter-nav/nav-full.html' with page=page.get_parent.specific menu_label='Contents' chapter_number=0 %}
+  {% include 'publications/chapter-nav/nav.html' with page=page.get_parent.specific menu_label='Contents' chapter_number=0 %}
 {% endif %}
 
 

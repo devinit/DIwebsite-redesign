@@ -133,7 +133,7 @@ class VacancyPage(TypesetBodyMixin, SectionBodyMixin, HeroMixin, Page):
         blank=True,
         max_length=255,
         verbose_name='Heading',
-        default='Learn more about Developement Initiatives'
+        default='Learn more about Development Initiatives'
     )
     downloads_title = models.CharField(
         blank=True,

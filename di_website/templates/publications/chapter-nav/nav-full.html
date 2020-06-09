@@ -1,0 +1,11 @@
+{% extends 'publications/chapter-nav/nav.html' %}
+{% load wagtailcore_tags %}
+
+{% block nav-list %}
+  <a href="{% pageurl page %}" class="button button--summary button--a11y" title="View full report">
+    <i role="presentation" aria-hidden="true" class="ico ico--16 ico-list-poppy"></i> <span>View full report</span>
+  </a>
+  {% for item in page.listing_and_appendicies %}
+    {% include 'publications/chapter-nav/nav-item.html' %}
+  {% endfor %}
+{% endblock nav-list %}

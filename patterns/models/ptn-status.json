@@ -206,5 +206,9 @@
 	{
 		"name": "24-country-spotlights",
 		"stage": "Template"
+	},
+	{
+		"name": "25-visualisations",
+		"stage": "Template"
 	}
 ]

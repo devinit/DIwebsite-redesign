@@ -1,0 +1,24 @@
+{
+    "lineChartStackedArea": [
+        {
+          "label": "Europe",
+          "label_no": "0"
+        },
+        {
+          "label": "North and Central America",
+           "label_no": "1"
+        },
+        {
+          "label": "Middle East and North of Sahara",
+           "label_no": "2"
+        },
+        {
+          "label": "Far East Asia",
+           "label_no": "3"
+        },
+        {
+          "label": "Other",
+           "label_no": "4"
+        }
+    ]
+}

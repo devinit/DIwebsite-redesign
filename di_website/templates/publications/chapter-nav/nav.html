@@ -20,7 +20,7 @@
                     <div class="chapter-scroll">
                         <ul class="chapter-nav__list">
                           {% block nav-list %}
-                            {% if page.get_verbose_name != "Publication Page" and page.get_verbose_name != "Short Publication" %}
+                            {% if page.get_verbose_name != "Short Publication" %}
                               <a href="{% pageurl page %}" class="button button--summary button--a11y" title="View full report"><i role="presentation" aria-hidden="true" class="ico ico--16 ico-list-poppy"></i> <span>View full report</span></a>
                             {% endif %}
                             {% for item in page.listing_and_appendicies %}

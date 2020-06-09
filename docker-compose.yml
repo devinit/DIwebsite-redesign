@@ -26,6 +26,11 @@ services:
     restart: always
     volumes:
       - index_db:/usr/share/elasticsearch/data
+    logging:
+        driver: "json-file"
+        options:
+            max-size: "1m"
+
 
   web:
     depends_on:

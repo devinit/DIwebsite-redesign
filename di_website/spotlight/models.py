@@ -82,10 +82,6 @@ class SpotlightTheme(Page):
         FieldPanel('section'),
     ]
 
-    search_fields = [
-        index.SearchField('title')
-    ]
-
     def get_admin_display_title(self):
         if self.section:
             if self.section == 'map':
@@ -161,7 +157,9 @@ class SpotlightIndicator(Page):
         StreamFieldPanel('config')
     ]
 
-    search_fields = [index.SearchField('ddw_id'), index.SearchField('title')]
+    search_fields = Page.search_fields + [
+        index.SearchField('ddw_id')
+    ]
 
 
 class CountrySpotlight(TypesetBodyMixin, HeroMixin, Page):

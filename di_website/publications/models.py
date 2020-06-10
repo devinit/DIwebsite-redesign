@@ -247,6 +247,7 @@ class PublicationIndexPage(HeroMixin, Page):
                     stories = stories.search(search_filter).annotate_score("_score")
             legacy_pubs = legacy_pubs.search(search_filter).annotate_score("_score")
             short_pubs = short_pubs.search(search_filter).annotate_score("_score")
+            audio_visual_media = audio_visual_media.search(search_filter).annotate_score('_score')
 
         story_list = list(chain(stories, legacy_pubs, short_pubs, audio_visual_media))
         elasticsearch_is_active = True

@@ -1,15 +1,23 @@
 import $ from 'jquery';
 
 export default function entry() {
-    initChart('#iha-donors-public-area');
-    initChart('#iha-donors-public-bar');
+    $('.charts__chart').each((i, el) => {
+        initChart($(el));
+    });
 }
 
-const initChart = (selector) => {
-    const el = $(selector);
+const initChart = (el) => {
     Plotly.d3.json(el.first().data('url'), d => {
 
         const data = d;
+
+        if (!el.data('interactive')) {
+            console.log(1);
+            Plotly.newPlot(el[0], data);
+            return;
+            console.log(2);
+        }
+
         const traces = data.data.slice();
         data.data = data.data.slice(0, 1);
 
@@ -25,6 +33,7 @@ const initChart = (selector) => {
                 currentOption.text = textArray[i];
                 selector.appendChild(currentOption);
             }
+            $(selector).addClass('data-selector--active');
         }
 
         Plotly.newPlot(el[0], data);

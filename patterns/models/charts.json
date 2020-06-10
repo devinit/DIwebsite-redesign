@@ -2,11 +2,43 @@
     "charts": [
         {
           "id": "iha-donors-public-area",
-          "data_url": "../assets/data/iha-donors-public.json"
+          "data_url": "../assets/data/iha-donors-public-area.json",
+          "interactive": true
+        },
+        {
+          "id": "iha-donors-public-area-static",
+          "data_url": "../assets/data/iha-donors-public-area.json",
+          "interactive": false
         },
         {
           "id": "iha-donors-public-bar",
-          "data_url": "../assets/data/iha-donors-public-bar.json"
+          "data_url": "../assets/data/iha-donors-public-bar.json",
+          "interactive": true
+        },
+        {
+          "id": "iha-donors-public-bar-static",
+          "data_url": "../assets/data/iha-donors-public-bar.json",
+          "interactive": false
+        },
+        {
+          "id": "iha-donors-private-area",
+          "data_url": "../assets/data/iha-donors-private-area.json",
+          "interactive": true
+        },
+        {
+          "id": "iha-donors-private-area-static",
+          "data_url": "../assets/data/iha-donors-private-area.json",
+          "interactive": false
+        },
+        {
+          "id": "iha-donors-private-bar",
+          "data_url": "../assets/data/iha-donors-private-bar.json",
+          "interactive": true
+        },
+        {
+          "id": "iha-donors-private-bar-static",
+          "data_url": "../assets/data/iha-donors-private-bar.json",
+          "interactive": false
         }
     ]
 }

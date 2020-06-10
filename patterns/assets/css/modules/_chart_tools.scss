@@ -34,9 +34,13 @@
     margin-top: -3em;
     margin-bottom: -3em;
     .data-selector {
+        display: none;
         position: absolute;
         top: 7em;
         left: 5em;
         z-index: 100;
+        &--active {
+            display: block;
+        }
     }
 }

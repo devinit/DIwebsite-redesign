@@ -1,24 +1,12 @@
 {
-    "lineChartStackedArea": [
+    "charts": [
         {
-          "label": "Europe",
-          "label_no": "0"
+          "id": "iha-donors-public-area",
+          "data_url": "../assets/data/iha-donors-public.json"
         },
         {
-          "label": "North and Central America",
-           "label_no": "1"
-        },
-        {
-          "label": "Middle East and North of Sahara",
-           "label_no": "2"
-        },
-        {
-          "label": "Far East Asia",
-           "label_no": "3"
-        },
-        {
-          "label": "Other",
-           "label_no": "4"
+          "id": "iha-donors-public-bar",
+          "data_url": "../assets/data/iha-donors-public-bar.json"
         }
     ]
 }

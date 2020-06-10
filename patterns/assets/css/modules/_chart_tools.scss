@@ -1,102 +1,3 @@
-// Datawrapper
-// https://app.datawrapper.de/chart/Ah1k2/visualize#refine-the-chart
-// https://datawrapper.dwcdn.net/Ah1k2/2/
-// can't add rotated axis labels
-// doesn't have hide area ability on stacked area chart, but does highlight on hover
-// would need JS copying over to include hover functionality
-
-.chart.vis-d3-area {
-    @include font-size($para - 3);
-    svg {
-        rect.bg {
-            fill: #fff;
-            fill-opacity: 0;
-        }
-    }
-    .tooltip {
-        display: none;
-    }
-    .y-grid text {
-        text-anchor: end;
-    }
-    .x.ticks text {
-        text-anchor: middle;
-    }
-    div.d3l-main {
-        position: absolute;
-    }
-    .dw-chart-body {
-        position: relative;
-        padding-bottom: 0px;
-    }
-    .d3l-color-key {
-        position: absolute;
-         .d3l-item {
-            display: inline-block;
-            vertical-align: middle;
-            margin-right: 8px;
-             .d3l-key {
-                display: inline-block;
-                vertical-align: middle;
-                margin-right: 4px;
-            }
-        }
-    }
-    .legend-text span {
-        vertical-align: middle;
-    }
-
-    .area {
-        opacity: 1 !important;
-        &:nth-of-type(1) {
-            fill: #e84439 !important;
-        }
-        &:nth-of-type(2) {
-            fill: #109e68 !important;
-        }
-        &:nth-of-type(3) {
-            fill: #c2135b !important;
-        }
-        &:nth-of-type(4) {
-            fill: #893190 !important;
-        }
-        &:nth-of-type(5) {
-            fill: #0089cc !important;
-        }
-    }
-    .dw-rect {
-        opacity: 1 !important;
-        border-radius: 50%;
-    }
-    .d3l-item {
-        &:nth-of-type(1) {
-            .dw-rect {
-                background: #e84439 !important;
-            }
-        }
-        &:nth-of-type(2) {
-            .dw-rect {
-                background: #109e68 !important;
-            }
-        }
-        &:nth-of-type(3) {
-            .dw-rect {
-                background: #c2135b !important;
-            }
-        }
-        &:nth-of-type(4) {
-            .dw-rect {
-                background: #893190 !important;
-            }
-        }
-        &:nth-of-type(5) {
-            .dw-rect {
-                background: #0089cc !important;
-            }
-        }
-    }
-}
-
 
 // Plotly
 // https://chart-studio.plot.ly/create/?fid=urlsangel:1&fid=urlsangel:0
@@ -126,4 +27,16 @@
 }
 .plotly-notifier span {
     font-family: "Geomanist Regular", sans-serif !important;
+}
+
+.chart-container {
+    position: relative;
+    margin-top: -3em;
+    margin-bottom: -3em;
+    .data-selector {
+        position: absolute;
+        top: 7em;
+        left: 5em;
+        z-index: 100;
+    }
 }

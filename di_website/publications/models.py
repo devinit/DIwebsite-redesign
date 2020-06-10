@@ -1018,8 +1018,23 @@ class AudioVisualMedia(PublishedDateMixin, TypesetBodyMixin, HeroMixin, SectionB
     publication_type = models.ForeignKey(
         PublicationType, related_name="+", null=True, blank=False, on_delete=models.SET_NULL, verbose_name="Resource Type")
 
+    participants = StreamField([
+        ('internal_participant', PageChooserBlock(
+            required=False,
+            target_model='ourteam.TeamMemberPage',
+            icon='fa-user', label='Internal Participant'
+        )),
+        ('external_participant', StructBlock([
+            ('name', CharBlock(required=False)),
+            ('title', CharBlock(required=False)),
+            ('photograph', ImageChooserBlock(required=False)),
+            ('page', URLBlock(required=False))
+        ], icon='fa-user', label='External Participant'))
+    ], blank=True, help_text="The people involved in the podcast or webinar")
+
     content_panels = Page.content_panels + [
         hero_panels(),
+        StreamFieldPanel('participants'),
         StreamFieldPanel('body'),
         StreamFieldPanel('sections'),
         FieldPanel('publication_type'),

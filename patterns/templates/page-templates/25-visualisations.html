@@ -30,9 +30,13 @@
         <div class="row row--narrow">
             <div class="max-meter max-meter--center">
                 <a href="#" name="2.1" class="section-chapter__link">{{ icons.icon('ico-link-poppy', '16') }} Share chart</a>
-                <h3 class="type-l type-l--trailer">[Plotly] Figure 2.6: International humanitarian assistance from governments by donor region, 2009–2018</h3>
+                <h3 class="type-l type-l--trailer">Plotly graph via local data request</h3>
                 <div class="chart-container chart-container--full">
-                    {% include 'charts/plotly.html' %}
+                    <div
+                        class="charts__chart"
+                        id="tester"
+                        data-url="../assets/data/iha-donors-public.json">
+                    </div>
                 </div>
             </div>
         </div>

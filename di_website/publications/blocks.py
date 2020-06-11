@@ -29,7 +29,7 @@ class AudioMediaBlock(AbstractMediaChooserBlock):
                     Your browser does not support audio using the HTML 5 audio element.
                 </audio>
                 <div>
-                    <a download href="{1}" class='download-audio'>Download Audio</a>
+                    <a download href="{1}" class='download-audio'>Download audio</a>
                 </div>
             </div>
             '''

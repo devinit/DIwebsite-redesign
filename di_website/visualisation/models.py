@@ -2,6 +2,10 @@ from django.db import models
 from django.shortcuts import redirect
 
 from wagtail.core.models import Page
+from wagtail.core.fields import StreamField
+from wagtail.admin.edit_handlers import StreamFieldPanel
+
+from .blocks import ChartBlock
 
 
 class VisualisationsPage(Page):
@@ -27,6 +31,12 @@ class VisualisationsPage(Page):
 class ChartPage(Page):
     parent_page_types = [VisualisationsPage]
     subpage_types = []
+
+    charts = StreamField([('chart', ChartBlock())], blank=True)
+
+    content_panels = Page.content_panels + [
+        StreamFieldPanel('charts')
+    ]
 
     class Meta:
         verbose_name = 'Chart Page'

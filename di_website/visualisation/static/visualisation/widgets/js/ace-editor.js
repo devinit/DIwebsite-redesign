@@ -1,4 +1,25 @@
 "use strict";
+const renderChart = (options, element) => {
+    const { data, layout } = JSON.parse(options);
+    return Plotly.newPlot(element, data, layout);
+};
+const initPlotlyPreview = (widgetID, options) => {
+    const previewNode = document.getElementById(`${widgetID}-plotly-preview`);
+    if (previewNode) {
+        try {
+            renderChart(options, previewNode);
+            return {
+                onUpdate: (options) => {
+                    renderChart(options, previewNode);
+                }
+            };
+        }
+        catch (error) {
+            console.log(error);
+        }
+    }
+    return null;
+};
 const initAceEditor = (widgetID) => {
     if (widgetID) {
         const editorNode = document.getElementById(`${widgetID}-ace-editor`);
@@ -7,8 +28,12 @@ const initAceEditor = (widgetID) => {
             const editor = ace.edit(editorNode);
             editor.setTheme("ace/theme/monokai"); //TODO: set theme dynamically
             editor.session.setMode("ace/mode/json"); //TODO: set mode dynamically
+            const preview = initPlotlyPreview(widgetID, inputNode.value);
             editor.getSession().on('change', () => {
                 inputNode.value = editor.getSession().getValue();
+                if (preview) {
+                    preview.onUpdate(inputNode.value);
+                }
             });
         }
     }

@@ -13,8 +13,11 @@ class AceEditorInput(HiddenInput):
     @property
     def media(self):
         return Media(
+            css = {
+                'all': ('visualisation/widgets/css/ace-editor.css',)
+            },
             js=[
-                versioned_static('visualisation/widgets/ace-editor.js'),
+                versioned_static('visualisation/widgets/js/ace-editor.js'),
                 versioned_static('https://pagecdn.io/lib/ace/1.4.7/ace.js'),
                 versioned_static('https://pagecdn.io/lib/ace/1.4.7/theme-monokai.js')
             ]

@@ -1,0 +1,31 @@
+{
+    "compilerOptions": {
+        "rootDir": "./di_website",
+        "target": "es2015",
+        "lib": [
+            "dom",
+            "dom.iterable",
+            "esnext"
+        ],
+        "allowJs": true,
+        "skipLibCheck": true,
+        "strict": true,
+        "forceConsistentCasingInFileNames": true,
+        "strictFunctionTypes": false,
+        "esModuleInterop": true,
+        "module": "esnext",
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "jsx": "preserve",
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "sourceMap": true
+    },
+    "exclude": [
+        "node_modules/"
+    ],
+    "include": [
+        "**/*.ts",
+        "**/*.tsx"
+    ]
+}

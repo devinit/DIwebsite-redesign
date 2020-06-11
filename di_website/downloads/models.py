@@ -107,12 +107,17 @@ class PublicationDownload(index.Indexed, BaseDownload):
 
 
 @register_snippet
-class DataDownload(BaseDownload):
+class DataDownload(index.Indexed, BaseDownload):
 
     panels = [
         DocumentChooserPanel('file'),
         FieldPanel('title'),
     ]
+
+    search_fields = [
+        index.SearchField('title', partial_match=True),
+    ]
+
 
 
 class DownloadItem(models.Model):

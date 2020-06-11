@@ -1,1 +1,3 @@
-<div class="field ace-editor__field">Widget Goes Here</div>
+<div id="{{ widget.attrs.id }}-ace-editor" class="field ace-editor__field">{{ widget.value }}</div>
+{% include 'django/forms/widgets/hidden.html' %}
+<script>initAceEditor("{{ widget.attrs.id|escapejs }}");</script>

@@ -14,6 +14,7 @@ class AceEditorInput(HiddenInput):
     def media(self):
         return Media(
             js=[
+                versioned_static('visualisation/widgets/ace-editor.js'),
                 versioned_static('https://pagecdn.io/lib/ace/1.4.7/ace.js'),
                 versioned_static('https://pagecdn.io/lib/ace/1.4.7/theme-monokai.js')
             ]

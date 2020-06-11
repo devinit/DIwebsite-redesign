@@ -10,6 +10,7 @@ insert_final_newline = true
 
 [*.{js,jsx,coffee,html,less,css,json,py}]
 indent_style = space
+indent_size = 2
 
 [*.html]
 indent_size = 2

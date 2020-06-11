@@ -4,13 +4,12 @@
             "meta": {
                 "columnNames": {
                     "x": "Year",
-                    "y": "Individuals"
+                    "y": "NGOs"
                 }
             },
-            "mode": "lines",
             "name": "%{meta.columnNames.y}",
-            "type": "scatter",
-            "xsrc": "urlsangel:40:85a355",
+            "type": "bar",
+            "xsrc": "urlsangel:44:55ed1d",
             "x": [
                 "2014",
                 "2015",
@@ -18,27 +17,26 @@
                 "2017",
                 "2018"
             ],
-            "ysrc": "urlsangel:40:cc11c2",
+            "ysrc": "urlsangel:44:669f53",
             "y": [
-                "3.3",
-                "4.2",
-                "3.9",
-                "5.2",
-                "4.6"
+                "4,209,662,679",
+                "5,326,942,361",
+                "4,900,987,846",
+                "5,394,992,543",
+                "5,295,574,317"
             ],
-            "stackgroup": 1
+            "orientation": "v"
         },
         {
             "meta": {
                 "columnNames": {
                     "x": "Year",
-                    "y": "Foundations"
+                    "y": "RCRC"
                 }
             },
-            "mode": "lines",
             "name": "%{meta.columnNames.y}",
-            "type": "scatter",
-            "xsrc": "urlsangel:40:85a355",
+            "type": "bar",
+            "xsrc": "urlsangel:44:55ed1d",
             "x": [
                 "2014",
                 "2015",
@@ -46,27 +44,26 @@
                 "2017",
                 "2018"
             ],
-            "ysrc": "urlsangel:40:ca83d7",
+            "ysrc": "urlsangel:44:21655a",
             "y": [
-                "0.3",
-                "0.4",
-                "0.5",
-                "0.5",
-                "0.6"
+                "248,421,173",
+                "279,216,013",
+                "202,386,555",
+                "226,160,262",
+                "88,443,648"
             ],
-            "stackgroup": 1
+            "orientation": "v"
         },
         {
             "meta": {
                 "columnNames": {
                     "x": "Year",
-                    "y": "Companies and corporations"
+                    "y": "UN"
                 }
             },
-            "mode": "lines",
             "name": "%{meta.columnNames.y}",
-            "type": "scatter",
-            "xsrc": "urlsangel:40:85a355",
+            "type": "bar",
+            "xsrc": "urlsangel:44:55ed1d",
             "x": [
                 "2014",
                 "2015",
@@ -74,94 +71,37 @@
                 "2017",
                 "2018"
             ],
-            "ysrc": "urlsangel:40:f904fa",
+            "ysrc": "urlsangel:44:57a8ab",
             "y": [
-                "0.3",
-                "0.4",
-                "0.4",
-                "0.3",
-                "0.4"
+                "473,245,142",
+                "603,254,336",
+                "606,359,800",
+                "1,272,371,724",
+                "1,316,192,163"
             ],
-            "stackgroup": 1
-        },
-        {
-            "meta": {
-                "columnNames": {
-                    "x": "Year",
-                    "y": "National societies"
-                }
-            },
-            "mode": "lines",
-            "name": "%{meta.columnNames.y}",
-            "type": "scatter",
-            "xsrc": "urlsangel:40:85a355",
-            "x": [
-                "2014",
-                "2015",
-                "2016",
-                "2017",
-                "2018"
-            ],
-            "ysrc": "urlsangel:40:60b6d8",
-            "y": [
-                "0.5",
-                "0.7",
-                "0.2",
-                "0.3",
-                "0.7"
-            ],
-            "stackgroup": 1
-        },
-        {
-            "meta": {
-                "columnNames": {
-                    "x": "Year",
-                    "y": "Other"
-                }
-            },
-            "mode": "lines",
-            "name": "%{meta.columnNames.y}",
-            "type": "scatter",
-            "xsrc": "urlsangel:40:85a355",
-            "x": [
-                "2014",
-                "2015",
-                "2016",
-                "2017",
-                "2018"
-            ],
-            "ysrc": "urlsangel:40:2495b0",
-            "y": [
-                "0.4",
-                "0.5",
-                "0.7",
-                "0.6",
-                "0.3"
-            ],
-            "stackgroup": 1
+            "orientation": "v"
         }
     ],
     "layout": {
         "title": {
-            "text": "Total IHA from private donors, 2014-2018"
+            "text": "Total private IHA by recipient type, 2014-2018"
         },
         "xaxis": {
             "type": "linear",
             "range": [
-                2014,
-                2018
+                2013.5,
+                2018.5
             ],
             "title": {
                 "text": "Year"
             },
-            "tickmode": "linear",
             "autorange": true
         },
         "yaxis": {
             "type": "linear",
             "range": [
                 0,
-                7.263157894736842
+                7256341609.473684
             ],
             "title": {
                 "text": "Total"
@@ -171,6 +111,7 @@
         "legend": {
             "traceorder": "normal"
         },
+        "barmode": "stack",
         "autosize": true,
         "template": {
             "data": {

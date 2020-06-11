@@ -154,6 +154,7 @@
             "title": {
                 "text": "Year"
             },
+            "tickmode": "linear",
             "autorange": true
         },
         "yaxis": {

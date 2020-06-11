@@ -4,111 +4,56 @@
             "meta": {
                 "columnNames": {
                     "x": "Year",
-                    "y": "Individuals"
+                    "y": "NGOs - Transfer value"
                 }
             },
             "mode": "lines",
             "name": "%{meta.columnNames.y}",
             "type": "scatter",
-            "xsrc": "urlsangel:40:85a355",
+            "xsrc": "urlsangel:48:7ccfe8",
             "x": [
-                "2014",
                 "2015",
                 "2016",
                 "2017",
-                "2018"
+                "2018",
+                "2019"
             ],
-            "ysrc": "urlsangel:40:cc11c2",
+            "ysrc": "urlsangel:48:1e8015",
             "y": [
-                "3.3",
-                "4.2",
-                "3.9",
-                "5.2",
-                "4.6"
-            ],
-            "stackgroup": 1
-        },
-        {
-            "meta": {
-                "columnNames": {
-                    "x": "Year",
-                    "y": "Foundations"
-                }
-            },
-            "mode": "lines",
-            "name": "%{meta.columnNames.y}",
-            "type": "scatter",
-            "xsrc": "urlsangel:40:85a355",
-            "x": [
-                "2014",
-                "2015",
-                "2016",
-                "2017",
-                "2018"
-            ],
-            "ysrc": "urlsangel:40:ca83d7",
-            "y": [
-                "0.3",
                 "0.4",
-                "0.5",
-                "0.5",
-                "0.6"
-            ],
-            "stackgroup": 1
-        },
-        {
-            "meta": {
-                "columnNames": {
-                    "x": "Year",
-                    "y": "Companies and corporations"
-                }
-            },
-            "mode": "lines",
-            "name": "%{meta.columnNames.y}",
-            "type": "scatter",
-            "xsrc": "urlsangel:40:85a355",
-            "x": [
-                "2014",
-                "2015",
-                "2016",
-                "2017",
-                "2018"
-            ],
-            "ysrc": "urlsangel:40:f904fa",
-            "y": [
-                "0.3",
-                "0.4",
-                "0.4",
-                "0.3",
-                "0.4"
-            ],
-            "stackgroup": 1
-        },
-        {
-            "meta": {
-                "columnNames": {
-                    "x": "Year",
-                    "y": "National societies"
-                }
-            },
-            "mode": "lines",
-            "name": "%{meta.columnNames.y}",
-            "type": "scatter",
-            "xsrc": "urlsangel:40:85a355",
-            "x": [
-                "2014",
-                "2015",
-                "2016",
-                "2017",
-                "2018"
-            ],
-            "ysrc": "urlsangel:40:60b6d8",
-            "y": [
-                "0.5",
+                "0.6",
                 "0.7",
+                "0.7",
+                "0.8"
+            ],
+            "xaxis": "x",
+            "stackgroup": 1
+        },
+        {
+            "meta": {
+                "columnNames": {
+                    "x": "Year",
+                    "y": "NGOs - Other programming costs"
+                }
+            },
+            "mode": "lines",
+            "name": "%{meta.columnNames.y}",
+            "type": "scatter",
+            "xsrc": "urlsangel:48:7ccfe8",
+            "x": [
+                "2015",
+                "2016",
+                "2017",
+                "2018",
+                "2019"
+            ],
+            "ysrc": "urlsangel:48:465fdb",
+            "y": [
+                "0.1",
                 "0.2",
                 "0.3",
-                "0.7"
+                "0.2",
+                "0.2"
             ],
             "stackgroup": 1
         },
@@ -116,55 +61,197 @@
             "meta": {
                 "columnNames": {
                     "x": "Year",
-                    "y": "Other"
+                    "y": "RCRC - Transfer value"
                 }
             },
             "mode": "lines",
             "name": "%{meta.columnNames.y}",
             "type": "scatter",
-            "xsrc": "urlsangel:40:85a355",
+            "xsrc": "urlsangel:48:7ccfe8",
             "x": [
-                "2014",
                 "2015",
                 "2016",
                 "2017",
-                "2018"
+                "2018",
+                "2019"
             ],
-            "ysrc": "urlsangel:40:2495b0",
+            "ysrc": "urlsangel:48:49166e",
             "y": [
+                "0.1",
+                "0.1",
+                "0.8",
+                "0.7",
+                "0.8"
+            ],
+            "stackgroup": 1
+        },
+        {
+            "meta": {
+                "columnNames": {
+                    "x": "Year",
+                    "y": "RCRC - Other programming costs"
+                }
+            },
+            "mode": "lines",
+            "name": "%{meta.columnNames.y}",
+            "type": "scatter",
+            "xsrc": "urlsangel:48:7ccfe8",
+            "x": [
+                "2015",
+                "2016",
+                "2017",
+                "2018",
+                "2019"
+            ],
+            "ysrc": "urlsangel:48:34fb49",
+            "y": [
+                "0.04",
+                "0.0",
+                "0.2",
+                "0.2",
+                "0.2"
+            ],
+            "stackgroup": 1
+        },
+        {
+            "meta": {
+                "columnNames": {
+                    "x": "Year",
+                    "y": "UN agencies - Transfer value"
+                }
+            },
+            "mode": "lines",
+            "name": "%{meta.columnNames.y}",
+            "type": "scatter",
+            "xsrc": "urlsangel:48:7ccfe8",
+            "x": [
+                "2015",
+                "2016",
+                "2017",
+                "2018",
+                "2019"
+            ],
+            "ysrc": "urlsangel:48:1d2c8e",
+            "y": [
+                "1.0",
+                "1.6",
+                "1.7",
+                "2.1",
+                "2.7"
+            ],
+            "stackgroup": 1
+        },
+        {
+            "meta": {
+                "columnNames": {
+                    "x": "Year",
+                    "y": "UN agencies - Other programming costs"
+                }
+            },
+            "mode": "lines",
+            "name": "%{meta.columnNames.y}",
+            "type": "scatter",
+            "xsrc": "urlsangel:48:7ccfe8",
+            "x": [
+                "2015",
+                "2016",
+                "2017",
+                "2018",
+                "2019"
+            ],
+            "ysrc": "urlsangel:48:a54304",
+            "y": [
+                "0.4",
                 "0.4",
                 "0.5",
                 "0.7",
-                "0.6",
-                "0.3"
+                "0.8"
+            ],
+            "stackgroup": 1
+        },
+        {
+            "meta": {
+                "columnNames": {
+                    "x": "Year",
+                    "y": "Other - Transfer value"
+                }
+            },
+            "mode": "lines",
+            "name": "%{meta.columnNames.y}",
+            "type": "scatter",
+            "xsrc": "urlsangel:48:7ccfe8",
+            "x": [
+                "2015",
+                "2016",
+                "2017",
+                "2018",
+                "2019"
+            ],
+            "ysrc": "urlsangel:48:bb9f97",
+            "y": [
+                "0.002",
+                "0.003",
+                "0.07",
+                "0.01",
+                "0.001"
+            ],
+            "stackgroup": 1
+        },
+        {
+            "meta": {
+                "columnNames": {
+                    "x": "Year",
+                    "y": "Other - Other programming costs\nH11"
+                }
+            },
+            "mode": "lines",
+            "name": "%{meta.columnNames.y}",
+            "type": "scatter",
+            "xsrc": "urlsangel:48:7ccfe8",
+            "x": [
+                "2015",
+                "2016",
+                "2017",
+                "2018",
+                "2019"
+            ],
+            "ysrc": "urlsangel:48:718a46",
+            "y": [
+                "0.002",
+                "0.002",
+                "0.02",
+                "0.003",
+                "0.0003"
             ],
             "stackgroup": 1
         }
     ],
     "layout": {
         "title": {
-            "text": "Total IHA from private donors, 2014-2018"
+            "text": "Humanitarian CVA, 2015-2019"
         },
         "xaxis": {
             "type": "linear",
             "range": [
-                2014,
-                2018
+                2015,
+                2019
             ],
             "title": {
                 "text": "Year"
             },
             "tickmode": "linear",
-            "autorange": true
+            "autorange": true,
+            "tickformat": "",
+            "showticklabels": true
         },
         "yaxis": {
             "type": "linear",
             "range": [
                 0,
-                7.263157894736842
+                5.790842105263159
             ],
             "title": {
-                "text": "Total"
+                "text": " US$ billions"
             },
             "autorange": true
         },

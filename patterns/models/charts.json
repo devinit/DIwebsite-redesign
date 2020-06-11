@@ -1,6 +1,24 @@
 {
     "charts": [
         {
+          "id": "cva-humanitarian-area-combined",
+          "data_url": "../assets/data/cva-humanitarian-area.json",
+          "interactive": true,
+          "combined": true
+        },
+        {
+          "id": "iha-recipient-private-bar-combined",
+          "data_url": "../assets/data/iha-recipient-private-bar.json",
+          "interactive": true,
+          "combined": true
+        },
+        {
+          "id": "iha-recipient-private-area-combined",
+          "data_url": "../assets/data/iha-recipient-private-area.json",
+          "interactive": true,
+          "combined": true
+        },
+        {
           "id": "iha-donors-public-area-combined",
           "data_url": "../assets/data/iha-donors-public-area.json",
           "interactive": true,

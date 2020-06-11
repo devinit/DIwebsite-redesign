@@ -26,16 +26,16 @@ const initChart = (el) => {
         const combined = el.data('combined');
 
         if (!interactive) {
-            initStaticChart(el[0], data);
+            initStaticChart(el, data);
         }
         else {
-            initInteractiveChart(el[0], data, combined);
+            initInteractiveChart(el, data, combined);
         }
     });
 }
 
 const initStaticChart = (el, data) => {
-    Plotly.newPlot(el, data);
+    Plotly.newPlot(el[0], data);
 }
 
 const initInteractiveChart = (el, data, combined = false) => {

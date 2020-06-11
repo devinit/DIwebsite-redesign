@@ -6,48 +6,83 @@ export default function entry() {
     });
 }
 
+const assignOption = (select, value) => {
+    const currentOption = document.createElement('option');
+    currentOption.text = value;
+    select.appendChild(currentOption);
+};
+
+const assignOptions = (select, options) => {
+    for (var i = 0; i < options.length;  i++) {
+        assignOption(select, options[i]);
+    }
+    $(select).addClass('data-selector--active');
+}
+
 const initChart = (el) => {
     Plotly.d3.json(el.first().data('url'), d => {
-
         const data = d;
+        const interactive = el.data('interactive');
+        const combined = el.data('combined');
 
-        if (!el.data('interactive')) {
-            console.log(1);
-            Plotly.newPlot(el[0], data);
-            return;
-            console.log(2);
+        if (!interactive) {
+            initStaticChart(el[0], data);
+        }
+        else {
+            initInteractiveChart(el[0], data, combined);
+        }
+    });
+}
+
+const initStaticChart = (el, data) => {
+    Plotly.newPlot(el, data);
+}
+
+const initInteractiveChart = (el, data, combined = false) => {
+    const all = 'All data';
+    const traces = data.data.slice();
+    const options = [];
+
+    // add an extra all data option at the top if combined
+    if (combined) {
+        options.push(all);
+    }
+
+    // add the actual data options
+    for (var i = 0; i < traces.length; i++ ) {
+        options.push(traces[i].meta.columnNames.y);
+    }
+
+    // if not combined, select the first data set only
+    if (!combined) {
+        data.data = [traces[0]];
+    }
+
+    // get the select and assign options
+    const dataSelector = el.closest('.chart-container').find('.data-selector')[0];
+    assignOptions(dataSelector, options);
+
+    // assign change event listener
+    dataSelector.addEventListener('change', updateData, false);
+
+    function updateData() {
+
+        // if all data selected, set data to whole set
+        if (dataSelector.value == all) {
+            data.data = traces;
         }
 
-        const traces = data.data.slice();
-        data.data = data.data.slice(0, 1);
-
-        const options = [];
-
-        for (var i = 0; i < traces.length; i++ ) {
-            options.push(traces[i].meta.columnNames.y);
-        }
-
-        function assignOptions(textArray, selector) {
-            for (var i = 0; i < textArray.length;  i++) {
-                var currentOption = document.createElement('option');
-                currentOption.text = textArray[i];
-                selector.appendChild(currentOption);
-            }
-            $(selector).addClass('data-selector--active');
-        }
-
-        Plotly.newPlot(el[0], data);
-
-        const dataSelector = el.closest('.chart-container').find('.data-selector')[0];
-        assignOptions(options, dataSelector);
-
-        function updateData() {
+        // otherwise find matching index and set data to the selected one
+        else {
             const newDataIndex = traces.findIndex(element => element.meta.columnNames.y == dataSelector.value);
             data.data = [traces[newDataIndex]];
-            Plotly.react(el[0], data);
         }
 
-        dataSelector.addEventListener('change', updateData, false);
+        // update the chart
+        Plotly.react(el[0], data);
+    }
 
-    });
+    // initialise the chart
+    Plotly.newPlot(el[0], data);
+
 }

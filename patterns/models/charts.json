@@ -1,6 +1,12 @@
 {
     "charts": [
         {
+          "id": "iha-donors-public-area-combined",
+          "data_url": "../assets/data/iha-donors-public-area.json",
+          "interactive": true,
+          "combined": true
+        },
+        {
           "id": "iha-donors-public-area",
           "data_url": "../assets/data/iha-donors-public-area.json",
           "interactive": true

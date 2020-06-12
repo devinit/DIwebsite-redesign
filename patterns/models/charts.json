@@ -1,6 +1,10 @@
 {
     "charts": [
         {
+          "id": "cva-humanitarian-treemap",
+          "data_url": "../assets/data/cva-humanitarian-treemap.json"
+        },
+        {
           "id": "cva-humanitarian-area-combined",
           "data_url": "../assets/data/cva-humanitarian-area.json",
           "interactive": true,
@@ -31,8 +35,7 @@
         },
         {
           "id": "iha-donors-public-area-static",
-          "data_url": "../assets/data/iha-donors-public-area.json",
-          "interactive": false
+          "data_url": "../assets/data/iha-donors-public-area.json"
         },
         {
           "id": "iha-donors-public-bar",
@@ -41,8 +44,7 @@
         },
         {
           "id": "iha-donors-public-bar-static",
-          "data_url": "../assets/data/iha-donors-public-bar.json",
-          "interactive": false
+          "data_url": "../assets/data/iha-donors-public-bar.json"
         },
         {
           "id": "iha-donors-private-area",
@@ -51,8 +53,7 @@
         },
         {
           "id": "iha-donors-private-area-static",
-          "data_url": "../assets/data/iha-donors-private-area.json",
-          "interactive": false
+          "data_url": "../assets/data/iha-donors-private-area.json"
         },
         {
           "id": "iha-donors-private-bar",
@@ -61,8 +62,7 @@
         },
         {
           "id": "iha-donors-private-bar-static",
-          "data_url": "../assets/data/iha-donors-private-bar.json",
-          "interactive": false
+          "data_url": "../assets/data/iha-donors-private-bar.json"
         }
     ]
 }

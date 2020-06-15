@@ -83,6 +83,10 @@ class ShortPublicationTopic(TaggedItemBase):
     content_object = ParentalKey('publications.ShortPublicationPage', on_delete=models.CASCADE, related_name='short_publication_topics')
 
 
+class AudioVisualMediaTopic(TaggedItemBase):
+    content_object = ParentalKey('publications.AudioVisualMedia', on_delete=models.CASCADE, related_name='audio_visual_media_topics')
+
+
 @hooks.register('construct_media_chooser_queryset')
 def show_my_uploaded_media_only(media, request):
     # Only show uploaded audio files
@@ -1021,7 +1025,7 @@ class ShortPublicationPage(HeroMixin, PublishedDateMixin, FlexibleContentMixin, 
         context['related_pages'] = get_related_pages(
             self.publication_related_links.all(), ShortPublicationPage.objects)
 
-        return context;
+        return context
 
 
 class AudioVisualMedia(PublishedDateMixin, TypesetBodyMixin, HeroMixin, SectionBodyMixin, Page):
@@ -1048,6 +1052,7 @@ class AudioVisualMedia(PublishedDateMixin, TypesetBodyMixin, HeroMixin, SectionB
             ('page', URLBlock(required=False))
         ], icon='fa-user', label='External Participant'))
     ], blank=True, help_text="The people involved in the podcast or webinar")
+    topics = ClusterTaggableManager(through=AudioVisualMediaTopic, blank=True, verbose_name="Topics")
 
     content_panels = Page.content_panels + [
         hero_panels(),
@@ -1055,6 +1060,7 @@ class AudioVisualMedia(PublishedDateMixin, TypesetBodyMixin, HeroMixin, SectionB
         StreamFieldPanel('body'),
         StreamFieldPanel('sections'),
         FieldPanel('publication_type'),
+        FieldPanel('topics'),
         PublishedDatePanel(),
         InlinePanel('publication_related_links', label='Related links', max_num=MAX_RELATED_LINKS),
         InlinePanel('page_notifications', label='Notifications')

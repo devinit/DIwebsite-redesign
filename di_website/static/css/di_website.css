@@ -22,11 +22,14 @@
 .resources-filter--button {
     margin-top: 7px;
 }
-
-.resources-filters .form-field--inline-five {
-    width: 19%;
-    margin-right: 3px;
+@media screen and (min-width: 850px){
+  .resources-filters .form-field--inline-six {
+      width: 16%;
+      margin-right: 3px;
+      display: inline-block;
+  }
 }
+
 
 .audio-tag {
     width: 100%;

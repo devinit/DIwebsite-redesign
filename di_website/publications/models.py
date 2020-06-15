@@ -203,11 +203,22 @@ class PublicationIndexPage(HeroMixin, Page):
 
     def get_context(self, request):
         context = super(PublicationIndexPage, self).get_context(request)
+        sort_options = [
+            ('date_desc', 'Order by newest'),
+            ('date_asc', 'Order by oldest'),
+            ('score', 'Order by relevance')
+        ]
+        sort_ids = [sort_opt[0] for sort_opt in sort_options]
         page = request.GET.get('page', None)
         topic_filter = request.GET.get('topic', None)
         country_filter = request.GET.get('country', None)
         types_filter = request.GET.get('types', None)
         search_filter = request.GET.get('q', None)
+        selected_sort = request.GET.get('sort', 'date_desc')
+        if selected_sort not in sort_ids:
+            selected_sort = 'date_desc'
+        if not search_filter and selected_sort == "score":
+            selected_sort = 'date_desc'
 
         if topic_filter:
             stories = PublicationPage.objects.live().filter(topics__slug=topic_filter)
@@ -255,8 +266,10 @@ class PublicationIndexPage(HeroMixin, Page):
             if hasattr(story, "_score"):
                 if story._score is None:
                     elasticsearch_is_active = False
-        if search_filter and elasticsearch_is_active:
+        if selected_sort == "score" and elasticsearch_is_active:
             story_list.sort(key=lambda x: x._score, reverse=True)
+        elif selected_sort == "date_asc":
+            story_list.sort(key=lambda x: x.published_date, reverse=False)
         else:
             story_list.sort(key=lambda x: x.published_date, reverse=True)
 
@@ -288,6 +301,8 @@ class PublicationIndexPage(HeroMixin, Page):
         context['countries'] = Country.objects.all().order_by('region', 'name')
         context['selected_country'] = country_filter
         context['search_filter'] = search_filter
+        context['selected_sort'] = selected_sort
+        context['sort_options'] = sort_options
         context['is_filtered'] = search_filter or topic_filter or country_filter
         context['paginator_range'] = get_paginator_range(paginator, context['stories'])
 

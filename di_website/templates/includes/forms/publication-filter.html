@@ -58,6 +58,18 @@
     <label for="q" class="form-label form-label--hidden">Search by keyword</label>
     <input class="form-item" type="text" name="q" placeholder="Search..." value="{{search_filter|default_if_none:''}}">
   </div>
+  <div class="form-field form-field--inline-five">
+    <label for="sort" class="form-label form-label--hidden">
+      Order by
+    </label>
+    <div class="form-field__select-dropdown">
+      <select name="sort" id="sort">
+        {% for sort_option_id, sort_option_name in sort_options %}
+          <option value="{{ sort_option_id }}" id="{{ sort_option_id }}" {% if sort_option_id == selected_sort %}selected{% endif %}>{{ sort_option_name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+  </div>
   <div class="form-field form-field--inline-five resources-filter--button">
     <button type="submit" class="button">Filter</button>
   </div>

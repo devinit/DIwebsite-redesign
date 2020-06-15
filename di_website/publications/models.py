@@ -1048,7 +1048,7 @@ class AudioVisualMedia(PublishedDateMixin, TypesetBodyMixin, HeroMixin, SectionB
         StreamFieldPanel('sections'),
         FieldPanel('publication_type'),
         PublishedDatePanel(),
-        InlinePanel('publication_related_links', label='Related link', max_num=MAX_RELATED_LINKS),
+        InlinePanel('publication_related_links', label='Related links', max_num=MAX_RELATED_LINKS),
         InlinePanel('page_notifications', label='Notifications')
     ]
 

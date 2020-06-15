@@ -39,7 +39,9 @@
       </div>
     </section>
 
-    <section class="section">
-        {% get_other_pages calling_page=self heading=page.other_pages_heading %}
-    </section>
+  {% if related_pages %}
+      {% with heading='Related content'  %}
+          {% include 'includes/partials/related_content.html' %}
+      {% endwith %}
+  {% endif %}
 {% endblock %}

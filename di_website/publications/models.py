@@ -1058,6 +1058,7 @@ class AudioVisualMedia(PublishedDateMixin, TypesetBodyMixin, HeroMixin, SectionB
             ('page', URLBlock(required=False))
         ], icon='fa-user', label='External Participant'))
     ], blank=True, help_text="The people involved in the podcast or webinar")
+    topics = ClusterTaggableManager(through=AudioVisualMediaTopic, blank=True, verbose_name="Topics")
 
     content_panels = Page.content_panels + [
         hero_panels(),
@@ -1065,6 +1066,7 @@ class AudioVisualMedia(PublishedDateMixin, TypesetBodyMixin, HeroMixin, SectionB
         StreamFieldPanel('body'),
         StreamFieldPanel('sections'),
         FieldPanel('publication_type'),
+        FieldPanel('topics'),
         PublishedDatePanel(),
         MultiFieldPanel([
             FieldPanel('other_pages_heading'),

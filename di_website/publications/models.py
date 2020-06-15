@@ -1024,12 +1024,6 @@ class AudioVisualMedia(PublishedDateMixin, TypesetBodyMixin, HeroMixin, SectionB
 
     template = 'publications/audio_visual_media.html'
 
-    other_pages_heading = models.CharField(
-        blank=True,
-        max_length=255,
-        verbose_name='Heading',
-        default='More about'
-    )
     publication_type = models.ForeignKey(
         PublicationType, related_name="+", null=True, blank=False, on_delete=models.SET_NULL, verbose_name="Resource Type")
 
@@ -1054,15 +1048,20 @@ class AudioVisualMedia(PublishedDateMixin, TypesetBodyMixin, HeroMixin, SectionB
         StreamFieldPanel('sections'),
         FieldPanel('publication_type'),
         PublishedDatePanel(),
-        MultiFieldPanel([
-            FieldPanel('other_pages_heading'),
-            InlinePanel('other_pages', label='Related pages')
-        ], heading='Other Pages/Related Links'),
+        InlinePanel('publication_related_links', label='Related link', max_num=MAX_RELATED_LINKS),
         InlinePanel('page_notifications', label='Notifications')
     ]
 
     parent_page_types = ['PublicationIndexPage']
     subpage_types = []
+
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+
+        context['related_pages'] = get_related_pages(
+            self.publication_related_links.all(), AudioVisualMedia.objects)
+
+        return context
 
     class Meta:
         verbose_name = 'Audio and Visual Media Page'

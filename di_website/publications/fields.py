@@ -9,6 +9,7 @@ from wagtail.core.blocks import (
     StructBlock,
     TextBlock,
     URLBlock,
+    PageChooserBlock,
 )
 from wagtail.snippets.blocks import SnippetChooserBlock
 
@@ -198,6 +199,16 @@ class RichTextNoFootnotes(AbstractRichText):
     )
 
 
+class ChartPageBlock(StructBlock):
+    chart_page = PageChooserBlock(page_type='visualisation.ChartPage')
+
+    class Meta:
+        help_text = 'Select and display a preconfigured chart'
+        icon = 'chart'
+        label = 'Reusable Chart'
+        template = 'publications/blocks/reusable_chart.html'
+
+
 def flexible_content_streamfield(blank=False):
     return StreamField([
         ('captioned_image', CaptionedImage()),
@@ -209,6 +220,7 @@ def flexible_content_streamfield(blank=False):
         ('rich_text', RichText()),
         ('infographic', PublicationInfographic()),
         ('anchor', AnchorBlock()),
+        ('reusable_chart', ChartPageBlock())
     ], blank=blank)
 
 

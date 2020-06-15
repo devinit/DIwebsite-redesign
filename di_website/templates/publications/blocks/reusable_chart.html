@@ -1,0 +1,10 @@
+{% load wagtailcore_tags %}
+
+
+{% if self.chart_page %}
+
+  {% for block in self.chart_page.charts %}
+    {% include_block block %}
+  {% endfor %}
+
+{% endif %}

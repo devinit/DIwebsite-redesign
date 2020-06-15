@@ -1,5 +1,5 @@
 {% extends "layouts/default.html" %}
-{% load string_utils wagtailcore_tags responsive wagtailimages_tags %}
+{% load string_utils wagtailcore_tags responsive wagtailimages_tags static %}
 
 {% block hero %}
   {% include 'includes/heroes/hero-pubs-short.html' %}
@@ -40,5 +40,12 @@
       {% include 'includes/partials/related_content.html' %}
     {% endwith %}
   {% endif %}
+
+  {% block html_footer %}
+    {{block.super}}
+
+    <script src="https://cdn.plot.ly/plotly-basic-latest.min.js"></script>
+    <script src="{% static 'visualisation/js/chart.js' %}"></script>
+  {% endblock html_footer %}
 
 {% endblock %}

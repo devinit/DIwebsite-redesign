@@ -3,15 +3,35 @@
         {
             "meta": {
                 "columnNames": {
+                    "ids": "ID",
                     "labels": "Labels",
                     "values": "Values",
                     "parents": "Parents"
                 }
             },
             "mode": "markers",
+            "name": "",
             "type": "treemap",
-            "level": "All",
-            "textinfo": "label+value+percent parent+percent entry",
+            "level": "all",
+            "idssrc": "urlsangel:52:2c64e2",
+            "ids": [
+                "all",
+                "ngos",
+                "transfer_1",
+                "other_costs_1",
+                "rcrc",
+                "transfer_2",
+                "other_costs_2",
+                "un",
+                "transfer_3",
+                "other_costs_3",
+                "other",
+                "transfer_4",
+                "other_costs_4"
+            ],
+            "maxdepth": 2,
+            "textinfo": "lab",
+            "hoverinfo": "label+text+value",
             "labelssrc": "urlsangel:52:7f45ec",
             "labels": [
                 "All",
@@ -44,22 +64,27 @@
                 "0.002203",
                 "0.001705"
             ],
+            "hoverlabel": {
+                "namelength": 15
+            },
             "parentssrc": "urlsangel:52:5e71ef",
             "parents": [
                 "",
-                "All",
-                "NGOs",
-                "NGOs",
-                "All",
-                "RCRC",
-                "RCRC",
-                "All",
-                "UN agencies",
-                "UN agencies",
-                "All",
-                "Other",
-                "Other"
-            ]
+                "all",
+                "ngos",
+                "ngos",
+                "all",
+                "rcrc",
+                "rcrc",
+                "all",
+                "un",
+                "un",
+                "all",
+                "other",
+                "other"
+            ],
+            "texttemplate": "",
+            "hovertemplate": "<b>%{label} </b> <br> Value: %{value}"
         }
     ],
     "layout": {
@@ -87,7 +112,6 @@
             ],
             "autorange": true
         },
-        "height": 424,
         "margin": {
             "b": 20,
             "l": 30,

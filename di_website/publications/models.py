@@ -15,6 +15,7 @@ from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
 
+from wagtail.core import hooks
 from wagtail.core.models import Page, Orderable
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.blocks import (
@@ -33,15 +34,15 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.search.models import Query
-
+from wagtail.embeds.blocks import EmbedBlock
+from wagtailmedia.edit_handlers import MediaChooserPanel
 
 from di_website.common.base import hero_panels, get_paginator_range, get_related_pages
-from di_website.common.mixins import HeroMixin, OtherPageMixin
+from di_website.common.mixins import HeroMixin, OtherPageMixin, SectionBodyMixin, TypesetBodyMixin
 from di_website.common.constants import MAX_PAGE_SIZE, MAX_RELATED_LINKS, RICHTEXT_FEATURES
 from di_website.downloads.utils import DownloadsPanel
 
 from taggit.models import Tag, TaggedItemBase
-
 from .mixins import (
     FlexibleContentMixin, UniqueForParentPageMixin, PageSearchMixin, LegacyPageSearchMixin, ParentPageSearchMixin,
     PublishedDateMixin, UUIDMixin, ReportChildMixin, FilteredDatasetMixin)
@@ -80,6 +81,18 @@ class LegacyPublicationTopic(TaggedItemBase):
 
 class ShortPublicationTopic(TaggedItemBase):
     content_object = ParentalKey('publications.ShortPublicationPage', on_delete=models.CASCADE, related_name='short_publication_topics')
+
+
+class AudioVisualMediaTopic(TaggedItemBase):
+    content_object = ParentalKey('publications.AudioVisualMedia', on_delete=models.CASCADE, related_name='audio_visual_media_topics')
+
+
+@hooks.register('construct_media_chooser_queryset')
+def show_my_uploaded_media_only(media, request):
+    # Only show uploaded audio files
+    media = media.filter(type='audio')
+
+    return media
 
 
 @register_snippet
@@ -138,19 +151,40 @@ class PageCountry(Orderable):
 
 
 @register_snippet
+class ResourceCategory(ClusterableModel):
+    name = models.CharField(max_length=255, unique=True)
+
+    panels = [
+        FieldPanel('name'),
+    ]
+
+    class Meta:
+        ordering = ["name"]
+        verbose_name = 'Resource Category'
+        verbose_name_plural = 'Resource Categories'
+
+    def __str__(self):
+        return self.name
+
+
+@register_snippet
 class PublicationType(ClusterableModel):
     name = models.CharField(max_length=255, unique=True)
+    resource_category = models.ForeignKey(
+        ResourceCategory, related_name="+", on_delete=models.CASCADE, null=True, blank=False)
     slug = models.SlugField(
         max_length=255, blank=True, null=True,
         help_text="Optional. Will be auto-generated from name if left blank.")
 
     panels = [
         FieldPanel('name'),
+        SnippetChooserPanel('resource_category'),
         FieldPanel('slug'),
     ]
 
     class Meta:
         ordering = ["name"]
+        verbose_name = 'Resource Type'
 
     def __str__(self):
         return self.name
@@ -168,29 +202,53 @@ class PublicationIndexPage(HeroMixin, Page):
         InlinePanel('page_notifications', label='Notifications')
     ]
 
-    subpage_types = ['PublicationPage', 'LegacyPublicationPage', 'ShortPublicationPage', 'general.General']
+    subpage_types = ['PublicationPage', 'LegacyPublicationPage', 'ShortPublicationPage', 'general.General', 'AudioVisualMedia']
     parent_page_types = ['home.HomePage']
 
     def get_context(self, request):
         context = super(PublicationIndexPage, self).get_context(request)
+        search_filter = request.GET.get('q', None)
+        if search_filter:
+            sort_options = [
+                ('date_desc', 'newest first'),
+                ('date_asc', 'oldest first'),
+                ('score', 'relevance')
+            ]
+        else:
+            sort_options = [
+                ('date_desc', 'newest first'),
+                ('date_asc', 'oldest first')
+            ]
+        sort_ids = [sort_opt[0] for sort_opt in sort_options]
         page = request.GET.get('page', None)
         topic_filter = request.GET.get('topic', None)
         country_filter = request.GET.get('country', None)
-        search_filter = request.GET.get('q', None)
+        types_filter = request.GET.get('types', None)
+        selected_sort = request.GET.get('sort', 'date_desc')
+        if selected_sort not in sort_ids:
+            selected_sort = 'date_desc'
 
         if topic_filter:
             stories = PublicationPage.objects.live().filter(topics__slug=topic_filter)
             legacy_pubs = LegacyPublicationPage.objects.live().filter(topics__slug=topic_filter)
             short_pubs = ShortPublicationPage.objects.live().filter(topics__slug=topic_filter)
+            audio_visual_media = AudioVisualMedia.objects.live().filter(topics__slug=topic_filter)
         else:
             stories = PublicationPage.objects.live()
             legacy_pubs = LegacyPublicationPage.objects.live()
             short_pubs = ShortPublicationPage.objects.live()
+            audio_visual_media = AudioVisualMedia.objects.live()
 
         if country_filter:
             stories = stories.filter(page_countries__country__slug=country_filter)
             legacy_pubs = legacy_pubs.filter(page_countries__country__slug=country_filter)
             short_pubs = short_pubs.filter(page_countries__country__slug=country_filter)
+
+        if types_filter:
+            stories = stories.filter(publication_type__slug=types_filter)
+            legacy_pubs = legacy_pubs.filter(publication_type__slug=types_filter)
+            short_pubs = short_pubs.filter(publication_type__slug=types_filter)
+            audio_visual_media = audio_visual_media.filter(publication_type__slug=types_filter)
 
         if search_filter:
             query = Query.get(search_filter)
@@ -208,15 +266,18 @@ class PublicationIndexPage(HeroMixin, Page):
                     stories = stories.search(search_filter).annotate_score("_score")
             legacy_pubs = legacy_pubs.search(search_filter).annotate_score("_score")
             short_pubs = short_pubs.search(search_filter).annotate_score("_score")
+            audio_visual_media = audio_visual_media.search(search_filter).annotate_score('_score')
 
-        story_list = list(chain(stories, legacy_pubs, short_pubs))
+        story_list = list(chain(stories, legacy_pubs, short_pubs, audio_visual_media))
         elasticsearch_is_active = True
         for story in story_list:
             if hasattr(story, "_score"):
                 if story._score is None:
                     elasticsearch_is_active = False
-        if search_filter and elasticsearch_is_active:
+        if selected_sort == "score" and elasticsearch_is_active:
             story_list.sort(key=lambda x: x._score, reverse=True)
+        elif selected_sort == "date_asc":
+            story_list.sort(key=lambda x: x.published_date, reverse=False)
         else:
             story_list.sort(key=lambda x: x.published_date, reverse=True)
 
@@ -242,17 +303,21 @@ class PublicationIndexPage(HeroMixin, Page):
             Q(publications_legacypublicationtopic_items__content_object__content_type=leg_pubs_content_type) |
             Q(publications_shortpublicationtopic_items__content_object__content_type=short_pubs_content_type)
         ).distinct().order_by('name')
+        context['resource_types'] = PublicationType.objects.all().order_by('resource_category', 'name')
+        context['selected_type'] = types_filter
         context['selected_topic'] = topic_filter
         context['countries'] = Country.objects.all().order_by('region', 'name')
         context['selected_country'] = country_filter
         context['search_filter'] = search_filter
+        context['selected_sort'] = selected_sort
+        context['sort_options'] = sort_options
         context['is_filtered'] = search_filter or topic_filter or country_filter
         context['paginator_range'] = get_paginator_range(paginator, context['stories'])
 
         return context
 
     class Meta():
-        verbose_name = 'Publication Index Page'
+        verbose_name = 'Resources Index Page'
 
 
 class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUIDMixin, FilteredDatasetMixin, Page):
@@ -284,7 +349,7 @@ class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUID
     ], blank=True)
 
     publication_type = models.ForeignKey(
-        PublicationType, related_name="+", null=True, blank=True, on_delete=models.SET_NULL)
+        PublicationType, related_name="+", null=True, blank=False, on_delete=models.SET_NULL, verbose_name="Resource Type")
     topics = ClusterTaggableManager(through=PublicationTopic, blank=True, verbose_name="Topics")
 
     download_report_cover = WagtailImageField()
@@ -737,7 +802,7 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, LegacyPageSearchMixin
     ], blank=True)
 
     publication_type = models.ForeignKey(
-        PublicationType, related_name="+", null=True, blank=True, on_delete=models.SET_NULL)
+        PublicationType, related_name="+", null=True, blank=False, on_delete=models.SET_NULL, verbose_name="Resource Type")
     topics = ClusterTaggableManager(through=LegacyPublicationTopic, blank=True, verbose_name="Topics")
 
     raw_content = models.TextField(null=True, blank=True)
@@ -854,7 +919,7 @@ class ShortPublicationPage(HeroMixin, PublishedDateMixin, FlexibleContentMixin, 
         ]))
     ], blank=True)
     publication_type = models.ForeignKey(
-        PublicationType, related_name="+", null=True, blank=True, on_delete=models.SET_NULL)
+        PublicationType, related_name="+", null=True, blank=False, on_delete=models.SET_NULL, verbose_name="Resource Type")
     topics = ClusterTaggableManager(through=ShortPublicationTopic, blank=True, verbose_name="Topics")
 
     download_report_cover = WagtailImageField()
@@ -964,7 +1029,60 @@ class ShortPublicationPage(HeroMixin, PublishedDateMixin, FlexibleContentMixin, 
         context['related_pages'] = get_related_pages(
             self.publication_related_links.all(), ShortPublicationPage.objects)
 
-        return context;
+        return context
+
+
+class AudioVisualMedia(PublishedDateMixin, TypesetBodyMixin, HeroMixin, SectionBodyMixin, Page):
+
+    """
+    Audio Visual page to be used as a child of the Resources Index Page
+    """
+
+    template = 'publications/audio_visual_media.html'
+
+    publication_type = models.ForeignKey(
+        PublicationType, related_name="+", null=True, blank=False, on_delete=models.SET_NULL, verbose_name="Resource Type")
+
+    participants = StreamField([
+        ('internal_participant', PageChooserBlock(
+            required=False,
+            target_model='ourteam.TeamMemberPage',
+            icon='fa-user', label='Internal Participant'
+        )),
+        ('external_participant', StructBlock([
+            ('name', CharBlock(required=False)),
+            ('title', CharBlock(required=False)),
+            ('photograph', ImageChooserBlock(required=False)),
+            ('page', URLBlock(required=False))
+        ], icon='fa-user', label='External Participant'))
+    ], blank=True, help_text="The people involved in the podcast or webinar")
+    topics = ClusterTaggableManager(through=AudioVisualMediaTopic, blank=True, verbose_name="Topics")
+
+    content_panels = Page.content_panels + [
+        hero_panels(),
+        StreamFieldPanel('participants'),
+        StreamFieldPanel('body'),
+        StreamFieldPanel('sections'),
+        FieldPanel('publication_type'),
+        FieldPanel('topics'),
+        PublishedDatePanel(),
+        InlinePanel('publication_related_links', label='Related links', max_num=MAX_RELATED_LINKS),
+        InlinePanel('page_notifications', label='Notifications')
+    ]
+
+    parent_page_types = ['PublicationIndexPage']
+    subpage_types = []
+
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+
+        context['related_pages'] = get_related_pages(
+            self.publication_related_links.all(), AudioVisualMedia.objects)
+
+        return context
+
+    class Meta:
+        verbose_name = 'Audio and Visual Media Page'
 
 
 class PublicationPageRelatedLink(OtherPageMixin):

@@ -18,3 +18,38 @@
     width: 100%;
     height: 100%;
 }
+
+.resources-filter--button {
+    margin-top: 7px;
+}
+@media screen and (min-width: 850px){
+  .resources-filters .form-field--inline-five {
+      width: 19%;
+      margin-right: 3px;
+      display: inline-block;
+  }
+}
+.resources-filters .form-field--inline-full {
+    width: auto;
+    margin-top: 1em;
+    margin-right: 3px;
+    display: inline-block;
+}
+
+.form-field--inline-full .form-field__select-dropdown {
+  padding: 5px;
+}
+
+.sort--active{
+  border-bottom: 2px solid #8f1b13;
+}
+
+
+.audio-tag {
+    width: 100%;
+}
+
+.download-audio, .audio-player-title {
+    font-size: 14px;
+    padding-bottom: 10px;
+}

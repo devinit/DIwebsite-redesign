@@ -12,7 +12,7 @@ from wagtail.core.blocks import (
 )
 from wagtail.snippets.blocks import SnippetChooserBlock
 from di_website.common.constants import RICHTEXT_FEATURES, RICHTEXT_FEATURES_NO_FOOTNOTES, FOOTNOTE_RICHTEXT_FEATURES
-from .infographic import Infographic
+from .infographic import PublicationInfographic
 
 
 class CaptionedImage(StructBlock):
@@ -64,7 +64,7 @@ class CaseStudy(StructBlock):
                 features=RICHTEXT_FEATURES,
                 label='WYSIWYG editor',
             )),
-            ('infographic', Infographic(
+            ('infographic', PublicationInfographic(
                 required=False,
             )),
             ('captioned_image', CaptionedImage(
@@ -205,7 +205,7 @@ def flexible_content_streamfield(blank=False):
         ('section_heading', SectionHeading()),
         ('table', Table()),
         ('rich_text', RichText()),
-        ('infographic', Infographic()),
+        ('infographic', PublicationInfographic()),
     ], blank=blank)
 
 

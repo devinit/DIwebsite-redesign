@@ -18,6 +18,8 @@ from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.blocks import ImageChooserBlock
 
 from di_website.common.constants import RICHTEXT_FEATURES, RICHTEXT_FEATURES_NO_FOOTNOTES
+from di_website.publications.blocks import AudioMediaBlock
+from di_website.publications.infographic import Infographic
 
 
 class ValueBlock(StructBlock):
@@ -287,6 +289,11 @@ class TypesetStreamBlock(StreamBlock):
     required = False
 
 
+class BasicInfographicBlock(Infographic):
+    class Meta:
+        template = 'blocks/basic_infographic.html'
+
+
 class TypesetFootnoteStreamBlock(StreamBlock):
     """
     The custom blocks that can be used under an element with the typeset class (not sections)
@@ -306,8 +313,10 @@ class TypesetFootnoteStreamBlock(StreamBlock):
         template='blocks/embed_block.html',
         required=False
     )
+    infographic = BasicInfographicBlock()
 
     required = False
+
 
 
 class MediaImageBlock(ImageBlock):
@@ -330,6 +339,18 @@ class ImageDuoTextBlock(ImageBlock):
     class Meta:
         template = 'blocks/duo_body_block_img.html'
         icon = 'fa-image'
+
+
+class FullWidthVideoBlock(StructBlock):
+    video = EmbedBlock(
+        help_text='Insert an embed URL e.g https://www.youtube.com/embed/SGJFWirQ3ks',
+        required=False
+    )
+
+    class Meta:
+        template = 'blocks/full_width_embed.html'
+        icon = 'fa-video-camera'
+        label = 'Full Width Video'
 
 
 class VideoDuoTextBlock(StructBlock):
@@ -364,6 +385,8 @@ class SectionStreamBlock(StreamBlock):
     downloads = DocumentBoxSectionBlock()
     image = MediaImageBlock()
     image_duo = ImageDuoTextBlock()
+    audio_block = AudioMediaBlock(max_num=1)
     video_duo = VideoDuoTextBlock()
+    full_width_video_block = FullWidthVideoBlock()
 
     required = False

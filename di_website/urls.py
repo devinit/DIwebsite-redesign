@@ -3,6 +3,7 @@ from django.conf.urls import handler404, handler500
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.views.generic import TemplateView
+from django.conf.urls.static import static
 
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.core import urls as wagtail_urls
@@ -42,9 +43,7 @@ if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:
-    import debug_toolbar
     urlpatterns = [
-        url(r'^__debug__/', include(debug_toolbar.urls)),
         url(r'test404', TemplateView.as_view(template_name='404.html')),
         url(r'test500', TemplateView.as_view(template_name='500.html')),
     ] + urlpatterns

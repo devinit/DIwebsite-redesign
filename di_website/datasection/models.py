@@ -506,6 +506,18 @@ class DataSetListing(DatasetListingMetadataPageMixin, TypesetBodyMixin, Page):
 
         return datasets
 
+    def get_active_countries(self):
+        active_countries = []
+        datasets = DatasetPage.objects.all()
+
+        for dataset in datasets:
+            countries = dataset.page_countries.all()
+            for country in countries:
+                active_country = Country.objects.get(id=country.country_id)
+                if active_country not in active_countries:
+                    active_countries.append(active_country)
+        return active_countries
+
     def get_context(self, request, *args, **kwargs):
         context = super(DataSetListing, self).get_context(request, *args, **kwargs)
 
@@ -540,7 +552,7 @@ class DataSetListing(DatasetListingMetadataPageMixin, TypesetBodyMixin, Page):
             models.Q(datasection_datasettopic_items__content_object__content_type=ds_content_type) |
             models.Q(datasection_figuretopic_items__content_object__content_type=fig_content_type)
         ).distinct().order_by('name')
-        context['countries'] = Country.objects.all().order_by('region', 'name')
+        context['countries'] = self.get_active_countries()
         context['sources'] = DataSource.objects.all()
 
         context['reports'] = Page.objects.live().filter(

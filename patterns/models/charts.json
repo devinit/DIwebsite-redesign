@@ -1,6 +1,10 @@
 {
     "charts": [
         {
+            "id": "iha-recipient-by-donor-line",
+            "data_url": "../assets/data/iha-recipient-by-donor-line.json"
+        },
+        {
             "id": "ha-oda-recipient-bar-combined",
             "data_url": "../assets/data/ha-oda-recipient-bar.json",
             "interactive": true,

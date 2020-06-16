@@ -24,6 +24,10 @@
 	@include link-active-styles {
 		background-color: $slate;
 	}
+    .accordion--light & {
+        background-color: darken($cloud, 10%);
+        color: $heading-color;
+    }
 	.ico {
 		position: absolute;
 		top: 12px;

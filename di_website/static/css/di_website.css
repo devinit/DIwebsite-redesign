@@ -23,11 +23,21 @@
     margin-top: 7px;
 }
 @media screen and (min-width: 850px){
-  .resources-filters .form-field--inline-six {
-      width: 16%;
+  .resources-filters .form-field--inline-five {
+      width: 19%;
       margin-right: 3px;
       display: inline-block;
   }
+}
+.resources-filters .form-field--inline-full {
+    width: auto;
+    margin-top: 1em;
+    margin-right: 3px;
+    display: inline-block;
+}
+
+.form-field--inline-full .form-field__select-dropdown {
+  padding: 5px;
 }
 
 

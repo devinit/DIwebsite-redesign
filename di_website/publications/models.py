@@ -208,9 +208,9 @@ class PublicationIndexPage(HeroMixin, Page):
     def get_context(self, request):
         context = super(PublicationIndexPage, self).get_context(request)
         sort_options = [
-            ('date_desc', 'Order by newest'),
-            ('date_asc', 'Order by oldest'),
-            ('score', 'Order by relevance')
+            ('date_desc', 'date descending'),
+            ('date_asc', 'date ascending'),
+            ('score', 'relevance')
         ]
         sort_ids = [sort_opt[0] for sort_opt in sort_options]
         page = request.GET.get('page', None)

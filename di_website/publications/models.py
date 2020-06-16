@@ -206,14 +206,14 @@ class PublicationIndexPage(HeroMixin, Page):
         search_filter = request.GET.get('q', None)
         if search_filter:
             sort_options = [
-                ('date_desc', 'date descending'),
-                ('date_asc', 'date ascending'),
+                ('date_desc', 'newest first'),
+                ('date_asc', 'oldest first'),
                 ('score', 'relevance')
             ]
         else:
             sort_options = [
-                ('date_desc', 'date descending'),
-                ('date_asc', 'date ascending')
+                ('date_desc', 'newest first'),
+                ('date_asc', 'oldest first')
             ]
         sort_ids = [sort_opt[0] for sort_opt in sort_options]
         page = request.GET.get('page', None)

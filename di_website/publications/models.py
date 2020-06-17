@@ -1020,7 +1020,7 @@ class ShortPublicationPage(HeroMixin, PublishedDateMixin, FlexibleContentMixin, 
         return sections
 
 
-class AudioVisualMedia(PublishedDateMixin, TypesetBodyMixin, HeroMixin, SectionBodyMixin, Page):
+class AudioVisualMedia(PublishedDateMixin, TypesetBodyMixin, HeroMixin, ParentPageSearchMixin, SectionBodyMixin, Page):
 
     """
     Audio Visual page to be used as a child of the Resources Index Page

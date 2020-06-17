@@ -4,10 +4,11 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 module.exports = {
   entry: "./src/visualisation/widgets/ace-editor.ts",
   target: "web",
-  mode: "development",
+  mode: "production",
   output: {
     path: path.resolve(__dirname, "di_website/visualisation/static/visualisation/widgets/js"),
     filename: "ace-editor.js",
+    library: 'WagtailAceEditor'
   },
   resolve: {
     extensions: [".js", ".jsx", ".json", ".ts", ".tsx"],

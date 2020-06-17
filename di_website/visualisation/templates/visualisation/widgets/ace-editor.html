@@ -1,4 +1,4 @@
 <div id="{{ widget.attrs.id }}-ace-editor" class="field ace-editor__field">{{ widget.value }}</div>
 {% include 'django/forms/widgets/hidden.html' %}
 <div id="{{ widget.attrs.id }}-plotly-preview" class="field plotly-preview__field"></div>
-<script>initAceEditor("{{ widget.attrs.id|escapejs }}");</script>
+<script>WagtailAceEditor.init("{{ widget.attrs.id|escapejs }}");</script>

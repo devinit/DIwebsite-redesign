@@ -1,5 +1,6 @@
+import * as _Plotly from 'plotly.js';
 declare const ace: any; // TODO: find proper types
-declare const Plotly: any; // TODO: use proper types
+declare const Plotly: typeof _Plotly;
 
 const renderChart = (options: string, element: HTMLElement) => {
     const { data, layout } = JSON.parse(options);
@@ -46,3 +47,5 @@ const initAceEditor = (widgetID: string) => {
         }
     }
 }
+
+export { initAceEditor as init };

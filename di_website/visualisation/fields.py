@@ -1,9 +1,10 @@
-from django.forms import HiddenInput, Media
+from django.forms import Media, widgets
+from django.db import models
 
 from wagtail.admin.staticfiles import versioned_static
 
 
-class AceEditorInput(HiddenInput):
+class AceEditorInput(widgets.HiddenInput):
     template_name = 'visualisation/widgets/ace-editor.html'
 
     def __init__(self, editor_options=None, **kwargs):
@@ -23,3 +24,12 @@ class AceEditorInput(HiddenInput):
                 versioned_static('https://cdn.plot.ly/plotly-basic-latest.min.js')
             ]
         )
+
+class AceEditorField(models.TextField):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    def formfield(self, **kwargs):
+        defaults = {'widget': AceEditorInput}
+        defaults.update(kwargs)
+        return super().formfield(**defaults)

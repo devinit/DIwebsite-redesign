@@ -27,7 +27,9 @@
     .accordion--light & {
         background-color: darken($cloud, 8%);
         color: $heading-color;
-        color: $poppy-dark;
+        .ico-plus-blank {
+            display: none;
+        }
     }
 	.ico {
 		position: absolute;
@@ -43,6 +45,14 @@
 		.ico {
 			transform: rotate(45deg);
 		}
+        .accordion--light & {
+            .ico-plus-slate {
+                display: none;
+            }
+            .ico-plus-blank {
+                display: block;
+            }
+        }
 	}
 	html.no-js & {
 		.ico {

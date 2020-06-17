@@ -25,8 +25,9 @@
 		background-color: $slate;
 	}
     .accordion--light & {
-        background-color: darken($cloud, 10%);
+        background-color: darken($cloud, 8%);
         color: $heading-color;
+        color: $poppy-dark;
     }
 	.ico {
 		position: absolute;

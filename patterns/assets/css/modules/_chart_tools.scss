@@ -31,8 +31,10 @@
 
 .chart-container {
     position: relative;
-    background-color: #fff;
-    margin-bottom: -3em;
+    margin-bottom: -2em;
+    .charts__chart {
+        background-color: #fff;
+    }
     .data-selector {
         display: none;
         position: absolute;

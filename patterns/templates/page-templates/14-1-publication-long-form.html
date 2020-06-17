@@ -215,7 +215,7 @@
                             data-interactive="{{ item.interactive }}"
                             data-combined="{{ item.combined }}">
                         </div>
-
+ 
                         <picture>
                             <source media="(min-width: 780px)" srcset="{{ global.assets_root }}/img/fig-4-4-example-graph/fig-4-4-b-sb-x1.png 1181w, {{ global.assets_root }}/img/fig-4-4-example-graph/fig-4-4-b-sb-x2.png 2361w">
                             <source media="(min-width: 500px) and (max-width: 779px)" srcset="{{ global.assets_root }}/img/fig-4-4-example-graph/fig-4-4-b-sb-x1.png 1181w, {{ global.assets_root }}/img/fig-4-4-example-graph/fig-4-4-b-sb-x2.png 2361w">
@@ -225,6 +225,13 @@
                         </picture>
                     </div>
                     {% include 'partials/accordion-chart.html' %}
+
+                    <figcaption class="media-caption">
+                        <p>Is the 2019/20 Uganda budget pro-poor?</p>
+                        <ul>
+                            <li><a href="https://www.aliveandthrive.org/wp-content/uploads/2017/10/1017-EthiopiaCountryBrief.pdf">Source: Alive and Thrive</a></li>
+                        </ul>
+                    </figcaption>
                 {% endfor %}
             </div>
         </div>

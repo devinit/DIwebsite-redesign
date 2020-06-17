@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "rootDir": "./di_website",
+        "rootDir": "./src",
         "target": "es2015",
         "lib": [
             "dom",
@@ -24,7 +24,6 @@
         "node_modules/"
     ],
     "include": [
-        "**/*.ts",
-        "**/*.tsx"
+        "src/"
     ]
 }

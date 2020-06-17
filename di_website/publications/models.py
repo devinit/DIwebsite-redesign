@@ -41,15 +41,19 @@ from di_website.common.base import hero_panels, get_paginator_range, get_related
 from di_website.common.mixins import HeroMixin, OtherPageMixin, SectionBodyMixin, TypesetBodyMixin
 from di_website.common.constants import MAX_PAGE_SIZE, MAX_RELATED_LINKS, RICHTEXT_FEATURES
 from di_website.downloads.utils import DownloadsPanel
+from di_website.social.models import MetadataPageMixin
+from di_website.excerpt.mixins import ExcerptMixin
+from di_website.excerpt.utils import ExcerptPanel
 
 from taggit.models import Tag, TaggedItemBase
 from .mixins import (
     FlexibleContentMixin, UniqueForParentPageMixin, PageSearchMixin, LegacyPageSearchMixin, ParentPageSearchMixin,
-    PublishedDateMixin, UUIDMixin, ReportChildMixin, FilteredDatasetMixin)
+    PublishedDateMixin, UUIDMixin, ReportChildMixin, ReportHighlightMixin, FilteredDatasetMixin)
 from .utils import (
     ContentPanel, PublishedDatePanel, WagtailImageField,
     UUIDPanel, get_first_child_of_type, get_ordered_children_of_type, get_downloads)
 from .edit_handlers import MultiFieldPanel
+from .panels import HighlightPanel
 from .inlines import *
 
 
@@ -323,6 +327,7 @@ class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUID
 
     parent_page_types = ['PublicationIndexPage', 'general.General']
     subpage_types = [
+        'PublicationForewordPage',
         'PublicationSummaryPage',
         'PublicationChapterPage',
         'PublicationAppendixPage',
@@ -463,7 +468,90 @@ class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUID
         context['related_pages'] = get_related_pages(
             self.publication_related_links.all(), PublicationPage.objects)
 
-        return context;
+        return context
+
+
+class PublicationForewordPage(
+    HeroMixin,
+    ReportHighlightMixin,
+    ReportChildMixin,
+    FlexibleContentMixin,
+    MetadataPageMixin,
+    PageSearchMixin,
+    ExcerptMixin,
+    UniqueForParentPageMixin,
+    UUIDMixin,
+    FilteredDatasetMixin,
+    Page):
+
+    class Meta:
+        verbose_name = 'Publication foreword'
+
+    parent_page_types = ['PublicationPage']
+    subpage_types = []
+
+    hero_image_required = True
+
+    content_panels = Page.content_panels + [
+        hero_panels(),
+        HighlightPanel(),
+        ContentPanel(),
+        DownloadsPanel(
+            heading='Downloads',
+            description='Downloads for this foreword.'
+        ),
+        DownloadsPanel(
+            related_name='data_downloads',
+            heading='Data downloads',
+            description='Optional: data download for this foreword.',
+            max_num=1,
+        ),
+        ExcerptPanel(),
+    ]
+
+    @cached_property
+    def label(self):
+        return 'The foreword'
+
+    @cached_property
+    def is_foreword(self):
+        return True
+
+    @cached_property
+    def label_type(self):
+        return 'foreword'
+
+    @cached_property
+    def publication_downloads_title(self):
+        return 'Publication downloads'
+
+    @cached_property
+    def publication_downloads_list(self):
+        return get_downloads(self)
+
+    @cached_property
+    def data_downloads_title(self):
+        return 'Data downloads'
+
+    @cached_property
+    def data_downloads_list(self):
+        return get_downloads(self, with_parent=False, data=True)
+
+    @cached_property
+    def page_publication_downloads(self):
+        return self.publication_downloads.all()
+
+    @cached_property
+    def page_data_downloads(self):
+        return self.data_downloads.all()
+
+    @cached_property
+    def sections(self):
+        sections = []
+        for block in self.content:
+            if block.block_type == 'section_heading':
+                sections.append(block)
+        return sections
 
 
 class PublicationSummaryPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin, UniqueForParentPageMixin, UUIDMixin, FilteredDatasetMixin, Page):

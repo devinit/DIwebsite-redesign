@@ -3,9 +3,9 @@ from django.shortcuts import redirect
 
 from wagtail.core.models import Page
 from wagtail.core.fields import StreamField
-from wagtail.admin.edit_handlers import StreamFieldPanel
+from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
 
-from .blocks import ChartBlock
+from .fields import AceEditorField
 
 
 class VisualisationsPage(Page):
@@ -32,10 +32,10 @@ class ChartPage(Page):
     parent_page_types = [VisualisationsPage]
     subpage_types = []
 
-    charts = StreamField([('chart', ChartBlock())], blank=True)
+    chart = AceEditorField(blank=True, default='{"data":[], "layout":{}}')
 
     content_panels = Page.content_panels + [
-        StreamFieldPanel('charts')
+        FieldPanel('chart')
     ]
 
     class Meta:

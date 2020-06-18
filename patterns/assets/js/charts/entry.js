@@ -99,6 +99,10 @@ const initDrillDownChart = (el, data) => {
     // select the first data set only
     data.data = [traces[0]];
 
+    $.each(traces, (i, el) => {
+        el.hovertemplate = "<b>%{data.name}: %{fullData.name}</b><br>%{xaxis.title.text}: %{x}<br>%{yaxis.title.text}: %{value}<extra></extra>";
+    });
+
     function updateData() {
 
         // if all data selected, set data to whole set
@@ -123,6 +127,7 @@ const initDrillDownChart = (el, data) => {
 
     chart.on('plotly_click', function(data) {
         try {
+            console.log(data);
           lastClicked = data.points[0].fullData.name;
         } catch (error) {
             lastClicked = null;

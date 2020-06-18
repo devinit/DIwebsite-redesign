@@ -9,7 +9,13 @@
     ],
     "charts": [
         {
-            "title": "16 - Total IHA, all donor types into Afghanistan - Stacked chart with drill down",
+            "title": "17 - Total IHA, all donor types into Afghanistan - Stacked chart with drill down, with legend",
+            "id": "iha-total-all-types-afghanistan-legend",
+            "data_url": "../assets/data/iha-total-all-types-afghanistan-legend.json",
+            "drilldown": "Donor type"
+        },
+        {
+            "title": "16 - Total IHA, all donor types into Afghanistan - Stacked chart with drill down, no legend",
             "id": "iha-total-all-types-afghanistan",
             "data_url": "../assets/data/iha-total-all-types-afghanistan.json",
             "drilldown": "Donor type"

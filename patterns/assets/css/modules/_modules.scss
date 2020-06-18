@@ -37,6 +37,7 @@
     @extend %pie-clearfix;
     background-color: $poppy-dark;
     max-width: 300px;
+    display: flex;
     .hero & {
         position: absolute;
         bottom: -85px;
@@ -62,7 +63,6 @@
 }
 
 a.m-author {
-    display: block;
     transition: all, ease-in-out, 0.3s;
     @include link-active-styles {
         background-color: darken($poppy-dark, 5%);
@@ -73,11 +73,17 @@ a.m-author {
 }
 
 .m-author__image {
+    position: relative;
     float: left;
     width: 27%;
+    display: block;
     margin-right: 3%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
     img {
         @extend .max-width;
+        object-fit: cover;
     }
 }
 
@@ -85,6 +91,9 @@ a.m-author {
     float: left;
     width: 70%;
     padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 10px;
+    padding-left: 5px;
 }
 
 .m-author__meta {
@@ -119,6 +128,11 @@ a.m-author {
     background-color: #fff;
     padding: 2em;
     margin-bottom: 3em;
+    .card & {
+        padding: 0;
+        margin-bottom: 0;
+        margin-top: 2em;
+    }
     .chapter-block_content & {
         background-color: transparent;
         padding: 0;
@@ -131,6 +145,12 @@ a.m-author {
         text-transform: uppercase;
         letter-spacing: 1px;
         margin-bottom: 0.5em;
+        .card & {
+            @include font-size($zeta);
+            text-transform: none;
+            letter-spacing: 0;
+            margin-bottom: 0;
+        }
     }
     &__list {
         @include font-size($epsilon);
@@ -148,6 +168,10 @@ a.m-author {
         a {
             font-size: inherit;
             text-decoration: underline;
+        }
+        .card & {
+            color: $base-color;
+            @include font-size($zeta);
         }
     }
 }
@@ -679,6 +703,10 @@ a.m-stat {
 .share__item {
     width: 40px;
     display: inline-block;
+    vertical-align: top;
+    img {
+        height: 40px;
+    }
 }
 
 

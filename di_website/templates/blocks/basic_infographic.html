@@ -3,78 +3,67 @@
 {% uid_url page as short_url %}
 <div class="responsive-graph">
 
-    {% if value.heading %}
-        <h3 class="type-l type-l--trailer">{{ value.heading }}</h3>
-    {% endif %}
+  {% if value.heading %}
+  <h3 class="type-l type-l--trailer">{{ value.heading }}</h3>
+  {% endif %}
 
-    {% if value.descriptive_text %}
-      <div class="is-typeset wysiwyg">
-          {{ value.descriptive_text|content }}
-      </div>
-    {% endif %}
-    <figure>
-        {% image value.wide_image width-1200 as wide %}
-        <picture>
-            {% for block in value.images %}
-                {% if block.block_type == 'image_wide' %}
-                    {% responsiveimage block.value.wide width-1200 srcset='width-1200 1200w' as wide %}
-                    <source
-                        media="(min-width: 780px)"
-                        srcset="{{ wide.srcset }}">
-                {% elif block.block_type == 'image_medium' %}
-                    {% if value.has_medium %}
-                        {% responsiveimage block.value.medium width-780 srcset='width-780 780w' as medium %}
-                        <source
-                            media="(min-width: 500px) and (max-width: 779px)"
-                            {% if block.value.use_wide_image %}
-                                srcset="{{ wide.srcset }}">
-                            {% else %}
-                                srcset="{{ medium.srcset }}">
-                            {% endif %}
+  {% if value.descriptive_text %}
+  <div class="is-typeset wysiwyg">
+    {{ value.descriptive_text|content }}
+  </div>
+  {% endif %}
+  <figure>
+    {% image value.wide_image width-1200 as wide %}
+    <a href="{{ wide.url }}" target="_blank" title="Click to open image in new window">
+      <picture>
+        {% for block in value.images %}
+        {% if block.block_type == 'image_wide' %}
+        {% responsiveimage block.value.wide width-1200 srcset='width-1200 1200w' as wide %}
+        <source media="(min-width: 780px)" srcset="{{ wide.srcset }}">
+        {% elif block.block_type == 'image_medium' %}
+        {% if value.has_medium %}
+        {% responsiveimage block.value.medium width-780 srcset='width-780 780w' as medium %}
+        <source media="(min-width: 500px) and (max-width: 779px)" {% if block.value.use_wide_image %}
+          srcset="{{ wide.srcset }}">
+        {% else %}
+        srcset="{{ medium.srcset }}">
+        {% endif %}
 
-                    {% endif %}
-                {% elif block.block_type == 'image_narrow' %}
-                    {% if value.has_narrow %}
-                        {% responsiveimage block.value.narrow width-500 srcset='width-500 500w' as narrow %}
-                        <source
-                            media="(max-width: 499px)"
-                            {% if block.value.use_next_widest_image %}
-                                {% if medium %}
-                                    srcset="{{ medium.srcset }}">
-                                {% else %}
-                                    srcset="{{ wide.srcset }}">
-                                {% endif %}
-                            {% else %}
-                                srcset="{{ narrow.srcset }}">
-                            {% endif %}
-                    {% endif %}
-                {% endif %}
-            {% endfor %}
-            {% if not value.has_medium %}
-                <source
-                    media="(min-width: 500px) and (max-width: 779px)"
-                    srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
-            {% endif %}
-            {% if not value.has_narrow %}
-                <source
-                    media="(max-width: 499px)"
-                    srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
-            {% endif %}
-            <img
-                class="responsive-graph__image responsive-graph__image--visible-wide
+        {% endif %}
+        {% elif block.block_type == 'image_narrow' %}
+        {% if value.has_narrow %}
+        {% responsiveimage block.value.narrow width-500 srcset='width-500 500w' as narrow %}
+        <source media="(max-width: 499px)" {% if block.value.use_next_widest_image %} {% if medium %}
+          srcset="{{ medium.srcset }}">
+        {% else %}
+        srcset="{{ wide.srcset }}">
+        {% endif %}
+        {% else %}
+        srcset="{{ narrow.srcset }}">
+        {% endif %}
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+        {% if not value.has_medium %}
+        <source media="(min-width: 500px) and (max-width: 779px)"
+          srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+        {% endif %}
+        {% if not value.has_narrow %}
+        <source media="(max-width: 499px)"
+          srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+        {% endif %}
+        <img class="responsive-graph__image responsive-graph__image--visible-wide
                 {% if value.has_narrow %}
                     responsive-graph__image--visible-narrow
                 {% endif %}
                 {% if value.has_medium %}
                     responsive-graph__image--visible-medium
-                {% endif %}"
-                src="{{ wide.url }}"
-                alt="{{ value.heading }}"
-                longdesc="#figure-description-wrapper-{{ id }}">
-        </picture>
+                {% endif %}" src="{{ wide.url }}" alt="{{ value.heading }}"
+          longdesc="#figure-description-wrapper-{{ id }}">
+      </picture>
+    </a>
 
-        <div id="figure-description-wrapper-{{ id }}"
-            class="
+    <div id="figure-description-wrapper-{{ id }}" class="
                 responsive-graph__description-wrapper
                 {% if not value.has_narrow %}
                     responsive-graph__description-wrapper--visible-narrow
@@ -83,41 +72,39 @@
                     responsive-graph__description-wrapper--visible-medium
                 {% endif %}
             ">
-            {% for item in value.data %}
-                {% if item.block_type == 'long_description' %}
-                    <div class="responsive-graph__long-description">
-                        <p>{{ item.value.long_description }}</p>
-                    </div>
+      {% for item in value.data %}
+      {% if item.block_type == 'long_description' %}
+      <div class="responsive-graph__long-description">
+        <p>{{ item.value.long_description }}</p>
+      </div>
 
-                {% elif item.block_type == 'table' %}
-                    <div class="table-styled">
-                        {{ item.value.bound_blocks.table }}
-                    </div>
-                {% endif %}
-            {% endfor %}
-        </div>
+      {% elif item.block_type == 'table' %}
+      <div class="table-styled">
+        {{ item.value.bound_blocks.table }}
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
 
-        <figcaption class="media-caption">
-            {% if value.caption %}
-                {% content_with_footnotes value.caption %}
-            {% endif %}
-            {% if value.has_downloads %}
-                <ul>
-                    {% if value.caption_link %}
-                        <li><a href="{{ value.caption_link }}">{{ value.caption_label | default:value.caption_link }}</a></li>
-                    {% endif %}
-                    {% for item in value.downloads %}
-                        {% if item.file %}
-                            <li>
-                                <a
-                                    href="{{ item.file.url }}"
-                                    class="js-ga-download-click"
-                                    data-event-label="{{ item.title }} / Infographic{% if value.heading %} {{ value.heading }}{% endif %} / {{ page.title }}"
-                                >{{ item.title }}</a></li>
-                        {% endif %}
-                    {% endfor %}
-                </ul>
-            {% endif %}
-        </figcaption>
-    </figure>
+    <figcaption class="media-caption">
+      {% if value.caption %}
+      {% content_with_footnotes value.caption %}
+      {% endif %}
+      {% if value.has_downloads %}
+      <ul>
+        {% if value.caption_link %}
+        <li><a href="{{ value.caption_link }}">{{ value.caption_label | default:value.caption_link }}</a></li>
+        {% endif %}
+        {% for item in value.downloads %}
+        {% if item.file %}
+        <li>
+          <a href="{{ item.file.url }}" class="js-ga-download-click"
+            data-event-label="{{ item.title }} / Infographic{% if value.heading %} {{ value.heading }}{% endif %} / {{ page.title }}">{{ item.title }}</a>
+        </li>
+        {% endif %}
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </figcaption>
+  </figure>
 </div>

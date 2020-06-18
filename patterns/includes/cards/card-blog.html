@@ -6,6 +6,8 @@
         <p class="card__excerpt">{{ item.excerpt }}</p>
         {% if item.guest == true %}
             {% include 'partials/author-guest-no-image.html' %}
+        {% elif item.multiple_authors == true %}
+            {% include 'partials/author-multiple-listing.html' %}
         {% else %}
             {% include 'partials/author.html' %}
         {% endif %}

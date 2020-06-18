@@ -96,16 +96,6 @@ class UUIDMixin(models.Model):
             Redirect(old_path=old_path, redirect_page=self).save()
 
 
-class ReportHighlightMixin(models.Model):
-    class Meta:
-        abstract = True
-
-    highlight_image = models.BooleanField(
-        default=False,
-        blank=True,
-    )
-
-
 class ReportChildMixin(models.Model):
     class Meta:
         abstract = True

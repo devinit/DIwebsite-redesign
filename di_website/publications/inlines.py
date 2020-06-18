@@ -87,6 +87,10 @@ class PublicationSummaryPageDataset(PublicationDataset):
     item = ParentalKey('PublicationSummaryPage', related_name='publication_datasets')
 
 
+class PublicationForewordPageDataset(PublicationDataset):
+    item = ParentalKey('PublicationForewordPage', related_name='publication_datasets')
+
+
 class PublicationChapterPageDataset(PublicationDataset):
     item = ParentalKey('PublicationChapterPage', related_name='publication_datasets')
 

@@ -28,14 +28,18 @@ class VisualisationsPage(Page):
         return self.get_parent().serve(request)
 
 
+
+def default_chart_json():
+    return { "data":[], "layout":{} }
+
 class ChartPage(Page):
     parent_page_types = [VisualisationsPage]
     subpage_types = []
 
-    chart = AceEditorField(blank=True, default='{"data":[], "layout":{}}')
+    chart_json = AceEditorField(blank=True, default=default_chart_json, verbose_name="Chart JSON")
 
     content_panels = Page.content_panels + [
-        FieldPanel('chart')
+        FieldPanel('chart_json')
     ]
 
     class Meta:

@@ -475,8 +475,6 @@ class PublicationSummaryPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
     parent_page_types = ['PublicationPage']
     subpage_types = []
 
-    template = 'publications/publication_chapter_page.html'
-
     colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=RED)
 
     download_report_cover = WagtailImageField()
@@ -678,8 +676,6 @@ class PublicationAppendixPage(HeroMixin, ReportChildMixin, FlexibleContentMixin,
 
     parent_page_types = ['PublicationPage']
     subpage_types = []
-
-    template = 'publications/publication_chapter_page.html'
 
     appendix_number = models.PositiveIntegerField(
         choices=[(i, num2words(i).title()) for i in range(1, 21)]
@@ -901,8 +897,6 @@ class ShortPublicationPage(HeroMixin, PublishedDateMixin, FlexibleContentMixin, 
 
     parent_page_types = ['PublicationIndexPage']
     subpage_types = []
-
-    template = 'publications/publication_chapter_page.html'
 
     colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=RED)
     authors = StreamField([

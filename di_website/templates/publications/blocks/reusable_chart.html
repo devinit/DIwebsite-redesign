@@ -3,8 +3,9 @@
 
 {% if self.chart_page %}
 
-  {% for block in self.chart_page.charts %}
-    {% include_block block %}
-  {% endfor %}
+  <div class="plotly-chart-wrapper">
+    <div class="plotly-chart"></div>
+    <input type="hidden" class="plotly-chart-input" value="{{self.chart_page.chart}}">
+  </div>
 
 {% endif %}

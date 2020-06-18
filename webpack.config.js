@@ -46,7 +46,9 @@ const chartsConfig = {
   entry: ['@babel/polyfill', './src/visualisation/index.ts'],
   output: {
     path: path.resolve(__dirname, "di_website/visualisation/static/visualisation/js"),
-    filename: "chart.js"
+    filename: "chart.js",
+    publicPath: '/assets/visualisation/js/',
+    chunkFilename: '[id].chart.js',
   }
 };
 chartsConfig.module.rules[0].loader = 'babel-loader';

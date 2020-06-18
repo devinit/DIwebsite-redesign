@@ -1,7 +1,7 @@
 const initPlotlyChart = () => {
     const wrappers = document.getElementsByClassName('plotly-chart-wrapper');
     for (let index = 0; index < wrappers.length; index++) {
-        const element = wrappers.item(index);
+        const element = wrappers.item(index) as HTMLElement;
         if (element) {
             const chartNode = element.getElementsByClassName('plotly-chart')[0] as HTMLDivElement || undefined;
             const inputNode = element.getElementsByClassName('plotly-chart-input')[0] as HTMLInputElement || undefined;

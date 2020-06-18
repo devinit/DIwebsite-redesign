@@ -24,12 +24,16 @@ const initChart = (el) => {
         const data = d;
         const interactive = el.data('interactive');
         const combined = el.data('combined');
+        const drilldown = el.data('drilldown');
 
-        if (!interactive) {
-            initStaticChart(el, data);
+        if (drilldown) {
+            initDrillDownChart(el, data);
+        }
+        else if (interactive) {
+            initInteractiveChart(el, data, combined);
         }
         else {
-            initInteractiveChart(el, data, combined);
+            initStaticChart(el, data);
         }
     });
 }
@@ -84,5 +88,49 @@ const initInteractiveChart = (el, data, combined = false) => {
 
     // initialise the chart
     Plotly.newPlot(el[0], data);
+
+}
+
+const initDrillDownChart = (el, data) => {
+    const traces = data.data.slice();
+    const chart = el[0];
+    let lastClicked = null;
+
+    // select the first data set only
+    data.data = [traces[0]];
+
+    function updateData() {
+
+        // if all data selected, set data to whole set
+        if (!lastClicked) {
+            data.data = [traces[0]];
+        }
+
+        // otherwise find matching index and set data to the selected one
+        else {
+            const newDataIndex = traces.findIndex(element => element.name == lastClicked);
+            data.data = [traces[newDataIndex]];
+        }
+
+        lastClicked = null;
+
+        // update the chart
+        Plotly.react(chart, data);
+    }
+
+    // initialise the chart
+    Plotly.newPlot(chart, data);
+
+    chart.on('plotly_click', function(data) {
+        try {
+          lastClicked = data.points[0].fullData.name;
+        } catch (error) {
+            lastClicked = null;
+        }
+    });
+
+    chart.on('plotly_doubleclick', function(data) {
+        updateData();
+    });
 
 }

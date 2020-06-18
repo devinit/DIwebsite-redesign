@@ -9,6 +9,12 @@
     ],
     "charts": [
         {
+            "title": "16 - Total IHA, all donor types into Afghanistan - Stacked chart with drill down",
+            "id": "iha-total-all-types-afghanistan",
+            "data_url": "../assets/data/iha-total-all-types-afghanistan.json",
+            "drilldown": "Donor type"
+        },
+        {
             "title": "15 - Total IHA by Recipient Country: Adaptation Fund - Point and line chart",
             "id": "iha-recipient-by-donor-line",
             "data_url": "../assets/data/iha-recipient-by-donor-line.json"

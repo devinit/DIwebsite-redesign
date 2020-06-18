@@ -93,7 +93,7 @@
     <div class="row row--narrow">
         <div class="max-meter max-meter--center">
             <div class="is-typeset">
-                <h2>15 - Total IHA by Recipient Country: Adaptation Fund - Point and line chart</h2>
+                <h2>16 - Total IHA, all donor types into Afghanistan - Stacked chart with drill down</h2>
                 <p></p>
             </div>
         </div>
@@ -105,10 +105,11 @@
                 <select class="data-selector"></select>
                 <div
                     class="charts__chart"
-                    id="iha-recipient-by-donor-line"
-                    data-url="../assets/data/iha-recipient-by-donor-line.json"
+                    id="iha-total-all-types-afghanistan"
+                    data-url="../assets/data/iha-total-all-types-afghanistan.json"
                     data-interactive=""
-                    data-combined="">
+                    data-combined=""
+                    data-drilldown="Donor type">
                 </div>
             </div>
         </div>
@@ -132,6 +133,49 @@
 
     
         <section class="section section--chart ">
+    <div class="row row--narrow">
+        <div class="max-meter max-meter--center">
+            <div class="is-typeset">
+                <h2>15 - Total IHA by Recipient Country: Adaptation Fund - Point and line chart</h2>
+                <p></p>
+            </div>
+        </div>
+    </div>
+    <div class="row row--narrow">
+        <div class="max-meter max-meter--center">
+            <a href="#" name="2.1" class="section-chapter__link"><i role="presentation" aria-hidden="true" class="ico ico--16 ico-link-poppy"></i> Share chart</a>
+            <div class="chart-container chart-container--full">
+                <select class="data-selector"></select>
+                <div
+                    class="charts__chart"
+                    id="iha-recipient-by-donor-line"
+                    data-url="../assets/data/iha-recipient-by-donor-line.json"
+                    data-interactive=""
+                    data-combined=""
+                    data-drilldown="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row row--narrow">
+        <div class="max-meter max-meter--center">
+            <ul class="accordion accordion--light">
+    <li class="accordion__list-item">
+        <button type="button" class="accordion__heading">How to use this chart <i role="presentation" aria-hidden="true" class="ico ico--20 ico-plus-slate"></i> <i role="presentation" aria-hidden="true" class="ico ico--20 ico-plus-blank"></i></button>
+        <div class="accordion__content">
+            <div class="is-typeset">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </div>
+        </div>
+    </li>
+</ul>
+
+        </div>
+    </div>
+</section>
+
+    
+        <section class="section section--chart section--alt">
     <div class="row row--narrow">
         <div class="max-meter max-meter--center">
             <div class="is-typeset">
@@ -150,7 +194,8 @@
                     id="ha-oda-recipient-bar-combined"
                     data-url="../assets/data/ha-oda-recipient-bar.json"
                     data-interactive="true"
-                    data-combined="true">
+                    data-combined="true"
+                    data-drilldown="">
                 </div>
             </div>
         </div>
@@ -173,7 +218,7 @@
 </section>
 
     
-        <section class="section section--chart section--alt">
+        <section class="section section--chart ">
     <div class="row row--narrow">
         <div class="max-meter max-meter--center">
             <div class="is-typeset">
@@ -192,7 +237,8 @@
                     id="cva-humanitarian-treemap"
                     data-url="../assets/data/cva-humanitarian-treemap.json"
                     data-interactive=""
-                    data-combined="">
+                    data-combined=""
+                    data-drilldown="">
                 </div>
             </div>
         </div>
@@ -215,7 +261,7 @@
 </section>
 
     
-        <section class="section section--chart ">
+        <section class="section section--chart section--alt">
     <div class="row row--narrow">
         <div class="max-meter max-meter--center">
             <div class="is-typeset">
@@ -234,7 +280,8 @@
                     id="cva-humanitarian-area-combined"
                     data-url="../assets/data/cva-humanitarian-area.json"
                     data-interactive="true"
-                    data-combined="true">
+                    data-combined="true"
+                    data-drilldown="">
                 </div>
             </div>
         </div>
@@ -257,7 +304,7 @@
 </section>
 
     
-        <section class="section section--chart section--alt">
+        <section class="section section--chart ">
     <div class="row row--narrow">
         <div class="max-meter max-meter--center">
             <div class="is-typeset">
@@ -276,7 +323,8 @@
                     id="iha-recipient-private-bar-combined"
                     data-url="../assets/data/iha-recipient-private-bar.json"
                     data-interactive="true"
-                    data-combined="true">
+                    data-combined="true"
+                    data-drilldown="">
                 </div>
             </div>
         </div>
@@ -299,7 +347,7 @@
 </section>
 
     
-        <section class="section section--chart ">
+        <section class="section section--chart section--alt">
     <div class="row row--narrow">
         <div class="max-meter max-meter--center">
             <div class="is-typeset">
@@ -318,7 +366,8 @@
                     id="iha-recipient-private-area-combined"
                     data-url="../assets/data/iha-recipient-private-area.json"
                     data-interactive="true"
-                    data-combined="true">
+                    data-combined="true"
+                    data-drilldown="">
                 </div>
             </div>
         </div>
@@ -341,7 +390,7 @@
 </section>
 
     
-        <section class="section section--chart section--alt">
+        <section class="section section--chart ">
     <div class="row row--narrow">
         <div class="max-meter max-meter--center">
             <div class="is-typeset">
@@ -360,7 +409,8 @@
                     id="iha-donors-public-area-combined"
                     data-url="../assets/data/iha-donors-public-area.json"
                     data-interactive="true"
-                    data-combined="true">
+                    data-combined="true"
+                    data-drilldown="">
                 </div>
             </div>
         </div>
@@ -383,7 +433,7 @@
 </section>
 
     
-        <section class="section section--chart ">
+        <section class="section section--chart section--alt">
     <div class="row row--narrow">
         <div class="max-meter max-meter--center">
             <div class="is-typeset">
@@ -402,7 +452,8 @@
                     id="iha-donors-public-area"
                     data-url="../assets/data/iha-donors-public-area.json"
                     data-interactive="true"
-                    data-combined="">
+                    data-combined=""
+                    data-drilldown="">
                 </div>
             </div>
         </div>
@@ -425,7 +476,7 @@
 </section>
 
     
-        <section class="section section--chart section--alt">
+        <section class="section section--chart ">
     <div class="row row--narrow">
         <div class="max-meter max-meter--center">
             <div class="is-typeset">
@@ -444,7 +495,8 @@
                     id="iha-donors-public-area-static"
                     data-url="../assets/data/iha-donors-public-area.json"
                     data-interactive=""
-                    data-combined="">
+                    data-combined=""
+                    data-drilldown="">
                 </div>
             </div>
         </div>
@@ -467,7 +519,7 @@
 </section>
 
     
-        <section class="section section--chart ">
+        <section class="section section--chart section--alt">
     <div class="row row--narrow">
         <div class="max-meter max-meter--center">
             <div class="is-typeset">
@@ -486,7 +538,8 @@
                     id="iha-donors-public-bar"
                     data-url="../assets/data/iha-donors-public-bar.json"
                     data-interactive="true"
-                    data-combined="">
+                    data-combined=""
+                    data-drilldown="">
                 </div>
             </div>
         </div>
@@ -509,7 +562,7 @@
 </section>
 
     
-        <section class="section section--chart section--alt">
+        <section class="section section--chart ">
     <div class="row row--narrow">
         <div class="max-meter max-meter--center">
             <div class="is-typeset">
@@ -528,7 +581,8 @@
                     id="iha-donors-public-bar-static"
                     data-url="../assets/data/iha-donors-public-bar.json"
                     data-interactive=""
-                    data-combined="">
+                    data-combined=""
+                    data-drilldown="">
                 </div>
             </div>
         </div>
@@ -551,7 +605,7 @@
 </section>
 
     
-        <section class="section section--chart ">
+        <section class="section section--chart section--alt">
     <div class="row row--narrow">
         <div class="max-meter max-meter--center">
             <div class="is-typeset">
@@ -570,49 +624,8 @@
                     id="iha-donors-private-area"
                     data-url="../assets/data/iha-donors-private-area.json"
                     data-interactive="true"
-                    data-combined="">
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row row--narrow">
-        <div class="max-meter max-meter--center">
-            <ul class="accordion accordion--light">
-    <li class="accordion__list-item">
-        <button type="button" class="accordion__heading">How to use this chart <i role="presentation" aria-hidden="true" class="ico ico--20 ico-plus-slate"></i> <i role="presentation" aria-hidden="true" class="ico ico--20 ico-plus-blank"></i></button>
-        <div class="accordion__content">
-            <div class="is-typeset">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            </div>
-        </div>
-    </li>
-</ul>
-
-        </div>
-    </div>
-</section>
-
-    
-        <section class="section section--chart section--alt">
-    <div class="row row--narrow">
-        <div class="max-meter max-meter--center">
-            <div class="is-typeset">
-                <h2>3 - Total IHA from private donors, 2014-2018 - Stacked area chart</h2>
-                <p>Shows all rows of data with an interactive key</p>
-            </div>
-        </div>
-    </div>
-    <div class="row row--narrow">
-        <div class="max-meter max-meter--center">
-            <a href="#" name="2.1" class="section-chapter__link"><i role="presentation" aria-hidden="true" class="ico ico--16 ico-link-poppy"></i> Share chart</a>
-            <div class="chart-container chart-container--full">
-                <select class="data-selector"></select>
-                <div
-                    class="charts__chart"
-                    id="iha-donors-private-area-static"
-                    data-url="../assets/data/iha-donors-private-area.json"
-                    data-interactive=""
-                    data-combined="">
+                    data-combined=""
+                    data-drilldown="">
                 </div>
             </div>
         </div>
@@ -639,8 +652,8 @@
     <div class="row row--narrow">
         <div class="max-meter max-meter--center">
             <div class="is-typeset">
-                <h2>2 - Total IHA from private donors, 2014-2018 - Simple bar chart</h2>
-                <p>Shows one row at a time, with a dropdown to change the row of data on display</p>
+                <h2>3 - Total IHA from private donors, 2014-2018 - Stacked area chart</h2>
+                <p>Shows all rows of data with an interactive key</p>
             </div>
         </div>
     </div>
@@ -651,10 +664,11 @@
                 <select class="data-selector"></select>
                 <div
                     class="charts__chart"
-                    id="iha-donors-private-bar"
-                    data-url="../assets/data/iha-donors-private-bar.json"
-                    data-interactive="true"
-                    data-combined="">
+                    id="iha-donors-private-area-static"
+                    data-url="../assets/data/iha-donors-private-area.json"
+                    data-interactive=""
+                    data-combined=""
+                    data-drilldown="">
                 </div>
             </div>
         </div>
@@ -681,6 +695,49 @@
     <div class="row row--narrow">
         <div class="max-meter max-meter--center">
             <div class="is-typeset">
+                <h2>2 - Total IHA from private donors, 2014-2018 - Simple bar chart</h2>
+                <p>Shows one row at a time, with a dropdown to change the row of data on display</p>
+            </div>
+        </div>
+    </div>
+    <div class="row row--narrow">
+        <div class="max-meter max-meter--center">
+            <a href="#" name="2.1" class="section-chapter__link"><i role="presentation" aria-hidden="true" class="ico ico--16 ico-link-poppy"></i> Share chart</a>
+            <div class="chart-container chart-container--full">
+                <select class="data-selector"></select>
+                <div
+                    class="charts__chart"
+                    id="iha-donors-private-bar"
+                    data-url="../assets/data/iha-donors-private-bar.json"
+                    data-interactive="true"
+                    data-combined=""
+                    data-drilldown="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row row--narrow">
+        <div class="max-meter max-meter--center">
+            <ul class="accordion accordion--light">
+    <li class="accordion__list-item">
+        <button type="button" class="accordion__heading">How to use this chart <i role="presentation" aria-hidden="true" class="ico ico--20 ico-plus-slate"></i> <i role="presentation" aria-hidden="true" class="ico ico--20 ico-plus-blank"></i></button>
+        <div class="accordion__content">
+            <div class="is-typeset">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </div>
+        </div>
+    </li>
+</ul>
+
+        </div>
+    </div>
+</section>
+
+    
+        <section class="section section--chart ">
+    <div class="row row--narrow">
+        <div class="max-meter max-meter--center">
+            <div class="is-typeset">
                 <h2>1 - Total IHA from private donors, 2014-2018 - Stacked bar chart</h2>
                 <p>Shows all rows of data with an interactive key</p>
             </div>
@@ -696,7 +753,8 @@
                     id="iha-donors-private-bar-static"
                     data-url="../assets/data/iha-donors-private-bar.json"
                     data-interactive=""
-                    data-combined="">
+                    data-combined=""
+                    data-drilldown="">
                 </div>
             </div>
         </div>

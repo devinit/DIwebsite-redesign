@@ -105,3 +105,16 @@ To enable rabbitmq management
 
         python3 manage.py update_spotlights_from_api base_url=[Specify Source URL]
     NB: default base_url is http://178.128.102.213/
+
+
+## For Custom Widgets
+
+The development environment has been setup using grunt, webpack & typescript.
+
+Widget code sits in the `src` directory. Update the `webpack.config.js` with your widget's configuration then run:
+
+        npm run dev
+
+To bundle your code, run:
+
+        npm run build

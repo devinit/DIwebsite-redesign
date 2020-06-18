@@ -3,7 +3,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const sharedConfig = {
   target: "web",
-  mode: "development",
+  mode: "production",
   resolve: {
     extensions: [".js", ".jsx", ".json", ".ts", ".tsx"],
   },
@@ -41,4 +41,13 @@ const wagtailAceEditorConfig = {
   ],
 };
 
-module.exports = [wagtailAceEditorConfig];
+const chartsConfig = {
+  ...sharedConfig,
+  entry: "./src/visualisation/index.ts",
+  output: {
+    path: path.resolve(__dirname, "di_website/visualisation/static/visualisation/js"),
+    filename: "chart.js"
+  }
+};
+
+module.exports = [wagtailAceEditorConfig, chartsConfig];

@@ -1,6 +1,5 @@
 from django.forms import Media, widgets
 from django.db import models
-from django.contrib.postgres import fields
 
 from wagtail.admin.staticfiles import versioned_static
 
@@ -26,7 +25,7 @@ class AceEditorInput(widgets.HiddenInput):
             ]
         )
 
-class AceEditorField(fields.JSONField):
+class AceEditorField(models.TextField):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 

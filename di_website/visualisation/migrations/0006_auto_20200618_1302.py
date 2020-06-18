@@ -4,6 +4,8 @@ import di_website.visualisation.fields
 import di_website.visualisation.models
 from django.db import migrations
 
+def default_chart_json():
+    return { "data":[], "layout":{} }
 
 class Migration(migrations.Migration):
 
@@ -19,6 +21,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='chartpage',
             name='chart_json',
-            field=di_website.visualisation.fields.AceEditorField(blank=True, default=di_website.visualisation.models.default_chart_json, verbose_name='Chart JSON'),
+            field=di_website.visualisation.fields.AceEditorField(blank=True, default=default_chart_json, verbose_name='Chart JSON'),
         ),
     ]

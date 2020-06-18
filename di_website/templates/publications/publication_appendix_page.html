@@ -19,7 +19,7 @@
 
   {% for block in page.content %}
 
-    <section class="section section--post">
+    <section class="section {% if forloop.first %}section--post{% endif %}">
       <div class="row row--narrow">
         {% include_block block with id=block.id|string_start  %}
       </div>

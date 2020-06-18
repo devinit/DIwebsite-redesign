@@ -14,7 +14,7 @@
 
   {% for block in page.content %}
 
-    <section class="section">
+    <section class="section {% if forloop.first %}section--post{% endif %}">
       <div class="row row--narrow">
         {% if forloop.first %}
           {% if page.authors|length > 0 %}

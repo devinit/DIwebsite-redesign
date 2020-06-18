@@ -20,15 +20,7 @@
 
     <section class="section">
         <div class="row row--narrow">
-          {% if block.block_type == 'case_study' %}
-            <div class="pullOutBlock">
-          {% endif %}
-
             {% include_block block with id=block.id|string_start  %}
-
-          {% if block.block_type == 'case_study' %}
-            </div>
-          {% endif %}
         </div>
     </section>
 

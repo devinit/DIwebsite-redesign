@@ -3,6 +3,7 @@ declare const ace: any; // TODO: find proper types
 declare const Plotly: typeof _Plotly;
 
 const renderChart = (options: string, element: HTMLElement) => {
+    element.innerHTML = '';
     const { data, layout } = JSON.parse(options);
 
     return Plotly.newPlot(element, data, layout);
@@ -20,7 +21,7 @@ const initPlotlyPreview = (widgetID: string, options: string) => {
                 }
             }
         } catch (error) {
-            console.log(error);
+            previewNode.innerHTML = `Rendering Error: ${error.message}`;
         }
     }
 
@@ -32,18 +33,24 @@ const initAceEditor = (widgetID: string) => {
         const editorNode = document.getElementById(`${widgetID}-ace-editor`);
         const inputNode = document.getElementById(widgetID) as HTMLInputElement;
         if (editorNode && inputNode) {
-            const editor = ace.edit(editorNode);
-            editor.setTheme("ace/theme/monokai"); //TODO: set theme dynamically
-            editor.session.setMode("ace/mode/json"); //TODO: set mode dynamically
+            try {
+                const editor = ace.edit(editorNode);
+                editor.setTheme("ace/theme/monokai"); //TODO: set theme dynamically
+                editor.session.setMode("ace/mode/json"); //TODO: set mode dynamically
 
-            const preview = initPlotlyPreview(widgetID, inputNode.value);
+                let preview = initPlotlyPreview(widgetID, inputNode.value);
 
-            editor.getSession().on('change', () => {
-                inputNode.value = editor.getSession().getValue();
-                if (preview) {
-                    preview.onUpdate(inputNode.value);
-                }
-            });
+                editor.getSession().on('change', () => {
+                    inputNode.value = editor.getSession().getValue();
+                    if (preview) {
+                        preview.onUpdate(inputNode.value);
+                    } else {
+                        preview = initPlotlyPreview(widgetID, inputNode.value);
+                    }
+                });
+            } catch (error) {
+                editorNode.innerHTML = `Rendering Error: ${error.message}`;
+            }
         }
     }
 }

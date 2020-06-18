@@ -1,15 +1,9 @@
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
-module.exports = {
-  entry: "./src/visualisation/widgets/ace-editor.ts",
+const sharedConfig = {
   target: "web",
-  mode: "production",
-  output: {
-    path: path.resolve(__dirname, "di_website/visualisation/static/visualisation/widgets/js"),
-    filename: "ace-editor.js",
-    library: 'WagtailAceEditor'
-  },
+  mode: "development",
   resolve: {
     extensions: [".js", ".jsx", ".json", ".ts", ".tsx"],
   },
@@ -29,6 +23,16 @@ module.exports = {
         loader: "css-loader",
       },
     ],
+  }
+}
+
+const wagtailAceEditorConfig = {
+  ...sharedConfig,
+  entry: "./src/visualisation/widgets/ace-editor.ts",
+  output: {
+    path: path.resolve(__dirname, "di_website/visualisation/static/visualisation/widgets/js"),
+    filename: "ace-editor.js",
+    library: 'WagtailAceEditor'
   },
   plugins: [
     new MiniCssExtractPlugin({
@@ -36,3 +40,5 @@ module.exports = {
     }),
   ],
 };
+
+module.exports = [wagtailAceEditorConfig];

@@ -1,4 +1,5 @@
 {% extends "layouts/default.html" %}
+
 {% load string_utils wagtailcore_tags responsive wagtailimages_tags %}
 
 {% block hero %}
@@ -9,8 +10,8 @@
 
 {% block body %}
 
-  {% if page.chapter_number %}
-    {% include 'publications/chapter-nav/nav.html' with page=page.get_parent.specific menu_label='Contents' chapter_number=page.chapter_number %}
+  {% if page.appendix_number %}
+    {% include 'publications/chapter-nav/nav.html' with page=page.get_parent.specific menu_label='Contents' chapter_number=page.get_parent.specific.chapter_max|add:page.appendix_number %}
   {% else %}
     {% include 'publications/chapter-nav/nav.html' with page=page.get_parent.specific menu_label='Contents' chapter_number=0 %}
   {% endif %}
@@ -18,10 +19,10 @@
 
   {% for block in page.content %}
 
-    <section class="section">
-        <div class="row row--narrow">
-            {% include_block block with id=block.id|string_start  %}
-        </div>
+    <section class="section section--post">
+      <div class="row row--narrow">
+        {% include_block block with id=block.id|string_start  %}
+      </div>
     </section>
 
   {% endfor %}

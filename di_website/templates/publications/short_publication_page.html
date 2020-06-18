@@ -1,27 +1,31 @@
 {% extends "layouts/default.html" %}
+
 {% load string_utils wagtailcore_tags responsive wagtailimages_tags %}
 
 {% block hero %}
-  {% include 'includes/heroes/hero-pubs-short.html' %}
+{% include 'includes/heroes/hero-pubs-short.html' %}
 {% endblock hero %}
 
 {% block colour %}body--{{page.colour}}{% endblock %}
 
 {% block body %}
 
-  {% if page.chapter_number %}
-    {% include 'publications/chapter-nav/nav.html' with page=page.get_parent.specific menu_label='Contents' chapter_number=page.chapter_number %}
-  {% else %}
-    {% include 'publications/chapter-nav/nav.html' with page=page.get_parent.specific menu_label='Contents' chapter_number=0 %}
-  {% endif %}
-
+  {% include 'publications/chapter-nav/nav.html' with page=page menu_label='Jump to section' chapter_number=page.chapter_number %}
 
   {% for block in page.content %}
 
     <section class="section">
-        <div class="row row--narrow">
-            {% include_block block with id=block.id|string_start  %}
-        </div>
+      <div class="row row--narrow">
+        {% if forloop.first %}
+          {% if page.authors|length > 0 %}
+            <div class="max-meter max-meter--center">
+              {% include 'includes/partials/multi-authors.html' with authors=page.authors %}
+            </div>
+          {% endif %}
+        {% endif %}
+
+        {% include_block block with id=block.id|string_start  %}
+      </div>
     </section>
 
   {% endfor %}

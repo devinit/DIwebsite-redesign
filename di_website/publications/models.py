@@ -423,6 +423,10 @@ class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUID
         return self.data_downloads.all()
 
     @cached_property
+    def foreword(self):
+        return get_first_child_of_type(self, PublicationForewordPage)
+
+    @cached_property
     def summary(self):
         return get_first_child_of_type(self, PublicationSummaryPage)
 
@@ -436,7 +440,7 @@ class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUID
 
     @cached_property
     def listing(self):
-        children = [self.summary]
+        children = [self.foreword, self.summary]
         children += list(self.chapters)
         return list(filter(None, children))
 
@@ -556,7 +560,6 @@ class PublicationForewordPage(
             if block.block_type == 'section_heading':
                 sections.append(block)
         return sections
-
 
 class PublicationSummaryPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin, UniqueForParentPageMixin, UUIDMixin, FilteredDatasetMixin, Page):
 

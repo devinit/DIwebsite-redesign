@@ -15,11 +15,9 @@
   {% for block in page.content %}
 
     <section class="section">
-        <div class="row row--narrow">
-
-            {% include_block block with id=block.id|string_start  %}
-
-        </div>
+      <div class="row row--narrow">
+        {% include_block block with id=block.id|string_start  %}
+      </div>
     </section>
 
   {% endfor %}

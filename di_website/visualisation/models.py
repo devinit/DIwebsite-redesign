@@ -14,6 +14,7 @@ class VisualisationsPage(Page):
     """
     parent_page_types = ['home.HomePage']
     subpage_types = ['visualisation.ChartPage']
+    max_count = 1
 
     class Meta:
         verbose_name = 'Visualisations Page'

@@ -1,42 +1,43 @@
-const path = require("path");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+/* eslint-disable @typescript-eslint/no-var-requires */
+const path = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const sharedConfig = {
-  target: "web",
-  mode: "development",
+  target: 'web',
+  mode: 'development',
   resolve: {
-    extensions: [".js", ".jsx", ".json", ".ts", ".tsx"],
+    extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
   },
   module: {
     rules: [
       {
         test: /\.(ts|tsx)$/,
-        loader: "ts-loader",
+        loader: 'ts-loader',
       },
       {
-        enforce: "pre",
+        enforce: 'pre',
         test: /\.js$/,
-        loader: "source-map-loader",
+        loader: 'source-map-loader',
       },
       {
         test: /\.css$/,
-        loader: "css-loader",
+        loader: 'css-loader',
       },
     ],
-  }
-}
+  },
+};
 
 const wagtailAceEditorConfig = {
   ...sharedConfig,
-  entry: "./src/visualisation/widgets/ace-editor.ts",
+  entry: './src/visualisation/widgets/ace-editor.ts',
   output: {
-    path: path.resolve(__dirname, "di_website/visualisation/static/visualisation/widgets/js"),
-    filename: "ace-editor.js",
-    library: 'WagtailAceEditor'
+    path: path.resolve(__dirname, 'di_website/visualisation/static/visualisation/widgets/js'),
+    filename: 'ace-editor.js',
+    library: 'WagtailAceEditor',
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: "./di_website/visualisation/static/visualisation/widgets/css/ace-editor.css",
+      filename: './di_website/visualisation/static/visualisation/widgets/css/ace-editor.css',
     }),
   ],
 };
@@ -45,11 +46,12 @@ const chartsConfig = {
   ...sharedConfig,
   entry: ['@babel/polyfill', './src/visualisation/index.ts'],
   output: {
-    path: path.resolve(__dirname, "di_website/visualisation/static/visualisation/js"),
-    filename: "chart.js",
+    path: path.resolve(__dirname, 'di_website/visualisation/static/visualisation/js'),
+    filename: 'chart.js',
     publicPath: '/assets/visualisation/js/',
     chunkFilename: '[id].chart.js',
-  }
+  },
+  externals: ['jquery'],
 };
 chartsConfig.module.rules[0].loader = 'babel-loader';
 

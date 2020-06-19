@@ -57,6 +57,13 @@
         "eslint": "^6.8.0",
         "eslint-plugin-react": "^7.18.3",
         "plotly.js": "^1.54.3",
+        "plotly.js-basic-dist": "^1.54.3",
+        "plotly.js-cartesian-dist": "^1.54.3",
+        "plotly.js-finance-dist": "^1.54.3",
+        "plotly.js-geo-dist": "^1.54.3",
+        "plotly.js-gl2d-dist": "^1.54.3",
+        "plotly.js-gl3d-dist": "^1.54.3",
+        "plotly.js-mapbox-dist": "^1.54.3",
         "react": "^16.13.1",
         "react-dom": "^16.13.1"
     }

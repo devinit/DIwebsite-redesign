@@ -1,5 +1,4 @@
 from django.db import models
-from django.shortcuts import redirect
 from django.http import Http404
 
 from wagtail.core.models import Page
@@ -47,7 +46,6 @@ class ChartPage(Page):
         return []
 
     def serve(self, request, *args, **kwargs):
-        return redirect(self.get_parent().url)
-
-    def serve_preview(self, request, mode_name):
-        return self.get_parent().serve(request)
+        if request.user.is_authenticated:
+            return Page.serve(self, request, *args, **kwargs)
+        raise Http404()

@@ -52,11 +52,6 @@ const chartsConfig = {
     chunkFilename: '[id].chart.js',
   },
   externals: ['jquery'],
-  optimization: {
-    splitChunks: {
-      chunks: 'all',
-    },
-  },
 };
 chartsConfig.module.rules[0].loader = 'babel-loader';
 

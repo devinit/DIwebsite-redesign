@@ -1,5 +1,6 @@
 from django.db import models
 from django.shortcuts import redirect
+from django.http import Http404
 
 from wagtail.core.models import Page
 from wagtail.core.fields import StreamField
@@ -23,7 +24,7 @@ class VisualisationsPage(Page):
         return []
 
     def serve(self, request, *args, **kwargs):
-        return redirect(self.get_parent().url)
+        raise Http404()
 
     def serve_preview(self, request, mode_name):
         return self.get_parent().serve(request)

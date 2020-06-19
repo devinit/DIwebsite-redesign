@@ -17,7 +17,11 @@ const initPlotlyPreview = (widgetID: string, options: string) => {
 
             return {
                 onUpdate: (options: string) => {
-                    renderChart(options, previewNode);
+                    try {
+                        renderChart(options, previewNode);
+                    } catch (error) {
+                        previewNode.innerHTML = `Rendering Error: ${error.message}`;
+                    }
                 }
             }
         } catch (error) {

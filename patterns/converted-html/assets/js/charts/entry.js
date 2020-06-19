@@ -39,7 +39,7 @@ const initChart = (el) => {
 }
 
 const initStaticChart = (el, data) => {
-    Plotly.newPlot(el[0], data);
+    console.log(Plotly.newPlot(el[0], data));
 }
 
 const initInteractiveChart = (el, data, combined = false) => {

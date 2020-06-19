@@ -12,7 +12,6 @@
             "mode": "markers",
             "name": "",
             "type": "treemap",
-            "level": "all",
             "idssrc": "urlsangel:52:2c64e2",
             "ids": [
                 "all",
@@ -29,8 +28,11 @@
                 "transfer_4",
                 "other_costs_4"
             ],
+            "tiling": {
+                "flip": false,
+                "squarifyratio": 1
+            },
             "maxdepth": 2,
-            "textinfo": "lab",
             "hoverinfo": "label+text+value",
             "labelssrc": "urlsangel:52:7f45ec",
             "labels": [
@@ -83,21 +85,20 @@
                 "other",
                 "other"
             ],
-            "texttemplate": "",
             "hovertemplate": "<b>%{label} </b> <br> Value: %{value}"
         }
     ],
     "layout": {
         "font": {
-            "size": 16
+            "size": 15
         },
         "title": {
-            "x": 0.05,
             "font": {
                 "size": 17
             },
-            "text": "Humanitarian CVA, 2015-2019"
+            "text": "Humanitarian CVA, 2015"
         },
+        "width": 750,
         "xaxis": {
             "range": [
                 -1,
@@ -113,13 +114,10 @@
             "autorange": true
         },
         "margin": {
-            "b": 20,
-            "l": 30,
-            "r": 20,
-            "t": 100,
-            "pad": 0
+            "l": 40,
+            "r": 40
         },
-        "autosize": true,
+        "autosize": false,
         "template": {
             "data": {
                 "bar": [

@@ -55,7 +55,6 @@ INSTALLED_APPS = [
     'di_website.datasection',
     'di_website.api',
     'di_website.spotlight',
-    'di_website.social',
 
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',

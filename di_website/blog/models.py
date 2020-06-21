@@ -121,6 +121,9 @@ class BlogArticlePage(TypesetBodyFootnoteMixin, HeroMixin, Page):
     class Meta():
         verbose_name = 'Blog Article Page'
 
+    def count_other_authors(self):
+        return len(self.other_authors)
+
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
         context['related_pages'] = get_related_pages(

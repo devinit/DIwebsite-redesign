@@ -2,7 +2,6 @@
 
 import di_website.common.templatetags.string_utils
 import di_website.publications.mixins
-import di_website.social.models
 from django.db import migrations, models
 import django.db.models.deletion
 import modelcluster.fields
@@ -43,7 +42,7 @@ class Migration(migrations.Migration):
             options={
                 'verbose_name': 'Publications foreword',
             },
-            bases=(di_website.social.models.MetadataPageMixin, wagtailmetadata.models.MetadataMixin, di_website.publications.mixins.PageSearchMixin, di_website.publications.mixins.UniqueForParentPageMixin, di_website.publications.mixins.FilteredDatasetMixin, 'wagtailcore.page', models.Model),
+            bases=(wagtailmetadata.models.MetadataMixin, di_website.publications.mixins.PageSearchMixin, di_website.publications.mixins.UniqueForParentPageMixin, di_website.publications.mixins.FilteredDatasetMixin, 'wagtailcore.page', models.Model),
         ),
         migrations.CreateModel(
             name='PublicationForewordPageDownloads',

@@ -1,0 +1,14 @@
+<div class="m-authors">
+    <h3 class="m-authors__title">Written by</h3>
+    <p class="m-authors__copy">
+      {% for author in authors %}
+
+        {% if forloop.counter < author_count %}
+          {{ author.value.name }},
+        {% else %}
+          {{ author.value.name }}
+        {% endif %}
+
+      {% endfor %}
+    </p>
+</div>

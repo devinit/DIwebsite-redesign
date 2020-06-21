@@ -1,59 +1,56 @@
-from num2words import num2words
-from itertools import chain
 import operator
 from functools import reduce
+from itertools import chain
 
 from django import forms
-from django.db import models
-from django.db.models import Q, FloatField, Value
-from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.contrib.contenttypes.models import ContentType
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.db import models
+from django.db.models import FloatField, Q, Value
 from django.utils.functional import cached_property
 from django.utils.text import slugify
-
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
-
-from wagtail.core import hooks
-from wagtail.core.models import Page, Orderable
-from wagtail.core.fields import RichTextField, StreamField
-from wagtail.core.blocks import (
-    CharBlock,
-    PageChooserBlock,
-    StructBlock,
-    URLBlock
-)
-from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, StreamFieldPanel, PageChooserPanel
-from wagtail.snippets.models import register_snippet
-from wagtail.snippets.edit_handlers import SnippetChooserPanel
+from num2words import num2words
+from taggit.models import Tag, TaggedItemBase
+from wagtail.admin.edit_handlers import (FieldPanel, InlinePanel,
+                                         PageChooserPanel, StreamFieldPanel)
 from wagtail.contrib.redirects.models import Redirect
 from wagtail.contrib.search_promotions.templatetags.wagtailsearchpromotions_tags import \
     get_search_promotions
-from wagtail.images.edit_handlers import ImageChooserPanel
-from wagtail.images.blocks import ImageChooserBlock
+from wagtail.core import hooks
+from wagtail.core.blocks import (CharBlock, PageChooserBlock, StructBlock,
+                                 URLBlock)
+from wagtail.core.fields import RichTextField, StreamField
+from wagtail.core.models import Orderable, Page
 from wagtail.documents.edit_handlers import DocumentChooserPanel
-from wagtail.search.models import Query
 from wagtail.embeds.blocks import EmbedBlock
+from wagtail.images.blocks import ImageChooserBlock
+from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.search.models import Query
+from wagtail.snippets.edit_handlers import SnippetChooserPanel
+from wagtail.snippets.models import register_snippet
 from wagtailmedia.edit_handlers import MediaChooserPanel
 
-from di_website.common.base import hero_panels, get_paginator_range, get_related_pages
-from di_website.common.mixins import HeroMixin, OtherPageMixin, SectionBodyMixin, TypesetBodyMixin
-from di_website.common.constants import MAX_PAGE_SIZE, MAX_RELATED_LINKS, RICHTEXT_FEATURES
+from di_website.common.base import (get_paginator_range, get_related_pages,
+                                    hero_panels)
+from di_website.common.constants import (MAX_PAGE_SIZE, MAX_RELATED_LINKS,
+                                         RICHTEXT_FEATURES)
+from di_website.common.mixins import (HeroMixin, OtherPageMixin,
+                                      SectionBodyMixin, TypesetBodyMixin)
 from di_website.downloads.utils import DownloadsPanel
-from di_website.social.models import MetadataPageMixin
 
-from taggit.models import Tag, TaggedItemBase
-from .mixins import (
-    FlexibleContentMixin, UniqueForParentPageMixin, PageSearchMixin, LegacyPageSearchMixin, ParentPageSearchMixin,
-    PublishedDateMixin, UUIDMixin, ReportChildMixin, FilteredDatasetMixin)
-from .utils import (
-    ContentPanel, PublishedDatePanel, WagtailImageField,
-    UUIDPanel, get_first_child_of_type, get_ordered_children_of_type, get_downloads)
 from .edit_handlers import MultiFieldPanel
-from .panels import HighlightPanel
 from .inlines import *
-
+from .mixins import (FilteredDatasetMixin, FlexibleContentMixin,
+                     LegacyPageSearchMixin, PageSearchMixin,
+                     ParentPageSearchMixin, PublishedDateMixin,
+                     ReportChildMixin, UniqueForParentPageMixin, UUIDMixin)
+from .panels import HighlightPanel
+from .utils import (ContentPanel, PublishedDatePanel, UUIDPanel,
+                    WagtailImageField, get_downloads, get_first_child_of_type,
+                    get_ordered_children_of_type)
 
 RED = 'poppy'
 BLUE = 'bluebell'
@@ -477,7 +474,7 @@ class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUID
         return context
 
 
-class PublicationForewordPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, MetadataPageMixin, PageSearchMixin, UniqueForParentPageMixin, UUIDMixin, FilteredDatasetMixin, Page):
+class PublicationForewordPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin, UniqueForParentPageMixin, UUIDMixin, FilteredDatasetMixin, Page):
     class Meta:
         verbose_name = 'Publication foreword'
 

@@ -1,11 +1,11 @@
 {% load wagtailcore_tags %}
 
 
-{% if self.chart_page %}
+{% if self.json_file %}
 
   <div class="plotly-chart-wrapper">
     <div class="plotly-chart"></div>
-    <input type="hidden" class="plotly-chart-input" value="{{self.chart_page.chart_json}}">
+    <input type="hidden" class="plotly-chart-input" value="{{chart_json}}">
   </div>
 
 {% endif %}

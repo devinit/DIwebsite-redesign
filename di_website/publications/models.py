@@ -1,27 +1,25 @@
 import operator
 from functools import reduce
 from itertools import chain
+from num2words import num2words
+from taggit.models import Tag, TaggedItemBase
 
 from django import forms
 from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db import models
-from django.db.models import FloatField, Q, Value
 from django.utils.functional import cached_property
 from django.utils.text import slugify
+
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
-from num2words import num2words
-from taggit.models import Tag, TaggedItemBase
-from wagtail.admin.edit_handlers import (FieldPanel, InlinePanel,
-                                         PageChooserPanel, StreamFieldPanel)
+
+from wagtail.admin.edit_handlers import (FieldPanel, InlinePanel, PageChooserPanel, StreamFieldPanel)
 from wagtail.contrib.redirects.models import Redirect
-from wagtail.contrib.search_promotions.templatetags.wagtailsearchpromotions_tags import \
-    get_search_promotions
+from wagtail.contrib.search_promotions.templatetags.wagtailsearchpromotions_tags import get_search_promotions
 from wagtail.core import hooks
-from wagtail.core.blocks import (CharBlock, PageChooserBlock, StructBlock,
-                                 URLBlock)
+from wagtail.core.blocks import (CharBlock, PageChooserBlock, StructBlock, URLBlock)
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Orderable, Page
 from wagtail.documents.edit_handlers import DocumentChooserPanel
@@ -33,24 +31,17 @@ from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
 from wagtailmedia.edit_handlers import MediaChooserPanel
 
-from di_website.common.base import (get_paginator_range, get_related_pages,
-                                    hero_panels)
-from di_website.common.constants import (MAX_PAGE_SIZE, MAX_RELATED_LINKS,
-                                         RICHTEXT_FEATURES)
-from di_website.common.mixins import (HeroMixin, OtherPageMixin,
-                                      SectionBodyMixin, TypesetBodyMixin)
+from di_website.common.base import (get_paginator_range, get_related_pages, hero_panels)
+from di_website.common.constants import (MAX_PAGE_SIZE, MAX_RELATED_LINKS, RICHTEXT_FEATURES)
+from di_website.common.mixins import (HeroMixin, OtherPageMixin, SectionBodyMixin, TypesetBodyMixin)
 from di_website.downloads.utils import DownloadsPanel
 
 from .edit_handlers import MultiFieldPanel
 from .inlines import *
-from .mixins import (FilteredDatasetMixin, FlexibleContentMixin,
-                     LegacyPageSearchMixin, PageSearchMixin,
-                     ParentPageSearchMixin, PublishedDateMixin,
-                     ReportChildMixin, UniqueForParentPageMixin, UUIDMixin)
+from .mixins import (FilteredDatasetMixin, FlexibleContentMixin, LegacyPageSearchMixin, PageSearchMixin,
+                     ParentPageSearchMixin, PublishedDateMixin, ReportChildMixin, UniqueForParentPageMixin, UUIDMixin)
 from .panels import HighlightPanel
-from .utils import (ContentPanel, PublishedDatePanel, UUIDPanel,
-                    WagtailImageField, get_downloads, get_first_child_of_type,
-                    get_ordered_children_of_type)
+from .utils import (ContentPanel, PublishedDatePanel, UUIDPanel, WagtailImageField, get_downloads, get_first_child_of_type, get_ordered_children_of_type)
 
 RED = 'poppy'
 BLUE = 'bluebell'
@@ -257,7 +248,7 @@ class PublicationIndexPage(HeroMixin, Page):
                 if child_count:
                     pub_children = reduce(operator.or_, [pub.get_children() for pub in stories]).live().specific().search(search_filter).annotate_score("_child_score")
                     if pub_children:
-                        matching_parents = reduce(operator.or_, [stories.parent_of(child).annotate(_score=Value(child._child_score, output_field=FloatField())) for child in pub_children])
+                        matching_parents = reduce(operator.or_, [stories.parent_of(child).annotate(_score=models.Value(child._child_score, output_field=models.FloatField())) for child in pub_children])
                         stories = list(chain(stories.search(search_filter).annotate_score("_score"), matching_parents))
                     else:
                         stories = stories.search(search_filter).annotate_score("_score")
@@ -298,9 +289,9 @@ class PublicationIndexPage(HeroMixin, Page):
         leg_pubs_content_type = ContentType.objects.get_for_model(LegacyPublicationPage)
         short_pubs_content_type = ContentType.objects.get_for_model(ShortPublicationPage)
         context['topics'] = Tag.objects.filter(
-            Q(publications_publicationtopic_items__content_object__content_type=pubs_content_type) |
-            Q(publications_legacypublicationtopic_items__content_object__content_type=leg_pubs_content_type) |
-            Q(publications_shortpublicationtopic_items__content_object__content_type=short_pubs_content_type)
+            models.Q(publications_publicationtopic_items__content_object__content_type=pubs_content_type) |
+            models.Q(publications_legacypublicationtopic_items__content_object__content_type=leg_pubs_content_type) |
+            models.Q(publications_shortpublicationtopic_items__content_object__content_type=short_pubs_content_type)
         ).distinct().order_by('name')
         context['resource_types'] = PublicationType.objects.all().order_by('resource_category', 'name')
         context['selected_type'] = types_filter
@@ -476,7 +467,7 @@ class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUID
 
 class PublicationForewordPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin, UniqueForParentPageMixin, UUIDMixin, FilteredDatasetMixin, Page):
     class Meta:
-        verbose_name = 'Publication foreword'
+        verbose_name = 'Publication Foreword'
 
     parent_page_types = ['PublicationPage']
     subpage_types = []

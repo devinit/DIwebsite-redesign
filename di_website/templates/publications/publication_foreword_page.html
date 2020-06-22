@@ -3,78 +3,46 @@
 {% load string_utils wagtailcore_tags responsive wagtailimages_tags %}
 
 {% block hero %}
-{% include 'includes/heroes/hero-pubs-short.html' %}
+  {% include 'includes/heroes/hero-pubs-short.html' %}
 {% endblock hero %}
 
 {% block colour %}body--{{page.colour}}{% endblock %}
 
 {% block body %}
 
-{% include 'publications/chapter-nav/nav.html' with page=page.get_parent.specific menu_label='Contents' chapter_number=0 %}
+  {% include 'publications/chapter-nav/nav.html' with page=page.get_parent.specific menu_label='Contents' chapter_number=0 %}
 
-<section class="section section--large">
-
-{% for block in page.content %}
-
-  <div class="chapter-block-wrapper">
-    <div class="row row--narrow">
-      <div class="larger-center">
-        <div class="chapter-block__item">
-            {% if block.block_type == 'case_study' %}
-            <div class="pullOutBlock">
+  <section class="section section--large">
+    {% for block in page.content %}
+      <div class="chapter-block-wrapper">
+        <div class="row row--narrow">
+          <div class="larger-center">
+            <div class="chapter-block__item">
+              {% if block.block_type == 'case_study' %}
+                <div class="pullOutBlock">
               {% endif %}
 
               <div class="row row--narrow">
-                {% if forloop.first %}
-                {% if page.authors|length > 0 %}
-                  <div class="chapter-block_content">
-                    {% include 'includes/partials/multi-authors.html' with authors=page.authors %}
-                  </div>
-                {% endif %}
-                {% endif %}
                 {% include_block block with id=block.id|string_start  %}
               </div>
 
               {% if block.block_type == 'case_study' %}
+                </div>
+              {% endif %}
             </div>
-            {% endif %}
+          </div>
         </div>
       </div>
-    </div>
-  </div>
+    {% endfor %}
+  </section>
 
-{% endfor %}
+  {% include 'publications/partials/downloads.html' %}
 
-</section>
+  {% include 'publications/footnotes.html' %}
 
-<section class="section">
-  <div class="row row--narrow">
-    {% include 'publications/share.html' %}
-    <div class="space-section-both" id="downloads">
-      {% include 'downloads/download-list.html' %}
-      {% if page.report_download %}
-      <div class="orderReport">
-        {% if page.download_report_cover %}
-        {% image page.download_report_cover fill-250x340 as cover_image %}
-        <div class="orderReport__img" style="background-image: url({{cover_image.url}});"></div>
-        {% endif %}
-        <div class="orderReport__content">
-          <h2 class="type-m type-s--trailer">{{ page.download_report_title }}</h2>
-          <p class="para type-l--trailer">{{ page.download_report_body }}</p>
-          <a href="{{ page.report_download.url }}" id="" class="button button--a11y"
-            title="{{ page.download_report_button_text }}"><span>{{ page.download_report_button_text }}</span></a>
-        </div>
-      </div>
-      {% endif %}
-    </div>
-  </div>
-</section>
-
-{% include 'publications/footnotes.html' %}
-
-{% if related_pages %}
-{% with heading='Related content'  %}
-{% include 'includes/partials/related_content.html' %}
-{% endwith %}
-{% endif %}
+  {% if related_pages %}
+    {% with heading='Related content'  %}
+      {% include 'includes/partials/related_content.html' %}
+    {% endwith %}
+  {% endif %}
 {% endblock %}

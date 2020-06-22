@@ -6,3 +6,23 @@
 .nav-wrapper .logo img {
     height: auto !important;
 }
+
+.required >label:after {
+  content: "*";
+  color: #cd3238;
+  font-weight: 700;
+  display: inline-block;
+  margin-left: .5em;
+  line-height: 1em;
+  font-size: 13px;
+}
+
+.c-sf-container .fields .required>label:after {
+  content: "*";
+  color: #cd3238;
+  font-weight: 700;
+  display: inline-block;
+  margin-left: .5em;
+  line-height: 1em;
+  font-size: 13px;
+}

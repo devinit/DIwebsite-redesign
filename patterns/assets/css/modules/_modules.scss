@@ -515,13 +515,17 @@ a.m-stat {
     li {
         @extend %pie-clearfix;
         margin-bottom: 1em;
-        .ico {
+        .m-icon-list__media {
             float: left;
             width: 20px;
-            transform: translateY(5px);
+            margin-right: 10px;
+            img {
+                transform: translateY(5px);
+                @extend %max-width;
+            }
         }
-        span {
-            float: right;
+        .m-icon-list__content {
+            float: left;
             width: calc(100% - 30px);
         }
     }

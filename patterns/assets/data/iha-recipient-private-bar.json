@@ -25,6 +25,7 @@
                 "5,394,992,543",
                 "5,295,574,317"
             ],
+            "visible": true,
             "orientation": "v"
         },
         {
@@ -52,6 +53,7 @@
                 "226,160,262",
                 "88,443,648"
             ],
+            "visible": true,
             "orientation": "v"
         },
         {
@@ -79,6 +81,7 @@
                 "1,272,371,724",
                 "1,316,192,163"
             ],
+            "visible": true,
             "orientation": "v"
         }
     ],
@@ -106,7 +109,11 @@
             "title": {
                 "text": "US$"
             },
-            "autorange": true
+            "tickmode": "auto",
+            "autorange": true,
+            "tickformat": "",
+            "tickprefix": "$",
+            "ticksuffix": ""
         },
         "legend": {
             "traceorder": "normal"

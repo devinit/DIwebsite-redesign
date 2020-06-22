@@ -506,6 +506,38 @@ a.m-stat {
     }
 }
 
+.m-icon-list {
+    position: relative;
+    @include font-size($para);
+    @include respond-to($c-vp) {
+        columns: 2;
+    }
+    li {
+        @extend %pie-clearfix;
+        margin-bottom: 1em;
+        .ico {
+            float: left;
+            width: 20px;
+            transform: translateY(5px);
+        }
+        span {
+            float: right;
+            width: calc(100% - 30px);
+        }
+    }
+}
+
+.m-icon-list__heading {
+    @extend %font-heading;
+    display: block;
+}
+
+.m-icon-list__child {
+    li {
+        margin-bottom: 0;
+    }
+}
+
 // downloadChapter --------------------------------------------
 .mainAction {
 }

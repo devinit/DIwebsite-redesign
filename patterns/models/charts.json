@@ -1,10 +1,12 @@
 {
     "chart_publication": [
         {
-            "title": "Humanitarian CVA, 2015-2019 - Treemap chart",
-            "description": "Treemap chart showing parts making up UN Agencies. Click on other parts to show the disaggregate data.",
-            "id": "cva-humanitarian-treemap",
-            "data_url": "../assets/data/cva-humanitarian-treemap.json"
+            "title": "14 - Total official HA as % of ODA by recipient country, 2009-2018 - Stacked bar chart",
+            "description": "Initial view shows all data, with a key on the right side which allows you to show/hide parts of the chart. We have also implemented a dropdown menu to select a specific row of data.",
+            "id": "ha-oda-recipient-bar-combined",
+            "data_url": "../assets/data/ha-oda-recipient-bar.json",
+            "interactive": true,
+            "combined": true
         }
     ],
     "charts": [

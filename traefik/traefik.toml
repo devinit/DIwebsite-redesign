@@ -1,0 +1,25 @@
+defaultEntryPoints = ["http","https"]
+
+[api]
+address= ":8080"
+
+[entryPoints]
+  [entryPoints.http]
+  address = ":80"
+
+  [entryPoints.https]
+  address= ":443"
+
+[retry]
+attempts = 3
+maxMem = 3
+
+[docker]
+endpoint = "unix:///var/run/docker.sock"
+domain = "docker.localhost"
+watch = true
+exposedbydefault = false
+network = "traefik_webgateway"
+
+[file]
+watch = true

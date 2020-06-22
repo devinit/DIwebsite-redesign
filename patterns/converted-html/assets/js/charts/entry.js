@@ -6,6 +6,8 @@ export default function entry() {
     });
 }
 
+const hovertemplate = "<b>%{fullData.meta.columnNames.y}</b><br>%{xaxis.title.text}: <b>%{x}</b><br>%{yaxis.title.text}: <b>%{y}</b><extra></extra>";
+
 const assignOption = (select, value) => {
     const currentOption = document.createElement('option');
     currentOption.text = value;
@@ -39,6 +41,16 @@ const initChart = (el) => {
 }
 
 const initStaticChart = (el, data) => {
+    const traces = data.data.slice();
+
+    $.each(traces, (i, el) => {
+        if (!el.hovertemplate) {
+            el.hovertemplate = hovertemplate;
+        }
+    });
+
+    data.data = traces;
+
     console.log(Plotly.newPlot(el[0], data));
 }
 
@@ -46,6 +58,10 @@ const initInteractiveChart = (el, data, combined = false) => {
     const all = 'All data';
     const traces = data.data.slice();
     const options = [];
+
+    $.each(traces, (i, el) => {
+        el.hovertemplate = hovertemplate;
+    });
 
     // add an extra all data option at the top if combined
     if (combined) {
@@ -100,7 +116,7 @@ const initDrillDownChart = (el, data) => {
     data.data = [traces[0]];
 
     $.each(traces, (i, el) => {
-        el.hovertemplate = "<b>%{data.name}: %{fullData.name}</b><br>%{xaxis.title.text}: %{x}<br>%{yaxis.title.text}: %{value}<extra></extra>";
+        el.hovertemplate = "<b>%{fullData.name}</b><br>%{xaxis.title.text}: %{x}<br>%{yaxis.title.text}: %{value}<extra></extra>";
     });
 
     function updateData() {

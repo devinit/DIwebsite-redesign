@@ -833,18 +833,18 @@
         <div class="row row--narrow">
             <div class="max-meter max-meter--center responsive-graph">
                 
-                    <a href="#" name="2.1" class="section-chapter__link"><i role="presentation" aria-hidden="true" class="ico ico--16 ico-link-poppy"></i> Share chart</a>
+                    <a href="#" name="visualisation-1" class="section-chapter__link"><i role="presentation" aria-hidden="true" class="ico ico--16 ico-link-poppy"></i> Share chart</a>
                     <h3 class="type-l type-l--trailer">Is the 2019/20 Uganda budget pro-poor?</h3>
-                    <div class="chart-container chart-container--full">
+                    <div class="chart-container chart-container--full" id="visualisation">
                         <select class="data-selector"></select>
                         <div
                             class="charts__chart"
-                            id="cva-humanitarian-treemap"
-                            data-url="../assets/data/cva-humanitarian-treemap.json"
-                            data-interactive=""
-                            data-combined="">
+                            id="ha-oda-recipient-bar-combined"
+                            data-url="../assets/data/ha-oda-recipient-bar.json"
+                            data-interactive="true"
+                            data-combined="true">
                         </div>
- 
+
                         <picture>
                             <source media="(min-width: 780px)" srcset="/assets/img/fig-4-4-example-graph/fig-4-4-b-sb-x1.png 1181w, /assets/img/fig-4-4-example-graph/fig-4-4-b-sb-x2.png 2361w">
                             <source media="(min-width: 500px) and (max-width: 779px)" srcset="/assets/img/fig-4-4-example-graph/fig-4-4-b-sb-x1.png 1181w, /assets/img/fig-4-4-example-graph/fig-4-4-b-sb-x2.png 2361w">
@@ -855,11 +855,53 @@
                     </div>
                     <ul class="accordion accordion--light">
     <li class="accordion__list-item">
-        <button type="button" class="accordion__heading">How to use this chart <i role="presentation" aria-hidden="true" class="ico ico--20 ico-plus-slate"></i> <i role="presentation" aria-hidden="true" class="ico ico--20 ico-plus-blank"></i></button>
+        <button type="button" class="accordion__heading">Interactive visualisation instructions <i role="presentation" aria-hidden="true" class="ico ico--20 ico-plus-slate"></i> <i role="presentation" aria-hidden="true" class="ico ico--20 ico-plus-blank"></i></button>
         <div class="accordion__content">
-            <div class="is-typeset">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            </div>
+            <ul class="m-icon-list">
+                <li>
+                    <div class="m-icon-list__media">
+                        <img src="/assets/svg/source/info.svg" alt="Icon alt">
+                    </div>
+                    <div class="m-icon-list__content">
+                        <h3 class="m-icon-list__heading">Key controls</h3>
+                        <ul class="m-icon-list__child">
+                            <li>Single click to show/hide</li>
+                            <li>Double click to show just one item</li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="m-icon-list__media">
+                        <img src="/assets/svg/source/info.svg" alt="Icon alt">
+                    </div>
+                    <div class="m-icon-list__content">
+                        <h3 class="m-icon-list__heading">Lorem ipsum</h3>
+                        <ul class="m-icon-list__child">
+                            <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="m-icon-list__media">
+                        <img src="/assets/svg/source/zoom.svg" alt="Icon alt">
+                    </div>
+                    <div class="m-icon-list__content">
+                        <h3 class="m-icon-list__heading">Zoom</h3>
+                        <ul class="m-icon-list__child">
+                            <li>Click and drag to zoom into an of the chart</li>
+                            <li>Double click to zoom out again</li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="m-icon-list__content">
+                        <h3 class="m-icon-list__heading">Lorem ipsum</h3>
+                        <ul class="m-icon-list__child">
+                            <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
         </div>
     </li>
 </ul>

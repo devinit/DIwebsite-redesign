@@ -204,9 +204,9 @@
         <div class="row row--narrow">
             <div class="max-meter max-meter--center responsive-graph">
                 {% for item in charts.chart_publication %}
-                    <a href="#" name="2.1" class="section-chapter__link">{{ icons.icon('ico-link-poppy', '16') }} Share chart</a>
+                    <a href="#" name="visualisation-1" class="section-chapter__link">{{ icons.icon('ico-link-poppy', '16') }} Share chart</a>
                     <h3 class="type-l type-l--trailer">{{ title }}</h3>
-                    <div class="chart-container chart-container--full">
+                    <div class="chart-container chart-container--full" id="visualisation">
                         <select class="data-selector"></select>
                         <div
                             class="charts__chart"
@@ -215,7 +215,7 @@
                             data-interactive="{{ item.interactive }}"
                             data-combined="{{ item.combined }}">
                         </div>
- 
+
                         <picture>
                             <source media="(min-width: 780px)" srcset="{{ global.assets_root }}/img/fig-4-4-example-graph/fig-4-4-b-sb-x1.png 1181w, {{ global.assets_root }}/img/fig-4-4-example-graph/fig-4-4-b-sb-x2.png 2361w">
                             <source media="(min-width: 500px) and (max-width: 779px)" srcset="{{ global.assets_root }}/img/fig-4-4-example-graph/fig-4-4-b-sb-x1.png 1181w, {{ global.assets_root }}/img/fig-4-4-example-graph/fig-4-4-b-sb-x2.png 2361w">

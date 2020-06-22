@@ -25,8 +25,12 @@
         }
     }
 }
-.plotly-notifier span {
-    font-family: "Geomanist Regular", sans-serif !important;
+.plotly-notifier {
+    top: 50% !important;
+    transform: translateY(-50%);
+    span {
+        font-family: "Geomanist Regular", sans-serif !important;
+    }
 }
 
 .chart-container {

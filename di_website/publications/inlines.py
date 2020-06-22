@@ -20,8 +20,16 @@ class PublicationSummaryPageDownloads(Orderable, DownloadItem):
     item = ParentalKey('PublicationSummaryPage', related_name='publication_downloads')
 
 
+class PublicationForewordPageDownloads(Orderable, DownloadItem):
+    item = ParentalKey('PublicationForewordPage', related_name='publication_downloads')
+
+
 class PublicationSummaryPageDataDownloads(Orderable, DataDownloadItem):
     item = ParentalKey('PublicationSummaryPage', related_name='data_downloads')
+
+
+class PublicationForewordPageDataDownloads(Orderable, DownloadItem):
+    item = ParentalKey('PublicationForewordPage', related_name='data_downloads')
 
 
 class PublicationChapterPageDownloads(Orderable, DownloadItem):
@@ -77,6 +85,10 @@ class PublicationPageDataset(PublicationDataset):
 
 class PublicationSummaryPageDataset(PublicationDataset):
     item = ParentalKey('PublicationSummaryPage', related_name='publication_datasets')
+
+
+class PublicationForewordPageDataset(PublicationDataset):
+    item = ParentalKey('PublicationForewordPage', related_name='publication_datasets')
 
 
 class PublicationChapterPageDataset(PublicationDataset):

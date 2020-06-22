@@ -1,13 +1,13 @@
-from num2words import num2words
-from itertools import chain
 import operator
 from functools import reduce
+from itertools import chain
+from num2words import num2words
+from taggit.models import Tag, TaggedItemBase
 
 from django import forms
-from django.db import models
-from django.db.models import Q, FloatField, Value
-from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.contrib.contenttypes.models import ContentType
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.db import models
 from django.utils.functional import cached_property
 from django.utils.text import slugify
 
@@ -15,43 +15,35 @@ from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
 
-from wagtail.core import hooks
-from wagtail.core.models import Page, Orderable
-from wagtail.core.fields import RichTextField, StreamField
-from wagtail.core.blocks import (
-    CharBlock,
-    PageChooserBlock,
-    StructBlock,
-    URLBlock
-)
-from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, StreamFieldPanel, PageChooserPanel
-from wagtail.snippets.models import register_snippet
-from wagtail.snippets.edit_handlers import SnippetChooserPanel
+from wagtail.admin.edit_handlers import (FieldPanel, InlinePanel, PageChooserPanel, StreamFieldPanel)
 from wagtail.contrib.redirects.models import Redirect
-from wagtail.contrib.search_promotions.templatetags.wagtailsearchpromotions_tags import \
-    get_search_promotions
-from wagtail.images.edit_handlers import ImageChooserPanel
-from wagtail.images.blocks import ImageChooserBlock
+from wagtail.contrib.search_promotions.templatetags.wagtailsearchpromotions_tags import get_search_promotions
+from wagtail.core import hooks
+from wagtail.core.blocks import (CharBlock, PageChooserBlock, StructBlock, URLBlock)
+from wagtail.core.fields import RichTextField, StreamField
+from wagtail.core.models import Orderable, Page
 from wagtail.documents.edit_handlers import DocumentChooserPanel
-from wagtail.search.models import Query
 from wagtail.embeds.blocks import EmbedBlock
+from wagtail.images.blocks import ImageChooserBlock
+from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.search.models import Query
+from wagtail.snippets.edit_handlers import SnippetChooserPanel
+from wagtail.snippets.models import register_snippet
 from wagtailmedia.edit_handlers import MediaChooserPanel
 
-from di_website.common.base import hero_panels, get_paginator_range, get_related_pages
-from di_website.common.mixins import HeroMixin, OtherPageMixin, SectionBodyMixin, TypesetBodyMixin
-from di_website.common.constants import MAX_PAGE_SIZE, MAX_RELATED_LINKS, RICHTEXT_FEATURES
+from di_website.common.base import (get_paginator_range, get_related_pages, hero_panels)
+from di_website.common.constants import (MAX_PAGE_SIZE, MAX_RELATED_LINKS, RICHTEXT_FEATURES)
+from di_website.common.mixins import (HeroMixin, OtherPageMixin, SectionBodyMixin, TypesetBodyMixin)
 from di_website.downloads.utils import DownloadsPanel
 
-from taggit.models import Tag, TaggedItemBase
-from .mixins import (
-    FlexibleContentMixin, UniqueForParentPageMixin, PageSearchMixin, LegacyPageSearchMixin, ParentPageSearchMixin,
-    PublishedDateMixin, UUIDMixin, ReportChildMixin, FilteredDatasetMixin)
-from .utils import (
-    ContentPanel, PublishedDatePanel, WagtailImageField,
-    UUIDPanel, get_first_child_of_type, get_ordered_children_of_type, get_downloads)
 from .edit_handlers import MultiFieldPanel
 from .inlines import *
-
+from .mixins import (
+    FilteredDatasetMixin, FlexibleContentMixin, LegacyPageSearchMixin, PageSearchMixin,
+    ParentPageSearchMixin, PublishedDateMixin,ReportChildMixin, UniqueForParentPageMixin, UUIDMixin)
+from .utils import (
+    ContentPanel, PublishedDatePanel, UUIDPanel, WagtailImageField,
+    get_downloads, get_first_child_of_type, get_ordered_children_of_type)
 
 RED = 'poppy'
 BLUE = 'bluebell'
@@ -258,7 +250,7 @@ class PublicationIndexPage(HeroMixin, Page):
                 if child_count:
                     pub_children = reduce(operator.or_, [pub.get_children() for pub in stories]).live().specific().search(search_filter).annotate_score("_child_score")
                     if pub_children:
-                        matching_parents = reduce(operator.or_, [stories.parent_of(child).annotate(_score=Value(child._child_score, output_field=FloatField())) for child in pub_children])
+                        matching_parents = reduce(operator.or_, [stories.parent_of(child).annotate(_score=models.Value(child._child_score, output_field=models.FloatField())) for child in pub_children])
                         stories = list(chain(stories.search(search_filter).annotate_score("_score"), matching_parents))
                     else:
                         stories = stories.search(search_filter).annotate_score("_score")
@@ -299,9 +291,9 @@ class PublicationIndexPage(HeroMixin, Page):
         leg_pubs_content_type = ContentType.objects.get_for_model(LegacyPublicationPage)
         short_pubs_content_type = ContentType.objects.get_for_model(ShortPublicationPage)
         context['topics'] = Tag.objects.filter(
-            Q(publications_publicationtopic_items__content_object__content_type=pubs_content_type) |
-            Q(publications_legacypublicationtopic_items__content_object__content_type=leg_pubs_content_type) |
-            Q(publications_shortpublicationtopic_items__content_object__content_type=short_pubs_content_type)
+            models.Q(publications_publicationtopic_items__content_object__content_type=pubs_content_type) |
+            models.Q(publications_legacypublicationtopic_items__content_object__content_type=leg_pubs_content_type) |
+            models.Q(publications_shortpublicationtopic_items__content_object__content_type=short_pubs_content_type)
         ).distinct().order_by('name')
         context['resource_types'] = PublicationType.objects.all().order_by('resource_category', 'name')
         context['selected_type'] = types_filter
@@ -327,6 +319,7 @@ class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUID
 
     parent_page_types = ['PublicationIndexPage', 'general.General']
     subpage_types = [
+        'PublicationForewordPage',
         'PublicationSummaryPage',
         'PublicationChapterPage',
         'PublicationAppendixPage',
@@ -418,6 +411,10 @@ class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUID
         return self.data_downloads.all()
 
     @cached_property
+    def foreword(self):
+        return get_first_child_of_type(self, PublicationForewordPage)
+
+    @cached_property
     def summary(self):
         return get_first_child_of_type(self, PublicationSummaryPage)
 
@@ -431,7 +428,7 @@ class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUID
 
     @cached_property
     def listing(self):
-        children = [self.summary]
+        children = [self.foreword, self.summary]
         children += list(self.chapters)
         return list(filter(None, children))
 
@@ -467,7 +464,59 @@ class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUID
         context['related_pages'] = get_related_pages(
             self.publication_related_links.all(), PublicationPage.objects)
 
-        return context;
+        return context
+
+
+class PublicationForewordPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin, UniqueForParentPageMixin, UUIDMixin, FilteredDatasetMixin, Page):
+    class Meta:
+        verbose_name = 'Publication Foreword'
+
+    parent_page_types = ['PublicationPage']
+    subpage_types = []
+
+    content_panels = Page.content_panels + [
+        hero_panels(),
+        ContentPanel(),
+        InlinePanel('publication_datasets', label='Datasets'),
+        DownloadsPanel(
+            heading='Downloads',
+            description='Downloads for this foreword.'
+        ),
+        DownloadsPanel(
+            related_name='data_downloads',
+            heading='Data downloads',
+            description='Optional: data download for this foreword.',
+            max_num=1,
+        )
+    ]
+
+    @cached_property
+    def label(self):
+        return 'The Foreword'
+
+    @cached_property
+    def is_foreword(self):
+        return True
+
+    @cached_property
+    def label_type(self):
+        return 'foreword'
+
+    @cached_property
+    def publication_downloads_title(self):
+        return 'Publication Downloads'
+
+    @cached_property
+    def publication_downloads_list(self):
+        return get_downloads(self)
+
+    @cached_property
+    def data_downloads_title(self):
+        return 'Data Downloads'
+
+    @cached_property
+    def data_downloads_list(self):
+        return get_downloads(self, with_parent=False, data=True)
 
 
 class PublicationSummaryPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin, UniqueForParentPageMixin, UUIDMixin, FilteredDatasetMixin, Page):

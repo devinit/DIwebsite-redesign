@@ -100,10 +100,13 @@ class PublicationDownload(index.Indexed, BaseDownload):
     ]
 
     def __str__(self):
-        title = self.title if self.title else self.file.title
         if self.language:
-            title = '%s | %s' % (title, self.language.title)
-        return title
+            return '%s | %s' % (self.title, self.language.title)
+        return self.title
+
+    def save(self, *args, **kwargs):
+        self.title = self.title if self.title else self.file.title
+        super(PublicationDownload, self).save(*args, **kwargs)
 
 
 @register_snippet
@@ -117,6 +120,10 @@ class DataDownload(index.Indexed, BaseDownload):
     search_fields = [
         index.SearchField('title', partial_match=True),
     ]
+
+    def save(self, *args, **kwargs):
+        self.title = self.title if self.title else self.file.title
+        super(DataDownload, self).save(*args, **kwargs)
 
 
 

@@ -32,7 +32,7 @@
         {% if blog.count_other_authors > 1 %}
 
           {% with authors=blog.other_authors %}
-            {% include 'includes/partials/multi_authors.html' with author_count=blog.count_other_authors %}
+            {% include 'includes/partials/multi-authors.html' with author_count=blog.count_other_authors %}
           {% endwith %}
 
         {% else %}
@@ -46,7 +46,7 @@
               {% endwith %}
             {% else %}
               {% with link=other_author.value.page img=other_author.value.photograph name=other_author.value.name position=other_author.value.title %}
-                  {% include 'includes/partials/author.html' with author_prefix="Written by" %}
+                  {% include 'includes/partials/author.html' with author_prefix="Written by" guest_author="True" %}
               {% endwith %}
             {% endif %}
           {% endwith %}

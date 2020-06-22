@@ -38,9 +38,8 @@ from di_website.downloads.utils import DownloadsPanel
 
 from .edit_handlers import MultiFieldPanel
 from .inlines import *
-from .mixins import (FilteredDatasetMixin, FlexibleContentMixin, LegacyPageSearchMixin, PageSearchMixin,
-                     ParentPageSearchMixin, PublishedDateMixin, ReportChildMixin, UniqueForParentPageMixin, UUIDMixin)
-from .panels import HighlightPanel
+from .mixins import (FilteredDatasetMixin, FlexibleContentMixin, LegacyPageSearchMixin, PageSearchMixin, ParentPageSearchMixin, PublishedDateMixin,
+                        ReportChildMixin, UniqueForParentPageMixin, UUIDMixin)
 from .utils import (ContentPanel, PublishedDatePanel, UUIDPanel, WagtailImageField, get_downloads, get_first_child_of_type, get_ordered_children_of_type)
 
 RED = 'poppy'

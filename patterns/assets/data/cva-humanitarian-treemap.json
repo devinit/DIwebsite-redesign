@@ -4,15 +4,15 @@
             "meta": {
                 "columnNames": {
                     "ids": "ID",
-                    "labels": "Labels",
-                    "values": "Values",
-                    "parents": "Parents"
+                    "labels": "Label",
+                    "values": "Value",
+                    "parents": "Parent"
                 }
             },
             "mode": "markers",
-            "name": "",
+            "name": "2015",
             "type": "treemap",
-            "idssrc": "urlsangel:52:2c64e2",
+            "idssrc": "urlsangel:69:74e3d3",
             "ids": [
                 "all",
                 "ngos",
@@ -34,7 +34,7 @@
             },
             "maxdepth": 2,
             "hoverinfo": "label+text+value",
-            "labelssrc": "urlsangel:52:7f45ec",
+            "labelssrc": "urlsangel:69:63d79b",
             "labels": [
                 "All",
                 "NGOs",
@@ -50,7 +50,7 @@
                 "Transfer value",
                 "Other programming costs"
             ],
-            "valuessrc": "urlsangel:52:5e3aad",
+            "valuessrc": "urlsangel:69:b14ea2",
             "values": [
                 "2.035785",
                 "0.540631",
@@ -69,7 +69,7 @@
             "hoverlabel": {
                 "namelength": 15
             },
-            "parentssrc": "urlsangel:52:5e71ef",
+            "parentssrc": "urlsangel:69:777838",
             "parents": [
                 "",
                 "all",
@@ -85,7 +85,326 @@
                 "other",
                 "other"
             ],
-            "hovertemplate": "<b>%{label} </b> <br> Value: %{value}"
+            "orientation": "v",
+            "branchvalues": "remainder",
+            "hovertemplate": "<b>%{label}<br></b>Value: %{value}"
+        },
+        {
+            "meta": {
+                "columnNames": {
+                    "ids": "ID",
+                    "labels": "Label",
+                    "values": "Value",
+                    "parents": "Parent"
+                }
+            },
+            "name": "2016",
+            "type": "treemap",
+            "idssrc": "urlsangel:70:108bd0",
+            "ids": [
+                "all",
+                "ngos",
+                "transfer_1",
+                "other_costs_1",
+                "rcrc",
+                "transfer_2",
+                "other_costs_2",
+                "un",
+                "transfer_3",
+                "other_costs_3",
+                "other",
+                "transfer_4",
+                "other_costs_4"
+            ],
+            "opacity": 1,
+            "maxdepth": 2,
+            "labelssrc": "urlsangel:70:cf3154",
+            "labels": [
+                "All",
+                "NGOs",
+                "Transfer value",
+                "Other programming costs",
+                "RCRC",
+                "Transfer value",
+                "Other programming costs",
+                "UN agencies",
+                "Transfer value",
+                "Other programming costs",
+                "Other",
+                "Transfer value",
+                "Other programming costs"
+            ],
+            "valuessrc": "urlsangel:70:44f77e",
+            "values": [
+                "2.81088098451007",
+                "0.728285472854289",
+                "0.553066896327508",
+                "0.175218576526781",
+                "0.0943422180313234",
+                "0.0583215330222537",
+                "0.0360206850090697",
+                "1.98381584764083",
+                "1.568",
+                "0.415815847640826",
+                "0.00443744598362358",
+                "0.00263446111691412",
+                "0.00180298486670946"
+            ],
+            "parentssrc": "urlsangel:70:87a7e0",
+            "parents": [
+                "",
+                "all",
+                "ngos",
+                "ngos",
+                "all",
+                "rcrc",
+                "rcrc",
+                "all",
+                "un",
+                "un",
+                "all",
+                "other",
+                "other"
+            ],
+            "texttemplate": "",
+            "hovertemplate": "<b>%{label}</b><br>Value: %{value}"
+        },
+        {
+            "meta": {
+                "columnNames": {
+                    "ids": "ID",
+                    "labels": "Label",
+                    "values": "Value",
+                    "parents": "Parent"
+                }
+            },
+            "name": "2017",
+            "type": "treemap",
+            "idssrc": "urlsangel:71:df6196",
+            "ids": [
+                "all",
+                "ngos",
+                "transfer_1",
+                "other_costs_1",
+                "rcrc",
+                "transfer_2",
+                "other_costs_2",
+                "un",
+                "transfer_3",
+                "other_costs_3",
+                "other",
+                "transfer_4",
+                "other_costs_4"
+            ],
+            "maxdepth": 2,
+            "labelssrc": "urlsangel:71:d86044",
+            "labels": [
+                "All",
+                "NGOs",
+                "Transfer value",
+                "Other programming costs",
+                "RCRC",
+                "Transfer value",
+                "Other programming costs",
+                "UN agencies",
+                "Transfer value",
+                "Other programming costs",
+                "Other",
+                "Transfer value",
+                "Other programming costs"
+            ],
+            "valuessrc": "urlsangel:71:fd9763",
+            "values": [
+                "4.29951105047366",
+                "0.933467857362775",
+                "0.682373411209153",
+                "0.251094446153622",
+                "1.02288391996669",
+                "0.780020293592158",
+                "0.24286362637453",
+                "2.24771508014419",
+                "1.71403943546467",
+                "0.533675644679518",
+                "0.095444193",
+                "0.0727828505192956",
+                "0.0226613424807044"
+            ],
+            "parentssrc": "urlsangel:71:48dbd7",
+            "parents": [
+                "",
+                "all",
+                "ngos",
+                "ngos",
+                "all",
+                "rcrc",
+                "rcrc",
+                "all",
+                "un",
+                "un",
+                "all",
+                "other",
+                "other"
+            ],
+            "texttemplate": "",
+            "hovertemplate": "<b>%{label}</b><br>Value: %{value}"
+        },
+        {
+            "meta": {
+                "columnNames": {
+                    "ids": "B",
+                    "labels": "A",
+                    "values": "Value",
+                    "parents": "C"
+                }
+            },
+            "name": "2018",
+            "type": "treemap",
+            "idssrc": "urlsangel:72:e3de29",
+            "ids": [
+                "all",
+                "ngos",
+                "transfer_1",
+                "other_costs_1",
+                "rcrc",
+                "transfer_2",
+                "other_costs_2",
+                "un",
+                "transfer_3",
+                "other_costs_3",
+                "other",
+                "transfer_4",
+                "other_costs_4"
+            ],
+            "maxdepth": 2,
+            "labelssrc": "urlsangel:72:0d4990",
+            "labels": [
+                "All",
+                "NGOs",
+                "Transfer value",
+                "Other programming costs",
+                "RCRC",
+                "Transfer value",
+                "Other programming costs",
+                "UN agencies",
+                "Transfer value",
+                "Other programming costs",
+                "Other",
+                "Transfer value",
+                "Other programming costs"
+            ],
+            "valuessrc": "urlsangel:72:36e5c6",
+            "values": [
+                "4.65212557886462",
+                "0.865378723687021",
+                "0.663457191054921",
+                "0.2019215326321",
+                "0.956576937218543",
+                "0.729456597027153",
+                "0.22712034019139",
+                "2.81837804195906",
+                "2.1492097244174",
+                "0.669168317541657",
+                "0.011791876",
+                "0.00899212745452276",
+                "0.00279974854547724"
+            ],
+            "parentssrc": "urlsangel:72:2c2389",
+            "parents": [
+                "",
+                "all",
+                "ngos",
+                "ngos",
+                "all",
+                "rcrc",
+                "rcrc",
+                "all",
+                "un",
+                "un",
+                "all",
+                "other",
+                "other"
+            ],
+            "texttemplate": "",
+            "hovertemplate": "<b>%{label}</b><br>Value: %{value}"
+        },
+        {
+            "meta": {
+                "columnNames": {
+                    "ids": "ID",
+                    "labels": "Label",
+                    "values": "Value",
+                    "parents": "Parent"
+                }
+            },
+            "name": "2019",
+            "type": "treemap",
+            "idssrc": "urlsangel:73:f845d2",
+            "ids": [
+                "all",
+                "ngos",
+                "transfer_1",
+                "other_costs_1",
+                "rcrc",
+                "transfer_2",
+                "other_costs_2",
+                "un",
+                "transfer_3",
+                "other_costs_3",
+                "other",
+                "transfer_4",
+                "other_costs_4"
+            ],
+            "maxdepth": 2,
+            "labelssrc": "urlsangel:73:95d25e",
+            "labels": [
+                "All",
+                "NGOs",
+                "Transfer value",
+                "Other programming costs",
+                "RCRC",
+                "Transfer value",
+                "Other programming costs",
+                "UN agencies",
+                "Transfer value",
+                "Other programming costs",
+                "Other",
+                "Transfer value",
+                "Other programming costs"
+            ],
+            "valuessrc": "urlsangel:73:bd5cb3",
+            "values": [
+                "5.58066511689711",
+                "1.01619826985596",
+                "0.800837833365501",
+                "0.215360436490461",
+                "1.05976780087792",
+                "0.814174109873316",
+                "0.245593691004608",
+                "3.50311250416323",
+                "2.69129096251125",
+                "0.811821541651979",
+                "0.001586542",
+                "0.00123714401951726",
+                "0.000349397980482739"
+            ],
+            "parentssrc": "urlsangel:73:6ac755",
+            "parents": [
+                "",
+                "all",
+                "ngos",
+                "ngos",
+                "all",
+                "rcrc",
+                "rcrc",
+                "all",
+                "un",
+                "un",
+                "all",
+                "other",
+                "other"
+            ],
+            "texttemplate": "",
+            "hovertemplate": "<b>%{label}</b><br>Value: %{value}"
         }
     ],
     "layout": {
@@ -96,7 +415,7 @@
             "font": {
                 "size": 17
             },
-            "text": "Humanitarian CVA, 2015"
+            "text": "Humanitarian CVA"
         },
         "width": 750,
         "xaxis": {
@@ -113,11 +432,13 @@
             ],
             "autorange": true
         },
+        "height": 500,
         "margin": {
             "l": 40,
-            "r": 40
+            "r": 40,
+            "t": 120
         },
-        "autosize": false,
+        "autosize": true,
         "template": {
             "data": {
                 "bar": [

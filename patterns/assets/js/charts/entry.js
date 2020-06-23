@@ -25,6 +25,7 @@ const initChart = (el) => {
     Plotly.d3.json(el.first().data('url'), d => {
         const data = d;
         const interactive = el.data('interactive');
+        const split_data_on = el.data('split-data-on');
         const combined = el.data('combined');
         const drilldown = el.data('drilldown');
 
@@ -32,7 +33,7 @@ const initChart = (el) => {
             initDrillDownChart(el, data);
         }
         else if (interactive) {
-            initInteractiveChart(el, data, combined);
+            initInteractiveChart(el, data, combined, split_data_on);
         }
         else {
             initStaticChart(el, data);
@@ -54,13 +55,15 @@ const initStaticChart = (el, data) => {
     console.log(Plotly.newPlot(el[0], data));
 }
 
-const initInteractiveChart = (el, data, combined = false) => {
+const initInteractiveChart = (el, data, combined = false, split_data_on = 'y') => {
     const all = 'All data';
     const traces = data.data.slice();
     const options = [];
 
     $.each(traces, (i, el) => {
-        el.hovertemplate = hovertemplate;
+        if (!el.hovertemplate) {
+            el.hovertemplate = hovertemplate;
+        }
     });
 
     // add an extra all data option at the top if combined
@@ -70,7 +73,7 @@ const initInteractiveChart = (el, data, combined = false) => {
 
     // add the actual data options
     for (var i = 0; i < traces.length; i++ ) {
-        options.push(traces[i].meta.columnNames.y);
+        split_data_on == 'y' ? options.push(traces[i].meta.columnNames.y) : options.push(traces[i][split_data_on]);
     }
 
     // if not combined, select the first data set only
@@ -94,7 +97,7 @@ const initInteractiveChart = (el, data, combined = false) => {
 
         // otherwise find matching index and set data to the selected one
         else {
-            const newDataIndex = traces.findIndex(element => element.meta.columnNames.y == dataSelector.value);
+            const newDataIndex = traces.findIndex(element => split_data_on == 'y' ? element.meta.columnNames.y : element[split_data_on] == dataSelector.value);
             data.data = [traces[newDataIndex]];
         }
 

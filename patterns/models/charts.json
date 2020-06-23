@@ -47,7 +47,9 @@
             "title": "13 - Humanitarian CVA, 2015-2019 - Treemap chart",
             "description": "Treemap chart showing parts making up UN Agencies. Click on other parts to show the disaggregate data.",
             "id": "cva-humanitarian-treemap",
-            "data_url": "../assets/data/cva-humanitarian-treemap.json"
+            "data_url": "../assets/data/cva-humanitarian-treemap.json",
+            "interactive": true,
+            "split_data_on": "name"
         },
         {
             "title": "12 - Humanitarian CVA, 2015-2019 - Stacked area chart",

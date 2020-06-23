@@ -42,9 +42,11 @@
         position: absolute;
         bottom: -85px;
         left: $internal-spacing;
+        min-width: 300px;
         @include respond-to($menu-respond) {
     		left: $internal-spacing*4;
             bottom: -35px;
+
     	}
     }
     .hero--image & {

@@ -52,10 +52,10 @@ const initStaticChart = (el, data) => {
 
     data.data = traces;
 
-    console.log(Plotly.newPlot(el[0], data));
+    Plotly.newPlot(el[0], data);
 }
 
-const initInteractiveChart = (el, data, combined = false, split_data_on = 'y') => {
+const initInteractiveChart = (el, data, combined = false, split_data_on) => {
     const all = 'All data';
     const traces = data.data.slice();
     const options = [];
@@ -73,7 +73,7 @@ const initInteractiveChart = (el, data, combined = false, split_data_on = 'y') =
 
     // add the actual data options
     for (var i = 0; i < traces.length; i++ ) {
-        split_data_on == 'y' ? options.push(traces[i].meta.columnNames.y) : options.push(traces[i][split_data_on]);
+        (!split_data_on) ? options.push(traces[i].meta.columnNames.y) : options.push(traces[i][split_data_on]);
     }
 
     // if not combined, select the first data set only
@@ -97,7 +97,7 @@ const initInteractiveChart = (el, data, combined = false, split_data_on = 'y') =
 
         // otherwise find matching index and set data to the selected one
         else {
-            const newDataIndex = traces.findIndex(element => split_data_on == 'y' ? element.meta.columnNames.y : element[split_data_on] == dataSelector.value);
+            const newDataIndex = traces.findIndex(element => (!split_data_on) ? element.meta.columnNames.y : element[split_data_on] == dataSelector.value);
             data.data = [traces[newDataIndex]];
         }
 
@@ -146,7 +146,6 @@ const initDrillDownChart = (el, data) => {
 
     chart.on('plotly_click', function(data) {
         try {
-            console.log(data);
           lastClicked = data.points[0].fullData.name;
         } catch (error) {
             lastClicked = null;

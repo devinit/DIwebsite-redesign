@@ -2,7 +2,13 @@
 
 <div class="m-authors">
     <h3 class="m-authors__title">
-      Written by
+      {% if first_author and authors|length > 0 %}
+        Authors
+      {% elif authors|length > 1 %}
+        Authors
+      {% else %}
+        Author
+      {% endif %}
     </h3>
     <p class="m-authors__copy">
       {% if first_author %}

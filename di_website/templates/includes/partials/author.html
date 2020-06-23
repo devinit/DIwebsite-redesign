@@ -13,7 +13,7 @@
   {% endif %}
 
   <div class="m-author__body">
-    {% if "True" in guest_author %}
+    {% if guest_author %}
       <span class="m-author__meta">Guest author</span>
     {% endif %}
     <h3 class="m-author__title">{{author_prefix|default_if_none:"Written by"}} {{name|default_if_none:""}}</h3>

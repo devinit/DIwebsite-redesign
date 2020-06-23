@@ -42,9 +42,32 @@
     .data-selector {
         display: none;
         position: absolute;
-        top: 7em;
-        left: 5em;
+        top: 4.5em;
+        left: 4.5em;
         z-index: 100;
+        width: auto;
+        height: 35px;
+        @include font-size($zeta);
+        background-color: transparent;
+        padding-left: $form-padding/2;
+        padding-right: 25px;
+        vertical-align: middle;
+        border: $default-border-width solid $default-border-color;
+        appearance: none;
+        background: url(../svg/png/sort-dark.png) #fff no-repeat 99% 50%;
+        background: url(../svg/source/sort-dark.svg) #fff no-repeat 99% 50%;
+        background-color: #fff;
+        background-size: 14px 14px;
+        &:hover, &:focus {
+            border-color: $action;
+            cursor: pointer;
+        }
+        &:focus {
+            outline: none;
+        }
+        &::-ms-expand {
+            display: none;
+        }
         &--active {
             display: block;
         }

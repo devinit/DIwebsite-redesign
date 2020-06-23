@@ -32,7 +32,7 @@
         {% if blog.count_other_authors > 1 %}
 
           {% with authors=blog.other_authors %}
-            {% include 'includes/partials/multi-authors.html' with author_count=blog.count_other_authors %}
+            {% include 'includes/partials/multi-authors.html' with author_count=blog.count_other_authors type="blog" %}
           {% endwith %}
 
         {% else %}

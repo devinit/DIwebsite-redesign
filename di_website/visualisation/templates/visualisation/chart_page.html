@@ -1,38 +1,23 @@
-{% load wagtailuserbar static %}
-<!doctype html>
-<!--[if IE 9]> <html lang="en-GB" class="no-js ie9"> <![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--><html lang="en-GB" class="no-js"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>
-    {% block title %}{{ page.seo_title|default:page.title }}{% if not global.is_home %} - {{ global.site_name }}{% endif %}{% endblock %}
-  </title>
-  {% block html_header %}
-    {% include 'includes/scaffold/header-assets.html' %}
-  {% endblock %}
+{% extends 'layouts/default.html' %}
 
-</head>
-<body class="body body--{{ id }} {% block colour %}{% endblock %}" id="body-{{ id }}">
-  {% wagtailuserbar %}
-  <div class="ui-base">
-    <!-- ID and -nofocus required for proper skiplink operation -->
-    <main id="pagecontent" class="pagecontent -nofocus" role="main" tabindex="-1">
-      <section class="section">
-        <div class="row row--narrow">
-          <div class="plotly-chart-wrapper">
-            <div class="plotly-chart"></div>
-            <input type="hidden" class="plotly-chart-input" value="{{page.chart_json}}">
-          </div>
-        </div>
-      </section>
-    </main>
-  </div>
+{% load static %}
 
-  {% block html_footer %}
-    {% include 'includes/scaffold/footer-assets.html' %}
-    <script src="{% static 'visualisation/js/chart.js' %}"></script>
-  {% endblock %}
+{% block header %}{% endblock %}
+{% block metadata %}{% endblock %}
 
-</body>
-</html>
+{% block body %}
+
+  <section class="section">
+    <div class="row row--narrow">
+      {% include 'visualisation/chart.html' with item=page class='chart-container--full' %}
+    </div>
+  </section>
+
+{% endblock %}
+
+{% block footer %}{% endblock %}
+
+{% block html_footer %}
+  {% include 'includes/scaffold/footer-assets.html' %}
+  <script src="{% static 'visualisation/js/chart.js' %}"></script>
+{% endblock %}

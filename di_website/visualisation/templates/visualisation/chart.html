@@ -1,0 +1,28 @@
+{% load wagtailroutablepage_tags %}
+
+<div class="max-meter max-meter--center responsive-graph">
+  <h3 class="type-l type-l--trailer">{{ item.title }}</h3>
+  <div class="chart-container {{ class }} js-plotly-chart-wrapper">
+    {% if item.interactive %}
+      <select class="data-selector js-plotly-chart-data-selector"></select>
+    {% endif %}
+    <div
+      class="charts__chart js-plotly-chart"
+      data-url="{% routablepageurl item 'data' %}"
+      data-interactive="{{ item.interactive }}"
+      data-combined="{{ item.combined }}">
+    </div>
+  </div>
+  {# {% include 'partials/accordion-chart.html' %} #}
+
+  {% comment %}
+  {% if item.caption %}
+    <figcaption class="media-caption">
+      <p>Is the 2019/20 Uganda budget pro-poor?</p>
+      <ul>
+        <li><a href="https://www.aliveandthrive.org/wp-content/uploads/2017/10/1017-EthiopiaCountryBrief.pdf">Source: Alive and Thrive</a></li>
+      </ul>
+    </figcaption>
+  {% endif %}
+  {% endcomment %}
+</div>

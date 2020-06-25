@@ -1,16 +1,22 @@
 {% load wagtailroutablepage_tags %}
 
+{{ request.is_preview }}
+
 <div class="max-meter max-meter--center responsive-graph">
   <h3 class="type-l type-l--trailer">{{ item.title }}</h3>
   <div class="chart-container {{ class }} js-plotly-chart-wrapper">
-    {% if item.interactive %}
+    {# {% if item.selectable %} #}
       <select class="data-selector js-plotly-chart-data-selector"></select>
-    {% endif %}
+    {# {% endif %} #}
     <div
       class="charts__chart js-plotly-chart"
-      data-url="{% routablepageurl item 'data' %}"
-      data-interactive="{{ item.interactive }}"
-      data-combined="{{ item.combined }}">
+      {% if request.is_preview %}
+        data-raw="{{ page.chart_json }}"
+      {% else %}
+        data-url="{% routablepageurl item 'data' %}"
+      {% endif %}
+      data-selectable="True{{ item.selectable }}"
+      data-aggregated="{{ item.aggregated }}">
     </div>
   </div>
   {# {% include 'partials/accordion-chart.html' %} #}

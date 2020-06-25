@@ -66,19 +66,21 @@ const initPlotlyCharts = () => {
 
       if (element) {
         const chartNode = element.getElementsByClassName('js-plotly-chart')[0] as HTMLDivElement | undefined;
-        const selectNode = element.getElementsByClassName('js-plotly-chart-data-selector')[0] as HTMLInputElement | undefined;
+        const selectNode = element.getElementsByClassName('js-plotly-chart-data-selector')[0] as HTMLSelectElement | undefined;
+        const scriptNode = element.getElementsByClassName('js-plotly-chart-raw-data')[0] as HTMLScriptElement | undefined;
 
         if (chartNode) {
-          const data = chartNode.dataset.raw ? JSON.parse(chartNode.dataset.raw) : null;
+          const data = scriptNode ? JSON.parse(scriptNode.innerHTML) : null;
           const url = chartNode.dataset.url;
-          const selectable = chartNode.dataset.selectable;
           const aggregated = chartNode.dataset.aggregated;
+
+          console.log(aggregated);
 
           // async data is used for live/page embedded chart requests
           if (url) {
             fetch(url).then(response => {
               response.json().then(d => {
-                if (selectable) {
+                if (selectNode) {
                   initSelectableChart(chartNode, d, selectNode, aggregated);
                 }
                 else {
@@ -90,7 +92,7 @@ const initPlotlyCharts = () => {
 
           // raw data in the page is used for previewing and drafts
           else {
-            if (selectable) {
+            if (selectNode) {
               initSelectableChart(chartNode, data, selectNode, aggregated);
             }
             else {

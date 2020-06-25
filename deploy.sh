@@ -112,7 +112,7 @@ function elastic_search_reindex {
 
     start_new_process "Re-indexing elastic search"
     cd $APP_DIR
-
+    sleep 60s
     docker-compose --project-name=$ENV exec -T web python manage.py update_index
 
 }
@@ -220,6 +220,7 @@ then
     
     echo "Waiting..."
     sleep 60s;
+    
     echo "Stopping "$OLD" container"
     docker-compose --project-name=$OLD stop
     start_link_checker_processes

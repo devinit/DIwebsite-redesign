@@ -40,7 +40,6 @@ services:
     labels:
       - traefik.enable=false
 
-
   web:
     depends_on:
       - db
@@ -71,8 +70,7 @@ services:
     image: nginx:latest
     labels:
       - "traefik.enable=true"
-      - "traefik.frontend.rule=Host:docker.localhost"
-      # - 'traefik.frontend.rule=PathPrefixStrip:/'
+      - "traefik.frontend.rule=PathPrefixStrip:/"
       - "traefik.port=80"
       - "traefik.docker.network=traefik_webgateway"
       - "traefik.backend=nginx"

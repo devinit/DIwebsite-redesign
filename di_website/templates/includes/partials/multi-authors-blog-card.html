@@ -1,0 +1,23 @@
+{% load wagtailcore_tags %}
+
+<div class="m-authors">
+    <h3 class="m-authors__title">
+      Written by
+    </h3>
+    <p class="m-authors__copy">
+      {% if first_author %}
+        {{ first_author.specific.name }}{% if authors|length > 0 %}, {% endif %}
+      {% endif %}
+      {% for author in authors %}
+        {% if author.block_type == 'internal_author' %}
+          {{ author.value.specific.name }}{% if not forloop.last %}, {% endif %}
+        {% else %}
+          {% if author.value.page %}
+            {{ author.value.name }}{% if not forloop.last %}, {% endif %}
+          {% else %}
+            {{ author.value.name }}{% if not forloop.last %}, {% endif %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    </p>
+</div>

@@ -69,12 +69,22 @@ Pattern library available online at [http://development-initiatives.surge.sh/](h
 
         python3 manage.py test
 
-## Run with Docker Compose
+## Develop with Docker
 1. Create docker volume diwebsite_db
     ```docker
     docker volume create --name=diwebsite_db
     ```
-2. Run command docker-compose up
+2. Run command:
+
+        docker-compose -f docker-compose-dev.yml up --build
+
+3. You'll need to manually run migrations:
+
+        docker-compose exec web python manage.py migrate
+
+4. If you wish to test the production build, run:
+
+        docker-compose up --build -d
 
 #### *Note*
 If the deployment is from scratch, follow commands below to update content with old website content

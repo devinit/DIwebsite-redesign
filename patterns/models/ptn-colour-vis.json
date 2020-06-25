@@ -1,0 +1,54 @@
+[
+    {
+        "name":"redscale-extended",
+        "scale" : ["#fce3dc","#fbd7cb","#f6b0a0","#ec6250","#dc372d","#cd2b2a","#a21e25","#6c120a"]
+    },
+    {
+        "name":"yellowscale-extended",
+        "scale" : ["#feedd4","#fee7c1","#fedcab","#fac47e","#f7a838","#df8000","#ba6b15","#7d4712"]
+    },
+    {
+        "name":"orange-extended",
+        "scale" : ["#fde5d4","#fcdbbf","#facbad","#f4a57c","#ee7644","#cb5730","#ac4622","#7a2e05"]
+    },
+    {
+        "name":"pinkscale-extended",
+        "scale" : ["#f9cdd0","#f6b8c1","#f3a5b6","#e05c86","#d12568","#9f1459","#8d0e56","#65093d"]
+    },
+    {
+        "name":"purplescale-extended",
+        "scale" : ["#ebcfe5","#deb5d6","#cb98c4","#af73ae","#994d98","#732c85","#632572","#42184c"]
+    },
+    {
+        "name":"bluescale-extended",
+        "scale" : ["#d3e0f4","#bcd4f0","#a3c7eb","#77adde","#4397d3","#1060a3","#00538e","#0a3a64"]
+    },
+    {
+        "name":"greenscale-extended",
+        "scale" : ["#c5e1cb","#b1d8bb","#a2d1b0","#74bf93","#3b8c62","#00694a","#005b3e","#08492f"]
+    },
+    {
+        "name":"greyscale-extended",
+        "scale" : ["#d9d4da","#cac5cb","#B9B6BB","#b9b5bb","#5a545a","#736e73","#4e484c","#302b2e"]
+    },
+    {
+        "name":"rainbowscale",
+        "scale" : ["#f49b21","#eb642b","#e84439","#c2135b","#893f90","#88bae5","#109e68","#6a6569"]
+    }
+]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

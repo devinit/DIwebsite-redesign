@@ -34,7 +34,7 @@ $leaf-light                         : #5ab88a;
 $leaf-dark                          : #007851;
 $cloud-dark                         : darken($cloud, 5%);
 
-// Social shit
+// Social colours
 // ------------------------------------------------------------
 
 $facebook-color 					: #3B5998;
@@ -48,6 +48,214 @@ $foursquare-color 					: #0072b1;
 $google-color 						: #dd4b39;
 $flickr-color 						: #ff0084;
 
+
+/*
+	Colour themes for use in interactive visualisations
+	When using this for a colour scale, note the numbering needs to be 2,3,1,4,5
+	I've set up variables for each colour, and SCSS lists for the scales.
+	Brand book available here: https://www.dropbox.com/s/n5g9r5v8vvezy7a/DI%20Brand%20Book%20-%20update%20July%202018.pdf?dl=0;
+*/
+
+/* Primary Pallete */
+
+/* Red */
+
+$red1 : #e84439;
+$red2 : #f8c1b2;
+$red3 : #f0826d;
+$red4 : #bc2629;
+$red5 : #8f1b13;
+
+$redscale : #f8c1b2,#f0826d,#e84439,#bc2629,#8f1b13;
+
+/* Red extended pallete for charts */
+
+$red6 : #fce3dc;
+$red7 : #fbd7cb;
+$red8 : #f6b0a0;
+$red9 : #ec6250;
+$red10 : #dc372d;
+$red11 : #cd2b2a;
+$red12 : #a21e25;
+$red13 : #6c120a;
+
+$redscale-extended : #fce3dc,#fbd7cb,#f6b0a0,#ec6250,#dc372d,#cd2b2a,#a21e25,#6c120a;
+
+/* Secondary Pallete */
+
+/* Yellow */
+
+$yellow1 : #f49b21;
+$yellow2 : #fccc8e;
+$yellow3 : #f9b865;
+$yellow4 : #e48a00;
+$yellow5 : #a85d00;
+
+$yellowscale : #fccc8e,#f9b865,#f49b21,#e48a00,#a85d00;
+
+/* Yellow extended pallete for charts */
+
+$yellow6 : #feedd4;
+$yellow7 : #fee7c1;
+$yellow8 : #fedcab;
+$yellow9 : #fac47e;
+$yellow10 : #f7a838;
+$yellow11 : #df8000;
+$yellow12 : #ba6b15;
+$yellow13 : #7d4712;
+
+$yellowscale-extended : #feedd4,#fee7c1,#fedcab,#fac47e,#f7a838,#df8000,#ba6b15,#7d4712;
+
+/* Orange */
+
+$orange1 : #eb642b;
+$orange2 : #f6bb9d;
+$orange3 : #f18e5e;
+$orange4 : #d85b31;
+$orange5 : #973915;
+
+$orangescale : #f6bb9d,#f18e5e,#eb642b,#d85b31,#973915;
+
+/* Orange extended pallete for charts */
+
+$orange6 : #fde5d4;
+$orange7 : #fcdbbf;
+$orange8 : #facbad;
+$orange9 : #f4a57c;
+$orange10 : #ee7644;
+$orange11 : #cb5730;
+$orange12 : #ac4622;
+$orange13 : #7a2e05;
+
+$orangescale-extended : #fde5d4,#fcdbbf,#facbad,#f4a57c,#ee7644,#cb5730,#ac4622,#7a2e05;
+
+/* Pink */
+
+$pink1 : #c2135b;
+$pink2 : #e4819b;
+$pink3 : #d64278;
+$pink4 : #ad1257;
+$pink5 : #7e1850;
+
+$pinkscale : #e4819b,#d64278,#c2135b,#ad1257,#7e1850;
+
+/* Pink extended pallete for charts */
+
+$pink6 : #f9cdd0;
+$pink7 : #f6b8c1;
+$pink8 : #f3a5b6;
+$pink9 : #e05c86;
+$pink10 : #d12568;
+$pink11 : #9f1459;
+$pink12 : #8d0e56;
+$pink13 : #65093d;
+
+$pinkscale-extended : #f9cdd0,#f6b8c1,#f3a5b6,#e05c86,#d12568,#9f1459,#8d0e56,#65093d;
+
+/* Purple */
+
+$purple1 : #893f90;
+$purple2 : #c189bb;
+$purple3 : #a45ea1;
+$purple4 : #7b3b89;
+$purple5 : #551f65;
+
+$purplescale : #c189bb,#a45ea1,#893f90,#7b3b89,#551f65;
+
+/* Purple extended pallete for charts */
+
+$purple6 : #ebcfe5;
+$purple7 : #deb5d6;
+$purple8 : #cb98c4;
+$purple9 : #af73ae;
+$purple10 : #994d98;
+$purple11 : #732c85;
+$purple12 : #632572;
+$purple13 : #42184c;
+
+$purplescale-extended : #ebcfe5,#deb5d6,#cb98c4,#af73ae,#994d98,#732c85,#632572,#42184c;
+
+/* Blue */
+
+$blue1 : #88bae5;
+$blue2 : #0071b1;
+$blue3 : #0089cc;
+$blue4 : #5da3d9;
+$blue5 : #0c457b;
+
+$bluescale : #0071b1,#0089cc,#88bae5,#5da3d9,#0c457b;
+
+/* Blue extended pallete for charts */
+
+$blue6 : #d3e0f4;
+$blue7 : #bcd4f0;
+$blue8 : #a3c7eb;
+$blue9 : #77adde;
+$blue10 : #4397d3;
+$blue11 : #1060a3;
+$blue12 : #00538e;
+$blue13 : #0a3a64;
+
+$bluescale-extended : #d3e0f4,#bcd4f0,#a3c7eb,#77adde,#4397d3,#1060a3,#00538e,#0a3a64;
+
+/* Green */
+
+$green1 : #109e68;
+$green2 : #92cba9;
+$green3 : #5ab88a;
+$green4 : #007851;
+$green5 : #065139;
+
+$greenscale : #92cba9,#5ab88a,#109e68,#007851,#065139;
+
+/* Green extended pallete for charts */
+
+$green6 : #c5e1cb;
+$green7 : #b1d8bb;
+$green8 : #a2d1b0;
+$green9 : #74bf93;
+$green10 : #3b8c62;
+$green11 : #00694a;
+$green12 : #005b3e;
+$green13 : #08492f;
+
+$greenscale-extended : #c5e1cb,#b1d8bb,#a2d1b0,#74bf93,#3b8c62,#00694a,#005b3e,#08492f;
+
+/* Grey */
+
+$grey1 : #6a6569;
+$grey2 : #a9a6aa;
+$grey3 : #847e84;
+$grey4 : #555053;
+$grey5 : #443e42;
+
+$greyscale : #a9a6aa,#847e84,#6a6569,#555053,#443e42;
+
+/* Grey extended pallete for charts */
+
+$grey6 : #d9d4da;
+$grey7 : #cac5cb;
+$grey8 : #B9B6BB; /* Grey 8 is wrong in the brand book */
+$grey9 : #b9b5bb;
+$grey10 : #5a545a;
+$grey11 : #736e73;
+$grey12 : #4e484c;
+$grey13 : #302b2e;
+
+$greyscale-extended : #d9d4da,#cac5cb,#B9B6BB,#b9b5bb,#5a545a,#736e73,#4e484c,#302b2e;
+
+/* Rainbow - all primary and secondary colours */
+
+$red1 : #e84439;
+$yellow1 : #f49b21;
+$orange1 : #eb642b;
+$pink1 : #c2135b;
+$purple1 : #893f90;
+$blue1 : #88bae5;
+$green1 : #109e68;
+$grey1 : #6a6569;
+
+$rainbowscale : #f49b21,#eb642b,#e84439,#c2135b,#893f90,#88bae5,#109e68,#6a6569;
 
 // Colors assigned to roles
 // Replace assignments with brand colours

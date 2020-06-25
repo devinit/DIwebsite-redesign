@@ -82,17 +82,23 @@ class BlogArticlePage(TypesetBodyFootnoteMixin, HeroMixin, Page):
         blank=True,
         on_delete=models.SET_NULL,
         related_name='+',
-        help_text="The author's page if the author has an internal profile. Photograph, job title, and page link will be drawn from this."
+        help_text="The author's page if the author has an internal profile. Photograph, job title, and page link will be drawn from this.",
+        verbose_name='Internal Author'
     )
-    other_authors = StreamField([
-        ('internal_author', PageChooserBlock(required=False, target_model='ourteam.TeamMemberPage')),
-        ('external_author', StructBlock([
-            ('name', CharBlock(required=False)),
-            ('title', CharBlock(required=False)),
-            ('photograph', ImageChooserBlock(required=False)),
-            ('page', URLBlock(required=False))
-        ]))
-    ], blank=True, help_text="Additional authors. If order is important, please use this instead of internal author page.")
+    other_authors = StreamField(
+        [
+            ('internal_author', PageChooserBlock(
+                required=False, target_model='ourteam.TeamMemberPage', icon='user', label='Internal Author')),
+            ('external_author', StructBlock([
+                ('name', CharBlock(required=False)),
+                ('title', CharBlock(required=False)),
+                ('photograph', ImageChooserBlock(required=False)),
+                ('page', URLBlock(required=False))
+            ], icon='user', label='External Author'))
+        ],
+        blank=True,
+        help_text="Additional authors. If order is important, please use this instead of internal author page.",
+        verbose_name='Other Authors')
 
     published_date = models.DateTimeField(
         blank=True,

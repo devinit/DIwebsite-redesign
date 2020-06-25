@@ -2,9 +2,7 @@
 
 <div class="m-authors">
     <h3 class="m-authors__title">
-      {% if type and authors|length > 0 %}
-        Written by
-      {% elif first_author and authors|length > 0 %}
+      {% if first_author and authors|length > 0 %}
         Authors
       {% elif authors|length > 1 %}
         Authors
@@ -14,14 +12,14 @@
     </h3>
     <p class="m-authors__copy">
       {% if first_author %}
-        {{ first_author.specific.name }}{% if authors|length > 0 %}, {% endif %}
+        <a href="{% pageurl first_author %}?referrer=author">{{ first_author.specific.name }}</a>{% if authors|length > 0 %}, {% endif %}
       {% endif %}
       {% for author in authors %}
         {% if author.block_type == 'internal_author' %}
-          {{ author.value.specific.name }}{% if not forloop.last %}, {% endif %}
+          <a href="{% pageurl author.value %}?referrer=author">{{ author.value.specific.name }}</a>{% if not forloop.last %}, {% endif %}
         {% else %}
           {% if author.value.page %}
-            {{ author.value.name }}{% if not forloop.last %}, {% endif %}
+            <a href="{{ author.value.page }}">{{ author.value.name }}</a>{% if not forloop.last %}, {% endif %}
           {% else %}
             {{ author.value.name }}{% if not forloop.last %}, {% endif %}
           {% endif %}

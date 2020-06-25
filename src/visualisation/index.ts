@@ -69,16 +69,35 @@ const initPlotlyCharts = () => {
         const selectNode = element.getElementsByClassName('js-plotly-chart-data-selector')[0] as HTMLInputElement | undefined;
 
         if (chartNode) {
+          const data = chartNode.dataset.raw ? JSON.parse(chartNode.dataset.raw) : null;
           const url = chartNode.dataset.url;
-          const interactive = chartNode.dataset.interactive;
-          const combined = chartNode.dataset.combined;
+          const selectable = chartNode.dataset.selectable;
+          const aggregated = chartNode.dataset.aggregated;
 
-          if (interactive) {
-            initInteractiveChart(chartNode, url, selectNode, combined);
+          // async data is used for live/page embedded chart requests
+          if (url) {
+            fetch(url).then(response => {
+              response.json().then(d => {
+                if (selectable) {
+                  initSelectableChart(chartNode, d, selectNode, aggregated);
+                }
+                else {
+                  initStaticChart(chartNode, d);
+                }
+              });
+            });
           }
+
+          // raw data in the page is used for previewing and drafts
           else {
-            initStaticChart(chartNode, url);
+            if (selectable) {
+              initSelectableChart(chartNode, data, selectNode, aggregated);
+            }
+            else {
+              initStaticChart(chartNode, data);
+            }
           }
+
         }
       }
     }
@@ -86,81 +105,75 @@ const initPlotlyCharts = () => {
 };
 
 // Initiliase a static chart
-const initStaticChart = (el, url) => {
-  fetch(url).then(response => {
-    response.json().then(async d => {
-      try {
-        const { data, layout } = d;
-        const { newPlot } = await loadPlotlyCode(data);
-        updateDataHoverTemplate(data);
-        newPlot(el, data, layout);
-      } catch (error) {
-        console.log(error);
-      }
-    });
-  });
+const initStaticChart = async (el, d) => {
+  try {
+    const { data, layout } = d;
+    const { newPlot } = await loadPlotlyCode(data);
+    updateDataHoverTemplate(data);
+    newPlot(el, data, layout);
+  } catch (error) {
+    console.log(error);
+  }
 }
 
-// Initiliase an interactive chart
-const initInteractiveChart = (el, url, selectNode, combined = false) => {
-  fetch(url).then(response => {
-    response.json().then(async d => {
-      try {
-        let { data, layout } = d;
-        const { newPlot, react } = await loadPlotlyCode(data);
-        const all = 'All data';
-        const traces = data.slice();
-        const options = [];
-        const isTreemap = data[0].type == 'treemap';
+// Initiliase an selectable chart
+const initSelectableChart = async (el, d, selectNode, aggregated = false) => {
+  try {
+    let { data, layout } = d;
+    const { newPlot, react } = await loadPlotlyCode(data);
+    const all = 'All data';
+    const traces = data.slice();
+    const options = [];
+    const isTreemap = data[0].type == 'treemap';
 
-        updateDataHoverTemplate(data);
+    // update the hover template
+    updateDataHoverTemplate(data);
 
-        // add an extra all data option at the top if combined
-        if (combined) {
-            options.push(all);
-        }
+    // add an extra all data option at the top if aggregated
+    if (aggregated) {
+        options.push(all);
+    }
 
-        // add the actual data options
-        traces.forEach(el => {
-            isTreemap ? options.push(el.meta.columnNames.y) : options.push(el.name);
-        });
-
-        // if not combined, select the first data set only
-        if (!combined) {
-            data.data = [traces[0]];
-        }
-
-        // get the select and assign options
-        assignOptions(selectNode, options);
-
-        // assign change event listener
-        selectNode.addEventListener('change', updateData, false);
-
-        const updateData = () => {
-
-            // if all data selected, set data to whole set
-            if (selectNode.value == all) {
-                data = traces;
-            }
-
-            // otherwise find matching index and set data to the selected one
-            else {
-                const newDataIndex = traces.findIndex(el => isTreemap ? el.meta.columnNames.y : el.name == selectNode.value);
-                data = [traces[newDataIndex]];
-            }
-
-            // update the chart
-            react(el, data, react);
-        }
-
-        // initialise the chart
-        newPlot(el, data, layout)
-
-      } catch (error) {
-        console.log(error);
-      }
+    // add the actual data options
+    traces.forEach(el => {
+        !isTreemap ? options.push(el.meta.columnNames.y) : options.push(el.name);
     });
-  });
+
+    // if not aggregated, select the first data set only
+    if (!aggregated) {
+        data = [traces[0]];
+    }
+
+    // get the select and assign options
+    assignOptions(selectNode, options);
+
+    // change event listener
+    const updateData = () => {
+
+        // if all data selected, set data to whole set
+        if (selectNode.value == all) {
+            data = traces;
+        }
+
+        // otherwise find matching index and set data to the selected one
+        else {
+            const newDataIndex = traces.findIndex(el => !isTreemap ? el.meta.columnNames.y : el.name == selectNode.value);
+            data = [traces[newDataIndex]];
+        }
+
+        // update the chart
+        react(el, data, layout);
+    }
+
+    // assign change event listener
+    selectNode.addEventListener('change', updateData, false);
+
+    // initialise the chart
+    newPlot(el, data, layout)
+
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 // Begin initialisation

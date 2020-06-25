@@ -1,3 +1,7 @@
+MINIMAL_RICHTEXT_FEATURES = [
+    'link',
+    'footnote',
+]
 SIMPLE_RICHTEXT_FEATURES = [
     'bold',
     'italic',

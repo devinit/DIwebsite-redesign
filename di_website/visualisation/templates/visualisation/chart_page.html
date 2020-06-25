@@ -9,7 +9,9 @@
 
   <section class="section">
     <div class="row row--narrow">
-      {% include 'visualisation/chart.html' with item=page class='chart-container--full' %}
+      <div class="max-meter max-meter--center responsive-graph">
+        {% include 'visualisation/chart.html' with item=page class='chart-container--full' %}
+      </div>
     </div>
   </section>
 

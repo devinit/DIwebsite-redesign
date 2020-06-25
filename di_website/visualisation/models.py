@@ -1,13 +1,13 @@
-import json
+from django.contrib.postgres.fields import JSONField
 from django.db import models
 from django.http import Http404, JsonResponse
 
+from wagtail.core.fields import RichTextField
 from wagtail.core.models import Page
-from wagtail.core.fields import StreamField
-from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
-from wagtail.contrib.routable_page.models import RoutablePageMixin, route
+from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
+from wagtail.contrib.routable_page.models import RoutablePageMixin, route\
 
-from .fields import AceEditorField
+from di_website.common.constants import MINIMAL_RICHTEXT_FEATURES
 
 
 class VisualisationsPage(Page):
@@ -32,17 +32,42 @@ class VisualisationsPage(Page):
 
 
 class ChartPage(RoutablePageMixin, Page):
+    """
+    Individual chart page
+    """
     parent_page_types = [VisualisationsPage]
     subpage_types = []
 
-    chart_json = AceEditorField(blank=True, default='{ "data":[], "layout":{} }', verbose_name="Chart JSON")
-
-    content_panels = Page.content_panels + [
-        FieldPanel('chart_json')
-    ]
-
     class Meta:
         verbose_name = 'Chart Page'
+
+    chart_json = JSONField(
+        verbose_name="Chart JSON",
+        help_text='Paste exported Chart Studio JSON here. To preserve data integretity, the JSON data should not be edited in Wagtail'
+    )
+    selectable = models.BooleanField(
+        default=False,
+        help_text='Optional: selectable charts individusalise the data display a dropdown to select data'
+    )
+    aggregated = models.BooleanField(
+        default=False,
+        help_text='Optional: aggregated charts adds an "All data" option to selectable charts'
+    )
+    caption = RichTextField(
+        null=True,
+        blank=True,
+        help_text='Optional: caption text and link(s) for the chart',
+        features=MINIMAL_RICHTEXT_FEATURES
+    )
+
+    content_panels = Page.content_panels + [
+        FieldPanel('chart_json'),
+        MultiFieldPanel([
+            FieldPanel('selectable'),
+            FieldPanel('aggregated'),
+        ], heading='Chart options'),
+        FieldPanel('caption')
+    ]
 
     def get_sitemap_urls(self, request):
         return []
@@ -55,4 +80,4 @@ class ChartPage(RoutablePageMixin, Page):
 
     @route(r'^data/$')
     def data(self, request):
-        return JsonResponse(json.loads(self.chart_json))
+        return JsonResponse(self.chart_json)

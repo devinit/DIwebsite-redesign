@@ -509,36 +509,73 @@ a.m-stat {
 .m-icon-list {
     position: relative;
     @include font-size($para);
+    &__data  {
+        margin-bottom: 1.5em;
+    }
     @include respond-to($c-vp) {
-        columns: 2;
-    }
-    li {
-        @extend %pie-clearfix;
-        margin-bottom: 1em;
-        .m-icon-list__media {
-            float: left;
-            width: 20px;
-            margin-right: 10px;
-            img {
-                transform: translateY(5px);
-                @extend %max-width;
-            }
-        }
-        .m-icon-list__content {
-            float: left;
-            width: calc(100% - 30px);
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        flex-direction: row;
+        &__data  {
+            width: 45%;
         }
     }
 }
 
-.m-icon-list__heading {
-    @extend %font-heading;
-    display: block;
-}
-
-.m-icon-list__child {
-    li {
-        margin-bottom: 0;
+.m-icon-list__data {
+    position: relative;
+    padding-left: 30px;
+    &:before {
+        content: "";
+        position: absolute;
+        top: 5px;
+        left: 0;
+        width: 20px;
+        height: 20px;
+        display: block;
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+    &--download:before {
+        background-image: url('/assets/svg/source/chart-download.svg');
+    }
+    &--zoom:before {
+        background-image: url('/assets/svg/source/chart-zoom.svg');
+    }
+    &--pan:before {
+        background-image: url('/assets/svg/source/chart-pan.svg');
+    }
+    &--box-select:before {
+        background-image: url('/assets/svg/source/chart-box-select.svg');
+    }
+    &--lasso:before {
+        background-image: url('/assets/svg/source/chart-lasso.svg');
+    }
+    &--zoom-in:before {
+        background-image: url('/assets/svg/source/chart-zoom-in.svg');
+    }
+    &--zoom-out:before {
+        background-image: url('/assets/svg/source/chart-zoom-out.svg');
+    }
+    &--autoscale:before {
+        background-image: url('/assets/svg/source/chart-autoscale.svg');
+    }
+    &--reset:before {
+        background-image: url('/assets/svg/source/chart-reset.svg');
+    }
+    &--toggle-spike:before {
+        background-image: url('/assets/svg/source/chart-toggle-spike.svg');
+    }
+    &--closest-data:before {
+        background-image: url('/assets/svg/source/chart-closest-data.svg');
+    }
+    &--compare:before {
+        background-image: url('/assets/svg/source/chart-compare.svg');
+    }
+    dt {
+        @extend %font-heading;
+        display: block;
     }
 }
 

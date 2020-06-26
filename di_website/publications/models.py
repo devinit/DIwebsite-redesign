@@ -578,6 +578,10 @@ class PublicationSummaryPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
         return 'the executive summary'
 
     @cached_property
+    def is_summary(self):
+        return True
+
+    @cached_property
     def publication_downloads_title(self):
         return 'Publication downloads'
 

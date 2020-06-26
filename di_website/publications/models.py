@@ -491,11 +491,11 @@ class PublicationForewordPage(HeroMixin, ReportChildMixin, FlexibleContentMixin,
 
     @cached_property
     def label(self):
-        return 'foreword'
+        return 'the foreword'
 
     @cached_property
-    def button_titles(self):
-        return 'the foreword'
+    def label_type(self):
+        return 'foreword'
 
     @cached_property
     def is_foreword(self):
@@ -571,7 +571,7 @@ class PublicationSummaryPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
 
     @cached_property
     def label(self):
-        return 'the executive summary'
+        return 'executive summary'
 
     @cached_property
     def is_summary(self):

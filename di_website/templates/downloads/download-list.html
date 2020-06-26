@@ -19,7 +19,7 @@
                 {% endfor %}
             </ul>
         {% endif %}
-
+        {% if page.data_downloads_list or page.filtered_datasets %}
             <h2 class="type-m type-s--trailer space-section-top--small">{{ page.data_downloads_title }}</h2>
             <ul class="download__list">
                 {% if page.data_downloads_list %}
@@ -49,5 +49,6 @@
                       </li>
                 {% endif %}
             </ul>
+        {% endif %}
     </div>
 {% endif %}

@@ -31,28 +31,12 @@
                         {% endif %}
                         <h2 class="chapter-block__heading">{{ item.title }}</h2>
                         <p class="para {% cycle '' 'reverse-text' %}">{{ item | content_excerpt }}</p>
-                        <a href="{{ item.url }}" class="button button--a11y {% cycle '' 'button--reverse' %}" title="Read {% if item.is_foreword %}
-                                {{ item.button_titles }}
-                            {% else %}
-                                {{ item.label }}
-                            {% endif %}">
-                          <span>
-                            {% if item.is_foreword %}
-                                {{ item.button_titles }}
-                            {% else %}
-                                {{ item.label }}
-                            {% endif %}
-                          </span></a>
+                        <a href="{{ item.url }}" class="button button--a11y {% cycle '' 'button--reverse' %}" title="Read {{ item.label }}"><span>Read {{ item.label }}</span></a>
                         {% cycle 'button-slate' 'download-button--reverse' as button_class silent %}
                         {% cycle 'button--secondary' 'button--reverse' as data_button_class silent %}
                         {% cycle 'ico-arrow-down-slate' 'ico-arrow-down-blank' as download_icon silent %}
-                        {% if item.is_foreword %}
-                            {% include 'publications/downloads.html' with button_class=button_class download_title='Download '|add:item.button_titles download_icon=download_icon %}
-                            {% include 'publications/data-downloads.html' with button_class=data_button_class download_title='Download data for '|add:item.button_titles %}
-                        {% else %}
-                            {% include 'publications/downloads.html' with button_class=button_class download_title='Download '|add:item.label download_icon=download_icon %}
-                            {% include 'publications/data-downloads.html' with button_class=data_button_class download_title='Download data for '|add:item.label %}
-                        {% endif %}
+                        {% include 'publications/downloads.html' with button_class=button_class download_title='Download '|add:item.label download_icon=download_icon %}
+                        {% include 'publications/data-downloads.html' with button_class=data_button_class download_title='Download data for '|add:item.label %}
                     </div>
                 </div>
             </div>

@@ -1,4 +1,4 @@
-{% load wagtailuserbar wagtailmetadata_tags %}
+{% load wagtailuserbar wagtailmetadata_tags report_utils static %}
 <!doctype html>
 <!--[if IE 9]> <html lang="en-GB" class="no-js ie9"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--><html lang="en-GB" class="no-js"><!--<![endif]-->
@@ -46,6 +46,10 @@
   </div>
   {% block html_footer %}
     {% include 'includes/scaffold/footer-assets.html' %}
+    {% page_contains_chart as include_chart_script %}
+    {% if include_chart_script %}
+      <script src="{% static 'visualisation/js/chart.js' %}"></script>
+    {% endif %}
   {% endblock %}
 
 </body>

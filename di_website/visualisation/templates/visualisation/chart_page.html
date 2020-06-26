@@ -9,9 +9,9 @@
 
   <section class="section">
     <div class="row row--narrow">
-      <div class="max-meter max-meter--center responsive-graph">
-        {% include 'visualisation/chart.html' with item=page class='chart-container--full' %}
-      </div>
+        <div class="max-meter max-meter--center responsive-graph">
+            {% include 'visualisation/chart.html' with item=page %}
+        </div>
     </div>
   </section>
 
@@ -20,6 +20,6 @@
 {% block footer %}{% endblock %}
 
 {% block html_footer %}
-  {% include 'includes/scaffold/footer-assets.html' %}
-  <script src="{% static 'visualisation/js/chart.js' %}"></script>
+    {{ block.super }}
+    <script src="{% static 'visualisation/js/chart.js' %}"></script>
 {% endblock %}

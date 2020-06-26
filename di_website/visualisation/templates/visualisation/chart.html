@@ -1,7 +1,7 @@
 {% load wagtailroutablepage_tags footnotes_utils chart_utils %}
 
 <h3 class="type-l type-l--trailer">{{ item.title }}</h3>
-<div class="chart-container {{ class }} js-plotly-chart-wrapper">
+<div class="chart-container chart-container--full js-plotly-chart-wrapper">
   {% if item.selectable %}
     <select class="data-selector js-plotly-chart-data-selector"></select>
   {% endif %}
@@ -16,7 +16,7 @@
   >
   </div>
   {% if request.is_preview %}
-    <script class="js-plotly-chart-raw-data" type="application/json">{{ page.chart_json|as_json|safe }}</script>
+    <script class="js-plotly-chart-raw-data" type="application/json">{{ item.chart_json|as_json|safe }}</script>
   {% endif %}
 </div>
 

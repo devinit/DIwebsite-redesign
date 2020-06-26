@@ -12,7 +12,6 @@ from wagtail.core.blocks import (
     PageChooserBlock
 )
 from wagtail.snippets.blocks import SnippetChooserBlock
-from wagtail.documents.blocks import DocumentChooserBlock
 
 from di_website.common.constants import RICHTEXT_FEATURES, RICHTEXT_FEATURES_NO_FOOTNOTES, FOOTNOTE_RICHTEXT_FEATURES
 from .infographic import PublicationInfographic
@@ -201,34 +200,23 @@ class RichTextNoFootnotes(AbstractRichText):
 
 
 class InteractiveChartBlock(StructBlock):
-    json_file = DocumentChooserBlock(label="JSON File")
-
-    def get_json(self, file):
-        if file.file:
-            json_file = file.file.open('r')
-
-            return json_file.read()
-
-        return None
-
-    def get_context(self, value, parent_context=None):
-        json_file = value['json_file']
-        json = value.block.get_json(json_file)
-
-        context = parent_context or {}
-        context.update({
-            'self': value,
-            'chart_json': json,
-            self.TEMPLATE_VAR: value,
-        })
-        return context
 
     class Meta:
-        help_text = 'Search by tag: Charts - or by file name. The file must be JSON'
+        help_text = 'Select a chart page'
         icon = 'fa-area-chart'
         label = 'Interactive Chart'
         template = 'publications/blocks/interactive_chart.html'
         form_template = 'publications/block_forms/custom_struct.html'
+
+    chart_page = PageChooserBlock(
+        page_type='visualisation.ChartPage'
+    )
+
+    def get_context(self, value, parent_context=None):
+        context = super().get_context(value, parent_context=parent_context)
+        chart_page = value['chart_page']
+        context['chart'] = chart_page if chart_page and chart_page.live else ''
+        return context
 
 
 def flexible_content_streamfield(blank=False):

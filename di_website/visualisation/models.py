@@ -5,9 +5,11 @@ from django.http import Http404, JsonResponse
 from wagtail.core.fields import RichTextField
 from wagtail.core.models import Page
 from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
-from wagtail.contrib.routable_page.models import RoutablePageMixin, route\
+from wagtail.contrib.routable_page.models import RoutablePageMixin, route
+from wagtail.images.edit_handlers import ImageChooserPanel
 
 from di_website.common.constants import MINIMAL_RICHTEXT_FEATURES
+from di_website.publications.utils import WagtailImageField
 
 
 class VisualisationsPage(Page):
@@ -45,6 +47,10 @@ class ChartPage(RoutablePageMixin, Page):
         verbose_name="Chart JSON",
         help_text='Paste exported Chart Studio JSON here. To preserve data integretity, the JSON data should not be edited in Wagtail'
     )
+    fallback_image = WagtailImageField(
+        required=True,
+        help_text='Fallback image for the chart',
+    )
     selectable = models.BooleanField(
         default=False,
         help_text='Optional: selectable charts individusalise the data display a dropdown to select data'
@@ -62,6 +68,7 @@ class ChartPage(RoutablePageMixin, Page):
 
     content_panels = Page.content_panels + [
         FieldPanel('chart_json'),
+        ImageChooserPanel('fallback_image'),
         MultiFieldPanel([
             FieldPanel('selectable'),
             FieldPanel('aggregated'),

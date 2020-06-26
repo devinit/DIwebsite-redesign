@@ -20,14 +20,18 @@
     >
       <span class="chapter-title">
           {% if item.is_foreword %}
-              {{ item.label }}:
-          {% elif item.is_summary %}
-              {{ item.label_type }}:
+              {{ item.label_type | capfirst }}
           {% else %}
-              {{ item.label }}:
+              {{ item.label }}
           {% endif %}
       </span>
-      <span class="chapter-nav__title">{{ item.title }}</span>
+      <span class="chapter-nav__title">
+          {% if item.is_summary %}
+              {{ item.label | capfirst }}
+          {% else %}
+              {{ item.title }}
+          {% endif %}
+      </span>
     </a>
     {% if item.sections %}
       <button type="button" tabindex="-1" class="chapter-nav__child-toggle js-chapter-toggle">

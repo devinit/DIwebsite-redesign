@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -E
 
 trap '[ "$?" -ne 20 ] || exit 20' ERR
@@ -27,6 +27,7 @@ ENVIROMENT_VARIABLES='ENVIRONMENT;SECRET_KEY;DEFAULT_FROM_EMAIL;EMAIL_HOST;EMAIL
 
 OIFS=$IFS
 IFS=';'
+
 
 function finalize {
     $IFS=$OIFS
@@ -59,6 +60,18 @@ function setup_docker_storage {
 
 }
 
+function setup_docker_networks {
+
+    start_new_process 'Setting up new external consul network'
+    docker_networks="$( docker network ls )"
+
+    if echo $docker_networks | grep -q "consul"; then
+        log "Docker network already exists. Skipping ..."
+    else
+        docker network create consul > /dev/null
+        log "Created new docker network consul with status "$?
+    fi
+}
 # This can only happen after project clonning has been done
 function export_travis_enviroment {
     start_new_process 'Exporting enviroment variables defined in Travis to .env file'
@@ -178,20 +191,59 @@ function enable_https_configs {
     fi
 }
 
-function build_with_docker_compose {
-    if [ $(docker ps -f name=blue -q) ]
+function setup_blue_green_deployment {
+    # build the new Image
+    echo 'Build the new image'
+    docker build . -t diwebsite-redesign_web:new
+
+    # check the current container state
+    echo 'Check the current state'
+    blue_is_run=$(docker exec blue echo 'yes' 2> /dev/null || echo 'no')
+    state='blue'
+    new_state='green'
+    new_upstream=${green_upstream}
+    if [[ ${blue_is_run} != 'yes' ]]
     then
-        ENV="green"
-        OLD="blue"
-    else
-        ENV="blue"
-        OLD="green"
+        state='green'
+        new_state='blue'
+        new_upstream=${blue_upstream}
     fi
 
-    echo "Starting "$ENV" container"
-    sudo chown -R root:root core
-    docker-compose --project-name=$ENV up -d --build
+    # create the new state image
+    docker tag diwebsite-redesign_web:new diwebsite-redesign_web:${new_state}
 
+    # update the new state container
+    echo "Update the ${new_state} container"
+    docker-compose up -d ${new_state}
+
+    # Check the new state container is ready
+    echo "Check the ${new_state} container is ready"
+    docker-compose run --rm --entrypoint /bin/sh ${new_state} scripts/wait-for-it.sh ${new_state}:80 --timeout=60
+
+    # Check the new app
+    echo 'Check the new app'
+    status=$(docker-compose run --rm nginx curl ${new_upstream} -o /dev/null -Isw '%{http_code}')
+    if [[ ${status} != '200' ]]
+    then
+        echo "Bad HTTP response in the ${new_state} diwebsite-redesign_web: ${status}"
+        chmod +x ./scripts/reset.sh
+        ./scripts/reset.sh ${key_value_store} ${state}
+        exit 1
+    fi
+
+    ./scripts/activate.sh ${new_state} ${state} ${new_upstream} ${key_value_store}
+
+    echo "Set the ${new_state} image as ${state}"
+    docker tag diwebsite-redesign_web:${new_state} diwebsite-redesign_web:${state}
+
+    echo 'Set the old image as previous'
+    docker tag diwebsite-redesign_web:latest diwebsite-redesign_web:previous
+
+    echo 'Set the new image as latest'
+    docker tag diwebsite-redesign_web:new diwebsite-redesign_web:latest
+
+    echo "Stop the ${state} container"
+    docker-compose stop ${state}
 }
 
 if [ ${args[0]} == 'run' ]
@@ -204,6 +256,7 @@ then
     perform_git_operations
     export_travis_enviroment
     setup_docker_storage
+    setup_docker_networks
 
     cp $SCRIPT_DIR"/box_config.json" $APP_DIR"/"
 
@@ -215,14 +268,11 @@ then
     start_new_process "Starting up services ..."
     cd $APP_DIR
     sudo chown -R root:root storage
-    docker-compose --project-name=traefik -f traefik/docker-compose.traefik.yml up -d
-    build_with_docker_compose
-    
-    echo "Waiting..."
-    sleep 60s;
-    
-    echo "Stopping "$OLD" container"
-    docker-compose --project-name=$OLD stop
+    #run this script within this subprocess
+    chmod +x scripts/init.sh
+    source scripts/init.sh
+    docker-compose -f docker-compose-consul.yml up -d 
+    setup_blue_green_deployment
     start_link_checker_processes
     elastic_search_reindex
 

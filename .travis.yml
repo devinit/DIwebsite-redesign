@@ -11,10 +11,11 @@ before_install:
 - echo "DATABASE_URL=postgresql://di_website:di_website_pw@db/di_website" > .env
 - docker volume create --name=diwebsite_db
 - docker volume create --name="index_db"
-- docker network create traefik_webgateway
-- docker-compose up --build -d
+- docker network create consul
 script:
-- docker-compose run web /bin/sh -c "python3 -m coverage run manage.py test && python3 -m coverage xml && mv coverage.xml shared" && cd shared && python3 -m codecov
+  - chmod +x scripts/init.sh && ./scripts/init.sh
+  - docker-compose run blue /bin/sh -c "python3 -m coverage run manage.py test && python3 -m coverage xml && mv coverage.xml shared" && cd shared && python3 -m codecov
+
 deploy:
   - provider: script
     skip_cleanup: true

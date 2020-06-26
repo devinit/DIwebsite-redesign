@@ -11,9 +11,9 @@ services:
     volumes:
       - diwebsite_db:/var/lib/postgresql/data
     networks:
-      - internal
-    labels:
-      - traefik.enable=false
+      - web
+      - consul
+  
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.2.4
@@ -24,9 +24,9 @@ services:
       memlock:
         soft: -1
         hard: -1
-    expose:
-      - "9200"
-      - "9300"
+    ports:
+      - "8900:9200"
+      - "9700:9300"
     restart: always
     volumes:
       - index_db:/usr/share/elasticsearch/data
@@ -35,12 +35,10 @@ services:
         options:
             max-size: "1m"
             max-file: "10"
-    networks:
-      - internal
-    labels:
-      - traefik.enable=false
 
-  web:
+  blue:
+    container_name: blue
+    image: diwebsite-redesign_web:blue
     depends_on:
       - db
       - rabbitmq
@@ -53,31 +51,48 @@ services:
       - HS_TICKET_PIPELINE
       - HS_TICKET_PIPELINE_STAGE
       - ELASTIC_SEARCH_URL
-    build:
-      context: .
+      - SERVICE_80_NAME=blue
+      - SERVICE_80_TAGS=backends
+    volumes:
+      - ./:/code/
+      - ./config/celery/default:/etc/default
+      - ./config/celery/init.d:/etc/init.d
+    networks:
+      - web
+      - consul
+
+  green:
+    container_name: green
+    image: diwebsite-redesign_web:green
+    depends_on:
+      - db
+      - rabbitmq
+      - elasticsearch
+    expose:
+      - "8090"
+    env_file: .env
+    environment:
+      - HS_API_KEY
+      - HS_TICKET_PIPELINE
+      - HS_TICKET_PIPELINE_STAGE
+      - ELASTIC_SEARCH_URL
+      - SERVICE_80_NAME=green
+      - SERVICE_80_TAGS=backends
     volumes:
       - ./:/code/
       - ./config/celery/default:/etc/default
       - ./config/celery/init.d:/etc/init.d
     restart: always
     networks:
-      - internal
-      - traefik_webgateway
-    labels:
-      - traefik.enable=false
+      - web
+      - consul
 
   nginx:
-    image: nginx:latest
-    labels:
-      - "traefik.enable=true"
-      - "traefik.frontend.rule=PathPrefixStrip:/"
-      - "traefik.port=80"
-      - "traefik.docker.network=traefik_webgateway"
-      - "traefik.backend=nginx"
-      - "traefik.frontend.entryPoints=http,https"
-    expose:
-      - "80"
-      - "443"
+    container_name: nginx
+    build: ./config/nginx/
+    ports:
+      - "80:80"
+      - "443:443"
     volumes:
       - ./config/nginx:/etc/nginx/conf.d
       - ./assets:/assets
@@ -85,25 +100,25 @@ services:
       - ./ssl:/etc/ssl/
       - ./letsencrypt:/letsencrypt/
       - ../wp-content:/wp-content
-    depends_on:
-      - web
     restart: always
+    environment:
+      - SERVICE_NAME=nginx
+      - SERVICE_TAGS=nginx
     networks:
-      - internal
-      - traefik_webgateway
+      - web
+      - consul
 
   rabbitmq:
     image: rabbitmq:latest
-    expose:
-      - "4369"
-      - "5671"
-      - "5672"
-      - "15672"
+    ports:
+      - 4369:4369
+      - 5671:5671
+      - 5672:5672
+      - 15672:15672
     restart: always
     networks:
-      - internal
-    labels:
-      - traefik.enable=false
+      - web
+      - consul
 
 volumes:
   diwebsite_db:
@@ -113,7 +128,7 @@ volumes:
     external: true
 
 networks:
-  traefik_webgateway:
-      external: true
-  internal:
-      external: false
+  web:
+  consul:
+    external:
+      name: consul

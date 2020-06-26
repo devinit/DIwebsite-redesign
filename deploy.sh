@@ -65,12 +65,12 @@ function setup_docker_networks {
     start_new_process 'Setting up new external consul network'
     docker_networks="$( docker network ls )"
 
-    if echo $docker_networks | grep -q "consul"; then
-        log "Docker network already exists. Skipping ..."
-    else
-        docker network create consul > /dev/null
-        log "Created new docker network consul with status "$?
-    fi
+        if echo $docker_networks | grep -q "consul"; then
+            log "Docker network already exists. Skipping ..."
+        else
+            docker network create consul > /dev/null
+            log "Created new docker network consul with status "$?
+        fi
 }
 # This can only happen after project clonning has been done
 function export_travis_enviroment {
@@ -106,8 +106,8 @@ function backup_database {
     cd $APP_DIR
 
     log "Starting backup from remote docker machine $(docker-compose ps -q db)"
-    PROJECTNAME=$(docker ps --format "table {{.ID}}  {{.Names}}  {{.CreatedAt}}" | grep db | tail -n 1 | awk -F  "  " '{print $2}' | cut -d"_" -f1)
-    docker-compose --project-name=$PROJECTNAME exec -T db pg_dump -U di_website -d di_website >  $file_name
+   # PROJECTNAME=$(docker ps --format "table {{.ID}}  {{.Names}}  {{.CreatedAt}}" | grep db | tail -n 1 | awk -F  "  " '{print $2}' | cut -d"_" -f1)
+    docker-compose exec -T db pg_dump -U di_website -d di_website >  $file_name
 
     log "Database backup completed..."
 
@@ -126,7 +126,7 @@ function elastic_search_reindex {
     start_new_process "Re-indexing elastic search"
     cd $APP_DIR
     sleep 60s
-    docker-compose --project-name=$ENV exec -T web python manage.py update_index
+    docker-compose exec -T ${new_state} python manage.py update_index
 
 }
 
@@ -165,20 +165,27 @@ function start_link_checker_processes {
     start_new_process "Creating Rabbit MQ user and vhost for celery"
     cd $APP_DIR
 
-    until docker-compose --project-name=$ENV exec -T rabbitmq rabbitmqctl start_app; do
+    until docker-compose exec -T rabbitmq rabbitmqctl start_app; do
         log "Rabbit is unavailable - sleeping"
         sleep 10
     done
-
-    docker-compose --project-name=$ENV exec -T rabbitmq rabbitmqctl add_user root $RABBITMQ_PASSWORD
-    docker-compose --project-name=$ENV exec -T rabbitmq rabbitmqctl add_vhost myvhost
-    docker-compose --project-name=$ENV exec -T rabbitmq rabbitmqctl set_user_tags root root
-    docker-compose --project-name=$ENV exec -T rabbitmq rabbitmqctl set_permissions -p myvhost root ".*" ".*" ".*"
+    if  docker-compose exec -T rabbitmq rabbitmqctl list_users | grep -q "root"; then
+        log "user already exists. Skipping ..."
+        docker-compose exec -T rabbitmq rabbitmqctl add_vhost myvhost
+        docker-compose exec -T rabbitmq rabbitmqctl set_user_tags root root
+        docker-compose exec -T rabbitmq rabbitmqctl set_permissions -p myvhost root ".*" ".*" ".*"
+    else
+        docker-compose exec -T rabbitmq rabbitmqctl add_user root $RABBITMQ_PASSWORD
+        docker-compose exec -T rabbitmq rabbitmqctl add_vhost myvhost
+        docker-compose exec -T rabbitmq rabbitmqctl set_user_tags root root
+        docker-compose exec -T rabbitmq rabbitmqctl set_permissions -p myvhost root ".*" ".*" ".*"
+    fi
+  
 
     start_new_process "Starting celery"
-    docker-compose --project-name=$ENV exec -T web chown root '/etc/default/celeryd'
-    docker-compose --project-name=$ENV exec -T web chmod 640 '/etc/default/celeryd'
-    docker-compose --project-name=$ENV exec -T web /etc/init.d/celeryd start
+    docker-compose exec -T ${new_state} chown root '/etc/default/celeryd'
+    docker-compose exec -T ${new_state} chmod 640 '/etc/default/celeryd'
+    docker-compose exec -T ${new_state} /etc/init.d/celeryd start
 
     log "Finished setting up link checker .."
 
@@ -187,7 +194,7 @@ function start_link_checker_processes {
 function enable_https_configs {
 
     if [ "$ENVIRONMENT" == 'production' ]; then
-        echo 'include /etc/nginx/conf.d/django_https;' >> $APP_DIR"/config/nginx/django.conf"
+        echo 'include /etc/nginx/conf.d/django_https;' >> $APP_DIR"/config/nginx/django.conf.ctmpl"
     fi
 }
 
@@ -217,20 +224,20 @@ function setup_blue_green_deployment {
     docker-compose up -d ${new_state}
 
     # Check the new state container is ready
-    echo "Check the ${new_state} container is ready"
-    docker-compose run --rm --entrypoint /bin/sh ${new_state} scripts/wait-for-it.sh ${new_state}:80 --timeout=60
+   # echo "Check the ${new_state} container is ready"
+   # docker-compose run --rm --entrypoint /bin/bash ${new_state} ./scripts/wait-for-it.sh ${new_state}:80 --timeout=60
 
-    # Check the new app
-    echo 'Check the new app'
-    status=$(docker-compose run --rm nginx curl ${new_upstream} -o /dev/null -Isw '%{http_code}')
-    if [[ ${status} != '200' ]]
-    then
-        echo "Bad HTTP response in the ${new_state} diwebsite-redesign_web: ${status}"
-        chmod +x ./scripts/reset.sh
-        ./scripts/reset.sh ${key_value_store} ${state}
-        exit 1
-    fi
-
+    # # Check the new app
+    # echo 'Check the new app'
+    # status=$(docker-compose run --rm nginx curl ${new_upstream} -o /dev/null -Isw '%{http_code}')
+    # if [[ ${status} != '200' ]]
+    # then
+    #     echo "Bad HTTP response in the ${new_state} diwebsite-redesign_web: ${status}"
+    #     chmod +x ./scripts/reset.sh
+    #     ./scripts/reset.sh ${key_value_store} ${state}
+    #     exit 1
+    # fi
+    chmod +x ./scripts/activate.sh
     ./scripts/activate.sh ${new_state} ${state} ${new_upstream} ${key_value_store}
 
     echo "Set the ${new_state} image as ${state}"
@@ -277,7 +284,7 @@ then
     elastic_search_reindex
 
     start_new_process "Generating static assets"
-    docker-compose --project-name=$ENV exec -T web python manage.py collectstatic --noinput
+    docker-compose exec -T ${new_state} python manage.py collectstatic --noinput
     sudo chown -R root:root assets
  
     exit 0

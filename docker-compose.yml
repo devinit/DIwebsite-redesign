@@ -35,6 +35,9 @@ services:
         options:
             max-size: "1m"
             max-file: "10"
+    networks:
+      - web
+      - consul
 
   blue:
     container_name: blue

@@ -2,4 +2,4 @@
 
 exec consul-template \
      -consul-addr consul:8500 \
-     -template "/etc/consul-templates/nginx.conf.ctmpl:/etc/nginx/conf.d/nginx.conf:sv hup nginx"
+     -template "/etc/consul-templates/django.conf.ctmpl:/etc/nginx/conf.d/nginx.conf:sv hup nginx"

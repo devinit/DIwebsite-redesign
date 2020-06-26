@@ -159,7 +159,7 @@ const initSelectableChart = async (el, d, selectNode, aggregated = false) => {
 
         // otherwise find matching index and set data to the selected one
         else {
-            const newDataIndex = traces.findIndex(el => !isTreemap ? el.meta.columnNames.y : el.name == selectNode.value);
+            const newDataIndex = traces.findIndex(el => !isTreemap ? el.meta.columnNames.y == selectNode.value : el.name == selectNode.value);
             data = [traces[newDataIndex]];
         }
 

@@ -59,6 +59,7 @@ const initInteractiveChart = (el, data, combined = false, split_data_on) => {
     const all = 'All data';
     const traces = data.data.slice();
     const options = [];
+    const isTreemap = data.data[0].type == 'treemap';
 
     $.each(traces, (i, el) => {
         if (!el.hovertemplate) {
@@ -73,7 +74,7 @@ const initInteractiveChart = (el, data, combined = false, split_data_on) => {
 
     // add the actual data options
     for (var i = 0; i < traces.length; i++ ) {
-        (!split_data_on) ? options.push(traces[i].meta.columnNames.y) : options.push(traces[i][split_data_on]);
+        !isTreemap ? options.push(traces[i].meta.columnNames.y) : options.push(traces[i].name)
     }
 
     // if not combined, select the first data set only
@@ -90,6 +91,8 @@ const initInteractiveChart = (el, data, combined = false, split_data_on) => {
 
     function updateData() {
 
+        console.log(split_data_on);
+
         // if all data selected, set data to whole set
         if (dataSelector.value == all) {
             data.data = traces;
@@ -97,7 +100,7 @@ const initInteractiveChart = (el, data, combined = false, split_data_on) => {
 
         // otherwise find matching index and set data to the selected one
         else {
-            const newDataIndex = traces.findIndex(element => (!split_data_on) ? element.meta.columnNames.y : element[split_data_on] == dataSelector.value);
+            const newDataIndex = traces.findIndex(el => !isTreemap ? el.meta.columnNames.y == dataSelector.value : el.name == dataSelector.value);
             data.data = [traces[newDataIndex]];
         }
 

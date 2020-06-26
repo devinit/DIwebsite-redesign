@@ -29,11 +29,11 @@
     },
     {
         "name":"greyscale-extended",
-        "scale" : ["#d9d4da","#cac5cb","#B9B6BB","#b9b5bb","#5a545a","#736e73","#4e484c","#302b2e"]
+        "scale" : ["#d9d4da","#cac5cb","#B9B6BB","#b9b5bb","#736e73","#5a545a","#4e484c","#302b2e"]
     },
     {
         "name":"rainbowscale",
-        "scale" : ["#f49b21","#eb642b","#e84439","#c2135b","#893f90","#88bae5","#109e68","#6a6569"]
+        "scale" : ["#c2135b","#e84439","#eb642b","#f49b21","#109e68","#0089cc","#893f90"]
     }
 ]
 

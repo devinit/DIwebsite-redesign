@@ -177,13 +177,13 @@ $purplescale-extended : #ebcfe5,#deb5d6,#cb98c4,#af73ae,#994d98,#732c85,#632572,
 
 /* Blue */
 
-$blue1 : #88bae5;
-$blue2 : #0071b1;
-$blue3 : #0089cc;
-$blue4 : #5da3d9;
+$blue1 : #0089cc;
+$blue2 : #88bae5;
+$blue3 : #5da3d9;
+$blue4 : #0071b1;
 $blue5 : #0c457b;
 
-$bluescale : #0071b1,#0089cc,#88bae5,#5da3d9,#0c457b;
+$bluescale : #88bae5,#5da3d9,#0089cc,#0071b1,#0c457b;
 
 /* Blue extended pallete for charts */
 
@@ -242,7 +242,7 @@ $grey11 : #736e73;
 $grey12 : #4e484c;
 $grey13 : #302b2e;
 
-$greyscale-extended : #d9d4da,#cac5cb,#B9B6BB,#b9b5bb,#5a545a,#736e73,#4e484c,#302b2e;
+$greyscale-extended : #d9d4da,#cac5cb,#B9B6BB,#b9b5bb,#736e73,#5a545a,#4e484c,#302b2e;
 
 /* Rainbow - all primary and secondary colours */
 
@@ -255,7 +255,9 @@ $blue1 : #88bae5;
 $green1 : #109e68;
 $grey1 : #6a6569;
 
-$rainbowscale : #f49b21,#eb642b,#e84439,#c2135b,#893f90,#88bae5,#109e68,#6a6569;
+//pink, red, orange, yellow, green, blue, purple
+
+$rainbowscale : ,#c2135b,#e84439,#eb642b,#f49b21,#109e68,#0089cc,#893f90;
 
 // Colors assigned to roles
 // Replace assignments with brand colours

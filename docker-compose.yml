@@ -54,8 +54,8 @@ services:
       - HS_TICKET_PIPELINE
       - HS_TICKET_PIPELINE_STAGE
       - ELASTIC_SEARCH_URL
-      - SERVICE_80_NAME=blue
-      - SERVICE_80_TAGS=backends
+      - SERVICE_8090_NAME=blue
+      - SERVICE_8090_TAGS=backends
     volumes:
       - ./:/code/
       - ./config/celery/default:/etc/default
@@ -79,8 +79,8 @@ services:
       - HS_TICKET_PIPELINE
       - HS_TICKET_PIPELINE_STAGE
       - ELASTIC_SEARCH_URL
-      - SERVICE_80_NAME=green
-      - SERVICE_80_TAGS=backends
+      - SERVICE_8090_NAME=green
+      - SERVICE_8090_TAGS=backends
     volumes:
       - ./:/code/
       - ./config/celery/default:/etc/default

@@ -14,7 +14,7 @@ before_install:
 - docker network create consul
 script:
   - chmod +x scripts/init.sh && ./scripts/init.sh
-  - docker-compose run blue /bin/sh -c "python3 -m coverage run manage.py test && python3 -m coverage xml && mv coverage.xml shared" && cd shared && python3 -m codecov
+  - docker-compose run blue /bin/bash -c "python3 -m coverage run manage.py test && python3 -m coverage xml && mv coverage.xml shared" && cd shared && python3 -m codecov
 
 deploy:
   - provider: script

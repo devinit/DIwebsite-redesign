@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 set -E
 
 trap '[ "$?" -ne 20 ] || exit 20' ERR
@@ -224,8 +224,8 @@ function setup_blue_green_deployment {
     docker-compose up -d ${new_state}
 
     # Check the new state container is ready
-   # echo "Check the ${new_state} container is ready"
-   # docker-compose run --rm --entrypoint /bin/bash ${new_state} ./scripts/wait-for-it.sh ${new_state}:80 --timeout=60
+    echo "Check the ${new_state} container is ready"
+    docker-compose run --rm --entrypoint /bin/bash ${new_state} ./scripts/wait-for-it.sh ${new_state}:8090 --timeout=60
 
     # # Check the new app
     # echo 'Check the new app'

@@ -74,8 +74,6 @@ const initPlotlyCharts = () => {
           const url = chartNode.dataset.url;
           const aggregated = chartNode.dataset.aggregated;
 
-          console.log(aggregated);
-
           // async data is used for live/page embedded chart requests
           if (url) {
             fetch(url).then(response => {
@@ -111,8 +109,9 @@ const initStaticChart = async (el, d) => {
   try {
     const { data, layout } = d;
     const { newPlot } = await loadPlotlyCode(data);
+    const config = { responsive: true };
     updateDataHoverTemplate(data);
-    newPlot(el, data, layout);
+    newPlot(el, data, layout, config);
   } catch (error) {
     console.log(error);
   }
@@ -123,6 +122,7 @@ const initSelectableChart = async (el, d, selectNode, aggregated = false) => {
   try {
     let { data, layout } = d;
     const { newPlot, react } = await loadPlotlyCode(data);
+    const config = { responsive: true };
     const all = 'All data';
     const traces = data.slice();
     const options = [];
@@ -171,7 +171,7 @@ const initSelectableChart = async (el, d, selectNode, aggregated = false) => {
     selectNode.addEventListener('change', updateData, false);
 
     // initialise the chart
-    newPlot(el, data, layout)
+    newPlot(el, data, layout, config);
 
   } catch (error) {
     console.log(error);

@@ -50,7 +50,7 @@
     {
         "name":"rainbowscale",
         "scale" : ["#e84439","#eb642b","#f49b21","#109e68","#0089cc","#893f90","#c2135b"],
-        "bodyclass" : "body--sunflower"
+        "bodyclass" : null
 
     }
 ]

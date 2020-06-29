@@ -498,10 +498,6 @@ class PublicationForewordPage(HeroMixin, ReportChildMixin, FlexibleContentMixin,
         return 'foreword'
 
     @cached_property
-    def is_foreword(self):
-        return True
-
-    @cached_property
     def publication_downloads_title(self):
         return 'Publication downloads'
 
@@ -576,10 +572,6 @@ class PublicationSummaryPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
     @cached_property
     def nav_label(self):
         return 'executive summary'
-
-    @cached_property
-    def is_summary(self):
-        return True
 
     @cached_property
     def publication_downloads_title(self):

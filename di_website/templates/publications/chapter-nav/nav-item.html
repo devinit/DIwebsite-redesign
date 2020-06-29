@@ -26,11 +26,7 @@
           {% endif %}
       </span>
       <span class="chapter-nav__title">
-          {% if item.is_summary %}
-              {{ item.label | capfirst }}
-          {% else %}
-              {{ item.title }}
-          {% endif %}
+          {{ item.title }}
       </span>
     </a>
     {% if item.sections %}

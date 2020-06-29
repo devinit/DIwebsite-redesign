@@ -7,7 +7,24 @@ export default function entry() {
 }
 
 const hovertemplate = "<b>%{fullData.meta.columnNames.y}</b><br>%{xaxis.title.text}: <b>%{x}</b><br>%{yaxis.title.text}: <b>%{y}</b><extra></extra>";
-const config = { responsive: true };
+const config = {
+    displayModeBar: true,
+    responsive: true,
+    showLink: true,
+    plotlyServerURL: "https://chart-studio.plotly.com",
+    toImageButtonOptions: {
+        width: 1200,
+        height: 657,
+    },
+    modeBarButtonsToRemove: [
+        'pan2d',
+        'select2d',
+        'lasso2d',
+        'hoverClosestCartesian',
+        'hoverCompareCartesian',
+        'toggleSpikelines',
+    ],
+};
 
 const assignOption = (select, value) => {
     const currentOption = document.createElement('option');

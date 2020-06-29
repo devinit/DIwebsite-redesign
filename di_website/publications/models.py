@@ -494,7 +494,7 @@ class PublicationForewordPage(HeroMixin, ReportChildMixin, FlexibleContentMixin,
         return 'the foreword'
 
     @cached_property
-    def label_type(self):
+    def nav_label(self):
         return 'foreword'
 
     @cached_property
@@ -571,6 +571,10 @@ class PublicationSummaryPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
 
     @cached_property
     def label(self):
+        return 'the executive summary'
+
+    @cached_property
+    def nav_label(self):
         return 'executive summary'
 
     @cached_property
@@ -681,6 +685,10 @@ class PublicationChapterPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
     @cached_property
     def label_num(self):
         return 'chapter %s' % str(self.chapter_number).zfill(2)
+
+    @cached_property
+    def nav_label(self):
+        return 'chapter %s' % self.chapter_word
 
     @cached_property
     def sections(self):
@@ -796,6 +804,10 @@ class PublicationAppendixPage(HeroMixin, ReportChildMixin, FlexibleContentMixin,
     @cached_property
     def label_num(self):
         return 'appendix %s' % str(self.appendix_number).zfill(2)
+
+    @cached_property
+    def nav_label(self):
+        return 'appendix %s' % self.appendix_word
 
     @cached_property
     def publication_downloads_title(self):

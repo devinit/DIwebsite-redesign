@@ -27,7 +27,12 @@
   </section>
 
   <section class="section section--alt">
-    <div class="row row--narrow">
+
+    {% for block in page.tools %}
+      {% include_block block %}
+    {% endfor %}
+
+    <div class="row row--narrow {% if page.tools %}space-section-top{% endif %}">
       <div class="l-2up">
         <div class="l-2up__col">
           {% if random_quote %}

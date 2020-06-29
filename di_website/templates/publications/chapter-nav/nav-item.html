@@ -18,12 +18,8 @@
             data-current-chapter="1"
         {% endif %}
     >
-      <span class="chapter-title">
-          {{ item.nav_label }}
-      </span>
-      <span class="chapter-nav__title">
-          {{ item.title }}
-      </span>
+      <span class="chapter-title">{{ item.nav_label }}</span>
+      <span class="chapter-nav__title">{{ item.title }}</span>
     </a>
     {% if item.sections %}
       <button type="button" tabindex="-1" class="chapter-nav__child-toggle js-chapter-toggle">

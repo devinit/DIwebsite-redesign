@@ -50,15 +50,17 @@
 <div class="ui-row">
   <div class="ui-section">
     {% for item in colorvis %}
-    <div class="ui-section__header">
-      <h2>{{ item.name }}</h2>
-    </div>
     <div class="ui-section__body">
+      <div class="is-typeset">
+        <h2>{{ item.name|replace('-',' ')|capitalize }}</h2>
+        {% if item.bodyclass != null %}
+          <p>Body class used in publications: <input type="text" class="form-item" style="display: inline;width:auto;" value="{{ item.bodyclass }}" disabled></p>
+        {% endif %}
+      </div>
       <ul class="ui-swatches">
         {% for colour in item.scale %}
           <li class="">
             <span class="swatch" style="background-color:{{ colour }};"></span>
-            <!-- <span class="swatch-name">{{ item.name }}</span> -->
             <span class="swatch-color">{{ colour }}</span>
           </li>
         {% endfor %}

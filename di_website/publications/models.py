@@ -474,8 +474,11 @@ class PublicationForewordPage(HeroMixin, ReportChildMixin, FlexibleContentMixin,
     parent_page_types = ['PublicationPage']
     subpage_types = []
 
+    colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=RED)
+
     content_panels = Page.content_panels + [
         hero_panels(),
+        FieldPanel('colour'),
         ContentPanel(),
         InlinePanel('publication_datasets', label='Datasets'),
         DownloadsPanel(
@@ -492,19 +495,15 @@ class PublicationForewordPage(HeroMixin, ReportChildMixin, FlexibleContentMixin,
 
     @cached_property
     def label(self):
-        return 'The Foreword'
+        return 'the foreword'
 
     @cached_property
-    def is_foreword(self):
-        return True
-
-    @cached_property
-    def label_type(self):
+    def nav_label(self):
         return 'foreword'
 
     @cached_property
     def publication_downloads_title(self):
-        return 'Publication Downloads'
+        return 'Publication downloads'
 
     @cached_property
     def publication_downloads_list(self):
@@ -512,7 +511,7 @@ class PublicationForewordPage(HeroMixin, ReportChildMixin, FlexibleContentMixin,
 
     @cached_property
     def data_downloads_title(self):
-        return 'Data Downloads'
+        return 'Data downloads'
 
     @cached_property
     def data_downloads_list(self):
@@ -573,6 +572,10 @@ class PublicationSummaryPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
     @cached_property
     def label(self):
         return 'the executive summary'
+
+    @cached_property
+    def nav_label(self):
+        return 'executive summary'
 
     @cached_property
     def publication_downloads_title(self):
@@ -678,6 +681,10 @@ class PublicationChapterPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
     @cached_property
     def label_num(self):
         return 'chapter %s' % str(self.chapter_number).zfill(2)
+
+    @cached_property
+    def nav_label(self):
+        return 'chapter %s' % self.chapter_word
 
     @cached_property
     def sections(self):
@@ -793,6 +800,10 @@ class PublicationAppendixPage(HeroMixin, ReportChildMixin, FlexibleContentMixin,
     @cached_property
     def label_num(self):
         return 'appendix %s' % str(self.appendix_number).zfill(2)
+
+    @cached_property
+    def nav_label(self):
+        return 'appendix %s' % self.appendix_word
 
     @cached_property
     def publication_downloads_title(self):

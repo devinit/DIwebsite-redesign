@@ -34,6 +34,11 @@
             {% for item in charts.chart_publication %}
                 <h3 class="type-l type-l--trailer">Chart title</h3>
                 <div class="chart-container chart-container--full" id="visualisation">
+                    <div class="chart-loading">
+                        <div class="chart-loading__block">
+                            <div></div><div></div><div></div><div></div>
+                        </div>
+                    </div>
                     <select class="data-selector"></select>
                     <div
                         class="charts__chart"
@@ -42,6 +47,18 @@
                         data-interactive="{{ item.interactive }}"
                         data-combined="{{ item.combined }}">
                     </div>
+                </div>
+                <picture class="chart-fallback">
+                    <source media="(max-width: 400px)" srcset="{{ global.assets_root }}/img/fig-4-4-example-graph/fig-4-4-b-sb-500px-x1.png 400w, {{ global.assets_root }}/img/fig-4-4-example-graph/fig-4-4-b-sb-500px-x2.png 800w">
+                    <source media="(min-width: 401px)" srcset="{{ global.assets_root }}/img/fig-4-4-example-graph/fig-4-4-b-sb-x1.png 400w, {{ global.assets_root }}/img/fig-4-4-example-graph/fig-4-4-b-sb-x2.png 800w">
+                    <source media="(min-width: 601px)" sizes="1px" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7 1w">
+                    <img src="{{ global.assets_root }}/img/fig-4-4-example-graph/fig-4-4-b-sb-500px-x1.png" alt="This is an awesome image">
+                </picture>
+                <div class="chart-fallback__alert">
+                    <p>To view an interactive visualisation make sure JavaScript is available on your device.</p>
+                </div>
+                <div class="chart-fallback__alert chart-fallback__alert--ss">
+                    <p>To view an interactive visualisation use a device with a larger screen.</p>
                 </div>
                 {% include 'partials/accordion-chart.html' %}
 

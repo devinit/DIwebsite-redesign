@@ -7,6 +7,7 @@ export default function entry() {
 }
 
 const hovertemplate = "<b>%{fullData.meta.columnNames.y}</b><br>%{xaxis.title.text}: <b>%{x}</b><br>%{yaxis.title.text}: <b>%{y}</b><extra></extra>";
+const config = { responsive: true };
 
 const assignOption = (select, value) => {
     const currentOption = document.createElement('option');
@@ -28,6 +29,8 @@ const initChart = (el) => {
         const split_data_on = el.data('split-data-on');
         const combined = el.data('combined');
         const drilldown = el.data('drilldown');
+
+        data.layout.colorway = ["#c2135b", "#e84439", "#eb642b", "#f49b21", "#109e68", "#0089cc", "#893f90"];
 
         if (drilldown) {
             initDrillDownChart(el, data);
@@ -52,7 +55,7 @@ const initStaticChart = (el, data) => {
 
     data.data = traces;
 
-    Plotly.newPlot(el[0], data);
+    Plotly.newPlot(el[0], data.data, data.layout, config);
 }
 
 const initInteractiveChart = (el, data, combined = false, split_data_on) => {
@@ -109,7 +112,7 @@ const initInteractiveChart = (el, data, combined = false, split_data_on) => {
     }
 
     // initialise the chart
-    Plotly.newPlot(el[0], data);
+    Plotly.newPlot(el[0], data.data, data.layout, config);
 
 }
 
@@ -145,7 +148,7 @@ const initDrillDownChart = (el, data) => {
     }
 
     // initialise the chart
-    Plotly.newPlot(chart, data);
+    Plotly.newPlot(chart, data.data, data.layout, config);
 
     chart.on('plotly_click', function(data) {
         try {

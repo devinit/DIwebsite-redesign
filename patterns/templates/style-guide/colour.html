@@ -56,6 +56,9 @@
         {% if item.bodyclass != null %}
           <p>Body class used in publications: <input type="text" class="form-item" style="display: inline;width:auto;" value="{{ item.bodyclass }}" disabled></p>
         {% endif %}
+        {% if item.description != null %}
+          <p>{{ item.description }}</p>
+        {% endif %}
       </div>
       <ul class="ui-swatches">
         {% for colour in item.scale %}

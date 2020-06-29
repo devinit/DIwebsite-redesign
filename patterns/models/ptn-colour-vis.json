@@ -48,25 +48,22 @@
 
     },
     {
-        "name":"rainbowscale",
+        "name":"rainbowscale-6",
+        "description" : "Uses primary and secondary colours",
         "scale" : ["#e84439","#eb642b","#f49b21","#109e68","#0089cc","#893f90","#c2135b"],
         "bodyclass" : null
 
+    },
+    {
+        "name":"rainbowscale-12a",
+        "description" : "Uses primary + secondary colours with colour - 2 versions of secondary",
+        "scale" : ["#e84439","#eb642b","#f49b21","#109e68","#0089cc","#893f90","#c2135b","#f8c1b2","#fccc8e","#f6bb9d","#92cba9","#88bae5","#c189bb","#e4819b"],
+        "bodyclass" : null
+    },
+    {
+        "name":"rainbowscale-12b",
+        "description" : "Uses 3rd and 6th colours from the extended palette",
+        "scale" : ["#cd2b2a","#df8000","#cb5730","#00694a","#1060a3","#732c85","#9f1459","#f6b0a0","#fedcab","#facbad","#a2d1b0","#a3c7eb","#cb98c4","#f3a5b6"],
+        "bodyclass" : null
     }
 ]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -111,6 +111,7 @@ const initStaticChart = async (el, d) => {
     const { newPlot } = await loadPlotlyCode(data);
     const config = { responsive: true };
     updateDataHoverTemplate(data);
+    updateLayoutColorway(layout);
     newPlot(el, data, layout, config);
   } catch (error) {
     console.log(error);
@@ -130,6 +131,9 @@ const initSelectableChart = async (el, d, selectNode, aggregated = false) => {
 
     // update the hover template
     updateDataHoverTemplate(data);
+
+    // update the layout colorway
+    updateLayoutColorway(layout);
 
     // add an extra all data option at the top if aggregated
     if (aggregated) {
@@ -199,7 +203,7 @@ const assignOptions = (selectNode, options) => {
       assignOption(selectNode, el);
   });
   selectNode.classList.add('data-selector--active');
-}
+};
 
 // Assign the default hover template to each data node if there isn't one defined
 const updateDataHoverTemplate = data => {
@@ -208,4 +212,9 @@ const updateDataHoverTemplate = data => {
           el.hovertemplate = hovertemplate;
       }
   });
-}
+};
+
+// Assign a new colorway to the layout
+const updateLayoutColorway = layout => {
+  layout.colorway = ["#c2135b", "#e84439", "#eb642b", "#f49b21", "#109e68", "#0089cc", "#893f90"];
+};

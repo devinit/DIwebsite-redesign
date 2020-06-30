@@ -1,5 +1,25 @@
-<form method="get" action="{{self.pageurl}}" class="form">
-  <div class="form-field form-field--inline-four">
+<form method="get" action="{{self.pageurl}}" class="form resources-filters">
+  <div class="form-field form-field--inline-five">
+    <label for="types" class="form-label form-label--hidden">
+      All Types
+    </label>
+    <div class="form-field__select-dropdown">
+      <select name="types" id="types">
+        <option value="" id="filter-by-types">All types</option>
+        {% regroup resource_types by resource_category as resources_list %}
+        {% for category in resources_list %}
+          <optgroup label="{{ category.grouper }}">
+            {% for resource_type in category.list %}
+              <option value="{{resource_type.slug}}" id="{{resource_type.slug}}" {% if resource_type.slug == selected_type %}selected{% endif %}>
+                {{resource_type}}
+              </option>
+            {% endfor %}
+          </optgroup>
+        {% endfor %}
+      </select>
+    </div>
+  </div>
+  <div class="form-field form-field--inline-five">
     <label for="topic" class="form-label form-label--hidden">
       All topics
     </label>
@@ -14,7 +34,7 @@
       </select>
     </div>
   </div>
-  <div class="form-field form-field--inline-four">
+  <div class="form-field form-field--inline-five">
     <label for="country" class="form-label form-label--hidden">
       All countries
     </label>
@@ -34,11 +54,19 @@
       </select>
     </div>
   </div>
-  <div class="form-field form-field--inline-four">
+  <div class="form-field form-field--inline-five">
     <label for="q" class="form-label form-label--hidden">Search by keyword</label>
     <input class="form-item" type="text" name="q" placeholder="Search..." value="{{search_filter|default_if_none:''}}">
   </div>
-  <div class="form-field form-field--inline-four">
+  <div class="form-field form-field--inline-five resources-filter--button">
     <button type="submit" class="button">Filter</button>
+  </div>
+  <div class="form-field form-field--inline-full">
+    <div class="form-field__select-dropdown">
+    Order results by:
+    {% for sort_option_id, sort_option_name in sort_options %}
+      <a class="{% if sort_option_id == selected_sort %}sort--active{% endif %}" href="?sort={{ sort_option_id }}{% for key,value in request.GET.items %}{% if not key == 'sort' %}&amp;{{ key }}={{ value }}{% endif %}{% endfor %}">{{ sort_option_name }}</a>{% if not forloop.last %},{% endif %}
+    {% endfor %}
+  </div>
   </div>
 </form>

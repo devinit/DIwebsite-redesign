@@ -84,7 +84,7 @@ class OtherPageMixin(Orderable):
         verbose_name='Page',
         help_text='A page to link to in the "Other Pages or Related Links" section')
 
-    class Meta():
+    class Meta(Orderable.Meta):
         abstract = True
 
 

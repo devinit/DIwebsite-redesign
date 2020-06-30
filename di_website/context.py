@@ -77,7 +77,7 @@ def globals(request):
             'blog_classname': 'BlogArticlePage',
             'dataset_classname': 'DatasetPage',
             'figure_classname': 'FigurePage',
-            'publication_classnames': ['PublicationPage', 'ShortPublicationPage', 'LegacyPublicationPage'],
+            'publication_classnames': ['PublicationPage', 'ShortPublicationPage', 'LegacyPublicationPage', 'AudioVisualMedia'],
             'event_classname': 'EventPage',
             'news_classname': 'NewsStoryPage',
             'project_classname': 'ProjectPage'

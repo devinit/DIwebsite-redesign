@@ -1,0 +1,44 @@
+{% extends "layouts/default.html" %}
+
+{% load string_utils wagtailcore_tags responsive wagtailimages_tags %}
+
+{% block hero %}
+  {% include 'includes/heroes/hero-pubs-short.html' %}
+{% endblock hero %}
+
+{% block colour %}body--{{page.colour}}{% endblock %}
+
+{% block body %}
+
+  {% if page.appendix_number %}
+    {% include 'publications/chapter-nav/nav.html' with page=page.get_parent.specific menu_label='Contents' chapter_number=page.get_parent.specific.chapter_max|add:page.appendix_number %}
+  {% else %}
+    {% include 'publications/chapter-nav/nav.html' with page=page.get_parent.specific menu_label='Contents' chapter_number=0 %}
+  {% endif %}
+
+
+  {% for block in page.content %}
+
+    <section class="section {% if forloop.first %}section--post{% endif %}">
+      <div class="row row--narrow">
+        {% if block.block_type == 'rich_text' and forloop.first %}
+          {% include_block block with id=block.id|string_start classname='is-typeset--additionals' %}
+        {% else %}
+          {% include_block block with id=block.id|string_start %}
+        {% endif %}
+      </div>
+    </section>
+
+  {% endfor %}
+
+  {% include 'publications/partials/downloads.html' %}
+
+  {% include 'publications/footnotes.html' %}
+
+  {% if related_pages %}
+    {% with heading='Related content'  %}
+      {% include 'includes/partials/related_content.html' %}
+    {% endwith %}
+  {% endif %}
+
+{% endblock %}

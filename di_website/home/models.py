@@ -97,7 +97,7 @@ class FooterSection(Orderable, ClusterableModel):
     def __str__(self):
         return self.title
 
-    class Meta:
+    class Meta(Orderable.Meta):
         verbose_name = "Footer Section"
         verbose_name_plural = "Footer Sections"
 
@@ -109,7 +109,7 @@ class FooterLink(Orderable, AbstractLink):
     def __str__(self):
         return self.page.title if self.page else self.label
 
-    class Meta:
+    class Meta(Orderable.Meta):
         verbose_name = "Footer Link"
         verbose_name_plural = "Footer Links"
 
@@ -140,7 +140,7 @@ class SocialLink(Orderable, models.Model):
     def __str__(self):
         return self.social_platform
 
-    class Meta:
+    class Meta(Orderable.Meta):
         verbose_name = 'Social Link'
         verbose_name_plural = 'Social Links'
 

@@ -1,0 +1,47 @@
+{% extends "layouts/default.html" %}
+
+{% load string_utils wagtailcore_tags responsive wagtailimages_tags %}
+
+{% block hero %}
+{% include 'includes/heroes/hero-pubs-short.html' %}
+{% endblock hero %}
+
+{% block colour %}body--{{page.colour}}{% endblock %}
+
+{% block body %}
+
+  {% include 'publications/chapter-nav/nav.html' with page=page menu_label='Jump to section' chapter_number=page.chapter_number %}
+
+  {% for block in page.content %}
+
+    <section class="section {% if forloop.first %}section--post{% endif %}">
+      <div class="row row--narrow">
+        {% if forloop.first %}
+          {% if page.authors|length > 0 %}
+            <div class="max-meter max-meter--center">
+              {% include 'includes/partials/multi-authors.html' with authors=page.authors %}
+            </div>
+          {% endif %}
+        {% endif %}
+
+        {% if block.block_type == 'rich_text' and forloop.first %}
+          {% include_block block with id=block.id|string_start classname='is-typeset--additionals' %}
+        {% else %}
+          {% include_block block with id=block.id|string_start %}
+        {% endif %}
+      </div>
+    </section>
+
+  {% endfor %}
+
+  {% include 'publications/partials/downloads.html' %}
+
+  {% include 'publications/footnotes.html' %}
+
+  {% if related_pages %}
+    {% with heading='Related content'  %}
+      {% include 'includes/partials/related_content.html' %}
+    {% endwith %}
+  {% endif %}
+
+{% endblock %}

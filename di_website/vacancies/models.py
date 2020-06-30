@@ -113,17 +113,15 @@ class VacancyPage(TypesetBodyMixin, SectionBodyMixin, HeroMixin, Page):
         auto_now=False,
         auto_now_add=False
     )
-    first_interview = models.DateField(
+    first_interview = models.CharField(
         blank=True,
         null=True,
-        auto_now=False,
-        auto_now_add=False
+        max_length=255
     )
-    second_interview = models.DateField(
+    second_interview = models.CharField(
         blank=True,
         null=True,
-        auto_now=False,
-        auto_now_add=False
+        max_length=255
     )
     job_start = models.DateField(
         blank=True,
@@ -135,7 +133,7 @@ class VacancyPage(TypesetBodyMixin, SectionBodyMixin, HeroMixin, Page):
         blank=True,
         max_length=255,
         verbose_name='Heading',
-        default='Learn more about Developement Initiatives'
+        default='Learn more about Development Initiatives'
     )
     downloads_title = models.CharField(
         blank=True,

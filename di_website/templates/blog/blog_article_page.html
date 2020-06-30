@@ -18,7 +18,11 @@
           {% endif %}
             <div class="is-typeset is-typeset--additionals wysiwyg">
                 {% for block in page.body %}
-                    {% include_block block %}
+                    {% if block.block_type == 'infographic' %}
+                        {% include_block block with id=page.id %}
+                    {% else %}
+                        {% include_block block %}
+                    {% endif %}
                 {% endfor %}
             </div>
             {% include 'blog/footnotes.html' %}

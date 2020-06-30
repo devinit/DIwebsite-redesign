@@ -37,7 +37,6 @@ $min-chart-width: 700px;
 
 .chart-container {
     position: relative;
-    margin-bottom: -2em;
     .charts__chart {
         background-color: #fff;
         min-height: 450px;
@@ -99,6 +98,7 @@ $min-chart-width: 700px;
     a {
         .no-js & {
             display: block;
+            margin-top: 3em;
         }
         @include respond-to($min-chart-width) {
             .js & {
@@ -151,6 +151,7 @@ $min-chart-width: 700px;
 }
 
 .chart__accordion {
+    margin-top: -2em;
     .no-js & {
         display: none;
     }

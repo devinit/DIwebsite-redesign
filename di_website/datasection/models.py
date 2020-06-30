@@ -181,7 +181,7 @@ class DataSectionPage(SectionBodyMixin, TypesetBodyMixin, HeroMixin, Page):
     subpage_types = [
         'general.General',
         'datasection.DataSetListing',
-        'spotlight.CountrySpotlight',
+        'spotlight.SpotlightPage',
         'publications.ShortPublicationPage'
     ]
 

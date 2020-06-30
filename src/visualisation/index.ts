@@ -1,3 +1,75 @@
+// Default hover template
+const hovertemplate = '<b>%{fullData.meta.columnNames.y}</b><br>' +
+                       '%{xaxis.title.text}: <b>%{x}</b><br>' +
+                       '%{yaxis.title.text}: <b>%{y}</b><extra></extra>';
+
+// config object for new plots
+const config = {
+  displayModeBar: true,
+  responsive: true,
+  showLink: true,
+  plotlyServerURL: "https://chart-studio.plotly.com",
+  toImageButtonOptions: {
+    width: 1200,
+    height: 657,
+  },
+  modeBarButtonsToRemove: [
+    'pan2d',
+    'select2d',
+    'lasso2d',
+    'hoverClosestCartesian',
+    'hoverCompareCartesian',
+    'toggleSpikelines',
+  ],
+};
+
+// min width at which interactive chart should be displayed at
+const minWidth = 700;
+
+// Assign an option to a select node
+const assignOption = (selectNode, value) => {
+    const currentOption = document.createElement('option');
+    currentOption.text = value;
+    selectNode.appendChild(currentOption);
+};
+
+// Take an array of strings and assign as options to a select node
+const assignOptions = (selectNode, options) => {
+  options.forEach(el => {
+      assignOption(selectNode, el);
+  });
+  selectNode.classList.add('data-selector--active');
+};
+
+// Assign the default hover template to each data node if there isn't one defined
+const updateDataHoverTemplate = data => {
+  data.forEach(el => {
+      if (!el.hovertemplate) {
+          el.hovertemplate = hovertemplate;
+      }
+  });
+};
+
+// Assign a new colorway to the layout
+const updateLayoutColorway = layout => {
+  layout.colorway = ["#c2135b", "#e84439", "#eb642b", "#f49b21", "#109e68", "#0089cc", "#893f90"];
+};
+
+// add loading on chart init
+const addLoading = el => {
+  const loading = document.createElement('div');
+  loading.innerHTML = '<div class="chart-loading__block">' +
+                      '<div></div><div></div><div></div><div></div></div>';
+  loading.classList.add('chart-loading');
+  el.classList.add('chart-container--loading');
+  el.prepend(loading);
+};
+
+// remove loading from inited chart
+const removeLoading = el => {
+    el.classList.remove('chart-container--loading');
+    el.querySelector('.chart-loading').remove();
+};
 
 // Get and return the correct plotly module based on chart type
 const loadPlotlyCode = async (data: Plotly.Data[]): Promise<typeof Plotly> => {
@@ -74,30 +146,52 @@ const initPlotlyCharts = () => {
           const url = chartNode.dataset.url;
           const aggregated = chartNode.dataset.aggregated;
 
-          // async data is used for live/page embedded chart requests
-          if (url) {
-            fetch(url).then(response => {
-              response.json().then(d => {
+          const init = () => {
+            // if window greater than min and chart not inited, init chart and set flag
+            if (window.matchMedia(`(min-width: ${minWidth}px)`).matches) {
+
+              // add loading on chart init
+              addLoading(chartNode);
+
+              // async data is used for live/page embedded chart requests
+              if (url) {
+                fetch(url).then(response => {
+                  response.json().then(d => {
+                    if (selectNode) {
+                      initSelectableChart(chartNode, d, selectNode, aggregated);
+                    }
+                    else {
+                      initStaticChart(chartNode, d);
+                    }
+                  });
+                });
+              }
+
+              // raw data in the page is used for previewing and drafts
+              else {
                 if (selectNode) {
-                  initSelectableChart(chartNode, d, selectNode, aggregated);
+                  initSelectableChart(chartNode, data, selectNode, aggregated);
                 }
                 else {
-                  initStaticChart(chartNode, d);
+                  initStaticChart(chartNode, data);
                 }
-              });
-            });
-          }
+              }
 
-          // raw data in the page is used for previewing and drafts
-          else {
-            if (selectNode) {
-              initSelectableChart(chartNode, data, selectNode, aggregated);
-            }
-            else {
-              initStaticChart(chartNode, data);
+              // remove listener if chart inited
+              removelistener();
             }
           }
 
+          // add the window resize listener
+          window.addEventListener('resize', init);
+
+          // remove the window resize listener
+          const removelistener = () => {
+            window.removeEventListener('resize', init);
+          }
+
+          // call the init function
+          init();
         }
       }
     }
@@ -110,6 +204,7 @@ const initStaticChart = async (el, d) => {
     const { data, layout } = d;
     const { newPlot } = await loadPlotlyCode(data);
     const config = { responsive: true };
+    removeLoading(el);
     updateDataHoverTemplate(data);
     updateLayoutColorway(layout);
     newPlot(el, data, layout, config);
@@ -128,6 +223,9 @@ const initSelectableChart = async (el, d, selectNode, aggregated = false) => {
     const traces = data.slice();
     const options = [];
     const isTreemap = data[0].type == 'treemap';
+
+    // remove loading from inited chart
+    removeLoading(el);
 
     // update the hover template
     updateDataHoverTemplate(data);
@@ -184,37 +282,3 @@ const initSelectableChart = async (el, d, selectNode, aggregated = false) => {
 
 // Begin initialisation
 initPlotlyCharts();
-
-// Default hover template
-const hovertemplate = '<b>%{fullData.meta.columnNames.y}</b><br>' +
-                       '%{xaxis.title.text}: <b>%{x}</b><br>' +
-                       '%{yaxis.title.text}: <b>%{y}</b><extra></extra>';
-
-// Assign an option to a select node
-const assignOption = (selectNode, value) => {
-    const currentOption = document.createElement('option');
-    currentOption.text = value;
-    selectNode.appendChild(currentOption);
-};
-
-// Take an array of strings and assign as options to a select node
-const assignOptions = (selectNode, options) => {
-  options.forEach(el => {
-      assignOption(selectNode, el);
-  });
-  selectNode.classList.add('data-selector--active');
-};
-
-// Assign the default hover template to each data node if there isn't one defined
-const updateDataHoverTemplate = data => {
-  data.forEach(el => {
-      if (!el.hovertemplate) {
-          el.hovertemplate = hovertemplate;
-      }
-  });
-};
-
-// Assign a new colorway to the layout
-const updateLayoutColorway = layout => {
-  layout.colorway = ["#c2135b", "#e84439", "#eb642b", "#f49b21", "#109e68", "#0089cc", "#893f90"];
-};

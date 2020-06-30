@@ -892,7 +892,7 @@
             "meta": {
                 "columnNames": {
                     "x": "Year",
-                    "y": "China (People&#39;s Republic of)"
+                    "y": "China (People&amp;#39;s Republic of)"
                 }
             },
             "name": "%{meta.columnNames.y}",
@@ -1114,7 +1114,7 @@
             "meta": {
                 "columnNames": {
                     "x": "Year",
-                    "y": "CÃ´te d&#39;Ivoire"
+                    "y": "CÃ´te d&amp;#39;Ivoire"
                 }
             },
             "name": "%{meta.columnNames.y}",
@@ -1188,7 +1188,7 @@
             "meta": {
                 "columnNames": {
                     "x": "Year",
-                    "y": "Democratic People&#39;s Republic of Korea"
+                    "y": "Democratic People&amp;#39;s Republic of Korea"
                 }
             },
             "name": "%{meta.columnNames.y}",
@@ -2520,7 +2520,7 @@
             "meta": {
                 "columnNames": {
                     "x": "Year",
-                    "y": "Lao People&#39;s Democratic Republic"
+                    "y": "Lao People&amp;#39;s Democratic Republic"
                 }
             },
             "name": "%{meta.columnNames.y}",
@@ -5739,7 +5739,7 @@
             "meta": {
                 "columnNames": {
                     "x": "Year",
-                    "y": "South &amp; Central Asia, regional"
+                    "y": "South &amp;amp; Central Asia, regional"
                 }
             },
             "name": "%{meta.columnNames.y}",
@@ -5849,7 +5849,7 @@
     ],
     "layout": {
         "title": {
-            "text": "Total official HA as % of ODA by recipient country, 2009-2018"
+            "text": ""
         },
         "xaxis": {
             "type": "linear",

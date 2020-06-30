@@ -106,7 +106,6 @@ function backup_database {
     cd $APP_DIR
 
     log "Starting backup from remote docker machine $(docker-compose ps -q db)"
-   # PROJECTNAME=$(docker ps --format "table {{.ID}}  {{.Names}}  {{.CreatedAt}}" | grep db | tail -n 1 | awk -F  "  " '{print $2}' | cut -d"_" -f1)
     docker-compose exec -T db pg_dump -U di_website -d di_website >  $file_name
 
     log "Database backup completed..."
@@ -139,13 +138,13 @@ function perform_git_operations {
 
         {
             # Move back to root director
-            log  "Cloning new content from active branch "$ACTIVE_BRANCH
+            echo "Cloning new content from active branch "$ACTIVE_BRANCH
             git fetch
             git stash
             git checkout $ACTIVE_BRANCH
             git reset --hard origin/$ACTIVE_BRANCH
             } || {
-            log "Failed to update from git repository"
+            echo "Failed to update from git repository"
             exit 20;
         }
     else
@@ -153,7 +152,7 @@ function perform_git_operations {
             git clone -b $ACTIVE_BRANCH $REPOSITORY
 
             } || {
-            log "Failed to perform git clone on $REPOSITORY with branch $ACTIVE_BRANCH "
+            echo "Failed to perform git clone on $REPOSITORY with branch $ACTIVE_BRANCH "
             exit 20;
         }
     fi

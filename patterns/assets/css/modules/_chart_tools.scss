@@ -1,3 +1,5 @@
+$min-chart-width: 700px;
+
 
 // Plotly
 // https://chart-studio.plot.ly/create/?fid=urlsangel:1&fid=urlsangel:0
@@ -38,8 +40,8 @@
     margin-bottom: -2em;
     .charts__chart {
         background-color: #fff;
-        min-height: 350px;
-        @include respond-to-max(600px) {
+        min-height: 450px;
+        @include respond-to-max($min-chart-width) {
             display: none;
         }
     }
@@ -74,7 +76,7 @@
         }
         &--active {
             display: block;
-            @include respond-to-max(600px) {
+            @include respond-to-max($min-chart-width) {
                 display: none;
             }
         }
@@ -86,7 +88,7 @@
     }
     &--ms {
         .charts__chart, .data-selector {
-            @include respond-to-max(600px) {
+            @include respond-to-max($min-chart-width) {
                 display: none;
             }
         }
@@ -94,14 +96,30 @@
 }
 
 .chart-fallback {
+    a {
+        .no-js & {
+            display: block;
+        }
+        @include respond-to($min-chart-width) {
+            .js & {
+                display: none;
+            }
+        }
+    }
     img {
         @extend %max-width;
     }
-    @include respond-to(601px) {
-        display: none;
+    @include respond-to($min-chart-width) {
+        .js & {
+            display: none;
+        }
     }
-    html.no-js & {
+    &__no-js-small-screen-image {
         display: block;
+        height: 0;
+        padding-top: 63.3%;
+        background-size: contain;
+        background-repeat: no-repeat;
     }
 }
 
@@ -110,7 +128,7 @@
     @extend .alert--notice;
     padding-left: 15px;
     display: none;
-    @include respond-to(601px) {
+    @include respond-to($min-chart-width) {
         display: none;
     }
     html.no-js & {
@@ -118,12 +136,18 @@
     }
     &--ss {
         display: block;
-        @include respond-to(601px) {
+        @include respond-to($min-chart-width) {
             display: none;
             html.no-js & {
                 display: none;
             }
         }
+    }
+}
+
+.chart__accordion {
+    .no-js & {
+        display: none;
     }
 }
 

@@ -49,13 +49,15 @@
                     </div>
                 </div>
                 <div class="chart-fallback">
-                    <a href="{{ global.assets_root }}/img/fig-4-4-example-graph/fig-4-4-b-sb-500px-x1.png" target="_blank" title="Click to open image in a new window">
-                    <picture>
-                            <source media="(max-width: 400px)" srcset="{{ global.assets_root }}/img/fig-4-4-example-graph/fig-4-4-b-sb-500px-x1.png 400w, {{ global.assets_root }}/img/fig-4-4-example-graph/fig-4-4-b-sb-500px-x2.png 800w">
-                            <source media="(min-width: 401px)" srcset="{{ global.assets_root }}/img/fig-4-4-example-graph/fig-4-4-b-sb-x1.png 400w, {{ global.assets_root }}/img/fig-4-4-example-graph/fig-4-4-b-sb-x2.png 800w">
-                            <source media="(min-width: 601px)" sizes="1px" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7 1w">
-                            <img src="{{ global.assets_root }}/img/fig-4-4-example-graph/fig-4-4-b-sb-500px-x1.png" alt="This is an awesome image">
-                    </picture>
+                    <a href="{{ global.assets_root }}/img/charts/ha-oda-recipient-bar-x2.png"
+                        target="_blank"
+                        title="Click to open image in a new window"
+                    >
+                        <span class="chart-fallback__no-js-small-screen-image" style="background-image: url('{{ global.assets_root }}/img/charts/ha-oda-recipient-bar-x2.png')"></span>
+                        <picture>
+                            <source media="(max-width: 700px)" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-srcset="{{ global.assets_root }}/img/charts/ha-oda-recipient-bar-x1.png 400w, {{ global.assets_root }}/img/charts/ha-oda-recipient-bar-x2.png 800w">
+                            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="{{ global.assets_root }}/img/charts/ha-oda-recipient-bar-x2.png" alt="Chart title">
+                        </picture>
                     </a>
                 </div>
                 <div class="chart-fallback__alert">

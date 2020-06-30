@@ -2,7 +2,52 @@ import $ from 'jquery';
 
 export default function entry() {
     $('.charts__chart').each((i, el) => {
-        initChart($(el));
+        let chartInited = false;
+        let fallbackInited = false
+        console.log(chartInited);
+
+        const initOrFallback = () => {
+            console.log(1);
+            // remove listener if chart and fallback inited
+            if (chartInited && fallbackInited) {
+                console.log(2);
+                removelistener();
+            }
+
+            // if window greater than min and chart not inited, init chart and set flag
+            if (window.matchMedia('(min-width: 700px)')) {
+                console.log(3);
+                if (chartInited) {
+                    console.log(4);
+                    return;
+                }
+                initChart($(el));
+                chartInited = true;
+            }
+
+            // if window greater less min and fallback not inited, init fallback and set flag
+            else {
+                    console.log(5);
+                if (fallbackInited) {
+                    console.log(6);
+                    return;
+                }
+                enableFallback($(el));
+                fallbackInited = true;
+            }
+        }
+
+        // add the window resize listener
+        window.addEventListener('resize', initOrFallback);
+
+        // remove the window resize listener
+        const removelistener = () => {
+            element.removeEventListener('resize', initOrFallback);
+        }
+
+        // call the init function
+        initOrFallback();
+
     });
 }
 
@@ -25,6 +70,7 @@ const config = {
         'toggleSpikelines',
     ],
 };
+const minWidth = 700;
 
 const assignOption = (select, value) => {
     const currentOption = document.createElement('option');
@@ -37,9 +83,37 @@ const assignOptions = (select, options) => {
         assignOption(select, options[i]);
     }
     $(select).addClass('data-selector--active');
-}
+};
+
+const addLoading = el => {
+    el.addClass('chart-container--loading');
+    el.prepend('<div class="chart-loading"><div class="chart-loading__block">' +
+               '<div></div><div></div><div></div><div></div></div></div>');
+};
+
+const removeLoading = el => {
+    el.removeClass('chart-container--loading');
+    el.find('.chart-loading').remove();
+};
+
+const removeTitle = data => {
+    data.layout.title.text = '';
+};
+
+const enableFallback = el => {
+    el.children().each((i, elem) => {
+        const node = $(elem);
+        if (node.data('srcset')) {
+            node.attr('srcset', node.data('srcset'));
+        }
+        if (node.data('src')) {
+            node.attr('src', node.data('src'));
+        }
+    });
+};
 
 const initChart = (el) => {
+    addLoading(el);
     Plotly.d3.json(el.first().data('url'), d => {
         const data = d;
         const interactive = el.data('interactive');
@@ -48,6 +122,8 @@ const initChart = (el) => {
         const drilldown = el.data('drilldown');
 
         data.layout.colorway = ["#c2135b", "#e84439", "#eb642b", "#f49b21", "#109e68", "#0089cc", "#893f90"];
+        removeLoading(el);
+        removeTitle(data);
 
         if (drilldown) {
             initDrillDownChart(el, data);

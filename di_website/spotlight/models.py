@@ -1,4 +1,5 @@
 from django.db import models
+from django.shortcuts import redirect
 
 from wagtail.search import index
 from wagtail.core.models import Page
@@ -183,3 +184,7 @@ class CountrySpotlight(TypesetBodyMixin, HeroMixin, Page):
 
     class Meta():
         verbose_name = 'Country Spotlight'
+
+
+    def serve(self, request, *args, **kwargs):
+        return redirect(self.get_parent().url)

@@ -11,32 +11,10 @@ services:
     volumes:
       - diwebsite_db:/var/lib/postgresql/data
 
-  elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:6.2.4
-    environment:
-      - discovery.type=single-node
-      - "ES_JAVA_OPTS=-Xms512m -Xmx1g"
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    ports:
-      - "8900:9200"
-      - "9700:9300"
-    restart: always
-    volumes:
-      - index_db:/usr/share/elasticsearch/data
-    logging:
-        driver: "json-file"
-        options:
-            max-size: "1m"
-            max-file: "10"
-
   web:
     depends_on:
       - db
       - rabbitmq
-      - elasticsearch
     expose:
       - "8090"
     env_file: .env

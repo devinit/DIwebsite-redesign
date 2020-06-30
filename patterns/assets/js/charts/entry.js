@@ -1,56 +1,5 @@
 import $ from 'jquery';
 
-export default function entry() {
-    $('.charts__chart').each((i, el) => {
-        let chartInited = false;
-        let fallbackInited = false
-        console.log(chartInited);
-
-        const initOrFallback = () => {
-            console.log(1);
-            // remove listener if chart and fallback inited
-            if (chartInited && fallbackInited) {
-                console.log(2);
-                removelistener();
-            }
-
-            // if window greater than min and chart not inited, init chart and set flag
-            if (window.matchMedia('(min-width: 700px)')) {
-                console.log(3);
-                if (chartInited) {
-                    console.log(4);
-                    return;
-                }
-                initChart($(el));
-                chartInited = true;
-            }
-
-            // if window greater less min and fallback not inited, init fallback and set flag
-            else {
-                    console.log(5);
-                if (fallbackInited) {
-                    console.log(6);
-                    return;
-                }
-                enableFallback($(el));
-                fallbackInited = true;
-            }
-        }
-
-        // add the window resize listener
-        window.addEventListener('resize', initOrFallback);
-
-        // remove the window resize listener
-        const removelistener = () => {
-            element.removeEventListener('resize', initOrFallback);
-        }
-
-        // call the init function
-        initOrFallback();
-
-    });
-}
-
 const hovertemplate = "<b>%{fullData.meta.columnNames.y}</b><br>%{xaxis.title.text}: <b>%{x}</b><br>%{yaxis.title.text}: <b>%{y}</b><extra></extra>";
 const config = {
     displayModeBar: true,
@@ -71,6 +20,33 @@ const config = {
     ],
 };
 const minWidth = 700;
+
+export default function entry() {
+    $('.charts__chart').each((i, el) => {
+
+        const init = () => {
+            // if window greater than min and chart not inited, init chart and set flag
+            if (window.matchMedia(`(min-width: ${minWidth}px)`).matches) {
+                initChart($(el));
+
+                // remove listener if chart inited
+                removelistener();
+            }
+        }
+
+        // add the window resize listener
+        window.addEventListener('resize', init);
+
+        // remove the window resize listener
+        const removelistener = () => {
+            window.removeEventListener('resize', init);
+        }
+
+        // call the init function
+        init();
+
+    });
+}
 
 const assignOption = (select, value) => {
     const currentOption = document.createElement('option');
@@ -98,18 +74,6 @@ const removeLoading = el => {
 
 const removeTitle = data => {
     data.layout.title.text = '';
-};
-
-const enableFallback = el => {
-    el.children().each((i, elem) => {
-        const node = $(elem);
-        if (node.data('srcset')) {
-            node.attr('srcset', node.data('srcset'));
-        }
-        if (node.data('src')) {
-            node.attr('src', node.data('src'));
-        }
-    });
 };
 
 const initChart = (el) => {

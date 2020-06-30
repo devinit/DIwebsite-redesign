@@ -115,11 +115,16 @@ $min-chart-width: 700px;
         }
     }
     &__no-js-small-screen-image {
-        display: block;
         height: 0;
-        padding-top: 63.3%;
+        padding-top: 57%;
         background-size: contain;
         background-repeat: no-repeat;
+        @include respond-to-max($min-chart-width) {
+            display: block;
+        }
+        .no-js & {
+            display: block;
+        }
     }
 }
 
@@ -131,22 +136,25 @@ $min-chart-width: 700px;
     @include respond-to($min-chart-width) {
         display: none;
     }
-    html.no-js & {
+    .no-js & {
         display: block;
     }
     &--ss {
         display: block;
         @include respond-to($min-chart-width) {
             display: none;
-            html.no-js & {
-                display: none;
-            }
+        }
+        .no-js & {
+            display: none;
         }
     }
 }
 
 .chart__accordion {
     .no-js & {
+        display: none;
+    }
+    @include respond-to-max($min-chart-width) {
         display: none;
     }
 }

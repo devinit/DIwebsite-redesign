@@ -97,6 +97,13 @@
             "data_url": "../assets/data/iha-donors-public-area.json"
         },
         {
+            "title": "6a - Total IHA from public donors by donor, 2000-2019 - Simple bar chart, long format data",
+            "description": "Shows IHA from a country / institution, with dropdown to change the country viewed.",
+            "id": "iha-donors-public-bar-long",
+            "data_url": "../assets/data/iha-donors-public-bar-long.json",
+            "interactive": true
+        },
+        {
             "title": "6 - Total IHA from public donors by donor, 2000-2019 - Simple bar chart",
             "description": "Shows IHA from a country / institution, with dropdown to change the country viewed.",
             "id": "iha-donors-public-bar",

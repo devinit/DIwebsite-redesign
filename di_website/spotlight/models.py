@@ -1,5 +1,6 @@
 from django.db import models
 from django.shortcuts import redirect
+from django.http import Http404
 
 from wagtail.search import index
 from wagtail.core.models import Page
@@ -51,6 +52,10 @@ class SpotlightPage(HeroMixin, Page):
     ]
 
 
+    def serve(self, request, *args, **kwargs):
+        return redirect(self.url)
+
+
 class SpotlightLocationComparisonPage(Page):
     default_locations = StreamField([
         ('locations', StructBlock([
@@ -66,6 +71,10 @@ class SpotlightLocationComparisonPage(Page):
 
     class Meta():
         verbose_name = 'Spotlight Location Comparison Page'
+
+
+    def serve(self, request, *args, **kwargs):
+        return redirect(self.url)
 
 
 class SpotlightTheme(Page):
@@ -101,6 +110,13 @@ class SpotlightTheme(Page):
             return '[' + self.section + '] - ' + self.draft_title.upper() if self.section else self.draft_title.upper()
         else:
             return self.title
+
+
+    def serve(self, request, *args, **kwargs):
+        raise Http404()
+
+    def serve_preview(self, request, mode_name):
+        return self.get_parent().serve(request)
 
 
 class SpotlightIndicator(Page):
@@ -164,6 +180,13 @@ class SpotlightIndicator(Page):
     search_fields = Page.search_fields + [
         index.SearchField('ddw_id')
     ]
+
+
+    def serve(self, request, *args, **kwargs):
+        raise Http404()
+
+    def serve_preview(self, request, mode_name):
+        return self.get_parent().serve(request)
 
 
 class CountrySpotlight(TypesetBodyMixin, HeroMixin, Page):

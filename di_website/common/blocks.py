@@ -186,6 +186,7 @@ class BannerBlock(StructBlock):
     class Meta():
         icon = 'fa-flag'
         template = 'blocks/banner/banner_block.html'
+        label = 'Banner Block'
 
 
 class SectionParagraphBlock(StructBlock):

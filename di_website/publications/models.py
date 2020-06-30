@@ -959,7 +959,7 @@ class ShortPublicationPage(HeroMixin, PublishedDateMixin, FlexibleContentMixin, 
     class Meta:
         verbose_name = 'Short Publication'
 
-    parent_page_types = ['PublicationIndexPage']
+    parent_page_types = ['PublicationIndexPage', 'datasection.DataSectionPage']
     subpage_types = []
 
     colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=RED)

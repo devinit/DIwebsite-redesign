@@ -54,19 +54,24 @@ server {
 
     rewrite ^(/publications)(.*)$ /resources$2 permanent;
 
-    location /data/spotlights-on-kenya-and-uganda/spotlight-uganda {
+    rewrite ^/data/spotlights-on-kenya-and-uganda/spotlight-uganda /data/spotlight-uganda permanent;
+    rewrite ^/data/spotlights-on-kenya-and-uganda/spotlight-uganda/compare /data/spotlight-uganda/compare permanent;
+    rewrite ^/data/spotlights-on-kenya-and-uganda/spotlight-kenya /data/spotlight-kenya permanent;
+    rewrite ^/data/spotlights-on-kenya-and-uganda/spotlight-kenya/compare /data/spotlight-kenya/compare permanent;
+
+    location /data/spotlight-uganda {
         proxy_pass http://spotlights/spotlight/spotlight-uganda;
     }
 
-    location /data/spotlights-on-kenya-and-uganda/spotlight-uganda/compare {
+    location /data/spotlight-uganda/compare {
         proxy_pass http://spotlights/spotlight/spotlight-uganda/compare;
     }
 
-    location /data/spotlights-on-kenya-and-uganda/spotlight-kenya {
+    location /data/spotlight-kenya {
         proxy_pass http://spotlights/spotlight/spotlight-kenya;
     }
 
-    location /data/spotlights-on-kenya-and-uganda/spotlight-kenya/compare {
+    location /data/spotlight-kenya/compare {
         proxy_pass http://spotlights/spotlight/spotlight-kenya/compare;
     }
 

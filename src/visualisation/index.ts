@@ -1,14 +1,18 @@
+import Plotly from 'plotly.js';
+import { PlotlyConfig } from './types';
+
 // Default hover template
-const hovertemplate = '<b>%{fullData.meta.columnNames.y}</b><br>' +
-                       '%{xaxis.title.text}: <b>%{x}</b><br>' +
-                       '%{yaxis.title.text}: <b>%{y}</b><extra></extra>';
+const hovertemplate =
+  '<b>%{fullData.meta.columnNames.y}</b><br>' +
+  '%{xaxis.title.text}: <b>%{x}</b><br>' +
+  '%{yaxis.title.text}: <b>%{y}</b><extra></extra>';
 
 // config object for new plots
 const config = {
   displayModeBar: true,
   responsive: true,
   showLink: true,
-  plotlyServerURL: "https://chart-studio.plotly.com",
+  plotlyServerURL: 'https://chart-studio.plotly.com',
   toImageButtonOptions: {
     width: 1200,
     height: 657,
@@ -27,53 +31,55 @@ const config = {
 const minWidth = 700;
 
 // Assign an option to a select node
-const assignOption = (selectNode, value) => {
-    const currentOption = document.createElement('option');
-    currentOption.text = value;
-    selectNode.appendChild(currentOption);
+const assignOption = (selectNode: HTMLSelectElement, value: string) => {
+  const currentOption = document.createElement('option');
+  currentOption.text = value;
+  selectNode.appendChild(currentOption);
 };
 
 // Take an array of strings and assign as options to a select node
-const assignOptions = (selectNode, options) => {
-  options.forEach(el => {
-      assignOption(selectNode, el);
+const assignOptions = (selectNode: HTMLSelectElement, options: string[]) => {
+  options.forEach((option) => {
+    assignOption(selectNode, option);
   });
   selectNode.classList.add('data-selector--active');
 };
 
 // Assign the default hover template to each data node if there isn't one defined
-const updateDataHoverTemplate = data => {
-  data.forEach(el => {
-      if (!el.hovertemplate) {
-          el.hovertemplate = hovertemplate;
-      }
+const updateDataHoverTemplate = (data: Plotly.Data[]) => {
+  data.forEach((item) => {
+    if (!item.hovertemplate) {
+      item.hovertemplate = hovertemplate;
+    }
   });
 };
 
 // Assign a new colorway to the layout
-const updateLayoutColorway = layout => {
-  layout.colorway = ["#c2135b", "#e84439", "#eb642b", "#f49b21", "#109e68", "#0089cc", "#893f90"];
+const updateLayoutColorway = (layout: Plotly.Layout) => {
+  layout.colorway = ['#c2135b', '#e84439', '#eb642b', '#f49b21', '#109e68', '#0089cc', '#893f90'];
 };
 
 // add loading on chart init
-const addLoading = el => {
+const addLoading = (el: HTMLElement) => {
   const loading = document.createElement('div');
-  loading.innerHTML = '<div class="chart-loading__block">' +
-                      '<div></div><div></div><div></div><div></div></div>';
+  loading.innerHTML = '<div class="chart-loading__block">' + '<div></div><div></div><div></div><div></div></div>';
   loading.classList.add('chart-loading');
   el.classList.add('chart-container--loading');
   el.prepend(loading);
 };
 
 // remove loading from inited chart
-const removeLoading = el => {
-    el.classList.remove('chart-container--loading');
-    el.querySelector('.chart-loading').remove();
+const removeLoading = (element: HTMLElement) => {
+  element.classList.remove('chart-container--loading');
+  const loadingIndicator = element.querySelector('.chart-loading');
+  if (loadingIndicator) {
+    loadingIndicator.remove();
+  }
 };
 
 // Get and return the correct plotly module based on chart type
 const loadPlotlyCode = async (data: Plotly.Data[]): Promise<typeof Plotly> => {
-  const chartTypes = {
+  const chartBundles = {
     basicCharts: {
       types: ['bar', 'scatter', 'pie'],
       dist: () => import('plotly.js-basic-dist'),
@@ -114,53 +120,56 @@ const loadPlotlyCode = async (data: Plotly.Data[]): Promise<typeof Plotly> => {
     },
   };
 
-  const isChartType = chartTypes => {
+  const isChartType = (chartTypes: string[]) => {
     return chartTypes.filter((chart) => data.find((_data) => _data.type === chart)).length;
-  }
+  };
 
-  for (const el of Object.values(chartTypes)) {
-    if (isChartType(el.types)) {
-      return await el.dist();
+  for (const bundle of Object.values(chartBundles)) {
+    if (isChartType(bundle.types)) {
+      return await bundle.dist();
     }
   }
 
   return await import('plotly.js');
 };
 
+type Aggregated = 'True' | 'False' | undefined;
+
 // Find and initiliase all charts
 const initPlotlyCharts = () => {
   const wrappers = document.getElementsByClassName('js-plotly-chart-wrapper');
 
   if (wrappers.length) {
-
     for (let index = 0; index < wrappers.length; index++) {
       const element = wrappers.item(index) as HTMLElement;
 
       if (element) {
         const chartNode = element.getElementsByClassName('js-plotly-chart')[0] as HTMLDivElement | undefined;
-        const selectNode = element.getElementsByClassName('js-plotly-chart-data-selector')[0] as HTMLSelectElement | undefined;
-        const scriptNode = element.getElementsByClassName('js-plotly-chart-raw-data')[0] as HTMLScriptElement | undefined;
+        const selectNode = element.getElementsByClassName('js-plotly-chart-data-selector')[0] as
+          | HTMLSelectElement
+          | undefined;
+        const scriptNode = element.getElementsByClassName('js-plotly-chart-raw-data')[0] as
+          | HTMLScriptElement
+          | undefined;
 
         if (chartNode) {
-          const data = scriptNode ? JSON.parse(scriptNode.innerHTML) : null;
+          const data = scriptNode ? JSON.parse(scriptNode.innerHTML) : null; // TODO: surround in try/catch
           const url = chartNode.dataset.url;
-          const aggregated = chartNode.dataset.aggregated;
+          const aggregated = chartNode.dataset.aggregated as Aggregated;
 
           const init = () => {
             // if window greater than min and chart not inited, init chart and set flag
             if (window.matchMedia(`(min-width: ${minWidth}px)`).matches) {
-
               // add loading on chart init
               addLoading(chartNode);
 
               // async data is used for live/page embedded chart requests
               if (url) {
-                fetch(url).then(response => {
-                  response.json().then(d => {
+                fetch(url).then((response) => {
+                  response.json().then((d) => {
                     if (selectNode) {
-                      initSelectableChart(chartNode, d, selectNode, aggregated);
-                    }
-                    else {
+                      initSelectableChart(chartNode, d, selectNode, aggregated === 'True');
+                    } else {
                       initStaticChart(chartNode, d);
                     }
                   });
@@ -170,9 +179,8 @@ const initPlotlyCharts = () => {
               // raw data in the page is used for previewing and drafts
               else {
                 if (selectNode) {
-                  initSelectableChart(chartNode, data, selectNode, aggregated);
-                }
-                else {
+                  initSelectableChart(chartNode, data, selectNode, aggregated === 'True');
+                } else {
                   initStaticChart(chartNode, data);
                 }
               }
@@ -180,7 +188,7 @@ const initPlotlyCharts = () => {
               // remove listener if chart inited
               removelistener();
             }
-          }
+          };
 
           // add the window resize listener
           window.addEventListener('resize', init);
@@ -188,7 +196,7 @@ const initPlotlyCharts = () => {
           // remove the window resize listener
           const removelistener = () => {
             window.removeEventListener('resize', init);
-          }
+          };
 
           // call the init function
           init();
@@ -199,33 +207,39 @@ const initPlotlyCharts = () => {
 };
 
 // Initiliase a static chart
-const initStaticChart = async (el, d) => {
+const initStaticChart = async (element: HTMLElement, chartConfig: PlotlyConfig) => {
   try {
-    const { data, layout } = d;
+    const { data, layout } = chartConfig;
     const { newPlot } = await loadPlotlyCode(data);
     const config = { responsive: true };
-    removeLoading(el);
+    removeLoading(element);
     updateDataHoverTemplate(data);
     updateLayoutColorway(layout);
-    newPlot(el, data, layout, config);
+    newPlot(element, data, layout, config);
   } catch (error) {
     console.log(error);
   }
-}
+};
 
 // Initiliase an selectable chart
-const initSelectableChart = async (el, d, selectNode, aggregated = false) => {
+const initSelectableChart = async (
+  chartNode: HTMLElement,
+  chartConfig: PlotlyConfig,
+  selectNode: HTMLSelectElement,
+  aggregated = false,
+) => {
   try {
-    let { data, layout } = d;
-    const { newPlot, react } = await loadPlotlyCode(data);
+    const { data: _data, layout } = chartConfig;
+    const { newPlot, react } = await loadPlotlyCode(_data);
     const config = { responsive: true };
     const all = 'All data';
+    let data = _data.slice();
     const traces = data.slice();
-    const options = [];
-    const isTreemap = data[0].type == 'treemap';
+    const options: string[] = [];
+    const isTreemap = data[0].type === 'treemap';
 
     // remove loading from inited chart
-    removeLoading(el);
+    removeLoading(chartNode);
 
     // update the hover template
     updateDataHoverTemplate(data);
@@ -235,17 +249,18 @@ const initSelectableChart = async (el, d, selectNode, aggregated = false) => {
 
     // add an extra all data option at the top if aggregated
     if (aggregated) {
-        options.push(all);
+      options.push(all);
     }
 
     // add the actual data options
-    traces.forEach(el => {
-        !isTreemap ? options.push(el.meta.columnNames.y) : options.push(el.name);
+    traces.forEach((trace) => {
+      if (!isTreemap) options.push(trace.meta.columnNames.y);
+      else if (trace.name) options.push(trace.name);
     });
 
     // if not aggregated, select the first data set only
     if (!aggregated) {
-        data = [traces[0]];
+      data = [traces[0]];
     }
 
     // get the select and assign options
@@ -253,32 +268,31 @@ const initSelectableChart = async (el, d, selectNode, aggregated = false) => {
 
     // change event listener
     const updateData = () => {
+      // if all data selected, set data to whole set
+      if (selectNode.value === all) {
+        data = traces;
+      }
+      // otherwise find matching index and set data to the selected one
+      else {
+        const newDataIndex = traces.findIndex((trace) =>
+          !isTreemap ? trace.meta.columnNames.y === selectNode.value : trace.name === selectNode.value,
+        );
+        data = [traces[newDataIndex]];
+      }
 
-        // if all data selected, set data to whole set
-        if (selectNode.value == all) {
-            data = traces;
-        }
-
-        // otherwise find matching index and set data to the selected one
-        else {
-            const newDataIndex = traces.findIndex(el => !isTreemap ? el.meta.columnNames.y == selectNode.value : el.name == selectNode.value);
-            data = [traces[newDataIndex]];
-        }
-
-        // update the chart
-        react(el, data, layout);
-    }
+      // update the chart
+      react(chartNode, data, layout);
+    };
 
     // assign change event listener
     selectNode.addEventListener('change', updateData, false);
 
     // initialise the chart
-    newPlot(el, data, layout, config);
-
+    newPlot(chartNode, data, layout, config);
   } catch (error) {
     console.log(error);
   }
-}
+};
 
 // Begin initialisation
 initPlotlyCharts();

@@ -35,6 +35,21 @@
     <div class="row row--narrow {% if page.tools %}space-section-top{% endif %}">
       <div class="l-2up">
         <div class="l-2up__col">
+          <h2 class="section__heading">Datasets</h2>
+          {% if page.dataset_info %}
+            <div class="para para--typeset">
+              {{ page.dataset_info|richtext }}
+            </div>
+          {% endif %}
+
+          {% if page.get_dataset_listing_page %}
+            <a href="{% pageurl page.get_dataset_listing_page %}" class="button">View datasets</a>
+          {% endif %}
+        </div>
+        <div class="l-2up__col">
+          <p class="m-text-major">
+            <span>{{dataset_count}}</span> datasets
+          </p>
           {% if random_quote %}
             {% if random_quote.value.team_member %}
               {% with body=random_quote.value.quote_text source=random_quote.value.team_member.specific %}
@@ -55,26 +70,9 @@
             {% endif %}
           {% endif %}
         </div>
-        <div class="l-2up__col">
-          <p class="m-text-major">
-            <span>{{dataset_count}}</span> datasets
-          </p>
-          {% if page.dataset_info %}
-            <p class="para para--typeset">
-              {{ page.dataset_info }}
-            </p>
-          {% endif %}
-          {% if page.hero_link %}
-            <a href="{% pageurl page.hero_link %}" class="button">View datasets</a>
-          {% endif %}
-        </div>
       </div>
     </div>
   </section>
-
-  {% for block in page.sections %}
-    {% include_block block %}
-  {% endfor %}
 
   <section class="section">
     {% get_other_pages calling_page=self heading=page.other_pages_heading %}

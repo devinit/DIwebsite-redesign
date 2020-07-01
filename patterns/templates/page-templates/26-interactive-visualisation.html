@@ -34,6 +34,11 @@
             {% for item in charts.chart_publication %}
                 <h3 class="type-l type-l--trailer">Chart title</h3>
                 <div class="chart-container chart-container--full" id="visualisation">
+                    <div class="chart-loading">
+                        <div class="chart-loading__block">
+                            <div></div><div></div><div></div><div></div>
+                        </div>
+                    </div>
                     <select class="data-selector"></select>
                     <div
                         class="charts__chart"
@@ -42,6 +47,20 @@
                         data-interactive="{{ item.interactive }}"
                         data-combined="{{ item.combined }}">
                     </div>
+                </div>
+                <div class="chart-fallback">
+                    <a href="{{ global.assets_root }}/img/charts/ha-oda-recipient-bar-x2.png"
+                        target="_blank"
+                        title="Click to open image in a new window"
+                    >
+                        <span class="chart-fallback__no-js-small-screen-image" style="background-image: url('{{ global.assets_root }}/img/charts/ha-oda-recipient-bar-x2.png')"></span>
+                    </a>
+                </div>
+                <div class="chart-fallback__alert">
+                    <p>To view an interactive visualisation make sure JavaScript is available on your device.</p>
+                </div>
+                <div class="chart-fallback__alert chart-fallback__alert--ss">
+                    <p>To view an interactive visualisation use a device with a larger screen.</p>
                 </div>
                 {% include 'partials/accordion-chart.html' %}
 

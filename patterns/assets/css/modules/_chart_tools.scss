@@ -1,3 +1,5 @@
+$min-chart-width: 700px;
+
 
 // Plotly
 // https://chart-studio.plot.ly/create/?fid=urlsangel:1&fid=urlsangel:0
@@ -35,15 +37,18 @@
 
 .chart-container {
     position: relative;
-    margin-bottom: -2em;
     .charts__chart {
         background-color: #fff;
+        min-height: 450px;
+        @include respond-to-max($min-chart-width) {
+            display: none;
+        }
     }
     .data-selector {
         display: none;
         position: absolute;
-        top: 4.5em;
-        left: 4.5em;
+        top: 2.5em;
+        left: 3.5em;
         z-index: 100;
         width: auto;
         height: 35px;
@@ -70,17 +75,135 @@
         }
         &--active {
             display: block;
+            @include respond-to-max($min-chart-width) {
+                display: none;
+            }
         }
-    }
-    picture {
-        display: none;
     }
     html.no-js & {
         .data-selector, .charts__chart {
             display: none;
         }
-        picture {
+    }
+    &--ms {
+        .charts__chart, .data-selector {
+            @include respond-to-max($min-chart-width) {
+                display: none;
+            }
+        }
+    }
+}
+
+.chart-fallback {
+    a {
+        .no-js & {
+            display: block;
+            margin-top: 3em;
+        }
+        @include respond-to($min-chart-width) {
+            .js & {
+                display: none;
+            }
+        }
+    }
+    img {
+        @extend %max-width;
+    }
+    @include respond-to($min-chart-width) {
+        .js & {
+            display: none;
+        }
+    }
+    &__no-js-small-screen-image {
+        height: 0;
+        padding-top: 57%;
+        background-size: contain;
+        background-repeat: no-repeat;
+        @include respond-to-max($min-chart-width) {
+            display: block;
+        }
+        .no-js & {
             display: block;
         }
     }
+}
+
+.chart-fallback__alert {
+    @extend .alert;
+    @extend .alert--notice;
+    padding-left: 15px;
+    display: none;
+    @include respond-to($min-chart-width) {
+        display: none;
+    }
+    .no-js & {
+        display: block;
+    }
+    &--ss {
+        display: block;
+        @include respond-to($min-chart-width) {
+            display: none;
+        }
+        .no-js & {
+            display: none;
+        }
+    }
+}
+
+.chart__accordion {
+    margin-top: -2em;
+    .no-js & {
+        display: none;
+    }
+    @include respond-to-max($min-chart-width) {
+        display: none;
+    }
+}
+
+.chart-loading {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+    display: none;
+    .chart-container--loading & {
+        display: block;
+    }
+}
+
+.chart-loading__block {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+}
+
+.chart-loading__block div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border: 8px solid $poppy-dark;
+  border-radius: 50%;
+  animation: spinner 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: $poppy-dark transparent transparent transparent;
+}
+.chart-loading__block div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+.chart-loading__block div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.chart-loading__block div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

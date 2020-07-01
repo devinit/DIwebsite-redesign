@@ -1,4 +1,4 @@
-import Plotly from 'plotly.js';
+import Plotly, { Config } from 'plotly.js';
 import { PlotlyConfig } from './types';
 
 // Default hover template
@@ -8,7 +8,7 @@ const hovertemplate =
   '%{yaxis.title.text}: <b>%{y}</b><extra></extra>';
 
 // config object for new plots
-const config = {
+const config: Partial<Config> = {
   displayModeBar: true,
   responsive: true,
   showLink: true,
@@ -211,7 +211,7 @@ const initStaticChart = async (element: HTMLElement, chartConfig: PlotlyConfig) 
   try {
     const { data, layout } = chartConfig;
     const { newPlot } = await loadPlotlyCode(data);
-    const config = { responsive: true };
+    // const config = { responsive: true };
     removeLoading(element);
     updateDataHoverTemplate(data);
     updateLayoutColorway(layout);

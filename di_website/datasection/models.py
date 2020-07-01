@@ -191,6 +191,10 @@ class DataSectionPage(TypesetBodyMixin, HeroMixin, Page):
     class Meta:
         verbose_name = "Data Section Page"
 
+    @cached_property
+    def get_dataset_listing_page(self):
+        return self.get_children().type(DataSetListing)[0]
+
     def count_quotes(self):
         quote_counter = 0
         for quote in self.quotes:

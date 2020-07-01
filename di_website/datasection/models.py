@@ -40,6 +40,7 @@ from wagtailmetadata.models import MetadataPageMixin
 
 
 class DatasetListingMetadataPageMixin(MetadataPageMixin):
+    max_count = 1
 
     class Meta:
         abstract = True
@@ -151,11 +152,14 @@ class DataSource(ClusterableModel):
         super(DataSource, self).save(**kwargs)
 
 
-class DataSectionPage(SectionBodyMixin, TypesetBodyMixin, HeroMixin, Page):
+class DataSectionPage(TypesetBodyMixin, HeroMixin, Page):
     """ Main page for datasets """
 
     quotes = StreamField(QuoteStreamBlock, verbose_name="Quotes", null=True, blank=True)
-    dataset_info = models.TextField(null=True, blank=True, help_text='A description of the datasets')
+    dataset_info = RichTextField(
+        null=True, blank=True,
+        help_text='A description of the datasets',
+        features=RICHTEXT_FEATURES_NO_FOOTNOTES)
     tools = StreamField(
         [('tool', BannerBlock(template='datasection/tools_banner_block.html'))],
         verbose_name="Tools", null=True, blank=True)
@@ -165,10 +169,9 @@ class DataSectionPage(SectionBodyMixin, TypesetBodyMixin, HeroMixin, Page):
     content_panels = Page.content_panels + [
         hero_panels(allowed_pages=['datasection.DataSetListing']),
         StreamFieldPanel('body'),
+        FieldPanel('dataset_info'),
         StreamFieldPanel('tools'),
         StreamFieldPanel('quotes'),
-        FieldPanel('dataset_info'),
-        StreamFieldPanel('sections'),
         MultiFieldPanel([
             FieldPanel('other_pages_heading'),
             InlinePanel('other_pages', label='Related pages')

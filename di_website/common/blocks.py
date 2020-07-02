@@ -202,7 +202,7 @@ class AnchorBlock(StructBlock):
     anchor_id = CharBlock(required=True, help_text='The unique indentifier for this anchor')
 
     class Meta:
-        icon = 'fa-anchor'
+        icon = 'fa-slack'
         template = 'blocks/anchor_block.html'
 
 

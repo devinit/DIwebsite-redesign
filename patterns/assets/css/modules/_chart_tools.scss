@@ -35,6 +35,44 @@ $min-chart-width: 700px;
     }
 }
 
+.js-plotly-plot .plotly, .js-plotly-plot .plotly div {
+    font-family: "Geomanist Regular", sans-serif !important;
+}
+
+.xaxislayer-above .xtick text {
+    fill: $grey2 !important;
+}
+
+.yaxislayer-above .ytick text {
+    fill: $grey2 !important;
+}
+
+.g-xtitle text, .g-ytitle text, .legendtext {
+    fill: $grey5 !important;
+}
+
+.gridlayer .xgrid, .gridlayer .ygrid, .zerolinelayer .crisp {
+    stroke: $grey2 !important;
+}
+
+.xlines-above, .ylines-above {
+    stroke: $grey5 !important;
+}
+
+.chart-tablet {
+    max-width: $min-chart-width;
+    .chart-container .charts__chart, .chart-container .data-selector {
+        display: none;
+    }
+}
+
+.chart-mobile {
+    max-width: 500px;
+    .chart-container .charts__chart, .chart-container .data-selector {
+        display: none;
+    }
+}
+
 .chart-container {
     position: relative;
     .charts__chart {
@@ -47,8 +85,8 @@ $min-chart-width: 700px;
     .data-selector {
         display: none;
         position: absolute;
-        top: 2.5em;
-        left: 3.5em;
+        top: 0.5em;
+        left: 0.5em;
         z-index: 100;
         width: auto;
         height: 35px;
@@ -119,10 +157,23 @@ $min-chart-width: 700px;
         padding-top: 57%;
         background-size: contain;
         background-repeat: no-repeat;
+        .chart-tablet &, .chart-mobile & {
+            display: block;
+        }
         @include respond-to-max($min-chart-width) {
             display: block;
         }
         .no-js & {
+            display: block;
+        }
+    }
+    .chart-tablet &, .chart-mobile & {
+        a {
+            .js & {
+                display: block;
+            }
+        }
+        .js & {
             display: block;
         }
     }

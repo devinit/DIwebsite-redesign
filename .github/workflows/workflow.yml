@@ -5,8 +5,6 @@ on: [push, pull_request]
 jobs:
   install:
     runs-on: ubuntu-latest
-    env:
-      DATABASE_URL: postgresql://di_website:${{ secrets.DB_PASSWORD }}@db/di_website
     steps:
     - uses: actions/checkout@v2
     - name: Setup Python
@@ -25,3 +23,15 @@ jobs:
           ${{ runner.os }}-
     - name: Install dependencies
       run: pip install -r requirements.txt
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the docker-compose stack
+      run: |
+        echo "DATABASE_URL=postgresql://di_website:${{ secrets.DB_PASSWORD }}@db/di_website" > .env
+        docker volume create --name=diwebsite_db
+        docker volume create --name="index_db"
+        docker-compose up -d db
+        docker-compose up --build -d web
+

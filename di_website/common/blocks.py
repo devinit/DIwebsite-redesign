@@ -198,6 +198,14 @@ class SectionParagraphBlock(StructBlock):
         template = 'blocks/section_paragraph_block.html'
 
 
+class AnchorBlock(StructBlock):
+    anchor_id = CharBlock(required=True, help_text='The unique indentifier for this anchor')
+
+    class Meta:
+        icon = 'fa-anchor'
+        template = 'blocks/anchor_block.html'
+
+
 # StreamBlocks
 class BaseStreamBlock(StreamBlock):
     """
@@ -271,6 +279,7 @@ class TypesetStreamBlock(StreamBlock):
     """
     The custom blocks that can be used under an element with the typeset class (not sections)
     """
+    anchor = AnchorBlock()
     paragraph_block = RichTextBlock(
         icon='fa-paragraph',
         template='blocks/paragraph_block.html',
@@ -299,6 +308,7 @@ class TypesetFootnoteStreamBlock(StreamBlock):
     """
     The custom blocks that can be used under an element with the typeset class (not sections)
     """
+    anchor = AnchorBlock()
     paragraph_block = RichTextBlock(
         icon='fa-paragraph',
         template='blocks/paragraph_block_footnote.html',
@@ -380,6 +390,7 @@ class SectionStreamBlock(StreamBlock):
     """
     The custom blocks that can be rendered as independent sections on a page
     """
+    anchor = AnchorBlock()
     paragraph_block = SectionParagraphBlock()
     block_quote = SectionBlockQuote()
     banner_block = BannerBlock()

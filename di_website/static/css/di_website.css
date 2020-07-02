@@ -23,11 +23,11 @@
     margin-top: 7px;
 }
 @media screen and (min-width: 850px){
-  .resources-filters .form-field--inline-five {
-      width: 19%;
-      margin-right: 3px;
-      display: inline-block;
-  }
+    .resources-filters .form-field--inline-five {
+        width: 19%;
+        margin-right: 3px;
+        display: inline-block;
+    }
 }
 .resources-filters .form-field--inline-full {
     width: auto;
@@ -37,11 +37,11 @@
 }
 
 .form-field--inline-full .form-field__select-dropdown {
-  padding: 5px;
+    padding: 5px;
 }
 
 .sort--active{
-  border-bottom: 2px solid #8f1b13;
+    border-bottom: 2px solid #8f1b13;
 }
 
 
@@ -52,4 +52,9 @@
 .download-audio, .audio-player-title {
     font-size: 14px;
     padding-bottom: 10px;
+}
+
+.hide {
+    visibility: hidden;
+    height: 0;
 }

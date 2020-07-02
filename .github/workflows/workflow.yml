@@ -5,6 +5,8 @@ on: [push, pull_request]
 jobs:
   install:
     runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: postgresql://di_website:${{ secrets.DB_PASSWORD }}@db/di_website
     steps:
     - uses: actions/checkout@v2
     - name: Setup Python
@@ -23,6 +25,3 @@ jobs:
           ${{ runner.os }}-
     - name: Install dependencies
       run: pip install -r requirements.txt
-    - name: Set up environment
-      run: |
-       echo "DATABASE_URL=postgresql://di_website:di_website_pw@db/di_website" > .env

@@ -1,137 +1,12 @@
-import Plotly, { Config } from 'plotly.js';
+import Plotly from 'plotly.js';
+import { dblclickLegendItem } from './click';
+import { minWidth, config } from './config';
+import { getTreemapData } from './data';
+import { addLoading, removeLoading } from './loading';
+import { assignOption, assignOptions, getOptions } from './options';
+import { loadPlotlyCode } from './modules';
+import { updateDataHoverTemplate, updateLayoutColorway, removeTitle } from './styles';
 import { PlotlyConfig } from './types';
-
-// Default hover template
-const hovertemplate =
-  '<b>%{fullData.meta.columnNames.y}</b><br>' +
-  '%{xaxis.title.text}: <b>%{x}</b><br>' +
-  '%{yaxis.title.text}: <b>%{y}</b><extra></extra>';
-
-// config object for new plots
-const config: Partial<Config> = {
-  displayModeBar: true,
-  responsive: true,
-  showLink: true,
-  plotlyServerURL: 'https://chart-studio.plotly.com',
-  toImageButtonOptions: {
-    width: 1200,
-    height: 657,
-  },
-  modeBarButtonsToRemove: [
-    'pan2d',
-    'select2d',
-    'lasso2d',
-    'hoverClosestCartesian',
-    'hoverCompareCartesian',
-    'toggleSpikelines',
-  ],
-};
-
-// min width at which interactive chart should be displayed at
-const minWidth = 700;
-
-// Assign an option to a select node
-const assignOption = (selectNode: HTMLSelectElement, value: string) => {
-  const currentOption = document.createElement('option');
-  currentOption.text = value;
-  selectNode.appendChild(currentOption);
-};
-
-// Take an array of strings and assign as options to a select node
-const assignOptions = (selectNode: HTMLSelectElement, options: string[]) => {
-  options.forEach((option) => {
-    assignOption(selectNode, option);
-  });
-  selectNode.classList.add('data-selector--active');
-};
-
-// Assign the default hover template to each data node if there isn't one defined
-const updateDataHoverTemplate = (data: Plotly.Data[]) => {
-  data.forEach((item) => {
-    if (!item.hovertemplate) {
-      item.hovertemplate = hovertemplate;
-    }
-  });
-};
-
-// Assign a new colorway to the layout
-const updateLayoutColorway = (layout: Plotly.Layout) => {
-  layout.colorway = ['#c2135b', '#e84439', '#eb642b', '#f49b21', '#109e68', '#0089cc', '#893f90'];
-};
-
-// add loading on chart init
-const addLoading = (el: HTMLElement) => {
-  const loading = document.createElement('div');
-  loading.innerHTML = '<div class="chart-loading__block">' + '<div></div><div></div><div></div><div></div></div>';
-  loading.classList.add('chart-loading');
-  el.classList.add('chart-container--loading');
-  el.prepend(loading);
-};
-
-// remove loading from inited chart
-const removeLoading = (element: HTMLElement) => {
-  element.classList.remove('chart-container--loading');
-  const loadingIndicator = element.querySelector('.chart-loading');
-  if (loadingIndicator) {
-    loadingIndicator.remove();
-  }
-};
-
-// Get and return the correct plotly module based on chart type
-const loadPlotlyCode = async (data: Plotly.Data[]): Promise<typeof Plotly> => {
-  const chartBundles = {
-    basicCharts: {
-      types: ['bar', 'scatter', 'pie'],
-      dist: () => import('plotly.js-basic-dist'),
-    },
-    cartesianCharts: {
-      types: [
-        'box',
-        'heatmap',
-        'histogram',
-        'histogram2d',
-        'histogram2dcontour',
-        'image',
-        'contour',
-        'scatterternary',
-        'violin',
-      ],
-      dist: () => import('plotly.js-cartesian-dist'),
-    },
-    financeCharts: {
-      types: ['histogram', 'funnelarea', 'ohlc', 'candlestick', 'funnel', 'waterfall', 'indicator'],
-      dist: () => import('plotly.js-finance-dist'),
-    },
-    geoCharts: {
-      types: ['scattergeo', 'choropleth'],
-      dist: () => import('plotly.js-geo-dist'),
-    },
-    geo2dCharts: {
-      types: ['scattergl', 'splom', 'pointcloud', 'heatmapgl', 'contourgl', 'parcoords'],
-      dist: () => import('plotly.js-gl2d-dist'),
-    },
-    geo3dCharts: {
-      types: ['scatter3d', 'surface', 'mesh3d', 'isosurface', 'volume', 'cone', 'streamtube'],
-      dist: () => import('plotly.js-gl3d-dist'),
-    },
-    mapboxCharts: {
-      types: ['scattermapbox', 'choroplethmapbox', 'densitymapbox'],
-      dist: () => import('plotly.js-mapbox-dist'),
-    },
-  };
-
-  const isChartType = (chartTypes: string[]) => {
-    return chartTypes.filter((chart) => data.find((_data) => _data.type === chart)).length;
-  };
-
-  for (const bundle of Object.values(chartBundles)) {
-    if (isChartType(bundle.types)) {
-      return await bundle.dist();
-    }
-  }
-
-  return await import('plotly.js');
-};
 
 type Aggregated = 'True' | 'False' | undefined;
 
@@ -213,6 +88,7 @@ const initStaticChart = async (element: HTMLElement, chartConfig: PlotlyConfig) 
     const { newPlot } = await loadPlotlyCode(data);
     // const config = { responsive: true };
     removeLoading(element);
+    removeTitle(layout);
     updateDataHoverTemplate(data);
     updateLayoutColorway(layout);
     newPlot(element, data, layout, config);
@@ -234,12 +110,28 @@ const initSelectableChart = async (
     const config = { responsive: true };
     const all = 'All data';
     let data = _data.slice();
-    const traces = data.slice();
+    const traces = Array.from(data);
     const options: string[] = [];
     const isTreemap = data[0].type === 'treemap';
+    let lastSelected = -1;
+    let legend = undefined;
+
+    // enable the legend and add opts
+    if (!isTreemap) {
+      const legendOpts = Object.assign(layout.legend || {}, {
+        x: 1,
+        xanchor: 'right',
+        y: 1,
+      });
+      layout.showlegend = true;
+      layout.legend = legendOpts;
+    }
 
     // remove loading from inited chart
     removeLoading(chartNode);
+
+    // remove the title
+    removeTitle(layout);
 
     // update the hover template
     updateDataHoverTemplate(data);
@@ -247,50 +139,96 @@ const initSelectableChart = async (
     // update the layout colorway
     updateLayoutColorway(layout);
 
-    // add an extra all data option at the top if aggregated
-    if (aggregated) {
-      options.push(all);
-    }
-
-    // add the actual data options
-    traces.forEach((trace) => {
-      if (!isTreemap) options.push(trace.meta.columnNames.y);
-      else if (trace.name) options.push(trace.name);
-    });
-
-    // if not aggregated, select the first data set only
-    if (!aggregated) {
+    // set the data to the first item if treemap
+    if (isTreemap) {
       data = [traces[0]];
     }
 
-    // get the select and assign options
-    assignOptions(selectNode, options);
-
     // change event listener
     const updateData = () => {
-      // if all data selected, set data to whole set
-      if (selectNode.value === all) {
-        data = traces;
-      }
-      // otherwise find matching index and set data to the selected one
-      else {
-        const newDataIndex = traces.findIndex((trace) =>
-          !isTreemap ? trace.meta.columnNames.y === selectNode.value : trace.name === selectNode.value,
-        );
-        data = [traces[newDataIndex]];
-      }
 
-      // update the chart
-      react(chartNode, data, layout);
+        // get the selected index, which will be one higher than required if aggregated
+        const index = aggregated ? selectNode.selectedIndex - 1 : selectNode.selectedIndex;
+
+        // if treemap, set the data to the selected index and redraw
+        if (isTreemap) {
+            data = getTreemapData(traces, selectNode.value);
+            react(chartNode, data, layout);
+        }
+
+        // otherwise use the legend to update the chart
+        else {
+
+            // if this is the first selection trigger double click
+            if (lastSelected == -1) {
+              dblclickLegendItem(legend, index);
+            }
+
+            // if it's not the first click, then handle resetting the view and selecting the new index
+            else {
+
+              // if the data is grouped we need to doubleclick the last element to reset the view
+              if (data.length == 1) {
+                dblclickLegendItem(legend, lastSelected);
+
+                // if index is less than zero, it's an all data reset so don't click again
+                if (index > -1) {
+                  dblclickLegendItem(legend, index);
+                }
+              }
+              else {
+                // if index is less than zero, just click the last selected again to reset
+                if (index < 0) {
+                  dblclickLegendItem(legend, lastSelected);
+                }
+                // otherwise reset and then click the selected index
+                else {
+                  dblclickLegendItem(legend, lastSelected);
+                  dblclickLegendItem(legend, index);
+                }
+              }
+            }
+
+            // store the selected index
+            lastSelected = index;
+        }
     };
 
-    // assign change event listener
-    selectNode.addEventListener('change', updateData, false);
+    // initialise the chart and selector
+    newPlot(chartNode, data, layout, config)
+      .then(() => {
+        // store a reference to the legend and hide it
+        try {
+          legend = chartNode.querySelectorAll('.legend')[0];
+          legend.style.cssText = 'display: none;';
+        } catch (e) {}
 
-    // initialise the chart
-    newPlot(chartNode, data, layout, config);
-  } catch (error) {
-    console.log(error);
+        // create options list from legend (or data if treemap)
+        const options = getOptions(legend, traces);
+
+        // add an extra all data option at the top if aggregated
+        if (!isTreemap && aggregated) {
+          options.unshift(all);
+        }
+        else {
+          // otherwise select the first legend item
+          try {
+            lastSelected = 0;
+            dblclickLegendItem(legend, lastSelected);
+          } catch (e) {}
+        }
+
+        // get the select and assign options
+        assignOptions(selectNode, options);
+
+        // assign change event listener
+        selectNode.addEventListener('change', updateData, false);
+      });
+  }
+
+  catch (error) {
+    // if there's a problem then try a static chart
+    initStaticChart(chartNode, chartConfig);
   }
 };
 

@@ -54,6 +54,7 @@
     padding-bottom: 10px;
 }
 
-.hidden {
-    display: none;
+.hide {
+    visibility: hidden;
+    height: 0;
 }

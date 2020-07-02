@@ -1,9 +1,39 @@
 {% load wagtailcore_tags wagtailimages_tags responsive %}
 
 <div class="row row--narrow">
-  <div class="banner{% if self.light %} banner--light{% endif %}">
+  <div class="banner banner--alt space-section-bottom--small{% if self.light %} banner--light{% endif %}">
     <div class="l-banner{% if self.media_orientation == 'right' %} l-banner--reverse{% endif %}">
+      <div class="l-banner__main">
+        {% for block in self.text %}
+          {% include_block block %}
+        {% endfor %}
+        <span class="banner__meta">{{ self.meta }}</span>
+      </div>
+
       <div class="l-banner__aside">
+        <div class="banner__buttons banner__buttons--ss">
+          {% if self.buttons %}
+            {% for button in self.buttons %}
+              {% if button.block_type == 'document_box' %}
+                {% include_block button %}
+              {% else %}
+                {% if button.value.page %}
+                  <a href="{% pageurl button.value.page %}" class="button{% if not self.light %} button--reverse{% endif %}">
+                    {% if button.value.caption %}
+                      {{ button.value.caption }}
+                    {% else %}
+                      {{ button.value.page.title }}
+                    {% endif %}
+                  </a>
+                {% elif button.value.url %}
+                  <a href="{{ button.value.url }}" class="button{% if not self.light %} button--reverse{% endif %}">
+                    {{ button.value.caption }}
+                  </a>
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+        </div>
         <div class="banner__media">
             {% if self.video %}
               <div class="media-wrapper">{{ self.video }}</div>
@@ -44,12 +74,6 @@
             {% endfor %}
           {% endif %}
         </div>
-      </div>
-      <div class="l-banner__main">
-        {% for block in self.text %}
-          {% include_block block %}
-        {% endfor %}
-        <span class="banner__meta">{{ self.meta }}</span>
       </div>
     </div>
   </div>

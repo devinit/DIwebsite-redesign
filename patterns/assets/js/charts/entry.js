@@ -78,49 +78,17 @@ const removeTitle = data => {
     } catch (e) {}
 };
 
-const getIsGroupedTransform = data => {
-    try {
-        if (data[0].transforms && data[0].transforms[0].type == 'groupby') {
-            return true;
-        }
-        else {
-            return false;
-        }
-    } catch (e) {
-        return false;
+const getOptions = (legend, traces) => {
+    if (legend) {
+        const options = [];
+        legend.querySelectorAll('.legendtext').forEach(el => options.push(el.dataset.unformatted));
+        return options;
     }
+    return traces.map(el => el.name);
 };
 
-const getGroupedTransformOptions = data => {
-    const { x, y, transforms } = data[0];
-    const labels = transforms[0].groups;
-    return [...new Set(labels.map(item => item))];
-};
-
-const getOptions = (legend, traces, isTreemap) => {
-    if (isTreemap) {
-        return traces.map(el => el.name);
-
-    }
-    const options = [];
-    legend.querySelectorAll('traces').forEach(el => options.push(el.dataset.unformatted));
-    return options;
-};
-
-const getGroupedTransformData = (traces, label) => {
-    const data = traces[0];
-    const groups = data.transforms[0].groups;
-    const x = data.x.filter((el, index) => groups[index] == label);
-    const y = data.y.filter((el, index) => groups[index] == label);
-    const labels = groups.filter(el => el == label);
-    data.x = x;
-    data.y = y;
-    data.transforms[0].groups = labels;
-    return [data];
-};
-
-const getSplitData = (traces, label, isTreemap) => {
-    const newDataIndex = traces.findIndex(el => !isTreemap ? el.meta.columnNames.y == label : el.name == label);
+const getTreemapData = (traces, label) => {
+    const newDataIndex = traces.findIndex(el => el.name == label);
     return [traces[newDataIndex]];
 };
 
@@ -149,79 +117,40 @@ const initChart = (el) => {
     });
 }
 
-function click(index) {
-    return function() {
-        var item = document.querySelectorAll('rect.legendtoggle')[0];
-        item.dispatchEvent(new MouseEvent('mousedown'));
-        item.dispatchEvent(new MouseEvent('mouseup'));
-    };
-}
-
-function _dblclick(index) {
-    return function() {
-        var item = document.querySelectorAll('rect.legendtoggle')[index];
-        return new Promise(function(resolve) {
-            item.dispatchEvent(new MouseEvent('mousedown'));
-            item.dispatchEvent(new MouseEvent('mouseup'));
-            item.dispatchEvent(new MouseEvent('mousedown'));
-            item.dispatchEvent(new MouseEvent('mouseup'));
-            setTimeout(resolve, 20);
-        });
-    };
-}
-
-function dblclick(legend, index) {
+const dblclick = (legend, index) => {
     var item = legend.querySelectorAll('rect.legendtoggle')[index];
     item.dispatchEvent(new MouseEvent('mousedown'));
     item.dispatchEvent(new MouseEvent('mouseup'));
     item.dispatchEvent(new MouseEvent('mousedown'));
     item.dispatchEvent(new MouseEvent('mouseup'));
-    console.log(item);
-}
-
-function delay(duration) {
-    return function(value) {
-        return new Promise(function(resolve) {
-            setTimeout(function() {
-                resolve(value);
-            }, duration || 0);
-        });
-    };
-}
+};
 
 const initStaticChart = (el, data) => {
-    const traces = data.data.slice();
-
-    $.each(traces, (i, el) => {
+    $.each(data.data, (i, el) => {
         if (!el.hovertemplate) {
             el.hovertemplate = hovertemplate;
         }
     });
+    Plotly.newPlot(el[0], data.data, data.layout, config);
 
-    data.data = traces;
+};
 
-    Plotly.newPlot(el[0], data.data, data.layout, config)
-        .then(_dblclick(0))
-
-}
-
-const initInteractiveChart = (el, data, combined = false, split_data_on) => {
+const initInteractiveChart = (el, data, combined = false) => {
     const all = 'All data';
     const traces = Array.from(data.data);
-    const options = [];
     const isTreemap = data.data[0].type == 'treemap';
-    const isGroupedTransform = getIsGroupedTransform(traces);
     const dataSelector = el.closest('.chart-container').find('.data-selector')[0];
     let lastSelected = -1;
     let legend = undefined;
-
-    // hide the legend
-    data.layout.showlegend = true;
-    data.layout.legend = {
+    const legendOpts = Object.assign(data.layout.legend || {}, {
         x: 1,
         xanchor: 'right',
-        y: 1
-    };
+        y: 1,
+    });
+
+    // enable the legend and add opts
+    data.layout.showlegend = true;
+    data.layout.legend = legendOpts;
 
     $.each(traces, (i, el) => {
         if (!el.hovertemplate) {
@@ -229,66 +158,62 @@ const initInteractiveChart = (el, data, combined = false, split_data_on) => {
         }
     });
 
-    // add an extra all data option at the top if combined
-    if (combined) {
-        options.push(all);
+    if (isTreemap) {
+        data.data = [traces[0]];
     }
-
-    // // test if data is grouped
-    // if (isGroupedTransform) {
-    //     // if so get unique options
-    //     Array.prototype.push.apply(options, getGroupedTransformOptions(traces));
-    // }
-    // else {
-    //     // otherwise add the individual data options
-    //     Array.prototype.push.apply(options, getOptions(traces, isTreemap));
-    // }
-
-    // if not combined, select the first data set only
-    // if (!combined) {
-    //     if (isGroupedTransform) {
-    //         data.data = getGroupedTransformData(JSON.parse(JSON.stringify(traces)), options[0]);
-    //     }
-    //     else {
-    //         data.data = [traces[0]];
-    //     }
-    // }
 
     function updateData() {
 
-        const index = dataSelector.selectedIndex;
+        const index = combined ? dataSelector.selectedIndex - 1 : dataSelector.selectedIndex;
 
-        // if this is the first selection trigger double click
-        if (lastSelected == -1) {
-            dblclick(legend, index);
-        }
-
-        // if it's not the first, then we need to set the data as visible, redraw and then double click
-        else {
-            data.data.forEach(el => el.visible = true);
+        if (isTreemap) {
+            data.data = getTreemapData(traces, dataSelector.value);
             Plotly.react(el[0], data)
-                .then(() => dblclick(legend, index));
         }
+        else {
 
-        // store the selected index
-        lastSelected = index;
+            // if this is the first selection trigger double click
+            if (lastSelected == -1) {
+                dblclick(legend, index);
+            }
+
+            // if it's not the first, then we need to set the data as visible, redraw and then double click
+            else {
+                data.data.forEach(el => el.visible = true);
+                Plotly.react(el[0], data)
+                    .then(() => dblclick(legend, index));
+            }
+
+            // store the selected index
+            lastSelected = index;
+        }
     }
 
-    // initialise the chart
+    // initialise the chart and selector
     Plotly.newPlot(el[0], data.data, data.layout, config)
         .then(() => {
             // store a reference to the legend and hide it
-            legend = el[0].querySelectorAll('.legend')[0];
-            legend.style.cssText = 'display: none;';
+            try {
+                legend = el[0].querySelectorAll('.legend')[0];
+                legend.style.cssText = 'display: none;';
+            } catch (e) {}
+
+            // create options list from legend (or data if treemap)
+            const options = getOptions(legend, traces);
+
+            // add an extra all data option at the top if combined
+            if (combined) {
+                options.unshift(all);
+            }
 
             // get the select and assign options
-            assignOptions(dataSelector, Array.prototype.push.apply(options, getOptions(legend, traces, isTreemap)));
+            assignOptions(dataSelector, options);
 
             // assign change event listener
             dataSelector.addEventListener('change', updateData, false);
         });
 
-}
+};
 
 const initDrillDownChart = (el, data) => {
     const traces = data.data.slice();
@@ -336,4 +261,4 @@ const initDrillDownChart = (el, data) => {
         updateData();
     });
 
-}
+};

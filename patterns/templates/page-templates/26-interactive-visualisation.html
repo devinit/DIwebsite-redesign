@@ -30,9 +30,10 @@
 
 <section class="section">
     <div class="row row--narrow">
+        <span class="chart-label">Desktop view</span>
         <div class="max-meter max-meter--center responsive-graph">
             {% for item in charts.chart_publication %}
-                <h3 class="type-l type-l--trailer">Chart title desktop</h3>
+                <h3 class="type-l type-l--trailer">Chart title</h3>
                 <div class="chart-container chart-container--full" id="visualisation">
                     <div class="chart-loading">
                         <div class="chart-loading__block">
@@ -77,48 +78,47 @@
 
 <section class="section section--alt-dark">
     <div class="row row--narrow">
-        <div class="max-meter max-meter--center responsive-graph">
+        <span class="chart-label">Tablet view</span>
+        <div class="max-meter max-meter--center responsive-graph chart-tablet show-fallback">
             {% for item in charts.chart_publication %}
-                <h3 class="type-l type-l--trailer">Chart title tablet</h3>
-                <div class="chart-tablet">
-                    <div class="chart-container chart-container--full" id="visualisation">
-                        <div class="chart-loading">
-                            <div class="chart-loading__block">
-                                <div></div><div></div><div></div><div></div>
-                            </div>
-                        </div>
-                        <select class="data-selector"></select>
-                        <div
-                            class="charts__chart"
-                            id="{{ item.id }}"
-                            data-url="{{ item.data_url }}"
-                            data-interactive="{{ item.interactive }}"
-                            data-combined="{{ item.combined }}">
+                <h3 class="type-l type-l--trailer">Chart title</h3>
+                <div class="chart-container chart-container--full" id="visualisation">
+                    <div class="chart-loading">
+                        <div class="chart-loading__block">
+                            <div></div><div></div><div></div><div></div>
                         </div>
                     </div>
-                    <div class="chart-fallback">
-                        <a href="{{ global.assets_root }}/img/charts/ha-oda-recipient-bar-x2.png"
-                            target="_blank"
-                            title="Click to open image in a new window"
-                        >
-                            <span class="chart-fallback__no-js-small-screen-image" style="background-image: url('{{ global.assets_root }}/img/charts/ha-oda-recipient-bar-x2.png')"></span>
-                        </a>
+                    <select class="data-selector"></select>
+                    <div
+                        class="charts__chart"
+                        id="{{ item.id }}"
+                        data-url="{{ item.data_url }}"
+                        data-interactive="{{ item.interactive }}"
+                        data-combined="{{ item.combined }}">
                     </div>
-                    <div class="chart-fallback__alert">
-                        <p>To view an interactive visualisation make sure JavaScript is available on your device.</p>
-                    </div>
-                    <div class="chart-fallback__alert chart-fallback__alert--ss">
-                        <p>To view an interactive visualisation use a device with a larger screen.</p>
-                    </div>
-                    {% include 'partials/accordion-chart.html' %}
-    
-                    <figcaption class="media-caption">
-                        <p>Is the 2019/20 Uganda budget pro-poor?</p>
-                        <ul>
-                            <li><a href="https://www.aliveandthrive.org/wp-content/uploads/2017/10/1017-EthiopiaCountryBrief.pdf">Source: Alive and Thrive</a></li>
-                        </ul>
-                    </figcaption>
                 </div>
+                <div class="chart-fallback">
+                    <a href="{{ global.assets_root }}/img/charts/ha-oda-recipient-bar-x2.png"
+                        target="_blank"
+                        title="Click to open image in a new window"
+                    >
+                        <span class="chart-fallback__no-js-small-screen-image" style="background-image: url('{{ global.assets_root }}/img/charts/ha-oda-recipient-bar-x2.png')"></span>
+                    </a>
+                </div>
+                <div class="chart-fallback__alert">
+                    <p>To view an interactive visualisation make sure JavaScript is available on your device.</p>
+                </div>
+                <div class="chart-fallback__alert chart-fallback__alert--ss">
+                    <p>To view an interactive visualisation use a device with a larger screen.</p>
+                </div>
+                {% include 'partials/accordion-chart.html' %}
+
+                <figcaption class="media-caption">
+                    <p>Is the 2019/20 Uganda budget pro-poor?</p>
+                    <ul>
+                        <li><a href="https://www.aliveandthrive.org/wp-content/uploads/2017/10/1017-EthiopiaCountryBrief.pdf">Source: Alive and Thrive</a></li>
+                    </ul>
+                </figcaption>
             {% endfor %}
         </div>
     </div>
@@ -126,48 +126,47 @@
 
 <section class="section">
     <div class="row row--narrow">
-        <div class="max-meter max-meter--center responsive-graph">
+        <span class="chart-label">Mobile view</span>
+        <div class="max-meter max-meter--center responsive-graph chart-mobile show-fallback">
             {% for item in charts.chart_publication %}
-                <h3 class="type-l type-l--trailer">Chart title mobile</h3>
-                <div class="chart-mobile">
-                    <div class="chart-container chart-container--full" id="visualisation">
-                        <div class="chart-loading">
-                            <div class="chart-loading__block">
-                                <div></div><div></div><div></div><div></div>
-                            </div>
-                        </div>
-                        <select class="data-selector"></select>
-                        <div
-                            class="charts__chart"
-                            id="{{ item.id }}"
-                            data-url="{{ item.data_url }}"
-                            data-interactive="{{ item.interactive }}"
-                            data-combined="{{ item.combined }}">
+                <h3 class="type-l type-l--trailer">Chart title</h3>
+                <div class="chart-container chart-container--full" id="visualisation">
+                    <div class="chart-loading">
+                        <div class="chart-loading__block">
+                            <div></div><div></div><div></div><div></div>
                         </div>
                     </div>
-                    <div class="chart-fallback">
-                        <a href="{{ global.assets_root }}/img/charts/ha-oda-recipient-bar-x2.png"
-                            target="_blank"
-                            title="Click to open image in a new window"
-                        >
-                            <span class="chart-fallback__no-js-small-screen-image" style="background-image: url('{{ global.assets_root }}/img/charts/ha-oda-recipient-bar-x2.png')"></span>
-                        </a>
+                    <select class="data-selector"></select>
+                    <div
+                        class="charts__chart"
+                        id="{{ item.id }}"
+                        data-url="{{ item.data_url }}"
+                        data-interactive="{{ item.interactive }}"
+                        data-combined="{{ item.combined }}">
                     </div>
-                    <div class="chart-fallback__alert">
-                        <p>To view an interactive visualisation make sure JavaScript is available on your device.</p>
-                    </div>
-                    <div class="chart-fallback__alert chart-fallback__alert--ss">
-                        <p>To view an interactive visualisation use a device with a larger screen.</p>
-                    </div>
-                    {% include 'partials/accordion-chart.html' %}
-    
-                    <figcaption class="media-caption">
-                        <p>Is the 2019/20 Uganda budget pro-poor?</p>
-                        <ul>
-                            <li><a href="https://www.aliveandthrive.org/wp-content/uploads/2017/10/1017-EthiopiaCountryBrief.pdf">Source: Alive and Thrive</a></li>
-                        </ul>
-                    </figcaption>
                 </div>
+                <div class="chart-fallback">
+                    <a href="{{ global.assets_root }}/img/charts/ha-oda-recipient-bar-x2.png"
+                        target="_blank"
+                        title="Click to open image in a new window"
+                    >
+                        <span class="chart-fallback__no-js-small-screen-image" style="background-image: url('{{ global.assets_root }}/img/charts/ha-oda-recipient-bar-x2.png')"></span>
+                    </a>
+                </div>
+                <div class="chart-fallback__alert">
+                    <p>To view an interactive visualisation make sure JavaScript is available on your device.</p>
+                </div>
+                <div class="chart-fallback__alert chart-fallback__alert--ss">
+                    <p>To view an interactive visualisation use a device with a larger screen.</p>
+                </div>
+                {% include 'partials/accordion-chart.html' %}
+
+                <figcaption class="media-caption">
+                    <p>Is the 2019/20 Uganda budget pro-poor?</p>
+                    <ul>
+                        <li><a href="https://www.aliveandthrive.org/wp-content/uploads/2017/10/1017-EthiopiaCountryBrief.pdf">Source: Alive and Thrive</a></li>
+                    </ul>
+                </figcaption>
             {% endfor %}
         </div>
     </div>

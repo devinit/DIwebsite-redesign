@@ -1,4 +1,5 @@
 $min-chart-width: 700px;
+$mobile-fallback-width: 500px;
 
 
 // Plotly
@@ -59,18 +60,24 @@ $min-chart-width: 700px;
     stroke: $grey5 !important;
 }
 
+// Controls width to mimic viewports
 .chart-tablet {
-    max-width: $min-chart-width;
-    .chart-container .charts__chart, .chart-container .data-selector {
-        display: none;
-    }
+    max-width: $min-chart-width !important;
 }
 
 .chart-mobile {
-    max-width: 500px;
-    .chart-container .charts__chart, .chart-container .data-selector {
-        display: none;
-    }
+    max-width: $mobile-fallback-width !important;
+}
+
+// Label to indicate views
+.chart-label {
+    background-color: $slate;
+    color: #fff;
+    @include font-size($para - 1);
+    padding: 0.5em;
+    position: absolute;
+    top: 0;
+    right: 1em;
 }
 
 .chart-container {
@@ -157,9 +164,6 @@ $min-chart-width: 700px;
         padding-top: 57%;
         background-size: contain;
         background-repeat: no-repeat;
-        .chart-tablet &, .chart-mobile & {
-            display: block;
-        }
         @include respond-to-max($min-chart-width) {
             display: block;
         }
@@ -167,13 +171,23 @@ $min-chart-width: 700px;
             display: block;
         }
     }
-    .chart-tablet &, .chart-mobile & {
+}
+
+// Controls fallback image on tablet and mobile 
+.show-fallback {
+    .chart-container {
+        display: none;
+    }
+    .chart-fallback {
+        .js & {
+            display: block;
+        }
         a {
             .js & {
                 display: block;
             }
         }
-        .js & {
+        &__no-js-small-screen-image {
             display: block;
         }
     }

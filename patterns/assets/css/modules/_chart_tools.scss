@@ -59,6 +59,20 @@ $min-chart-width: 700px;
     stroke: $grey5 !important;
 }
 
+.chart-tablet {
+    max-width: $min-chart-width;
+    .chart-container .charts__chart, .chart-container .data-selector {
+        display: none;
+    }
+}
+
+.chart-mobile {
+    max-width: 500px;
+    .chart-container .charts__chart, .chart-container .data-selector {
+        display: none;
+    }
+}
+
 .chart-container {
     position: relative;
     .charts__chart {
@@ -143,10 +157,23 @@ $min-chart-width: 700px;
         padding-top: 57%;
         background-size: contain;
         background-repeat: no-repeat;
+        .chart-tablet &, .chart-mobile & {
+            display: block;
+        }
         @include respond-to-max($min-chart-width) {
             display: block;
         }
         .no-js & {
+            display: block;
+        }
+    }
+    .chart-tablet &, .chart-mobile & {
+        a {
+            .js & {
+                display: block;
+            }
+        }
+        .js & {
             display: block;
         }
     }

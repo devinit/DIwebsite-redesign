@@ -462,7 +462,7 @@ class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUID
         context = super().get_context(request, *args, **kwargs)
 
         context['related_pages'] = get_related_pages(
-            self.publication_related_links.all(), PublicationPage.objects)
+            self, self.publication_related_links.all(), PublicationPage.objects)
 
         return context
 
@@ -723,7 +723,7 @@ class PublicationChapterPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
         context = super().get_context(request, *args, **kwargs)
 
         context['related_pages'] = get_related_pages(
-            self.publication_related_links.all(), PublicationChapterPage.objects)
+            self, self.publication_related_links.all(), PublicationChapterPage.objects)
 
         return context;
 
@@ -949,7 +949,7 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, LegacyPageSearchMixin
         context = super().get_context(request, *args, **kwargs)
 
         context['related_pages'] = get_related_pages(
-            self.publication_related_links.all(), LegacyPublicationPage.objects)
+            self, self.publication_related_links.all(), LegacyPublicationPage.objects)
 
         return context;
 
@@ -1081,7 +1081,7 @@ class ShortPublicationPage(HeroMixin, PublishedDateMixin, FlexibleContentMixin, 
         context = super().get_context(request, *args, **kwargs)
 
         context['related_pages'] = get_related_pages(
-            self.publication_related_links.all(), ShortPublicationPage.objects)
+            self, self.publication_related_links.all(), ShortPublicationPage.objects)
 
         return context
 
@@ -1131,7 +1131,7 @@ class AudioVisualMedia(PublishedDateMixin, TypesetBodyMixin, HeroMixin, ParentPa
         context = super().get_context(request, *args, **kwargs)
 
         context['related_pages'] = get_related_pages(
-            self.publication_related_links.all(), AudioVisualMedia.objects)
+            self, self.publication_related_links.all(), AudioVisualMedia.objects)
 
         return context
 

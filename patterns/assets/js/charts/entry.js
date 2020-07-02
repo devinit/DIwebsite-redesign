@@ -97,11 +97,13 @@ const getGroupedTransformOptions = data => {
     return [...new Set(labels.map(item => item))];
 };
 
-const getSplitDataOptions = (data, isTreemap) => {
-    const options = [];
-    for (var i = 0; i < data.length; i++ ) {
-        !isTreemap ? options.push(data[i].meta.columnNames.y) : options.push(data[i].name)
+const getOptions = (legend, traces, isTreemap) => {
+    if (isTreemap) {
+        return traces.map(el => el.name);
+
     }
+    const options = [];
+    legend.querySelectorAll('traces').forEach(el => options.push(el.dataset.unformatted));
     return options;
 };
 
@@ -147,6 +149,46 @@ const initChart = (el) => {
     });
 }
 
+function click(index) {
+    return function() {
+        var item = document.querySelectorAll('rect.legendtoggle')[0];
+        item.dispatchEvent(new MouseEvent('mousedown'));
+        item.dispatchEvent(new MouseEvent('mouseup'));
+    };
+}
+
+function _dblclick(index) {
+    return function() {
+        var item = document.querySelectorAll('rect.legendtoggle')[index];
+        return new Promise(function(resolve) {
+            item.dispatchEvent(new MouseEvent('mousedown'));
+            item.dispatchEvent(new MouseEvent('mouseup'));
+            item.dispatchEvent(new MouseEvent('mousedown'));
+            item.dispatchEvent(new MouseEvent('mouseup'));
+            setTimeout(resolve, 20);
+        });
+    };
+}
+
+function dblclick(legend, index) {
+    var item = legend.querySelectorAll('rect.legendtoggle')[index];
+    item.dispatchEvent(new MouseEvent('mousedown'));
+    item.dispatchEvent(new MouseEvent('mouseup'));
+    item.dispatchEvent(new MouseEvent('mousedown'));
+    item.dispatchEvent(new MouseEvent('mouseup'));
+    console.log(item);
+}
+
+function delay(duration) {
+    return function(value) {
+        return new Promise(function(resolve) {
+            setTimeout(function() {
+                resolve(value);
+            }, duration || 0);
+        });
+    };
+}
+
 const initStaticChart = (el, data) => {
     const traces = data.data.slice();
 
@@ -158,7 +200,9 @@ const initStaticChart = (el, data) => {
 
     data.data = traces;
 
-    Plotly.newPlot(el[0], data.data, data.layout, config);
+    Plotly.newPlot(el[0], data.data, data.layout, config)
+        .then(_dblclick(0))
+
 }
 
 const initInteractiveChart = (el, data, combined = false, split_data_on) => {
@@ -167,9 +211,17 @@ const initInteractiveChart = (el, data, combined = false, split_data_on) => {
     const options = [];
     const isTreemap = data.data[0].type == 'treemap';
     const isGroupedTransform = getIsGroupedTransform(traces);
+    const dataSelector = el.closest('.chart-container').find('.data-selector')[0];
+    let lastSelected = -1;
+    let legend = undefined;
 
     // hide the legend
-    data.layout.showlegend = false;
+    data.layout.showlegend = true;
+    data.layout.legend = {
+        x: 1,
+        xanchor: 'right',
+        y: 1
+    };
 
     $.each(traces, (i, el) => {
         if (!el.hovertemplate) {
@@ -182,56 +234,59 @@ const initInteractiveChart = (el, data, combined = false, split_data_on) => {
         options.push(all);
     }
 
-    // test if data is grouped
-    if (isGroupedTransform) {
-        // if so get unique options
-        Array.prototype.push.apply(options, getGroupedTransformOptions(traces));
-    }
-    else {
-        // otherwise add the individual data options
-        Array.prototype.push.apply(options, getSplitDataOptions(traces, isTreemap));
-    }
+    // // test if data is grouped
+    // if (isGroupedTransform) {
+    //     // if so get unique options
+    //     Array.prototype.push.apply(options, getGroupedTransformOptions(traces));
+    // }
+    // else {
+    //     // otherwise add the individual data options
+    //     Array.prototype.push.apply(options, getOptions(traces, isTreemap));
+    // }
 
     // if not combined, select the first data set only
-    if (!combined) {
-        if (isGroupedTransform) {
-            data.data = getGroupedTransformData(JSON.parse(JSON.stringify(traces)), options[0]);
-        }
-        else {
-            data.data = [traces[0]];
-        }
-    }
-
-    // get the select and assign options
-    const dataSelector = el.closest('.chart-container').find('.data-selector')[0];
-    assignOptions(dataSelector, options);
-
-    // assign change event listener
-    dataSelector.addEventListener('change', updateData, false);
+    // if (!combined) {
+    //     if (isGroupedTransform) {
+    //         data.data = getGroupedTransformData(JSON.parse(JSON.stringify(traces)), options[0]);
+    //     }
+    //     else {
+    //         data.data = [traces[0]];
+    //     }
+    // }
 
     function updateData() {
 
-        // if all data selected, set data to whole set
-        if (dataSelector.value == all) {
-            data.data = Array.from(traces);
+        const index = dataSelector.selectedIndex;
+
+        // if this is the first selection trigger double click
+        if (lastSelected == -1) {
+            dblclick(legend, index);
         }
 
-        // otherwise find matching index and set data to the selected one
+        // if it's not the first, then we need to set the data as visible, redraw and then double click
         else {
-            if (isGroupedTransform) {
-                data.data = getGroupedTransformData(JSON.parse(JSON.stringify(traces)), dataSelector.value);
-            }
-            else {
-                data.data = getSplitData(traces, dataSelector.value, isTreemap);
-            }
+            data.data.forEach(el => el.visible = true);
+            Plotly.react(el[0], data)
+                .then(() => dblclick(legend, index));
         }
 
-        // update the chart
-        Plotly.react(el[0], data);
+        // store the selected index
+        lastSelected = index;
     }
 
     // initialise the chart
-    Plotly.newPlot(el[0], data.data, data.layout, config);
+    Plotly.newPlot(el[0], data.data, data.layout, config)
+        .then(() => {
+            // store a reference to the legend and hide it
+            legend = el[0].querySelectorAll('.legend')[0];
+            legend.style.cssText = 'display: none;';
+
+            // get the select and assign options
+            assignOptions(dataSelector, Array.prototype.push.apply(options, getOptions(legend, traces, isTreemap)));
+
+            // assign change event listener
+            dataSelector.addEventListener('change', updateData, false);
+        });
 
 }
 

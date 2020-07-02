@@ -30,4 +30,15 @@ jobs:
         docker-compose up --build -d web
         docker-compose run web /bin/sh -c "python3 -m coverage run manage.py test && python3 -m coverage xml && mv coverage.xml shared" && cd shared && python3 -m codecov
 
-
+  deploy:
+    needs: [build]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/feature/setup-github-actions'
+    steps:
+    - name: copy deploy file via ssh
+      uses: appleboy/scp-action@master
+      env:
+        HOST: ${{ secrets.HOST }}
+        USERNAME: ${{ secrets.USERNAME }}
+        PORT: ${{ secrets.PORT }}
+        KEY: ${{ secrets.KEY }}

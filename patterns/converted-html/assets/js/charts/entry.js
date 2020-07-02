@@ -55,7 +55,13 @@ const assignOption = (select, value) => {
 };
 
 const assignOptions = (select, options) => {
+    if (!options.length) {
+        return;
+    }
     for (var i = 0; i < options.length;  i++) {
+        if (!options[i]) {
+            return;
+        }
         assignOption(select, options[i]);
     }
     $(select).addClass('data-selector--active');

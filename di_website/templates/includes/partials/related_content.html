@@ -4,30 +4,28 @@
     <div class="row row--narrow">
         <h2 class="section__heading">{{heading}}</h2>
         <div class="l-2up{% if related_pages|length > 2 %}-3up{% endif %}">
-          {% with nav_param="?nav=more-about" current_page=page%}
+          {% with nav_param="?nav=more-about" %}
             {% for page in related_pages %}
-              {% if page.specific.title != current_page.title %}
-                {% if page.specific|classname == global.blog_classname %}
+              {% if page.specific|classname == global.blog_classname %}
                   {% with blog=page.specific show_tag=True %}
                       {% include 'includes/cards/card-blog.html' %}
                   {% endwith %}
-                  {% elif page.specific|classname == global.event_classname %}
-                      {% with event=page.specific show_tag=True %}
-                          {% include 'includes/cards/card-event.html' %}
-                      {% endwith %}
-                  {% elif page.specific|classname == global.news_classname %}
-                      {% with item=page.specific show_tag=True %}
-                          {% include 'includes/cards/card-news.html' %}
-                      {% endwith %}
-                  {% elif page.specific|classname in global.publication_classnames %}
-                    {% with item=page.specific show_tag=True %}
-                      {% include 'includes/cards/card-publication.html' %}
-                    {% endwith %}
-                  {% else %}
-                      {% with item=page.specific tag=tag %}
-                          {% include 'includes/cards/card-related.html' %}
-                      {% endwith %}
-                  {% endif %}
+              {% elif page.specific|classname == global.event_classname %}
+                  {% with event=page.specific show_tag=True %}
+                      {% include 'includes/cards/card-event.html' %}
+                  {% endwith %}
+              {% elif page.specific|classname == global.news_classname %}
+                  {% with item=page.specific show_tag=True %}
+                      {% include 'includes/cards/card-news.html' %}
+                  {% endwith %}
+              {% elif page.specific|classname in global.publication_classnames %}
+                {% with item=page.specific show_tag=True %}
+                  {% include 'includes/cards/card-publication.html' %}
+                {% endwith %}
+              {% else %}
+                  {% with item=page.specific tag=tag %}
+                      {% include 'includes/cards/card-related.html' %}
+                  {% endwith %}
               {% endif %}
             {% endfor %}
           {% endwith %}

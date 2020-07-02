@@ -1,0 +1,41 @@
+version: "2.2"
+
+services:
+  db:
+    image: postgres:10
+    environment:
+      POSTGRES_DB: di_website
+      POSTGRES_USER: di_website
+      POSTGRES_PASSWORD: di_website_pw
+    restart: always
+    volumes:
+      - diwebsite_db:/var/lib/postgresql/data
+
+  web:
+    depends_on:
+      - db
+    expose:
+      - "8090"
+    env_file: .env
+    environment:
+      - HS_API_KEY
+      - HS_TICKET_PIPELINE
+      - HS_TICKET_PIPELINE_STAGE
+      - ELASTIC_SEARCH_URL
+    build:
+      context: .
+    volumes:
+      - ./:/code/
+      - ./config/celery/default:/etc/default
+      - ./config/celery/init.d:/etc/init.d
+    restart: always
+    command: python manage.py runserver 0.0.0.0:80
+    ports:
+      - "80:80"
+
+volumes:
+  diwebsite_db:
+    external: true
+  index_db:
+    driver: local
+    external: true

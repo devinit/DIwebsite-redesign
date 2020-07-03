@@ -107,7 +107,6 @@ const initSelectableChart = async (
   try {
     const { data: _data, layout } = chartConfig;
     const { newPlot, react } = await loadPlotlyCode(_data);
-    const config = { responsive: true };
     const all = 'All data';
     let data = _data.slice();
     const traces = Array.from(data);

@@ -158,34 +158,16 @@ const initSelectableChart = async (
         // otherwise use the legend to update the chart
         else {
 
-            // if this is the first selection trigger double click
-            if (lastSelected == -1) {
-              dblclickLegendItem(legend, index);
+            // if index is less than zero, it's an all data reset so don't click again
+            if (index < 0) {
+              dblclickLegendItem(legend, 0);
             }
-
-            // if it's not the first click, then handle resetting the view and selecting the new index
             else {
-
-              // if the data is grouped we need to doubleclick the last element to reset the view
-              if (data.length == 1) {
-                dblclickLegendItem(legend, lastSelected);
-
-                // if index is less than zero, it's an all data reset so don't click again
-                if (index > -1) {
-                  dblclickLegendItem(legend, index);
-                }
+              // otherwise reset if necessary and then click the selected index
+              if (lastSelected > -1) {
+                dblclickLegendItem(legend, 0);
               }
-              else {
-                // if index is less than zero, just click the last selected again to reset
-                if (index < 0) {
-                  dblclickLegendItem(legend, lastSelected);
-                }
-                // otherwise reset and then click the selected index
-                else {
-                  dblclickLegendItem(legend, lastSelected);
-                  dblclickLegendItem(legend, index);
-                }
-              }
+              dblclickLegendItem(legend, index);
             }
 
             // store the selected index

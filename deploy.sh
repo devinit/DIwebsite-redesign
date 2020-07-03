@@ -60,7 +60,7 @@ function setup_docker_storage {
 
 # This can only happen after project clonning has been done
 function export_travis_enviroment {
-    start_new_process 'Exporting enviroment variables defined in Travis to .env file'
+    start_new_process 'Exporting enviroment variables to .env file'
 
     rm $APP_DIR'/'.env > /dev/null && touch $APP_DIR'/'.env
 
@@ -154,10 +154,10 @@ function start_link_checker_processes {
         sleep 10
     done
 
-    docker-compose exec -T rabbitmq rabbitmqctl add_user di_website $RABBITMQ_PASSWORD
+    docker-compose exec -T rabbitmq rabbitmqctl add_user root $RABBITMQ_PASSWORD
     docker-compose exec -T rabbitmq rabbitmqctl add_vhost myvhost
-    docker-compose exec -T rabbitmq rabbitmqctl set_user_tags di_website di_website
-    docker-compose exec -T rabbitmq rabbitmqctl set_permissions -p myvhost di_website ".*" ".*" ".*"
+    docker-compose exec -T rabbitmq rabbitmqctl set_user_tags root root
+    docker-compose exec -T rabbitmq rabbitmqctl set_permissions -p myvhost root ".*" ".*" ".*"
 
     start_new_process "Starting celery"
     docker-compose exec -T web chown root '/etc/default/celeryd'
@@ -196,7 +196,7 @@ then
 
     start_new_process "Starting up services ..."
     cd $APP_DIR
-    sudo chown -R di_website:di_website storage
+    sudo chown -R root:root storage
     docker-compose up -d --build
 
     sleep 60;
@@ -205,7 +205,7 @@ then
 
     start_new_process "Generating static assets"
     docker-compose exec -T web python manage.py collectstatic --noinput
-    sudo chown -R di_website:di_website assets
+    sudo chown -R root:root assets
     exit 0
 
 elif [ ${args[0]} == 'backup' ]

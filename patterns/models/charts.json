@@ -1,11 +1,12 @@
 {
     "chart_publication": [
         {
-            "title": "2 - Total IHA from private donors, 2014-2018 - Simple bar chart",
-            "description": "Shows one row at a time, with a dropdown to change the row of data on display",
-            "id": "iha-donors-private-bar",
-            "data_url": "../assets/data/iha-donors-private-bar.json",
-            "interactive": true
+            "title": "9 - Total IHA from public donors by donor, 2000-2019 - Stacked area chart",
+            "description": "Initial view shows all data, with a key on the right side which allows you to show/hide parts of the chart. There are a lot of areas in this chard, and Plotly allows the key to scroll vertially to accomodate this. We also have a dropdown elementw which allows you to select a specific country.",
+            "id": "iha-donors-public-area-combined",
+            "data_url": "../assets/data/iha-donors-public-area.json",
+            "interactive": true,
+            "combined": true
         }
     ],
     "charts": [

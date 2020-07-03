@@ -178,16 +178,16 @@ const initInteractiveChart = (el, data, combined = false) => {
         }
         else {
 
-            // if this is the first selection trigger double click
-            if (lastSelected == -1) {
-                dblclick(legend, index);
+            // if index is less than zero, it's an all data reset so don't click again
+            if (index < 0) {
+                dblclick(legend, 0);
             }
-
-            // if it's not the first, then we need to set the data as visible, redraw and then double click
             else {
-                data.data.forEach(el => el.visible = true);
-                Plotly.react(el[0], data)
-                    .then(() => dblclick(legend, index));
+                // otherwise reset if necessary and then click the selected index
+                if (lastSelected > -1) {
+                    dblclick(legend, 0);
+                }
+                dblclick(legend, index);
             }
 
             // store the selected index
@@ -208,8 +208,15 @@ const initInteractiveChart = (el, data, combined = false) => {
             const options = getOptions(legend, traces);
 
             // add an extra all data option at the top if combined
-            if (combined) {
+            if (!isTreemap && combined) {
                 options.unshift(all);
+            }
+            else {
+                // otherwise select the first legend item
+                try {
+                    lastSelected = 0;
+                    dblclick(legend, lastSelected);
+                } catch (e) {}
             }
 
             // get the select and assign options
@@ -218,7 +225,6 @@ const initInteractiveChart = (el, data, combined = false) => {
             // assign change event listener
             dataSelector.addEventListener('change', updateData, false);
         });
-
 };
 
 const initDrillDownChart = (el, data) => {

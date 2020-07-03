@@ -107,7 +107,22 @@ const initChart = (el) => {
         const combined = el.data('combined');
         const drilldown = el.data('drilldown');
 
-        data.layout.colorway = ["#c2135b", "#e84439", "#eb642b", "#f49b21", "#109e68", "#0089cc", "#893f90"];
+        data.layout.colorway = [
+            "#e84439",
+            "#eb642b",
+            "#f49b21",
+            "#109e68",
+            "#0089cc",
+            "#893f90",
+            "#c2135b",
+            "#f8c1b2",
+            "#fccc8e",
+            "#f6bb9d",
+            "#92cba9",
+            "#88bae5",
+            "#c189bb",
+            "#e4819b",
+        ];
         removeLoading(el);
         removeTitle(data);
 

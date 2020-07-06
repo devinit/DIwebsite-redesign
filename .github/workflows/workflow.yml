@@ -82,5 +82,19 @@ jobs:
         script: |
           export BRANCH=$BRANCH
           export RABBITMQ_PASSWORD=$RABBITMQ_PASSWORD
+          export ELASTIC_SEARCH_URL=$ELASTIC_SEARCH_URL
+          export ELASTIC_PASSWORD=$ELASTIC_PASSWORD
+          export ELASTIC_USERNAME=$ELASTIC_USERNAME
+          export ENVIRONMENT=$ENVIRONMENT
+          export CELERY_BROKER_URL=$CELERY_BROKER_URL
+          export DATABASE_URL=$DATABASE_URL
+          export DEFAULT_FROM_EMAIL=$DEFAULT_FROM_EMAIL
+          export EMAIL_HOST=$EMAIL_HOST
+          export EMAIL_BACKEND=$EMAIL_BACKEND
+          export EMAIL_HOST_USER= $EMAIL_HOST_USER
+          export EMAIL_HOST_PASSWORD=$EMAIL_HOST_PASSWORD
+          export HS_API_KEY=$HS_API_KEY
+          export HS_TICKET_PIPELINE=$HS_TICKET_PIPELINE
+          export HS_TICKET_PIPELINE_STAGE=$HS_TICKET_PIPELINE_STAGE
           cp -r deploy_script/deploy.sh .
           chmod +x deploy.sh && ./deploy.sh run

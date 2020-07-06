@@ -31,6 +31,7 @@ const initPlotlyCharts = () => {
           const data = scriptNode ? JSON.parse(scriptNode.innerHTML) : null; // TODO: surround in try/catch
           const url = chartNode.dataset.url;
           const aggregated = chartNode.dataset.aggregated as Aggregated;
+          const minWidth = parseInt(chartNode.dataset.minWidth);
 
           const init = () => {
             // if window greater than min and chart not inited, init chart and set flag

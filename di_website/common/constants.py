@@ -1,3 +1,6 @@
+INSTRUCTIONS_RICHTEXT_FEATURES = [
+    'h4',
+]
 MINIMAL_RICHTEXT_FEATURES = [
     'link',
     'footnote',

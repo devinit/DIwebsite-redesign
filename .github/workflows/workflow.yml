@@ -53,7 +53,7 @@ jobs:
         source: "deploy_script"
         target: "."
     
-    - name: ssh into droplet
+    - name: run deployment
       uses: appleboy/ssh-action@master
       env:
         BRANCH: ${{ secrets.BRANCH_OTHER }}

@@ -4,6 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.html import mark_safe
 
 from wagtail.admin.edit_handlers import EditHandler
+from wagtail.admin.edit_handlers import HelpPanel as WagtailHelpPanel
 
 
 class BaseReadOnlyPanel(EditHandler):
@@ -51,3 +52,15 @@ class ReadOnlyPanel(BaseReadOnlyPanel):
     def bind_to_model(self, model):
         return type(str(_('ReadOnlyPanel')), (BaseReadOnlyPanel,), {
                     'model': self.model, 'heading': self.heading, 'classname': self.classname})
+
+
+def HelpPanel(
+    content='',
+    template='wagtailadmin/edit_handlers/help_panel.html',
+    heading='',
+    classname='',
+    wrapper_class='help-block help-info'
+):
+    """Define a help text panel."""
+    wrapped_content = '<div class="%s">%s</div>' % (wrapper_class, content)
+    return WagtailHelpPanel(content=wrapped_content, template=template, heading=heading, classname=classname)

@@ -1,6 +1,7 @@
 from django.contrib.postgres.fields import JSONField
 from django.db import models
 from django.http import Http404, JsonResponse
+from django.utils.functional import cached_property
 
 from wagtail.core.fields import RichTextField
 from wagtail.core.models import Page
@@ -113,6 +114,20 @@ class ChartPage(SpecificInstructionsMixin, RoutablePageMixin, Page):
         ),
         FieldPanel('caption')
     ]
+
+    @cached_property
+    def parent(self):
+        return self.get_parent().specific
+
+    @cached_property
+    def instructions_text(self):
+        if self.instructions:
+            return self.instructions
+
+        elif self.display_general_instructions and self.parent.instructions:
+            return self.parent.instructions
+
+        return ''
 
     def get_sitemap_urls(self, request):
         return []

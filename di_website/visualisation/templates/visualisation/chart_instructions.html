@@ -1,0 +1,14 @@
+{% load string_utils %}
+
+{% if item.instructions_text %}
+    <ul class="accordion accordion--light chart__accordion">
+        <li class="accordion__list-item">
+            <button type="button" class="accordion__heading">Interactive visualisation instructions {% include 'publications/icon.html' with file='ico-plus-slate' size=20 %}{% include 'publications/icon.html' with file='ico-plus-blank' size=20 %}</button>
+            <div class="accordion__content">
+                <div class="is-typeset max-meter">
+                    {{ item.instructions_text|content }}
+                </div>
+            </div>
+        </li>
+    </ul>
+{% endif %}

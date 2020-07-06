@@ -24,26 +24,30 @@
     "
   >
   </div>
-  <div class="chart-fallback">
-    {% image item.fallback_image width-1000 as fallback %}
-    {% image item.fallback_image width-1400 as full %}
-    <a href="{{ full.url }}"
-        target="_blank"
-        title="Click to open image in a new window"
-    >
-        <span class="chart-fallback__no-js-small-screen-image" style="background-image: url('{{ fallback.url }}')"></span>
-    </a>
-    </div>
-    <div class="chart-fallback__alert">
-      <p>To view an interactive visualisation make sure JavaScript is available on your device.</p>
-    </div>
-    <div class="chart-fallback__alert chart-fallback__alert--ss">
-      <p>To view an interactive visualisation use a device with a larger screen.</p>
-    </div>
   {% if request.is_preview %}
     <script class="js-plotly-chart-raw-data" type="application/json">{{ item.chart_json|as_json|safe }}</script>
   {% endif %}
 </div>
+
+<div class="chart-fallback">
+  {% image item.fallback_image width-1000 as fallback %}
+  {% image item.fallback_image width-1400 as full %}
+  <a href="{{ full.url }}"
+      target="_blank"
+      title="Click to open image in a new window"
+  >
+      <span class="chart-fallback__no-js-small-screen-image" style="background-image: url('{{ fallback.url }}')"></span>
+  </a>
+</div>
+
+<div class="chart-fallback__alert">
+  <p>To view an interactive visualisation make sure JavaScript is available on your device.</p>
+</div>
+<div class="chart-fallback__alert chart-fallback__alert--ss">
+  <p>To view an interactive visualisation use a device with a larger screen.</p>
+</div>
+
+{% include 'visualisation/chart_instructions.html' %}
 
 {% if item.caption %}
   <figcaption class="media-caption">

@@ -2,7 +2,7 @@
 
 <div class="m-author">
   {% if img %}
-    {% image img fill-80x80-c100 as image %}
+    {% image img fill-200x200-c100 as image %}
     {% if image.url != '/media/not-found' %}
       <div class="m-author__image" style="background-image: url({{image.url}})"></div>
     {% else %}

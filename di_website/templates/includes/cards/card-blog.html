@@ -24,7 +24,7 @@
       {% if blog.internal_author_page %}
         {% with blog.internal_author_page.specific as internal %}
           {% with page=internal img=internal.image name=internal.name position=internal.position %}
-            {% include 'includes/partials/author.html' with author_prefix="Written by" %}
+            {% include 'includes/partials/author-card.html' with author_prefix="Written by" %}
           {% endwith %}
         {% endwith %}
 
@@ -37,12 +37,12 @@
             {% if other_author.block_type == 'internal_author' %}
               {% with other_author.value.specific as internal %}
                   {% with page=internal img=internal.image name=internal.name position=internal.position %}
-                      {% include 'includes/partials/author.html' with author_prefix="Written by" %}
+                      {% include 'includes/partials/author-card.html' with author_prefix="Written by" %}
                   {% endwith %}
               {% endwith %}
             {% else %}
               {% with link=other_author.value.page img=other_author.value.photograph name=other_author.value.name position=other_author.value.title %}
-                  {% include 'includes/partials/author.html' with author_prefix="Written by" guest_author="True" %}
+                  {% include 'includes/partials/author-card.html' with author_prefix="Written by" guest_author="True" %}
               {% endwith %}
             {% endif %}
           {% endwith %}

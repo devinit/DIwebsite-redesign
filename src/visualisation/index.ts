@@ -5,8 +5,7 @@ import { config } from './config';
 import { getTreemapData } from './data';
 import { addLoading, removeLoading } from './loading';
 import { assignOptions, getOptions } from './options';
-import { loadPlotlyCode } from './modules';
-import { updateDataHoverTemplate, updateLayoutColorway, removeTitle } from './styles';
+import { removeTitle, updateDataHoverTemplate, updateLayoutColorway } from './styles';
 import { PlotlyConfig } from './types';
 
 type Aggregated = 'True' | 'False' | undefined;
@@ -87,6 +86,8 @@ const initPlotlyCharts = () => {
 const initStaticChart = async (element: HTMLElement, chartConfig: PlotlyConfig) => {
   try {
     const { data, layout } = chartConfig;
+
+    const { loadPlotlyCode } = await import('./modules');
     const { newPlot } = await loadPlotlyCode(data);
     // const config = { responsive: true };
     removeLoading(element);
@@ -108,6 +109,7 @@ const initSelectableChart = async (
 ) => {
   try {
     const { data: _data, layout } = chartConfig;
+    const { loadPlotlyCode } = await import('./modules');
     const { newPlot, react } = await loadPlotlyCode(_data);
     const all = 'All data';
     let data = _data.slice();

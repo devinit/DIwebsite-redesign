@@ -36,7 +36,7 @@
       target="_blank"
       title="Click to open image in a new window"
   >
-      <span class="chart-fallback__no-js-small-screen-image" style="background-image: url('{{ fallback.url }}')"></span>
+      <span class="chart-fallback__no-js-small-screen-image" style="background-image: url('{{ fallback.url }}'); {{ fallback|padding_by_ratio }}"></span>
   </a>
 </div>
 

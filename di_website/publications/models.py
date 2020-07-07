@@ -221,15 +221,15 @@ class PublicationIndexPage(HeroMixin, Page):
             selected_sort = 'date_desc'
 
         if topic_filter:
-            stories = PublicationPage.objects.live().filter(topics__slug=topic_filter)
-            legacy_pubs = LegacyPublicationPage.objects.live().filter(topics__slug=topic_filter)
-            short_pubs = ShortPublicationPage.objects.live().filter(topics__slug=topic_filter)
-            audio_visual_media = AudioVisualMedia.objects.live().filter(topics__slug=topic_filter)
+            stories = PublicationPage.objects.descendant_of(self).live().filter(topics__slug=topic_filter)
+            legacy_pubs = LegacyPublicationPage.objects.descendant_of(self).live().filter(topics__slug=topic_filter)
+            short_pubs = ShortPublicationPage.objects.descendant_of(self).live().filter(topics__slug=topic_filter)
+            audio_visual_media = AudioVisualMedia.objects.descendant_of(self).live().filter(topics__slug=topic_filter)
         else:
-            stories = PublicationPage.objects.live()
-            legacy_pubs = LegacyPublicationPage.objects.live()
-            short_pubs = ShortPublicationPage.objects.live()
-            audio_visual_media = AudioVisualMedia.objects.live()
+            stories = PublicationPage.objects.descendant_of(self).live()
+            legacy_pubs = LegacyPublicationPage.objects.descendant_of(self).live()
+            short_pubs = ShortPublicationPage.objects.descendant_of(self).live()
+            audio_visual_media = AudioVisualMedia.objects.descendant_of(self).live()
 
         if country_filter:
             stories = stories.filter(page_countries__country__slug=country_filter)

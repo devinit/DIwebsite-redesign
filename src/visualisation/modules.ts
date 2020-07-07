@@ -51,7 +51,9 @@ export const loadPlotlyCode = async (data: Plotly.Data[]): Promise<typeof Plotly
     // basic doesn't allow groupby transforms, so test that first
     let hasGroupedByTransform = false;
     try {
-      hasGroupedByTransform = data[0].transforms[0].type == 'groupby';
+      if (data[0].transforms) {
+        hasGroupedByTransform = data[0].transforms[0].type === 'groupby';
+      }
     } catch (e) {}
 
     // if no groupedby transform present, try to get the module based on matching type

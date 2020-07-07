@@ -1,13 +1,12 @@
-
 // Assign an option to a select node
-export const assignOption = (selectNode: HTMLSelectElement, value: string) => {
+export const assignOption = (selectNode: HTMLSelectElement, value: string): void => {
   const currentOption = document.createElement('option');
   currentOption.text = value;
   selectNode.appendChild(currentOption);
 };
 
 // Take an array of strings and assign as options to a select node
-export const assignOptions = (selectNode: HTMLSelectElement, options: string[]) => {
+export const assignOptions = (selectNode: HTMLSelectElement, options: string[]): void => {
   if (!options.length) {
     return;
   }
@@ -21,12 +20,13 @@ export const assignOptions = (selectNode: HTMLSelectElement, options: string[]) 
 };
 
 // get the options from the legend items
-export const getOptions = (legend: SVGElement, traces: Array) => {
+export const getOptions = (legend: HTMLElement, traces: Plotly.Data[]): (string | undefined)[] => {
   if (legend) {
-    const options = [];
-    legend.querySelectorAll('.legendtext').forEach(el => options.push(el.dataset.unformatted));
+    const options: string[] = [];
+    legend.querySelectorAll('.legendtext').forEach((el) => options.push((el as any).dataset.unformatted)); // eslint-disable-line @typescript-eslint/no-explicit-any
+
     return options;
   }
-  return traces.map(el => el.name);
-};
 
+  return traces.map((el) => el.name);
+};

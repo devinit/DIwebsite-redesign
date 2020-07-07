@@ -13,17 +13,23 @@ const sharedConfig = {
       {
         test: /\.(ts|tsx)$/,
         loader: 'ts-loader',
+        include: path.resolve(__dirname, 'src'),
       },
       {
         enforce: 'pre',
         test: /\.js$/,
         loader: 'source-map-loader',
+        include: path.resolve(__dirname, 'src'),
       },
       {
         test: /\.css$/,
         loader: 'css-loader',
+        include: path.resolve(__dirname, 'src'),
       },
     ],
+  },
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js'],
   },
 };
 

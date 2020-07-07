@@ -35,6 +35,7 @@ const chartsConfig = {
     filename: 'chart.js',
     publicPath: '/assets/visualisation/js/',
     chunkFilename: 'chart[chunkhash].js',
+    libraryTarget: 'umd',
   },
   externals: ['jquery'],
 };

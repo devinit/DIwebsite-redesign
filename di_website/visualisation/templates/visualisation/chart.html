@@ -41,10 +41,10 @@
 </div>
 
 <div class="chart-fallback__alert">
-  <p>To view an interactive visualisation make sure JavaScript is available on your device.</p>
+  <p>{{ item.parent.no_js_text }}</p>
 </div>
 <div class="chart-fallback__alert chart-fallback__alert--ss">
-  <p>To view an interactive visualisation use a device with a larger screen.</p>
+  <p>{{ item.parent.larger_screen_text }}</p>
 </div>
 
 {% include 'visualisation/chart_instructions.html' %}

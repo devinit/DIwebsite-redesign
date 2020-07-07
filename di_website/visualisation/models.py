@@ -26,13 +26,35 @@ class VisualisationsPage(GeneralInstructionsMixin, Page):
     class Meta:
         verbose_name = 'Visualisations Page'
 
+    no_js_text = models.CharField(
+        max_length=255,
+        default='To view this interactive visualisation make sure JavaScript is available on your device.',
+        help_text='Text that is displayed for all charts when the user does not have JavaScript available',
+    )
+
+    larger_screen_text = models.CharField(
+        max_length=255,
+        default='To view this interactive visualisation use a device with a larger screen.',
+        help_text='Text that is displayed for individual charts when the user\'s screen is less than the minimum width defined in the chart page',
+    )
+
     content_panels = Page.content_panels + [
         MultiFieldPanel(
             [
-                FieldPanel('instructions'),
+                HelpPanel('''
+                    Fallback text displayed for charts when JavaScript is unavailable or screen size is less than the defined minimum width.
+                ''', wrapper_class='help-block help-info no-padding-top'),
+                FieldPanel('no_js_text'),
+                FieldPanel('larger_screen_text'),
+            ],
+            heading='Fallback text',
+        ),
+        MultiFieldPanel(
+            [
                 HelpPanel('''
                     Optional: a general set of instructions that can be selected to display with child visualisation content.
-                ''', wrapper_class='help-block help-info'),
+                ''', wrapper_class='help-block help-info no-padding-top'),
+                FieldPanel('instructions'),
             ],
             heading='Interactive visualisation instructions',
         ),
@@ -103,12 +125,12 @@ class ChartPage(SpecificInstructionsMixin, RoutablePageMixin, Page):
         ], heading='Chart options'),
         MultiFieldPanel(
             [
-                FieldPanel('display_general_instructions'),
-                FieldPanel('instructions'),
                 HelpPanel('''
                     Optional: if the checkbox is selected, the general instructions from the parent page will be displayed.<br>
                     Specific instuctions added to this page will be displayed, overriding this setting.
-                ''', wrapper_class='help-block help-info'),
+                ''', wrapper_class='help-block help-info no-padding-top'),
+                FieldPanel('display_general_instructions'),
+                FieldPanel('instructions'),
             ],
             heading='Interactive visualisation instructions',
         ),

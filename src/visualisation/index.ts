@@ -1,10 +1,10 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import { dblclickLegendItem } from './click';
-import { minWidth, config } from './config';
+import { config } from './config';
 import { getTreemapData } from './data';
 import { addLoading, removeLoading } from './loading';
-import { assignOption, assignOptions, getOptions } from './options';
+import { assignOptions, getOptions } from './options';
 import { loadPlotlyCode } from './modules';
 import { updateDataHoverTemplate, updateLayoutColorway, removeTitle } from './styles';
 import { PlotlyConfig } from './types';
@@ -32,7 +32,7 @@ const initPlotlyCharts = () => {
           const data = scriptNode ? JSON.parse(scriptNode.innerHTML) : null; // TODO: surround in try/catch
           const url = chartNode.dataset.url;
           const aggregated = chartNode.dataset.aggregated as Aggregated;
-          const minWidth = parseInt(chartNode.dataset.minWidth);
+          const minWidth = chartNode.dataset.minWidth ? parseInt(chartNode.dataset.minWidth) : 400; // TODO: use a constant
 
           const init = () => {
             // if window greater than min and chart not inited, init chart and set flag
@@ -112,10 +112,9 @@ const initSelectableChart = async (
     const all = 'All data';
     let data = _data.slice();
     const traces = Array.from(data);
-    const options: string[] = [];
     const isTreemap = data[0].type === 'treemap';
     let lastSelected = -1;
-    let legend = undefined;
+    let legend: HTMLElement | undefined = undefined;
 
     // enable the legend and add opts
     if (!isTreemap) {
@@ -157,7 +156,7 @@ const initSelectableChart = async (
       }
 
       // otherwise use the legend to update the chart
-      else {
+      else if (legend) {
         // if index is less than zero, it's an all data reset so don't click again
         if (index < 0) {
           dblclickLegendItem(legend, 0);
@@ -177,10 +176,9 @@ const initSelectableChart = async (
     // initialise the chart and selector
     newPlot(chartNode, data, layout, config).then(() => {
       // store a reference to the legend and hide it
-      try {
-        legend = chartNode.querySelectorAll('.legend')[0];
-        legend.style.cssText = 'display: none;';
-      } catch (e) {}
+      legend = chartNode.querySelectorAll('.legend')[0] as HTMLElement | undefined;
+      if (!legend) return; // TODO: handle this scenario better ... error log?
+      legend.style.cssText = 'display: none;';
 
       // create options list from legend (or data if treemap)
       const options = getOptions(legend, traces);
@@ -197,7 +195,7 @@ const initSelectableChart = async (
       }
 
       // get the select and assign options
-      assignOptions(selectNode, options);
+      assignOptions(selectNode, options as string[]);
 
       // assign change event listener
       selectNode.addEventListener('change', updateData, false);

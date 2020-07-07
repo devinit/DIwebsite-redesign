@@ -34,7 +34,7 @@ const chartsConfig = {
     path: path.resolve(__dirname, 'di_website/visualisation/static/visualisation/js'),
     filename: 'chart.js',
     publicPath: '/assets/visualisation/js/',
-    chunkFilename: '[id].chart.js',
+    chunkFilename: 'chart[chunkhash].js',
   },
   externals: ['jquery'],
 };

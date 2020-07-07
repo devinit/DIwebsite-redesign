@@ -114,11 +114,10 @@ class ChartPage(SpecificInstructionsMixin, RoutablePageMixin, Page):
     content_panels = Page.content_panels + [
         FieldPanel('chart_json'),
         MultiFieldPanel([
-            FieldPanel('fallback_image'),
+            ImageChooserPanel('fallback_image'),
             FieldPanel('display_fallback_mobile'),
             FieldPanel('display_fallback_tablet'),
         ], heading='Fallback image and options'),
-        ImageChooserPanel('fallback_image'),
         MultiFieldPanel([
             FieldPanel('selectable'),
             FieldPanel('aggregated'),

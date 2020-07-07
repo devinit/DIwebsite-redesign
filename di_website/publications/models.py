@@ -303,7 +303,7 @@ class PublicationIndexPage(HeroMixin, Page):
         context['search_filter'] = search_filter
         context['selected_sort'] = selected_sort
         context['sort_options'] = sort_options
-        context['is_filtered'] = search_filter or topic_filter or country_filter
+        context['is_filtered'] = search_filter or topic_filter or country_filter or types_filter
         context['paginator_range'] = get_paginator_range(paginator, context['stories'])
 
         return context

@@ -130,7 +130,7 @@ class BlogArticlePage(TypesetBodyFootnoteMixin, HeroMixin, Page):
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
         context['related_pages'] = get_related_pages(
-            self.blog_related_links.all(), BlogArticlePage.objects)
+            self, self.blog_related_links.all(), BlogArticlePage.objects)
 
         return context
 

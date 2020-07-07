@@ -98,7 +98,7 @@ class NewsStoryPage(TypesetBodyMixin, HeroMixin, PublishedDateMixin, Page):
         context = super().get_context(request)
 
         context['related_pages'] = get_related_pages(
-            self.news_related_links.all(), NewsStoryPage.objects)
+            self, self.news_related_links.all(), NewsStoryPage.objects)
 
         return context
 

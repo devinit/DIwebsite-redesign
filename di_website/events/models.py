@@ -67,7 +67,7 @@ class EventPage(TypesetBodyMixin, HeroMixin, Page):
         context = super().get_context(request)
 
         context['related_pages'] = get_related_pages(
-            self.event_related_links.all(), EventPage.objects)
+            self, self.event_related_links.all(), EventPage.objects)
 
         return context
 

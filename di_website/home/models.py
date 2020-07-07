@@ -307,7 +307,7 @@ class StandardPage(SectionBodyMixin, TypesetBodyMixin, HeroMixin, Page):
     def get_context(self, request):
         context = super().get_context(request)
 
-        context['related_pages'] = get_related_pages(self.other_pages.all())
+        context['related_pages'] = get_related_pages(self, self.other_pages.all())
 
         return context
 

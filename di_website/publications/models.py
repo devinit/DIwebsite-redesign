@@ -221,15 +221,15 @@ class PublicationIndexPage(HeroMixin, Page):
             selected_sort = 'date_desc'
 
         if topic_filter:
-            stories = PublicationPage.objects.live().filter(topics__slug=topic_filter)
-            legacy_pubs = LegacyPublicationPage.objects.live().filter(topics__slug=topic_filter)
-            short_pubs = ShortPublicationPage.objects.live().filter(topics__slug=topic_filter)
-            audio_visual_media = AudioVisualMedia.objects.live().filter(topics__slug=topic_filter)
+            stories = PublicationPage.objects.descendant_of(self).live().filter(topics__slug=topic_filter)
+            legacy_pubs = LegacyPublicationPage.objects.descendant_of(self).live().filter(topics__slug=topic_filter)
+            short_pubs = ShortPublicationPage.objects.descendant_of(self).live().filter(topics__slug=topic_filter)
+            audio_visual_media = AudioVisualMedia.objects.descendant_of(self).live().filter(topics__slug=topic_filter)
         else:
-            stories = PublicationPage.objects.live()
-            legacy_pubs = LegacyPublicationPage.objects.live()
-            short_pubs = ShortPublicationPage.objects.live()
-            audio_visual_media = AudioVisualMedia.objects.live()
+            stories = PublicationPage.objects.descendant_of(self).live()
+            legacy_pubs = LegacyPublicationPage.objects.descendant_of(self).live()
+            short_pubs = ShortPublicationPage.objects.descendant_of(self).live()
+            audio_visual_media = AudioVisualMedia.objects.descendant_of(self).live()
 
         if country_filter:
             stories = stories.filter(page_countries__country__slug=country_filter)
@@ -303,7 +303,7 @@ class PublicationIndexPage(HeroMixin, Page):
         context['search_filter'] = search_filter
         context['selected_sort'] = selected_sort
         context['sort_options'] = sort_options
-        context['is_filtered'] = search_filter or topic_filter or country_filter
+        context['is_filtered'] = search_filter or topic_filter or country_filter or types_filter
         context['paginator_range'] = get_paginator_range(paginator, context['stories'])
 
         return context
@@ -331,14 +331,15 @@ class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUID
         ('internal_author', PageChooserBlock(
             required=False,
             target_model='ourteam.TeamMemberPage',
-            icon='fa-user'
+            icon='fa-user',
+            label='Internal Author'
         )),
         ('external_author', StructBlock([
             ('name', CharBlock(required=False)),
             ('title', CharBlock(required=False)),
             ('photograph', ImageChooserBlock(required=False)),
             ('page', URLBlock(required=False))
-        ], icon='fa-user'))
+        ], icon='fa-user', label='External Author'))
     ], blank=True)
 
     publication_type = models.ForeignKey(
@@ -462,7 +463,7 @@ class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUID
         context = super().get_context(request, *args, **kwargs)
 
         context['related_pages'] = get_related_pages(
-            self.publication_related_links.all(), PublicationPage.objects)
+            self, self.publication_related_links.all(), PublicationPage.objects)
 
         return context
 
@@ -723,7 +724,7 @@ class PublicationChapterPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
         context = super().get_context(request, *args, **kwargs)
 
         context['related_pages'] = get_related_pages(
-            self.publication_related_links.all(), PublicationChapterPage.objects)
+            self, self.publication_related_links.all(), PublicationChapterPage.objects)
 
         return context;
 
@@ -848,13 +849,17 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, LegacyPageSearchMixin
 
     colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=RED)
     authors = StreamField([
-        ('internal_author', PageChooserBlock(required=False, target_model='ourteam.TeamMemberPage')),
+        ('internal_author', PageChooserBlock(
+            required=False,
+            target_model='ourteam.TeamMemberPage',
+            icon='fa-user',
+            label='Internal Author')),
         ('external_author', StructBlock([
             ('name', CharBlock(required=False)),
             ('title', CharBlock(required=False)),
             ('photograph', ImageChooserBlock(required=False)),
             ('page', URLBlock(required=False))
-        ]))
+        ], icon='fa-user', label='External Author'))
     ], blank=True)
 
     publication_type = models.ForeignKey(
@@ -949,7 +954,7 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, LegacyPageSearchMixin
         context = super().get_context(request, *args, **kwargs)
 
         context['related_pages'] = get_related_pages(
-            self.publication_related_links.all(), LegacyPublicationPage.objects)
+            self, self.publication_related_links.all(), LegacyPublicationPage.objects)
 
         return context;
 
@@ -964,13 +969,17 @@ class ShortPublicationPage(HeroMixin, PublishedDateMixin, FlexibleContentMixin, 
 
     colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=RED)
     authors = StreamField([
-        ('internal_author', PageChooserBlock(required=False, target_model='ourteam.TeamMemberPage')),
+        ('internal_author', PageChooserBlock(
+            required=False,
+            target_model='ourteam.TeamMemberPage',
+            icon='fa-user',
+            label='Internal Author')),
         ('external_author', StructBlock([
             ('name', CharBlock(required=False)),
             ('title', CharBlock(required=False)),
             ('photograph', ImageChooserBlock(required=False)),
             ('page', URLBlock(required=False))
-        ]))
+        ], icon='fa-user', label='External Author'))
     ], blank=True)
     publication_type = models.ForeignKey(
         PublicationType, related_name="+", null=True, blank=False, on_delete=models.SET_NULL, verbose_name="Resource Type")
@@ -1081,7 +1090,7 @@ class ShortPublicationPage(HeroMixin, PublishedDateMixin, FlexibleContentMixin, 
         context = super().get_context(request, *args, **kwargs)
 
         context['related_pages'] = get_related_pages(
-            self.publication_related_links.all(), ShortPublicationPage.objects)
+            self, self.publication_related_links.all(), ShortPublicationPage.objects)
 
         return context
 
@@ -1131,7 +1140,7 @@ class AudioVisualMedia(PublishedDateMixin, TypesetBodyMixin, HeroMixin, ParentPa
         context = super().get_context(request, *args, **kwargs)
 
         context['related_pages'] = get_related_pages(
-            self.publication_related_links.all(), AudioVisualMedia.objects)
+            self, self.publication_related_links.all(), AudioVisualMedia.objects)
 
         return context
 

@@ -135,7 +135,7 @@ class ServicesPage(TypesetBodyMixin, HeroMixin, Page):
         context['selected_topic'] = topic_filter
         context['examples'] = examples
         context['related_news'] = get_related_pages(
-            self.services_related_news.all(), NewsStoryPage.objects, min_len=0)
+            self, self.services_related_news.all(), NewsStoryPage.objects, min_len=0)
 
         return context
 

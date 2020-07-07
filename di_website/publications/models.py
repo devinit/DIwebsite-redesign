@@ -331,14 +331,15 @@ class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUID
         ('internal_author', PageChooserBlock(
             required=False,
             target_model='ourteam.TeamMemberPage',
-            icon='fa-user'
+            icon='fa-user',
+            label='Internal Author'
         )),
         ('external_author', StructBlock([
             ('name', CharBlock(required=False)),
             ('title', CharBlock(required=False)),
             ('photograph', ImageChooserBlock(required=False)),
             ('page', URLBlock(required=False))
-        ], icon='fa-user'))
+        ], icon='fa-user', label='External Author'))
     ], blank=True)
 
     publication_type = models.ForeignKey(
@@ -848,13 +849,17 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, LegacyPageSearchMixin
 
     colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=RED)
     authors = StreamField([
-        ('internal_author', PageChooserBlock(required=False, target_model='ourteam.TeamMemberPage')),
+        ('internal_author', PageChooserBlock(
+            required=False,
+            target_model='ourteam.TeamMemberPage',
+            icon='fa-user',
+            label='Internal Author')),
         ('external_author', StructBlock([
             ('name', CharBlock(required=False)),
             ('title', CharBlock(required=False)),
             ('photograph', ImageChooserBlock(required=False)),
             ('page', URLBlock(required=False))
-        ]))
+        ], icon='fa-user', label='External Author'))
     ], blank=True)
 
     publication_type = models.ForeignKey(
@@ -964,13 +969,17 @@ class ShortPublicationPage(HeroMixin, PublishedDateMixin, FlexibleContentMixin, 
 
     colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=RED)
     authors = StreamField([
-        ('internal_author', PageChooserBlock(required=False, target_model='ourteam.TeamMemberPage')),
+        ('internal_author', PageChooserBlock(
+            required=False,
+            target_model='ourteam.TeamMemberPage',
+            icon='fa-user',
+            label='Internal Author')),
         ('external_author', StructBlock([
             ('name', CharBlock(required=False)),
             ('title', CharBlock(required=False)),
             ('photograph', ImageChooserBlock(required=False)),
             ('page', URLBlock(required=False))
-        ]))
+        ], icon='fa-user', label='External Author'))
     ], blank=True)
     publication_type = models.ForeignKey(
         PublicationType, related_name="+", null=True, blank=False, on_delete=models.SET_NULL, verbose_name="Resource Type")

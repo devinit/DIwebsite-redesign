@@ -1,4 +1,5 @@
-import Plotly from 'plotly.js';
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
 import { dblclickLegendItem } from './click';
 import { minWidth, config } from './config';
 import { getTreemapData } from './data';
@@ -146,69 +147,62 @@ const initSelectableChart = async (
 
     // change event listener
     const updateData = () => {
+      // get the selected index, which will be one higher than required if aggregated
+      const index = aggregated ? selectNode.selectedIndex - 1 : selectNode.selectedIndex;
 
-        // get the selected index, which will be one higher than required if aggregated
-        const index = aggregated ? selectNode.selectedIndex - 1 : selectNode.selectedIndex;
+      // if treemap, set the data to the selected index and redraw
+      if (isTreemap) {
+        data = getTreemapData(traces, selectNode.value);
+        react(chartNode, data, layout);
+      }
 
-        // if treemap, set the data to the selected index and redraw
-        if (isTreemap) {
-            data = getTreemapData(traces, selectNode.value);
-            react(chartNode, data, layout);
+      // otherwise use the legend to update the chart
+      else {
+        // if index is less than zero, it's an all data reset so don't click again
+        if (index < 0) {
+          dblclickLegendItem(legend, 0);
+        } else {
+          // otherwise reset if necessary and then click the selected index
+          if (lastSelected > -1) {
+            dblclickLegendItem(legend, 0);
+          }
+          dblclickLegendItem(legend, index);
         }
 
-        // otherwise use the legend to update the chart
-        else {
-
-            // if index is less than zero, it's an all data reset so don't click again
-            if (index < 0) {
-              dblclickLegendItem(legend, 0);
-            }
-            else {
-              // otherwise reset if necessary and then click the selected index
-              if (lastSelected > -1) {
-                dblclickLegendItem(legend, 0);
-              }
-              dblclickLegendItem(legend, index);
-            }
-
-            // store the selected index
-            lastSelected = index;
-        }
+        // store the selected index
+        lastSelected = index;
+      }
     };
 
     // initialise the chart and selector
-    newPlot(chartNode, data, layout, config)
-      .then(() => {
-        // store a reference to the legend and hide it
+    newPlot(chartNode, data, layout, config).then(() => {
+      // store a reference to the legend and hide it
+      try {
+        legend = chartNode.querySelectorAll('.legend')[0];
+        legend.style.cssText = 'display: none;';
+      } catch (e) {}
+
+      // create options list from legend (or data if treemap)
+      const options = getOptions(legend, traces);
+
+      // add an extra all data option at the top if aggregated
+      if (!isTreemap && aggregated) {
+        options.unshift(all);
+      } else {
+        // otherwise select the first legend item
         try {
-          legend = chartNode.querySelectorAll('.legend')[0];
-          legend.style.cssText = 'display: none;';
+          lastSelected = 0;
+          dblclickLegendItem(legend, lastSelected);
         } catch (e) {}
+      }
 
-        // create options list from legend (or data if treemap)
-        const options = getOptions(legend, traces);
+      // get the select and assign options
+      assignOptions(selectNode, options);
 
-        // add an extra all data option at the top if aggregated
-        if (!isTreemap && aggregated) {
-          options.unshift(all);
-        }
-        else {
-          // otherwise select the first legend item
-          try {
-            lastSelected = 0;
-            dblclickLegendItem(legend, lastSelected);
-          } catch (e) {}
-        }
-
-        // get the select and assign options
-        assignOptions(selectNode, options);
-
-        // assign change event listener
-        selectNode.addEventListener('change', updateData, false);
-      });
-  }
-
-  catch (error) {
+      // assign change event listener
+      selectNode.addEventListener('change', updateData, false);
+    });
+  } catch (error) {
     // if there's a problem then try a static chart
     initStaticChart(chartNode, chartConfig);
   }

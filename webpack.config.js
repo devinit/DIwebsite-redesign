@@ -29,7 +29,7 @@ const sharedConfig = {
 
 const chartsConfig = {
   ...sharedConfig,
-  entry: ['@babel/polyfill', './src/visualisation/index.ts'],
+  entry: ['./src/visualisation/index.ts'],
   output: {
     path: path.resolve(__dirname, 'di_website/visualisation/static/visualisation/js'),
     filename: 'chart.js',

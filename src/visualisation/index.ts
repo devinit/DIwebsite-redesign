@@ -88,13 +88,17 @@ const initStaticChart = async (element: HTMLElement, chartConfig: PlotlyConfig) 
     const { data, layout } = chartConfig;
 
     const { loadPlotlyCode } = await import('./modules');
-    const { newPlot } = await loadPlotlyCode(data);
+    const { newPlot, react } = await loadPlotlyCode(data);
     // const config = { responsive: true };
     removeLoading(element);
     removeTitle(layout);
     updateDataHoverTemplate(data);
     updateLayoutColorway(layout);
-    newPlot(element, data, layout, config);
+    newPlot(element, data, layout, config).then(() => {
+      setTimeout(() => {
+        react(element, data, layout); // FIXME: hack to fix weird bug where a scatter chart is render when type=bar
+      }, 100);
+    });
   } catch (error) {
     console.log(error);
   }
@@ -177,6 +181,9 @@ const initSelectableChart = async (
 
     // initialise the chart and selector
     newPlot(chartNode, data, layout, config).then(() => {
+      setTimeout(() => {
+        react(chartNode, data, layout); // FIXME: hack to fix weird bug where a scatter chart is render when type=bar
+      }, 100);
       // store a reference to the legend and hide it
       legend = chartNode.querySelectorAll('.legend')[0] as HTMLElement | undefined;
       if (!legend) return; // TODO: handle this scenario better ... error log?

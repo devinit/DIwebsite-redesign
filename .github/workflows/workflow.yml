@@ -37,7 +37,7 @@ jobs:
       contains('
         refs/heads/master
         refs/heads/develop
-        refs/heads/feature/setup-github-action
+        refs/heads/feature/setup-github-actions
       ', github.ref)
     steps:
     - uses: actions/checkout@v2
@@ -46,12 +46,34 @@ jobs:
         mkdir deploy_script
         cp deploy.sh deploy_script
         tar -cvf deploy.tar deploy_script
+    
+    - name: Set env for develop branch
+      if: endsWith(github.ref, '/develop')
+      run: |
+        echo "::set-env name=ENVIRONMENT::${{ secrets.DEV_ENV }}"
+        echo "::set-env name=HOST::${{ secrets.DEV_HOST }}"
+        echo "::set-env name=USERNAME::${{ secrets.USERNAME }}"
+
+    - name: Set env for master branch
+      if: endsWith(github.ref, '/master')
+      run: |
+        echo "::set-env name=ENVIRONMENT::${{ secrets.PROD_ENV }}"
+        echo "::set-env name=HOST::${{ secrets.PROD_HOST }}"
+        echo "::set-env name=USERNAME::${{ secrets.USERNAME }}"
+    
+    - name: Set env for feature branch
+      if: endsWith(github.ref, '/setup-github-actions')
+      run: |
+        echo "::set-env name=ENVIRONMENT::${{ secrets.TEST_ENV }}"
+        echo "::set-env name=HOST::${{ secrets.TEST_HOST }}"
+        echo "::set-env name=USERNAME::root"
+        echo "::set-env name=BRANCH::feature/setup-github-actions"
 
     - name: copy deploy file via ssh
       uses: appleboy/scp-action@master
       env:
-        HOST: ${{ secrets.HOST }}
-        USERNAME: ${{ secrets.USERNAME }}
+        HOST: ${{ env.HOST }}
+        USERNAME: ${{ env.USERNAME }}
         PORT: ${{ secrets.PORT }}
         KEY: ${{ secrets.KEY }}
       with:
@@ -60,33 +82,33 @@ jobs:
     
     - name: run deployment
       uses: appleboy/ssh-action@master
-      env:
-        BRANCH: ${{ secrets.BRANCH_OTHER }}
-        CELERY_BROKER_URL: ${{ secrets.CELERY_BROKER_URL }}
-        DEFAULT_FROM_EMAIL: ${{ secrets.DEFAULT_FROM_EMAIL }}
-        EMAIL_BACKEND: ${{ secrets.EMAIL_BACKEND }}
-        EMAIL_HOST: ${{ secrets.EMAIL_HOST }}
-        EMAIL_HOST_USER: ${{ secrets.EMAIL_HOST_USER }}
-        EMAIL_HOST_PASSWORD: ${{ secrets.EMAIL_HOST_PASSWORD }}
-        DATABASE_URL: ${{ secrets.DATABASE_URL }}
-        ELASTIC_PASSWORD: ${{ secrets.ELASTIC_PASSWORD }}
-        ELASTIC_SEARCH_URL: ${{ secrets.ELASTIC_SEARCH_URL }}
-        ELASTIC_USERNAME: ${{ secrets.ELASTIC_USERNAME }}
-        HS_API_KEY: ${{ secrets.HS_API_KEY }}
-        HS_TICKET_PIPELINE: ${{ secrets.HS_TICKET_PIPELINE }}
-        HS_TICKET_PIPELINE_STAGE: ${{ secrets.HS_TICKET_PIPELINE_STAGE }}
-        RABBITMQ_PASSWORD: ${{ secrets.RABBITMQ_PASSWORD }}
-        ENVIRONMENT: ${{ secrets.ENVIRONMENT }}
-        SECRET_KEY: ${{ secrets.SECRET_KEY }} 
+      # env:
+      #   BRANCH: ${{ secrets.BRANCH_OTHER }}
+      #   CELERY_BROKER_URL: ${{ secrets.CELERY_BROKER_URL }}
+      #   DEFAULT_FROM_EMAIL: ${{ secrets.DEFAULT_FROM_EMAIL }}
+      #   EMAIL_BACKEND: ${{ secrets.EMAIL_BACKEND }}
+      #   EMAIL_HOST: ${{ secrets.EMAIL_HOST }}
+      #   EMAIL_HOST_USER: ${{ secrets.EMAIL_HOST_USER }}
+      #   EMAIL_HOST_PASSWORD: ${{ secrets.EMAIL_HOST_PASSWORD }}
+      #   DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      #   ELASTIC_PASSWORD: ${{ secrets.ELASTIC_PASSWORD }}
+      #   ELASTIC_SEARCH_URL: ${{ secrets.ELASTIC_SEARCH_URL }}
+      #   ELASTIC_USERNAME: ${{ secrets.ELASTIC_USERNAME }}
+      #   HS_API_KEY: ${{ secrets.HS_API_KEY }}
+      #   HS_TICKET_PIPELINE: ${{ secrets.HS_TICKET_PIPELINE }}
+      #   HS_TICKET_PIPELINE_STAGE: ${{ secrets.HS_TICKET_PIPELINE_STAGE }}
+      #   RABBITMQ_PASSWORD: ${{ secrets.RABBITMQ_PASSWORD }}
+      #   SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      #   ENVIRONMENT: ${{ env.ENVIRONMENT }}
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
         port: ${{ secrets.PORT }}
-        envs: BRANCH, CELERY_BROKER_URL, DEFAULT_FROM_EMAIL, EMAIL_BACKEND, EMAIL_HOST, EMAIL_HOST_USER, EMAIL_HOST_PASSWORD, DATABASE_URL, ELASTIC_PASSWORD, ELASTIC_SEARCH_URL, ELASTIC_USERNAME, HS_API_KEY, HS_TICKET_PIPELINE, HS_TICKET_PIPELINE_STAGE, RABBITMQ_PASSWORD, ENVIRONMENT, 
+        # envs: BRANCH, CELERY_BROKER_URL, DEFAULT_FROM_EMAIL, EMAIL_BACKEND, EMAIL_HOST, EMAIL_HOST_USER, EMAIL_HOST_PASSWORD, DATABASE_URL, ELASTIC_PASSWORD, ELASTIC_SEARCH_URL, ELASTIC_USERNAME, HS_API_KEY, HS_TICKET_PIPELINE, HS_TICKET_PIPELINE_STAGE, RABBITMQ_PASSWORD, ENVIRONMENT, 
         script: |
-          export BRANCH=$BRANCH
-          export RABBITMQ_PASSWORD=$RABBITMQ_PASSWORD
+          export BRANCH=${{ env.BRANCH }}
+          export RABBITMQ_PASSWORD=${{ secrets.RABBITMQ_PASSWORD }}
           export ELASTIC_SEARCH_URL=$ELASTIC_SEARCH_URL
           export ELASTIC_PASSWORD=$ELASTIC_PASSWORD
           export ELASTIC_USERNAME=$ELASTIC_USERNAME

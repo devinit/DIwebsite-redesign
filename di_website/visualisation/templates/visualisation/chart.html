@@ -23,6 +23,9 @@
       {% endif %}
     "
   >
+    <div class="chart-loading">
+      <div class="chart-loading__block"><div></div><div></div><div></div><div></div></div>
+    </div>
   </div>
   {% if request.is_preview %}
     <script class="js-plotly-chart-raw-data" type="application/json">{{ item.chart_json|as_json|safe }}</script>
@@ -32,10 +35,7 @@
 <div class="chart-fallback">
   {% image item.fallback_image width-1000 as fallback %}
   {% image item.fallback_image width-1400 as full %}
-  <a href="{{ full.url }}"
-      target="_blank"
-      title="Click to open image in a new window"
-  >
+  <a href="{{ full.url }}" target="_blank" title="Click to open image in a new window">
       <span class="chart-fallback__no-js-small-screen-image" style="background-image: url('{{ fallback.url }}'); {{ fallback|padding_by_ratio }}"></span>
   </a>
 </div>

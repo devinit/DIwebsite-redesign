@@ -5,6 +5,7 @@ import { dblclickLegendItem } from './click';
 import { config } from './config';
 import { getTreemapData } from './data';
 import { addLoading, removeLoading } from './loading';
+import { loadPlotlyCode } from './modules';
 import { assignOptions, getOptions } from './options';
 import { removeTitle, updateDataHoverTemplate, updateLayoutColorway } from './styles';
 import { PlotlyConfig } from './types';
@@ -34,7 +35,7 @@ const initPlotlyCharts = () => {
           const aggregated = chartNode.dataset.aggregated as Aggregated;
           const minWidth = chartNode.dataset.minWidth ? parseInt(chartNode.dataset.minWidth) : 400; // TODO: use a constant
 
-          const init = () => {
+          const init = async () => {
             // if window greater than min and chart not inited, init chart and set flag
             if (window.matchMedia(`(min-width: ${minWidth}px)`).matches) {
               // add loading on chart init
@@ -88,7 +89,6 @@ const initStaticChart = async (element: HTMLElement, chartConfig: PlotlyConfig) 
   try {
     const { data, layout } = chartConfig;
 
-    const { loadPlotlyCode } = await import('./modules');
     const { newPlot } = await loadPlotlyCode(data);
     // const config = { responsive: true };
     removeLoading(element);
@@ -110,7 +110,6 @@ const initSelectableChart = async (
 ) => {
   try {
     const { data: _data, layout } = chartConfig;
-    const { loadPlotlyCode } = await import('./modules');
     const { newPlot, react } = await loadPlotlyCode(_data);
     const all = 'All data';
     let data = _data.slice();

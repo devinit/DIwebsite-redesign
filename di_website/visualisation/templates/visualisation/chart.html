@@ -1,7 +1,7 @@
 {% load wagtailroutablepage_tags wagtailimages_tags footnotes_utils chart_utils %}
 
 <h3 class="type-l type-l--trailer">{{ item.title }}</h3>
-<div class="chart-container chart-container--full js-plotly-chart-wrapper">
+<div class="chart-container chart-container--full js-plotly-chart-wrapper js-lazy-loading">
   {% if item.selectable %}
     <select class="data-selector js-plotly-chart-data-selector"></select>
   {% endif %}

@@ -8,7 +8,7 @@ import { getTreemapData } from './data';
 import { addLoading, removeLoading } from './loading';
 import { loadPlotlyCode } from './modules';
 import { assignOptions, getOptions } from './options';
-import { removeTitle, updateDataHoverTemplate, updateLayoutColorway } from './styles';
+import { removeTitle, setDefaultColorway, updateDataHoverTemplate, updateLayoutColorway } from './styles';
 import { PlotlyConfig } from './types';
 
 type Aggregated = 'True' | 'False' | undefined;
@@ -101,13 +101,13 @@ const initStaticChart = async (element: HTMLElement, chartConfig: PlotlyConfig) 
   try {
     const { data, layout } = chartConfig;
 
-    const { newPlot } = await loadPlotlyCode(data);
+    const { newPlot, relayout } = await loadPlotlyCode(data);
     // const config = { responsive: true };
     removeLoading(element);
     removeTitle(layout);
     updateDataHoverTemplate(data);
-    updateLayoutColorway(layout);
-    newPlot(element, data, layout, config);
+    setDefaultColorway(layout);
+    newPlot(element, data, layout, config).then(() => updateLayoutColorway(element, relayout));
   } catch (error) {
     console.log(error);
   }
@@ -122,7 +122,7 @@ const initSelectableChart = async (
 ) => {
   try {
     const { data: _data, layout } = chartConfig;
-    const { newPlot, react } = await loadPlotlyCode(_data);
+    const { newPlot, react, relayout } = await loadPlotlyCode(_data);
     const all = 'All data';
     let data = _data.slice();
     const traces = Array.from(data);
@@ -150,8 +150,8 @@ const initSelectableChart = async (
     // update the hover template
     updateDataHoverTemplate(data);
 
-    // update the layout colorway
-    updateLayoutColorway(layout);
+    // set the default layout colorway
+    setDefaultColorway(layout);
 
     // set the data to the first item if treemap
     if (isTreemap) {
@@ -188,32 +188,34 @@ const initSelectableChart = async (
     };
 
     // initialise the chart and selector
-    newPlot(chartNode, data, layout, config).then(() => {
-      // store a reference to the legend and hide it
-      legend = chartNode.querySelectorAll('.legend')[0] as HTMLElement | undefined;
-      if (!legend) return; // TODO: handle this scenario better ... error log?
-      legend.style.cssText = 'display: none;';
+    newPlot(chartNode, data, layout, config)
+      .then(() => updateLayoutColorway(chartNode, relayout))
+      .then(() => {
+        // store a reference to the legend and hide it
+        legend = chartNode.querySelectorAll('.legend')[0] as HTMLElement | undefined;
+        if (!legend) return; // TODO: handle this scenario better ... error log?
+        legend.style.cssText = 'display: none;';
 
-      // create options list from legend (or data if treemap)
-      const options = getOptions(legend, traces);
+        // create options list from legend (or data if treemap)
+        const options = getOptions(legend, traces);
 
-      // add an extra all data option at the top if aggregated
-      if (!isTreemap && aggregated) {
-        options.unshift(all);
-      } else {
-        // otherwise select the first legend item
-        try {
-          lastSelected = 0;
-          dblclickLegendItem(legend, lastSelected);
-        } catch (e) {}
-      }
+        // add an extra all data option at the top if aggregated
+        if (!isTreemap && aggregated) {
+          options.unshift(all);
+        } else {
+          // otherwise select the first legend item
+          try {
+            lastSelected = 0;
+            dblclickLegendItem(legend, lastSelected);
+          } catch (e) {}
+        }
 
-      // get the select and assign options
-      assignOptions(selectNode, options as string[]);
+        // get the select and assign options
+        assignOptions(selectNode, options as string[]);
 
-      // assign change event listener
-      selectNode.addEventListener('change', updateData, false);
-    });
+        // assign change event listener
+        selectNode.addEventListener('change', updateData, false);
+      });
   } catch (error) {
     // if there's a problem then try a static chart
     initStaticChart(chartNode, chartConfig);

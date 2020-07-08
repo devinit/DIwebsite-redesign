@@ -57,7 +57,7 @@
     {
         "name":"rainbowscale-12a",
         "description" : "Uses primary + secondary colours with colour - 2 versions of secondary",
-        "scale" : ["#e84439","#eb642b","#f49b21","#109e68","#0089cc","#893f90","#c2135b","#f8c1b2","#fccc8e","#f6bb9d","#92cba9","#88bae5","#c189bb","#e4819b"],
+        "scale" : ["#e84439","#eb642b","#f49b21","#109e68","#0089cc","#893f90","#c2135b","#f8c1b2","#f6bb9d","#fccc8e","#92cba9","#88bae5","#c189bb","#e4819b"],
         "bodyclass" : null
     }
 ]

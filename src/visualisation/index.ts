@@ -1,4 +1,5 @@
 import 'core-js/stable';
+import 'isomorphic-fetch';
 import 'regenerator-runtime/runtime';
 import { dblclickLegendItem } from './click';
 import { config } from './config';

@@ -20,6 +20,32 @@ const config = {
     ],
 };
 const minWidth = 700;
+const colorways = {
+    rainbow: [
+        '#e84439', '#eb642b', '#f49b21', '#109e68', '#0089cc', '#893f90', '#c2135b', '#f8c1b2', '#f6bb9d', '#fccc8e', '#92cba9', '#88bae5', '#c189bb', '#e4819b',
+    ],
+    default: [
+        '#fce3dc', '#fbd7cb', '#f6b0a0', '#ec6250', '#dc372d', '#cd2b2a', '#a21e25', '#6c120a',
+    ],
+    sunflower: [
+        '#feedd4', '#fee7c1', '#fedcab', '#fac47e', '#f7a838', '#df8000', '#ba6b15', '#7d4712',
+    ],
+    marigold: [
+        '#fde5d4', '#fcdbbf', '#facbad', '#f4a57c', '#ee7644', '#cb5730', '#ac4622', '#7a2e05',
+    ],
+    rose: [
+        '#f9cdd0', '#f6b8c1', '#f3a5b6', '#e05c86', '#d12568', '#9f1459', '#8d0e56', '#65093d',
+    ],
+    lavendar: [
+        '#ebcfe5', '#deb5d6', '#cb98c4', '#af73ae', '#994d98', '#732c85', '#632572', '#42184c',
+    ],
+    bluebell: [
+        '#d3e0f4', '#bcd4f0', '#a3c7eb', '#77adde', '#4397d3', '#1060a3', '#00538e', '#0a3a64',
+    ],
+    leaf: [
+        '#c5e1cb', '#b1d8bb', '#a2d1b0', '#74bf93', '#3b8c62', '#00694a', '#005b3e', '#08492f',
+    ],
+}
 
 export default function entry() {
     $('.charts__chart').each((i, el) => {
@@ -98,6 +124,29 @@ const getTreemapData = (traces, label) => {
     return [traces[newDataIndex]];
 };
 
+const addColorway = (el) => {
+    try {
+        const maxThemeNum = 8;
+        const count = el.querySelectorAll('.legend rect.legendtoggle').length;
+        let colorway = undefined;
+        if (count > maxThemeNum) {
+            colorway = colorways.rainbow;
+        }
+        else {
+            const bodyClass = document.body.classList;
+            for (const [key, value] of Object.entries(colorways)) {
+                if (bodyClass.contains(`body--${key}`) && value.length <= maxThemeNum) {
+                    colorway = value;
+                    break;
+                }
+            }
+        }
+        if (colorway) {
+            Plotly.relayout(el, { colorway: colorway });
+        }
+    } catch (e) {}
+};
+
 const initChart = (el) => {
     addLoading(el);
     Plotly.d3.json(el.first().data('url'), d => {
@@ -107,22 +156,8 @@ const initChart = (el) => {
         const combined = el.data('combined');
         const drilldown = el.data('drilldown');
 
-        data.layout.colorway = [
-            "#e84439",
-            "#eb642b",
-            "#f49b21",
-            "#109e68",
-            "#0089cc",
-            "#893f90",
-            "#c2135b",
-            "#f8c1b2",
-            "#fccc8e",
-            "#f6bb9d",
-            "#92cba9",
-            "#88bae5",
-            "#c189bb",
-            "#e4819b",
-        ];
+        data.layout.colorway = colorways.default;
+
         removeLoading(el);
         removeTitle(data);
 
@@ -152,7 +187,8 @@ const initStaticChart = (el, data) => {
             el.hovertemplate = hovertemplate;
         }
     });
-    Plotly.newPlot(el[0], data.data, data.layout, config);
+    Plotly.newPlot(el[0], data.data, data.layout, config)
+        .then(addColorway(el[0]));
 
 };
 
@@ -212,6 +248,7 @@ const initInteractiveChart = (el, data, combined = false) => {
 
     // initialise the chart and selector
     Plotly.newPlot(el[0], data.data, data.layout, config)
+        .then(addColorway(el[0]))
         .then(() => {
             // store a reference to the legend and hide it
             try {
@@ -274,7 +311,8 @@ const initDrillDownChart = (el, data) => {
     }
 
     // initialise the chart
-    Plotly.newPlot(chart, data.data, data.layout, config);
+    Plotly.newPlot(chart, data.data, data.layout, config)
+        .then(addColorway(chart));
 
     chart.on('plotly_click', function(data) {
         try {

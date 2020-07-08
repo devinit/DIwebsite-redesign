@@ -1,6 +1,7 @@
 import 'core-js/stable';
 import debounce from 'debounce';
 import 'isomorphic-fetch';
+import { PlotlyHTMLElement } from 'plotly.js';
 import 'regenerator-runtime/runtime';
 import { dblclickLegendItem } from './click';
 import { config } from './config';
@@ -158,39 +159,54 @@ const initSelectableChart = async (
       data = [traces[0]];
     }
 
-    // change event listener
-    const updateData = () => {
-      // get the selected index, which will be one higher than required if aggregated
-      const index = aggregated ? selectNode.selectedIndex - 1 : selectNode.selectedIndex;
+    const updatePlot = (event: Event, plot: PlotlyHTMLElement & { data: Plotly.Data[] }) => {
+      if (event.target) {
+        const value = (event.target as HTMLSelectElement).value;
+        if (isTreemap) {
+          data = getTreemapData(traces, selectNode.value);
+          react(chartNode, data, layout);
 
-      // if treemap, set the data to the selected index and redraw
-      if (isTreemap) {
-        data = getTreemapData(traces, selectNode.value);
-        react(chartNode, data, layout);
-      }
-
-      // otherwise use the legend to update the chart
-      else if (legend) {
-        // if index is less than zero, it's an all data reset so don't click again
-        if (index < 0) {
-          dblclickLegendItem(legend, 0);
-        } else {
-          // otherwise reset if necessary and then click the selected index
-          if (lastSelected > -1) {
-            dblclickLegendItem(legend, 0);
-          }
-          dblclickLegendItem(legend, index);
+          return;
         }
 
-        // store the selected index
-        lastSelected = index;
+        if (plot.data.find((trace) => trace.transforms)) {
+          const updatedData = plot.data
+            .map((trace) => {
+              trace.transforms?.forEach((transform) => {
+                if (transform.type === 'groupby') {
+                  transform.styles?.forEach((style) => {
+                    style.value.visible = style.target === value || value === all;
+                  });
+                }
+              });
+
+              return trace;
+            })
+            .slice();
+          react(chartNode, updatedData, layout, config);
+        } else {
+          const updatedData = plot.data
+            .map((trace) => {
+              trace.visible = value === all || trace.name === value;
+
+              return trace;
+            })
+            .slice();
+
+          react(chartNode, updatedData, layout, config);
+        }
       }
     };
 
     // initialise the chart and selector
     newPlot(chartNode, data, layout, config)
-      .then(() => updateLayoutColorway(chartNode, relayout))
-      .then(() => {
+      .then((myPlot) => {
+        updateLayoutColorway(chartNode, relayout);
+
+        return myPlot;
+      })
+      .then((myPlot: PlotlyHTMLElement & { data: Plotly.Data[] }) => {
+        // TODO: clean up this function
         // store a reference to the legend and hide it
         legend = chartNode.querySelectorAll('.legend')[0] as HTMLElement | undefined;
         if (!legend) return; // TODO: handle this scenario better ... error log?
@@ -214,7 +230,7 @@ const initSelectableChart = async (
         assignOptions(selectNode, options as string[]);
 
         // assign change event listener
-        selectNode.addEventListener('change', updateData, false);
+        selectNode.addEventListener('change', (event: Event) => updatePlot(event, myPlot), false);
       });
   } catch (error) {
     // if there's a problem then try a static chart

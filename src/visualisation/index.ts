@@ -1,4 +1,5 @@
 import 'core-js/stable';
+import debounce from 'debounce';
 import 'isomorphic-fetch';
 import 'regenerator-runtime/runtime';
 import { dblclickLegendItem } from './click';
@@ -12,72 +13,83 @@ import { PlotlyConfig } from './types';
 
 type Aggregated = 'True' | 'False' | undefined;
 
+const initChart = (wrapper: HTMLElement) => {
+  const chartNode = wrapper.getElementsByClassName('js-plotly-chart')[0] as HTMLDivElement | undefined;
+  const selectNode = wrapper.getElementsByClassName('js-plotly-chart-data-selector')[0] as
+    | HTMLSelectElement
+    | undefined;
+  const scriptNode = wrapper.getElementsByClassName('js-plotly-chart-raw-data')[0] as HTMLScriptElement | undefined;
+
+  if (chartNode) {
+    const data = scriptNode ? JSON.parse(scriptNode.innerHTML) : null; // TODO: surround in try/catch
+    const url = chartNode.dataset.url;
+    const aggregated = chartNode.dataset.aggregated as Aggregated;
+    const minWidth = chartNode.dataset.minWidth ? parseInt(chartNode.dataset.minWidth) : 400; // TODO: use a constant
+
+    const init = async () => {
+      // if window greater than min and chart not inited, init chart and set flag
+      if (window.matchMedia(`(min-width: ${minWidth}px)`).matches) {
+        // add loading on chart init
+        addLoading(chartNode);
+
+        // async data is used for live/page embedded chart requests
+        if (url) {
+          fetch(url).then((response) => {
+            response.json().then((d) => {
+              if (selectNode) {
+                initSelectableChart(chartNode, d, selectNode, aggregated === 'True');
+              } else {
+                initStaticChart(chartNode, d);
+              }
+            });
+          });
+        }
+
+        // raw data in the page is used for previewing and drafts
+        else {
+          if (selectNode) {
+            initSelectableChart(chartNode, data, selectNode, aggregated === 'True');
+          } else {
+            initStaticChart(chartNode, data);
+          }
+        }
+
+        // remove listener if chart inited
+        removelistener();
+      }
+    };
+
+    // add the window resize listener
+    window.addEventListener('resize', init);
+
+    // remove the window resize listener
+    const removelistener = () => {
+      window.removeEventListener('resize', init);
+    };
+
+    // call the init function
+    init();
+  }
+};
+
 // Find and initiliase all charts
 const initPlotlyCharts = () => {
   const wrappers = document.getElementsByClassName('js-plotly-chart-wrapper');
 
   if (wrappers.length) {
     for (let index = 0; index < wrappers.length; index++) {
-      const element = wrappers.item(index) as HTMLElement;
+      const wrapper = wrappers.item(index) as HTMLElement;
 
-      if (element) {
-        const chartNode = element.getElementsByClassName('js-plotly-chart')[0] as HTMLDivElement | undefined;
-        const selectNode = element.getElementsByClassName('js-plotly-chart-data-selector')[0] as
-          | HTMLSelectElement
-          | undefined;
-        const scriptNode = element.getElementsByClassName('js-plotly-chart-raw-data')[0] as
-          | HTMLScriptElement
-          | undefined;
-
-        if (chartNode) {
-          const data = scriptNode ? JSON.parse(scriptNode.innerHTML) : null; // TODO: surround in try/catch
-          const url = chartNode.dataset.url;
-          const aggregated = chartNode.dataset.aggregated as Aggregated;
-          const minWidth = chartNode.dataset.minWidth ? parseInt(chartNode.dataset.minWidth) : 400; // TODO: use a constant
-
-          const init = async () => {
-            // if window greater than min and chart not inited, init chart and set flag
-            if (window.matchMedia(`(min-width: ${minWidth}px)`).matches) {
-              // add loading on chart init
-              addLoading(chartNode);
-
-              // async data is used for live/page embedded chart requests
-              if (url) {
-                fetch(url).then((response) => {
-                  response.json().then((d) => {
-                    if (selectNode) {
-                      initSelectableChart(chartNode, d, selectNode, aggregated === 'True');
-                    } else {
-                      initStaticChart(chartNode, d);
-                    }
-                  });
-                });
-              }
-
-              // raw data in the page is used for previewing and drafts
-              else {
-                if (selectNode) {
-                  initSelectableChart(chartNode, data, selectNode, aggregated === 'True');
-                } else {
-                  initStaticChart(chartNode, data);
-                }
-              }
-
-              // remove listener if chart inited
-              removelistener();
-            }
-          };
-
-          // add the window resize listener
-          window.addEventListener('resize', init);
-
-          // remove the window resize listener
-          const removelistener = () => {
-            window.removeEventListener('resize', init);
-          };
-
-          // call the init function
-          init();
+      if (wrapper && wrapper.classList.contains('js-lazy-loading')) {
+        const bounds = wrapper.getBoundingClientRect();
+        if (bounds.top + bounds.height > 0 && bounds.top - window.innerHeight <= 50) {
+          wrapper.classList.remove('js-lazy-loading');
+          initChart(wrapper);
+        } else {
+          const chartNode = wrapper.getElementsByClassName('js-plotly-chart')[0] as HTMLDivElement | undefined;
+          if (chartNode) {
+            addLoading(chartNode); // TODO: show placeholder image instead
+          }
         }
       }
     }
@@ -208,5 +220,5 @@ const initSelectableChart = async (
   }
 };
 
-// Begin initialisation
 initPlotlyCharts();
+window.addEventListener('scroll', debounce(initPlotlyCharts, 200));

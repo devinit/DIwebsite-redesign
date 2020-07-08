@@ -5,19 +5,14 @@ import { PlotlyCustom } from './plotly.custom';
 export const loadPlotlyCode = async (data: Plotly.Data[]): Promise<PlotlyCustom> => {
   const chartTypes: Plotly.PlotType[] = data
     .map((trace) => trace.type)
-    .reduce<Plotly.PlotType[]>((prev, curr: Plotly.PlotType) => {
-      if (prev.indexOf(curr) === -1) {
-        return prev.concat([curr]);
-      }
-
-      return prev;
-    }, []);
+    .reduce<Plotly.PlotType[]>(
+      (prev, curr: Plotly.PlotType) => (prev.indexOf(curr) === -1 ? prev.concat([curr]) : prev),
+      [],
+    );
 
   const { newPlot, purge, register, react } = await import('./plotly.custom');
 
-  chartTypes.forEach(async (type) => {
-    register([await import(`plotly.js/lib/${type}`)]);
-  });
+  register(await Promise.all(chartTypes.map(async (type) => await import(`plotly.js/lib/${type}`))));
   register([
     require('plotly.js/lib/aggregate'),
     require('plotly.js/lib/filter'),

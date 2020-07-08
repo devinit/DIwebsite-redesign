@@ -5,6 +5,6 @@ export { newPlot, Plots, purge, react, register, relayout } from 'plotly.js/lib/
 export interface PlotlyCustom {
   newPlot: (root: Root, data: Data[], layout?: Partial<Layout>, config?: Partial<Config>) => Promise<PlotlyHTMLElement>;
   purge: (root: Root) => void;
-  relayout?: (root: Root, layout: Partial<Layout>) => Promise<PlotlyHTMLElement>;
+  relayout: (root: Root, layout: Partial<Layout>) => Promise<PlotlyHTMLElement>;
   react: (root: Root, data: Data[], layout?: Partial<Layout>, config?: Partial<Config>) => Promise<PlotlyHTMLElement>;
 }

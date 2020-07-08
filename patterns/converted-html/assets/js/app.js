@@ -90,6 +90,7 @@ function globals () {
 
     // Accordion
     accordion(
+        '.accordion__heading',
         '.accordion__list-item',
         'accordion__list-item--active',
         '.accordion__content',

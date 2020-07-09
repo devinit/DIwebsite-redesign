@@ -83,6 +83,7 @@ a.m-author {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+    min-height: 81px;
     img {
         @extend .max-width;
         object-fit: cover;
@@ -96,6 +97,9 @@ a.m-author {
     padding-bottom: 10px;
     padding-right: 10px;
     padding-left: 5px;
+    .card & {
+        padding-top: 0;
+    }
 }
 
 .m-author__meta {

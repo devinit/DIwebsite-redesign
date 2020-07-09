@@ -20,8 +20,12 @@ import countryNav from './utils/countryNav';
 import countrySearch from './utils/countrySearch';
 import spotlights from './utils/spotlights';
 import simpleModal from './utils/simpleModal';
+import setupNotices from './utils/setupNotices';
 
 function globals () {
+
+    // Notices
+    setupNotices();
 
     // Spotlight countries menu
     countryNav(

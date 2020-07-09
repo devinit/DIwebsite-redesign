@@ -34,7 +34,7 @@ const colorways = {
 };
 
 // Assign the default hover template to each data node if there isn't one defined
-export const updateDataHoverTemplate = (data: Plotly.Data[]): void => {
+export const addHoverTemplateToTraces = (data: Plotly.Data[]): void => {
   data.forEach((item) => {
     if (!item.hovertemplate) {
       item.hovertemplate = hovertemplate;
@@ -42,7 +42,6 @@ export const updateDataHoverTemplate = (data: Plotly.Data[]): void => {
   });
 };
 
-// Assign a default colorway to the layout
 export const setDefaultColorway = (layout: Plotly.Layout): void => {
   layout.colorway = colorways.default;
 };
@@ -70,7 +69,6 @@ export const updateLayoutColorway = (element: HTMLElement, relayout: typeof Rela
   } catch (e) {}
 };
 
-// remove the chart title
 export const removeTitle = (layout: Plotly.Layout): void => {
   layout.title = '';
 };

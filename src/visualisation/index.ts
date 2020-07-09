@@ -4,11 +4,11 @@ import 'isomorphic-fetch';
 import { PlotlyHTMLElement } from 'plotly.js';
 import 'regenerator-runtime/runtime';
 import { config } from './config';
-import { getTreemapData } from './data';
+import { getTreemapDataByLabel } from './data';
 import { addLoading, removeLoading } from './loading';
 import { loadPlotlyCode } from './modules';
-import { assignOptions, createOptionsFromLegendData as createOptionsFromCalcData } from './options';
-import { removeTitle, setDefaultColorway, updateDataHoverTemplate, updateLayoutColorway } from './styles';
+import { addOptionsToSelectNode, createOptionsFromLegendData as createOptionsFromCalcData } from './options';
+import { addHoverTemplateToTraces, removeTitle, setDefaultColorway, updateLayoutColorway } from './styles';
 import { PlotlyConfig, PlotlyEnhancedHTMLElement } from './types';
 
 type Aggregated = 'True' | 'False' | undefined;
@@ -29,10 +29,8 @@ const initChart = (wrapper: HTMLElement) => {
     const init = async () => {
       // if window greater than min and chart not inited, init chart and set flag
       if (window.matchMedia(`(min-width: ${minWidth}px)`).matches) {
-        // add loading on chart init
         addLoading(chartNode);
 
-        // async data is used for live/page embedded chart requests
         if (url) {
           fetch(url).then((response) => {
             response.json().then((d) => {
@@ -43,10 +41,8 @@ const initChart = (wrapper: HTMLElement) => {
               }
             });
           });
-        }
-
-        // raw data in the page is used for previewing and drafts
-        else {
+        } else {
+          // raw data in the page is used for previewing and drafts
           if (selectNode) {
             initSelectableChart(chartNode, data, selectNode, aggregated === 'True');
           } else {
@@ -54,25 +50,18 @@ const initChart = (wrapper: HTMLElement) => {
           }
         }
 
-        // remove listener if chart inited
         removelistener();
       }
     };
-
-    // add the window resize listener
     window.addEventListener('resize', init);
-
-    // remove the window resize listener
     const removelistener = () => {
       window.removeEventListener('resize', init);
     };
 
-    // call the init function
     init();
   }
 };
 
-// Find and initiliase all charts
 const initPlotlyCharts = () => {
   const wrappers = document.getElementsByClassName('js-plotly-chart-wrapper');
 
@@ -96,16 +85,14 @@ const initPlotlyCharts = () => {
   }
 };
 
-// Initiliase a static chart
 const initStaticChart = async (element: HTMLElement, chartConfig: PlotlyConfig) => {
   try {
     const { data, layout } = chartConfig;
 
     const { react, relayout } = await loadPlotlyCode(data);
-    // const config = { responsive: true };
     removeLoading(element);
     removeTitle(layout);
-    updateDataHoverTemplate(data);
+    addHoverTemplateToTraces(data);
     setDefaultColorway(layout);
     react(element, data, layout, config).then(() => updateLayoutColorway(element, relayout));
   } catch (error) {
@@ -139,7 +126,6 @@ const showTraceByIndex = (data: Plotly.Data[], index = 0): Plotly.Data[] => {
     .slice();
 };
 
-// Initiliase an selectable chart
 const initSelectableChart = async (
   chartNode: HTMLElement,
   chartConfig: PlotlyConfig,
@@ -163,10 +149,9 @@ const initSelectableChart = async (
 
     removeLoading(chartNode);
     removeTitle(layout);
-    updateDataHoverTemplate(data);
+    addHoverTemplateToTraces(data);
     setDefaultColorway(layout);
 
-    // set the data to the first item if treemap
     if (isTreemap) {
       data = [traces[0]];
     }
@@ -175,7 +160,7 @@ const initSelectableChart = async (
       if (event.target) {
         const value = (event.target as HTMLSelectElement).value;
         if (isTreemap) {
-          data = getTreemapData(traces, selectNode.value);
+          data = getTreemapDataByLabel(traces, selectNode.value);
           react(chartNode, data, layout);
 
           return;
@@ -210,7 +195,6 @@ const initSelectableChart = async (
       }
     };
 
-    // initialise the chart and selector
     react(chartNode, data, layout, config)
       .then((myPlot) => {
         updateLayoutColorway(chartNode, relayout);
@@ -222,12 +206,10 @@ const initSelectableChart = async (
         if (aggregated) {
           options.unshift(VIEW_ALL);
         }
-        assignOptions(selectNode, options);
+        addOptionsToSelectNode(selectNode, options);
         selectNode.addEventListener('change', (event: Event) => updatePlot(event, myPlot), false);
-        // TODO: show only the first option for disaggregated charts
       });
   } catch (error) {
-    // if there's a problem then try a static chart
     initStaticChart(chartNode, chartConfig);
   }
 };

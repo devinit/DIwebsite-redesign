@@ -102,14 +102,17 @@ const initStaticChart = async (element: HTMLElement, chartConfig: PlotlyConfig) 
   }
 };
 
-const showTraceByIndex = (data: Plotly.Data[], index = 0): Plotly.Data[] => {
+const showTraceByCondition = (
+  data: Plotly.Data[],
+  condition: (name: string, index: number) => boolean,
+): Plotly.Data[] => {
   if (data.find((trace) => trace.transforms)) {
     return data
       .map((trace) => {
         trace.transforms?.forEach((transform) => {
           if (transform.type === 'groupby') {
-            transform.styles?.forEach((style, _index) => {
-              style.value.visible = index === _index;
+            transform.styles?.forEach((style, index) => {
+              style.value.visible = condition(style.target as string, index);
             });
           }
         });
@@ -120,12 +123,18 @@ const showTraceByIndex = (data: Plotly.Data[], index = 0): Plotly.Data[] => {
   }
 
   return data
-    .map((trace, _index) => {
-      trace.visible = index === _index;
+    .map((trace, index) => {
+      trace.visible = condition(trace.name as string, index);
 
       return trace;
     })
     .slice();
+};
+
+const showTraceByIndex = (data: Plotly.Data[], index = 0): Plotly.Data[] => {
+  const condition = (_name: string, idx: number) => idx === index;
+
+  return showTraceByCondition(data, condition);
 };
 
 const initSelectableChart = async (
@@ -167,33 +176,9 @@ const initSelectableChart = async (
 
           return;
         }
-
-        if (plot.data.find((trace) => trace.transforms)) {
-          const updatedData = plot.data
-            .map((trace) => {
-              trace.transforms?.forEach((transform) => {
-                if (transform.type === 'groupby') {
-                  transform.styles?.forEach((style) => {
-                    style.value.visible = style.target === value || value === VIEW_ALL;
-                  });
-                }
-              });
-
-              return trace;
-            })
-            .slice();
-          react(chartNode, updatedData, layout, config);
-        } else {
-          const updatedData = plot.data
-            .map((trace) => {
-              trace.visible = value === VIEW_ALL || trace.name === value;
-
-              return trace;
-            })
-            .slice();
-
-          react(chartNode, updatedData, layout, config);
-        }
+        const condition = (name: string) => name === value || value === VIEW_ALL;
+        const updatedData = showTraceByCondition(plot.data, condition);
+        react(chartNode, updatedData, layout, config);
       }
     };
 

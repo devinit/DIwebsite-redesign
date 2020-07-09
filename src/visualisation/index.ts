@@ -3,14 +3,13 @@ import debounce from 'debounce';
 import 'isomorphic-fetch';
 import { PlotlyHTMLElement } from 'plotly.js';
 import 'regenerator-runtime/runtime';
-import { dblclickLegendItem } from './click';
 import { config } from './config';
 import { getTreemapData } from './data';
 import { addLoading, removeLoading } from './loading';
 import { loadPlotlyCode } from './modules';
-import { assignOptions, getOptions } from './options';
+import { assignOptions, createOptionsFromLegendData as createOptionsFromCalcData } from './options';
 import { removeTitle, setDefaultColorway, updateDataHoverTemplate, updateLayoutColorway } from './styles';
-import { PlotlyConfig } from './types';
+import { PlotlyConfig, PlotlyEnhancedHTMLElement } from './types';
 
 type Aggregated = 'True' | 'False' | undefined;
 
@@ -102,16 +101,42 @@ const initStaticChart = async (element: HTMLElement, chartConfig: PlotlyConfig) 
   try {
     const { data, layout } = chartConfig;
 
-    const { newPlot, relayout } = await loadPlotlyCode(data);
+    const { react, relayout } = await loadPlotlyCode(data);
     // const config = { responsive: true };
     removeLoading(element);
     removeTitle(layout);
     updateDataHoverTemplate(data);
     setDefaultColorway(layout);
-    newPlot(element, data, layout, config).then(() => updateLayoutColorway(element, relayout));
+    react(element, data, layout, config).then(() => updateLayoutColorway(element, relayout));
   } catch (error) {
     console.log(error);
   }
+};
+
+const showTraceByIndex = (data: Plotly.Data[], index = 0): Plotly.Data[] => {
+  if (data.find((trace) => trace.transforms)) {
+    return data
+      .map((trace) => {
+        trace.transforms?.forEach((transform) => {
+          if (transform.type === 'groupby') {
+            transform.styles?.forEach((style, _index) => {
+              style.value.visible = index === _index;
+            });
+          }
+        });
+
+        return trace;
+      })
+      .slice();
+  }
+
+  return data
+    .map((trace, _index) => {
+      trace.visible = index === _index;
+
+      return trace;
+    })
+    .slice();
 };
 
 // Initiliase an selectable chart
@@ -123,35 +148,22 @@ const initSelectableChart = async (
 ) => {
   try {
     const { data: _data, layout } = chartConfig;
-    const { newPlot, react, relayout } = await loadPlotlyCode(_data);
-    const all = 'All data';
+    const { react, relayout } = await loadPlotlyCode(_data);
+    const VIEW_ALL = 'All data';
     let data = _data.slice();
     const traces = Array.from(data);
     const isTreemap = data[0].type === 'treemap';
-    let lastSelected = -1;
-    let legend: HTMLElement | undefined = undefined;
 
-    // enable the legend and add opts
     if (!isTreemap) {
-      const legendOpts = Object.assign(layout.legend || {}, {
-        x: 1,
-        xanchor: 'right',
-        y: 1,
-      });
-      layout.showlegend = true;
-      layout.legend = legendOpts;
+      layout.showlegend = false;
+    }
+    if (!aggregated) {
+      data = showTraceByIndex(_data);
     }
 
-    // remove loading from inited chart
     removeLoading(chartNode);
-
-    // remove the title
     removeTitle(layout);
-
-    // update the hover template
     updateDataHoverTemplate(data);
-
-    // set the default layout colorway
     setDefaultColorway(layout);
 
     // set the data to the first item if treemap
@@ -175,7 +187,7 @@ const initSelectableChart = async (
               trace.transforms?.forEach((transform) => {
                 if (transform.type === 'groupby') {
                   transform.styles?.forEach((style) => {
-                    style.value.visible = style.target === value || value === all;
+                    style.value.visible = style.target === value || value === VIEW_ALL;
                   });
                 }
               });
@@ -187,7 +199,7 @@ const initSelectableChart = async (
         } else {
           const updatedData = plot.data
             .map((trace) => {
-              trace.visible = value === all || trace.name === value;
+              trace.visible = value === VIEW_ALL || trace.name === value;
 
               return trace;
             })
@@ -199,38 +211,20 @@ const initSelectableChart = async (
     };
 
     // initialise the chart and selector
-    newPlot(chartNode, data, layout, config)
+    react(chartNode, data, layout, config)
       .then((myPlot) => {
         updateLayoutColorway(chartNode, relayout);
 
         return myPlot;
       })
-      .then((myPlot: PlotlyHTMLElement & { data: Plotly.Data[] }) => {
-        // TODO: clean up this function
-        // store a reference to the legend and hide it
-        legend = chartNode.querySelectorAll('.legend')[0] as HTMLElement | undefined;
-        if (!legend) return; // TODO: handle this scenario better ... error log?
-        legend.style.cssText = 'display: none;';
-
-        // create options list from legend (or data if treemap)
-        const options = getOptions(legend, traces);
-
-        // add an extra all data option at the top if aggregated
-        if (!isTreemap && aggregated) {
-          options.unshift(all);
-        } else {
-          // otherwise select the first legend item
-          try {
-            lastSelected = 0;
-            dblclickLegendItem(legend, lastSelected);
-          } catch (e) {}
+      .then((myPlot: PlotlyEnhancedHTMLElement) => {
+        const options = createOptionsFromCalcData(myPlot.calcdata);
+        if (aggregated) {
+          options.unshift(VIEW_ALL);
         }
-
-        // get the select and assign options
-        assignOptions(selectNode, options as string[]);
-
-        // assign change event listener
+        assignOptions(selectNode, options);
         selectNode.addEventListener('change', (event: Event) => updatePlot(event, myPlot), false);
+        // TODO: show only the first option for disaggregated charts
       });
   } catch (error) {
     // if there's a problem then try a static chart

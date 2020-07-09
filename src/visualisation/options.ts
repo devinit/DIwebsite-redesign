@@ -1,3 +1,5 @@
+import { CalcData } from './types';
+
 // Assign an option to a select node
 export const assignOption = (selectNode: HTMLSelectElement, value: string): void => {
   const currentOption = document.createElement('option');
@@ -29,4 +31,8 @@ export const getOptions = (legend: HTMLElement, traces: Plotly.Data[]): (string 
   }
 
   return traces.map((el) => el.name);
+};
+
+export const createOptionsFromLegendData = (calcData: CalcData[][]): string[] => {
+  return calcData.map((item) => item[0].trace.name as string);
 };

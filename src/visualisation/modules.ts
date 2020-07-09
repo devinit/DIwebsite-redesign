@@ -10,7 +10,7 @@ export const loadPlotlyCode = async (data: Plotly.Data[]): Promise<PlotlyCustom>
       [],
     );
 
-  const { newPlot, purge, register, react } = await import('./plotly.custom');
+  const { newPlot, purge, register, react, relayout } = await import('./plotly.custom');
 
   register(await Promise.all(chartTypes.map(async (type) => await import(`plotly.js/lib/${type}`))));
   register([
@@ -20,5 +20,5 @@ export const loadPlotlyCode = async (data: Plotly.Data[]): Promise<PlotlyCustom>
     require('plotly.js/lib/sort'),
   ]);
 
-  return { newPlot, purge, react };
+  return { newPlot, purge, react, relayout };
 };

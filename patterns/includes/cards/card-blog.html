@@ -5,7 +5,7 @@
         <h3 class="card__title"><span>{{ item.title }}</span></h3>
         <p class="card__excerpt">{{ item.excerpt }}</p>
         {% if item.guest == true %}
-            {% include 'partials/author-guest-no-image.html' %}
+            {% include 'partials/author-guest.html' %}
         {% elif item.multiple_authors == true %}
             {% include 'partials/author-multiple-listing.html' %}
         {% else %}

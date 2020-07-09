@@ -19,7 +19,13 @@ server {
         proxy_set_header Host $http_host;
         proxy_redirect off;
         proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_pass http://web:8090/;
+        {{ with $key_value := keyOrDefault "deploy/backend" "blue" }}
+            {{ if or (eq $key_value "blue") (eq $key_value "green") }}
+                proxy_pass http://{{ $key_value }};
+            {{ else }}
+                proxy_pass http://blue;
+            {{ end }}
+        {{ end }}
     }
 
     error_page 404 /404-static.html;

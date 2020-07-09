@@ -1,0 +1,97 @@
+// ------------------------------------------------------------
+// CTA
+// ------------------------------------------------------------
+
+.cta {
+    position: relative;
+    background-color: $slate;
+    padding: 3em;
+    &:after {
+        content: "";
+        position: absolute;
+        top: -35px;
+        left: -35px;
+        background-color: $poppy;
+        width: 30px;
+        height: 30px;
+        z-index: -1;
+        opacity: 0.75;
+    }
+    &:before {
+        content: "";
+        position: absolute;
+        top: -20px;
+        left: -20px;
+        background-color: $poppy;
+        width: 50px;
+        height: 50px;
+        z-index: -1;
+        opacity: 0.9;
+    }
+    body.body--bluebell & {
+        background-color: $bluebell;
+        &:before, &:after {
+            background-color: darken($bluebell, 15%);
+        }
+    }
+    body.body--rose & {
+        background-color: $rose;
+        &:before, &:after {
+            background-color: darken($rose, 15%);
+        }
+    }
+    body.body--sunflower & {
+        background-color: $sunflower;
+        &:before, &:after {
+            background-color: darken($sunflower, 15%);
+        }
+        .button--reverse {
+            border-color: $slate;
+            color: $slate;
+        }
+    }
+    body.body--marigold & {
+        background-color: $marigold;
+        &:before, &:after {
+            background-color: darken($marigold, 15%);
+        }
+    }
+    body.body--lavendar & {
+        background-color: $lavendar;
+        &:before, &:after {
+            background-color: darken($lavendar, 15%);
+        }
+    }
+    body.body--leaf & {
+        background-color: $leaf;
+        &:before, &:after {
+            background-color: darken($leaf, 15%);
+        }
+    }
+}
+
+.cta__heading {
+    @extend .heading;
+    @include font-size($gamma);
+    color: #fff;
+    margin-bottom: 0.5em;
+    body.body--sunflower & {
+        color: $heading-color;
+    }
+}
+
+.cta__excerpt {
+    @include font-size($para);
+    color: #fff;
+    margin-bottom: 1em;
+    a {
+        color: #fff;
+        text-decoration: underline;
+    }
+    body.body--sunflower & {
+        color: $heading-color;
+        a {
+            color: $heading-color;
+        }
+    }
+}

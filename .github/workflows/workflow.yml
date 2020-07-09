@@ -26,9 +26,9 @@ jobs:
         echo "DATABASE_URL=postgresql://di_website:${{ secrets.DB_PASSWORD }}@db/di_website" > .env
         docker volume create --name=diwebsite_db
         docker volume create --name="index_db"
-        docker-compose up -d db
-        docker-compose up --build -d web
-        docker-compose run web /bin/sh -c "python3 -m coverage run manage.py test && python3 -m coverage xml && mv coverage.xml shared" && cd shared && python3 -m codecov
+        docker network create consul
+        chmod +x scripts/init.sh && ./scripts/init.sh
+        docker-compose run blue /bin/sh -c "python3 -m coverage run manage.py test && python3 -m coverage xml && mv coverage.xml shared" && cd shared && python3 -m codecov
 
   deploy:
     needs: [build]

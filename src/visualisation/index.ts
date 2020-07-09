@@ -94,7 +94,9 @@ const initStaticChart = async (element: HTMLElement, chartConfig: PlotlyConfig) 
     removeTitle(layout);
     addHoverTemplateToTraces(data);
     setDefaultColorway(layout);
-    react(element, data, layout, config).then(() => updateLayoutColorway(element, relayout));
+    react(element, data, layout, config).then((myPlot: PlotlyEnhancedHTMLElement) =>
+      updateLayoutColorway(myPlot, relayout),
+    );
   } catch (error) {
     console.log(error);
   }
@@ -195,20 +197,15 @@ const initSelectableChart = async (
       }
     };
 
-    react(chartNode, data, layout, config)
-      .then((myPlot) => {
-        updateLayoutColorway(chartNode, relayout);
-
-        return myPlot;
-      })
-      .then((myPlot: PlotlyEnhancedHTMLElement) => {
-        const options = createOptionsFromCalcData(myPlot.calcdata);
-        if (aggregated) {
-          options.unshift(VIEW_ALL);
-        }
-        addOptionsToSelectNode(selectNode, options);
-        selectNode.addEventListener('change', (event: Event) => updatePlot(event, myPlot), false);
-      });
+    react(chartNode, data, layout, config).then((myPlot: PlotlyEnhancedHTMLElement) => {
+      updateLayoutColorway(myPlot, relayout);
+      const options = createOptionsFromCalcData(myPlot.calcdata);
+      if (aggregated) {
+        options.unshift(VIEW_ALL);
+      }
+      addOptionsToSelectNode(selectNode, options);
+      selectNode.addEventListener('change', (event: Event) => updatePlot(event, myPlot), false);
+    });
   } catch (error) {
     initStaticChart(chartNode, chartConfig);
   }

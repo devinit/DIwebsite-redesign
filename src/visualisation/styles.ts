@@ -1,5 +1,7 @@
 import Plotly, { relayout as Relayout } from 'plotly.js';
+import { PlotlyEnhancedHTMLElement } from './types';
 
+const MAX_TRACES_FOR_THEME = 8;
 // Default hover template
 const hovertemplate =
   '<b>%{fullData.meta.columnNames.y}</b><br>' +
@@ -47,24 +49,23 @@ export const setDefaultColorway = (layout: Plotly.Layout): void => {
 };
 
 // Update the layout colorway based on legend and body class
-export const updateLayoutColorway = (element: HTMLElement, relayout: typeof Relayout): void => {
+export const updateLayoutColorway = (plotlyNode: PlotlyEnhancedHTMLElement, relayout: typeof Relayout): void => {
   try {
-    const maxThemeNum = 8;
-    const count = element.querySelectorAll('.legend rect.legendtoggle').length;
+    const count = plotlyNode.calcdata.length;
     let colorway = undefined;
-    if (count > maxThemeNum) {
+    if (count > MAX_TRACES_FOR_THEME) {
       colorway = colorways.rainbow;
     } else {
       const bodyClass = document.body.classList;
       for (const [key, value] of Object.entries(colorways)) {
-        if (bodyClass.contains(`body--${key}`) && value.length <= maxThemeNum) {
+        if (bodyClass.contains(`body--${key}`) && value.length <= MAX_TRACES_FOR_THEME) {
           colorway = value;
           break;
         }
       }
     }
     if (colorway) {
-      relayout(element, { colorway: colorway });
+      relayout(plotlyNode, { colorway });
     }
   } catch (e) {}
 };

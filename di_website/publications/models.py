@@ -221,15 +221,15 @@ class PublicationIndexPage(HeroMixin, Page):
             selected_sort = 'date_desc'
 
         if topic_filter:
-            stories = PublicationPage.objects.descendant_of(self).live().filter(topics__slug=topic_filter)
-            legacy_pubs = LegacyPublicationPage.objects.descendant_of(self).live().filter(topics__slug=topic_filter)
-            short_pubs = ShortPublicationPage.objects.descendant_of(self).live().filter(topics__slug=topic_filter)
-            audio_visual_media = AudioVisualMedia.objects.descendant_of(self).live().filter(topics__slug=topic_filter)
+            stories = PublicationPage.objects.descendant_of(self).live().public().filter(topics__slug=topic_filter)
+            legacy_pubs = LegacyPublicationPage.objects.descendant_of(self).live().public().filter(topics__slug=topic_filter)
+            short_pubs = ShortPublicationPage.objects.descendant_of(self).live().public().filter(topics__slug=topic_filter)
+            audio_visual_media = AudioVisualMedia.objects.descendant_of(self).live().public().filter(topics__slug=topic_filter)
         else:
-            stories = PublicationPage.objects.descendant_of(self).live()
-            legacy_pubs = LegacyPublicationPage.objects.descendant_of(self).live()
-            short_pubs = ShortPublicationPage.objects.descendant_of(self).live()
-            audio_visual_media = AudioVisualMedia.objects.descendant_of(self).live()
+            stories = PublicationPage.objects.descendant_of(self).live().public()
+            legacy_pubs = LegacyPublicationPage.objects.descendant_of(self).live().public()
+            short_pubs = ShortPublicationPage.objects.descendant_of(self).live().public()
+            audio_visual_media = AudioVisualMedia.objects.descendant_of(self).live().public()
 
         if country_filter:
             stories = stories.filter(page_countries__country__slug=country_filter)

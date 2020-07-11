@@ -46,9 +46,9 @@ class BlogIndexPage(HeroMixin, Page):
         page = request.GET.get('page', None)
         topic_filter = request.GET.get('topic', None)
         if topic_filter:
-            articles = BlogArticlePage.objects.live().filter(topics__slug=topic_filter).order_by('-published_date')
+            articles = BlogArticlePage.objects.live().public().filter(topics__slug=topic_filter).order_by('-published_date')
         else:
-            articles = BlogArticlePage.objects.live().order_by('-published_date')
+            articles = BlogArticlePage.objects.live().public().order_by('-published_date')
 
         paginator = Paginator(articles, MAX_PAGE_SIZE)
         try:

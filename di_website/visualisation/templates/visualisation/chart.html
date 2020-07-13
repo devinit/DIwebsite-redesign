@@ -7,21 +7,9 @@
   {% endif %}
   <div
     class="charts__chart js-plotly-chart"
-    {% if not request.is_preview %}
-      data-url="{% routablepageurl item 'data' %}"
-    {% endif %}
-    {% if item.aggregated %}
-      data-aggregated="{{ item.aggregated }}"
-    {% endif %}
-    data-min-width="
-      {% if page.display_fallback_tablet %}
-        700
-      {% elif page.display_fallback_mobile %}
-        400
-      {% else %}
-        0
-      {% endif %}
-    "
+    {% if not request.is_preview %}data-url="{% routablepageurl item 'data' %}"{% endif %}
+    {% if item.aggregated %}data-aggregated="{{ item.aggregated }}"{% endif %}
+    data-min-width="{% if page.display_fallback_tablet %}700{% elif page.display_fallback_mobile %}400{% else %}0{% endif %}"
   >
     <div class="chart-loading">
       <div class="chart-loading__block"><div></div><div></div><div></div><div></div></div>

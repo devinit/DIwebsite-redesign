@@ -1,4 +1,14 @@
 import { Config } from 'plotly.js';
+import { PlotlyEnhancedHTMLElement } from './types';
+const modebarButtons = require('plotly.js/src/components/modebar/buttons'); // eslint-disable-line
+
+const onImageClick = modebarButtons.toImage.click;
+modebarButtons.toImage.click = (chartNode: PlotlyEnhancedHTMLElement) => {
+  // customise layout before downloading image
+  chartNode.layout.title = { text: window.location.href };
+  onImageClick(chartNode);
+  chartNode.layout.title = { text: '' };
+};
 
 // config object for new plots
 export const config: Partial<Config> = {

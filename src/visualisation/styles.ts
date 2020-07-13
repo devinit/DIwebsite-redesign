@@ -40,14 +40,6 @@ export const addHoverTemplateToTraces = (data: Plotly.Data[]): void => {
   data.forEach((item) => {
     if (!item.hovertemplate) {
       item.hovertemplate = hovertemplate;
-      // item.hoverlabel = {
-      //   font: {
-      //     family: 'inherit !important',
-      //     color: '#fff',
-      //   },
-      //   bordercolor: 'transparent',
-      //   bgcolor: 'rgba(50, 50, 50, 07)',
-      // };
     }
   });
 };

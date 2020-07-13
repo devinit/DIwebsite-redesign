@@ -76,4 +76,9 @@
 
 .plot-container.plotly text {
   font-family: inherit !important;
+  font-size: 14px !important;
+}
+
+.hovertext path {
+  stroke: transparent !important;
 }

@@ -3,10 +3,10 @@ import { PlotlyEnhancedHTMLElement } from './types';
 
 const MAX_TRACES_FOR_THEME = 8;
 // Default hover template
-const hovertemplate =
-  '<b>%{fullData.name}</b><br>' +
-  '%{xaxis.title.text}: <b>%{x}</b><br>' +
-  '%{yaxis.title.text}: <b>%{y}</b><extra></extra>';
+const hovertemplate = `
+    <b style="font-family:Geomanist Bold,sans-serif!important;">%{fullData.name}</b><br>
+    %{xaxis.title.text}: <b>%{x}</b><br>
+    %{yaxis.title.text}: <b>%{y:,.1f}</b><extra></extra>`;
 
 // Map of colorways, applied based on number of items in legend and body class if present
 const colorways = {
@@ -40,13 +40,14 @@ export const addHoverTemplateToTraces = (data: Plotly.Data[]): void => {
   data.forEach((item) => {
     if (!item.hovertemplate) {
       item.hovertemplate = hovertemplate;
-      item.hoverlabel = {
-        font: {
-          family: 'inherit !important',
-          color: '#fff',
-        },
-        bordercolor: 'transparent',
-      };
+      // item.hoverlabel = {
+      //   font: {
+      //     family: 'inherit !important',
+      //     color: '#fff',
+      //   },
+      //   bordercolor: 'transparent',
+      //   bgcolor: 'rgba(50, 50, 50, 07)',
+      // };
     }
   });
 };

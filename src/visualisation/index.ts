@@ -8,7 +8,7 @@ import { getTreemapDataByLabel } from './data';
 import { addLoading, removeLoading } from './loading';
 import { loadPlotlyCode } from './modules';
 import { addOptionsToSelectNode, createOptionsFromLegendData as createOptionsFromCalcData } from './options';
-import { disableTooltip, removeTitle, setDefaultColorway, updateLayoutColorway, renderCustomTooltip } from './styles';
+import { removeTitle, setDefaultColorway, updateLayoutColorway, addHoverTemplateToTraces } from './styles';
 import { PlotlyConfig, PlotlyEnhancedHTMLElement } from './types';
 
 type Aggregated = 'True' | 'False' | undefined;
@@ -93,7 +93,7 @@ const initStaticChart = async (element: HTMLElement, chartConfig: PlotlyConfig) 
     const { react, relayout } = await loadPlotlyCode(data);
     removeLoading(element);
     removeTitle(layout);
-    disableTooltip(data);
+    addHoverTemplateToTraces(data);
     setDefaultColorway(layout);
     react(element, data, layout, config).then((myPlot: PlotlyEnhancedHTMLElement) =>
       updateLayoutColorway(myPlot, relayout),
@@ -162,7 +162,7 @@ const initSelectableChart = async (
 
     removeLoading(chartNode);
     removeTitle(layout);
-    disableTooltip(data);
+    addHoverTemplateToTraces(data);
     setDefaultColorway(layout);
 
     if (isTreemap) {
@@ -192,9 +192,6 @@ const initSelectableChart = async (
       }
       addOptionsToSelectNode(selectNode, options);
       selectNode.addEventListener('change', (event: Event) => updatePlot(event, myPlot), false);
-      if (tooltipNode) {
-        myPlot.on('plotly_hover', (data) => renderCustomTooltip(data, tooltipNode));
-      }
     });
   } catch (error) {
     initStaticChart(chartNode, chartConfig);

@@ -4,7 +4,7 @@ import 'isomorphic-fetch';
 import { PlotlyHTMLElement } from 'plotly.js';
 import 'regenerator-runtime/runtime';
 import { config } from './config';
-import { getTreemapDataByLabel } from './data';
+import { getTreemapDataByLabel, showTraceByIndex, showTraceByCondition, setDefaultTraceVisibility } from './data';
 import { addLoading, removeLoading } from './loading';
 import { loadPlotlyCode } from './modules';
 import { addOptionsToSelectNode, createOptionsFromLegendData as createOptionsFromCalcData } from './options';
@@ -102,41 +102,6 @@ const initStaticChart = async (element: HTMLElement, chartConfig: PlotlyConfig) 
   }
 };
 
-const showTraceByCondition = (
-  data: Plotly.Data[],
-  condition: (name: string, index: number) => boolean,
-): Plotly.Data[] => {
-  if (data.find((trace) => trace.transforms)) {
-    return data
-      .map((trace) => {
-        trace.transforms?.forEach((transform) => {
-          if (transform.type === 'groupby') {
-            transform.styles?.forEach((style, index) => {
-              style.value.visible = condition(style.target as string, index);
-            });
-          }
-        });
-
-        return trace;
-      })
-      .slice();
-  }
-
-  return data
-    .map((trace, index) => {
-      trace.visible = condition(trace.name as string, index);
-
-      return trace;
-    })
-    .slice();
-};
-
-const showTraceByIndex = (data: Plotly.Data[], index = 0): Plotly.Data[] => {
-  const condition = (_name: string, idx: number) => idx === index;
-
-  return showTraceByCondition(data, condition);
-};
-
 const initSelectableChart = async (
   chartNode: HTMLElement,
   chartConfig: PlotlyConfig,
@@ -154,9 +119,10 @@ const initSelectableChart = async (
     if (!isTreemap) {
       layout.showlegend = false;
     }
-    if (!aggregated) {
-      data = showTraceByIndex(_data);
-    }
+    // if (!aggregated) {
+    //   data = showTraceByIndex(_data);
+    // }
+    setDefaultTraceVisibility(data, aggregated);
 
     removeLoading(chartNode);
     removeTitle(layout);

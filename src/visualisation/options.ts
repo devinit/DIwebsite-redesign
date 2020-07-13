@@ -1,5 +1,3 @@
-import { CalcData } from './types';
-
 // Assign an option to a select node
 export const addOptionToSelectNode = (selectNode: HTMLSelectElement, value: string): void => {
   const currentOption = document.createElement('option');
@@ -20,5 +18,4 @@ export const addOptionsToSelectNode = (selectNode: HTMLSelectElement, options: s
   selectNode.classList.add('data-selector--active');
 };
 
-export const createOptionsFromLegendData = (calcData: CalcData[][]): string[] =>
-  calcData.map((item) => item[0].trace.name as string);
+export const createOptionsFromLegendData = (data: Plotly.Data[]): string[] => data.map((item) => item.name);

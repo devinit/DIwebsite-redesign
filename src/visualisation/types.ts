@@ -3,7 +3,12 @@ export interface PlotlyConfig {
   layout: Plotly.Layout;
 }
 
-export type PlotlyEnhancedHTMLElement = Plotly.PlotlyHTMLElement & PlotlyConfig & { calcdata: CalcData[][] };
+export interface PlotData {
+  calcdata: CalcData[][];
+  _fullData: Plotly.Data[];
+}
+
+export type PlotlyEnhancedHTMLElement = Plotly.PlotlyHTMLElement & PlotlyConfig & PlotData;
 
 /**
  * Undocumented but accessible as part of the returned object by the newPlot or react promises

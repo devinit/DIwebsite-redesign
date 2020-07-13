@@ -14,7 +14,7 @@ modebarButtons.toImage.click = (chartNode: PlotlyEnhancedHTMLElement) => {
 export const config: Partial<Config> = {
   displayModeBar: true,
   responsive: true,
-  showLink: true,
+  showLink: false,
   plotlyServerURL: 'https://chart-studio.plotly.com',
   toImageButtonOptions: {
     width: 1200,

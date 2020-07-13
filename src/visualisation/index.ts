@@ -150,7 +150,7 @@ const initSelectableChart = async (
 
     react(chartNode, data, layout, config).then((myPlot: PlotlyEnhancedHTMLElement) => {
       updateLayoutColorway(myPlot, relayout);
-      const options = createOptionsFromCalcData(myPlot.calcdata);
+      const options = createOptionsFromCalcData(myPlot._fullData);
       if (aggregated) {
         options.unshift(VIEW_ALL);
       }

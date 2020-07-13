@@ -19,7 +19,6 @@ const initChart = (wrapper: HTMLElement) => {
     | HTMLSelectElement
     | undefined;
   const scriptNode = wrapper.getElementsByClassName('js-plotly-chart-raw-data')[0] as HTMLScriptElement | undefined;
-  const tooltipNode = wrapper.getElementsByClassName('plotly-charts-tooltip')[0] as HTMLDivElement | undefined;
 
   if (chartNode) {
     const data = scriptNode ? JSON.parse(scriptNode.innerHTML) : null; // TODO: surround in try/catch
@@ -36,7 +35,7 @@ const initChart = (wrapper: HTMLElement) => {
           fetch(url).then((response) => {
             response.json().then((d) => {
               if (selectNode) {
-                initSelectableChart(chartNode, d, selectNode, tooltipNode, aggregated === 'True');
+                initSelectableChart(chartNode, d, selectNode, aggregated === 'True');
               } else {
                 initStaticChart(chartNode, d);
               }
@@ -45,7 +44,7 @@ const initChart = (wrapper: HTMLElement) => {
         } else {
           // raw data in the page is used for previewing and drafts
           if (selectNode) {
-            initSelectableChart(chartNode, data, selectNode, tooltipNode, aggregated === 'True');
+            initSelectableChart(chartNode, data, selectNode, aggregated === 'True');
           } else {
             initStaticChart(chartNode, data);
           }
@@ -142,7 +141,6 @@ const initSelectableChart = async (
   chartNode: HTMLElement,
   chartConfig: PlotlyConfig,
   selectNode: HTMLSelectElement,
-  tooltipNode?: HTMLDivElement,
   aggregated = false,
 ) => {
   try {

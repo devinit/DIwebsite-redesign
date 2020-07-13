@@ -27,7 +27,6 @@
       <div class="chart-loading__block"><div></div><div></div><div></div><div></div></div>
     </div>
   </div>
-  <div class="plotly-charts-tooltip"></div>
   {% if request.is_preview %}
     <script class="js-plotly-chart-raw-data" type="application/json">{{ item.chart_json|as_json|safe }}</script>
   {% endif %}

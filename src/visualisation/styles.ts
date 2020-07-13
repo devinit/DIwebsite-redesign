@@ -3,7 +3,7 @@ import { PlotlyEnhancedHTMLElement } from './types';
 
 const MAX_TRACES_FOR_THEME = 8;
 // Default hover template
-const hovertemplate =
+const hovertemplate = // TODO: remove this
   '<b>%{fullData.meta.columnNames.y}</b><br>' +
   '%{xaxis.title.text}: <b>%{x}</b><br>' +
   '%{yaxis.title.text}: <b>%{y}</b><extra></extra>';
@@ -37,6 +37,7 @@ const colorways = {
 
 // Assign the default hover template to each data node if there isn't one defined
 export const addHoverTemplateToTraces = (data: Plotly.Data[]): void => {
+  // TODO: remove this function
   data.forEach((item) => {
     if (!item.hovertemplate) {
       item.hovertemplate = hovertemplate;
@@ -72,4 +73,10 @@ export const updateLayoutColorway = (plotlyNode: PlotlyEnhancedHTMLElement, rela
 
 export const removeTitle = (layout: Plotly.Layout): void => {
   layout.title = '';
+};
+
+export const disableTooltip = (data: Plotly.Data[]): void => {
+  data.forEach((trace) => {
+    trace.hoverinfo = 'none';
+  });
 };

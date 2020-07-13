@@ -8,7 +8,7 @@ import { getTreemapDataByLabel } from './data';
 import { addLoading, removeLoading } from './loading';
 import { loadPlotlyCode } from './modules';
 import { addOptionsToSelectNode, createOptionsFromLegendData as createOptionsFromCalcData } from './options';
-import { addHoverTemplateToTraces, removeTitle, setDefaultColorway, updateLayoutColorway } from './styles';
+import { disableTooltip, removeTitle, setDefaultColorway, updateLayoutColorway } from './styles';
 import { PlotlyConfig, PlotlyEnhancedHTMLElement } from './types';
 
 type Aggregated = 'True' | 'False' | undefined;
@@ -93,7 +93,7 @@ const initStaticChart = async (element: HTMLElement, chartConfig: PlotlyConfig) 
     const { react, relayout } = await loadPlotlyCode(data);
     removeLoading(element);
     removeTitle(layout);
-    addHoverTemplateToTraces(data);
+    disableTooltip(data);
     setDefaultColorway(layout);
     react(element, data, layout, config).then((myPlot: PlotlyEnhancedHTMLElement) =>
       updateLayoutColorway(myPlot, relayout),
@@ -162,7 +162,7 @@ const initSelectableChart = async (
 
     removeLoading(chartNode);
     removeTitle(layout);
-    addHoverTemplateToTraces(data);
+    disableTooltip(data);
     setDefaultColorway(layout);
 
     if (isTreemap) {

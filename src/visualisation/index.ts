@@ -8,7 +8,7 @@ import { getTreemapDataByLabel } from './data';
 import { addLoading, removeLoading } from './loading';
 import { loadPlotlyCode } from './modules';
 import { addOptionsToSelectNode, createOptionsFromLegendData as createOptionsFromCalcData } from './options';
-import { disableTooltip, removeTitle, setDefaultColorway, updateLayoutColorway } from './styles';
+import { disableTooltip, removeTitle, setDefaultColorway, updateLayoutColorway, renderCustomTooltip } from './styles';
 import { PlotlyConfig, PlotlyEnhancedHTMLElement } from './types';
 
 type Aggregated = 'True' | 'False' | undefined;
@@ -193,9 +193,7 @@ const initSelectableChart = async (
       addOptionsToSelectNode(selectNode, options);
       selectNode.addEventListener('change', (event: Event) => updatePlot(event, myPlot), false);
       if (tooltipNode) {
-        myPlot.on('plotly_hover', (data) => {
-          console.log(data);
-        });
+        myPlot.on('plotly_hover', (data) => renderCustomTooltip(data, tooltipNode));
       }
     });
   } catch (error) {

@@ -80,3 +80,35 @@ export const disableTooltip = (data: Plotly.Data[]): void => {
     trace.hoverinfo = 'none';
   });
 };
+
+export const getTooltipCoordinates = (event: MouseEvent, tooltipNode: HTMLDivElement): SVGPoint | null => {
+  const parentElement = tooltipNode.parentElement;
+  if (parentElement) {
+    const svg: SVGSVGElement = parentElement.getElementsByClassName('main-svg')[0] as SVGSVGElement;
+    if (svg) {
+      const point = svg.createSVGPoint();
+      point.x = event.clientX;
+      point.y = event.clientY;
+      const screenCTM = svg.getScreenCTM();
+
+      return screenCTM ? point.matrixTransform(screenCTM.inverse()) : null;
+    }
+  }
+
+  return null;
+};
+
+export const setTooltipPosition = (tooltipNode: HTMLDivElement, coordinates: SVGPoint): void => {
+  tooltipNode.innerHTML = '';
+  tooltipNode.style.left = `${coordinates.x}px`;
+  tooltipNode.style.top = `${coordinates.y}px`;
+  tooltipNode.style.opacity = '1';
+};
+
+export const renderCustomTooltip = ({ event, points }: Plotly.PlotMouseEvent, tooltipNode: HTMLDivElement): void => {
+  const { data, x, y } = points[0];
+  const coordinates = getTooltipCoordinates(event, tooltipNode);
+  if (coordinates) {
+    setTooltipPosition(this.tooltipNode, coordinates);
+  }
+};

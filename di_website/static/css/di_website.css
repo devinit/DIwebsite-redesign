@@ -73,3 +73,7 @@
   position: absolute;
   z-index: 1000;
 }
+
+.plot-container.plotly text {
+  font-family: inherit !important;
+}

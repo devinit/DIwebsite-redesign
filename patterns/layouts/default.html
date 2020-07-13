@@ -12,6 +12,7 @@
 <body class="body body--{{ id }}" id="body-{{ id }}">
 	<div class="ui-base">
 		<a href="#pagecontent" class="skiplink" data-js="skiplink">Skip to main content</a>
+		{% include 'partials/message.html' %}
 		{% block header %}
 			{% include 'scaffold/header.html' %}
 		{% endblock %}

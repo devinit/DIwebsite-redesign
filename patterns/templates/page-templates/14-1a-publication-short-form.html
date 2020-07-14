@@ -51,18 +51,13 @@
         {% include 'navigation/chapter-nav-simple.html' %}
     </div>
 
-    <section class="section section--post">
-        <div class="row row--narrow">
-            <div class="max-meter max-meter--center">
-                {% include 'partials/cta.html' %}
-            </div>
-        </div>
-    </section>
-
     <section class="section">
         <div class="row row--narrow">
             <div class="max-meter max-meter--center">
                 {% include 'partials/author-multiple.html' %}
+                <div class="space-section-both">
+                    {% include 'partials/cta.html' %}
+                </div>
                 <div class="is-typeset is-typeset--additionals wysiwyg">
                     {% include 'content/longform.html' %}
                 </div>

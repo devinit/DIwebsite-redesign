@@ -60,7 +60,7 @@ function setup_docker_storage {
 
 # This can only happen after project clonning has been done
 function export_travis_enviroment {
-    start_new_process 'Exporting enviroment variables defined in Travis to .env file'
+    start_new_process 'Exporting enviroment variables to .env file'
 
     rm $APP_DIR'/'.env > /dev/null && touch $APP_DIR'/'.env
 
@@ -123,7 +123,7 @@ function perform_git_operations {
         cd $APP_DIR
 
         {
-            # Move back to root director
+            # Move back to root directory
             log  "Cloning new content from active branch "$ACTIVE_BRANCH
             git fetch
             git stash
@@ -160,7 +160,7 @@ function start_link_checker_processes {
     docker-compose exec -T rabbitmq rabbitmqctl set_permissions -p myvhost di_website ".*" ".*" ".*"
 
     start_new_process "Starting celery"
-    docker-compose exec -T web chown root '/etc/default/celeryd'
+    docker-compose exec -T web chown di_website '/etc/default/celeryd'
     docker-compose exec -T web chmod 640 '/etc/default/celeryd'
     docker-compose exec -T web /etc/init.d/celeryd start
 

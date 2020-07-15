@@ -19,5 +19,6 @@ class SpecificInstructionsMixin(GeneralInstructionsMixin):
 
     display_general_instructions = models.BooleanField(
         default=True,
-        help_text='Optional: display the general visualisation instructions, edited on the visualisations parent page'
+        help_text='Optional: display the general visualisation instructions, edited on the visualisations parent page',
+        verbose_name='Show instructions'
     )

@@ -90,11 +90,13 @@ class ChartPage(SpecificInstructionsMixin, RoutablePageMixin, Page):
     )
     display_fallback_mobile = models.BooleanField(
         default=True,
-        help_text='Optional: when selected devices with screen widths up to 400px will be served the fallback image'
+        help_text='Optional: when selected devices with screen widths up to 400px will be served the fallback image',
+        verbose_name='Show on mobile'
     )
     display_fallback_tablet = models.BooleanField(
         default=False,
-        help_text='Optional: when selected devices with screen widths up to 700px will be served the fallback image'
+        help_text='Optional: when selected devices with screen widths up to 700px will be served the fallback image',
+        verbose_name='Show on tablet'
     )
     selectable = models.BooleanField(
         default=False,

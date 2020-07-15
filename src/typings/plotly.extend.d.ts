@@ -9,4 +9,8 @@ declare module 'plotly.js' {
   export interface PlotData {
     meta: any; // eslint-disable-line @typescript-eslint/no-explicit-any
   }
+
+  export interface Layout {
+    meta: any; // eslint-disable-line @typescript-eslint/no-explicit-any
+  }
 }

@@ -9,6 +9,7 @@ import {
   showTraceByCondition,
   setDefaultTraceVisibility,
   showTraceByAggregationOption,
+  addPrefixAndSuffix,
 } from './data';
 import { addLoading, removeLoading } from './loading';
 import { loadPlotlyCode } from './modules';
@@ -34,6 +35,8 @@ const initChart = (wrapper: HTMLElement) => {
     const selectorIncludes = chartNode.dataset.selectorIncludes;
     const selectorExcludes = chartNode.dataset.selectorExcludes;
     const aggregateOptionLabel = chartNode.dataset.aggregateOptionLabel;
+    const yAxisPrefix = chartNode.dataset.yAxisPrefix;
+    const yAxisSuffix = chartNode.dataset.yAxisSuffix;
     const minWidth = chartNode.dataset.minWidth ? parseInt(chartNode.dataset.minWidth) : 400; // TODO: use a constant
     const chartOptions: ChartOptions = {
       aggregated: aggregated === 'True',
@@ -41,7 +44,9 @@ const initChart = (wrapper: HTMLElement) => {
       aggregationIncludes: aggregationIncludes?.trim() ? aggregationIncludes.split(',') : undefined,
       selectorExcludes: selectorExcludes?.trim() ? selectorExcludes.split(',') : undefined,
       selectorIncludes: selectorIncludes?.trim() ? selectorIncludes.split(',') : undefined,
-      aggregateOptionLabel: aggregateOptionLabel,
+      aggregateOptionLabel,
+      yAxisPrefix,
+      yAxisSuffix,
     };
 
     const init = async () => {
@@ -51,11 +56,11 @@ const initChart = (wrapper: HTMLElement) => {
 
         if (url) {
           fetch(url).then((response) => {
-            response.json().then((d) => {
+            response.json().then((_data) => {
               if (selectNode) {
-                initSelectableChart(chartNode, d, selectNode, chartOptions);
+                initSelectableChart(chartNode, _data, selectNode, chartOptions);
               } else {
-                initStaticChart(chartNode, d);
+                initStaticChart(chartNode, _data, chartOptions);
               }
             });
           });
@@ -64,7 +69,7 @@ const initChart = (wrapper: HTMLElement) => {
           if (selectNode) {
             initSelectableChart(chartNode, data, selectNode, chartOptions);
           } else {
-            initStaticChart(chartNode, data);
+            initStaticChart(chartNode, data, chartOptions);
           }
         }
 
@@ -103,7 +108,7 @@ const initPlotlyCharts = () => {
   }
 };
 
-const initStaticChart = async (element: HTMLElement, chartConfig: PlotlyConfig) => {
+const initStaticChart = async (element: HTMLElement, chartConfig: PlotlyConfig, options: ChartOptions) => {
   try {
     const { data, layout } = chartConfig;
 
@@ -112,6 +117,7 @@ const initStaticChart = async (element: HTMLElement, chartConfig: PlotlyConfig) 
     removeTitle(layout);
     addHoverTemplateToTraces(data);
     setDefaultColorway(layout);
+    addPrefixAndSuffix(data, options);
     react(element, data, layout, config).then((myPlot: PlotlyEnhancedHTMLElement) =>
       updateLayoutColorway(myPlot, relayout),
     );
@@ -143,6 +149,7 @@ const initSelectableChart = async (
     removeLoading(chartNode);
     removeTitle(layout);
     addHoverTemplateToTraces(data);
+    addPrefixAndSuffix(data, chartOptions);
     setDefaultColorway(layout);
 
     if (isTreemap) {

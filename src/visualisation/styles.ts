@@ -6,7 +6,7 @@ const MAX_TRACES_FOR_THEME = 8;
 const hovertemplate = `
     <b style="font-family:Geomanist Bold,sans-serif!important;">%{fullData.name}</b><br>
     %{xaxis.title.text}: <b>%{x}</b><br>
-    %{yaxis.title.text}: <b>%{y:,.1f}</b><extra></extra>`;
+    %{yaxis.title.text}: <b>%{meta.yAxisPrefix}%{y:,.1f}%{meta.yAxisSuffix}</b><extra></extra>`;
 
 // Map of colorways, applied based on number of items in legend and body class if present
 const colorways = {

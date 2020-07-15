@@ -126,6 +126,12 @@ class ChartPage(SpecificInstructionsMixin, RoutablePageMixin, Page):
         null=True, blank=True, default='All data', max_length=255,
         help_text='The label of the "All data" option on aggregated charts'
     )
+    y_axis_prefix = models.CharField(
+        null=True, blank=True, max_length=200, help_text='Optional: e.g. UGX, $ e.t.c'
+    )
+    y_axis_suffix = models.CharField(
+        null=True, blank=True, max_length=200, help_text='Optional: e.g. %, degrees e.t.c'
+    )
     caption = RichTextField(
         null=True,
         blank=True,
@@ -147,7 +153,9 @@ class ChartPage(SpecificInstructionsMixin, RoutablePageMixin, Page):
             FieldPanel('aggregated'),
             FieldPanel('aggregation_includes', classname='full'),
             FieldPanel('aggregation_excludes', classname='full'),
-            FieldPanel('aggregate_option_label', classname='full full-custom')
+            FieldPanel('aggregate_option_label', classname='full full-custom'),
+            FieldPanel('y_axis_prefix', heading='Y-axis prefix'),
+            FieldPanel('y_axis_suffix', heading='Y-axis suffix')
         ], heading='Chart options'),
         MultiFieldPanel(
             [

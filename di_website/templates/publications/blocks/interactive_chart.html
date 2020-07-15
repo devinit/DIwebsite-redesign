@@ -9,6 +9,6 @@
         {% if page %}
             {% include 'publications/share-block.html' with share_type='chart' title=item.title|default:page.title short_url=short_url|add:'#'|add:id data_js='share-section' data_id=id %}
         {% endif %}
-        {% include 'visualisation/chart.html' with item=chart %}
+        {% include 'visualisation/chart.html' with item=chart share_link=short_url|add:'#'|add:id %}
     </div>
 {% endif %}

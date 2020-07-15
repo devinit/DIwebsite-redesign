@@ -5,7 +5,7 @@ const modebarButtons = require('plotly.js/src/components/modebar/buttons'); // e
 const onImageClick = modebarButtons.toImage.click;
 modebarButtons.toImage.click = (chartNode: PlotlyEnhancedHTMLElement) => {
   // customise layout before downloading image
-  chartNode.layout.title = { text: window.location.href };
+  chartNode.layout.title = { text: chartNode.dataset.shareLink };
   onImageClick(chartNode);
   chartNode.layout.title = { text: '' };
 };

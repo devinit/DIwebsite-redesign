@@ -33,6 +33,7 @@ const initChart = (wrapper: HTMLElement) => {
     const aggregationIncludes = chartNode.dataset.aggregationIncludes;
     const selectorIncludes = chartNode.dataset.selectorIncludes;
     const selectorExcludes = chartNode.dataset.selectorExcludes;
+    const aggregateOptionLabel = chartNode.dataset.aggregateOptionLabel;
     const minWidth = chartNode.dataset.minWidth ? parseInt(chartNode.dataset.minWidth) : 400; // TODO: use a constant
     const chartOptions: ChartOptions = {
       aggregated: aggregated === 'True',
@@ -40,6 +41,7 @@ const initChart = (wrapper: HTMLElement) => {
       aggregationIncludes: aggregationIncludes?.trim() ? aggregationIncludes.split(',') : undefined,
       selectorExcludes: selectorExcludes?.trim() ? selectorExcludes.split(',') : undefined,
       selectorIncludes: selectorIncludes?.trim() ? selectorIncludes.split(',') : undefined,
+      aggregateOptionLabel: aggregateOptionLabel,
     };
 
     const init = async () => {
@@ -128,7 +130,7 @@ const initSelectableChart = async (
     const { aggregated } = chartOptions;
     const { data: _data, layout } = chartConfig;
     const { react, relayout } = await loadPlotlyCode(_data);
-    const VIEW_ALL = 'All data';
+    const VIEW_ALL = chartOptions.aggregateOptionLabel || 'All data';
     let data = _data.slice();
     const traces = Array.from(data);
     const isTreemap = data[0].type === 'treemap';

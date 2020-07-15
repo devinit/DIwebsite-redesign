@@ -18,4 +18,5 @@ export const addOptionsToSelectNode = (selectNode: HTMLSelectElement, options: s
   selectNode.classList.add('data-selector--active');
 };
 
-export const createOptionsFromLegendData = (data: Plotly.Data[]): string[] => data.map((item) => item.name);
+export const createOptionsFromLegendData = (data: Plotly.Data[]): string[] =>
+  data.filter((item) => !!item).map((item) => item.name as string);

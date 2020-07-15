@@ -6,6 +6,16 @@ export const getTreemapDataByLabel = (traces: Plotly.Data[], label: string): Par
   return [traces[newDataIndex]];
 };
 
+export const addPrefixAndSuffix = (traces: Plotly.Data[], options: ChartOptions): void => {
+  traces.forEach((trace) => {
+    trace.meta = {
+      ...trace.meta,
+      yAxisPrefix: options.yAxisPrefix && options.yAxisPrefix !== 'None' ? options.yAxisPrefix : '',
+      yAxisSuffix: options.yAxisSuffix && options.yAxisSuffix !== 'None' ? options.yAxisSuffix : '',
+    };
+  });
+};
+
 export const showTraceByAggregationOption = (name: string, options: ChartOptions): boolean | null => {
   if (options.aggregationExcludes && options.aggregationExcludes.includes(name)) {
     return false;

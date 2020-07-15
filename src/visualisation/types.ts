@@ -24,4 +24,5 @@ export interface ChartOptions {
   selectorExcludes?: string[];
   aggregationIncludes?: string[];
   aggregationExcludes?: string[];
+  aggregateOptionLabel?: string;
 }

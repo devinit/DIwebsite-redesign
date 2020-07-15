@@ -30,3 +30,7 @@
 .full label {
   width: unset;
 }
+
+.full.full-custom input {
+  padding: .9em 1.2em;
+}

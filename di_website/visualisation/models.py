@@ -122,6 +122,10 @@ class ChartPage(SpecificInstructionsMixin, RoutablePageMixin, Page):
         null=True, blank=True,
         help_text='Optional: comma separated values to exclude in the aggregated chart. Use when exclusions are fewer than inclusions'
     )
+    aggregate_option_label = models.CharField(
+        null=True, blank=True, default='All data', max_length=255,
+        help_text='The label of the "All data" option on aggregated charts'
+    )
     caption = RichTextField(
         null=True,
         blank=True,
@@ -143,6 +147,7 @@ class ChartPage(SpecificInstructionsMixin, RoutablePageMixin, Page):
             FieldPanel('aggregated'),
             FieldPanel('aggregation_includes', classname='full'),
             FieldPanel('aggregation_excludes', classname='full'),
+            FieldPanel('aggregate_option_label', classname='full full-custom')
         ], heading='Chart options'),
         MultiFieldPanel(
             [

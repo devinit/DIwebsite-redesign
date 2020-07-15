@@ -4,7 +4,12 @@ import 'isomorphic-fetch';
 import { PlotlyHTMLElement } from 'plotly.js';
 import 'regenerator-runtime/runtime';
 import { config } from './config';
-import { getTreemapDataByLabel, showTraceByCondition, setDefaultTraceVisibility } from './data';
+import {
+  getTreemapDataByLabel,
+  showTraceByCondition,
+  setDefaultTraceVisibility,
+  showTraceByAggregationOption,
+} from './data';
 import { addLoading, removeLoading } from './loading';
 import { loadPlotlyCode } from './modules';
 import { addOptionsToSelectNode, createOptionsFromLegendData as createOptionsFromCalcData } from './options';
@@ -24,9 +29,17 @@ const initChart = (wrapper: HTMLElement) => {
     const data = scriptNode ? JSON.parse(scriptNode.innerHTML) : null; // TODO: surround in try/catch
     const url = chartNode.dataset.url;
     const aggregated = chartNode.dataset.aggregated as Aggregated;
+    const aggregationExcludes = chartNode.dataset.aggregationExcludes;
+    const aggregationIncludes = chartNode.dataset.aggregationIncludes;
+    const selectorIncludes = chartNode.dataset.selectorIncludes;
+    const selectorExcludes = chartNode.dataset.selectorExcludes;
     const minWidth = chartNode.dataset.minWidth ? parseInt(chartNode.dataset.minWidth) : 400; // TODO: use a constant
     const chartOptions: ChartOptions = {
       aggregated: aggregated === 'True',
+      aggregationExcludes: aggregationExcludes?.split(','),
+      aggregationIncludes: aggregationIncludes?.split(','),
+      selectorExcludes: selectorExcludes?.split(','),
+      selectorIncludes: selectorIncludes?.split(','),
     };
 
     const init = async () => {
@@ -109,9 +122,10 @@ const initSelectableChart = async (
   chartNode: HTMLElement,
   chartConfig: PlotlyConfig,
   selectNode: HTMLSelectElement,
-  { aggregated }: ChartOptions,
+  options: ChartOptions,
 ) => {
   try {
+    const { aggregated } = options;
     const { data: _data, layout } = chartConfig;
     const { react, relayout } = await loadPlotlyCode(_data);
     const VIEW_ALL = 'All data';
@@ -122,7 +136,7 @@ const initSelectableChart = async (
     if (!isTreemap) {
       layout.showlegend = false;
     }
-    setDefaultTraceVisibility(data, aggregated);
+    setDefaultTraceVisibility(data, options);
 
     removeLoading(chartNode);
     removeTitle(layout);
@@ -142,7 +156,15 @@ const initSelectableChart = async (
 
           return;
         }
-        const condition = (name: string) => name === value || value === VIEW_ALL;
+        const condition = (name: string): boolean => {
+          if (value === VIEW_ALL) {
+            const showTrace = showTraceByAggregationOption(name, options);
+
+            return showTrace !== null ? showTrace : true;
+          }
+
+          return name === value;
+        };
         const updatedData = showTraceByCondition(plot.data, condition);
         react(chartNode, updatedData, layout, config);
       }

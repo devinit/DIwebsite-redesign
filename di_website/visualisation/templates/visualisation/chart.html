@@ -11,6 +11,8 @@
     {% if item.aggregated %}data-aggregated="{{ item.aggregated }}"{% endif %}
     data-min-width="{% if page.display_fallback_tablet %}700{% elif page.display_fallback_mobile %}400{% else %}0{% endif %}"
     data-share-link="{{share_link}}"
+    data-aggregation-excludes="{{ item.aggregation_excludes }}"
+    data-aggregation-includes="{{ item.aggregation_includes }}"
   >
     <div class="chart-loading">
       <div class="chart-loading__block"><div></div><div></div><div></div><div></div></div>

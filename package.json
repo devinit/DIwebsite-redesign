@@ -4,7 +4,7 @@
     "description": "The new and improved DI Website",
     "scripts": {
         "emit": "tsc",
-        "lint": "eslint 'di_website/**/*.{ts,tsx}' --quiet && tsc --noEmit",
+        "lint": "eslint 'src/**/*.{ts,tsx}' --quiet && tsc --noEmit",
         "dev": "grunt",
         "build": "grunt build"
     },

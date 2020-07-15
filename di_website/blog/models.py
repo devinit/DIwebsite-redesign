@@ -50,6 +50,9 @@ class BlogIndexPage(HeroMixin, Page):
         else:
             articles = BlogArticlePage.objects.live().order_by('-published_date')
 
+        if not request.user.is_authenticated:
+            articles = articles.public()
+
         paginator = Paginator(articles, MAX_PAGE_SIZE)
         try:
             context['articles'] = paginator.page(page)

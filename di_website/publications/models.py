@@ -231,6 +231,12 @@ class PublicationIndexPage(HeroMixin, Page):
             short_pubs = ShortPublicationPage.objects.descendant_of(self).live()
             audio_visual_media = AudioVisualMedia.objects.descendant_of(self).live()
 
+        if not request.user.is_authenticated:
+            stories = stories.public()
+            legacy_pubs = legacy_pubs.public()
+            short_pubs = short_pubs.public()
+            audio_visual_media = audio_visual_media.public()
+
         if country_filter:
             stories = stories.filter(page_countries__country__slug=country_filter)
             legacy_pubs = legacy_pubs.filter(page_countries__country__slug=country_filter)

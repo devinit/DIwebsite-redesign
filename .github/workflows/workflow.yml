@@ -37,7 +37,6 @@ jobs:
       contains('
         refs/heads/master
         refs/heads/develop
-        refs/heads/feature/blue-green
       ', github.ref)
     steps:
     - uses: actions/checkout@v2
@@ -63,14 +62,6 @@ jobs:
         echo "::set-env name=USERNAME::${{ secrets.USERNAME }}"
         echo "::set-env name=BRANCH::${{ secrets.PROD_BRANCH }}"
     
-    - name: Set env for feature branch
-      if: endsWith(github.ref, '/blue-green')
-      run: |
-        echo "::set-env name=ENVIRONMENT::${{ secrets.TEST_ENV }}"
-        echo "::set-env name=HOST::${{ secrets.TEST_HOST }}"
-        echo "::set-env name=USERNAME::root"
-        echo "::set-env name=BRANCH::feature/blue-green"
-
     - name: copy deploy file via ssh
       uses: appleboy/scp-action@master
       env:
@@ -94,6 +85,7 @@ jobs:
           export RABBITMQ_PASSWORD=${{ secrets.RABBITMQ_PASSWORD }}
           export ELASTIC_SEARCH_URL=${{ secrets.ELASTIC_SEARCH_URL }}
           export ELASTIC_PASSWORD=${{ secrets.ELASTIC_PASSWORD }}
+          export SECRET_KEY="${{ secrets.SECRET_KEY }}"
           export ELASTIC_USERNAME=${{ secrets.ELASTIC_USERNAME }}
           export ENVIRONMENT=${{ env.ENVIRONMENT }}
           export CELERY_BROKER_URL=${{ secrets.CELERY_BROKER_URL }}
@@ -105,6 +97,6 @@ jobs:
           export EMAIL_HOST_PASSWORD=${{secrets.EMAIL_HOST_PASSWORD }}
           export HS_API_KEY=${{ secrets.HS_API_KEY }}
           export HS_TICKET_PIPELINE=${{ secrets.HS_TICKET_PIPELINE }}
-          export HS_TICKET_PIPELINE_STAGE=${{ secrets.HS_TICKET_PIPELINE_STAGE }}
+          export HS_TICKET_PIPELINE_STAGE=${{ secrets.HS_TICKET_PIPELINE_STAGE }}    
           cp -r deploy_script/deploy.sh .
           chmod +x deploy.sh && ./deploy.sh run

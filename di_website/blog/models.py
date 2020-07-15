@@ -45,16 +45,13 @@ class BlogIndexPage(HeroMixin, Page):
         context = super(BlogIndexPage, self).get_context(request)
         page = request.GET.get('page', None)
         topic_filter = request.GET.get('topic', None)
-        if request.user.is_authenticated:
-            if topic_filter:
-                articles = BlogArticlePage.objects.live().filter(topics__slug=topic_filter).order_by('-published_date')
-            else:
-                articles = BlogArticlePage.objects.live().order_by('-published_date')
+        if topic_filter:
+            articles = BlogArticlePage.objects.live().filter(topics__slug=topic_filter).order_by('-published_date')
         else:
-            if topic_filter:
-                articles = BlogArticlePage.objects.live().public().filter(topics__slug=topic_filter).order_by('-published_date')
-            else:
-                articles = BlogArticlePage.objects.live().public().order_by('-published_date')
+            articles = BlogArticlePage.objects.live().order_by('-published_date')
+
+        if not request.user.is_authenticated:
+            articles = articles.public()
 
         paginator = Paginator(articles, MAX_PAGE_SIZE)
         try:

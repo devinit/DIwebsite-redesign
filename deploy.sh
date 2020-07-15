@@ -168,18 +168,18 @@ function start_link_checker_processes {
         log "Rabbit is unavailable - sleeping"
         sleep 10
     done
-    if  docker-compose exec -T rabbitmq rabbitmqctl list_users | grep -q "root"; then
+    if  docker-compose exec -T rabbitmq rabbitmqctl list_users | grep -q "di_website"; then
         log "user already exists. Skipping ..."
     else
-        docker-compose exec -T rabbitmq rabbitmqctl add_user root $RABBITMQ_PASSWORD
+        docker-compose exec -T rabbitmq rabbitmqctl add_user di_website $RABBITMQ_PASSWORD
         docker-compose exec -T rabbitmq rabbitmqctl add_vhost myvhost
-        docker-compose exec -T rabbitmq rabbitmqctl set_user_tags root root
-        docker-compose exec -T rabbitmq rabbitmqctl set_permissions -p myvhost root ".*" ".*" ".*"
+        docker-compose exec -T rabbitmq rabbitmqctl set_user_tags di_website di_website
+        docker-compose exec -T rabbitmq rabbitmqctl set_permissions -p myvhost di_website ".*" ".*" ".*"
     fi
   
 
     start_new_process "Starting celery"
-    docker-compose exec -T ${new_state} chown root '/etc/default/celeryd'
+    docker-compose exec -T ${new_state} chown di_website '/etc/default/celeryd'
     docker-compose exec -T ${new_state} chmod 640 '/etc/default/celeryd'
     docker-compose exec -T ${new_state} /etc/init.d/celeryd start
 
@@ -271,7 +271,7 @@ then
 
     start_new_process "Starting up services ..."
     cd $APP_DIR
-    sudo chown -R root:root storage
+    sudo chown -R di_website:di_website storage
     #run this script within this subprocess
     chmod +x scripts/*
     source scripts/init.sh
@@ -282,7 +282,7 @@ then
 
     start_new_process "Generating static assets"
     docker-compose exec -T ${new_state} python manage.py collectstatic --noinput
-    sudo chown -R root:root assets
+    sudo chown -R di_website:di_website assets
  
     exit 0
 

@@ -36,10 +36,10 @@ const initChart = (wrapper: HTMLElement) => {
     const minWidth = chartNode.dataset.minWidth ? parseInt(chartNode.dataset.minWidth) : 400; // TODO: use a constant
     const chartOptions: ChartOptions = {
       aggregated: aggregated === 'True',
-      aggregationExcludes: aggregationExcludes?.split(','),
-      aggregationIncludes: aggregationIncludes?.split(','),
-      selectorExcludes: selectorExcludes?.split(','),
-      selectorIncludes: selectorIncludes?.split(','),
+      aggregationExcludes: aggregationExcludes?.trim() ? aggregationExcludes.split(',') : undefined,
+      aggregationIncludes: aggregationIncludes?.trim() ? aggregationIncludes.split(',') : undefined,
+      selectorExcludes: selectorExcludes?.trim() ? selectorExcludes.split(',') : undefined,
+      selectorIncludes: selectorIncludes?.trim() ? selectorIncludes.split(',') : undefined,
     };
 
     const init = async () => {

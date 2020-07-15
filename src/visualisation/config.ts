@@ -9,7 +9,6 @@ modebarButtons.toImage.click = (chartNode: PlotlyEnhancedHTMLElement) => {
   // customise layout before downloading image
   chartNode.layout.title = { text: chartNode.dataset.shareLink };
   const showLegend = chartNode.layout.showlegend;
-  const chartHeight = chartNode._fullLayout.height;
   chartNode.layout.showlegend = true;
   const defaultLegendOptions = chartNode.layout.legend || {};
   const visibleLegendItems = chartNode._fullData.filter((data) => data.visible).length;
@@ -23,15 +22,13 @@ modebarButtons.toImage.click = (chartNode: PlotlyEnhancedHTMLElement) => {
       traceorder: 'reversed',
     };
   } else {
-    chartNode._fullLayout.height = chartHeight * 2;
-    chartNode.layout.legend = { ...defaultLegendOptions, orientation: 'v', traceorder: 'reversed' };
+    chartNode.layout.legend = { ...defaultLegendOptions, orientation: 'v', y: 1, traceorder: 'reversed' };
   }
   onImageClick(chartNode);
   // reset edited chart configs
   chartNode.layout.title = { text: '' };
   chartNode.layout.legend = defaultLegendOptions;
   chartNode.layout.showlegend = showLegend;
-  chartNode._fullLayout.height = chartHeight;
 };
 
 // config object for new plots

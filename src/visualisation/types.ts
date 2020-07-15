@@ -26,4 +26,6 @@ export interface ChartOptions {
   aggregationIncludes?: string[];
   aggregationExcludes?: string[];
   aggregateOptionLabel?: string;
+  yAxisPrefix?: string;
+  yAxisSuffix?: string;
 }

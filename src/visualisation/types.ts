@@ -6,6 +6,7 @@ export interface PlotlyConfig {
 export interface PlotData {
   calcdata: CalcData[][];
   _fullData: Plotly.Data[];
+  _fullLayout: Plotly.Layout;
 }
 
 export type PlotlyEnhancedHTMLElement = Plotly.PlotlyHTMLElement & PlotlyConfig & PlotData;

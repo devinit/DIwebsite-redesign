@@ -28,7 +28,7 @@ echo "Update the ${new_state} container"
 docker-compose up -d ${new_state}
 
 echo "Check the ${new_state} container is ready"
-docker-compose run --rm --entrypoint bash ${new_state} wait-for-it.sh ${new_state}:8090 --timeout=60
+docker-compose run --rm --entrypoint bash ${new_state} ./scripts/wait-for-it.sh ${new_state}:8090 --timeout=60
 
 ./activate.sh ${new_state} ${state} ${new_upstream} ${key_value_store}
 

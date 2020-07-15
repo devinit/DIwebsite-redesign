@@ -189,7 +189,7 @@ const initSelectableChart = async (
       selectNode.addEventListener('change', (event: Event) => updatePlot(event, myPlot), false);
     });
   } catch (error) {
-    initStaticChart(chartNode, chartConfig);
+    initStaticChart(chartNode, chartConfig, chartOptions);
   }
 };
 

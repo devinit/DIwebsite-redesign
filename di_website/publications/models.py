@@ -364,10 +364,21 @@ class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUID
         related_name='+'
     )
 
+    call_to_action_title = models.CharField(max_length=255, null=True, blank=True, default="Receive a pdf version")
+    call_to_action_body = models.TextField(null=True, blank=True, default="We shall email you a pdf version")
+    call_to_action_button_text = models.CharField(max_length=255, null=True, blank=True, default="Signup to receive a copy in your inbox")
+    call_to_action_button_url = models.URLField(max_length=255, null=True, blank=True, default="https://us11.list-manage.com/subscribe?u=a829237ca0cf1470615c7f059&id=ce30e2af0f")
+
     content_panels = Page.content_panels + [
         FieldPanel('colour'),
         hero_panels(),
         StreamFieldPanel('authors'),
+        MultiFieldPanel([
+            FieldPanel('call_to_action_title'),
+            FieldPanel('call_to_action_body'),
+            FieldPanel('call_to_action_button_text'),
+            FieldPanel('call_to_action_button_url'),
+        ], heading='Call to Action Section'),
         SnippetChooserPanel('publication_type'),
         FieldPanel('topics'),
         InlinePanel('publication_datasets', label='Datasets'),

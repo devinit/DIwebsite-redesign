@@ -1,3 +1,5 @@
+import { ChartOptions } from './types';
+
 // Assign an option to a select node
 export const addOptionToSelectNode = (selectNode: HTMLSelectElement, value: string): void => {
   const currentOption = document.createElement('option');
@@ -18,5 +20,18 @@ export const addOptionsToSelectNode = (selectNode: HTMLSelectElement, options: s
   selectNode.classList.add('data-selector--active');
 };
 
-export const createOptionsFromLegendData = (data: Plotly.Data[]): string[] =>
-  data.filter((item) => !!item).map((item) => item.name as string);
+const showTraceInSelector = (name: string, options: ChartOptions): boolean => {
+  if (options.selectorExcludes && options.selectorExcludes.includes(name)) {
+    return false;
+  }
+  if (options.selectorIncludes) {
+    return options.selectorIncludes.includes(name);
+  }
+
+  return true;
+};
+
+export const createOptionsFromLegendData = (data: Plotly.Data[], chartOptions: ChartOptions): string[] =>
+  data
+    .filter((item) => (item.name ? showTraceInSelector(item.name, chartOptions) : false))
+    .map((item) => item.name as string);

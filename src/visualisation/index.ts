@@ -122,10 +122,10 @@ const initSelectableChart = async (
   chartNode: HTMLElement,
   chartConfig: PlotlyConfig,
   selectNode: HTMLSelectElement,
-  options: ChartOptions,
+  chartOptions: ChartOptions,
 ) => {
   try {
-    const { aggregated } = options;
+    const { aggregated } = chartOptions;
     const { data: _data, layout } = chartConfig;
     const { react, relayout } = await loadPlotlyCode(_data);
     const VIEW_ALL = 'All data';
@@ -136,7 +136,7 @@ const initSelectableChart = async (
     if (!isTreemap) {
       layout.showlegend = false;
     }
-    setDefaultTraceVisibility(data, options);
+    setDefaultTraceVisibility(data, chartOptions);
 
     removeLoading(chartNode);
     removeTitle(layout);
@@ -158,7 +158,7 @@ const initSelectableChart = async (
         }
         const condition = (name: string): boolean => {
           if (value === VIEW_ALL) {
-            const showTrace = showTraceByAggregationOption(name, options);
+            const showTrace = showTraceByAggregationOption(name, chartOptions);
 
             return showTrace !== null ? showTrace : true;
           }
@@ -172,7 +172,7 @@ const initSelectableChart = async (
 
     react(chartNode, data, layout, config).then((myPlot: PlotlyEnhancedHTMLElement) => {
       updateLayoutColorway(myPlot, relayout);
-      const options = createOptionsFromCalcData(myPlot._fullData);
+      const options = createOptionsFromCalcData(myPlot._fullData, chartOptions);
       if (aggregated) {
         options.unshift(VIEW_ALL);
       }

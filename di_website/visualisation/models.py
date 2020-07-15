@@ -106,6 +106,22 @@ class ChartPage(SpecificInstructionsMixin, RoutablePageMixin, Page):
         default=False,
         help_text='Optional: aggregated charts adds an "All data" option to selectable charts'
     )
+    selector_includes = models.TextField(
+        null=True, blank=True,
+        help_text='Optional: comma separated values to include in the dropdown selector. Use when inclusions are fewer than exclusions'
+    )
+    selector_excludes = models.TextField(
+        null=True, blank=True,
+        help_text='Optional: comma separated values to exclude in the dropdown selector. Use when exclusions are fewer than inclusions'
+    )
+    aggregation_includes = models.TextField(
+        null=True, blank=True,
+        help_text='Optional: comma separated values to include in the aggregated chart. Use when inclusions are fewer than exclusions'
+    )
+    aggregation_excludes = models.TextField(
+        null=True, blank=True,
+        help_text='Optional: comma separated values to exclude in the aggregated chart. Use when exclusions are fewer than inclusions'
+    )
     caption = RichTextField(
         null=True,
         blank=True,
@@ -122,7 +138,11 @@ class ChartPage(SpecificInstructionsMixin, RoutablePageMixin, Page):
         ], heading='Fallback image and options'),
         MultiFieldPanel([
             FieldPanel('selectable'),
+            FieldPanel('selector_includes'),
+            FieldPanel('selector_excludes'),
             FieldPanel('aggregated'),
+            FieldPanel('aggregation_includes', classname='full'),
+            FieldPanel('aggregation_excludes', classname='full'),
         ], heading='Chart options'),
         MultiFieldPanel(
             [

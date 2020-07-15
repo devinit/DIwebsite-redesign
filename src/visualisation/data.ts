@@ -40,8 +40,6 @@ export const setDefaultTraceVisibility = (data: Plotly.Data[], options: ChartOpt
                 target: group,
                 value: { visible: showTraceByChartOptions(group, options, groupIndex === 0) },
               });
-            } else {
-              groupStyle.value.visible = showTraceByChartOptions(group, options, groupIndex === 0);
             }
           });
         }

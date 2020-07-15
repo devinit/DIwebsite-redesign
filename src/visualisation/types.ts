@@ -17,3 +17,11 @@ export type PlotlyEnhancedHTMLElement = Plotly.PlotlyHTMLElement & PlotlyConfig 
 export interface CalcData {
   trace: Plotly.Data;
 }
+
+export interface ChartOptions {
+  aggregated: boolean;
+  selectorIncludes?: string[];
+  selectorExcludes?: string[];
+  aggregationIncludes?: string[];
+  aggregationExcludes?: string[];
+}

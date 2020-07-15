@@ -4,12 +4,12 @@ import 'isomorphic-fetch';
 import { PlotlyHTMLElement } from 'plotly.js';
 import 'regenerator-runtime/runtime';
 import { config } from './config';
-import { getTreemapDataByLabel, showTraceByIndex, showTraceByCondition, setDefaultTraceVisibility } from './data';
+import { getTreemapDataByLabel, showTraceByCondition, setDefaultTraceVisibility } from './data';
 import { addLoading, removeLoading } from './loading';
 import { loadPlotlyCode } from './modules';
 import { addOptionsToSelectNode, createOptionsFromLegendData as createOptionsFromCalcData } from './options';
 import { removeTitle, setDefaultColorway, updateLayoutColorway, addHoverTemplateToTraces } from './styles';
-import { PlotlyConfig, PlotlyEnhancedHTMLElement } from './types';
+import { PlotlyConfig, PlotlyEnhancedHTMLElement, ChartOptions } from './types';
 
 type Aggregated = 'True' | 'False' | undefined;
 
@@ -25,6 +25,9 @@ const initChart = (wrapper: HTMLElement) => {
     const url = chartNode.dataset.url;
     const aggregated = chartNode.dataset.aggregated as Aggregated;
     const minWidth = chartNode.dataset.minWidth ? parseInt(chartNode.dataset.minWidth) : 400; // TODO: use a constant
+    const chartOptions: ChartOptions = {
+      aggregated: aggregated === 'True',
+    };
 
     const init = async () => {
       // if window greater than min and chart not inited, init chart and set flag
@@ -35,7 +38,7 @@ const initChart = (wrapper: HTMLElement) => {
           fetch(url).then((response) => {
             response.json().then((d) => {
               if (selectNode) {
-                initSelectableChart(chartNode, d, selectNode, aggregated === 'True');
+                initSelectableChart(chartNode, d, selectNode, chartOptions);
               } else {
                 initStaticChart(chartNode, d);
               }
@@ -44,7 +47,7 @@ const initChart = (wrapper: HTMLElement) => {
         } else {
           // raw data in the page is used for previewing and drafts
           if (selectNode) {
-            initSelectableChart(chartNode, data, selectNode, aggregated === 'True');
+            initSelectableChart(chartNode, data, selectNode, chartOptions);
           } else {
             initStaticChart(chartNode, data);
           }
@@ -106,7 +109,7 @@ const initSelectableChart = async (
   chartNode: HTMLElement,
   chartConfig: PlotlyConfig,
   selectNode: HTMLSelectElement,
-  aggregated = false,
+  { aggregated }: ChartOptions,
 ) => {
   try {
     const { data: _data, layout } = chartConfig;
@@ -119,9 +122,6 @@ const initSelectableChart = async (
     if (!isTreemap) {
       layout.showlegend = false;
     }
-    // if (!aggregated) {
-    //   data = showTraceByIndex(_data);
-    // }
     setDefaultTraceVisibility(data, aggregated);
 
     removeLoading(chartNode);

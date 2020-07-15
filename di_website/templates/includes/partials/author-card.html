@@ -1,18 +1,17 @@
 {% load wagtailimages_tags wagtailcore_tags static responsive %}
 
 <div class="m-author">
-  <div class="m-author__image">
-    {% if img %}
-      {% image img fill-200x200-c100 as image %}
-      {% if image.url != '/media/not-found' %}
-        <img src="{{ image.url }}" alt="{{ image.alt }}">
-      {% else %}
-        <img height="80px" width="80px" src="{% static 'img/profile-fallback.jpg' %}" alt="Placeholder profile picture">
-      {% endif %}
+  {% image img fill-200x200-c100 as image %}
+  {% static 'img/profile-fallback.jpg' as fallback_image %}
+  {% if img %}
+    {% if image.url != '/media/not-found' %}
+      <div class="m-author__image" style="background-image:url({{ image.url }})"></div>
     {% else %}
-        <img height="80px" width="80px" src="{% static 'img/profile-fallback.jpg' %}" alt="Placeholder profile picture">
+      <div class="m-author__image" style="background-image:url({{fallback_image}})"></div>
     {% endif %}
-  </div>
+  {% else %}
+      <div class="m-author__image" style="background-image:url({{fallback_image}})"></div>
+  {% endif %}
 
   <div class="m-author__body">
     {% if guest_author %}

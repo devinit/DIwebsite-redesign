@@ -1,0 +1,33 @@
+{% extends "layouts/sidebar.html" %}
+
+{% load navigation_tags static wagtailcore_tags wagtailimages_tags card_tags %}
+
+{% block hero %}
+    {% include 'includes/heroes/hero-news.html' %}
+{% endblock hero %}
+
+{% block main %}
+    <section class="section section--post">
+        <div class="max-meter max-meter--center">
+            <div class="is-typeset is-typeset--additionals wysiwyg">
+                {% for block in page.body %}
+                  {% include_block block %}
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block aside %}
+  <div class="aside aside--clipping">
+    {% secondary_menu parent=self.get_parent.get_parent calling_page=self.get_parent %}
+  </div>
+{% endblock aside %}
+
+{% block after_content %}
+    {% if related_pages %}
+        {% with related_pages=related_pages heading='Related content'  %}
+            {% include 'includes/partials/related_content.html' %}
+        {% endwith %}
+    {% endif %}
+{% endblock %}

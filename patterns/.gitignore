@@ -1,5 +1,4 @@
 ### Skelly ###
-# converted-html
 
 # Created by https://www.gitignore.io
 
@@ -31,6 +30,7 @@ build/Release
 # Dependency directory
 # https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
 node_modules
+.vscode
 
 
 ### OSX ###

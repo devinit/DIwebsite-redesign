@@ -9,7 +9,8 @@ done
 
 
 if [ "$1" = 'gunicorn' ]; then
-    >&2 echo "Executing migration"
+    >&2 echo "Executing collectstatic and migration"
+    python manage.py collectstatic --noinput
     python manage.py migrate
 fi
 

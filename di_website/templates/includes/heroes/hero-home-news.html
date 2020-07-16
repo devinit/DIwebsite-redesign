@@ -1,0 +1,24 @@
+{% extends 'includes/heroes/hero-home.html' %}
+{% load wagtailcore_tags string_utils %}
+
+{% block content %}
+  <ul class="hero__meta">
+    <li class="hero__meta-item hero__meta-item--block">News</li>
+    {% if page.published_date %}
+      <li class="hero__meta-item">{{ page.published_date|date:"j F Y" }}</li>
+    {% else %}
+      <li class="hero__meta-item">{{ page.first_published_at|date:"j F Y" }}</li>
+    {% endif %}
+  </ul>
+  <h1 class="hero__title">
+    <span>{{ page.title }}</span>
+  </h1>
+  {% if page.hero_text %}
+    <div class="hero__excerpt"><span>{{ page.hero_text|content }}</span></div>
+  {% endif %}
+  {% if link_caption %}
+    <div>
+      <a href="{% pageurl page %}" class="button button--reverse">{{ link_caption }}</a>
+    </div>
+  {% endif %}
+{% endblock content %}

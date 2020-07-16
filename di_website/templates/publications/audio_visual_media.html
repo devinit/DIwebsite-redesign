@@ -1,0 +1,39 @@
+{% extends 'layouts/default.html' %}
+
+{% load static wagtailcore_tags wagtailimages_tags string_utils card_tags navigation_tags %}
+
+{% block hero %}
+    {% include 'includes/heroes/hero.html' %}
+{% endblock hero %}
+
+{% block body %}
+    <section class="section">
+        <div class="row row--narrow">
+            <div class="l-sidebar">
+                <div class="l-sidebar__body">
+                    <div class="is-typeset wysiwyg">
+                        {% for block in page.body %}
+                            {% include_block block %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% for section in page.sections %}
+        {% if section.block_type == 'audio_block' %}
+          <section class="section">
+            <div class="row row--narrow">
+              {% include_block section %}
+            </div>
+          </section>
+        {% else %}
+            {% include_block section %}
+        {% endif %}
+    {% endfor %}
+
+    <section class="section">
+        {% get_other_pages calling_page=self heading=page.other_pages_heading %}
+    </section>
+{% endblock %}

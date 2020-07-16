@@ -275,6 +275,7 @@
         animation: herofade 1s;
         animation-delay: 1.5s;
         animation-fill-mode: forwards;
+        mix-blend-mode: color;
         &:nth-child(2) {
             left: 50px;
             width: 100px;

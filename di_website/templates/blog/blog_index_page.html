@@ -1,0 +1,53 @@
+{% extends "layouts/default.html" %}
+
+{% load wagtailcore_tags %}
+
+{% block hero %}
+    {% include 'includes/heroes/hero.html' %}
+{% endblock hero %}
+
+{% block body %}
+{% if topics %}
+    <section class="section">
+        <div class="row row--narrow">
+            <div class="filter">
+                <h3 class="filter__title">View blogs by topic:</h3>
+                <ul class="filter__list">
+                  {% if selected_topic == "" or not selected_topic %}
+                    <li class="filter__list__item filter__list__item--active">
+                        <a href="{% pageurl self %}">All topics</a>
+                    </li>
+                  {% else %}
+                    <li class="filter__list__item">
+                        <a href="{% pageurl self %}">All topics</a>
+                    </li>
+                  {% endif %}
+                    {% for topic in topics %}
+                        {% if topic.slug == selected_topic %}
+                            <li class="filter__list__item filter__list__item--active">
+                                <a href="{% pageurl self %}">{{topic}}</a>
+                            </li>
+                        {% else %}
+                            <li class="filter__list__item">
+                                <a href="{% pageurl self %}?topic={{topic.slug}}">{{topic}}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </section>
+{% endif %}
+
+    <section class="section">
+        <div class="row row--narrow">
+            <h2 class="section__heading">Latest blog posts</h2>
+            <div class="l-2up-3up">
+                {% for blog in articles %}
+                    {% include 'includes/cards/card-blog.html' %}
+                {% endfor %}
+            </div>
+            {% include "includes/scaffold/pagination.html" with children=articles %}
+        </div>
+    </section>
+{% endblock %}

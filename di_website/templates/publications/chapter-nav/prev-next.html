@@ -1,0 +1,19 @@
+{% load report_utils %}
+
+{% if chapter_number and chapter_number <= page.chapter_max %}
+    <div class="page__action__pagination">
+        {% get_previous_chapter page.chapters chapter_number as previous %}
+        {% if previous %}
+            <a href="{{ previous.url }}" class="page__action__previous">
+                {% include 'publications/icon.html' with file='ico-arrow-left-blank' size=16 %}
+            </a>
+        {% endif %}
+        <span class="page-action__section">Chapter {{ chapter_number }} of {{ page.chapter_max }}</span>
+        {% get_next_chapter page.chapters chapter_number as next %}
+        {% if next %}
+            <a href="{{ next.url }}" class="page__action__next">
+                {% include 'publications/icon.html' with file='ico-arrow-right-blank' size=16 %}
+            </a>
+        {% endif %}
+    </div>
+{% endif %}

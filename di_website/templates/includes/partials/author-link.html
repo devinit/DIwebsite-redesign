@@ -1,0 +1,20 @@
+{% load wagtailimages_tags wagtailcore_tags static responsive %}
+
+<a href="{% if page %}{% pageurl page %}{% else %}{{link}}{% endif %}?referrer=author" class="m-author">
+  <div class="m-author__image">
+    {% if img %}
+      {% image img fill-200x200 as image %}
+      {% if image.url != '/media/not-found' %}
+        <img src="{{ image.url }}" alt="{{ image.alt }}">
+      {% else %}
+        <img src="{% static 'img/profile-fallback.jpg' %}" alt="Placeholder profile picture">
+      {% endif %}
+    {% else %}
+      <img src="{% static 'img/profile-fallback.jpg' %}" alt="Placeholder profile picture">
+    {% endif %}
+  </div>
+  <div class="m-author__body">
+    <h3 class="m-author__title">{{author_prefix|default_if_none:"Written by"}} {{name|default_if_none:""}}</h3>
+    <p class="m-author__job">{{position|default_if_none:""}}</p>
+  </div>
+</a>

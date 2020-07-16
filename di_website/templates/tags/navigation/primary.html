@@ -1,0 +1,13 @@
+{% load wagtailcore_tags %}
+
+<button role="button" class="navigation-primary-toggle" id="navigation-primary-toggle"><span>Menu</span></button>
+
+<nav class="navigation-primary" role="navigation" id="navigation-primary">
+	<ul class="navigation-primary__items">
+		{% for item in menu_items %}
+			<li class="navigation-primary__item {% if item.active %}navigation-primary__item--active{% endif %}">
+				<a href="{% pageurl item %}?nav=header">{{ item.title }}</a>
+			</li>
+		{% endfor %}
+	</ul>
+</nav>

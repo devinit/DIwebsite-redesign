@@ -1,0 +1,7 @@
+{% load wagtailcore_tags %}
+
+<ul class="banner__list">
+    {% for block in self %}
+    {% include_block block %}
+    {% endfor %}
+</ul>

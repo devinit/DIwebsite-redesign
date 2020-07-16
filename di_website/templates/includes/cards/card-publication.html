@@ -1,0 +1,23 @@
+{% load wagtailcore_tags wagtailimages_tags static %}
+
+{% if item %}
+  <a href="{% pageurl item %}{{ nav_param|default_if_none:'' }}" class="card card--offset">
+    <span class="card__tag">{{ item.publication_type|default_if_none:"Publication" }}</span>
+
+    {% include 'includes/cards/card-image.html' with item=item %}
+
+    <div class="card__body">
+      {% if item.published_date %}
+        <span class="card__meta">{{ item.published_date|date:"j F Y" }}</span>
+      {% endif %}
+        <h3 class="card__title"><span>{{ item.title }}</span></h3>
+        <div class="card__excerpt">
+          {% if item.hero_text %}
+            {{item.hero_text|richtext}}
+          {% else %}
+            {{ item.body|first|striptags|truncatewords:40 }}
+          {% endif %}
+        </div>
+    </div>
+  </a>
+{% endif %}

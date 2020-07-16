@@ -1,9 +1,10 @@
 import $ from 'jquery';
 
-export default function accordion (trigger, triggerActive, target, targetActive) {
+export default function accordion (trigger, item, itemActive, target, targetActive) {
     $(trigger).on('click', function(e) {
 		e.preventDefault();
-		$(this).toggleClass(triggerActive);
-		$(this).next(target).toggleClass(targetActive);
+        const el = $(this).closest(item);
+		$(el).toggleClass(itemActive);
+		$(el).find(target).toggleClass(targetActive);
 	});
 }

@@ -1,0 +1,56 @@
+{% load wagtailcore_tags card_tags string_utils %}
+
+
+{% get_office_locations as locations %}
+{% if locations %}
+  <section class="section">
+    <div class="row row--narrow">
+      <h2 class="section__heading">Where we are based</h2>
+      <div class="l-4up">
+        {% for location in locations %}
+          <div class="location">
+            {% if location.location %}
+              <h3 class="location__heading">{{ location.location }}</h3>
+            {% endif %}
+            {% if location.address %}
+              <div class="location__copy">{{ location.address | content }}</div>
+            {% endif %}
+            {% if location.contact %}
+              <span class="location__contact">{{ location.contact }}</span>
+            {% endif %}
+          </div>
+        {% endfor %}
+
+      </div>
+    </div>
+  </section>
+{% endif %}
+
+<section class="section">
+    <div class="row row--narrow">
+        <h2 class="section__heading">Registered addresses</h2>
+        <div class="l-2up">
+            <div class="l-2up__col">
+                <p class="para para--typeset">Development Initiatives Poverty Research Ltd (Registered in England and Wales, Company No. 06368740) and DI International Ltd (Registered in England Wales, Company No. 5802543)</p>
+                <ul class="nobullet-list">
+                    <li>North Quay House</li>
+                    <li>Quay side</li>
+                    <li>Temple Back</li>
+                    <li>Bristol</li>
+                    <li>BS1 6FL</li>
+                    <li>UK</li>
+                </ul>
+            </div>
+            <div class="l-2up__col">
+                <p class="para para--typeset">Development Initiatives Poverty Research America Inc. (a 501(C)3 company registered in the state of Delaware with registration number 5737757)</p>
+                <ul class="nobullet-list">
+                    <li>1209 Orange Street</li>
+                    <li>Wilmington</li>
+                    <li>New Castle County</li>
+                    <li>Delaware 19801</li>
+                    <li>USA</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>

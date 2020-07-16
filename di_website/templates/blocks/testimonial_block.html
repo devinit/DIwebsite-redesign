@@ -1,0 +1,10 @@
+{% load wagtailcore_tags wagtailimages_tags string_utils responsive %}
+
+<section class="section">
+  <div class="row row--narrow">
+    {% responsiveimage self.image fill-600x600 srcset=global.sq_srcs as image %}
+    {% with body=self.body cite=self.cite %}
+      {% include 'includes/partials/testimonial.html' %}
+    {% endwith %}
+  </div>
+</section>

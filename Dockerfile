@@ -1,5 +1,5 @@
 
-FROM alpine:3.10.0 
+FROM alpine:3.10.0
 LABEL maintainer="Napho <naphlin.akena@devinit.org>"
 
 RUN apk add postgresql-client && \
@@ -12,7 +12,7 @@ RUN apk add postgresql-client && \
 		linux-headers \
 		pcre-dev \
 		postgresql-dev \
-		git 
+		git
 
 RUN apk add python3-dev
 
@@ -20,33 +20,33 @@ RUN apk add --no-cache python3 && \
  if [ ! -e /usr/bin/pip ]; then ln -s pip3 /usr/bin/pip ; fi && \
  if [[ ! -e /usr/bin/python ]]; then ln -sf /usr/bin/python3 /usr/bin/python; fi
 
-#Require to compile pygcog2
+# Require to compile psycopg2
 RUN apk add --no-cache jpeg-dev zlib-dev
 RUN apk add --no-cache postgresql-dev
-RUN apk add --no-cache libmemcached-dev zlib-dev 
+RUN apk add --no-cache libmemcached-dev zlib-dev
+
+# Required for python cryptography
+RUN apk add --no-cache libressl-dev libffi-dev python3-dev
+
+# Required for python lxml
+RUN apk add --no-cache libxslt-dev
 
 # Set environment varibles
 ENV PYTHONUNBUFFERED 1
 ENV DJANGO_ENV dev
 
+WORKDIR /code/
 
-COPY ./requirements.txt /code/requirements.txt
+COPY ./requirements.txt /code/
 
-RUN apk add --no-cache --virtual .build-deps build-base linux-headers \  
+RUN apk add --no-cache --virtual .build-deps build-base linux-headers \
     && pip install pip --upgrade \
     && pip install -r /code/requirements.txt \
     && apk del .build-deps
 
-#RUN pip install gunicorn
-
-# Copy the current directory contents into the container at /code/
-COPY . /code/
-# Set the working directory to /code/
-WORKDIR /code/
-
-RUN addgroup -S wagtail && adduser -S wagtail -G wagtail
-RUN chown -R wagtail /code
-USER wagtail
+# Create unprivileged celery user
+RUN addgroup celery
+RUN adduser -D -g '' celery -G celery
 
 #Install nvm to be used by user wagail
 EXPOSE 8090

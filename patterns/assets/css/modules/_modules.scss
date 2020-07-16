@@ -55,6 +55,12 @@
     		right: $internal-spacing;
     	}
     }
+    .hero--image & {
+        @include respond-to($menu-respond) {
+            left: auto;
+    		right: $internal-spacing;
+    	}
+    }
     .card & {
         margin-top: 2em;
         background-color: #fff;
@@ -84,6 +90,9 @@ a.m-author {
     background-repeat: no-repeat;
     background-position: center;
     min-height: 81px;
+    .card & {
+        max-height: 81px;
+    }
     img {
         @extend .max-width;
         object-fit: cover;
@@ -100,6 +109,13 @@ a.m-author {
     .card & {
         padding-top: 0;
     }
+}
+
+.m-author__meta {
+    @include font-size($eta);
+    color: lighten($base-color, 5%);
+    margin-bottom: 5px;
+    display: block;
 }
 
 .m-author__meta {
@@ -533,6 +549,79 @@ a.m-stat {
     .spotlight-banner & {
         position: relative;
         padding: 10px 0;
+    }
+}
+
+.m-icon-list {
+    position: relative;
+    @include font-size($para);
+    &__data  {
+        margin-bottom: 1.5em;
+    }
+    @include respond-to($c-vp) {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        flex-direction: row;
+        &__data  {
+            width: 45%;
+        }
+    }
+}
+
+.m-icon-list__data {
+    position: relative;
+    padding-left: 30px;
+    &:before {
+        content: "";
+        position: absolute;
+        top: 5px;
+        left: 0;
+        width: 20px;
+        height: 20px;
+        display: block;
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+    &--download:before {
+        background-image: url('/assets/svg/source/chart-download.svg');
+    }
+    &--zoom:before {
+        background-image: url('/assets/svg/source/chart-zoom.svg');
+    }
+    &--pan:before {
+        background-image: url('/assets/svg/source/chart-pan.svg');
+    }
+    &--box-select:before {
+        background-image: url('/assets/svg/source/chart-box-select.svg');
+    }
+    &--lasso:before {
+        background-image: url('/assets/svg/source/chart-lasso.svg');
+    }
+    &--zoom-in:before {
+        background-image: url('/assets/svg/source/chart-zoom-in.svg');
+    }
+    &--zoom-out:before {
+        background-image: url('/assets/svg/source/chart-zoom-out.svg');
+    }
+    &--autoscale:before {
+        background-image: url('/assets/svg/source/chart-autoscale.svg');
+    }
+    &--reset:before {
+        background-image: url('/assets/svg/source/chart-reset.svg');
+    }
+    &--toggle-spike:before {
+        background-image: url('/assets/svg/source/chart-toggle-spike.svg');
+    }
+    &--closest-data:before {
+        background-image: url('/assets/svg/source/chart-closest-data.svg');
+    }
+    &--compare:before {
+        background-image: url('/assets/svg/source/chart-compare.svg');
+    }
+    dt {
+        @extend %font-heading;
+        display: block;
     }
 }
 

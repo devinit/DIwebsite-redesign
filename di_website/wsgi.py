@@ -10,7 +10,15 @@ https://docs.djangoproject.com/en/2.2/howto/deployment/wsgi/
 import os
 
 from django.core.wsgi import get_wsgi_application
+from decouple import config
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "di_website.settings.dev")
+enviroment = config('ENVIRONMENT', 'dev')
+
+if enviroment.lower() == 'production':
+    os.environ.setdefault(
+        "DJANGO_SETTINGS_MODULE",
+        'di_website.settings.production')
+else:
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", 'di_website.settings.dev')
 
 application = get_wsgi_application()

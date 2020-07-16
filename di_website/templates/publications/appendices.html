@@ -1,0 +1,24 @@
+{% load string_utils %}
+
+{% if page.meta_and_appendices %}
+    <section class="chapter-block-wrapper space-section-top-med">
+        <div class="row">
+            <div class="l-2up">
+                {% for item in page.meta_and_appendices %}
+                    <div class="l-2up__col">
+                        <div class="chapter-block_content">
+                            {% if item.appendix_number %}
+                                <p class="chapter-title">{{ item.label }}</p>
+                            {% endif %}
+                            <h2 class="chapter-block__heading heading type-xl type-s--trailer">{{ item.title }}</h2>
+                            {% if item.hero_text %}
+                              <p class="para">{{ item.hero_text | return_content }}</p>
+                            {% endif %}
+                            <a href="{{ item.url }}" class="button button--a11y" title="Read {{ item.label | lower }}"><span>Read {{ item.label | lower }}</span></a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endif %}

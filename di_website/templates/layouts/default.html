@@ -1,0 +1,52 @@
+{% load wagtailuserbar wagtailmetadata_tags %}
+<!doctype html>
+<!--[if IE 9]> <html lang="en-GB" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--><html lang="en-GB" class="no-js"><!--<![endif]-->
+<head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-NH32T6V');</script>
+  <!-- End Google Tag Manager -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>
+    {% block title %}{{ page.seo_title|default:page.title }}{% if not global.is_home %} - {{ global.site_name }}{% endif %}{% endblock %}
+  </title>
+  {% block html_header %}
+    {% include 'includes/scaffold/header-assets.html' %}
+  {% endblock %}
+
+  {% block metadata %}
+    {% meta_tags %}
+  {% endblock %}
+</head>
+<body class="body body--{{ id }} {% block colour %}{% endblock %}" id="body-{{ id }}">
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NH32T6V"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  {% wagtailuserbar %}
+  <div class="ui-base">
+    <a href="#pagecontent" class="skiplink" data-js="skiplink">Skip to main content</a>
+    {% block header %}
+      {% include 'includes/scaffold/header.html' %}
+    {% endblock %}
+    <!-- ID and -nofocus required for proper skiplink operation -->
+    <main id="pagecontent" class="pagecontent -nofocus" role="main" tabindex="-1">
+      {% block hero %}{% endblock %}
+      {% block body %}{% endblock %}
+      {% block after_content %}{% endblock %}
+    </main>
+    {% block footer %}
+      {% include 'includes/scaffold/footer.html' %}
+    {% endblock %}
+  </div>
+  {% include 'includes/scaffold/footer-assets.html' %}
+  {% block html_footer %}
+  {% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+{% extends 'layouts/default.html' %}
+{% load navigation_tags wagtailcore_tags %}
+
+{% block body %}
+
+  {% include 'includes/heroes/hero.html' %}
+
+  <section class="section">
+    <div class="row row--narrow">
+      <div class="l-sidebar">
+        {% if self.depth > 3 %}
+          <aside class="l-sidebar__aside">
+            <div class="aside aside--clipping">
+              {% secondary_menu parent=self.get_parent.get_parent calling_page=self %}
+            </div>
+          </aside>
+        {% endif %}
+        <div class="l-sidebar__body">
+          {% breadcrumbs %}
+          <div class="is-typeset wysiwyg">
+            {% for block in self.body %}
+              {% include_block block %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {% for block in self.sections %}
+    {% include_block block %}
+  {% endfor %}
+
+  {% if related_pages %}
+    {% with related_pages=related_pages heading='Related content'  %}
+      {% include 'includes/partials/related_content.html' %}
+    {% endwith %}
+  {% endif %}
+
+{% endblock body %}

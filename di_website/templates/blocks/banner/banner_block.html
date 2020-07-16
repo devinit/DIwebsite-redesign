@@ -1,0 +1,59 @@
+{% load wagtailcore_tags wagtailimages_tags responsive %}
+
+<section class="section">
+  <div class="row row--narrow">
+    <div class="banner{% if self.light %} banner--light{% endif %}">
+      <div class="l-banner{% if self.media_orientation == 'right' %} l-banner--reverse{% endif %}">
+        <div class="l-banner__aside">
+          <div class="banner__media">
+              {% if self.video %}
+                <div class="media-wrapper">
+                  {{ self.video }}
+                </div>
+              {% endif %}
+              {% if self.image %}
+                {% responsiveimage self.image width-460 srcset=global.banner_srcs alt=self.image.title %}
+                {% if self.image_credit_name %}
+                  <span class="banner__credit">
+                  {% if self.image_credit_url %}
+                    Image by <a href="{{self.image_credit_url}}">{{self.image_credit_name}}</a>
+                  {% else %}
+                    Image by {{self.image_credit_name}}
+                  {% endif %}
+                  </span>
+                {% endif %}
+              {% endif %}
+          </div>
+        </div>
+        <div class="l-banner__main">
+          {% for block in self.text %}
+            {% include_block block %}
+          {% endfor %}
+          <span class="banner__meta">{{ self.meta }}</span>
+
+          {% if self.buttons %}
+            {% for button in self.buttons %}
+              {% if button.block_type == 'document_box' %}
+                {% include_block button %}
+              {% else %}
+                {% if button.value.page %}
+                  <a href="{% pageurl button.value.page %}" class="button button--reverse">
+                    {% if button.value.caption %}
+                    {{ button.value.caption }}
+                    {% else %}
+                    {{ button.value.page.title }}
+                    {% endif %}
+                  </a>
+                {% elif button.value.url %}
+                  <a href="{{ button.value.url }}" class="button button--reverse">
+                    {{ button.value.caption }}
+                  </a>
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

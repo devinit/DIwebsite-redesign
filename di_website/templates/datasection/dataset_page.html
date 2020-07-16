@@ -1,0 +1,95 @@
+{% extends "layouts/default.html" %}
+{% load static wagtailcore_tags wagtailimages_tags card_tags generic_tags navigation_tags string_utils responsive %}
+
+{% block hero %}
+  {% include 'includes/heroes/hero-dataset.html' %}
+{% endblock hero %}
+
+{% block body %}
+
+  {% include './includes/partials/dataset_body.html' %}
+
+  {% include './includes/partials/dataset_metadata.html' %}
+
+
+{% if reports|length or reportless_figures %}
+  <section class="section">
+    <div class="row row--narrow">
+      <h2 class="section__heading">References to charts and infographics that use this dataset</h2>
+
+      {% for item in reports %}
+        <div class="card card--duo">
+          <span class="card__tag">{{ item.specific.publication_type|default_if_none:"Publication" }}</span>
+          <a href="{% pageurl item %}">
+            <div class="card__media">
+              {% if item.specific.hero_image %}
+                {% responsiveimage item.specific.hero_image fill-464x290-c100 srcset="fill-382x238 1w, fill-464x290 464w" as image %}
+                {% if image.url != '/media/not-found' %}
+                  <img src="{{ image.url }}" alt="{{item.specific.hero_image.title}}" srcset="{{ image.srcset }}"/>
+                {% endif %}
+              {% else %}
+                <img src="{% static 'img/fallback-image.jpg' %}" height="290px" width="464px"/>
+              {% endif %}
+              <div class="card__media__caption">
+                <span class="card__meta">{{item.specific.release_date|date:"j F Y"}}</span>
+                <h3 class="card__title"><span>{{item.title}}</span></h3>
+              </div>
+            </div>
+          </a>
+          <div class="card__body">
+            <div class="l-2up">
+              {% for figure in item.figures %}
+                <div class="l-2up__col">
+                  <p class="m-slip__copy"><a href="{% pageurl figure %}">{{figure.figure_title}}</a></p>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+      </div>
+      {% endfor %}
+      {% if reportless_figures %}
+        <div class="card card--duo">
+          <div class="card__media">
+              <img src="{% static 'img/fallback-image.jpg' %}" height="290px" width="464px"/>
+          </div>
+          <div class="card__body">
+            <div class="l-2up">
+              {% for figure in reportless_figures %}
+                <div class="l-2up__col">
+                  <p class="m-slip__copy"><a href="{% pageurl figure %}">{{figure.figure_title}}</a></p>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      {% endif %}
+  </div>
+</section>
+{% endif %}
+
+
+  {% if related_datasets|length %}
+    <section class="section">
+      <div class="row row--narrow">
+        <h2 class="section__heading">{{ page.related_datasets_title }}</h2>
+        <div class="l-3up">
+          {% for item in related_datasets %}
+            <div class="m-slip m-slip--icon">
+              <i role="presentation" aria-hidden="true" class="ico ico--24 ico-data-poppydark"></i>
+              <p class="m-slip__copy">
+                <a href="{% pageurl item %}">{{item.specific.title}}</a>
+              </p>
+              <span class="m-slip__meta">Released: {{item.specific.release_date|date:"j F Y"}}</span>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+  {% endif %}
+
+
+  <section class="section">
+    {% get_other_pages calling_page=self heading=page.other_pages_heading %}
+  </section>
+
+{% endblock %}

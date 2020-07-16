@@ -14,9 +14,11 @@
   "author": "Dan Reeves <danr@fffunction.co>",
   "license": "MIT",
   "dependencies": {
+    "d3": "^5.12.0",
     "fastclick": "^1.0.6",
     "google-maps": "^3.3.0",
-    "jquery": "^2.1.4",
+    "jquery": "^3.4.0",
+    "plotly.js-dist": "^1.51.1",
     "skelly": "^2.0.0-rc.8"
   }
 }

@@ -20,8 +20,11 @@ class SpecificInstructionsMixin(GeneralInstructionsMixin):
     display_general_instructions = models.BooleanField(
         default=True,
         help_text='Optional: display the general visualisation instructions, edited on the visualisations parent page',
-        verbose_name='Show instructions'
+        verbose_name='Show general instructions'
     )
+    instructions_heading = models.TextField(
+        blank=True, default='Interactive visualisation instructions',
+        verbose_name='Accordion heading')
 
 
 class ChartOptionsMixin(models.Model):

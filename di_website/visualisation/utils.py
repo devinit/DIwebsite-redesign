@@ -23,6 +23,7 @@ def SpecificInstructionsPanel():
                 Specific instuctions added to this page will be displayed, overriding this setting.
             ''', wrapper_class='help-block help-info no-padding-top'),
             FieldPanel('display_general_instructions'),
+            FieldPanel('instructions_heading'),
             FieldPanel('instructions'),
         ],
         heading='Interactive visualisation instructions',

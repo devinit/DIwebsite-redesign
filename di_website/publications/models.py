@@ -976,7 +976,7 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, LegacyPageSearchMixin
         return context;
 
 
-class ShortPublicationPage(HeroMixin, PublishedDateMixin, FlexibleContentMixin, PageSearchMixin, UUIDMixin, FilteredDatasetMixin, Page):
+class ShortPublicationPage(HeroMixin, PublishedDateMixin, FlexibleContentMixin, PageSearchMixin, UUIDMixin, FilteredDatasetMixin, CallToActionMixin, Page):
 
     class Meta:
         verbose_name = 'Short Publication'
@@ -1018,6 +1018,12 @@ class ShortPublicationPage(HeroMixin, PublishedDateMixin, FlexibleContentMixin, 
         FieldPanel('colour'),
         hero_panels(),
         StreamFieldPanel('authors'),
+        MultiFieldPanel([
+            FieldPanel('call_to_action_title'),
+            FieldPanel('call_to_action_body'),
+            FieldPanel('call_to_action_button_text'),
+            FieldPanel('call_to_action_button_url'),
+        ], heading='Call to Action Section'),
         SnippetChooserPanel('publication_type'),
         FieldPanel('topics'),
         InlinePanel('page_countries', label="Countries"),

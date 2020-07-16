@@ -24,6 +24,13 @@
 	@include link-active-styles {
 		background-color: $slate;
 	}
+    .accordion--light & {
+        background-color: darken($cloud, 8%);
+        color: $heading-color;
+        .ico-plus-blank {
+            display: none;
+        }
+    }
 	.ico {
 		position: absolute;
 		top: 12px;
@@ -38,6 +45,14 @@
 		.ico {
 			transform: rotate(45deg);
 		}
+        .accordion--light & {
+            .ico-plus-slate {
+                display: none;
+            }
+            .ico-plus-blank {
+                display: block;
+            }
+        }
 	}
 	html.no-js & {
 		.ico {
@@ -55,4 +70,7 @@
 	html.no-js & {
 		display: block;
 	}
+    .is-typeset {
+        margin-bottom: 3em;
+    }
 }

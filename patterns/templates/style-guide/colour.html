@@ -5,6 +5,7 @@
 {# --------------------------------------- #}
 
 {% model 'ptn-colour', as="color" %}
+{% model 'ptn-colour-vis', as="colorvis" %}
 
 {% set ui_title = "Colour" %}
 
@@ -30,13 +31,45 @@
 					<span class="swatch"></span>
 					<span class="swatch-name">{{ item.name }}</span>
 					<span class="swatch-color"></span>
-					<span class="swatch-usage">${{ item.name | lower }}</span>	
-					<span class="swatch-usage">.color-{{ item.name | lower }}</span>	
-					<span class="swatch-usage">.fill-{{ item.name | lower }}</span>			
+					<span class="swatch-usage">${{ item.name | lower }}</span>
+					<span class="swatch-usage">.color-{{ item.name | lower }}</span>
+					<span class="swatch-usage">.fill-{{ item.name | lower }}</span>
 				</li>
 				{% endfor %}
 			</ul>
 		</div>
 	</div>
+</div>
+<div class="ui-row">
+  <div class="ui-section">
+    <div class="ui-section__header">
+      <h2>Extended palette for use in visualisations</h2>
+    </div>
+  </div>
+</div>
+<div class="ui-row">
+  <div class="ui-section">
+    {% for item in colorvis %}
+    <div class="ui-section__body">
+      <div class="is-typeset">
+        <h2>{{ item.name|replace('-',' ')|capitalize }}</h2>
+        {% if item.bodyclass != null %}
+          <p>Body class used in publications: <input type="text" class="form-item" style="display: inline;width:auto;" value="{{ item.bodyclass }}" disabled></p>
+        {% endif %}
+        {% if item.description != null %}
+          <p>{{ item.description }}</p>
+        {% endif %}
+      </div>
+      <ul class="ui-swatches">
+        {% for colour in item.scale %}
+          <li class="">
+            <span class="swatch" style="background-color:{{ colour }};"></span>
+            <span class="swatch-color">{{ colour }}</span>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endfor %}
+  </div>
 </div>
 {% endblock %}

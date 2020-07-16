@@ -33,7 +33,7 @@ from wagtailmedia.edit_handlers import MediaChooserPanel
 
 from di_website.common.base import (get_paginator_range, get_related_pages, hero_panels)
 from di_website.common.constants import (MAX_PAGE_SIZE, MAX_RELATED_LINKS, RICHTEXT_FEATURES)
-from di_website.common.mixins import (HeroMixin, OtherPageMixin, SectionBodyMixin, TypesetBodyMixin)
+from di_website.common.mixins import (HeroMixin, OtherPageMixin, SectionBodyMixin, TypesetBodyMixin, CallToActionMixin)
 from di_website.downloads.utils import DownloadsPanel
 
 from .edit_handlers import MultiFieldPanel
@@ -318,7 +318,7 @@ class PublicationIndexPage(HeroMixin, Page):
         verbose_name = 'Resources Index Page'
 
 
-class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUIDMixin, FilteredDatasetMixin, Page):
+class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUIDMixin, FilteredDatasetMixin, CallToActionMixin, Page):
 
     class Meta:
         verbose_name = 'Publication Page'
@@ -363,11 +363,6 @@ class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUID
         on_delete=models.SET_NULL,
         related_name='+'
     )
-
-    call_to_action_title = models.CharField(max_length=255, null=True, blank=True, default="Receive a pdf version")
-    call_to_action_body = models.TextField(null=True, blank=True, default="We shall email you a pdf version")
-    call_to_action_button_text = models.CharField(max_length=255, null=True, blank=True, default="Signup to receive a copy in your inbox")
-    call_to_action_button_url = models.URLField(max_length=255, null=True, blank=True, default="https://us11.list-manage.com/subscribe?u=a829237ca0cf1470615c7f059&id=ce30e2af0f")
 
     content_panels = Page.content_panels + [
         FieldPanel('colour'),
@@ -856,7 +851,7 @@ class PublicationAppendixPage(HeroMixin, ReportChildMixin, FlexibleContentMixin,
         return sections
 
 
-class LegacyPublicationPage(HeroMixin, PublishedDateMixin, LegacyPageSearchMixin, FilteredDatasetMixin, Page):
+class LegacyPublicationPage(HeroMixin, PublishedDateMixin, LegacyPageSearchMixin, FilteredDatasetMixin, CallToActionMixin, Page):
 
     class Meta:
         verbose_name = 'Legacy Publication'
@@ -878,7 +873,6 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, LegacyPageSearchMixin
             ('page', URLBlock(required=False))
         ], icon='fa-user', label='External Author'))
     ], blank=True)
-
     publication_type = models.ForeignKey(
         PublicationType, related_name="+", null=True, blank=False, on_delete=models.SET_NULL, verbose_name="Resource Type")
     topics = ClusterTaggableManager(through=LegacyPublicationTopic, blank=True, verbose_name="Topics")
@@ -910,6 +904,12 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, LegacyPageSearchMixin
         FieldPanel('colour'),
         hero_panels(),
         StreamFieldPanel('authors'),
+        MultiFieldPanel([
+            FieldPanel('call_to_action_title'),
+            FieldPanel('call_to_action_body'),
+            FieldPanel('call_to_action_button_text'),
+            FieldPanel('call_to_action_button_url'),
+        ], heading='Call to Action Section'),
         SnippetChooserPanel('publication_type'),
         FieldPanel('topics'),
         InlinePanel('page_countries', label="Countries"),

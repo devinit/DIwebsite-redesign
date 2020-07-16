@@ -44,3 +44,14 @@ def chapter_nav_slice(chapters, chapter_number=0, max_length=6):
         return '%s:%s' % (str(start), str(end))
     except Exception:
         return ''
+
+
+@register.simple_tag(takes_context=True)
+def page_contains_chart(context):
+    try:
+        for item in context['page'].content:
+            if item.block.name == 'interactive_chart':
+                return True
+        return False
+    except Exception:
+        return False

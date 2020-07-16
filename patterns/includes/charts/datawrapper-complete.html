@@ -1,0 +1,999 @@
+
+
+      <script type="text/javascript" charset="utf-8" src="./datawrapper.dwcdn.net_files/underscore-min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="./datawrapper.dwcdn.net_files/jquery.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="./datawrapper.dwcdn.net_files/d3-area-68fc79bd11d83bb49db1a6d2945d9fc4.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="./datawrapper.dwcdn.net_files/chart-61e2c71412141871942c0de6c1051c69ca80e945.min.js"></script>
+
+    <script type="text/javascript">
+        (function() {
+            dw.theme.register('datawrapper-data', {"typography":{"chart":{"typeface":"Roboto,sans-serif","color":"#181818","fontSize":12},"headline":{"fontSize":22,"fontWeight":"bold","underlined":0,"cursive":0,"typeface":"Roboto,sans-serif","color":"#000000"},"description":{"fontSize":14,"lineHeight":17,"fontWeight":"normal","underlined":0,"cursive":0,"typeface":"Roboto,sans-serif"},"notes":{"fontSize":12,"fontWeight":"normal","underlined":0,"cursive":1,"color":"#656565","typeface":"Roboto,sans-serif"},"footer":{"color":"#888","fontSize":11,"fontWeight":"normal","underlined":0,"cursive":0,"typeface":"Roboto,sans-serif"},"links":{"color":"#18a1cd","fontWeight":"normal","underlined":0,"cursive":0,"typeface":"Roboto,sans-serif"}},"colors":{"general":{"background":"transparent","padding":0},"palette":["#18a1cd","#1d81a2","#15607a","#82f5cf","#00dca6","#09bb9f","#c4c4c4","#c71e1d","#fa8c00","#ffca76","#ffe59c"],"picker":{"rowCount":6}},"options":{"footer":{"logo":{"enabled":0,"height":30,"position":"right"},"getTheData":{"enabled":1,"caption":"Get the data"},"embed":{"enabled":0,"caption":"Embed"},"staticImage":{"enabled":0,"caption":"Download Image"},"createdWithDatawrapper":0,"sourcePosition":"left","sourceCaption":"Source","chartCaption":"Chart:","createdWithCaption":"Created with","mapCaption":"Map:","tableCaption":"Table:","forkCaption":"Based on"}},"pdf":{"fonts":{"Roboto Regular":"https:\/\/static.dwcdn.net\/css\/fonts\/roboto\/ttf\/Roboto-Regular.ttf","Roboto Regular Italic":"https:\/\/static.dwcdn.net\/css\/fonts\/roboto\/ttf\/Roboto-Italic.ttf","Roboto Light":"https:\/\/static.dwcdn.net\/css\/fonts\/roboto\/ttf\/Roboto-Light.ttf","Roboto Light Italic":"https:\/\/static.dwcdn.net\/css\/fonts\/roboto\/ttf\/Roboto-LightItalic.ttf","Roboto Medium":"https:\/\/static.dwcdn.net\/css\/fonts\/roboto\/ttf\/Roboto-Medium.ttf","Roboto Medium Italic":"https:\/\/static.dwcdn.net\/css\/fonts\/roboto\/ttf\/Roboto-MediumItalic.ttf","Roboto Bold":"https:\/\/static.dwcdn.net\/css\/fonts\/roboto\/ttf\/Roboto-Bold.ttf","Roboto Bold Italic":"https:\/\/static.dwcdn.net\/css\/fonts\/roboto\/ttf\/Roboto-BoldItalic.ttf"},"defaultFont":"Roboto Regular","fontStack":true,"cmykColors":[]}});
+        }).call(this);
+    </script>
+
+
+    <style type="text/css">
+        @import 'https://static.dwcdn.net/css/roboto.css';
+.chart {
+  font-family: Roboto,sans-serif;
+  color: #181818;
+  font-size: 12px;
+  background: transparent;
+  margin: 0 0px;
+  height: 100%;
+}
+.chart.vis-height-fit {
+  overflow: hidden;
+}
+.chart a {
+  color: #18a1cd;
+  text-decoration: none;
+}
+.chart .dw-chart-header {
+  min-height: 1px;
+  position: relative;
+  overflow: auto;
+}
+.chart .dw-chart-header .header-right {
+  position: absolute;
+  right: 10px;
+  z-index: 20;
+}
+.chart .dw-chart-header h1 {
+  font-family: Roboto,sans-serif;
+  font-weight: bold;
+  font-size: 22px;
+  font-style: normal;
+  text-decoration: none;
+  color: #000000;
+  margin: 0 0 10px;
+}
+.chart .dw-chart-header p {
+  font-family: Roboto,sans-serif;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  font-style: normal;
+  text-decoration: none;
+  margin: 5px 0 10px !important;
+}
+.chart .dw-chart-body.dark-bg .label span {
+  color: #181818;
+  fill: #181818;
+}
+.chart .dw-chart-body .bc-grid-line {
+  border-left-style: solid;
+}
+.chart .dw-chart-body.content-below-chart {
+  margin: 0px 0px 20px 0px;
+}
+.chart .labels text {
+  font-size: 12px;
+}
+.chart .label {
+  font-size: 12px;
+}
+.chart .label span,
+.chart .label tspan {
+  color: #181818;
+  fill: #181818;
+}
+.chart .label.inverted span {
+  text-shadow: 0 0px 2px #000000;
+  color: #ffffff;
+}
+.chart .label.inside:not(.inverted) span {
+  text-shadow: 0 0px 2px #ffffff;
+  color: #333333;
+}
+.chart .label sup {
+  text-shadow: none;
+}
+.chart .label.highlighted {
+  font-weight: bold;
+}
+.chart .label.highlighted,
+.chart .label .label.axis {
+  font-size: 12px;
+  z-index: 100;
+}
+.chart .label.hover {
+  font-weight: bold;
+}
+.chart .label.smaller span {
+  font-size: 80%;
+}
+.chart .dw-chart-notes {
+  font-family: Roboto,sans-serif;
+  font-weight: normal;
+  font-size: 12px;
+  font-style: italic;
+  text-decoration: none;
+  color: #656565;
+  margin: 0px 0px 5px 0px;
+  position: relative;
+}
+.chart #footer,
+.chart .dw-chart-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: Roboto,sans-serif;
+  font-weight: normal;
+  font-size: 11px;
+  font-style: normal;
+  text-decoration: none;
+  color: #888;
+}
+.chart #footer > div > .footer-block,
+.chart .dw-chart-footer > div > .footer-block {
+  display: inline-block;
+}
+.chart #footer > div > .footer-block.hidden,
+.chart .dw-chart-footer > div > .footer-block.hidden {
+  display: none;
+}
+.chart #footer > div > .footer-block a[href=""],
+.chart .dw-chart-footer > div > .footer-block a[href=""] {
+  color: #888;
+  pointer-events: none;
+  text-decoration: none;
+  padding: 0;
+  border-bottom: 0;
+}
+.chart #footer > div > .footer-block .separator,
+.chart .dw-chart-footer > div > .footer-block .separator {
+  display: inline-block;
+  font-style: initial;
+}
+.chart #footer > div > .footer-block .separator:before,
+.chart .dw-chart-footer > div > .footer-block .separator:before {
+  content: "•";
+  display: inline-block;
+}
+.chart #footer > div .footer-block.hidden:first-child + .footer-block:not(.hidden) .separator,
+.chart #footer > div .footer-block.hidden:first-child
+              + .footer-block.hidden
+              + .footer-block:not(.hidden) .separator,
+.chart #footer > div .footer-block.hidden:first-child
+              + .footer-block.hidden
+              + .footer-block.hidden
+              + .footer-block:not(.hidden) .separator,
+.chart #footer > div .footer-block.hidden:first-child
+              + .footer-block.hidden
+              + .footer-block.hidden
+              + .footer-block.hidden
+              + .footer-block:not(.hidden) .separator,
+.chart #footer > div .footer-block.hidden:first-child
+              + .footer-block.hidden
+              + .footer-block.hidden
+              + .footer-block.hidden
+              + .footer-block.hidden
+              + .footer-block:not(.hidden) .separator,
+.chart #footer > div .footer-block.hidden:first-child
+              + .footer-block.hidden
+              + .footer-block.hidden
+              + .footer-block.hidden
+              + .footer-block.hidden
+              + .footer-block.hidden
+              + .footer-block:not(.hidden) .separator,
+.chart .dw-chart-footer > div .footer-block.hidden:first-child + .footer-block:not(.hidden) .separator,
+.chart .dw-chart-footer > div .footer-block.hidden:first-child
+              + .footer-block.hidden
+              + .footer-block:not(.hidden) .separator,
+.chart .dw-chart-footer > div .footer-block.hidden:first-child
+              + .footer-block.hidden
+              + .footer-block.hidden
+              + .footer-block:not(.hidden) .separator,
+.chart .dw-chart-footer > div .footer-block.hidden:first-child
+              + .footer-block.hidden
+              + .footer-block.hidden
+              + .footer-block.hidden
+              + .footer-block:not(.hidden) .separator,
+.chart .dw-chart-footer > div .footer-block.hidden:first-child
+              + .footer-block.hidden
+              + .footer-block.hidden
+              + .footer-block.hidden
+              + .footer-block.hidden
+              + .footer-block:not(.hidden) .separator,
+.chart .dw-chart-footer > div .footer-block.hidden:first-child
+              + .footer-block.hidden
+              + .footer-block.hidden
+              + .footer-block.hidden
+              + .footer-block.hidden
+              + .footer-block.hidden
+              + .footer-block:not(.hidden) .separator {
+  display: none;
+}
+.chart #footer > div > a:first-child::before,
+.chart #footer > div > .source-block:first-child::before,
+.chart #footer > div > .footer-block:first-child::before,
+.chart .dw-chart-footer > div > a:first-child::before,
+.chart .dw-chart-footer > div > .source-block:first-child::before,
+.chart .dw-chart-footer > div > .footer-block:first-child::before {
+  content: "";
+  display: none;
+}
+.chart .dw-chart-notes a,
+.chart .dw-chart-footer a {
+  font-family: Roboto,sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: none;
+  color: #18a1cd;
+}
+.chart a img {
+  border: 0px;
+}
+.chart .embed-code {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  padding: 15px;
+  background: #eee;
+  color: #000;
+  border-radius: 6px;
+  text-transform: none;
+  font-size: 1em;
+  box-shadow: 2px 2px 0px rgba(0,0,0,0.4);
+  z-index: 10;
+}
+.chart .embed-code textarea {
+  width: 90%;
+  margin-top: 2%;
+  height: 7em;
+}
+.chart .hide {
+  display: none;
+}
+.chart .embed-code .close {
+  cursor: pointer;
+  position: absolute;
+  right: 2%;
+  top: 2%;
+  font-size: 1.125em;
+  opacity: 0.7;
+}
+.chart .embed-code .close:hover {
+  opacity: 1;
+}
+.chart .dw-tooltip {
+  color: #333333;
+}
+.chart .tooltip {
+  z-index: 200;
+  padding-bottom: 0px;
+}
+.chart .tooltip .content {
+  background-color: #fff;
+  border: 1px solid #888;
+  box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+  padding: 5px 8px;
+}
+.chart .tooltip label {
+  font-weight: 700;
+}
+.chart .tooltip label:after {
+  content: ": ";
+}
+.chart .logo {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+.chart .logo .big {
+  display: none;
+}
+.chart svg .axis,
+.chart svg .tick,
+.chart svg .grid,
+.chart svg rect {
+  shape-rendering: crispEdges;
+}
+.chart .filter-links {
+  height: 30px;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  border-bottom: 1px solid #ccc;
+  font-size: 12px;
+}
+.chart .filter-links a {
+  color: #666;
+  height: 28px;
+  line-height: 28px;
+  padding: 10px;
+  text-decoration: none;
+}
+.chart .filter-links a:hover {
+  color: #222;
+}
+.chart .filter-links a.active {
+  font-weight: bold;
+  color: #000;
+  box-shadow: none;
+  cursor: default;
+  text-decoration: none;
+  border-bottom: 3px solid #555;
+  padding: 10px 10px 6px 10px;
+}
+.chart .filter-select {
+  background-color: #FFFFFF;
+  border: 1px solid #CCCCCC;
+  border-radius: 4px 4px 4px 4px;
+  padding: 4px 6px;
+  vertical-align: middle;
+  font-size: 12px;
+}
+.chart.plain #footer {
+  height: 10px;
+}
+.chart.js .noscript {
+  display: none;
+}
+.chart .hidden {
+  display: none;
+}
+.chart .label.annotation span {
+  background: transparent;
+}
+.chart .legend-item.hover .label {
+  font-weight: bold;
+}
+.chart .watermark {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  transform-origin: top left;
+  opacity: 0.182;
+  font-weight: bold;
+  font-size: 6px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+.clearfix:after {
+  content: ".";
+  display: block;
+  clear: both;
+  visibility: hidden;
+  line-height: 0;
+  height: 0;
+}
+.clearfix {
+  display: inline-block;
+}
+html[xmlns] .clearfix {
+  display: block;
+}
+* html .clearfix {
+  height: 1%;
+}
+.point {
+  border: 1px solid #ccc;
+  display: inline-block;
+  position: absolute;
+  background: #fff;
+  z-index: 100;
+  cursor: pointer;
+  height: 20px;
+  width: 20px;
+  border-radius: 20px;
+  top: 20px;
+}
+.point:hover {
+  background: #ebebeb;
+}
+.point.active {
+  background: #ccc;
+  height: 20px;
+  width: 20px;
+  border-radius: 20px;
+  top: 20px;
+  border-color: #888;
+}
+.point-label {
+  position: absolute;
+}
+.line {
+  height: 1px;
+  background: #ccc;
+  position: absolute;
+  left: 0px;
+  top: 30px;
+  z-index: 1;
+}
+.vis-pie-chart path,
+.vis-donut-chart path,
+.vis-election-donut-chart path {
+  stroke-width: 0.5;
+}
+.chart.vis-d3-area div.d3l-main {
+  position: absolute;
+}
+.chart.vis-d3-area .d3l-line-label {
+  position: absolute;
+  width: 100px;
+}
+.chart.vis-d3-area .d3l-hidden {
+  display: none !important;
+}
+.chart.vis-d3-area .d3l-color-key {
+  position: absolute;
+}
+.chart.vis-d3-area .d3l-color-key .d3l-item {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+.chart.vis-d3-area .d3l-color-key .d3l-item .label br {
+  display: inline;
+  content: ' ';
+  clear: none;
+}
+.chart.vis-d3-area .d3l-color-key .d3l-item .label br:after {
+  content: ' ';
+}
+.chart.vis-d3-area .d3l-color-key .d3l-item .d3l-key {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 4px;
+}
+.chart.vis-d3-area g.tooltip {
+  display: none;
+  pointer-events: none;
+}
+.chart.vis-d3-area g.tooltip.show {
+  display: block;
+}
+.chart.vis-d3-area g.tooltip text {
+  font-size: 90%;
+  text-anchor: start;
+}
+.chart.vis-d3-area g.tooltip text.bg {
+  stroke: white;
+  fill: white;
+  stroke-width: 5;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.chart.vis-d3-area g.tooltip text tspan:first-child {
+  font-weight: bold;
+  font-size: 110%;
+}
+.chart.vis-d3-area g.tooltip line {
+  stroke: black;
+  opacity: 0.3;
+}
+.chart.vis-d3-area g.tooltip circle {
+  stroke: black;
+  fill: none;
+  opacity: 0.3;
+}
+.chart.vis-d3-area svg rect.bg {
+  fill: #fff;
+  fill-opacity: 0;
+}
+.chart.vis-d3-area svg rect.frame {
+  fill: none;
+}
+.chart.vis-d3-area svg line.y-axis {
+  shape-rendering: crispEdges;
+}
+.chart.vis-d3-area svg .x.axis line,
+.chart.vis-d3-area svg .x.ticks line {
+  shape-rendering: crispEdges;
+}
+.chart.vis-d3-area svg .x.axis text,
+.chart.vis-d3-area svg .x.ticks text {
+  text-anchor: middle;
+}
+.chart.vis-d3-area svg .y-grid line {
+  shape-rendering: crispEdges;
+}
+.chart.vis-d3-area svg .y-grid text {
+  text-anchor: end;
+}
+.chart.vis-d3-area svg .area-fill {
+  opacity: 0.2;
+}
+.chart.vis-d3-area svg line.cursor {
+  fill: none;
+  stroke: #c00;
+  opacity: 0.3;
+  stroke-dasharray: 3, 2;
+}
+.chart.vis-d3-area svg rect.cursor {
+  fill: #c00;
+  opacity: 0.2;
+}
+.chart.vis-d3-area svg text.cursor-display {
+  fill: #c00;
+  opacity: 0.5;
+  pointer-events: none;
+  font-size: 10px;
+  font-family: Arial;
+}
+.chart.vis-d3-area svg .free-texts text {
+  text-anchor: middle;
+  alignment-baseline: middle;
+}
+.chart.vis-d3-area svg .free-texts text.dw-bold {
+  font-weight: bold;
+}
+.chart.vis-d3-area svg .free-texts text.dw-italic {
+  font-style: italic;
+}
+.chart.vis-d3-area svg .free-texts text.dw-underline {
+  text-decoration: underline;
+}
+.chart.vis-d3-area svg .lbl-connect-lines path {
+  stroke: black;
+  stroke-dasharray: 2, 2;
+  fill: none;
+}
+.chart.vis-d3-area .dw-chart-body {
+  position: relative;
+  padding-bottom: 0px;
+}
+.chart.vis-d3-area .dw-chart-body.grid-labels-inside .y-grid text {
+  text-anchor: start;
+}
+.chart.vis-d3-area .dw-chart-body.grid-labels-right .y-grid text {
+  text-anchor: start;
+}
+.chart.vis-d3-area .dw-chart-body.grid-labels-right.grid-labels-inside .y-grid text {
+  text-anchor: end;
+}
+.chart.vis-d3-area .legend-text span {
+  vertical-align: middle;
+}
+.chart.vis-d3-area svg .lines .line path.line-style-dash-1,
+.chart.vis-d3-area svg .lines .line path.line-style-dash-2,
+.chart.vis-d3-area svg .lines .line path.line-style-dash-3,
+.chart.vis-d3-area .legend-key .key-line.line-style-dash-1,
+.chart.vis-d3-area .legend-key .key-line.line-style-dash-2,
+.chart.vis-d3-area .legend-key .key-line.line-style-dash-3 {
+  stroke-linecap: round;
+}
+.chart.vis-d3-area svg .lines .line path.line-style-dash-0 {
+  stroke-linecap: round;
+}
+.chart.vis-d3-area .legend-key .key-line {
+  stroke-linecap: round;
+}
+.chart.vis-d3-area svg .lines .line path,
+.chart.vis-d3-area .legend-key .key-line {
+  fill: none;
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.chart.vis-d3-area svg .lines .line path.line-style-width-0,
+.chart.vis-d3-area .legend-key .key-line.line-style-width-0 {
+  stroke-width: 2;
+}
+.chart.vis-d3-area svg .lines .line path.line-style-width-1,
+.chart.vis-d3-area .legend-key .key-line.line-style-width-1 {
+  stroke-width: 3;
+}
+.chart.vis-d3-area svg .lines .line path.line-style-width-2,
+.chart.vis-d3-area .legend-key .key-line.line-style-width-2 {
+  stroke-width: 4;
+}
+.chart.vis-d3-area svg .lines .line path.line-style-width-3,
+.chart.vis-d3-area .legend-key .key-line.line-style-width-3 {
+  stroke-width: 1;
+}
+.chart.vis-d3-area svg .lines .line path.line-style-width-4,
+.chart.vis-d3-area .legend-key .key-line.line-style-width-4 {
+  stroke-width: 0;
+}
+.chart.vis-d3-area svg .lines .line path.line-style-dash-0,
+.chart.vis-d3-area .legend-key .key-line.line-style-dash-0 {
+  stroke-dasharray: none;
+}
+.chart.vis-d3-area svg .lines .line path.line-style-dash-1,
+.chart.vis-d3-area .legend-key .key-line.line-style-dash-1 {
+  stroke-dasharray: 0.5, 4;
+}
+.chart.vis-d3-area svg .lines .line path.line-style-dash-1.line-style-width-1,
+.chart.vis-d3-area .legend-key .key-line.line-style-dash-1.line-style-width-1 {
+  stroke-dasharray: 0.25, 5;
+}
+.chart.vis-d3-area svg .lines .line path.line-style-dash-1.line-style-width-2,
+.chart.vis-d3-area .legend-key .key-line.line-style-dash-1.line-style-width-2 {
+  stroke-dasharray: 0, 6;
+}
+.chart.vis-d3-area svg .lines .line path.line-style-dash-1.line-style-width-3,
+.chart.vis-d3-area .legend-key .key-line.line-style-dash-1.line-style-width-3 {
+  stroke-dasharray: 0.5, 2;
+}
+.chart.vis-d3-area svg .lines .line path.line-style-dash-2,
+.chart.vis-d3-area .legend-key .key-line.line-style-dash-2 {
+  stroke-dasharray: 3, 6;
+}
+.chart.vis-d3-area svg .lines .line path.line-style-dash-2.line-style-width-1,
+.chart.vis-d3-area .legend-key .key-line.line-style-dash-2.line-style-width-1 {
+  stroke-dasharray: 4, 8;
+}
+.chart.vis-d3-area svg .lines .line path.line-style-dash-2.line-style-width-2,
+.chart.vis-d3-area .legend-key .key-line.line-style-dash-2.line-style-width-2 {
+  stroke-dasharray: 5, 10;
+}
+.chart.vis-d3-area svg .lines .line path.line-style-dash-2.line-style-width-3,
+.chart.vis-d3-area .legend-key .key-line.line-style-dash-2.line-style-width-3 {
+  stroke-dasharray: 2, 4;
+}
+.chart.vis-d3-area svg .lines .line path.line-style-dash-3,
+.chart.vis-d3-area .legend-key .key-line.line-style-dash-3 {
+  stroke-dasharray: 6, 6;
+}
+.chart.vis-d3-area svg .lines .line path.line-style-dash-3.line-style-width-1,
+.chart.vis-d3-area .legend-key .key-line.line-style-dash-3.line-style-width-1 {
+  stroke-dasharray: 8, 8;
+}
+.chart.vis-d3-area svg .lines .line path.line-style-dash-3.line-style-width-2,
+.chart.vis-d3-area .legend-key .key-line.line-style-dash-3.line-style-width-2 {
+  stroke-dasharray: 10, 10;
+}
+.chart.vis-d3-area svg .lines .line path.line-style-dash-3.line-style-width-3,
+.chart.vis-d3-area .legend-key .key-line.line-style-dash-3.line-style-width-3 {
+  stroke-dasharray: 4, 4;
+}
+.chart.vis-d3-area path.line {
+  stroke: black;
+  fill: none;
+}
+.chart.vis-d3-lines div.d3l-main {
+  position: absolute;
+}
+.chart.vis-d3-lines .d3l-line-label {
+  position: absolute;
+  width: 100px;
+}
+.chart.vis-d3-lines .d3l-hidden {
+  display: none !important;
+}
+.chart.vis-d3-lines .d3l-color-key {
+  position: absolute;
+}
+.chart.vis-d3-lines .d3l-color-key .d3l-item {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+.chart.vis-d3-lines .d3l-color-key .d3l-item .label br {
+  display: inline;
+  content: ' ';
+  clear: none;
+}
+.chart.vis-d3-lines .d3l-color-key .d3l-item .label br:after {
+  content: ' ';
+}
+.chart.vis-d3-lines .d3l-color-key .d3l-item .d3l-key {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 4px;
+}
+.chart.vis-d3-lines g.tooltip {
+  display: none;
+  pointer-events: none;
+}
+.chart.vis-d3-lines g.tooltip.show {
+  display: block;
+}
+.chart.vis-d3-lines g.tooltip text {
+  font-size: 90%;
+  text-anchor: start;
+}
+.chart.vis-d3-lines g.tooltip text.bg {
+  stroke: white;
+  fill: white;
+  stroke-width: 5;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.chart.vis-d3-lines g.tooltip text tspan:first-child {
+  font-weight: bold;
+  font-size: 110%;
+}
+.chart.vis-d3-lines g.tooltip line {
+  stroke: black;
+  opacity: 0.3;
+}
+.chart.vis-d3-lines g.tooltip circle {
+  stroke: black;
+  fill: none;
+  opacity: 0.3;
+}
+.chart.vis-d3-lines svg rect.bg {
+  fill: #fff;
+  fill-opacity: 0;
+}
+.chart.vis-d3-lines svg rect.frame {
+  fill: none;
+}
+.chart.vis-d3-lines svg line.y-axis {
+  shape-rendering: crispEdges;
+}
+.chart.vis-d3-lines svg .x.axis line,
+.chart.vis-d3-lines svg .x.ticks line {
+  shape-rendering: crispEdges;
+}
+.chart.vis-d3-lines svg .x.axis text,
+.chart.vis-d3-lines svg .x.ticks text {
+  text-anchor: middle;
+}
+.chart.vis-d3-lines svg .y-grid line {
+  shape-rendering: crispEdges;
+}
+.chart.vis-d3-lines svg .y-grid text {
+  text-anchor: end;
+}
+.chart.vis-d3-lines svg .area-fill {
+  opacity: 0.2;
+}
+.chart.vis-d3-lines svg line.cursor {
+  fill: none;
+  stroke: #c00;
+  opacity: 0.3;
+  stroke-dasharray: 3, 2;
+}
+.chart.vis-d3-lines svg rect.cursor {
+  fill: #c00;
+  opacity: 0.2;
+}
+.chart.vis-d3-lines svg text.cursor-display {
+  fill: #c00;
+  opacity: 0.5;
+  pointer-events: none;
+  font-size: 10px;
+  font-family: Arial;
+}
+.chart.vis-d3-lines svg .free-texts text {
+  text-anchor: middle;
+  alignment-baseline: middle;
+}
+.chart.vis-d3-lines svg .free-texts text.dw-bold {
+  font-weight: bold;
+}
+.chart.vis-d3-lines svg .free-texts text.dw-italic {
+  font-style: italic;
+}
+.chart.vis-d3-lines svg .free-texts text.dw-underline {
+  text-decoration: underline;
+}
+.chart.vis-d3-lines svg .lbl-connect-lines path {
+  stroke: black;
+  stroke-dasharray: 2, 2;
+  fill: none;
+}
+.chart.vis-d3-lines .dw-chart-body {
+  position: relative;
+  padding-bottom: 0px;
+}
+.chart.vis-d3-lines .dw-chart-body.grid-labels-inside .y-grid text {
+  text-anchor: start;
+}
+.chart.vis-d3-lines .dw-chart-body.grid-labels-right .y-grid text {
+  text-anchor: start;
+}
+.chart.vis-d3-lines .dw-chart-body.grid-labels-right.grid-labels-inside .y-grid text {
+  text-anchor: end;
+}
+.chart.vis-d3-lines .legend-text span {
+  vertical-align: middle;
+}
+.chart.vis-d3-lines svg .lines .line path.line-style-dash-1,
+.chart.vis-d3-lines svg .lines .line path.line-style-dash-2,
+.chart.vis-d3-lines svg .lines .line path.line-style-dash-3,
+.chart.vis-d3-lines .legend-key .key-line.line-style-dash-1,
+.chart.vis-d3-lines .legend-key .key-line.line-style-dash-2,
+.chart.vis-d3-lines .legend-key .key-line.line-style-dash-3 {
+  stroke-linecap: round;
+}
+.chart.vis-d3-lines svg .lines .line path.line-style-dash-0 {
+  stroke-linecap: round;
+}
+.chart.vis-d3-lines .legend-key .key-line {
+  stroke-linecap: round;
+}
+.chart.vis-d3-lines svg .lines .line path,
+.chart.vis-d3-lines .legend-key .key-line {
+  fill: none;
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.chart.vis-d3-lines svg .lines .line path.line-style-width-0,
+.chart.vis-d3-lines .legend-key .key-line.line-style-width-0 {
+  stroke-width: 2;
+}
+.chart.vis-d3-lines svg .lines .line path.line-style-width-1,
+.chart.vis-d3-lines .legend-key .key-line.line-style-width-1 {
+  stroke-width: 3;
+}
+.chart.vis-d3-lines svg .lines .line path.line-style-width-2,
+.chart.vis-d3-lines .legend-key .key-line.line-style-width-2 {
+  stroke-width: 4;
+}
+.chart.vis-d3-lines svg .lines .line path.line-style-width-3,
+.chart.vis-d3-lines .legend-key .key-line.line-style-width-3 {
+  stroke-width: 1;
+}
+.chart.vis-d3-lines svg .lines .line path.line-style-width-4,
+.chart.vis-d3-lines .legend-key .key-line.line-style-width-4 {
+  stroke-width: 0;
+}
+.chart.vis-d3-lines svg .lines .line path.line-style-dash-0,
+.chart.vis-d3-lines .legend-key .key-line.line-style-dash-0 {
+  stroke-dasharray: none;
+}
+.chart.vis-d3-lines svg .lines .line path.line-style-dash-1,
+.chart.vis-d3-lines .legend-key .key-line.line-style-dash-1 {
+  stroke-dasharray: 0.5, 4;
+}
+.chart.vis-d3-lines svg .lines .line path.line-style-dash-1.line-style-width-1,
+.chart.vis-d3-lines .legend-key .key-line.line-style-dash-1.line-style-width-1 {
+  stroke-dasharray: 0.25, 5;
+}
+.chart.vis-d3-lines svg .lines .line path.line-style-dash-1.line-style-width-2,
+.chart.vis-d3-lines .legend-key .key-line.line-style-dash-1.line-style-width-2 {
+  stroke-dasharray: 0, 6;
+}
+.chart.vis-d3-lines svg .lines .line path.line-style-dash-1.line-style-width-3,
+.chart.vis-d3-lines .legend-key .key-line.line-style-dash-1.line-style-width-3 {
+  stroke-dasharray: 0.5, 2;
+}
+.chart.vis-d3-lines svg .lines .line path.line-style-dash-2,
+.chart.vis-d3-lines .legend-key .key-line.line-style-dash-2 {
+  stroke-dasharray: 3, 6;
+}
+.chart.vis-d3-lines svg .lines .line path.line-style-dash-2.line-style-width-1,
+.chart.vis-d3-lines .legend-key .key-line.line-style-dash-2.line-style-width-1 {
+  stroke-dasharray: 4, 8;
+}
+.chart.vis-d3-lines svg .lines .line path.line-style-dash-2.line-style-width-2,
+.chart.vis-d3-lines .legend-key .key-line.line-style-dash-2.line-style-width-2 {
+  stroke-dasharray: 5, 10;
+}
+.chart.vis-d3-lines svg .lines .line path.line-style-dash-2.line-style-width-3,
+.chart.vis-d3-lines .legend-key .key-line.line-style-dash-2.line-style-width-3 {
+  stroke-dasharray: 2, 4;
+}
+.chart.vis-d3-lines svg .lines .line path.line-style-dash-3,
+.chart.vis-d3-lines .legend-key .key-line.line-style-dash-3 {
+  stroke-dasharray: 6, 6;
+}
+.chart.vis-d3-lines svg .lines .line path.line-style-dash-3.line-style-width-1,
+.chart.vis-d3-lines .legend-key .key-line.line-style-dash-3.line-style-width-1 {
+  stroke-dasharray: 8, 8;
+}
+.chart.vis-d3-lines svg .lines .line path.line-style-dash-3.line-style-width-2,
+.chart.vis-d3-lines .legend-key .key-line.line-style-dash-3.line-style-width-2 {
+  stroke-dasharray: 10, 10;
+}
+.chart.vis-d3-lines svg .lines .line path.line-style-dash-3.line-style-width-3,
+.chart.vis-d3-lines .legend-key .key-line.line-style-dash-3.line-style-width-3 {
+  stroke-dasharray: 4, 4;
+}
+.no-baseline {
+  fill-rule: evenodd;
+  clip-rule: evenodd;
+  fill: none;
+  stroke: #808080;
+  stroke-width: 1px;
+  stroke-miterlimit: 4;
+}
+.chart.png-export .dw-chart-footer .static-image,
+.chart.png-export .dw-chart-footer .chart-action-data {
+  display: none !important;
+}
+.chart.png-export a {
+  color: unset !important;
+}
+
+
+            </style>
+
+
+
+<div class="dw-chart chart vis-height-fit theme-datawrapper-data vis-d3-area">
+
+
+
+    <div class="dw-chart-header" id="header">
+                    <h1>
+                <span class="chart-title"><span style="color:rgb(0,0,0);font-family:Roboto, RobotoDraft, Helvetica, Arial, sans-serif;font-size:13px;font-style:normal;font-weight:400;letter-spacing:normal;"></span></span>
+            </h1>
+
+            <p class="chart-intro hidden"></p>
+            </div>
+
+    <div class="dw-chart-body content-below-chart" id="chart"><svg width="680" height="474"><g><g transform="translate(28,45)"><rect class="bg" width="680" height="474"></rect><g class="free-range"></g><g class="y-grid"><g class="tick tick-major" transform="translate(0,411)"><text class="y-tick-values tick secondary" transform="translate(-4,4)" style="fill: rgb(133, 133, 133);">0.0</text></g><g class="tick tick-major" transform="translate(0,374.7885462555066)"><line x2="648" class="y-gridline" style="stroke: rgb(218, 218, 218);"></line><text class="y-tick-values tick secondary" transform="translate(-4,4)" style="fill: rgb(133, 133, 133);">2.0</text></g><g class="tick tick-major" transform="translate(0,338.57709251101323)"><line x2="648" class="y-gridline" style="stroke: rgb(218, 218, 218);"></line><text class="y-tick-values tick secondary" transform="translate(-4,4)" style="fill: rgb(133, 133, 133);">4.0</text></g><g class="tick tick-major" transform="translate(0,302.36563876651985)"><line x2="648" class="y-gridline" style="stroke: rgb(218, 218, 218);"></line><text class="y-tick-values tick secondary" transform="translate(-4,4)" style="fill: rgb(133, 133, 133);">6.0</text></g><g class="tick tick-major" transform="translate(0,266.15418502202647)"><line x2="648" class="y-gridline" style="stroke: rgb(218, 218, 218);"></line><text class="y-tick-values tick secondary" transform="translate(-4,4)" style="fill: rgb(133, 133, 133);">8.0</text></g><g class="tick tick-major" transform="translate(0,229.94273127753306)"><line x2="648" class="y-gridline" style="stroke: rgb(218, 218, 218);"></line><text class="y-tick-values tick secondary" transform="translate(-4,4)" style="fill: rgb(133, 133, 133);">10.0</text></g><g class="tick tick-major" transform="translate(0,193.7312775330397)"><line x2="648" class="y-gridline" style="stroke: rgb(218, 218, 218);"></line><text class="y-tick-values tick secondary" transform="translate(-4,4)" style="fill: rgb(133, 133, 133);">12.0</text></g><g class="tick tick-major" transform="translate(0,157.5198237885463)"><line x2="648" class="y-gridline" style="stroke: rgb(218, 218, 218);"></line><text class="y-tick-values tick secondary" transform="translate(-4,4)" style="fill: rgb(133, 133, 133);">14.0</text></g><g class="tick tick-major" transform="translate(0,121.30837004405288)"><line x2="648" class="y-gridline" style="stroke: rgb(218, 218, 218);"></line><text class="y-tick-values tick secondary" transform="translate(-4,4)" style="fill: rgb(133, 133, 133);">16.0</text></g><g class="tick tick-major" transform="translate(0,85.0969162995595)"><line x2="648" class="y-gridline" style="stroke: rgb(218, 218, 218);"></line><text class="y-tick-values tick secondary" transform="translate(-4,4)" style="fill: rgb(133, 133, 133);">18.0</text></g><g class="tick tick-major" transform="translate(0,48.88546255506611)"><line x2="648" class="y-gridline" style="stroke: rgb(218, 218, 218);"></line><text class="y-tick-values tick secondary" transform="translate(-4,4)" style="fill: rgb(133, 133, 133);">20.0</text></g><g class="tick tick-major" transform="translate(0,12.67400881057273)"><line x2="648" class="y-gridline" style="stroke: rgb(218, 218, 218);"></line><text class="y-tick-values tick secondary" transform="translate(-4,4)" style="fill: rgb(133, 133, 133);">22.0</text></g></g><g class="x ticks" transform="translate(0,416)"><g class="tick" transform="translate(9.700598803144056,0)" style="display: block;"><text class="x-tick-values primary tick" y="11" style="fill: rgb(92, 92, 92);"><tspan x="0" dy="0">2009</tspan></text></g><g class="tick" transform="translate(79.50241288118261,0)" style="display: block;"><text class="x-tick-values primary tick" y="11" style="fill: rgb(92, 92, 92);"><tspan x="0" dy="0">2010</tspan></text></g><g class="tick" transform="translate(149.30422695922115,0)" style="display: block;"><text class="x-tick-values primary tick" y="11" style="fill: rgb(92, 92, 92);"><tspan x="0" dy="0">2011</tspan></text></g><g class="tick" transform="translate(219.10604103725973,0)" style="display: block;"><text class="x-tick-values primary tick" y="11" style="fill: rgb(92, 92, 92);"><tspan x="0" dy="0">2012</tspan></text></g><g class="tick" transform="translate(289.0990929620874,0)" style="display: block;"><text class="x-tick-values primary tick" y="11" style="fill: rgb(92, 92, 92);"><tspan x="0" dy="0">2013</tspan></text></g><g class="tick" transform="translate(358.900907040126,0)" style="display: block;"><text class="x-tick-values primary tick" y="11" style="fill: rgb(92, 92, 92);"><tspan x="0" dy="0">2014</tspan></text></g><g class="tick" transform="translate(428.7027211181645,0)" style="display: block;"><text class="x-tick-values primary tick" y="11" style="fill: rgb(92, 92, 92);"><tspan x="0" dy="0">2015</tspan></text></g><g class="tick" transform="translate(498.5045351962031,0)" style="display: block;"><text class="x-tick-values primary tick" y="11" style="fill: rgb(92, 92, 92);"><tspan x="0" dy="0">2016</tspan></text></g><g class="tick" transform="translate(568.4975871210307,0)" style="display: block;"><text class="x-tick-values primary tick" y="11" style="fill: rgb(92, 92, 92);"><tspan x="0" dy="0">2017</tspan></text></g><g class="tick" transform="translate(638.2994011990694,0)" style="display: block;"><text class="x-tick-values primary tick" y="11" style="fill: rgb(92, 92, 92);"><tspan x="0" dy="0">2018</tspan></text></g></g><g class="x axis" transform="translate(0,411)"><line class="x-axis" x2="648" style="stroke: rgb(51, 51, 51);"></line></g><path class="area" d="M9.700598803144056,411L79.50241288118261,411L149.30422695922115,411L219.10604103725973,411L289.0990929620874,411L358.900907040126,411L428.7027211181645,411L498.5045351962031,411L568.4975871210307,411L638.2994011990694,411L638.2994011990694,219.07929515418505L568.4975871210307,199.1629955947137L498.5045351962031,210.0264317180617L428.7027211181645,258.91189427312776L358.900907040126,267.9647577092511L289.0990929620874,293.3127753303965L219.10604103725973,309.6079295154185L149.30422695922115,300.5550660792952L79.50241288118261,311.4185022026432L9.700598803144056,315.0396475770925Z" style="opacity: 0.5; fill: rgb(0, 132, 174);"></path><path class="area" d="M9.700598803144056,315.0396475770925L79.50241288118261,311.4185022026432L149.30422695922115,300.5550660792952L219.10604103725973,309.6079295154185L289.0990929620874,293.3127753303965L358.900907040126,267.9647577092511L428.7027211181645,258.91189427312776L498.5045351962031,210.0264317180617L568.4975871210307,199.1629955947137L638.2994011990694,219.07929515418505L638.2994011990694,85.0969162995595L568.4975871210307,57.93832599118946L498.5045351962031,81.47577092511017L428.7027211181645,128.55066079295153L358.900907040126,143.0352422907489L289.0990929620874,191.920704845815L219.10604103725973,224.51101321585904L149.30422695922115,202.78414096916302L79.50241288118261,202.78414096916302L9.700598803144056,219.07929515418505Z" style="opacity: 0.5; fill: rgb(117, 227, 255);"></path><path class="area" d="M9.700598803144056,219.07929515418505L79.50241288118261,202.78414096916302L149.30422695922115,202.78414096916302L219.10604103725973,224.51101321585904L289.0990929620874,191.920704845815L358.900907040126,143.0352422907489L428.7027211181645,128.55066079295153L498.5045351962031,81.47577092511017L568.4975871210307,57.93832599118946L638.2994011990694,85.0969162995595L638.2994011990694,19.916299559471383L568.4975871210307,39.83259911894277L498.5045351962031,54.31718061674013L428.7027211181645,94.14977973568284L358.900907040126,119.49779735682819L289.0990929620874,177.43612334801765L219.10604103725973,213.64757709251103L149.30422695922115,195.54185022026434L79.50241288118261,195.54185022026434L9.700598803144056,208.21585903083704Z" style="opacity: 0.5; fill: rgb(0, 94, 134);"></path><path class="area" d="M9.700598803144056,208.21585903083704L79.50241288118261,195.54185022026434L149.30422695922115,195.54185022026434L219.10604103725973,213.64757709251103L289.0990929620874,177.43612334801765L358.900907040126,119.49779735682819L428.7027211181645,94.14977973568284L498.5045351962031,54.31718061674013L568.4975871210307,39.83259911894277L638.2994011990694,19.916299559471383L638.2994011990694,5.431718061674019L568.4975871210307,19.916299559471383L498.5045351962031,36.21145374449344L428.7027211181645,68.8017621145375L358.900907040126,101.3920704845815L289.0990929620874,161.14096916299562L219.10604103725973,202.78414096916302L149.30422695922115,179.2466960352423L79.50241288118261,184.67841409691633L9.700598803144056,202.78414096916302Z" style="opacity: 0.5; fill: rgb(132, 241, 255);"></path><path class="area" d="M9.700598803144056,202.78414096916302L79.50241288118261,184.67841409691633L149.30422695922115,179.2466960352423L219.10604103725973,202.78414096916302L289.0990929620874,161.14096916299562L358.900907040126,101.3920704845815L428.7027211181645,68.8017621145375L498.5045351962031,36.21145374449344L568.4975871210307,19.916299559471383L638.2994011990694,5.431718061674019L638.2994011990694,0L568.4975871210307,14.484581497797365L498.5045351962031,30.77973568281942L428.7027211181645,61.5594713656389L358.900907040126,94.14977973568284L289.0990929620874,155.7092511013216L219.10604103725973,193.7312775330397L149.30422695922115,170.19383259911893L79.50241288118261,175.62555066079298L9.700598803144056,195.54185022026434Z" style="opacity: 0.5; fill: rgb(0, 47, 84);"></path><g class="free-texts"><g class="bg"></g><text transform="translate(15.628972053607603,3.1182819383260387)" style="fill: rgb(51, 51, 51); font-size: 14px; text-anchor: middle;"><tspan x="0" dy="0">US$ billions</tspan></text></g><g class="tooltip"><text class="tooltip bg" style="stroke: rgb(255, 255, 255);"><tspan x="0" dy="0"></tspan><tspan x="0" dy="13"></tspan><tspan x="0" dy="13"></tspan></text><text class="tooltip fg" style="fill: rgb(51, 51, 51);"><tspan x="0" dy="0"></tspan><tspan x="0" dy="13"></tspan><tspan x="0" dy="13"></tspan></text><line y1="-13" y2="-5" style="stroke: rgb(51, 51, 51); stroke-width: 3;"></line></g></g></g></svg><div class="d3l-main" style="left: 28px; top: 45px;"><div class="d3l-color-key" style="width: 680px; padding-bottom: 20px; padding-top: 0px; top: -45.2344px; left: -28px;"><div class="d3l-item"><div class="d3l-key legend-key" style="width: 14px; height: 14px;"><div class="dw-rect" style="width: 14px; height: 14px; background: rgb(0, 132, 174); opacity: 0.5;"></div></div><span class="label legend-text" data-column="Europe" data-row="-1"><span>Europe</span></span></div><div class="d3l-item"><div class="d3l-key legend-key" style="width: 14px; height: 14px;"><div class="dw-rect" style="width: 14px; height: 14px; background: rgb(117, 227, 255); opacity: 0.5;"></div></div><span class="label legend-text" data-column="North and Central America" data-row="-1"><span>North and Central America</span></span></div><div class="d3l-item"><div class="d3l-key legend-key" style="width: 14px; height: 14px;"><div class="dw-rect" style="width: 14px; height: 14px; background: rgb(0, 94, 134); opacity: 0.5;"></div></div><span class="label legend-text" data-column="Middle East and North of Sahara" data-row="-1"><span>Middle East and North of Sahara</span></span></div><div class="d3l-item"><div class="d3l-key legend-key" style="width: 14px; height: 14px;"><div class="dw-rect" style="width: 14px; height: 14px; background: rgb(132, 241, 255); opacity: 0.5;"></div></div><span class="label legend-text" data-column="Far East Asia" data-row="-1"><span>Far East Asia</span></span></div><div class="d3l-item"><div class="d3l-key legend-key" style="width: 14px; height: 14px;"><div class="dw-rect" style="width: 14px; height: 14px; background: rgb(0, 47, 84); opacity: 0.5;"></div></div><span class="label legend-text" data-column="Other" data-row="-1"><span>Other</span></span></div></div></div></div>
+
+                        <div class="dw-chart-notes hidden" style="">
+
+            </div>
+
+
+
+            <div class="dw-chart-footer" id="footer">
+            <div class="footer-left">
+
+
+                                                <span class="footer-block byline-block hidden">
+                            <span class="byline-caption">
+                            Chart:
+                            </span>
+
+                            <span class="chart-byline"></span>
+
+                            <span class="byline-append"></span>
+                        </span>
+
+
+                                                <span class="footer-block source-block hidden">
+                                                        <span class="separator"></span>
+                            <span class="source-caption">Source:</span>
+                            <a href="https://datawrapper.dwcdn.net/Ah1k2/2/" rel="nofollow noopener noreferrer" target="_blank"></a>
+                        </span>
+
+
+
+                                                                        <span class="footer-block chart-action-data">
+                                                                                    <span class="separator"></span>
+                                                        <a class="dw-data-link" href="data:application/octet-stream;charset=utf-8,Year%2CEurope%2CNorth%20and%20Central%20America%2CMiddle%20East%20and%20North%20of%20Sahara%2CFar%20East%20Asia%2COther%0A2009%2C5.3%2C5.3%2C0.6%2C0.3%2C0.4%0A2010%2C5.5%2C6%2C0.4%2C0.6%2C0.5%0A2011%2C6.1%2C5.4%2C0.4%2C0.9%2C0.5%0A2012%2C5.6%2C4.7%2C0.6%2C0.6%2C0.5%0A2013%2C6.5%2C5.6%2C0.8%2C0.9%2C0.3%0A2014%2C7.9%2C6.9%2C1.3%2C1%2C0.4%0A2015%2C8.4%2C7.2%2C1.9%2C1.4%2C0.4%0A2016%2C11.1%2C7.1%2C1.5%2C1%2C0.3%0A2017%2C11.7%2C7.8%2C1%2C1.1%2C0.3%0A2018%2C10.6%2C7.4%2C3.6%2C0.8%2C0.3" download="data-Ah1k2.csv">Get the data</a>
+                        </span>
+
+
+
+
+                                                                        </div>
+            <div class="footer-right">
+
+                            </div>
+        </div>
+
+
+
+
+    <script type="text/javascript">
+    setTimeout(function() {
+        var img = document.createElement('img');
+        img.setAttribute('width', 1);
+        img.setAttribute('height', 1);
+        img.style.float = "right";
+        img.setAttribute('src', '//stats.datawrapper.de/Ah1k2/pixel.gif?r='+escape(document.referrer || ''));
+        document.body.appendChild(img);
+    },10);
+</script>
+
+
+
+    <script type="text/javascript" charset="utf-8">
+
+    (function() {
+
+        /*!  */
+var render=function(){"use strict";function e(e){return function(t){var n=t.toLowerCase().match(e);return!!n&&parseInt(n[1],10)}}var t={chrome:e(/chrom(?:e|ium)\/([0-9]+)\./),firefox:e(/firefox\/([0-9]+\.*[0-9]*)/),safari:e(/version\/([0-9]+).[0-9]+.[0-9]+ safari/),ie:e(/(?:msie |rv:)([0-9]+).[0-9]+/),edge:e(/edge\/([0-9]+).[0-9]+.[0-9]+/)};var n,i=(function(e){!function(){function t(e,t){document.addEventListener?e.addEventListener("scroll",t,!1):e.attachEvent("scroll",t)}function n(e){this.a=document.createElement("div"),this.a.setAttribute("aria-hidden","true"),this.a.appendChild(document.createTextNode(e)),this.b=document.createElement("span"),this.c=document.createElement("span"),this.h=document.createElement("span"),this.f=document.createElement("span"),this.g=-1,this.b.style.cssText="max-width:none;display:inline-block;position:absolute;height:100%;width:100%;overflow:scroll;font-size:16px;",this.c.style.cssText="max-width:none;display:inline-block;position:absolute;height:100%;width:100%;overflow:scroll;font-size:16px;",this.f.style.cssText="max-width:none;display:inline-block;position:absolute;height:100%;width:100%;overflow:scroll;font-size:16px;",this.h.style.cssText="display:inline-block;width:200%;height:200%;font-size:16px;max-width:none;",this.b.appendChild(this.h),this.c.appendChild(this.f),this.a.appendChild(this.b),this.a.appendChild(this.c)}function i(e,t){e.a.style.cssText="max-width:none;min-width:20px;min-height:20px;display:inline-block;overflow:hidden;position:absolute;width:auto;margin:0;padding:0;top:-999px;white-space:nowrap;font-synthesis:none;font:"+t+";"}function o(e){var t=e.a.offsetWidth,n=t+100;return e.f.style.width=n+"px",e.c.scrollLeft=n,e.b.scrollLeft=e.b.scrollWidth+100,e.g!==t&&(e.g=t,!0)}function r(e,n){function i(){var e=r;o(e)&&e.a.parentNode&&n(e.g)}var r=e;t(e.b,i),t(e.c,i),o(e)}function a(e,t){var n=t||{};this.family=e,this.style=n.style||"normal",this.weight=n.weight||"normal",this.stretch=n.stretch||"normal"}var s=null,d=null,c=null,l=null;function h(){return null===l&&(l=!!document.fonts),l}function f(e,t){return[e.style,e.weight,function(){if(null===c){var e=document.createElement("div");try{e.style.font="condensed 100px sans-serif"}catch(e){}c=""!==e.style.font}return c}()?e.stretch:"","100px",t].join(" ")}a.prototype.load=function(e,t){var o=this,a=e||"BESbswy",c=0,l=t||3e3,u=(new Date).getTime();return new Promise(function(e,t){if(h()&&!function(){if(null===d)if(h()&&/Apple/.test(window.navigator.vendor)){var e=/AppleWebKit\/([0-9]+)(?:\.([0-9]+))(?:\.([0-9]+))/.exec(window.navigator.userAgent);d=!!e&&603>parseInt(e[1],10)}else d=!1;return d}()){var p=new Promise(function(e,t){!function n(){(new Date).getTime()-u>=l?t(Error(l+"ms timeout exceeded")):document.fonts.load(f(o,'"'+o.family+'"'),a).then(function(t){1<=t.length?e():setTimeout(n,25)},t)}()}),m=new Promise(function(e,t){c=setTimeout(function(){t(Error(l+"ms timeout exceeded"))},l)});Promise.race([m,p]).then(function(){clearTimeout(c),e(o)},t)}else!function(e){document.body?e():document.addEventListener?document.addEventListener("DOMContentLoaded",function t(){document.removeEventListener("DOMContentLoaded",t),e()}):document.attachEvent("onreadystatechange",function t(){"interactive"!=document.readyState&&"complete"!=document.readyState||(document.detachEvent("onreadystatechange",t),e())})}(function(){function d(){var t;(t=-1!=w&&-1!=v||-1!=w&&-1!=g||-1!=v&&-1!=g)&&((t=w!=v&&w!=g&&v!=g)||(null===s&&(t=/AppleWebKit\/([0-9]+)(?:\.([0-9]+))/.exec(window.navigator.userAgent),s=!!t&&(536>parseInt(t[1],10)||536===parseInt(t[1],10)&&11>=parseInt(t[2],10))),t=s&&(w==y&&v==y&&g==y||w==x&&v==x&&g==x||w==b&&v==b&&g==b)),t=!t),t&&(E.parentNode&&E.parentNode.removeChild(E),clearTimeout(c),e(o))}var h=new n(a),p=new n(a),m=new n(a),w=-1,v=-1,g=-1,y=-1,x=-1,b=-1,E=document.createElement("div");E.dir="ltr",i(h,f(o,"sans-serif")),i(p,f(o,"serif")),i(m,f(o,"monospace")),E.appendChild(h.a),E.appendChild(p.a),E.appendChild(m.a),document.body.appendChild(E),y=h.a.offsetWidth,x=p.a.offsetWidth,b=m.a.offsetWidth,function e(){if((new Date).getTime()-u>=l)E.parentNode&&E.parentNode.removeChild(E),t(Error(l+"ms timeout exceeded"));else{var n=document.hidden;!0!==n&&void 0!==n||(w=h.a.offsetWidth,v=p.a.offsetWidth,g=m.a.offsetWidth,d()),c=setTimeout(e,50)}}(),r(h,function(e){w=e,d()}),i(h,f(o,'"'+o.family+'",sans-serif')),r(p,function(e){v=e,d()}),i(p,f(o,'"'+o.family+'",serif')),r(m,function(e){g=e,d()}),i(m,f(o,'"'+o.family+'",monospace'))})})},e.exports=a}()}(n={exports:{}},n.exports),n.exports);return function(e){var n=e.visJSON,o=e.chartJSON,r=e.chartData,a=e.isPreview,s=e.chartLocale,d=e.metricPrefix,c=e.themeId,l=e.templateJS,h=e.fontsJSON,f=e.typographyJSON,u=e.locales;window.visJSON=n;var p,m,w,v,g,y={firefox:[30,51],chrome:[20,54],ie:[6,11],edge:[12,18],safari:[6,12]},x=(p="undefined"!=typeof InstallTrigger,m=/constructor/i.test(window.HTMLElement)||"[object SafariRemoteNotification]"===(!window.safari||window.safari.pushNotification).toString(),w=!!document.documentMode,v=!w&&!!window.StyleMedia,{browser:g=window.chrome&&window.chrome.loadTimes?"chrome":p?"firefox":m?"safari":w?"ie":!!v&&"edge",version:!(!g||!t[g])&&t[g](navigator.userAgent)}),b=document.createElement("script");if(b.type="text/javascript",b.async=!0,b.onload=E,b.onerror=E,x.browser&&y[x.browser]&&x.version>=y[x.browser][0]){if(x.version>y[x.browser][1])return E();b.src="https://datawrapper.dwcdn.net/lib/polyfills/"+x.browser+"-"+x.version+".js"}else b.src="https://datawrapper.dwcdn.net/lib/polyfills/all.js";function E(){__dw.init(Object.assign({visJSON:n,chartJSON:o,data:r,preview:a,chartLocale:s,locales:u,themeId:c,visId:o.type,lang:s.substr(0,2),metricPrefix:d},window.__dwParams||{})),function(e,t){var n=Array.isArray(e)?[]:Object.keys(e),o=new Set(n);Object.keys(t).forEach(function(e){var n=t[e].typeface;n&&n.split(",").map(function(e){return e.trim()}).forEach(function(e){return o.add(e)})});var r=[];return o.forEach(function(e){var t=new i(e);r.push(t.load(null,5e3))}),Promise.all(r)}(h,f).then(function(){return __dw.render()}),/iP(hone|od|ad)/.test(navigator.platform)&&(window.onload=__dw.render());var e=!1,t=n.id,p=dw.theme(c);p&&t&&("d3-pies"===t||"d3-donuts"===t||"d3-multiple-pies"===t||"d3-multiple-donuts"===t)&&(e=function(e,t,n){if(void 0===t&&(t=null),void 0===n&&(n=null),!t)return e;for(var i=t.split("."),o=e,r=0;r<i.length&&null!==o&&void 0!==o;r++)o=o[i[r]];return void 0===o||null===o?n:o}(p,"vis.d3-pies.fitchart",0));var m="1"===new URLSearchParams(window.location.search).get("fitchart")||1===e||!0===e;setInterval(function(){var e,t;if("fixed"!==n.height||m){if(__dw.params.preview||!__dw.vis.chart().get("metadata.publish.chart-height"))return;t=dw.utils.getNonChartHeight()+__dw.vis.chart().get("metadata.publish.chart-height")}else t=$("html").outerHeight(!0);window.parent.postMessage({"datawrapper-height":(e={},e[o.id]=t,e)},"*"),window.parent.postMessage({sentinel:"amp",type:"embed-size",height:t},"*"),window.parent.postMessage(JSON.stringify({src:window.location.toString(),context:"iframe.resize",height:t}),"*")},1e3),"function"==typeof l&&l()}document.getElementsByTagName("head")[0].appendChild(b)}}();
+
+        render({
+            visJSON: {"id":"d3-area","extends":"d3-lines","title":"Area Chart","aria-label":"Interactive area chart","order":40,"axes":{"x":{"accepts":["text","date","number"]},"y":{"accepts":["number"],"multiple":true}},"less":"\/var\/www\/datawrapper\/plugins\/d3-lines\/less\/d3-area.less","dependencies":{"globalize":false,"jquery":true,"numeral":true,"dayjs":true},"annotate_options":{"g-annotate":{"type":"group","label":"Text annotations","options":{"text-annotations":{"type":"text-annotations","label":"Add text annotation","labels":{"font":"Font","offset":"Offset"}}}},"g-annotate-range":{"type":"group","label":"Highlight value ranges","options":{"range-annotations":{"type":"d3-lines-range-annotations","label":"Add range highlight","labels":{"font":"range-annotations \/ font","offset":"range-annotations \/ offset"}}}}},"__static_path":"assets\/plugins\/d3-lines\/","__static_path_fs":"..\/\/www\/static\/plugins\/d3-lines\/","__plugin":"d3-lines","version":"ecac4524","workflow":[{"id":"upload","title":"Upload Data"},{"id":"describe","title":"Check & Describe"},{"id":"visualize","title":"Visualize"},{"id":"publish","title":"Publish & Embed"}],"svelte-workflow":"chart","locale":[]},
+            chartJSON: {"id":"Ah1k2","title":"<span style=\"color: rgb(0, 0, 0); font-family: Roboto, RobotoDraft, Helvetica, Arial, sans-serif; font-size: 13px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-al","theme":"datawrapper-data","createdAt":"2019-11-06 14:17:54","lastModifiedAt":"2019-11-06 15:28:26","type":"d3-area","metadata":{"data":{"transpose":true,"vertical-header":true,"horizontal-header":true,"changes":[{"row":6,"time":1573049944683,"value":"","column":0,"previous":"Total"},{"row":6,"time":1573049944683,"value":"","column":1,"previous":"  11.9 "},{"row":6,"time":1573049944684,"value":"","column":2,"previous":"  13.0 "},{"row":6,"time":1573049944684,"value":"","column":3,"previous":"  13.3 "},{"row":6,"time":1573049944684,"value":"","column":4,"previous":"  11.9 "},{"row":6,"time":1573049944686,"value":"","column":5,"previous":"  14.1 "},{"row":6,"time":1573049944686,"value":"","column":6,"previous":"  17.5 "},{"row":6,"time":1573049944686,"value":"","column":7,"previous":"  19.3 "},{"row":6,"time":1573049944686,"value":"","column":8,"previous":"  20.9 "},{"row":6,"time":1573049944686,"value":"","column":9,"previous":"  21.9 "},{"row":6,"time":1573049944686,"value":"","column":10,"previous":"  22.6"},{"row":0,"time":1573049949723,"value":"","column":0,"previous":"Region (US$ billions)"},{"row":6,"time":1573049985007,"value":"","column":0,"previous":"Total"},{"row":6,"time":1573049996555,"value":"","column":0,"previous":"Total"},{"row":6,"time":1573049999535,"value":"","column":0,"previous":"Total"},{"row":0,"time":1573050033045,"value":"","column":0,"previous":"Region (US$ billions)"},{"row":0,"time":1573050036809,"value":"","column":0,"previous":"Region (US$ billions)"},{"row":0,"time":1573050050556,"value":"","column":0,"previous":"Region (US$ billions)"},{"row":0,"time":1573050059903,"value":"Year","column":0,"previous":"Region (US$ billions)"}],"column-format":{"Total":{"type":"auto","ignore":false,"number-append":"","number-format":"n0","number-divisor":0,"number-prepend":""}}},"visualize":{"highlighted-series":[],"highlighted-values":[],"x-grid":"off","y-grid":"on","scale-y":"linear","labeling":"right","sort-areas":"keep","stack-areas":true,"area-opacity":0.5,"fill-between":false,"label-colors":false,"label-margin":0,"line-symbols":false,"stack-to-100":false,"interpolation":"linear","show-tooltips":true,"x-tick-format":"YYYY","y-grid-format":"0.0","y-grid-labels":"auto","chart-type-set":true,"line-symbols-on":"both","text-annotations":[{"x":"2009\/02\/01","y":"23","bg":false,"dx":0,"dy":0,"bold":false,"size":14,"text":"US$ billions","align":"mc","color":"#333333","italic":false,"underline":false}],"y-grid-subdivide":true,"custom-area-fills":[],"line-symbols-size":3.5,"line-value-labels":false,"line-symbols-shape":"circle","y-grid-label-align":"left","area-separator-color":"background","area-separator-lines":false,"line-symbols-opacity":1,"area-fill-color-below":"#cccccc","tooltip-number-format":"0,0.[00]","area-fill-color-between":"#cccccc"},"describe":{"source-name":"","source-url":"","number-format":"-","number-divisor":0,"number-append":"","number-prepend":"","intro":"","byline":""},"publish":{"embed-width":680,"embed-height":350,"text":"#333333","background":"#ffffff","embed-codes":{"embed-method-iframe":"<iframe title=\"\" aria-label=\"Interactive area chart\" src=\"\/\/datawrapper.dwcdn.net\/Ah1k2\/2\/\" scrolling=\"no\" frameborder=\"0\" style=\"border: none;\" width=\"680\" height=\"350\"><\/iframe>","embed-method-responsive":"<iframe title=\"\" aria-label=\"Interactive area chart\" id=\"datawrapper-chart-Ah1k2\" src=\"\/\/datawrapper.dwcdn.net\/Ah1k2\/2\/\" scrolling=\"no\" frameborder=\"0\" style=\"width: 0; min-width: 100% !important; border: none;\" height=\"350\"><\/iframe><script type=\"text\/javascript\">!function(){\"use strict\";window.addEventListener(\"message\",function(a){if(void 0!==a.data[\"datawrapper-height\"])for(var e in a.data[\"datawrapper-height\"]){var t=document.getElementById(\"datawrapper-chart-\"+e)||document.querySelector(\"iframe[src*='\"+e+\"']\");t&&(t.style.height=a.data[\"datawrapper-height\"][e]+\"px\")}})}();\n<\/script>"},"chart-height":301,"embed-heights":{"100":350,"200":350,"300":350,"400":350,"500":350,"700":350,"800":350,"900":350,"1000":350}},"annotate":{"notes":""},"json_error":null},"authorId":175949,"showInGallery":false,"language":"en-US","guestSession":"","lastEditStep":5,"publishedAt":"2019-11-06 15:28:31","publicUrl":"\/\/datawrapper.dwcdn.net\/Ah1k2\/2\/","publicVersion":2,"organizationId":null,"forkedFrom":null,"externalData":null,"forkable":false,"isFork":false,"inFolder":null,"utf8":false,"author":{"id":175949,"email":"russell@mashandgravy.co.uk","name":null,"website":null,"socialmedia":null,"isLoggedIn":true,"isGuest":false,"isActivated":true,"isAdmin":false}},
+            chartData: "Region (US$ billions)\t2009\t2010\t2011\t2012\t2013\t2014\t2015\t2016\t2017\t2018\nEurope\t  5.3 \t  5.5 \t  6.1 \t  5.6 \t  6.5 \t  7.9 \t  8.4 \t  11.1 \t  11.7 \t  10.6 \nNorth and Central America\t  5.3 \t  6.0 \t  5.4 \t  4.7 \t  5.6 \t  6.9 \t  7.2 \t  7.1 \t  7.8 \t  7.4 \nMiddle East and North of Sahara\t  0.6 \t  0.4 \t  0.4 \t  0.6 \t  0.8 \t  1.3 \t  1.9 \t  1.5 \t  1.0 \t  3.6 \nFar East Asia\t  0.3 \t  0.6 \t  0.9 \t  0.6 \t  0.9 \t  1.0 \t  1.4 \t  1.0 \t  1.1 \t  0.8 \nOther\t  0.4 \t  0.5 \t  0.5 \t  0.5 \t  0.3 \t  0.4 \t  0.4 \t  0.3 \t  0.3 \t  0.3 ",
+            isPreview: false,
+            chartLocale: 'en-US',
+            locales: {
+dayjs: {name: 'en',weekdays: 'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_'),months: 'January_February_March_April_May_June_July_August_September_October_November_December'.split('_')
+},},
+            metricPrefix: {"3":"k","6":"m","9":"b","12":"t"},
+            themeId: "datawrapper-data",
+            fontsJSON: {"Roboto":{"method":"import","import":"https:\/\/static.dwcdn.net\/css\/roboto.css","type":"font"}},
+            typographyJSON: {"chart":{"typeface":"Roboto,sans-serif","color":"#181818","fontSize":12},"headline":{"fontSize":22,"fontWeight":"bold","underlined":0,"cursive":0,"typeface":"Roboto,sans-serif","color":"#000000"},"description":{"fontSize":14,"lineHeight":17,"fontWeight":"normal","underlined":0,"cursive":0,"typeface":"Roboto,sans-serif"},"notes":{"fontSize":12,"fontWeight":"normal","underlined":0,"cursive":1,"color":"#656565","typeface":"Roboto,sans-serif"},"footer":{"color":"#888","fontSize":11,"fontWeight":"normal","underlined":0,"cursive":0,"typeface":"Roboto,sans-serif"},"links":{"color":"#18a1cd","fontWeight":"normal","underlined":0,"cursive":0,"typeface":"Roboto,sans-serif"}},
+            templateJS: false
+        });
+
+    })();
+
+    </script>
+    </div

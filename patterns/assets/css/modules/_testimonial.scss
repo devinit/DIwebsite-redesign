@@ -52,6 +52,16 @@
             }
         }
     }
+    &--reverse {
+        .testimonial__main {
+            float: right;
+            border-left: none;
+            padding-left: 1em;
+        }
+        .testimonial__aside {
+            float: left;
+        }
+    }
 }
 
 .testimonial__aside {

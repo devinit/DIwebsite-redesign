@@ -1,0 +1,146 @@
+{
+    "chart_publication": [
+        {
+            "title": "9 - Total IHA from public donors by donor, 2000-2019 - Stacked area chart",
+            "description": "Initial view shows all data, with a key on the right side which allows you to show/hide parts of the chart. There are a lot of areas in this chard, and Plotly allows the key to scroll vertially to accomodate this. We also have a dropdown elementw which allows you to select a specific country.",
+            "id": "iha-donors-public-area-combined",
+            "data_url": "../assets/data/iha-donors-public-area.json",
+            "interactive": true,
+            "combined": true
+        }
+    ],
+    "charts": [
+        {
+            "title": "17 - Total IHA, all donor types into Afghanistan - Stacked chart with drill down, with legend",
+            "id": "iha-total-all-types-afghanistan-legend",
+            "data_url": "../assets/data/iha-total-all-types-afghanistan-legend.json",
+            "drilldown": "Donor type"
+        },
+        {
+            "title": "16 - Total IHA, all donor types into Afghanistan - Stacked chart with drill down, no legend",
+            "id": "iha-total-all-types-afghanistan",
+            "data_url": "../assets/data/iha-total-all-types-afghanistan.json",
+            "drilldown": "Donor type"
+        },
+        {
+            "title": "15 - Total IHA by Recipient Country: Adaptation Fund - Point and line chart",
+            "id": "iha-recipient-by-donor-line",
+            "data_url": "../assets/data/iha-recipient-by-donor-line.json"
+        },
+        {
+            "title": "14b - Total official HA as % of ODA by recipient country, 2009-2018 - Line chart",
+            "description": "Initial view shows all data, with a key on the right side which allows you to show/hide parts of the chart. We have also implemented a dropdown menu to select a specific row of data.",
+            "id": "ha-oda-recipient-line-combined",
+            "data_url": "../assets/data/ha-oda-recipient-line.json",
+            "interactive": true,
+            "combined": true
+        },
+        {
+            "title": "14a - Total official HA as % of ODA by recipient country, 2009-2018 - Stacked bar chart",
+            "description": "Initial view shows all data, with a key on the right side which allows you to show/hide parts of the chart. We have also implemented a dropdown menu to select a specific row of data.",
+            "id": "ha-oda-recipient-bar-combined",
+            "data_url": "../assets/data/ha-oda-recipient-bar.json",
+            "interactive": true,
+            "combined": true
+        },
+        {
+            "title": "13 - Humanitarian CVA, 2015-2019 - Treemap chart",
+            "description": "Treemap chart showing parts making up UN Agencies. Click on other parts to show the disaggregate data.",
+            "id": "cva-humanitarian-treemap",
+            "data_url": "../assets/data/cva-humanitarian-treemap.json",
+            "interactive": true,
+            "split_data_on": "name"
+        },
+        {
+            "title": "12 - Humanitarian CVA, 2015-2019 - Stacked area chart",
+            "description": "Initial view shows all data, with a key on the right side which allows you to show/hide parts of the chart. We have also implemented a dropdown menu to select a specific row of data.",
+            "id": "cva-humanitarian-area-combined",
+            "data_url": "../assets/data/cva-humanitarian-area.json",
+            "interactive": true,
+            "combined": true
+        },
+        {
+            "title": "11 - Total private IHA by recipient type, 2014-2018 - Stacked bar chart",
+            "description": "Initial view shows all data, with a key on the right side which allows you to show/hide parts of the chart. We have also implemented a dropdown menu to select a specific row of data.",
+            "id": "iha-recipient-private-bar-combined",
+            "data_url": "../assets/data/iha-recipient-private-bar.json",
+            "interactive": true,
+            "combined": true
+        },
+        {
+            "title": "10 - Total private IHA by recipient type, 2014-2018 - Stacked area chart",
+            "description": "Initial view shows all data, with a key on the right side which allows you to show/hide parts of the chart. We have also implemented a dropdown menu to select a specific row of data.",
+            "id": "iha-recipient-private-area-combined",
+            "data_url": "../assets/data/iha-recipient-private-area.json",
+            "interactive": true,
+            "combined": true
+        },
+        {
+            "title": "9 - Total IHA from public donors by donor, 2000-2019 - Stacked area chart",
+            "description": "Initial view shows all data, with a key on the right side which allows you to show/hide parts of the chart. There are a lot of areas in this chard, and Plotly allows the key to scroll vertially to accomodate this. We also have a dropdown elementw which allows you to select a specific country.",
+            "id": "iha-donors-public-area-combined",
+            "data_url": "../assets/data/iha-donors-public-area.json",
+            "interactive": true,
+            "combined": true
+        },
+        {
+            "title": "8 - Total IHA from public donors by donor, 2000-2019 - Simple area chart",
+            "description": "This is set to view a specfic country / institution. You can change the view using the dropdown element. This allows us to remove the key element of the chart from the right hand side.",
+            "id": "iha-donors-public-area",
+            "data_url": "../assets/data/iha-donors-public-area.json",
+            "interactive": true
+        },
+        {
+            "title": "7 - Total IHA from public donors by donor, 2000-2019 - Stacked area chart",
+            "description": "Initial view shows all countries. Able to control which ones are shown with the interactive key.",
+            "id": "iha-donors-public-area-static",
+            "data_url": "../assets/data/iha-donors-public-area.json"
+        },
+        {
+            "title": "6a - Total IHA from public donors by donor, 2000-2019 - Simple bar chart, long format data",
+            "description": "Shows IHA from a country / institution, with dropdown to change the country viewed.",
+            "id": "iha-donors-public-bar-long",
+            "data_url": "../assets/data/iha-donors-public-bar-long.json",
+            "interactive": true
+        },
+        {
+            "title": "6 - Total IHA from public donors by donor, 2000-2019 - Simple bar chart",
+            "description": "Shows IHA from a country / institution, with dropdown to change the country viewed.",
+            "id": "iha-donors-public-bar",
+            "data_url": "../assets/data/iha-donors-public-bar.json",
+            "interactive": true
+        },
+        {
+            "title": "5 - Total IHA from public donors by donor, 2000-2019 - Stacked bar chart",
+            "description": "Stacked bar chart with interactive key",
+            "id": "iha-donors-public-bar-static",
+            "data_url": "../assets/data/iha-donors-public-bar.json"
+        },
+        {
+            "title": "4 - Total IHA from private donors, 2014-2018 - Simple area chart",
+            "description": "Shows one row at a time, with a dropdown to change the row of data on display",
+            "id": "iha-donors-private-area",
+            "data_url": "../assets/data/iha-donors-private-area.json",
+            "interactive": true
+        },
+        {
+            "title": "3 - Total IHA from private donors, 2014-2018 - Stacked area chart",
+            "description": "Shows all rows of data with an interactive key",
+            "id": "iha-donors-private-area-static",
+            "data_url": "../assets/data/iha-donors-private-area.json"
+        },
+        {
+            "title": "2 - Total IHA from private donors, 2014-2018 - Simple bar chart",
+            "description": "Shows one row at a time, with a dropdown to change the row of data on display",
+            "id": "iha-donors-private-bar",
+            "data_url": "../assets/data/iha-donors-private-bar.json",
+            "interactive": true
+        },
+        {
+            "title": "1 - Total IHA from private donors, 2014-2018 - Stacked bar chart",
+            "description": "Shows all rows of data with an interactive key",
+            "id": "iha-donors-private-bar-static",
+            "data_url": "../assets/data/iha-donors-private-bar.json"
+        }
+    ]
+}

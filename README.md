@@ -69,12 +69,22 @@ Pattern library available online at [http://development-initiatives.surge.sh/](h
 
         python3 manage.py test
 
-## Run with Docker Compose
+## Develop with Docker
 1. Create docker volume diwebsite_db
     ```docker
     docker volume create --name=diwebsite_db
     ```
-2. Run command docker-compose up
+2. Run command:
+
+        docker-compose -f docker-compose-dev.yml up --build
+
+3. You'll need to manually run migrations:
+
+        docker-compose exec web python manage.py migrate
+
+4. If you wish to test the production build, run:
+
+        docker-compose up --build -d
 
 #### *Note*
 If the deployment is from scratch, follow commands below to update content with old website content
@@ -105,3 +115,16 @@ To enable rabbitmq management
 
         python3 manage.py update_spotlights_from_api base_url=[Specify Source URL]
     NB: default base_url is http://178.128.102.213/
+
+
+## For Custom Widgets
+
+The development environment has been setup using grunt, webpack & typescript.
+
+Widget code sits in the `src` directory. Update the `webpack.config.js` with your widget's configuration then run:
+
+        npm run dev
+
+To bundle your code, run:
+
+        npm run build

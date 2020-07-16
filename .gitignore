@@ -121,3 +121,5 @@ deploy_key
 
 # Downloaded Spotlight Files
 /spotlight-*.csv
+
+node_modules/

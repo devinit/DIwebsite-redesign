@@ -9,6 +9,7 @@ from wagtail.core.blocks import (
     StructBlock,
     TextBlock,
     URLBlock,
+    PageChooserBlock
 )
 from wagtail.snippets.blocks import SnippetChooserBlock
 
@@ -198,6 +199,26 @@ class RichTextNoFootnotes(AbstractRichText):
     )
 
 
+class InteractiveChartBlock(StructBlock):
+
+    class Meta:
+        help_text = 'Select a chart page'
+        icon = 'fa-area-chart'
+        label = 'Interactive Chart'
+        template = 'publications/blocks/interactive_chart.html'
+        form_template = 'publications/block_forms/custom_struct.html'
+
+    chart_page = PageChooserBlock(
+        page_type='visualisation.ChartPage'
+    )
+
+    def get_context(self, value, parent_context=None):
+        context = super().get_context(value, parent_context=parent_context)
+        chart_page = value['chart_page']
+        context['chart'] = chart_page if chart_page and chart_page.live else ''
+        return context
+
+
 def flexible_content_streamfield(blank=False):
     return StreamField([
         ('captioned_image', CaptionedImage()),
@@ -209,6 +230,7 @@ def flexible_content_streamfield(blank=False):
         ('rich_text', RichText()),
         ('infographic', PublicationInfographic()),
         ('anchor', AnchorBlock()),
+        ('interactive_chart', InteractiveChartBlock())
     ], blank=blank)
 
 

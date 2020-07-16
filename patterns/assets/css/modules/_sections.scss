@@ -47,6 +47,10 @@
     &--large {
         margin: $internal-spacing*3 0;
     }
+    &--chart {
+        margin-bottom: $internal-spacing*3;
+
+    }
 }
 
 .section__highlight {

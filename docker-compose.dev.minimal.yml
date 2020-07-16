@@ -11,7 +11,7 @@ services:
     volumes:
       - diwebsite_db:/var/lib/postgresql/data
 
-  web:
+  blue:
     depends_on:
       - db
     expose:

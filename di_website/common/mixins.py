@@ -137,7 +137,11 @@ class SectionBodyMixin(models.Model):
 
 
 class CallToActionMixin(models.Model):
-    call_to_action_title = models.CharField(max_length=255, null=True, blank=True, help_text="Leave title field blank to remove this call to action")
+    call_to_action_title = models.CharField(
+        max_length=255,
+        null=True, blank=True,
+        help_text="Leave title field blank to remove this call to action"
+    )
     call_to_action_body = models.TextField(null=True, blank=True)
     call_to_action_button_text = models.CharField(max_length=255, null=True, blank=True)
     call_to_action_button_url = models.URLField(max_length=255, null=True, blank=True)

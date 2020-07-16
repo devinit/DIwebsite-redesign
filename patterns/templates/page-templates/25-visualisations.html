@@ -1,0 +1,39 @@
+{# 1. Extend the relevant layout #}
+{# --------------------------------------- #}
+
+{% extends 'publication.html' %}
+
+
+{# --------------------------------------- #}
+{# 2. Assign Settings and variables #}
+{# --------------------------------------- #}
+
+{# --------------------------------------- #}
+{# 3. Add models and macros #}
+{# --------------------------------------- #}
+
+{% model 'charts', as="charts" %}
+
+{% import 'macros/button.html' as buttons %}
+{% import 'macros/icon.html' as icons %}
+
+{# --------------------------------------- #}
+{#
+   4. Add page content into relevant areas
+      Add/Delete blocks as necessary
+#}
+{# --------------------------------------- #}
+
+{% block body %}
+
+    {% for item in charts.charts %}
+        {% include 'charts/chart-container.html' %}
+    {% endfor %}
+
+{% endblock %}
+
+
+{% block html_footer %}
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="{{ global.assets_root }}/js/app.charts.bundle.js"></script>
+{% endblock %}

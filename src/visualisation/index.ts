@@ -14,7 +14,7 @@ import {
 import { addLoading, removeLoading } from './loading';
 import { loadPlotlyCode } from './modules';
 import { addOptionsToSelectNode, createOptionsFromLegendData as createOptionsFromCalcData } from './options';
-import { removeTitle, setDefaultColorway, updateLayoutColorway, addHoverTemplateToTraces } from './styles';
+import { moveTitleToMeta, setDefaultColorway, updateLayoutColorway, addHoverTemplateToTraces } from './styles';
 import { PlotlyConfig, PlotlyEnhancedHTMLElement, ChartOptions } from './types';
 
 type Aggregated = 'True' | 'False' | undefined;
@@ -29,6 +29,7 @@ const initChart = (wrapper: HTMLElement) => {
   if (chartNode) {
     const data = scriptNode ? JSON.parse(scriptNode.innerHTML) : null; // TODO: surround in try/catch
     const url = chartNode.dataset.url;
+    const title = chartNode.dataset.title;
     const aggregated = chartNode.dataset.aggregated as Aggregated;
     const aggregationExcludes = chartNode.dataset.aggregationExcludes;
     const aggregationIncludes = chartNode.dataset.aggregationIncludes;
@@ -39,6 +40,7 @@ const initChart = (wrapper: HTMLElement) => {
     const yAxisSuffix = chartNode.dataset.yAxisSuffix;
     const minWidth = chartNode.dataset.minWidth ? parseInt(chartNode.dataset.minWidth) : 400; // TODO: use a constant
     const chartOptions: ChartOptions = {
+      title,
       aggregated: aggregated === 'True',
       aggregationExcludes: aggregationExcludes?.trim() ? aggregationExcludes.split(',') : undefined,
       aggregationIncludes: aggregationIncludes?.trim() ? aggregationIncludes.split(',') : undefined,
@@ -114,7 +116,7 @@ const initStaticChart = async (element: HTMLElement, chartConfig: PlotlyConfig, 
 
     const { react, relayout } = await loadPlotlyCode(data);
     removeLoading(element);
-    removeTitle(layout);
+    moveTitleToMeta(layout, options.title);
     addHoverTemplateToTraces(data);
     setDefaultColorway(layout);
     addPrefixAndSuffix(data, options);
@@ -147,7 +149,7 @@ const initSelectableChart = async (
     setDefaultTraceVisibility(data, chartOptions);
 
     removeLoading(chartNode);
-    removeTitle(layout);
+    moveTitleToMeta(layout, chartOptions.title);
     addHoverTemplateToTraces(data);
     addPrefixAndSuffix(data, chartOptions);
     setDefaultColorway(layout);

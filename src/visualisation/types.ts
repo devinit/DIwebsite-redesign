@@ -20,6 +20,7 @@ export interface CalcData {
 }
 
 export interface ChartOptions {
+  title?: string;
   aggregated: boolean;
   selectorIncludes?: string[];
   selectorExcludes?: string[];

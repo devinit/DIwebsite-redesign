@@ -70,6 +70,7 @@ export const updateLayoutColorway = (plotlyNode: PlotlyEnhancedHTMLElement, rela
   } catch (e) {}
 };
 
-export const removeTitle = (layout: Plotly.Layout): void => {
+export const moveTitleToMeta = (layout: Plotly.Layout, title = ''): void => {
   layout.title = '';
+  layout.meta = { title };
 };

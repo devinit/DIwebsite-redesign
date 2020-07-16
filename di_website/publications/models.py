@@ -31,7 +31,7 @@ from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
 from wagtailmedia.edit_handlers import MediaChooserPanel
 
-from di_website.common.base import (get_paginator_range, get_related_pages, hero_panels)
+from di_website.common.base import (get_paginator_range, get_related_pages, hero_panels, call_to_action_panel)
 from di_website.common.constants import (MAX_PAGE_SIZE, MAX_RELATED_LINKS, RICHTEXT_FEATURES)
 from di_website.common.mixins import (HeroMixin, OtherPageMixin, SectionBodyMixin, TypesetBodyMixin, CallToActionMixin)
 from di_website.downloads.utils import DownloadsPanel
@@ -368,12 +368,7 @@ class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUID
         FieldPanel('colour'),
         hero_panels(),
         StreamFieldPanel('authors'),
-        MultiFieldPanel([
-            FieldPanel('call_to_action_title'),
-            FieldPanel('call_to_action_body'),
-            FieldPanel('call_to_action_button_text'),
-            FieldPanel('call_to_action_button_url'),
-        ], heading='Call to Action Section'),
+        call_to_action_panel(),
         SnippetChooserPanel('publication_type'),
         FieldPanel('topics'),
         InlinePanel('publication_datasets', label='Datasets'),
@@ -904,12 +899,7 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, LegacyPageSearchMixin
         FieldPanel('colour'),
         hero_panels(),
         StreamFieldPanel('authors'),
-        MultiFieldPanel([
-            FieldPanel('call_to_action_title'),
-            FieldPanel('call_to_action_body'),
-            FieldPanel('call_to_action_button_text'),
-            FieldPanel('call_to_action_button_url'),
-        ], heading='Call to Action Section'),
+        call_to_action_panel(),
         SnippetChooserPanel('publication_type'),
         FieldPanel('topics'),
         InlinePanel('page_countries', label="Countries"),
@@ -1018,12 +1008,7 @@ class ShortPublicationPage(HeroMixin, PublishedDateMixin, FlexibleContentMixin, 
         FieldPanel('colour'),
         hero_panels(),
         StreamFieldPanel('authors'),
-        MultiFieldPanel([
-            FieldPanel('call_to_action_title'),
-            FieldPanel('call_to_action_body'),
-            FieldPanel('call_to_action_button_text'),
-            FieldPanel('call_to_action_button_url'),
-        ], heading='Call to Action Section'),
+        call_to_action_panel(),
         SnippetChooserPanel('publication_type'),
         FieldPanel('topics'),
         InlinePanel('page_countries', label="Countries"),

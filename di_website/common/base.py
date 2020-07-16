@@ -37,6 +37,15 @@ def other_pages_panel():
         ], heading='Other Pages/Related Links')
 
 
+def call_to_action_panel():
+    return MultiFieldPanel([
+        FieldPanel('call_to_action_title', heading='Title'),
+        FieldPanel('call_to_action_body', heading='Description'),
+        FieldPanel('call_to_action_button_text', heading='Button Text'),
+        FieldPanel('call_to_action_button_url', heading='Button URL'),
+    ], heading='Call to Action Section')
+
+
 def get_paginator_range(paginator, page):
     """Return a 4 elements long list (two before and two after current page) containing a range of page numbers (int)."""
     range_start = max(page.number - 2, 1)

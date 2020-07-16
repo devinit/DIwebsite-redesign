@@ -24,7 +24,7 @@ from wagtail.images.blocks import ImageChooserBlock
 
 from taggit.models import Tag, TaggedItemBase
 
-from di_website.common.base import hero_panels, get_paginator_range, get_related_pages
+from di_website.common.base import call_to_action_panel, hero_panels, get_paginator_range, get_related_pages
 from di_website.common.mixins import OtherPageMixin, HeroMixin, TypesetBodyFootnoteMixin, CallToActionMixin
 from di_website.common.constants import MAX_PAGE_SIZE, MAX_RELATED_LINKS
 from di_website.ourteam.models import TeamMemberPage
@@ -115,12 +115,7 @@ class BlogArticlePage(TypesetBodyFootnoteMixin, HeroMixin, CallToActionMixin, Pa
             PageChooserPanel('internal_author_page', TeamMemberPage),
             StreamFieldPanel('other_authors')
         ], heading="Author information"),
-        MultiFieldPanel([
-            FieldPanel('call_to_action_title'),
-            FieldPanel('call_to_action_body'),
-            FieldPanel('call_to_action_button_text'),
-            FieldPanel('call_to_action_button_url'),
-        ], heading='Call to Action Section'),
+        call_to_action_panel(),
         FieldPanel('topics'),
         StreamFieldPanel('body'),
         FieldPanel('published_date'),

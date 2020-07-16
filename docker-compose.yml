@@ -10,7 +10,10 @@ services:
     restart: always
     volumes:
       - diwebsite_db:/var/lib/postgresql/data
-
+    networks:
+      - web
+      - consul
+  
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.2.4
     environment:
@@ -31,9 +34,13 @@ services:
         options:
             max-size: "1m"
             max-file: "10"
+    networks:
+      - web
+      - consul
 
-
-  web:
+  blue:
+    container_name: blue
+    image: diwebsite-redesign_web:blue
     depends_on:
       - db
       - rabbitmq
@@ -46,16 +53,45 @@ services:
       - HS_TICKET_PIPELINE
       - HS_TICKET_PIPELINE_STAGE
       - ELASTIC_SEARCH_URL
-    build:
-      context: .
+      - SERVICE_8090_NAME=blue
+      - SERVICE_8090_TAGS=backends
+    volumes:
+      - ./:/code/
+      - ./config/celery/default:/etc/default
+      - ./config/celery/init.d:/etc/init.d
+    networks:
+      - web
+      - consul
+
+  green:
+    container_name: green
+    image: diwebsite-redesign_web:green
+    depends_on:
+      - db
+      - rabbitmq
+      - elasticsearch
+    expose:
+      - "8090"
+    env_file: .env
+    environment:
+      - HS_API_KEY
+      - HS_TICKET_PIPELINE
+      - HS_TICKET_PIPELINE_STAGE
+      - ELASTIC_SEARCH_URL
+      - SERVICE_8090_NAME=green
+      - SERVICE_8090_TAGS=backends
     volumes:
       - ./:/code/
       - ./config/celery/default:/etc/default
       - ./config/celery/init.d:/etc/init.d
     restart: always
+    networks:
+      - web
+      - consul
 
   nginx:
-    image: nginx:latest
+    container_name: nginx
+    build: ./config/nginx/
     ports:
       - "80:80"
       - "443:443"
@@ -66,9 +102,13 @@ services:
       - ./ssl:/etc/ssl/
       - ./letsencrypt:/letsencrypt/
       - ../wp-content:/wp-content
-    depends_on:
-      - web
     restart: always
+    environment:
+      - SERVICE_NAME=nginx
+      - SERVICE_TAGS=nginx
+    networks:
+      - web
+      - consul
 
   rabbitmq:
     image: rabbitmq:latest
@@ -78,6 +118,9 @@ services:
       - 5672:5672
       - 15672:15672
     restart: always
+    networks:
+      - web
+      - consul
 
 volumes:
   diwebsite_db:
@@ -85,3 +128,9 @@ volumes:
   index_db:
     driver: local
     external: true
+
+networks:
+  web:
+  consul:
+    external:
+      name: consul

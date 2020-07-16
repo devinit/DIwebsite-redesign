@@ -12,7 +12,8 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from di_website.common.edit_handlers import HelpPanel
 from di_website.common.constants import MINIMAL_RICHTEXT_FEATURES
 from di_website.publications.utils import WagtailImageField
-from di_website.visualisation.mixins import GeneralInstructionsMixin, SpecificInstructionsMixin
+from di_website.visualisation.mixins import GeneralInstructionsMixin, SpecificInstructionsMixin, ChartOptionsMixin
+from di_website.visualisation.utils import ChartOptionsPanel, SpecificInstructionsPanel
 
 
 class VisualisationsPage(GeneralInstructionsMixin, Page):
@@ -70,7 +71,7 @@ class VisualisationsPage(GeneralInstructionsMixin, Page):
         raise Http404()
 
 
-class ChartPage(SpecificInstructionsMixin, RoutablePageMixin, Page):
+class ChartPage(ChartOptionsMixin, SpecificInstructionsMixin, RoutablePageMixin, Page):
     """
     Individual chart page
     """
@@ -98,40 +99,6 @@ class ChartPage(SpecificInstructionsMixin, RoutablePageMixin, Page):
         help_text='Optional: when selected devices with screen widths up to 700px will be served the fallback image',
         verbose_name='Show on tablet'
     )
-    selectable = models.BooleanField(
-        default=False,
-        help_text='Optional: selectable charts individusalise the data display a dropdown to select data'
-    )
-    aggregated = models.BooleanField(
-        default=False,
-        help_text='Optional: aggregated charts adds an "All data" option to selectable charts'
-    )
-    selector_includes = models.TextField(
-        null=True, blank=True,
-        help_text='Optional: comma separated values to include in the dropdown selector. Use when inclusions are fewer than exclusions'
-    )
-    selector_excludes = models.TextField(
-        null=True, blank=True,
-        help_text='Optional: comma separated values to exclude in the dropdown selector. Use when exclusions are fewer than inclusions'
-    )
-    aggregation_includes = models.TextField(
-        null=True, blank=True,
-        help_text='Optional: comma separated values to include in the aggregated chart. Use when inclusions are fewer than exclusions'
-    )
-    aggregation_excludes = models.TextField(
-        null=True, blank=True,
-        help_text='Optional: comma separated values to exclude in the aggregated chart. Use when exclusions are fewer than inclusions'
-    )
-    aggregate_option_label = models.CharField(
-        null=True, blank=True, default='All data', max_length=255,
-        help_text='The label of the "All data" option on aggregated charts'
-    )
-    y_axis_prefix = models.CharField(
-        null=True, blank=True, max_length=200, help_text='Optional: e.g. UGX, $ e.t.c'
-    )
-    y_axis_suffix = models.CharField(
-        null=True, blank=True, max_length=200, help_text='Optional: e.g. %, degrees e.t.c'
-    )
     caption = RichTextField(
         null=True,
         blank=True,
@@ -146,28 +113,8 @@ class ChartPage(SpecificInstructionsMixin, RoutablePageMixin, Page):
             FieldPanel('display_fallback_mobile'),
             FieldPanel('display_fallback_tablet'),
         ], heading='Fallback image and options'),
-        MultiFieldPanel([
-            FieldPanel('selectable'),
-            FieldPanel('selector_includes'),
-            FieldPanel('selector_excludes'),
-            FieldPanel('aggregated'),
-            FieldPanel('aggregation_includes', classname='full'),
-            FieldPanel('aggregation_excludes', classname='full'),
-            FieldPanel('aggregate_option_label', classname='full full-custom'),
-            FieldPanel('y_axis_prefix', heading='Y-axis prefix'),
-            FieldPanel('y_axis_suffix', heading='Y-axis suffix')
-        ], heading='Chart options'),
-        MultiFieldPanel(
-            [
-                HelpPanel('''
-                    Optional: if the checkbox is selected, the general instructions from the parent page will be displayed.<br>
-                    Specific instuctions added to this page will be displayed, overriding this setting.
-                ''', wrapper_class='help-block help-info no-padding-top'),
-                FieldPanel('display_general_instructions'),
-                FieldPanel('instructions'),
-            ],
-            heading='Interactive visualisation instructions',
-        ),
+        ChartOptionsPanel(),
+        SpecificInstructionsPanel(),
         FieldPanel('caption')
     ]
 

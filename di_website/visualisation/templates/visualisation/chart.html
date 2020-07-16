@@ -7,6 +7,7 @@
   {% endif %}
   <div
     class="charts__chart js-plotly-chart"
+    data-title="{{item.title}}"
     {% if not request.is_preview %}data-url="{% routablepageurl item 'data' %}"{% endif %}
     {% if item.aggregated %}data-aggregated="{{ item.aggregated }}"{% endif %}
     data-min-width="{% if page.display_fallback_tablet %}700{% elif page.display_fallback_mobile %}400{% else %}0{% endif %}"

@@ -16,6 +16,7 @@
         {% if page.authors|length > 0 %}
           {% include 'includes/partials/multi-authors.html' with authors=page.authors %}
         {% endif %}
+        {% include 'includes/partials/call-to-action.html' %}
         <div class="is-typeset is-typeset--additionals wysiwyg">
           {% content_with_footnotes page.content %}
           {{ page.raw_content | safe }}

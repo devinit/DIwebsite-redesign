@@ -10,6 +10,14 @@
 
 {% block body %}
 
+  {% if page.get_parent.specific.call_to_action_title %}
+    <section class="section section--large">
+      <div class="row row--narrow">
+        {% include 'includes/partials/call-to-action.html' with page=page.get_parent.specific %}
+      </div>
+    </section>
+  {% endif %}
+
   {% include 'publications/chapter-nav/nav.html' with page=page.get_parent.specific menu_label='Contents' chapter_number=0 %}
 
   {% for block in page.content %}

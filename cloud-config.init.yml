@@ -1,6 +1,26 @@
 #cloud-config
+# ^ the line above must be kept exactly as is
+# Digital Ocean droplet creation using User Data Cloud-Init 
+# ------------------------------------------------------------------------------
+# 1. Change '<user>' to your custom username, this is used for ssh login
+# 2. Change '<SSH_PORT>' to replace default SSH port 22
+# 3. Change '/1.20.1/' to desired docker-compose version
+# 4. Change 'example@gmail.com' to your git repo email address
+# 5. Change 'Full Name' to your git repo full name
+# 6. Change '<ssh-rsa>' public key under `ssh-authorized-keys:`
+# ------------------------------------------------------------------------------
+# To access the droplet, run:
+# $ ssh -i ~/.ssh/id_rsa <user>@<IP_ADDRESS> -p <SSH_PORT>
+# ------------------------------------------------------------------------------
+# Create new user with sudo privilege to replace root user login
 users:
-  - name: di_website
+  - name: <user>
+    ssh-authorized-keys:
+      # public keys from SSH key files used to access the droplet
+      # generate an ssh key if you dont have one already using: ssh-keygen -t rsa -b 4096 -C "email@domain.tld"
+      # To get the contents of your public key of your local computer, run:
+      # $ cat ~/.ssh/id_rsa.pub
+      - <ssh-rsa>
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
     groups: sudo
     shell: /bin/bash
-    sudo: ['ALL=(ALL) NOPASSWD:ALL']

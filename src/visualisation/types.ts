@@ -21,6 +21,7 @@ export interface CalcData {
 
 export interface ChartOptions {
   title?: string;
+  source?: string;
   aggregated: boolean;
   selectorIncludes?: string[];
   selectorExcludes?: string[];
@@ -29,4 +30,5 @@ export interface ChartOptions {
   aggregateOptionLabel?: string;
   yAxisPrefix?: string;
   yAxisSuffix?: string;
+  imageCaption?: string;
 }

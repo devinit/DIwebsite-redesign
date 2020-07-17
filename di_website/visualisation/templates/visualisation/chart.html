@@ -8,17 +8,19 @@
   <div
     class="charts__chart js-plotly-chart"
     data-title="{{item.title}}"
-    {% if not request.is_preview %}data-url="{% routablepageurl item 'data' %}"{% endif %}
-    {% if item.aggregated %}data-aggregated="{{ item.aggregated }}"{% endif %}
     data-min-width="{% if page.display_fallback_tablet %}700{% elif page.display_fallback_mobile %}400{% else %}0{% endif %}"
     data-share-link="{{share_link}}"
-    data-aggregation-excludes="{{ item.aggregation_excludes }}"
-    data-aggregation-includes="{{ item.aggregation_includes }}"
-    data-selector-excludes="{{ item.selector_excludes }}"
-    data-selector-includes="{{ item.selector_includes }}"
-    data-aggregate-option-label="{{ item.aggregate_option_label }}"
-    data-y-axis-prefix="{{ item.y_axis_prefix }}"
-    data-y-axis-suffix="{{ item.y_axis_suffix }}"
+    {% if item.source %}data-source="{{item.source}}"{% endif %}
+    {% if not request.is_preview %}data-url="{% routablepageurl item 'data' %}"{% endif %}
+    {% if item.aggregated %}data-aggregated="{{ item.aggregated }}"{% endif %}
+    {% if item.aggregation_excludes %}data-aggregation-excludes="{{ item.aggregation_excludes }}"{% endif %}
+    {% if item.aggregation_includes %}data-aggregation-includes="{{ item.aggregation_includes }}"{% endif %}
+    {% if item.selector_excludes %}data-selector-excludes="{{ item.selector_excludes }}"{% endif %}
+    {% if item.selector_includes %}data-selector-includes="{{ item.selector_includes }}"{% endif %}
+    {% if item.aggregate_option_label %}data-aggregate-option-label="{{ item.aggregate_option_label }}"{% endif %}
+    {% if item.y_axis_prefix %}data-y-axis-prefix="{{ item.y_axis_prefix }}"{% endif %}
+    {% if item.y_axis_suffix %}data-y-axis-suffix="{{ item.y_axis_suffix }}"{% endif %}
+    {% if item.image_caption %}data-image-caption="{{item.image_caption}}"{% endif %}
   >
     <div class="chart-loading">
       <div class="chart-loading__block"><div></div><div></div><div></div><div></div></div>

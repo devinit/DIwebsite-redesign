@@ -1,5 +1,5 @@
 import Plotly, { relayout as Relayout } from 'plotly.js';
-import { PlotlyEnhancedHTMLElement } from './types';
+import { PlotlyEnhancedHTMLElement, ChartOptions } from './types';
 
 const MAX_TRACES_FOR_THEME = 8;
 // Default hover template
@@ -70,7 +70,10 @@ export const updateLayoutColorway = (plotlyNode: PlotlyEnhancedHTMLElement, rela
   } catch (e) {}
 };
 
-export const moveTitleToMeta = (layout: Plotly.Layout, title = ''): void => {
+export const removeTitle = (layout: Plotly.Layout): void => {
   layout.title = '';
-  layout.meta = { title };
+};
+
+export const addLayoutMeta = (layout: Plotly.Layout, options: ChartOptions): void => {
+  layout.meta = { title: options.title, imageCaption: options.imageCaption, source: options.source };
 };

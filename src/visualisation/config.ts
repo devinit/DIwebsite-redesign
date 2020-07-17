@@ -9,10 +9,11 @@ modebarButtons.toImage.click = (chartNode: PlotlyEnhancedHTMLElement) => {
   // customise layout before downloading image
   chartNode.layout.title = { text: chartNode.dataset.shareLink };
   const xAxisTitle = chartNode.layout.xaxis.title as Plotly.DataTitle;
+  const meta = chartNode.layout.meta;
   chartNode.layout.xaxis.title = {
-    text: `${xAxisTitle.text || ''}<br><br>${
-      chartNode.layout.meta.title
-    }<br><sub>Source: Development Initiatives</sub>`,
+    text: `${xAxisTitle.text || ''}<br><br>${meta.imageCaption || meta.title}${
+      meta.source ? `<br><sub>Source: ${meta.source}</sub>` : ''
+    }`,
   };
   chartNode.layout.margin = { b: 120 };
   const showLegend = chartNode.layout.showlegend;

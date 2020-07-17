@@ -41,6 +41,6 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-webpack');
 
-  grunt.registerTask('default', ['watch']);
+  grunt.registerTask('default', ['webpack:develop', 'watch']);
   grunt.registerTask('build', 'Compiles all the assets and copies the files to the dist directory.', ['webpack:build']);
 };

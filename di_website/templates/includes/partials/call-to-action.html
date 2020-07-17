@@ -1,9 +1,12 @@
 {% load wagtailcore_tags %}
 
-{% if page.call_to_action_title %}
-  <div class="cta">
-    <h2 class="cta__heading">{{ page.call_to_action_title }}</h2>
-    <p class="cta__excerpt">{{ page.call_to_action_body }}</p>
-    <a href="{{ page.call_to_action_button_url }}" target="_blank" class="button button--reverse">{{ page.call_to_action_button_text }}</a>
-  </div>
-{% endif %}
+<div class="cta">
+  <h2 class="cta__heading">{{ page.call_to_action_title }}</h2>
+  <p class="cta__excerpt">{{ page.call_to_action_body }}</p>
+
+  {% if page.call_to_action_button_text and page.call_to_action_button_url %}
+    <a href="{{ page.call_to_action_button_url }}" target="_blank" class="button button--reverse">
+      {{ page.call_to_action_button_text }}
+    </a>
+  {% endif %}
+</div>

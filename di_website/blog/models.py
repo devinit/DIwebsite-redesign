@@ -24,8 +24,8 @@ from wagtail.images.blocks import ImageChooserBlock
 
 from taggit.models import Tag, TaggedItemBase
 
-from di_website.common.base import hero_panels, get_paginator_range, get_related_pages
-from di_website.common.mixins import OtherPageMixin, HeroMixin, TypesetBodyFootnoteMixin
+from di_website.common.base import call_to_action_panel, hero_panels, get_paginator_range, get_related_pages
+from di_website.common.mixins import OtherPageMixin, HeroMixin, TypesetBodyFootnoteMixin, CallToActionMixin
 from di_website.common.constants import MAX_PAGE_SIZE, MAX_RELATED_LINKS
 from di_website.ourteam.models import TeamMemberPage
 
@@ -76,7 +76,7 @@ class BlogIndexPage(HeroMixin, Page):
     ]
 
 
-class BlogArticlePage(TypesetBodyFootnoteMixin, HeroMixin, Page):
+class BlogArticlePage(TypesetBodyFootnoteMixin, HeroMixin, CallToActionMixin, Page):
     topics = ClusterTaggableManager(through=BlogTopic, blank=True)
 
     internal_author_page = models.ForeignKey(
@@ -115,6 +115,7 @@ class BlogArticlePage(TypesetBodyFootnoteMixin, HeroMixin, Page):
             PageChooserPanel('internal_author_page', TeamMemberPage),
             StreamFieldPanel('other_authors')
         ], heading="Author information"),
+        call_to_action_panel(),
         FieldPanel('topics'),
         StreamFieldPanel('body'),
         FieldPanel('published_date'),

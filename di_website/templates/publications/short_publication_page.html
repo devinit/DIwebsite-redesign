@@ -13,13 +13,17 @@
   {% include 'publications/chapter-nav/nav.html' with page=page menu_label='Jump to section' chapter_number=page.chapter_number %}
 
   {% for block in page.content %}
-
-    <section class="section {% if forloop.first %}section--post{% endif %}">
+    <section class="section section--large">
       <div class="row row--narrow">
         {% if forloop.first %}
           {% if page.authors|length > 0 %}
             <div class="max-meter max-meter--center">
               {% include 'includes/partials/multi-authors.html' with authors=page.authors %}
+              {% if page.call_to_action_title %}
+                <div class="space-section-both">
+                  {% include 'includes/partials/call-to-action.html' %}
+                </div>
+              {% endif %}
             </div>
           {% endif %}
         {% endif %}
@@ -31,7 +35,6 @@
         {% endif %}
       </div>
     </section>
-
   {% endfor %}
 
   {% include 'publications/partials/downloads.html' %}

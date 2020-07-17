@@ -31,9 +31,9 @@ from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
 from wagtailmedia.edit_handlers import MediaChooserPanel
 
-from di_website.common.base import (get_paginator_range, get_related_pages, hero_panels)
+from di_website.common.base import (get_paginator_range, get_related_pages, hero_panels, call_to_action_panel)
 from di_website.common.constants import (MAX_PAGE_SIZE, MAX_RELATED_LINKS, RICHTEXT_FEATURES)
-from di_website.common.mixins import (HeroMixin, OtherPageMixin, SectionBodyMixin, TypesetBodyMixin)
+from di_website.common.mixins import (HeroMixin, OtherPageMixin, SectionBodyMixin, TypesetBodyMixin, CallToActionMixin)
 from di_website.downloads.utils import DownloadsPanel
 
 from .edit_handlers import MultiFieldPanel
@@ -318,7 +318,7 @@ class PublicationIndexPage(HeroMixin, Page):
         verbose_name = 'Resources Index Page'
 
 
-class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUIDMixin, FilteredDatasetMixin, Page):
+class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUIDMixin, FilteredDatasetMixin, CallToActionMixin, Page):
 
     class Meta:
         verbose_name = 'Publication Page'
@@ -368,6 +368,7 @@ class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUID
         FieldPanel('colour'),
         hero_panels(),
         StreamFieldPanel('authors'),
+        call_to_action_panel(),
         SnippetChooserPanel('publication_type'),
         FieldPanel('topics'),
         InlinePanel('publication_datasets', label='Datasets'),
@@ -845,7 +846,7 @@ class PublicationAppendixPage(HeroMixin, ReportChildMixin, FlexibleContentMixin,
         return sections
 
 
-class LegacyPublicationPage(HeroMixin, PublishedDateMixin, LegacyPageSearchMixin, FilteredDatasetMixin, Page):
+class LegacyPublicationPage(HeroMixin, PublishedDateMixin, LegacyPageSearchMixin, FilteredDatasetMixin, CallToActionMixin, Page):
 
     class Meta:
         verbose_name = 'Legacy Publication'
@@ -867,7 +868,6 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, LegacyPageSearchMixin
             ('page', URLBlock(required=False))
         ], icon='fa-user', label='External Author'))
     ], blank=True)
-
     publication_type = models.ForeignKey(
         PublicationType, related_name="+", null=True, blank=False, on_delete=models.SET_NULL, verbose_name="Resource Type")
     topics = ClusterTaggableManager(through=LegacyPublicationTopic, blank=True, verbose_name="Topics")
@@ -899,6 +899,7 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, LegacyPageSearchMixin
         FieldPanel('colour'),
         hero_panels(),
         StreamFieldPanel('authors'),
+        call_to_action_panel(),
         SnippetChooserPanel('publication_type'),
         FieldPanel('topics'),
         InlinePanel('page_countries', label="Countries"),
@@ -965,7 +966,7 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, LegacyPageSearchMixin
         return context;
 
 
-class ShortPublicationPage(HeroMixin, PublishedDateMixin, FlexibleContentMixin, PageSearchMixin, UUIDMixin, FilteredDatasetMixin, Page):
+class ShortPublicationPage(HeroMixin, PublishedDateMixin, FlexibleContentMixin, PageSearchMixin, UUIDMixin, FilteredDatasetMixin, CallToActionMixin, Page):
 
     class Meta:
         verbose_name = 'Short Publication'
@@ -1007,6 +1008,7 @@ class ShortPublicationPage(HeroMixin, PublishedDateMixin, FlexibleContentMixin, 
         FieldPanel('colour'),
         hero_panels(),
         StreamFieldPanel('authors'),
+        call_to_action_panel(),
         SnippetChooserPanel('publication_type'),
         FieldPanel('topics'),
         InlinePanel('page_countries', label="Countries"),

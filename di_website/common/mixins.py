@@ -134,3 +134,24 @@ class SectionBodyMixin(models.Model):
 
     class Meta:
         abstract = True
+
+
+class CallToActionMixin(models.Model):
+    call_to_action_title = models.CharField(
+        max_length=255,
+        null=True, blank=True,
+        help_text="Optional: when left blank, the call to action will not be show",
+        verbose_name='Title'
+    )
+    call_to_action_body = models.TextField(
+        null=True, blank=True, verbose_name='Description',
+        help_text='Optional: describe the purpose of your call to action in a bit more detail')
+    call_to_action_button_text = models.CharField(
+        max_length=255, null=True, blank=True, verbose_name='Button caption',
+        help_text='Optional: this is required to show the button')
+    call_to_action_button_url = models.URLField(
+        max_length=255, null=True, blank=True, verbose_name='Button URL',
+        help_text='Optional: this is required to show the button')
+
+    class Meta:
+        abstract = True

@@ -22,6 +22,7 @@ groups:
 
 users:
   - name: <user>
+    lock_passwd: true
     ssh-authorized-keys:
       # public keys from SSH key files used to access the droplet
       # generate an ssh key if you dont have one already using: ssh-keygen -t rsa -b 4096 -C "email@domain.tld"

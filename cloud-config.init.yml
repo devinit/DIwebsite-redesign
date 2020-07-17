@@ -13,6 +13,10 @@
 # $ ssh -i ~/.ssh/id_rsa <user>@<IP_ADDRESS> -p <SSH_PORT>
 # ------------------------------------------------------------------------------
 # Create new user with sudo privilege to replace root user login
+package_update: true
+package_upgrade: true
+package_reboot_if_required: true
+
 users:
   - name: <user>
     ssh-authorized-keys:

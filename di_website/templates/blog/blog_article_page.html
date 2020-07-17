@@ -12,19 +12,17 @@
 <section class="section section--post">
     <div class="row row--narrow">
         <div class="max-meter max-meter--center">
-          {% if page.internal_author_page and page.other_authors|length > 0 %}
-            {% include 'includes/partials/multi-authors.html' with first_author=page.internal_author_page authors=page.other_authors %}
-          {% elif page.other_authors|length > 1 %}
-            {% include 'includes/partials/multi-authors.html' with authors=page.other_authors %}
-          {% endif %}
-          {% include 'includes/partials/call-to-action.html' %}
-        </div>
-    </div>
-</section>
+            {% if page.internal_author_page and page.other_authors|length > 0 %}
+              {% include 'includes/partials/multi-authors.html' with first_author=page.internal_author_page authors=page.other_authors %}
+            {% elif page.other_authors|length > 1 %}
+              {% include 'includes/partials/multi-authors.html' with authors=page.other_authors %}
+            {% endif %}
 
-<section class="section section--post">
-    <div class="row row--narrow">
-        <div class="max-meter max-meter--center">
+            {% if page.call_to_action_title %}
+              <div class="space-section-both">
+                {% include 'includes/partials/call-to-action.html' %}
+              </div>
+            {% endif %}
             <div class="is-typeset is-typeset--additionals wysiwyg">
                 {% for block in page.body %}
                     {% if block.block_type == 'infographic' %}

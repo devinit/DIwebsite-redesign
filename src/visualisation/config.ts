@@ -8,6 +8,13 @@ const onImageClick = modebarButtons.toImage.click;
 modebarButtons.toImage.click = (chartNode: PlotlyEnhancedHTMLElement) => {
   // customise layout before downloading image
   chartNode.layout.title = { text: chartNode.dataset.shareLink };
+  const xAxisTitle = chartNode.layout.xaxis.title as Plotly.DataTitle;
+  chartNode.layout.xaxis.title = {
+    text: `${xAxisTitle.text || ''}<br><br>${
+      chartNode.layout.meta.title
+    }<br><sub>Source: Development Initiatives</sub>`,
+  };
+  chartNode.layout.margin = { b: 120 };
   const showLegend = chartNode.layout.showlegend;
   chartNode.layout.showlegend = true;
   const defaultLegendOptions = chartNode.layout.legend || {};
@@ -16,7 +23,7 @@ modebarButtons.toImage.click = (chartNode: PlotlyEnhancedHTMLElement) => {
     chartNode.layout.legend = {
       ...defaultLegendOptions,
       orientation: 'h',
-      y: visibleLegendItems > MAX_NEAT_HORIZONTAL_LEGEND_ITEMS ? -0.5 : -0.2,
+      y: visibleLegendItems > MAX_NEAT_HORIZONTAL_LEGEND_ITEMS ? -0.7 : -0.4,
       xanchor: 'center',
       x: 0.5,
       traceorder: 'reversed',
@@ -24,9 +31,11 @@ modebarButtons.toImage.click = (chartNode: PlotlyEnhancedHTMLElement) => {
   } else {
     chartNode.layout.legend = { ...defaultLegendOptions, orientation: 'v', y: 1, traceorder: 'reversed' };
   }
+
   onImageClick(chartNode);
   // reset edited chart configs
   chartNode.layout.title = { text: '' };
+  chartNode.layout.xaxis.title = xAxisTitle;
   chartNode.layout.legend = defaultLegendOptions;
   chartNode.layout.showlegend = showLegend;
 };

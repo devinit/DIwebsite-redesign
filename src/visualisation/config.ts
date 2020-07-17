@@ -37,6 +37,7 @@ modebarButtons.toImage.click = (chartNode: PlotlyEnhancedHTMLElement) => {
   // reset edited chart configs
   chartNode.layout.title = { text: '' };
   chartNode.layout.xaxis.title = xAxisTitle;
+  chartNode.layout.margin = { b: 80 };
   chartNode.layout.legend = defaultLegendOptions;
   chartNode.layout.showlegend = showLegend;
 };

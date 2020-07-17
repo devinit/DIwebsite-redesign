@@ -39,10 +39,10 @@ def other_pages_panel():
 
 def call_to_action_panel():
     return MultiFieldPanel([
-        FieldPanel('call_to_action_title', heading='Title'),
-        FieldPanel('call_to_action_body', heading='Description'),
-        FieldPanel('call_to_action_button_text', heading='Button Text'),
-        FieldPanel('call_to_action_button_url', heading='Button URL'),
+        FieldPanel('call_to_action_title'),
+        FieldPanel('call_to_action_body'),
+        FieldPanel('call_to_action_button_text'),
+        FieldPanel('call_to_action_button_url'),
     ], heading='Call to Action Section')
 
 

@@ -14,7 +14,13 @@ import {
 import { addLoading, removeLoading } from './loading';
 import { loadPlotlyCode } from './modules';
 import { addOptionsToSelectNode, createOptionsFromLegendData as createOptionsFromCalcData } from './options';
-import { moveTitleToMeta, setDefaultColorway, updateLayoutColorway, addHoverTemplateToTraces } from './styles';
+import {
+  removeTitle,
+  setDefaultColorway,
+  updateLayoutColorway,
+  addHoverTemplateToTraces,
+  addLayoutMeta,
+} from './styles';
 import { PlotlyConfig, PlotlyEnhancedHTMLElement, ChartOptions } from './types';
 
 type Aggregated = 'True' | 'False' | undefined;
@@ -28,16 +34,20 @@ const initChart = (wrapper: HTMLElement) => {
 
   if (chartNode) {
     const data = scriptNode ? JSON.parse(scriptNode.innerHTML) : null; // TODO: surround in try/catch
-    const url = chartNode.dataset.url;
-    const title = chartNode.dataset.title;
-    const aggregated = chartNode.dataset.aggregated as Aggregated;
-    const aggregationExcludes = chartNode.dataset.aggregationExcludes;
-    const aggregationIncludes = chartNode.dataset.aggregationIncludes;
-    const selectorIncludes = chartNode.dataset.selectorIncludes;
-    const selectorExcludes = chartNode.dataset.selectorExcludes;
-    const aggregateOptionLabel = chartNode.dataset.aggregateOptionLabel;
-    const yAxisPrefix = chartNode.dataset.yAxisPrefix;
-    const yAxisSuffix = chartNode.dataset.yAxisSuffix;
+    const {
+      aggregated,
+      aggregationExcludes,
+      aggregationIncludes,
+      url,
+      title,
+      selectorIncludes,
+      selectorExcludes,
+      aggregateOptionLabel,
+      yAxisPrefix,
+      yAxisSuffix,
+      imageCaption,
+      source,
+    } = chartNode.dataset;
     const minWidth = chartNode.dataset.minWidth ? parseInt(chartNode.dataset.minWidth) : 400; // TODO: use a constant
     const chartOptions: ChartOptions = {
       title,
@@ -49,6 +59,8 @@ const initChart = (wrapper: HTMLElement) => {
       aggregateOptionLabel,
       yAxisPrefix,
       yAxisSuffix,
+      imageCaption,
+      source,
     };
 
     const init = async () => {
@@ -116,7 +128,8 @@ const initStaticChart = async (element: HTMLElement, chartConfig: PlotlyConfig, 
 
     const { react, relayout } = await loadPlotlyCode(data);
     removeLoading(element);
-    moveTitleToMeta(layout, options.title);
+    removeTitle(layout);
+    addLayoutMeta(layout, options);
     addHoverTemplateToTraces(data);
     setDefaultColorway(layout);
     addPrefixAndSuffix(data, options);
@@ -149,7 +162,8 @@ const initSelectableChart = async (
     setDefaultTraceVisibility(data, chartOptions);
 
     removeLoading(chartNode);
-    moveTitleToMeta(layout, chartOptions.title);
+    removeTitle(layout);
+    addLayoutMeta(layout, chartOptions);
     addHoverTemplateToTraces(data);
     addPrefixAndSuffix(data, chartOptions);
     setDefaultColorway(layout);

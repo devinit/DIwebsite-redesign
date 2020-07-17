@@ -65,3 +65,11 @@ class ChartOptionsMixin(models.Model):
     y_axis_suffix = models.CharField(
         null=True, blank=True, max_length=200, help_text='Optional: e.g. %, degrees e.t.c'
     )
+    image_caption = models.TextField(
+        null=True, blank=True,
+        help_text='Optional: appears in the image download at the bottom of the chart. If blank, the chart title is used instead'
+    )
+    source = models.TextField(
+        null=True, blank=True,
+        help_text='Optional: appears in the image download at the bottom of the chart'
+    )

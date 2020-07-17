@@ -11,7 +11,9 @@ def ChartOptionsPanel():
         FieldPanel('aggregation_excludes', classname='full'),
         FieldPanel('aggregate_option_label', classname='full full-custom'),
         FieldPanel('y_axis_prefix', heading='Y-axis prefix'),
-        FieldPanel('y_axis_suffix', heading='Y-axis suffix')
+        FieldPanel('y_axis_suffix', heading='Y-axis suffix'),
+        FieldPanel('image_caption'),
+        FieldPanel('source')
     ], heading='Chart options')
 
 

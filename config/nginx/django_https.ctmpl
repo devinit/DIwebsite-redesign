@@ -13,12 +13,8 @@ server {
     client_max_body_size 10M;
 
    location / {
-        proxy_read_timeout 600;
-        proxy_buffering off;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header Host $http_host;
-        proxy_redirect off;
-        proxy_set_header X-Forwarded-Proto $scheme;
+        add_header Pragma no-cache;
+        add_header Cache-Control no-cache;
         {{ with $key_value := keyOrDefault "deploy/backend" "blue" }}
             {{ if or (eq $key_value "blue") (eq $key_value "green") }}
                 proxy_pass http://{{ $key_value }};
@@ -26,6 +22,12 @@ server {
                 proxy_pass http://blue;
             {{ end }}
         {{ end }}
+        proxy_read_timeout 600;
+        proxy_buffering off;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $http_host;
+        proxy_redirect off;
+        proxy_set_header X-Forwarded-Proto $scheme;
     }
 
     error_page 404 /404-static.html;

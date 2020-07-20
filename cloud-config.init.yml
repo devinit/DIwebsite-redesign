@@ -26,8 +26,7 @@ users:
       # $ cat ~/.ssh/id_rsa.pub
     - <ssh-rsa>
     sudo: ['ALL=(ALL) NOPASSWD:ALL']
-    primary-group: docker
-    groups: sudo
+    groups: sudo, docker
     shell: /bin/bash
 
 packages:
@@ -59,6 +58,8 @@ write_files:
          AcceptEnv DEFAULT_FROM_EMAIL
 
 runcmd:
+  - mkdir -p /home/<user>/.ssh && chmod 0700 /home/<user>/.ssh
+  - ssh-keyscan -H github.com >> /home/<user>/.ssh/known_hosts
   - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
   - add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
   - apt-get update -y
@@ -68,4 +69,4 @@ runcmd:
   - curl -L "https://github.com/docker/compose/releases/download/1.25.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
   - chmod +x /usr/local/bin/docker-compose
   - service ssh restart
-  - ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+

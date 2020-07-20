@@ -23,7 +23,7 @@ import {
 } from './styles';
 import { PlotlyConfig, PlotlyEnhancedHTMLElement, ChartOptions } from './types';
 
-type Aggregated = 'True' | 'False' | undefined;
+// type Aggregated = 'True' | 'False' | undefined;
 
 const initChart = (wrapper: HTMLElement) => {
   const chartNode = wrapper.getElementsByClassName('js-plotly-chart')[0] as HTMLDivElement | undefined;
@@ -188,7 +188,7 @@ const initSelectableChart = async (
             return showTrace !== null ? showTrace : true;
           }
 
-          return name === value;
+          return name.trim() === value.trim();
         };
         const updatedData = showTraceByCondition(plot.data, condition);
         react(chartNode, updatedData, layout, config);

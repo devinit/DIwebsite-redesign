@@ -1,0 +1,72 @@
+#cloud-config
+# ^ the line above must be kept exactly as is
+# Digital Ocean droplet creation using User Data Cloud-Init 
+# ------------------------------------------------------------------------------
+# 1. Change '<user>' to your custom username, this is used for ssh login
+# 2. Change '<ssh-rsa>' public key under `ssh-authorized-keys:`
+# ------------------------------------------------------------------------------
+# To access the droplet, run:
+# $ ssh -i ~/.ssh/id_rsa <user>@<IP_ADDRESS> -p <SSH_PORT>
+# ------------------------------------------------------------------------------
+# Create new user with sudo privilege to replace root user login
+package_update: true
+package_upgrade: true
+package_reboot_if_required: true
+
+groups:
+    - docker
+
+users:
+  - name: <user>
+    lock_passwd: true
+    ssh-authorized-keys:
+      # public keys from SSH key files used to access the droplet
+      # generate an ssh key if you dont have one already using: ssh-keygen -t rsa -b 4096 -C "email@domain.tld"
+      # To get the contents of your public key of your local computer, run:
+      # $ cat ~/.ssh/id_rsa.pub
+    - <ssh-rsa>
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    groups: sudo, docker
+    shell: /bin/bash
+
+packages:
+  - apt-transport-https
+  - ca-certificates
+  - curl
+  - gnupg-agent
+  - software-properties-common
+  - unattended-upgrades
+
+write_files:
+  - path: /etc/ssh/sshd_config
+    content: |
+         PermitRootLogin yes
+         PasswordAuthentication no
+         ChallengeResponseAuthentication no
+         UsePAM yes
+         X11Forwarding yes
+         PrintMotd no
+         AcceptEnv LANG LC_*
+         AcceptEnv EMAIL_*
+         Subsystem sftp /usr/lib/openssh/sftp-server
+         AcceptEnv ELASTIC_*
+         AcceptEnv DATABASE_URL
+         AcceptEnv HS_*
+         AcceptEnv CELERY_BROKER_URL
+         AcceptEnv RABBITMQ_PASSWORD
+         AcceptEnv BRANCH
+         AcceptEnv DEFAULT_FROM_EMAIL
+
+runcmd:
+  - mkdir -p /home/<user>/.ssh && chmod 0700 /home/<user>/.ssh
+  - ssh-keyscan -H github.com >> /home/<user>/.ssh/known_hosts
+  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+  - add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+  - apt-get update -y
+  - apt-get install -y docker-ce docker-ce-cli containerd.io
+  - systemctl start docker
+  - systemctl enable docker
+  - curl -L "https://github.com/docker/compose/releases/download/1.25.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+  - chmod +x /usr/local/bin/docker-compose
+  - service ssh restart
+

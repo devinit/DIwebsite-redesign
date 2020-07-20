@@ -96,7 +96,7 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./config/nginx:/etc/nginx/conf.d
+      # - ./config/nginx:/etc/nginx/conf.d
       - ./assets:/assets
       - ./storage:/media
       - ./ssl:/etc/ssl/

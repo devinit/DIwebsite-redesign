@@ -143,3 +143,4 @@ server {
         return 301 https://devinit.org/data/;
     }
 }
+include config/nginx/django_https.ctmpl;

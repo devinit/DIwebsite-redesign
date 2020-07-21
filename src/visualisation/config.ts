@@ -1,5 +1,6 @@
 import { Config } from 'plotly.js';
 import { PlotlyEnhancedHTMLElement } from './types';
+import { onChartDownload } from './analytics';
 const modebarButtons = require('plotly.js/src/components/modebar/buttons'); // eslint-disable-line
 
 const MAX_VERTICAL_LEGEND_ITEMS = 25;
@@ -34,6 +35,7 @@ modebarButtons.toImage.click = (chartNode: PlotlyEnhancedHTMLElement) => {
   }
 
   onImageClick(chartNode);
+  onChartDownload(chartNode.dataset.title || window.location.href, chartNode.dataset.shareLink);
   // reset edited chart configs
   chartNode.layout.title = { text: '' };
   chartNode.layout.xaxis.title = xAxisTitle;

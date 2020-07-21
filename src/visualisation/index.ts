@@ -1,7 +1,6 @@
 import 'core-js/stable';
 import debounce from 'debounce';
 import 'isomorphic-fetch';
-import { PlotlyHTMLElement } from 'plotly.js';
 import 'regenerator-runtime/runtime';
 import { config } from './config';
 import {
@@ -22,6 +21,7 @@ import {
   addLayoutMeta,
 } from './styles';
 import { PlotlyConfig, PlotlyEnhancedHTMLElement, ChartOptions } from './types';
+import * as analytics from './analytics';
 
 // type Aggregated = 'True' | 'False' | undefined;
 
@@ -172,9 +172,10 @@ const initSelectableChart = async (
       data = [traces[0]];
     }
 
-    const updatePlot = (event: Event, plot: PlotlyHTMLElement & { data: Plotly.Data[] }) => {
+    const updatePlot = (event: Event, plot: PlotlyEnhancedHTMLElement & { data: Plotly.Data[] }) => {
       if (event.target) {
         const value = (event.target as HTMLSelectElement).value;
+        analytics.onOptionSelected(value, chartOptions.title || window.location.href, plot.dataset.shareLink);
         if (isTreemap) {
           data = getTreemapDataByLabel(traces, selectNode.value);
           react(chartNode, data, layout);

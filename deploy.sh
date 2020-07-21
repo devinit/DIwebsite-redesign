@@ -190,9 +190,7 @@ function start_link_checker_processes {
 function enable_https_configs {
 
     if [ "$ENVIRONMENT" == 'production' ]; then
-        echo 'include /etc/consul-templates/django_https.ctmpl' >> $APP_DIR"/config/nginx/django.conf.ctmpl"
-       
-       
+        cat "/etc/consul-templates/django_https.ctmpl" >> $APP_DIR"/config/nginx/django.conf.ctmpl"       
     fi
 }
 

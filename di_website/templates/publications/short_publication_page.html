@@ -25,6 +25,14 @@
                 </div>
               {% endif %}
             </div>
+          {% else %}
+            {% if page.call_to_action_title %}
+              <div class="max-meter max-meter--center">
+                <div class="space-section-both">
+                  {% include 'includes/partials/call-to-action.html' %}
+                </div>
+              </div>
+            {% endif %}
           {% endif %}
         {% endif %}
 

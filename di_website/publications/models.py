@@ -498,7 +498,8 @@ class PublicationForewordPage(HeroMixin, ReportChildMixin, FlexibleContentMixin,
             heading='Data downloads',
             description='Optional: data download for this foreword.',
             max_num=1,
-        )
+        ),
+        InlinePanel('publication_related_links', label='Related links', max_num=MAX_RELATED_LINKS),
     ]
 
     @cached_property
@@ -524,6 +525,14 @@ class PublicationForewordPage(HeroMixin, ReportChildMixin, FlexibleContentMixin,
     @cached_property
     def data_downloads_list(self):
         return get_downloads(self, with_parent=False, data=True)
+
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+
+        context['related_pages'] = get_related_pages(
+            self, self.publication_related_links.all(), PublicationForewordPage.objects)
+
+        return context
 
 
 class PublicationSummaryPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin, UniqueForParentPageMixin, UUIDMixin, FilteredDatasetMixin, Page):

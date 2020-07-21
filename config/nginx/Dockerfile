@@ -11,7 +11,6 @@ ADD nginx.service /etc/service/nginx/run
 ADD consul-template.service /etc/service/consul-template/run
 RUN mkdir /etc/consul-templates
 ADD django.conf.ctmpl /etc/consul-templates
-ADD django_https.ctmpl /etc/consul-templates
 RUN chmod +x /etc/service/nginx/run && chmod +x /etc/service/consul-template/run
 RUN rm /etc/nginx/conf.d/default.conf
 

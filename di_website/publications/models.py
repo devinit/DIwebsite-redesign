@@ -579,7 +579,6 @@ class PublicationSummaryPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
             DocumentChooserPanel('report_download')
         ], heading='Report download section'),
         InlinePanel('page_notifications', label='Notifications'),
-        InlinePanel('publication_related_links', label='Related links', max_num=MAX_RELATED_LINKS),
     ]
 
     @cached_property

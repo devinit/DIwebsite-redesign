@@ -257,9 +257,8 @@ class DatasetPage(DataSetMixin, TypesetBodyMixin, HeroMixin, Page):
     def get_context(self, request):
         context = super().get_context(request)
 
-        content_type = ContentType.objects.get_for_model(DatasetPage)
         context['topics'] = Tag.objects.filter(
-                datasection_datasettopic_items__content_object__content_type=content_type
+                datasection_datasettopic_items__content_object=self
             ).distinct().order_by('name')
         context['related_datasets'] = get_related_dataset_pages(
             self.related_datasets.all(), self)
@@ -376,9 +375,8 @@ class FigurePage(DataSetMixin, TypesetBodyMixin, HeroMixin, Page):
     def get_context(self, request):
         context = super().get_context(request)
 
-        content_type = ContentType.objects.get_for_model(DatasetPage)
         context['topics'] = Tag.objects.filter(
-                models.Q(datasection_figuretopic_items__content_object__content_type=content_type)
+                models.Q(datasection_figuretopic_items__content_object=self)
             ).distinct()
         context['related_figures'] = get_related_dataset_pages(
             self.related_figures.all(), self)

@@ -174,9 +174,12 @@
             display: none;
         }
     }
-    .l-banner__aside & {
-        margin-left: 3em;
-        @include respond-to($c-vp) {
+}
+
+.l-banner__aside .banner__buttons {
+    margin-left: 2em;
+    @include respond-to($c-vp) {
+        .l-banner--reverse & {
             margin-left: -2em;
         }
     }

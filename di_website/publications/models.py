@@ -1111,7 +1111,7 @@ class ShortPublicationPage(HeroMixin, PublishedDateMixin, FlexibleContentMixin, 
         return context
 
 
-class AudioVisualMedia(PublishedDateMixin, TypesetBodyMixin, HeroMixin, ParentPageSearchMixin, SectionBodyMixin, Page):
+class AudioVisualMedia(PublishedDateMixin, TypesetBodyMixin, HeroMixin, ParentPageSearchMixin, SectionBodyMixin, CallToActionMixin, Page):
 
     """
     Audio Visual page to be used as a child of the Resources Index Page
@@ -1140,6 +1140,7 @@ class AudioVisualMedia(PublishedDateMixin, TypesetBodyMixin, HeroMixin, ParentPa
     content_panels = Page.content_panels + [
         hero_panels(),
         StreamFieldPanel('participants'),
+        call_to_action_panel(),
         StreamFieldPanel('body'),
         StreamFieldPanel('sections'),
         FieldPanel('publication_type'),

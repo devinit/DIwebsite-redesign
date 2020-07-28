@@ -28,7 +28,7 @@ class PublicationSummaryPageDataDownloads(Orderable, DataDownloadItem):
     item = ParentalKey('PublicationSummaryPage', related_name='data_downloads')
 
 
-class PublicationForewordPageDataDownloads(Orderable, DownloadItem):
+class PublicationForewordPageDataDownloads(Orderable, DataDownloadItem):
     item = ParentalKey('PublicationForewordPage', related_name='data_downloads')
 
 

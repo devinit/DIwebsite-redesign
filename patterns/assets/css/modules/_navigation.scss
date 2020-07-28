@@ -483,13 +483,16 @@
 	&:after {
 		content: '';
 		position: absolute;
-		right: 50%;
+		right: 0;
 		top: 0;
 		width: 30px;
 		height: 100%;
 		background: $cloud;
 		transition: $transition;
 		transition-delay: 0ms;
+		@include respond-to($menu-respond) {
+			right: 50%;
+		}
 		html.no-js & {
 			display: none;
 		}

@@ -886,10 +886,16 @@ a.m-stat {
         font-size: 80%;
         margin-left: 1px;
     }
+    a {
+        word-wrap: break-word;
+        word-break: break-word;
+        text-decoration: underline;
+    }
 }
 
 .footnotes__link {
-    word-break: break-all;
+    word-wrap: break-word;
+    word-break: break-word;
     text-decoration: underline;
 }
 

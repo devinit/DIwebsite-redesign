@@ -43,7 +43,7 @@ def call_to_action_panel():
         FieldPanel('call_to_action_body'),
         FieldPanel('call_to_action_button_text'),
         FieldPanel('call_to_action_button_url'),
-    ], heading='Call to Action Section')
+    ], heading='Call to Action Section', classname='collapsible collapsed')
 
 
 def get_paginator_range(paginator, page):

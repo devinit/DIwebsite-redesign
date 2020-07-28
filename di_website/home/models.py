@@ -237,6 +237,7 @@ class HomePage(HomePageMetaData, SectionBodyMixin, Page):
                 'publications.PublicationPage',
                 'publications.ShortPublicationPage',
                 'publications.LegacyPublicationPage',
+                'publications.AudioVisualMedia',
                 'news.NewsStoryPage',
                 'blog.BlogArticlePage',
                 'events.EventPage',

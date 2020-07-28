@@ -2,7 +2,7 @@
 
 <section class="section">
     <div class="row row--narrow">
-        <div class="max-meter{% if self.center %} max-meter--center{% endif %}">
+        <div class="max-meter{% if self.center or center %} max-meter--center{% endif %}">
             <div class="is-typeset wysiwyg">
                 {{ self.text|content }}
             </div>

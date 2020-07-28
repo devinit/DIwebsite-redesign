@@ -7,19 +7,6 @@
 {% endblock hero %}
 
 {% block body %}
-    <section class="section">
-        <div class="row row--narrow">
-            <div class="l-sidebar">
-                <div class="l-sidebar__body">
-                    <div class="is-typeset wysiwyg">
-                        {% for block in page.body %}
-                            {% include_block block %}
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
     {% if page.call_to_action_title %}
       <section class="section section--post">
         <div class="row row--narrow">
@@ -30,6 +17,17 @@
       </section>
     {% endif %}
 
+    <section class="section">
+        <div class="row row--narrow">
+            <div class="max-meter max-meter--center">
+              <div class="is-typeset wysiwyg">
+                {% for block in page.body %}
+                    {% include_block block %}
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
     {% for section in page.sections %}
         {% if section.block_type == 'audio_block' %}
           <section class="section">
@@ -38,7 +36,7 @@
             </div>
           </section>
         {% else %}
-            {% include_block section %}
+            {% include_block section with center=True %}
         {% endif %}
     {% endfor %}
 

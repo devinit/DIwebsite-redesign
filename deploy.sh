@@ -189,7 +189,7 @@ function start_link_checker_processes {
 
 function enable_https_configs {
 
-    if [ "$ENVIRONMENT" == 'production' ]; then
+    if [ "$ENVIRONMENT" == 'testing' ]; then
         cat "$APP_DIR/config/nginx/django_https.ctmpl" >> $APP_DIR"/config/nginx/django.conf.ctmpl"
        
     fi

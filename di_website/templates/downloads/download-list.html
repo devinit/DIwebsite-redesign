@@ -2,8 +2,10 @@
 
 {% if page.publication_downloads_list or page.data_downloads_list or page.filtered_datasets %}
     <div class="download">
+        {% if page.publication_downloads_list or page.data_downloads_list or page.filtered_datasets %}
+          <h2 class="type-m type-s--trailer">{{ page.publication_downloads_title }}</h2>
+        {% endif %}
         {% if page.publication_downloads_list %}
-            <h2 class="type-m type-s--trailer">{{ page.publication_downloads_title }}</h2>
             <ul class="download__list">
                 {% for group, downloads in page.publication_downloads_list %}
                     <li class="download__item">
@@ -20,7 +22,6 @@
             </ul>
         {% endif %}
         {% if page.data_downloads_list or page.filtered_datasets %}
-            <h2 class="type-m type-s--trailer space-section-top--small">{{ page.data_downloads_title }}</h2>
             <ul class="download__list">
                 {% if page.data_downloads_list %}
                     {% for group, downloads in page.data_downloads_list %}

@@ -3,6 +3,8 @@ from collections import defaultdict
 from django.db import models
 
 from wagtail.admin.edit_handlers import StreamFieldPanel, FieldPanel
+from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.documents.edit_handlers import DocumentChooserPanel
 
 from .edit_handlers import MultiFieldPanel
 
@@ -65,6 +67,15 @@ def PublishedDatePanel():
 
 def UUIDPanel():
     return FieldPanel('uuid')
+
+
+def ReportDownloadPanel():
+    return MultiFieldPanel([
+        FieldPanel('download_report_title'),
+        FieldPanel('download_report_body'),
+        ImageChooserPanel('download_report_cover'),
+        DocumentChooserPanel('report_download')
+    ], heading='Report download section')
 
 
 def ForeignKeyField(model=None, required=False, on_delete=models.SET_NULL, related_name='+', **kwargs) -> models.ForeignKey:

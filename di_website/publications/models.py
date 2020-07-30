@@ -39,10 +39,10 @@ from di_website.downloads.utils import DownloadsPanel
 from .edit_handlers import MultiFieldPanel
 from .inlines import *
 from .mixins import (
-    FilteredDatasetMixin, FlexibleContentMixin, LegacyPageSearchMixin, PageSearchMixin,
-    ParentPageSearchMixin, PublishedDateMixin,ReportChildMixin, UniqueForParentPageMixin, UUIDMixin)
+    FilteredDatasetMixin, FlexibleContentMixin, LegacyPageSearchMixin, PageSearchMixin, ParentPageSearchMixin,
+    PublishedDateMixin, ReportChildMixin, ReportDownloadMixin, UniqueForParentPageMixin, UUIDMixin)
 from .utils import (
-    ContentPanel, PublishedDatePanel, UUIDPanel, WagtailImageField,
+    ContentPanel, PublishedDatePanel, ReportDownloadPanel, UUIDPanel, WagtailImageField,
     get_downloads, get_first_child_of_type, get_ordered_children_of_type)
 
 RED = 'poppy'
@@ -318,7 +318,9 @@ class PublicationIndexPage(HeroMixin, Page):
         verbose_name = 'Resources Index Page'
 
 
-class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUIDMixin, FilteredDatasetMixin, CallToActionMixin, Page):
+class PublicationPage(
+    HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUIDMixin,
+    FilteredDatasetMixin, CallToActionMixin, ReportDownloadMixin, Page):
 
     class Meta:
         verbose_name = 'Publication Page'
@@ -352,18 +354,6 @@ class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUID
         PublicationType, related_name="+", null=True, blank=False, on_delete=models.SET_NULL, verbose_name="Resource Type")
     topics = ClusterTaggableManager(through=PublicationTopic, blank=True, verbose_name="Topics")
 
-    download_report_cover = WagtailImageField()
-    download_report_title = models.CharField(max_length=255, null=True, blank=True, default="Download this report")
-    download_report_body = models.TextField(null=True, blank=True)
-    download_report_button_text = models.CharField(max_length=255, null=True, blank=True, default="Download now")
-    report_download = models.ForeignKey(
-        'wagtaildocs.Document',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+'
-    )
-
     content_panels = Page.content_panels + [
         FieldPanel('colour'),
         hero_panels(),
@@ -383,12 +373,7 @@ class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUID
             heading='Data downloads',
             description='Optional: data download for this report.'
         ),
-        MultiFieldPanel([
-            FieldPanel('download_report_title'),
-            FieldPanel('download_report_body'),
-            ImageChooserPanel('download_report_cover'),
-            DocumentChooserPanel('report_download')
-        ], heading='Report download section'),
+        ReportDownloadPanel(),
         UUIDPanel(),
         InlinePanel('page_notifications', label='Notifications'),
         InlinePanel('publication_related_links', label='Related links', max_num=MAX_RELATED_LINKS),
@@ -475,7 +460,9 @@ class PublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUID
         return context
 
 
-class PublicationForewordPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin, UniqueForParentPageMixin, UUIDMixin, FilteredDatasetMixin, Page):
+class PublicationForewordPage(
+    HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin, UniqueForParentPageMixin,
+    UUIDMixin, FilteredDatasetMixin, ReportDownloadMixin, Page):
     class Meta:
         verbose_name = 'Publication Foreword'
 
@@ -499,7 +486,9 @@ class PublicationForewordPage(HeroMixin, ReportChildMixin, FlexibleContentMixin,
             description='Optional: data download for this foreword.',
             max_num=1,
         ),
+        ReportDownloadPanel(),
         InlinePanel('publication_related_links', label='Related links', max_num=MAX_RELATED_LINKS),
+        InlinePanel('page_notifications', label='Notifications')
     ]
 
     @cached_property
@@ -535,7 +524,9 @@ class PublicationForewordPage(HeroMixin, ReportChildMixin, FlexibleContentMixin,
         return context
 
 
-class PublicationSummaryPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin, UniqueForParentPageMixin, UUIDMixin, FilteredDatasetMixin, Page):
+class PublicationSummaryPage(
+    HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin, UniqueForParentPageMixin,
+    UUIDMixin, FilteredDatasetMixin, ReportDownloadMixin, Page):
 
     class Meta:
         verbose_name = 'Publication Summary'
@@ -545,18 +536,6 @@ class PublicationSummaryPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
     subpage_types = []
 
     colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=RED)
-
-    download_report_cover = WagtailImageField()
-    download_report_title = models.CharField(max_length=255, null=True, blank=True, default="Download this report")
-    download_report_body = models.TextField(null=True, blank=True)
-    download_report_button_text = models.CharField(max_length=255, null=True, blank=True, default="Download now")
-    report_download = models.ForeignKey(
-        'wagtaildocs.Document',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+'
-    )
 
     content_panels = Page.content_panels + [
         FieldPanel('colour'),
@@ -572,12 +551,7 @@ class PublicationSummaryPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
             heading='Data downloads',
             description='Optional: data download for this summary.'
         ),
-        MultiFieldPanel([
-            FieldPanel('download_report_title'),
-            FieldPanel('download_report_body'),
-            ImageChooserPanel('download_report_cover'),
-            DocumentChooserPanel('report_download')
-        ], heading='Report download section'),
+        ReportDownloadPanel(),
         InlinePanel('page_notifications', label='Notifications'),
     ]
 
@@ -626,7 +600,9 @@ class PublicationSummaryPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
         return sections
 
 
-class PublicationChapterPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin, UUIDMixin, FilteredDatasetMixin, Page):
+class PublicationChapterPage(
+    HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin,
+    UUIDMixin, FilteredDatasetMixin, ReportDownloadMixin, Page):
 
     class Meta:
         verbose_name = 'Publication Chapter'
@@ -638,18 +614,6 @@ class PublicationChapterPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
         choices=[(i, num2words(i).title()) for i in range(1, 21)]
     )
     colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=RED)
-
-    download_report_cover = WagtailImageField()
-    download_report_title = models.CharField(max_length=255, null=True, blank=True, default="Download this report")
-    download_report_body = models.TextField(null=True, blank=True)
-    download_report_button_text = models.CharField(max_length=255, null=True, blank=True, default="Download now")
-    report_download = models.ForeignKey(
-        'wagtaildocs.Document',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+'
-    )
 
     content_panels = Page.content_panels + [
         FieldPanel('colour'),
@@ -672,12 +636,7 @@ class PublicationChapterPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
             heading='Data downloads',
             description='Optional: data download for this chapter.'
         ),
-        MultiFieldPanel([
-            FieldPanel('download_report_title'),
-            FieldPanel('download_report_body'),
-            ImageChooserPanel('download_report_cover'),
-            DocumentChooserPanel('report_download')
-        ], heading='Report download section'),
+        ReportDownloadPanel(),
         InlinePanel('page_notifications', label='Notifications'),
         InlinePanel('publication_related_links', label='Related links', max_num=MAX_RELATED_LINKS),
     ]
@@ -744,7 +703,9 @@ class PublicationChapterPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, 
         return context;
 
 
-class PublicationAppendixPage(HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin, UUIDMixin, FilteredDatasetMixin, Page):
+class PublicationAppendixPage(
+    HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin,
+    UUIDMixin, FilteredDatasetMixin, ReportDownloadMixin, Page):
 
     class Meta:
         verbose_name = 'Publication Appendix'
@@ -757,18 +718,6 @@ class PublicationAppendixPage(HeroMixin, ReportChildMixin, FlexibleContentMixin,
         choices=[(i, num2words(i).title()) for i in range(1, 21)]
     )
     colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=RED)
-
-    download_report_cover = WagtailImageField()
-    download_report_title = models.CharField(max_length=255, null=True, blank=True, default="Download this report")
-    download_report_body = models.TextField(null=True, blank=True)
-    download_report_button_text = models.CharField(max_length=255, null=True, blank=True, default="Download now")
-    report_download = models.ForeignKey(
-        'wagtaildocs.Document',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+'
-    )
 
     content_panels = Page.content_panels + [
         FieldPanel('colour'),
@@ -791,12 +740,7 @@ class PublicationAppendixPage(HeroMixin, ReportChildMixin, FlexibleContentMixin,
             heading='Data downloads',
             description='Optional: data download for this appendix page.'
         ),
-        MultiFieldPanel([
-            FieldPanel('download_report_title'),
-            FieldPanel('download_report_body'),
-            ImageChooserPanel('download_report_cover'),
-            DocumentChooserPanel('report_download')
-        ], heading='Report download section'),
+        ReportDownloadPanel(),
         InlinePanel('page_notifications', label='Notifications'),
         InlinePanel('publication_related_links', label='Related links', max_num=MAX_RELATED_LINKS),
     ]
@@ -854,7 +798,7 @@ class PublicationAppendixPage(HeroMixin, ReportChildMixin, FlexibleContentMixin,
         return sections
 
 
-class LegacyPublicationPage(HeroMixin, PublishedDateMixin, LegacyPageSearchMixin, FilteredDatasetMixin, CallToActionMixin, Page):
+class LegacyPublicationPage(HeroMixin, PublishedDateMixin, LegacyPageSearchMixin, FilteredDatasetMixin, CallToActionMixin, ReportDownloadMixin, Page):
 
     class Meta:
         verbose_name = 'Legacy Publication'
@@ -891,18 +835,6 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, LegacyPageSearchMixin
         help_text='Optimal minimum size 800x400px',
     )
 
-    download_report_cover = WagtailImageField()
-    download_report_title = models.CharField(max_length=255, null=True, blank=True, default="Download this report")
-    download_report_body = models.TextField(null=True, blank=True)
-    download_report_button_text = models.CharField(max_length=255, null=True, blank=True, default="Download now")
-    report_download = models.ForeignKey(
-        'wagtaildocs.Document',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+'
-    )
-
     content_panels = Page.content_panels + [
         FieldPanel('colour'),
         hero_panels(),
@@ -922,12 +854,7 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, LegacyPageSearchMixin
             heading='Data downloads',
             description='Optional: data download for this legacy report.'
         ),
-        MultiFieldPanel([
-            FieldPanel('download_report_title'),
-            FieldPanel('download_report_body'),
-            ImageChooserPanel('download_report_cover'),
-            DocumentChooserPanel('report_download')
-        ], heading='Report download section'),
+        ReportDownloadPanel(),
         MultiFieldPanel(
             [
                 FieldPanel('content'),
@@ -974,7 +901,9 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, LegacyPageSearchMixin
         return context;
 
 
-class ShortPublicationPage(HeroMixin, PublishedDateMixin, FlexibleContentMixin, PageSearchMixin, UUIDMixin, FilteredDatasetMixin, CallToActionMixin, Page):
+class ShortPublicationPage(
+    HeroMixin, PublishedDateMixin, FlexibleContentMixin, PageSearchMixin,
+    UUIDMixin, FilteredDatasetMixin, CallToActionMixin, ReportDownloadMixin, Page):
 
     class Meta:
         verbose_name = 'Short Publication'
@@ -1000,18 +929,6 @@ class ShortPublicationPage(HeroMixin, PublishedDateMixin, FlexibleContentMixin, 
         PublicationType, related_name="+", null=True, blank=False, on_delete=models.SET_NULL, verbose_name="Resource Type")
     topics = ClusterTaggableManager(through=ShortPublicationTopic, blank=True, verbose_name="Topics")
 
-    download_report_cover = WagtailImageField()
-    download_report_title = models.CharField(max_length=255, null=True, blank=True, default="Download this report")
-    download_report_body = models.TextField(null=True, blank=True)
-    download_report_button_text = models.CharField(max_length=255, null=True, blank=True, default="Download now")
-    report_download = models.ForeignKey(
-        'wagtaildocs.Document',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+'
-    )
-
     content_panels = Page.content_panels + [
         FieldPanel('colour'),
         hero_panels(),
@@ -1032,12 +949,7 @@ class ShortPublicationPage(HeroMixin, PublishedDateMixin, FlexibleContentMixin, 
             heading='Data downloads',
             description='Optional: data download for this chapter.'
         ),
-        MultiFieldPanel([
-            FieldPanel('download_report_title'),
-            FieldPanel('download_report_body'),
-            ImageChooserPanel('download_report_cover'),
-            DocumentChooserPanel('report_download')
-        ], heading='Report download section'),
+        ReportDownloadPanel(),
         InlinePanel('page_notifications', label='Notifications'),
         InlinePanel('publication_related_links', label='Related links', max_num=MAX_RELATED_LINKS),
     ]

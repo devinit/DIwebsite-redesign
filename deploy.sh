@@ -176,7 +176,7 @@ function start_link_checker_processes {
         docker-compose exec -T rabbitmq rabbitmqctl set_user_tags di_website di_website
         docker-compose exec -T rabbitmq rabbitmqctl set_permissions -p myvhost di_website ".*" ".*" ".*"
     fi
-  
+
 
     start_new_process "Starting celery"
     docker-compose exec -T ${new_state} chown root '/etc/default/celeryd'
@@ -188,10 +188,14 @@ function start_link_checker_processes {
 }
 
 function enable_https_configs {
-
-    if [ "$ENVIRONMENT" == 'production' ]; then
-        cat "$APP_DIR/config/nginx/django_https.ctmpl" >> $APP_DIR"/config/nginx/django.conf.ctmpl"
-       
+    https_content="listen 443 ssl;"
+    if [ "$ENVIRONMENT" == 'production' ]
+    then
+        if grep -q "${https_content}" $APP_DIR"/config/nginx/django.conf.ctmpl"; then
+            echo "ssl config already exists"
+        else
+            cat "$APP_DIR/config/nginx/django_https.ctmpl" >> $APP_DIR"/config/nginx/django.conf.ctmpl"
+        fi
     fi
 }
 
@@ -276,7 +280,7 @@ then
     #run this script within this subprocess
     chmod +x scripts/*
     source scripts/init.sh
-    docker-compose -f docker-compose-consul.yml up -d 
+    docker-compose -f docker-compose-consul.yml up -d
     setup_blue_green_deployment
     start_link_checker_processes
     elastic_search_reindex
@@ -284,7 +288,7 @@ then
     start_new_process "Generating static assets"
     docker-compose exec -T ${new_state} python manage.py collectstatic --noinput
     sudo chown -R di_website:di_website assets
- 
+
     exit 0
 
 

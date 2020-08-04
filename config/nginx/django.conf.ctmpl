@@ -131,6 +131,10 @@ server {
 
     server_name data.devinit.org;
 
+    location '/.well-known/acme-challenge' {
+        root /letsencrypt;
+    }
+
     location /spotlight-on-uganda {
         return 301 https://devinit.org/data/spotlights-on-kenya-and-uganda/spotlight-uganda/;
     }

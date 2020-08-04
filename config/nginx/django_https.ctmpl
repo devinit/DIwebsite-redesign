@@ -8,11 +8,11 @@ server {
     ssl_ciphers HIGH:!aNULL:!eNULL:!EXPORT:!CAMELLIA:!DES:!MD5:!PSK:!RC4;
     ssl_prefer_server_ciphers on;
 
-    server_name staging.devinit.org 159.65.56.142;
+    server_name www.devinit.org devinit.org;
 
     client_max_body_size 10M;
 
-   location / {
+    location / {
         add_header Pragma no-cache;
         add_header Cache-Control no-cache;
         {{ with $key_value := keyOrDefault "deploy/backend" "blue" }}
@@ -89,5 +89,30 @@ server {
 
     location /static {
         proxy_pass http://spotlights;
+    }
+}
+
+server {
+    listen 443 ssl;
+    ssl on;
+    ssl_certificate /etc/ssl/fullchain.pem;
+    ssl_certificate_key /etc/ssl/privkey.pem;
+    ssl_session_cache  builtin:1000  shared:SSL:10m;
+    ssl_protocols  TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers HIGH:!aNULL:!eNULL:!EXPORT:!CAMELLIA:!DES:!MD5:!PSK:!RC4;
+    ssl_prefer_server_ciphers on;
+
+    server_name data.devinit.org;
+
+    location /spotlight-on-uganda {
+        return 301 https://devinit.org/data/spotlights-on-kenya-and-uganda/spotlight-uganda/;
+    }
+
+    location /spotlight-on-kenya {
+        return 301 https://devinit.org/data/spotlights-on-kenya-and-uganda/spotlight-kenya/;
+    }
+
+    location / {
+        return 301 https://devinit.org/data/;
     }
 }

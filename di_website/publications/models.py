@@ -257,7 +257,7 @@ class PublicationIndexPage(HeroMixin, Page):
                     pub_children = reduce(operator.or_, [pub.get_children() for pub in stories]).live().specific().search(search_filter).annotate_score("_child_score")
                     if pub_children:
                         matching_parents = reduce(operator.or_, [stories.parent_of(child).annotate(_score=models.Value(child._child_score, output_field=models.FloatField())) for child in pub_children])
-                        stories = list(chain(stories.search(search_filter).annotate_score("_score"), matching_parents))
+                        stories = list(chain(stories.exclude(id__in=matching_parents.values_list('id', flat=True)).search(search_filter).annotate_score("_score"), matching_parents))
                     else:
                         stories = stories.search(search_filter).annotate_score("_score")
                 else:

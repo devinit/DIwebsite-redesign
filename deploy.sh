@@ -227,18 +227,6 @@ function setup_blue_green_deployment {
     # Check the new state container is ready
     echo "Check the ${new_state} container is ready"
     docker-compose run --rm --entrypoint /bin/bash ${new_state} ./scripts/wait-for-it.sh ${new_state}:8090 --timeout=60
-
-    #Check the new app
-    echo 'Check the new app'
-    status=$(docker-compose run --rm nginx curl ${new_upstream}:8090 -o /dev/null -Isw '%{http_code}')
-    if [[ ${status} != '200' ]]
-    then
-        echo "Bad HTTP response in the ${new_state} diwebsite-redesign_web: ${status}"
-        chmod +x scripts/reset.sh
-        ./scripts/reset.sh ${key_value_store} ${state}
-        exit 1
-    fi
-
     chmod +x ./scripts/activate.sh
     ./scripts/activate.sh ${new_state} ${state} ${new_upstream} ${key_value_store}
 

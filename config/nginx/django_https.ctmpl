@@ -10,7 +10,7 @@ server {
 
     server_name www.devinit.org devinit.org;
 
-    client_max_body_size 10M;
+    client_max_body_size 100M;
 
     location / {
         add_header Pragma no-cache;

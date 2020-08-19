@@ -35,7 +35,6 @@ jobs:
       contains('
         refs/heads/master
         refs/heads/develop
-        refs/heads/fix/failing-ci
       ', github.ref)
     steps:
     - uses: actions/checkout@v2
@@ -60,14 +59,6 @@ jobs:
         echo "::set-env name=HOST::${{ secrets.PROD_HOST }}"
         echo "::set-env name=USERNAME::${{ secrets.USERNAME }}"
         echo "::set-env name=BRANCH::${{ secrets.PROD_BRANCH }}"
-
-    - name: Set env for test branch
-      if: endsWith(github.ref, '/failing-ci')
-      run: |
-        echo "::set-env name=ENVIRONMENT::${{ secrets.TEST_ENV }}"
-        echo "::set-env name=HOST::${{ secrets.TEST_HOST }}"
-        echo "::set-env name=USERNAME::${{ secrets.USERNAME }}"
-        echo "::set-env name=BRANCH::${{ secrets.TEST_BRANCH }}"
 
     - name: copy deploy file via ssh
       uses: appleboy/scp-action@master

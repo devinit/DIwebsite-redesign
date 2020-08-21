@@ -4,7 +4,7 @@ from decouple import config
 
 enviroment = config('ENVIRONMENT', 'dev')
 
-if enviroment.lower() == 'production':
+if enviroment.lower() == 'production' or enviroment.lower() == 'staging':
     os.environ.setdefault(
         "DJANGO_SETTINGS_MODULE",
         'di_website.settings.production')

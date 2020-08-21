@@ -188,12 +188,14 @@ function start_link_checker_processes {
 }
 
 function enable_https_configs {
-    start_new_process "Enable https configs"
     https_content="listen 443 ssl;"
-    if grep -q "${https_content}" $APP_DIR"/config/nginx/django.conf.ctmpl"; then
-        echo "ssl config already exists"
-    else
-        cat "$APP_DIR/config/nginx/django_https.ctmpl" >> $APP_DIR"/config/nginx/django.conf.ctmpl"
+    if [[ "$ENVIRONMENT" == "production" || "$ENVIRONMENT" == "staging" ]]
+    then
+        if grep -q "${https_content}" $APP_DIR"/config/nginx/django.conf.ctmpl"; then
+            echo "ssl config already exists"
+        else
+            cat "$APP_DIR/config/nginx/django_https.ctmpl" >> $APP_DIR"/config/nginx/django.conf.ctmpl"
+        fi
     fi
 }
 

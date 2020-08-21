@@ -6,16 +6,19 @@ trap '[ "$?" -ne 20 ] || exit 20' ERR
 
 args=("$@")
 function perform_git_operations {
-    cd DIwebsite-redesign
     git pull origin
 }
 
 
 function enable_https_configs {
-
-    if [ "$ENVIRONMENT" == 'production' ]; then
-        cat "$APP_DIR/config/nginx/django_https.ctmpl" >> $APP_DIR"/config/nginx/django.conf.ctmpl"
-       
+    https_content="listen 443 ssl;"
+    if [[ "$ENVIRONMENT" == "production" || "$ENVIRONMENT" == "staging" ]]
+    then
+        if grep -q "${https_content}" $APP_DIR"/config/nginx/django.conf.ctmpl"; then
+            echo "ssl config already exists"
+        else
+            cat "$APP_DIR/config/nginx/django_https.ctmpl" >> $APP_DIR"/config/nginx/django.conf.ctmpl"
+        fi
     fi
 }
 
@@ -78,10 +81,9 @@ function setup_blue_green_deployment {
 function main {
     perform_git_operations
     enable_https_configs
-
     chmod +x scripts/*
     source scripts/init.sh
-    docker-compose -f docker-compose-consul.yml up -d 
+    docker-compose -f docker-compose-consul.yml up -d
     setup_blue_green_deployment
 }
 

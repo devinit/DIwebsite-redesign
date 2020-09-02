@@ -1,7 +1,7 @@
 from django.forms.utils import flatatt
 from django.utils.html import format_html, format_html_join
 
-from wagtail.core.blocks import StreamBlock, StructBlock, TextBlock, BooleanBlock
+from wagtail.core.blocks import StreamBlock
 from wagtailmedia.blocks import AbstractMediaChooserBlock
 
 class AudioMediaBlock(AbstractMediaChooserBlock):

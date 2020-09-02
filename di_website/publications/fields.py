@@ -15,7 +15,7 @@ from wagtail.snippets.blocks import SnippetChooserBlock
 
 from di_website.common.constants import RICHTEXT_FEATURES, RICHTEXT_FEATURES_NO_FOOTNOTES, FOOTNOTE_RICHTEXT_FEATURES
 from .infographic import PublicationInfographic
-from di_website.common.blocks import AnchorBlock
+from di_website.common.blocks import AnchorBlock, BlockQuote
 
 
 class CaptionedImage(StructBlock):
@@ -224,13 +224,15 @@ def flexible_content_streamfield(blank=False):
         ('captioned_image', CaptionedImage()),
         ('case_study', CaseStudy()),
         ('definition_list', DefinitionList()),
+        ('block_quote', BlockQuote()),
         ('downloads', Downloads()),
         ('section_heading', SectionHeading()),
         ('table', Table()),
         ('rich_text', RichText()),
         ('infographic', PublicationInfographic()),
         ('anchor', AnchorBlock()),
-        ('interactive_chart', InteractiveChartBlock())
+        ('interactive_chart', InteractiveChartBlock()),
+
     ], blank=blank)
 
 

@@ -48,16 +48,3 @@ class AudioMediaStreamBlock(StreamBlock):
     media = AudioMediaBlock()
 
     required = False
-
-class PublicationBlockQuote(StructBlock):
-    """
-    Custom `StructBlock` that allows render text in a blockquote element
-    """
-    text = TextBlock()
-    source = TextBlock(required=False, help_text='Who is this quote acredited to?')
-    center = BooleanBlock(default=False, required=False)
-
-    class Meta:
-        icon = 'fa-quote-right'
-        template = 'blocks/publication_blockquote.html'
-

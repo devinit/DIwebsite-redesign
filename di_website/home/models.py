@@ -277,6 +277,7 @@ class HomePageFeaturedWork(OtherPageMixin):
             'publications.PublicationPage',
             'publications.ShortPublicationPage',
             'publications.LegacyPublicationPage',
+            'publications.AudioVisualMedia',
             'project.ProjectPage'
         ])
     ]

@@ -44,12 +44,10 @@
       <h1 class="hero__title">
         <span>{{ page.title }}</span>
       </h1>
-      {% if page.get_verbose_name  == "Publication Summary" %}
+      {% if page.get_verbose_name  == "Publication Summary" or page.get_verbose_name == "Legacy Publication" %}
         <h2 class="hero__subtitle">{{ page.hero_text|content }}</h2>
       {% endif %}
-        {% if page.hero_text %}
-        <div class="hero__excerpt"><span>{{ page.hero_text|content }}</span></div>
-      {% endif %}
+
       {% if page.hero_link and page.hero_link_caption %}
         <a href="{% pageurl page.hero_link %}" class="button button--reverse">{{ page.hero_link_caption }}</a>
       {% endif %}

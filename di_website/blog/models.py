@@ -149,6 +149,7 @@ class BlogPageRelatedLink(OtherPageMixin):
             'news.NewsStoryPage',
             'publications.PublicationPage',
             'publications.ShortPublicationPage',
-            'publications.LegacyPublicationPage'
+            'publications.LegacyPublicationPage',
+            'publications.AudioVisualMedia'
         ])
     ]

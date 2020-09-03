@@ -24,7 +24,7 @@ def spotlights_navigation_view(request):
     Handles the /api/spotlights/navigation/ endpoint, returning the navigation links (pri & seco)
     """
     navigation = {'primary': [], 'secondary': []}
-    root_page = request.site.root_page
+    root_page = Site.find_for_request(request).root_page
     data_section_page = DataSectionPage.objects.live().first()
     primary_menu_items = get_menu_items(root_page, data_section_page)
     for menu_item in primary_menu_items:

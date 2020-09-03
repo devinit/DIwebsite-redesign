@@ -4,7 +4,7 @@
 
 from django import template
 
-from wagtail.core.models import Page
+from wagtail.core.models import Page, Site
 
 from di_website.context import globals
 
@@ -14,7 +14,7 @@ register = template.Library()
 @register.simple_tag(takes_context=True)
 def get_site_root(context):
     if 'request' in context.__dict__:
-        return context['request'].site.root_page
+        return Site.find_for_request(context['request']).root_page
     return None
 
 

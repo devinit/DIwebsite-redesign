@@ -106,7 +106,8 @@ function backup_database {
     cd $APP_DIR
 
     log "Starting backup from remote docker machine $(docker-compose ps -q db)"
-    docker-compose exec -T db pg_dump -Fc -U di_website -d di_website -f $file_name
+    docker-compose exec -T db pg_dump -Fc -U di_website -d di_website -f $current_date.backup
+    docker cp diwebsiteredesign_db_1:$current_date.backup $DATABASE_BACKUP
 
     log "Database backup completed..."
 

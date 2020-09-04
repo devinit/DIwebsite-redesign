@@ -6,7 +6,11 @@
         "emit": "tsc",
         "lint": "eslint 'src/**/*.{ts,tsx}' --quiet && tsc --noEmit",
         "dev": "grunt",
-        "build": "grunt build"
+        "build": "grunt build",
+        "dokdev": "docker-compose -f docker-compose.dev.minimal.yml",
+        "dokdev-build": "docker-compose -f docker-compose.dev.minimal.yml build",
+        "dokdev-up": "docker-compose -f docker-compose.dev.minimal.yml up -d",
+        "dokdev-down": "docker-compose -f docker-compose.dev.minimal.yml down"
     },
     "repository": {
         "type": "git",

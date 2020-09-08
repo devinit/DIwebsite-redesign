@@ -82,3 +82,7 @@
 .hovertext path {
   stroke: transparent !important;
 }
+
+.three-digit-footnote {
+  padding-left: 10px;
+}

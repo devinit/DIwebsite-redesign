@@ -149,6 +149,15 @@ def file_label(file):
         return file.title
 
 
+@register.filter
+def file_exists(file):
+    try:
+        if file.size:
+            return True
+    except:
+        return False
+
+
 @register.filter(expects_localtime=True, is_safe=False)
 def format_date(start, end=None):
     """Check that years are not the same and format date field."""

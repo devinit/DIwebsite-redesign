@@ -1,3 +1,4 @@
+from django.contrib.postgres.fields import JSONField
 from django.db import models
 from django.http import Http404, JsonResponse
 from django.utils.functional import cached_property
@@ -80,7 +81,7 @@ class ChartPage(ChartOptionsMixin, SpecificInstructionsMixin, RoutablePageMixin,
     class Meta:
         verbose_name = 'Chart Page'
 
-    chart_json = models.JSONField(
+    chart_json = JSONField(
         verbose_name="Chart JSON",
         help_text='Paste exported Chart Studio JSON here. To preserve data integretity, the JSON data should not be edited in Wagtail'
     )

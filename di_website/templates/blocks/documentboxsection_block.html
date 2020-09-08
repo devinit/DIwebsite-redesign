@@ -17,11 +17,13 @@
                   <h3 class="button--faux__heading">{{ doc_box.value.box_heading }}</h3>
                   <ul class="button--faux__list">
                     {% for doc in doc_box.value.documents %}
-                      <li>
-                        <a href="{{ doc.value.url }}">
-                          {{ doc.value.file_extension|upper }} {{ doc.value.file.size|filesizeformat }}
-                        </a>
-                      </li>
+                      {% if doc.value.file|file_exists %}
+                        <li>
+                          <a href="{{ doc.value.url }}">
+                            {{ doc.value.file_extension|upper }} {{ doc.value.file.size|filesizeformat }}
+                          </a>
+                        </li>
+                      {% endif %}
                     {% endfor %}
                   </ul>
               </div>

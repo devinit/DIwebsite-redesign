@@ -16,6 +16,7 @@
                     </div>
                 </aside>
                 <div class="l-sidebar__body">
+                    {% if page.show_breadcrumbs %}{% breadcrumbs %}{% endif %}
                     <div class="is-typeset wysiwyg">
                         {% for block in page.body %}
                             {% include_block block %}

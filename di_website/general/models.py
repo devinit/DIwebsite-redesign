@@ -29,9 +29,11 @@ class General(TypesetBodyMixin, HeroMixin, SectionBodyMixin, Page):
         verbose_name='Heading',
         default='More about'
     )
+    show_breadcrumbs = models.BooleanField(default=False)
 
     content_panels = Page.content_panels + [
         hero_panels(),
+        FieldPanel('show_breadcrumbs'),
         StreamFieldPanel('body'),
         StreamFieldPanel('sections'),
         MultiFieldPanel([

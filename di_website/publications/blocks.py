@@ -4,7 +4,6 @@ from django.utils.html import format_html, format_html_join
 from wagtail.core.blocks import StreamBlock
 from wagtailmedia.blocks import AbstractMediaChooserBlock
 
-
 class AudioMediaBlock(AbstractMediaChooserBlock):
     def render_basic(self, value, context=None):
         if not value:

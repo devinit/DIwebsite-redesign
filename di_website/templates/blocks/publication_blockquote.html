@@ -1,0 +1,7 @@
+{% if self.center or center %}
+  <div class="max-meter max-meter--center">
+      {% include 'blocks/blockquote.html' %}
+  </div>
+{% else %}
+  {% include 'blocks/blockquote.html' %}
+{% endif %}

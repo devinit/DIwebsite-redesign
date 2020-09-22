@@ -1,5 +1,7 @@
 import json
 
+from wagtail.core.models import Site
+
 from di_website.home.models import FooterSection, NewsLetter
 
 
@@ -19,7 +21,7 @@ def serialise_page(request, page, fields=['title', 'full_url', 'active']):
     Returns a dictionary of the required fields from a Wagtail page (mostly for spotlights)
     """
     result = object_to_dict(page, fields)
-    result['relative_url'] = page.relative_url(request.site, request)
+    result['relative_url'] = page.relative_url(Site.find_for_request(request), request)
     return result
 
 def serialiseDatasources(request, spotlightPage):

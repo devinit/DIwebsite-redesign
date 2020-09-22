@@ -4,7 +4,7 @@
 
 from django import template
 
-from wagtail.core.models import Page
+from wagtail.core.models import Page, Site
 
 from di_website.context import globals
 
@@ -14,7 +14,7 @@ register = template.Library()
 @register.simple_tag(takes_context=True)
 def get_site_root(context):
     if 'request' in context.__dict__:
-        return context['request'].site.root_page
+        return Site.find_for_request(context['request']).root_page
     return None
 
 
@@ -52,15 +52,28 @@ def primary_menu(context, parent, calling_page=None):
 
 
 @register.inclusion_tag('tags/navigation/secondary.html', takes_context=True)
-def secondary_menu(context, parent, calling_page=None):
+def secondary_menu(context, parental=False):
     """
     Returns the children of the specified menu
     """
     global_obj = globals(context['request'])
-    secondary_menu_items = get_menu_items(parent, calling_page)
+    self = context.get('self')
+    if parental:
+        parent = self.get_parent();
+        secondary_menu_items = get_menu_items(parent, self)
+    else:
+        ancestors = Page.objects.live().ancestor_of(self, inclusive=True).filter(depth__gt=2)
+        if len(ancestors) >= 2:
+            parent = ancestors[0];
+            secondary_menu_items = get_menu_items(ancestors[0], ancestors[1])
+        else:
+            parent = self
+            secondary_menu_items = get_menu_items(self, self)
+
     for menu_item in secondary_menu_items:
         menu_item.has_dropdown = has_menu_children(menu_item)
         menu_item.children = menu_item.get_children().live().in_menu()
+
     return {
         'parent': parent,
         'menu_items': secondary_menu_items,

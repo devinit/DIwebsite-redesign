@@ -90,6 +90,10 @@ server {
     location /static {
         proxy_pass http://spotlights;
     }
+
+    location /bitly {
+        proxy_pass http://spotlights;
+    }
 }
 
 server {

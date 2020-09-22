@@ -12,14 +12,11 @@
             <div class="l-sidebar">
                 <aside class="l-sidebar__aside">
                     <div class="aside aside--clipping">
-                      {% if self.depth > 3 %}
-                        {% secondary_menu parent=self.get_parent calling_page=self %}
-                      {% else %}
-                        {% secondary_menu parent=self calling_page=self %}
-                      {% endif %}
+                        {% secondary_menu %}
                     </div>
                 </aside>
                 <div class="l-sidebar__body">
+                    {% if page.show_breadcrumbs %}{% breadcrumbs %}{% endif %}
                     <div class="is-typeset wysiwyg">
                         {% for block in page.body %}
                             {% include_block block %}

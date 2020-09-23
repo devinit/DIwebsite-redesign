@@ -82,3 +82,7 @@
 .hovertext path {
   stroke: transparent !important;
 }
+
+.footnotes__item {
+  padding-left: 10px;
+}

@@ -1,0 +1,11 @@
+{% load wagtailcore_tags wagtailroutablepage_tags wagtailimages_tags footnotes_utils chart_utils %}
+
+<h3 class="type-l type-l--trailer">{{ item.title }}</h3>
+<div class="chart-container chart-container--full">
+  <div class="charts__chart" data-title="{{item.title}}">
+    {% load_as_template raw_html=item.html %}
+    <div class="chart-loading">
+      <div class="chart-loading__block"><div></div><div></div><div></div><div></div></div>
+    </>
+  </div>
+</div>

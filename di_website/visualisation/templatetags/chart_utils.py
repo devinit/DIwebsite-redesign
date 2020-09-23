@@ -1,7 +1,7 @@
 import json
-from django import template
+from django.template import Context, Library, Template
 
-register = template.Library()
+register = Library()
 
 
 @register.filter
@@ -19,3 +19,11 @@ def padding_by_ratio(image):
         return 'padding-top: %s%%;' % round(ratio * 100, 2)
     except Exception:
         return ''
+
+
+@register.simple_tag(takes_context=True)
+def load_as_template(context, raw_html=None):
+    template = Template(raw_html)
+    context = Context(context)
+
+    return template.render(context)

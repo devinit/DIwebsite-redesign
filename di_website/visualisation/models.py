@@ -154,10 +154,14 @@ class AdvancedChartPage(RoutablePageMixin, Page):
     parent_page_types = [VisualisationsPage]
     subpage_types = []
 
-    javascript = AceEditorField()
+    html = AceEditorField(options={'mode':'html'}, blank=True)
+    javascript = AceEditorField(options={'mode':'javascript'}, blank=True)
+    css = AceEditorField(options={'mode':'css'}, blank=True)
 
     content_panels = Page.content_panels + [
-        FieldPanel('javascript'),
+        FieldPanel('html', classname='collapsible'),
+        FieldPanel('javascript', classname='collapsible'),
+        FieldPanel('css', classname='collapsible'),
     ]
 
     class Meta:

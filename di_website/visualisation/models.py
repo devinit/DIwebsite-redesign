@@ -14,7 +14,7 @@ from di_website.common.constants import MINIMAL_RICHTEXT_FEATURES
 from di_website.publications.utils import WagtailImageField
 from di_website.visualisation.mixins import GeneralInstructionsMixin, SpecificInstructionsMixin, ChartOptionsMixin
 from di_website.visualisation.utils import ChartOptionsPanel, SpecificInstructionsPanel
-from di_website.visualisation.fields import AceEditorJSONField
+from di_website.visualisation.fields import AceEditorField
 
 
 class VisualisationsPage(GeneralInstructionsMixin, Page):
@@ -154,7 +154,7 @@ class AdvancedChartPage(RoutablePageMixin, Page):
     parent_page_types = [VisualisationsPage]
     subpage_types = []
 
-    javascript = AceEditorJSONField()
+    javascript = AceEditorField()
 
     content_panels = Page.content_panels + [
         FieldPanel('javascript'),

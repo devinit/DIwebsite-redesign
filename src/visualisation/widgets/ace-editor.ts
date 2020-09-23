@@ -7,9 +7,10 @@ const initAceEditor = (widgetID: string): void => {
     const inputNode = document.getElementById(widgetID) as HTMLInputElement;
     if (editorNode && inputNode) {
       try {
+        const mode = editorNode.dataset.mode;
         const editor = ace.edit(editorNode);
         editor.setTheme('ace/theme/monokai'); //TODO: set theme dynamically
-        editor.session.setMode('ace/mode/json'); //TODO: set mode dynamically
+        editor.session.setMode(`ace/mode/${mode}`);
 
         editor.getSession().on('change', () => {
           inputNode.value = editor.getSession().getValue();

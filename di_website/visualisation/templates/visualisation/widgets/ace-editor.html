@@ -1,3 +1,3 @@
-<div id="{{ widget.attrs.id }}-ace-editor" class="field ace-editor__field">{{ widget.value }}</div>
+<div id="{{ widget.attrs.id }}-ace-editor" class="field ace-editor__field" data-mode="{{widget.options.mode}}">{{ widget.value }}</div>
 {% include 'django/forms/widgets/hidden.html' %}
 <script>WagtailAceEditor.init("{{ widget.attrs.id|escapejs }}");</script>

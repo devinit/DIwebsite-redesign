@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
             name='AdvancedChartPage',
             fields=[
                 ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
-                ('javascript', di_website.visualisation.fields.AceEditorField()),
+                ('javascript', di_website.visualisation.fields.AceEditorJSONField()),
             ],
             options={
                 'verbose_name': 'Advanced Chart Page',

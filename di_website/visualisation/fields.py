@@ -22,11 +22,11 @@ class AceEditorInput(widgets.HiddenInput):
                 versioned_static('visualisation/widgets/js/ace-editor.js'),
                 versioned_static('https://pagecdn.io/lib/ace/1.4.7/ace.js'),
                 versioned_static('https://pagecdn.io/lib/ace/1.4.7/theme-monokai.js'),
-                versioned_static('https://cdn.plot.ly/plotly-basic-latest.min.js') #TODO: import dynamically based on chart type
+                # versioned_static('https://cdn.plot.ly/plotly-basic-latest.min.js')
             ]
         )
 
-class AceEditorField(JSONField):
+class AceEditorJSONField(JSONField):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 

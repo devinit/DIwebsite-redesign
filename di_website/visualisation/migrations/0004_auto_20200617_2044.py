@@ -18,6 +18,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='chartpage',
             name='chart',
-            field=di_website.visualisation.fields.AceEditorField(blank=True),
+            field=di_website.visualisation.fields.AceEditorJSONField(blank=True),
         ),
     ]

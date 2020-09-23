@@ -14,6 +14,7 @@ from di_website.common.constants import MINIMAL_RICHTEXT_FEATURES
 from di_website.publications.utils import WagtailImageField
 from di_website.visualisation.mixins import GeneralInstructionsMixin, SpecificInstructionsMixin, ChartOptionsMixin
 from di_website.visualisation.utils import ChartOptionsPanel, SpecificInstructionsPanel
+from di_website.visualisation.fields import AceEditorField
 
 
 class VisualisationsPage(GeneralInstructionsMixin, Page):
@@ -21,7 +22,7 @@ class VisualisationsPage(GeneralInstructionsMixin, Page):
     Parent page for all visualisations
     """
     parent_page_types = ['home.HomePage']
-    subpage_types = ['visualisation.ChartPage']
+    subpage_types = ['visualisation.ChartPage', 'visualisation.AdvancedChartPage']
     max_count = 1
 
     class Meta:
@@ -79,7 +80,7 @@ class ChartPage(ChartOptionsMixin, SpecificInstructionsMixin, RoutablePageMixin,
     subpage_types = []
 
     class Meta:
-        verbose_name = 'Chart Page'
+        verbose_name = 'Plotly Studio Chart Page'
 
     chart_json = JSONField(
         verbose_name="Chart JSON",
@@ -144,3 +145,20 @@ class ChartPage(ChartOptionsMixin, SpecificInstructionsMixin, RoutablePageMixin,
     @route(r'^data/$')
     def data(self, request):
         return JsonResponse(self.chart_json)
+
+
+class AdvancedChartPage(RoutablePageMixin, Page):
+    """
+    A code based chart page for advanced users
+    """
+    parent_page_types = [VisualisationsPage]
+    subpage_types = []
+
+    javascript = AceEditorField()
+
+    content_panels = Page.content_panels + [
+        FieldPanel('javascript'),
+    ]
+
+    class Meta:
+        verbose_name = 'Advanced Chart Page'

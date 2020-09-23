@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
-// const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const sharedConfig = {
   target: 'web',
@@ -33,6 +33,21 @@ const sharedConfig = {
   },
 };
 
+const wagtailAceEditorConfig = {
+  ...sharedConfig,
+  entry: './src/visualisation/widgets/ace-editor.ts',
+  output: {
+    path: path.resolve(__dirname, 'di_website/visualisation/static/visualisation/widgets/js'),
+    filename: 'ace-editor.js',
+    library: 'WagtailAceEditor',
+  },
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: './di_website/visualisation/static/visualisation/widgets/css/ace-editor.css',
+    }),
+  ],
+};
+
 const chartsConfig = {
   ...sharedConfig,
   entry: ['./src/visualisation/index.ts'],
@@ -47,4 +62,4 @@ const chartsConfig = {
 };
 chartsConfig.module.rules[0].loader = 'babel-loader';
 
-module.exports = [chartsConfig];
+module.exports = [wagtailAceEditorConfig, chartsConfig];

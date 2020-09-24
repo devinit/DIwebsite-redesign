@@ -30,3 +30,18 @@ def SpecificInstructionsPanel():
         ],
         heading='Interactive visualisation instructions',
     )
+
+
+def PlotlyOptionsPanel():
+    return MultiFieldPanel(
+        [
+            HelpPanel('''
+                Optional: if plotly is selected, please be sure to specify which bundle to load depending the type of chart you are building<br>
+                This will ensure only the relevant optimised code gets loaded.
+            ''', wrapper_class='help-block help-info no-padding-top'),
+            FieldPanel('use_plotly'),
+            FieldPanel('plotly_bundle')
+        ],
+        classname='collapsible',
+        heading='Plotly Options',
+    )

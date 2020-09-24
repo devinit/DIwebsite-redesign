@@ -1,0 +1,8 @@
+
+{% if item.use_plotly %}
+  {% if item.plotly_bundle == 'basic' %}
+    <script src="https://cdn.plot.ly/plotly-basic-latest.min.js"></script>
+  {% elif item.plotly_bundle == 'cartesian' %}
+    <script src="https://cdn.plot.ly/plotly-cartesian-latest.min.js"></script>
+  {% endif %}
+{% endif %}

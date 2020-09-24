@@ -73,3 +73,23 @@ class ChartOptionsMixin(models.Model):
         null=True, blank=True,
         help_text='Optional: appears in the image download at the bottom of the chart'
     )
+
+
+class PlotlyOptionsMixin(models.Model):
+    class Meta:
+        abstract = True
+
+    PLOTLY_BUNDLES = [
+        ('basic', 'Basic'),
+        ('cartesian', 'Cartesian')
+    ]
+
+    use_plotly = models.BooleanField(default=False, blank=True, verbose_name='Use Plotly')
+    plotly_bundle = models.CharField(
+        max_length=100,
+        choices=PLOTLY_BUNDLES,
+        blank=True,
+        verbose_name='Plotly Bundle',
+        default='basic',
+        help_text="https://github.com/plotly/plotly.js/blob/master/dist/README.md#partial-bundles"
+    )

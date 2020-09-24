@@ -62,4 +62,14 @@ const chartsConfig = {
 };
 chartsConfig.module.rules[0].loader = 'babel-loader';
 
-module.exports = [wagtailAceEditorConfig, chartsConfig];
+const diChartsConfig = {
+  ...sharedConfig,
+  entry: './src/visualisation/library/index.ts',
+  output: {
+    path: path.resolve(__dirname, 'di_website/visualisation/static/visualisation/js'),
+    filename: 'dicharts.js',
+    library: 'DICharts',
+  },
+};
+
+module.exports = [wagtailAceEditorConfig, diChartsConfig, chartsConfig];

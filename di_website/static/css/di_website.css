@@ -59,6 +59,7 @@
     height: 0;
 }
 
+/** ==== CHARTS ==== **/
 // .svg-container .main-svg .hoverlayer .hovertext
 .plotly-charts-tooltip {
   background-color: #FFFFFF;
@@ -85,4 +86,10 @@
 
 .footnotes__item {
   padding-left: 10px;
+}
+
+.chart-container .data-selector--wrapper .data-selector {
+  position: relative;
+  display: inline-block;
+  margin-right: 10px;
 }

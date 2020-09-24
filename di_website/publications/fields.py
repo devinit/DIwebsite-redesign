@@ -215,7 +215,7 @@ class InteractiveChartBlock(StructBlock):
     def get_context(self, value, parent_context=None):
         context = super().get_context(value, parent_context=parent_context)
         chart_page = value['chart_page']
-        context['chart'] = chart_page if chart_page and chart_page.live else ''
+        context['chart'] = chart_page.specific if chart_page and chart_page.live else ''
         return context
 
 

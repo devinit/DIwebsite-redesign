@@ -48,10 +48,14 @@ def chapter_nav_slice(chapters, chapter_number=0, max_length=6):
 
 @register.simple_tag(takes_context=True)
 def page_contains_chart(context):
+    charts = {'plotly_studio': False, 'advanced': False}
     try:
         for item in context['page'].content:
             if item.block.name == 'interactive_chart':
-                return True
-        return False
+                charts['plotly_studio'] = True
+            elif item.block.name == 'advanced_interactive_chart':
+                charts['advanced'] = True
+
+        return charts
     except Exception:
-        return False
+        return charts

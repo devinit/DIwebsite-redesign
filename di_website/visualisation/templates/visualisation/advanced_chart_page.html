@@ -19,3 +19,7 @@
 {% endblock %}
 
 {% block footer %}{% endblock %}
+{% block html_footer %}
+    {{ block.super }}
+    <script src="{% static 'visualisation/js/dicharts.js' %}"></script>
+{% endblock %}

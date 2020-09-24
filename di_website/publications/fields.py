@@ -202,9 +202,9 @@ class RichTextNoFootnotes(AbstractRichText):
 class InteractiveChartBlock(StructBlock):
 
     class Meta:
-        help_text = 'Select a chart page'
+        help_text = 'Select a Plotly Studio chart page'
         icon = 'fa-area-chart'
-        label = 'Interactive Chart'
+        label = 'Plotly Studio Chart'
         template = 'publications/blocks/interactive_chart.html'
         form_template = 'publications/block_forms/custom_struct.html'
 

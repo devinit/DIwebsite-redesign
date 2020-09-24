@@ -116,7 +116,7 @@ class D3OptionsMixin(models.Model):
     ]
 
     use_d3 = models.BooleanField(default=False, blank=True, verbose_name='Use D3')
-    d3_version = models.CharField(default='v4', max_length=50, choices=D3_VERSIONS)
+    d3_version = models.CharField(default='v4', max_length=50, choices=D3_VERSIONS, verbose_name='D3 Version')
     d3_modules = StreamField([
         ('module', ChoiceBlock(label='Module', choices=D3_MODULES))
     ], blank=True, verbose_name='D3 Modules')

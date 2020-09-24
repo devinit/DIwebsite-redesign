@@ -1,4 +1,4 @@
-from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
+from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, StreamFieldPanel
 from di_website.common.edit_handlers import HelpPanel
 
 def ChartOptionsPanel():
@@ -44,4 +44,16 @@ def PlotlyOptionsPanel():
         ],
         classname='collapsible',
         heading='Plotly Options',
+    )
+
+
+def D3OptionsPanel():
+    return MultiFieldPanel(
+        [
+            FieldPanel('use_d3'),
+            FieldPanel('d3_version'),
+            StreamFieldPanel('d3_modules'),
+        ],
+        classname='collapsible',
+        heading='d3 Options',
     )

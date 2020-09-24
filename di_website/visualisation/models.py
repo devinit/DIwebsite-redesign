@@ -13,9 +13,12 @@ from di_website.common.edit_handlers import HelpPanel
 from di_website.common.constants import MINIMAL_RICHTEXT_FEATURES
 from di_website.publications.utils import WagtailImageField
 from di_website.visualisation.mixins import (
-    GeneralInstructionsMixin, SpecificInstructionsMixin, ChartOptionsMixin, PlotlyOptionsMixin
+    GeneralInstructionsMixin, SpecificInstructionsMixin, ChartOptionsMixin,
+    PlotlyOptionsMixin, D3OptionsMixin
 )
-from di_website.visualisation.utils import ChartOptionsPanel, SpecificInstructionsPanel, PlotlyOptionsPanel
+from di_website.visualisation.utils import (
+    ChartOptionsPanel, SpecificInstructionsPanel, PlotlyOptionsPanel, D3OptionsPanel
+)
 from di_website.visualisation.fields import AceEditorField
 
 
@@ -149,7 +152,7 @@ class ChartPage(ChartOptionsMixin, SpecificInstructionsMixin, RoutablePageMixin,
         return JsonResponse(self.chart_json)
 
 
-class AdvancedChartPage(PlotlyOptionsMixin, RoutablePageMixin, Page):
+class AdvancedChartPage(D3OptionsMixin, PlotlyOptionsMixin, RoutablePageMixin, Page):
     """
     A code based chart page for advanced users
     """
@@ -162,6 +165,7 @@ class AdvancedChartPage(PlotlyOptionsMixin, RoutablePageMixin, Page):
 
     content_panels = Page.content_panels + [
         PlotlyOptionsPanel(),
+        D3OptionsPanel(),
         FieldPanel('html', classname='collapsible'),
         FieldPanel('javascript', classname='collapsible'),
         # FieldPanel('css', classname='collapsible'), TODO: add CSS support - may work best in an iFrame

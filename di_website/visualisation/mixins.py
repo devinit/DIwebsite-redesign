@@ -1,5 +1,9 @@
 from django.db import models
-from wagtail.core.fields import RichTextField
+
+from wagtail.core.fields import RichTextField, StreamField
+from wagtail.admin.edit_handlers import StreamFieldPanel
+from wagtail.core.blocks import ChoiceBlock, ListBlock
+
 from di_website.common.constants import INSTRUCTIONS_RICHTEXT_FEATURES
 
 
@@ -93,3 +97,26 @@ class PlotlyOptionsMixin(models.Model):
         default='basic',
         help_text="https://github.com/plotly/plotly.js/blob/master/dist/README.md#partial-bundles"
     )
+
+
+class D3OptionsMixin(models.Model):
+    class Meta:
+        abstract = True
+
+    D3_MODULES = [
+        ('colour', 'Colour'),
+        ('interpolate', 'Interpolate'),
+        ('scale-chromatic', 'Scale Chromatic'),
+    ]
+
+    D3_VERSIONS = [
+        ('v4', 'Version 4'),
+        ('v5', 'Version 5'),
+        ('v6', 'Version 6'),
+    ]
+
+    use_d3 = models.BooleanField(default=False, blank=True, verbose_name='Use D3')
+    d3_version = models.CharField(default='v4', max_length=50, choices=D3_VERSIONS)
+    d3_modules = StreamField([
+        ('module', ChoiceBlock(label='Module', choices=D3_MODULES))
+    ], blank=True, verbose_name='D3 Modules')

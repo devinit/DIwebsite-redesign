@@ -6,3 +6,17 @@
     <script src="https://cdn.plot.ly/plotly-cartesian-latest.min.js"></script>
   {% endif %}
 {% endif %}
+
+{% if item.use_d3 %}
+  <script src="https://d3js.org/d3.{{item.d3_version}}.js"></script>
+
+  {% for module in item.d3_modules %}
+    {% if module.value == 'colour' %}
+      <script src="https://d3js.org/d3-color.{% if item.d3_version == 'v4' %}v1{% else %}v2{% endif %}.min.js"></script>
+    {% elif module.value == 'interpolate' %}
+      <script src="https://d3js.org/d3-interpolate.{% if item.d3_version == 'v4' %}v1{% else %}v2{% endif %}.min.js"></script>
+    {% elif module.value == 'scale-chromatic' %}
+      <script src="https://d3js.org/d3-scale-chromatic.{% if item.d3_version == 'v4' %}v1{% else %}v2{% endif %}.min.js"></script>
+    {% endif %}
+  {% endfor %}
+{% endif %}

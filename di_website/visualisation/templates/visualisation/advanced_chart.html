@@ -4,8 +4,11 @@
 <div class="chart-container chart-container--full">
   <div class="charts__chart" data-title="{{item.title}}">
     {% load_as_template raw_html=item.html %}
+    <script class="chart-js-inline">
+      {% autoescape off %}{{item.javascript}}{% endautoescape %}
+    </script>
     <div class="chart-loading">
       <div class="chart-loading__block"><div></div><div></div><div></div><div></div></div>
-    </>
+    </div>
   </div>
 </div>

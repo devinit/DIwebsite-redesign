@@ -154,14 +154,14 @@ class AdvancedChartPage(RoutablePageMixin, Page):
     parent_page_types = [VisualisationsPage]
     subpage_types = []
 
-    html = AceEditorField(options={'mode':'html'}, blank=True)
-    javascript = AceEditorField(options={'mode':'javascript'}, blank=True)
-    css = AceEditorField(options={'mode':'css'}, blank=True)
+    html = AceEditorField(options={'mode':'html'}, blank=True, default='{% load wagtailcore_tags %}')
+    javascript = AceEditorField(options={'mode':'javascript'}, blank=True, default='"use strict";')
+    css = AceEditorField(options={'mode':'css'}, blank=True, default='/* CSS goes here */')
 
     content_panels = Page.content_panels + [
         FieldPanel('html', classname='collapsible'),
         FieldPanel('javascript', classname='collapsible'),
-        FieldPanel('css', classname='collapsible'),
+        # FieldPanel('css', classname='collapsible'), TODO: add CSS support - may work best in an iFrame
     ]
 
     class Meta:

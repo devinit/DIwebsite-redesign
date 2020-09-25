@@ -1,5 +1,7 @@
+import Plotly from 'plotly.js';
 import { addLoading, removeLoading } from '../loading';
 import { FilterOptions } from './utils';
+import { PlotlyManager } from './utils/plotly';
 
 class DICharts {
   private chartElement: HTMLElement;
@@ -32,6 +34,10 @@ class DICharts {
     });
 
     return selectElement;
+  };
+
+  addPlotly = (plotly: typeof Plotly): PlotlyManager => {
+    return new PlotlyManager(plotly, this.chartElement);
   };
 
   private getElement(element: string | HTMLElement) {

@@ -1,10 +1,11 @@
 import { addLoading, removeLoading } from '../loading';
+import { FilterOptions } from './utils';
 
 class DICharts {
   private chartElement: HTMLElement;
 
   constructor(chartNode: string | HTMLElement) {
-    this.chartElement = this.setChartElement(chartNode);
+    this.chartElement = this.getElement(chartNode);
   }
 
   showLoading = (): void => {
@@ -13,6 +14,7 @@ class DICharts {
       addLoading(chartWrapper);
     }
   };
+
   hideLoading = (): void => {
     const chartWrapper = this.getParentElement();
     if (chartWrapper) {
@@ -20,25 +22,40 @@ class DICharts {
     }
   };
 
-  private setChartElement(chartNode: string | HTMLElement) {
-    if (!chartNode) {
-      throw new Error('An id to the chart element or an actual element is required');
-    }
-    if (typeof chartNode === 'string') {
-      const chartElement = document.getElementById(chartNode as string);
+  addFilter = (selectNode: string | HTMLSelectElement, options: string[], extra?: FilterOptions): HTMLSelectElement => {
+    const selectElement = this.getElement(selectNode) as HTMLSelectElement;
+    options.forEach((option) => {
+      const optionElement = document.createElement('option');
+      optionElement.value = option;
+      optionElement.text = this.getFilterText(option, extra);
+      selectElement.appendChild(optionElement);
+    });
 
-      if (!chartElement) {
-        throw new Error(`No element with id ${chartNode}`);
+    return selectElement;
+  };
+
+  private getElement(element: string | HTMLElement) {
+    if (!element) {
+      throw new Error('An id to the element or an actual element is required');
+    }
+    if (typeof element === 'string') {
+      const matchingElement = document.getElementById(element as string);
+      if (!matchingElement) {
+        throw new Error(`No element with id ${element}`);
       }
 
-      return chartElement;
+      return matchingElement;
     }
 
-    return chartNode;
+    return element;
   }
 
   private getParentElement() {
     return this.chartElement.parentElement;
+  }
+
+  private getFilterText(option: string, { labelPrefix, labelSuffix }: FilterOptions = {}) {
+    return `${labelPrefix || ''}${option}${labelSuffix || ''}`;
   }
 }
 

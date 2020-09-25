@@ -8,3 +8,8 @@ export interface DIChartsInstance {
   chartElement: HTMLElement;
   parentElement: HTMLElement | null;
 }
+
+export interface FilterOptions {
+  labelPrefix?: string;
+  labelSuffix?: string;
+}

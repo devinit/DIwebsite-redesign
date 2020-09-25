@@ -90,6 +90,9 @@
 
 .chart-container .data-selector--wrapper .data-selector {
   position: relative;
-  display: inline-block;
   margin-right: 10px;
+}
+
+.chart-container .data-selector--wrapper .data-selector.data-selector--active {
+  display: inline-block;
 }

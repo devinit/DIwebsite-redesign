@@ -32,6 +32,7 @@ class DICharts {
       optionElement.text = this.getFilterText(option, extra);
       selectElement.appendChild(optionElement);
     });
+    selectElement.classList.add('data-selector--active');
 
     return selectElement;
   };

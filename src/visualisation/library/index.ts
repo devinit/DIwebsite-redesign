@@ -1,45 +1,45 @@
-import { DIChartsInstance } from './utils';
 import { addLoading, removeLoading } from '../loading';
 
-const getChartElement = (chartNode: string | HTMLElement): HTMLElement => {
-  if (!chartNode) {
-    throw new Error('An id to the chart element or an actual element is required');
-  }
-  if (typeof chartNode === 'string') {
-    const chartElement = document.getElementById(chartNode as string);
+class DICharts {
+  private chartElement: HTMLElement;
 
-    if (!chartElement) {
-      throw new Error(`No element with id ${chartNode}`);
-    }
-
-    return chartElement;
+  constructor(chartNode: string | HTMLElement) {
+    this.chartElement = this.setChartElement(chartNode);
   }
 
-  return chartNode;
-};
-
-export const init = (chartNode: string | HTMLElement): DIChartsInstance => {
-  const chartElement: HTMLElement = getChartElement(chartNode);
-
-  const showLoading = (): void => {
-    const chartWrapper = chartElement.parentElement;
+  showLoading = (): void => {
+    const chartWrapper = this.getParentElement();
     if (chartWrapper) {
       addLoading(chartWrapper);
     }
   };
-  const hideLoading = (): void => {
-    const chartWrapper = chartElement.parentElement;
+  hideLoading = (): void => {
+    const chartWrapper = this.getParentElement();
     if (chartWrapper) {
       removeLoading(chartWrapper);
     }
   };
 
-  return {
-    loading: {
-      show: showLoading,
-      hide: hideLoading,
-    },
-    chartElement,
-    parentElement: chartElement.parentElement,
-  };
-};
+  private setChartElement(chartNode: string | HTMLElement) {
+    if (!chartNode) {
+      throw new Error('An id to the chart element or an actual element is required');
+    }
+    if (typeof chartNode === 'string') {
+      const chartElement = document.getElementById(chartNode as string);
+
+      if (!chartElement) {
+        throw new Error(`No element with id ${chartNode}`);
+      }
+
+      return chartElement;
+    }
+
+    return chartNode;
+  }
+
+  private getParentElement() {
+    return this.chartElement.parentElement;
+  }
+}
+
+export { DICharts as Chart };

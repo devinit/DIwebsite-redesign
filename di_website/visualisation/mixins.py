@@ -5,6 +5,7 @@ from wagtail.admin.edit_handlers import StreamFieldPanel
 from wagtail.core.blocks import ChoiceBlock, ListBlock
 
 from di_website.common.constants import INSTRUCTIONS_RICHTEXT_FEATURES
+from di_website.publications.utils import WagtailImageField
 
 
 class GeneralInstructionsMixin(models.Model):
@@ -82,6 +83,26 @@ class ChartOptionsMixin(models.Model):
     source = models.TextField(
         null=True, blank=True,
         help_text='Optional: appears in the image download at the bottom of the chart'
+    )
+
+
+class FallbackImageMixin(models.Model):
+    class Meta:
+        abstract = True
+
+    fallback_image = WagtailImageField(
+        required=True,
+        help_text='Fallback image for the chart',
+    )
+    display_fallback_mobile = models.BooleanField(
+        default=True,
+        help_text='Optional: when selected devices with screen widths up to 400px will be served the fallback image',
+        verbose_name='Show on mobile'
+    )
+    display_fallback_tablet = models.BooleanField(
+        default=False,
+        help_text='Optional: when selected devices with screen widths up to 700px will be served the fallback image',
+        verbose_name='Show on tablet'
     )
 
 

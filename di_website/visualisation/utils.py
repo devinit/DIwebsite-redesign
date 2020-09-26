@@ -1,4 +1,6 @@
 from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, StreamFieldPanel
+from wagtail.images.edit_handlers import ImageChooserPanel
+
 from di_website.common.edit_handlers import HelpPanel
 
 def ChartOptionsPanel():
@@ -40,6 +42,12 @@ def SpecificInstructionsPanel():
         ],
         heading='Interactive visualisation instructions',
     )
+
+def FallbackImagePanel():
+    return MultiFieldPanel([
+            FieldPanel('display_fallback_mobile'),
+            FieldPanel('display_fallback_tablet'),
+        ], heading='Fallback image and options')
 
 
 def PlotlyOptionsPanel():

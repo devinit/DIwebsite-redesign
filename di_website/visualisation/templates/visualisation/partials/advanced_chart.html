@@ -17,3 +17,18 @@
     })();
   }, false);
 </script>
+
+<div class="chart-fallback">
+  {% image item.fallback_image width-1000 as fallback %}
+  {% image item.fallback_image width-1400 as full %}
+  <a href="{{ full.url }}" target="_blank" title="Click to open image in a new window">
+      <span class="chart-fallback__no-js-small-screen-image" style="background-image: url('{{ fallback.url }}'); {{ fallback|padding_by_ratio }}"></span>
+  </a>
+</div>
+
+<div class="chart-fallback__alert">
+  <p>{{ item.parent.no_js_text }}</p>
+</div>
+<div class="chart-fallback__alert chart-fallback__alert--ss">
+  <p>{{ item.parent.larger_screen_text }}</p>
+</div>

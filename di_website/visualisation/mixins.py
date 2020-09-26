@@ -17,7 +17,16 @@ class GeneralInstructionsMixin(models.Model):
     )
 
 
-class SpecificInstructionsMixin(GeneralInstructionsMixin):
+class InstructionsMixin(GeneralInstructionsMixin):
+    class Meta:
+        abstract = True
+
+    instructions_heading = models.TextField(
+        blank=True, default='Interactive visualisation instructions',
+        verbose_name='Accordion heading')
+
+
+class SpecificInstructionsMixin(InstructionsMixin):
     class Meta:
         abstract = True
 
@@ -26,9 +35,6 @@ class SpecificInstructionsMixin(GeneralInstructionsMixin):
         help_text='Optional: display the general visualisation instructions, edited on the visualisations parent page',
         verbose_name='Show general instructions'
     )
-    instructions_heading = models.TextField(
-        blank=True, default='Interactive visualisation instructions',
-        verbose_name='Accordion heading')
 
 
 class ChartOptionsMixin(models.Model):

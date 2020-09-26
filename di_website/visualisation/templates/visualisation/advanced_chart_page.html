@@ -16,6 +16,24 @@
     </div>
   </section>
 
+  <section class="section section--alt-dark">
+    <div class="row row--narrow">
+        <span class="chart-label">Tablet view</span>
+        <div class="max-meter max-meter--center responsive-graph chart-tablet {% if page.display_fallback_tablet %} show-fallback {% endif %}">
+            {% include 'visualisation/partials/advanced_chart.html' with item=page %}
+        </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="row row--narrow">
+        <span class="chart-label">Mobile view</span>
+        <div class="max-meter max-meter--center responsive-graph chart-mobile {% if page.display_fallback_mobile %} show-fallback {% endif %}">
+            {% include 'visualisation/partials/advanced_chart.html' with item=page %}
+        </div>
+    </div>
+  </section>
+
 {% endblock %}
 
 {% block footer %}{% endblock %}

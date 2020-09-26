@@ -32,3 +32,11 @@
 <div class="chart-fallback__alert chart-fallback__alert--ss">
   <p>{{ item.parent.larger_screen_text }}</p>
 </div>
+
+{% include 'visualisation/chart_instructions.html' %}
+
+{% if item.caption %}
+  <figcaption class="media-caption">
+    {% content_with_footnotes item.caption %}
+  </figcaption>
+{% endif %}

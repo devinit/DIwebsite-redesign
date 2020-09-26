@@ -17,6 +17,16 @@ def ChartOptionsPanel():
     ], heading='Chart options')
 
 
+def InstructionsPanel():
+    return MultiFieldPanel(
+        [
+            FieldPanel('instructions_heading'),
+            FieldPanel('instructions'),
+        ],
+        heading='Interactive visualisation instructions',
+    )
+
+
 def SpecificInstructionsPanel():
     return MultiFieldPanel(
         [

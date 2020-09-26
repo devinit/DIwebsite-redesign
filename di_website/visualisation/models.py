@@ -133,7 +133,7 @@ class ChartPage(ChartOptionsMixin, SpecificInstructionsMixin, FallbackImageMixin
         return JsonResponse(self.chart_json)
 
 
-class AdvancedChartPage(InstructionsMixin, D3OptionsMixin, PlotlyOptionsMixin, RoutablePageMixin, Page):
+class AdvancedChartPage(InstructionsMixin, D3OptionsMixin, PlotlyOptionsMixin, FallbackImageMixin, RoutablePageMixin, Page):
     """
     A code based chart page for advanced users
     """
@@ -157,6 +157,7 @@ class AdvancedChartPage(InstructionsMixin, D3OptionsMixin, PlotlyOptionsMixin, R
         FieldPanel('html', classname='collapsible'),
         FieldPanel('javascript', classname='collapsible'),
         # FieldPanel('css', classname='collapsible'), TODO: add CSS support - may work best in an iFrame
+        FallbackImagePanel(),
         InstructionsPanel(),
         FieldPanel('caption'),
     ]

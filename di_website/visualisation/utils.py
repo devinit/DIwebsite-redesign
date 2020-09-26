@@ -45,6 +45,7 @@ def SpecificInstructionsPanel():
 
 def FallbackImagePanel():
     return MultiFieldPanel([
+            ImageChooserPanel('fallback_image'),
             FieldPanel('display_fallback_mobile'),
             FieldPanel('display_fallback_tablet'),
         ], heading='Fallback image and options')

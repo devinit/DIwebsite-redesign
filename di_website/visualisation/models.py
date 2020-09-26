@@ -162,5 +162,25 @@ class AdvancedChartPage(InstructionsMixin, D3OptionsMixin, PlotlyOptionsMixin, F
         FieldPanel('caption'),
     ]
 
+    @cached_property
+    def parent(self):
+        return self.get_parent().specific
+
+    @cached_property
+    def instructions_text(self):
+        if self.instructions:
+            return self.instructions
+
+        return ''
+
+    def get_sitemap_urls(self, request):
+        return []
+
+    @route(r'^$')
+    def chart(self, request):
+        if request.user.is_authenticated:
+            return super().serve(request)
+        raise Http404()
+
     class Meta:
         verbose_name = 'Advanced Chart Page'

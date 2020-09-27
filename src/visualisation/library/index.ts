@@ -1,69 +1,33 @@
-import Plotly from 'plotly.js';
-import { addLoading, removeLoading } from '../loading';
-import { FilterOptions } from './utils';
-import { PlotlyManager } from './utils/plotly';
+import { DICharts } from './dicharts';
+import { DIChartConfig } from './utils';
 
-class DICharts {
-  private chartElement: HTMLElement;
+export const handler = (() => {
+  const charts: DIChartConfig[] = [];
 
-  constructor(chartNode: string | HTMLElement) {
-    this.chartElement = this.getElement(chartNode);
-  }
-
-  showLoading = (): void => {
-    const chartWrapper = this.getParentElement();
-    if (chartWrapper) {
-      addLoading(chartWrapper);
+  const getElementsByClassName = (className: string) => {
+    if (!className) {
+      throw new Error('An indentifying class for the element is required');
     }
-  };
 
-  hideLoading = (): void => {
-    const chartWrapper = this.getParentElement();
-    if (chartWrapper) {
-      removeLoading(chartWrapper);
-    }
+    return document.querySelectorAll(`.${className}:not(.dicharts-handler--active)`);
   };
-
-  addFilter = (selectNode: string | HTMLSelectElement, options: string[], extra?: FilterOptions): HTMLSelectElement => {
-    const selectElement = this.getElement(selectNode) as HTMLSelectElement;
-    options.forEach((option) => {
-      const optionElement = document.createElement('option');
-      optionElement.value = option;
-      optionElement.text = this.getFilterText(option, extra);
-      selectElement.appendChild(optionElement);
+  const init = (chart: DIChartConfig) => {
+    const chartNodes = getElementsByClassName(chart.className);
+    Array.prototype.forEach.call(chartNodes, (chartNode: HTMLElement) => {
+      chartNode.classList.add('dicharts-handler--active');
     });
-    selectElement.classList.add('data-selector--active');
-
-    return selectElement;
   };
 
-  addPlotly = (plotly: typeof Plotly): PlotlyManager => {
-    return new PlotlyManager(plotly, this.chartElement);
-  };
-
-  private getElement(element: string | HTMLElement) {
-    if (!element) {
-      throw new Error('An id to the element or an actual element is required');
-    }
-    if (typeof element === 'string') {
-      const matchingElement = document.getElementById(element as string);
-      if (!matchingElement) {
-        throw new Error(`No element with id ${element}`);
+  return {
+    addChart: (chart: DIChartConfig) => {
+      charts.push(chart);
+      if (chart.onAdd) {
+        chart.onAdd(chart);
       }
-
-      return matchingElement;
-    }
-
-    return element;
-  }
-
-  private getParentElement() {
-    return this.chartElement.parentElement;
-  }
-
-  private getFilterText(option: string, { labelPrefix, labelSuffix }: FilterOptions = {}) {
-    return `${labelPrefix || ''}${option}${labelSuffix || ''}`;
-  }
-}
+      init(chart);
+    },
+    getCharts: () => charts,
+  };
+})();
 
 export { DICharts as Chart };

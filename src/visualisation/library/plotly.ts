@@ -1,6 +1,6 @@
 import { Config, Data, Layout } from 'plotly.js';
 import { DIChart } from './dicharts';
-import { DIChartPlotlyConfig } from './utils';
+import { DIChartPlotlyOptions } from './utils';
 import { PlotlyEnhancedHTMLElement } from '../types';
 import deepmerge from 'deepmerge';
 
@@ -24,41 +24,84 @@ export const defaultConfig: Partial<Config> = {
 };
 
 export class DIPlotlyChart extends DIChart {
-  private config: DIChartPlotlyConfig;
+  private options: DIChartPlotlyOptions;
+  private data: Data[] = [];
+  private layout: Partial<Layout> = {};
+  private config: Partial<Config> = {};
   private plot?: PlotlyEnhancedHTMLElement;
 
-  constructor(chartNode: HTMLElement, config: DIChartPlotlyConfig) {
+  constructor(chartNode: HTMLElement, config: DIChartPlotlyOptions) {
     super(chartNode);
 
-    this.config = config;
+    this.options = config;
   }
-
-  newPlot = (
-    chartNode: HTMLElement,
-    data: Data[],
-    layout: Partial<Layout> = {},
-    config: Partial<Config> = {},
-  ): Promise<{ plot: PlotlyEnhancedHTMLElement; config: DIChartPlotlyConfig }> => {
-    return window.Plotly.newPlot(chartNode, data, layout, this.getConfig(config)).then(
-      (plot: PlotlyEnhancedHTMLElement) => {
-        this.addPlot(plot);
-
-        return { plot, config: this.config };
-      },
-    );
-  };
 
   getPlot = (): PlotlyEnhancedHTMLElement | undefined => {
     return this.plot;
+  };
+
+  setData = (data: Data[] = []): DIPlotlyChart => {
+    this.data = data;
+
+    return this;
+  };
+
+  setLayout = (layout: Partial<Layout> = {}): DIPlotlyChart => {
+    this.layout = deepmerge(this.layout, layout);
+
+    return this;
+  };
+
+  setConfig = (config: Partial<Config> = {}): DIPlotlyChart => {
+    this.config = deepmerge(this.config, config);
+
+    return this;
   };
 
   getConfig = (config: Partial<Config> = {}): Config => {
     return deepmerge(defaultConfig, config);
   };
 
+  csv = (url: string): Promise<{ [key: string]: string }[]> => {
+    return new Promise((resolve) => {
+      window.Plotly.d3.csv(url, (data) => {
+        resolve(data);
+      });
+    });
+  };
+
+  updatePlot = (): Promise<{ plot: PlotlyEnhancedHTMLElement; config: DIChartPlotlyOptions }> => {
+    if (!this.plot) {
+      return this.newPlot(this.chartElement, this.data, this.layout, this.getConfig(this.config));
+    }
+
+    return window.Plotly.react(this.chartElement, this.data, this.layout, this.getConfig(this.config)).then(
+      (plot: PlotlyEnhancedHTMLElement) => {
+        this.addPlot(plot);
+
+        return { plot, config: this.options };
+      },
+    );
+  };
+
   private addPlot(plot: PlotlyEnhancedHTMLElement): DIPlotlyChart {
     this.plot = plot;
 
     return this;
+  }
+
+  private newPlot(
+    chartNode: HTMLElement,
+    data: Data[],
+    layout: Partial<Layout> = {},
+    config: Partial<Config> = {},
+  ): Promise<{ plot: PlotlyEnhancedHTMLElement; config: DIChartPlotlyOptions }> {
+    return window.Plotly.newPlot(chartNode, data, layout, this.getConfig(config)).then(
+      (plot: PlotlyEnhancedHTMLElement) => {
+        this.addPlot(plot);
+
+        return { plot, config: this.options };
+      },
+    );
   }
 }

@@ -1,5 +1,5 @@
 import { DIChart } from './dicharts';
-import { DIChartConfig, DIChartPlotlyConfig } from './utils';
+import { DIChartConfig, DIChartPlotlyOptions } from './utils';
 import { DIPlotlyChart } from './plotly';
 
 export const handler = (function () {
@@ -12,11 +12,19 @@ export const handler = (function () {
 
     return document.querySelectorAll(`.${className}:not(.dicharts-handler--active)`);
   };
-  const handlePlotly = (chartNode: HTMLElement, config: DIChartPlotlyConfig) => {
+  const handlePlotly = (chartNode: HTMLElement, config: DIChartPlotlyOptions) => {
     const manager = new DIPlotlyChart(chartNode, config);
-    if (config.data) {
-      manager.newPlot(chartNode, config.data, config.layout, config.config).then(({ plot }) => {
-        console.log(plot);
+    manager.setLayout(config.layout).setConfig(config.config);
+    if (config.data && config.data.length) {
+      manager
+        .setData(config.data)
+        .updatePlot()
+        .then(({ plot }) => {
+          console.log(plot); // TODO: add event property to call when new plot is created
+        });
+    } else if (config.csv) {
+      manager.csv(config.csv.url).then((data) => {
+        config.csv?.onFetch(data, config, manager);
       });
     }
   };

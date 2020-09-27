@@ -1,4 +1,4 @@
-import { Layout } from 'plotly.js';
+import { Layout, Data, Config } from 'plotly.js';
 
 export interface DIChartConfig {
   className: string;
@@ -7,7 +7,9 @@ export interface DIChartConfig {
 }
 
 export interface DIChartPlotlyConfig {
-  layout: Layout;
+  data?: Data[];
+  layout: Partial<Layout>;
+  config: Partial<Config>;
   utils: { [key: string]: any }; // eslint-disable-line @typescript-eslint/no-explicit-any
 }
 

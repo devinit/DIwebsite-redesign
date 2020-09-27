@@ -1,7 +1,8 @@
-import { DICharts } from './dicharts';
-import { DIChartConfig } from './utils';
+import { DIChart } from './dicharts';
+import { DIChartConfig, DIChartPlotlyConfig } from './utils';
+import { DIPlotlyChart } from './plotly';
 
-export const handler = (() => {
+export const handler = (function () {
   const charts: DIChartConfig[] = [];
 
   const getElementsByClassName = (className: string) => {
@@ -11,10 +12,21 @@ export const handler = (() => {
 
     return document.querySelectorAll(`.${className}:not(.dicharts-handler--active)`);
   };
+  const handlePlotly = (chartNode: HTMLElement, config: DIChartPlotlyConfig) => {
+    const manager = new DIPlotlyChart(chartNode, config);
+    if (config.data) {
+      manager.newPlot(chartNode, config.data, config.layout, config.config).then(({ plot }) => {
+        console.log(plot);
+      });
+    }
+  };
   const init = (chart: DIChartConfig) => {
     const chartNodes = getElementsByClassName(chart.className);
     Array.prototype.forEach.call(chartNodes, (chartNode: HTMLElement) => {
       chartNode.classList.add('dicharts-handler--active');
+      if (chart.plotly) {
+        handlePlotly(chartNode, chart.plotly);
+      }
     });
   };
 
@@ -30,4 +42,4 @@ export const handler = (() => {
   };
 })();
 
-export { DICharts as Chart };
+export { DIChart as Chart };

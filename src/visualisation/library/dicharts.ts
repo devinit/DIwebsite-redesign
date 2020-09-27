@@ -1,10 +1,8 @@
-import Plotly from 'plotly.js';
 import { addLoading, removeLoading } from '../loading';
 import { FilterOptions } from './utils';
-import { PlotlyManager } from './utils/plotly';
 
-export class DICharts {
-  private chartElement: HTMLElement;
+export class DIChart {
+  public chartElement: HTMLElement;
 
   constructor(chartNode: string | HTMLElement) {
     this.chartElement = this.getElement(chartNode);
@@ -37,9 +35,13 @@ export class DICharts {
     return selectElement;
   };
 
-  addPlotly = (plotly: typeof Plotly): PlotlyManager => {
-    return new PlotlyManager(plotly, this.chartElement);
-  };
+  getParentElement(): HTMLElement | null {
+    return this.chartElement.parentElement;
+  }
+
+  getFilterText(option: string, { labelPrefix, labelSuffix }: FilterOptions = {}): string {
+    return `${labelPrefix || ''}${option}${labelSuffix || ''}`;
+  }
 
   private getElement(element: string | HTMLElement) {
     if (!element) {
@@ -55,13 +57,5 @@ export class DICharts {
     }
 
     return element;
-  }
-
-  private getParentElement() {
-    return this.chartElement.parentElement;
-  }
-
-  private getFilterText(option: string, { labelPrefix, labelSuffix }: FilterOptions = {}) {
-    return `${labelPrefix || ''}${option}${labelSuffix || ''}`;
   }
 }

@@ -14,6 +14,7 @@ export const handler = (function () {
   };
   const handlePlotly = (chartNode: HTMLElement, config: DIChartPlotlyOptions) => {
     const manager = new DIPlotlyChart(chartNode, config);
+    manager.showLoading();
     manager.setLayout(config.layout).setConfig(config.config);
     if (config.data && config.data.length) {
       manager

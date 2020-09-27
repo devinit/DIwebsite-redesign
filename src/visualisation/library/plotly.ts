@@ -78,6 +78,7 @@ export class DIPlotlyChart extends DIChart {
     return window.Plotly.react(this.chartElement, this.data, this.layout, this.getConfig(this.config)).then(
       (plot: PlotlyEnhancedHTMLElement) => {
         this.addPlot(plot);
+        this.hideLoading();
 
         return { plot, config: this.options };
       },
@@ -99,6 +100,7 @@ export class DIPlotlyChart extends DIChart {
     return window.Plotly.newPlot(chartNode, data, layout, this.getConfig(config)).then(
       (plot: PlotlyEnhancedHTMLElement) => {
         this.addPlot(plot);
+        this.hideLoading();
 
         return { plot, config: this.options };
       },

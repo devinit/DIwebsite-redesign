@@ -29,11 +29,12 @@ export class DIPlotlyChart extends DIChart {
   private layout: Partial<Layout> = {};
   private config: Partial<Config> = {};
   private plot?: PlotlyEnhancedHTMLElement;
+  private sourceData?: { [key: string]: string }[];
 
-  constructor(chartNode: HTMLElement, config: DIChartPlotlyOptions) {
+  constructor(chartNode: HTMLElement, options: DIChartPlotlyOptions) {
     super(chartNode);
 
-    this.options = config;
+    this.options = options;
   }
 
   getPlot = (): PlotlyEnhancedHTMLElement | undefined => {
@@ -62,6 +63,10 @@ export class DIPlotlyChart extends DIChart {
     return deepmerge(defaultConfig, config);
   };
 
+  getOptions = (): DIChartPlotlyOptions => {
+    return this.options;
+  };
+
   csv = (url: string): Promise<{ [key: string]: string }[]> => {
     return new Promise((resolve) => {
       window.Plotly.d3.csv(url, (data) => {
@@ -84,6 +89,16 @@ export class DIPlotlyChart extends DIChart {
       },
     );
   };
+
+  setSourceData(data: { [key: string]: string }[]): DIPlotlyChart {
+    this.sourceData = data;
+
+    return this;
+  }
+
+  getSourceData(): { [key: string]: string }[] | undefined {
+    return this.sourceData;
+  }
 
   private addPlot(plot: PlotlyEnhancedHTMLElement): DIPlotlyChart {
     this.plot = plot;

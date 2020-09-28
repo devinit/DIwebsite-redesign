@@ -17,14 +17,10 @@ export const handler = (function () {
     manager.showLoading();
     manager.setLayout(config.layout).setConfig(config.config);
     if (config.data && config.data.length) {
-      manager
-        .setData(config.data)
-        .updatePlot()
-        .then(({ plot }) => {
-          console.log(plot); // TODO: add event property to call when new plot is created
-        });
+      manager.setData(config.data).updatePlot();
     } else if (config.csv) {
       manager.csv(config.csv.url).then((data) => {
+        manager.setSourceData(data);
         config.csv?.onFetch(data, config, manager);
       });
     }

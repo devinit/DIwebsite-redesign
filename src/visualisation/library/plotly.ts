@@ -1,6 +1,6 @@
-import { Config, Data, Layout } from 'plotly.js';
+import { Config, Data, Layout, LegendClickEvent } from 'plotly.js';
 import { DIChart } from './dicharts';
-import { DIChartPlotlyOptions, ChartFilter, FilterData } from './utils';
+import { DIChartPlotlyOptions, ChartFilter, FilterData, ChartLegend } from './utils';
 import { PlotlyEnhancedHTMLElement } from '../types';
 import deepmerge from 'deepmerge';
 
@@ -123,10 +123,16 @@ export class DIPlotlyChart extends DIChart {
   ): Promise<{ plot: PlotlyEnhancedHTMLElement; config: DIChartPlotlyOptions }> {
     return window.Plotly.newPlot(chartNode, data, layout, this.getConfig(config)).then(
       (plot: PlotlyEnhancedHTMLElement) => {
+        plot.on('plotly_click', (data) => {
+          if (this.options.onClick) {
+            this.options.onClick(data, this);
+          }
+        });
         if (!this.plot) {
-          this.initWidgets();
+          this.initCustomWidgets();
         }
         this.addPlot(plot);
+        this.initPlotlyWidgets();
         this.hideLoading();
 
         return { plot, config: this.options };
@@ -134,10 +140,20 @@ export class DIPlotlyChart extends DIChart {
     );
   }
 
-  private initWidgets() {
+  private initCustomWidgets() {
     const { widgets = {} } = this.options;
     if (widgets.filters) {
       widgets.filters.forEach((filter) => this.handleFilter(filter));
+    }
+    if (widgets.legend) {
+      this.handleLegend(widgets.legend);
+    }
+  }
+
+  private initPlotlyWidgets() {
+    const { widgets = {} } = this.options;
+    if (widgets.legend) {
+      this.handleLegend(widgets.legend);
     }
   }
 
@@ -175,6 +191,17 @@ export class DIPlotlyChart extends DIChart {
           }),
         );
         filter.onChange(event, this);
+      });
+    }
+  }
+
+  private handleLegend(legend: ChartLegend) {
+    if (this.plot && legend.onClick) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      this.plot.on(<any>'plotly_legendclick', (data: LegendClickEvent) => {
+        if (legend.onClick) {
+          legend.onClick(data, this);
+        }
       });
     }
   }

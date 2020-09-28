@@ -1,4 +1,4 @@
-import { Layout, Data, Config } from 'plotly.js';
+import { Layout, Data, Config, LegendClickEvent, PlotMouseEvent } from 'plotly.js';
 import { DIPlotlyChart } from '../plotly';
 
 export interface DIChartConfig {
@@ -9,7 +9,8 @@ export interface DIChartConfig {
 }
 
 interface ChartWidgets {
-  filters: ChartFilter[];
+  filters?: ChartFilter[];
+  legend?: ChartLegend;
 }
 
 export interface ChartFilter {
@@ -18,6 +19,10 @@ export interface ChartFilter {
   multi?: boolean; // multi-select
   getOptions?: (manager: DIPlotlyChart) => string[];
   onChange: (event: MouseEvent, manager: DIPlotlyChart) => void;
+}
+
+export interface ChartLegend {
+  onClick?: (data: LegendClickEvent, manager: DIPlotlyChart) => void;
 }
 
 export interface FilterData {
@@ -36,6 +41,7 @@ export interface DIChartPlotlyOptions {
   config: Partial<Config>;
   csv?: PlotlyCSV; // only used if data property is not provided - URL of the CSV data source
   widgets: Partial<ChartWidgets>;
+  onClick?: (data: PlotMouseEvent, manager: DIPlotlyChart) => void;
   utils: { [key: string]: any }; // eslint-disable-line @typescript-eslint/no-explicit-any
 }
 

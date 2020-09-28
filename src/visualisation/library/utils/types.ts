@@ -8,6 +8,23 @@ export interface DIChartConfig {
   elements?: HTMLElement[];
 }
 
+interface ChartWidgets {
+  filters: ChartFilter[];
+}
+
+export interface ChartFilter {
+  className: string;
+  options?: string[];
+  multi?: boolean; // multi-select
+  getOptions?: (manager: DIPlotlyChart) => string[];
+  onChange: (event: MouseEvent, manager: DIPlotlyChart) => void;
+}
+
+export interface FilterData {
+  name: string;
+  value: string[];
+}
+
 interface PlotlyCSV {
   url: string;
   onFetch: (data: Array<{ [key: string]: any }>, config: DIChartPlotlyOptions, manager: DIPlotlyChart) => void; // eslint-disable-line @typescript-eslint/no-explicit-any
@@ -18,6 +35,7 @@ export interface DIChartPlotlyOptions {
   layout: Partial<Layout>;
   config: Partial<Config>;
   csv?: PlotlyCSV; // only used if data property is not provided - URL of the CSV data source
+  widgets: Partial<ChartWidgets>;
   utils: { [key: string]: any }; // eslint-disable-line @typescript-eslint/no-explicit-any
 }
 

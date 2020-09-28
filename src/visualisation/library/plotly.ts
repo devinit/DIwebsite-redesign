@@ -27,7 +27,7 @@ export const defaultConfig: Partial<Config> = {
   ],
 };
 
-// const MAX_TRACES_FOR_THEME = 8;
+const MAX_TRACES_FOR_THEME = 8;
 
 const colorways: { [key in ChartTheme]: string[] } = {
   rainbow: [
@@ -141,6 +141,9 @@ export class DIPlotlyChart extends DIChart {
       this.getConfig(this.config),
     ).then((plot: PlotlyEnhancedHTMLElement) => {
       this.addPlot(plot);
+      if (!this.options.theme) {
+        this.updateLayoutColorway();
+      }
       this.hideLoading();
 
       return { plot, config: this.options };
@@ -156,6 +159,27 @@ export class DIPlotlyChart extends DIChart {
   getSourceData(): { [key: string]: string }[] | undefined {
     return this.sourceData;
   }
+
+  private updateLayoutColorway = (): void => {
+    if (!this.plot) return;
+
+    const count = this.plot.calcdata.length;
+    let colorway = undefined;
+    if (count > MAX_TRACES_FOR_THEME) {
+      colorway = colorways.rainbow;
+    } else {
+      const bodyClass = document.body.classList;
+      for (const [key, value] of Object.entries(colorways)) {
+        if (bodyClass.contains(`body--${key}`) && value.length <= MAX_TRACES_FOR_THEME) {
+          colorway = value;
+          break;
+        }
+      }
+    }
+    if (colorway) {
+      window.Plotly.relayout(this.chartElement, { colorway });
+    }
+  };
 
   private addPlot(plot: PlotlyEnhancedHTMLElement): DIPlotlyChart {
     this.plot = plot;
@@ -181,6 +205,9 @@ export class DIPlotlyChart extends DIChart {
         }
         this.addPlot(plot);
         this.initPlotlyWidgets();
+        if (!this.options.theme) {
+          this.updateLayoutColorway();
+        }
         this.hideLoading();
 
         return { plot, config: this.options };

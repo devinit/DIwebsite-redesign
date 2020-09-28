@@ -35,6 +35,12 @@ interface PlotlyCSV {
   onFetch: (data: Array<{ [key: string]: any }>, config: DIChartPlotlyOptions, manager: DIPlotlyChart) => void; // eslint-disable-line @typescript-eslint/no-explicit-any
 }
 
+export interface SeriesGroup {
+  name: string;
+}
+
+export type ChartTheme = 'default' | 'sunflower' | 'marigold' | 'rose' | 'lavendar' | 'bluebell' | 'leaf' | 'rainbow';
+
 export interface DIChartPlotlyOptions {
   data?: Data[]; // if provided, use as the single source of chart data. Takes precendece over csv property
   layout: Partial<Layout>;
@@ -42,6 +48,8 @@ export interface DIChartPlotlyOptions {
   csv?: PlotlyCSV; // only used if data property is not provided - URL of the CSV data source
   widgets: Partial<ChartWidgets>;
   onClick?: (data: PlotMouseEvent, manager: DIPlotlyChart) => void;
+  seriesGroups?: SeriesGroup[];
+  theme?: ChartTheme;
   utils: { [key: string]: any }; // eslint-disable-line @typescript-eslint/no-explicit-any
 }
 

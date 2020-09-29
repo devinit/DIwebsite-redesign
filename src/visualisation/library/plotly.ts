@@ -226,9 +226,6 @@ export class DIPlotlyChart extends DIChart {
     if (widgets.filters) {
       widgets.filters.forEach((filter) => this.handleFilter(filter));
     }
-    if (widgets.legend) {
-      this.handleLegend(widgets.legend);
-    }
   }
 
   private initPlotlyWidgets() {

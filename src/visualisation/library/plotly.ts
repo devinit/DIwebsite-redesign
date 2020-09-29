@@ -63,6 +63,7 @@ export class DIPlotlyChart extends DIChart {
   private plot?: PlotlyEnhancedHTMLElement;
   private sourceData?: { [key: string]: string }[];
   private filters: FilterData[] = [];
+  private theme: ChartTheme = 'default';
 
   constructor(chartNode: HTMLElement, options: DIChartPlotlyOptions) {
     super(chartNode);
@@ -95,8 +96,13 @@ export class DIPlotlyChart extends DIChart {
       ...this.layout,
       colorway: colorways[theme],
     };
+    this.theme = theme;
 
     return this;
+  };
+
+  getTheme = (theme: ChartTheme = 'default'): [ChartTheme, string[]] => {
+    return theme ? [theme, colorways[theme]] : [this.theme, colorways[this.theme]];
   };
 
   setConfig = (config: Partial<Config> = {}): DIPlotlyChart => {

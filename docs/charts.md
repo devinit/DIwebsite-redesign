@@ -128,3 +128,5 @@ Usage:
 **Data**
 
         manager.csv(url) // fetches the CSV data and returns a promise
+        manager.setSourceData(data) // use to store source data e.g. that returned by the CSV - with this, it can be accessed elsewhere
+        manager.getSourceData() // returns sources data

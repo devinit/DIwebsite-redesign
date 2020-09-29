@@ -62,3 +62,69 @@ To add a new chart:
                 }
             }
         });
+
+
+## Manager API
+
+### DICharts.Chart()
+
+**Init**
+
+        const manager = new DICharts.Chart(*chartElement*)
+
+**Loading**
+
+        manager.showLoading();
+        manager.hideLoading();
+
+**Custom Widgets**
+
+        const widgets = {
+            filters: [
+                {
+                    className: '', // CSS class of the select element for this filter
+                    multi: false, // if true, this filter will allow selection of multiple values
+                    options: ['Option 1'], // optional: if provided, has a higher precendence for rendering filter options
+                    getOptions: function(manager) {}, // optional: use for dynamic options i.e fetch the options within the fuction and return them
+                    onChange: function(event, manager) {} // called when the option is changed
+                }
+            ]
+        }
+        manager.initCustomWidgets(widgets);
+
+
+**Themes**
+
+Supported themes are `default`, `sunflower`, `marigold`, `rose`, `lavendar`, `bluebell`, `leaf`, `rainbow`
+
+        manager.getThemes() // returns all supported themes & their colours
+        manager.getTheme(theme) // returns the theme and colours of either the specified theme or the currently applied theme
+
+
+### Plotly Charts Manager
+
+Extends `DICharts.Chart`, so all the functions & properties there are accessible here
+
+
+**Plot**
+
+        manager.setData(data) // sets the chart data
+        manager.setLayout(layout) // sets the chart layout options
+        manager.setConfig(config) // sets the chart config options
+        manager.updatePlot() // creates a new plot or updates an existing one
+
+Usage:
+
+        manager.setData(data).setLayout(layout).setConfig(config).updatePlot();
+
+        manager.getPlot() // returns the current plot
+
+
+**Theme**
+
+        manager.setTheme('theme') // sets the active theme
+
+
+**Data**
+
+        manager.csv(url) // fetches the CSV data and returns a promise

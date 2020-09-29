@@ -11,7 +11,6 @@ export interface DIChartConfig {
 
 export interface ChartWidgets {
   filters?: ChartFilter[];
-  legend?: PlotlyChartLegend;
 }
 
 interface PlotlyChartWidgets extends ChartWidgets {

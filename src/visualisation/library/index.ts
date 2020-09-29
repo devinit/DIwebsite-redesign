@@ -25,8 +25,17 @@ export const handler = (function () {
       });
     }
   };
+  const onAdd = (chart: DIChartConfig, nodes: NodeListOf<Element>) => {
+    if (chart.plotly && chart.plotly.onAdd) {
+      chart.plotly.onAdd(nodes);
+    }
+    if (chart.d3 && chart.d3.onAdd) {
+      chart.d3.onAdd(nodes);
+    }
+  };
   const init = (chart: DIChartConfig) => {
     const chartNodes = getElementsByClassName(chart.className);
+    onAdd(chart, chartNodes);
     Array.prototype.forEach.call(chartNodes, (chartNode: HTMLElement) => {
       chartNode.classList.add('dicharts-handler--active');
       if (chart.plotly) {
@@ -38,9 +47,6 @@ export const handler = (function () {
   return {
     addChart: (chart: DIChartConfig) => {
       charts.push(chart);
-      if (chart.onAdd) {
-        chart.onAdd(chart);
-      }
       init(chart);
     },
     getCharts: () => charts,

@@ -1,13 +1,22 @@
 import { addLoading, removeLoading } from '../loading';
-import { FilterOptions, ChartTheme } from './utils';
+import { ChartFilter, ChartTheme, ChartWidgets, FilterData, FilterOptions } from './utils';
 
 export class DIChart {
   chartElement: HTMLElement;
   theme: ChartTheme = 'default';
+  filters: FilterData[] = [];
 
   constructor(chartNode: string | HTMLElement) {
     this.chartElement = this.getElement(chartNode);
   }
+
+  setFilters = (filters: FilterData[]): void => {
+    this.filters = filters;
+  };
+
+  getFilters = (): FilterData[] => {
+    return this.filters;
+  };
 
   showLoading = (): void => {
     const chartWrapper = this.getParentElement();
@@ -75,6 +84,50 @@ export class DIChart {
   getTheme = (theme: ChartTheme = 'default'): [ChartTheme, string[]] => {
     return theme ? [theme, this.getThemes()[theme]] : [this.theme, this.getThemes()[this.theme]];
   };
+
+  handleFilter(filter: ChartFilter): void {
+    const parent = this.getParentElement();
+    if (parent) {
+      const selectElement = parent.querySelector(`.${filter.className}`) as HTMLSelectElement | null;
+      if (selectElement) {
+        let { options } = filter;
+        if (!options && filter.getOptions) {
+          options = filter.getOptions(this);
+        }
+        if (options && options.length) {
+          this.addFilter(selectElement, options || []);
+          this.addFilterEvents(selectElement, filter);
+          this.setFilters(this.filters.concat({ name: filter.className, value: [options[0]] }));
+        }
+      } else {
+        throw new Error(`No element with class ${filter.className}`);
+      }
+    }
+  }
+
+  addFilterEvents(element: HTMLSelectElement, filter: ChartFilter): void {
+    if (filter.onChange) {
+      element.addEventListener('change', (event: MouseEvent) => {
+        const { value } = <HTMLSelectElement>event.target;
+        this.setFilters(
+          this.filters.map((item) => {
+            if (item.name === filter.className && item.value.indexOf(value) === -1) {
+              item.value = filter.multi ? item.value.concat(value) : [value];
+            }
+
+            return item;
+          }),
+        );
+        filter.onChange(event, this);
+      });
+    }
+  }
+
+  initCustomWidgets(widgets: ChartWidgets): void {
+    if (widgets.filters) {
+      widgets.filters.forEach((filter) => this.handleFilter(filter));
+    }
+  }
 
   private getElement(element: string | HTMLElement) {
     if (!element) {

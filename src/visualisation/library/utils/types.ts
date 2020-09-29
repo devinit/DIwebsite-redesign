@@ -1,27 +1,32 @@
 import { Layout, Data, Config, LegendClickEvent, PlotMouseEvent } from 'plotly.js';
 import { DIPlotlyChart } from '../plotly';
+import { DIChart } from '../dicharts';
 
 export interface DIChartConfig {
   className: string;
   plotly?: DIChartPlotlyOptions;
-  onAdd?: (config: DIChartConfig) => void;
+  d3?: DIChartD3Options;
   elements?: HTMLElement[];
 }
 
-interface ChartWidgets {
+export interface ChartWidgets {
   filters?: ChartFilter[];
-  legend?: ChartLegend;
+  legend?: PlotlyChartLegend;
+}
+
+interface PlotlyChartWidgets extends ChartWidgets {
+  legend?: PlotlyChartLegend;
 }
 
 export interface ChartFilter {
   className: string;
   options?: string[];
   multi?: boolean; // multi-select
-  getOptions?: (manager: DIPlotlyChart) => string[];
-  onChange: (event: MouseEvent, manager: DIPlotlyChart) => void;
+  getOptions?: (manager: DIChart) => string[];
+  onChange: (event: MouseEvent, manager: DIChart) => void;
 }
 
-export interface ChartLegend {
+export interface PlotlyChartLegend {
   onClick?: (data: LegendClickEvent, manager: DIPlotlyChart) => void;
 }
 
@@ -46,14 +51,20 @@ export interface DIChartPlotlyOptions {
   layout: Partial<Layout>;
   config: Partial<Config>;
   csv?: PlotlyCSV; // only used if data property is not provided - URL of the CSV data source
-  widgets: Partial<ChartWidgets>;
+  widgets: Partial<PlotlyChartWidgets>;
   onClick?: (data: PlotMouseEvent, manager: DIPlotlyChart) => void;
   seriesGroups?: SeriesGroup[];
   theme?: ChartTheme;
+  onAdd?: (elements: NodeListOf<Element>) => void;
   utils: { [key: string]: any }; // eslint-disable-line @typescript-eslint/no-explicit-any
 }
 
 export interface FilterOptions {
   labelPrefix?: string;
   labelSuffix?: string;
+}
+
+export interface DIChartD3Options {
+  onAdd?: (elements: NodeListOf<Element>) => void;
+  widgets?: Partial<ChartWidgets>;
 }

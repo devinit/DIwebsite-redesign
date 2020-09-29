@@ -1,8 +1,8 @@
-import { Config, Data, Layout, LegendClickEvent } from 'plotly.js';
-import { DIChart } from './dicharts';
-import { DIChartPlotlyOptions, ChartFilter, FilterData, ChartLegend, ChartTheme } from './utils';
-import { PlotlyEnhancedHTMLElement } from '../types';
 import deepmerge from 'deepmerge';
+import { Config, Data, Layout, LegendClickEvent } from 'plotly.js';
+import { PlotlyEnhancedHTMLElement } from '../types';
+import { DIChart } from './dicharts';
+import { ChartTheme, DIChartPlotlyOptions, PlotlyChartLegend } from './utils';
 
 export const defaultLayout: Partial<Layout> = {
   hovermode: 'closest',
@@ -36,7 +36,6 @@ export class DIPlotlyChart extends DIChart {
   private config: Partial<Config> = {};
   private plot?: PlotlyEnhancedHTMLElement;
   private sourceData?: { [key: string]: string }[];
-  private filters: FilterData[] = [];
 
   constructor(chartNode: HTMLElement, options: DIChartPlotlyOptions) {
     super(chartNode);
@@ -86,14 +85,6 @@ export class DIPlotlyChart extends DIChart {
 
   getOptions = (): DIChartPlotlyOptions => {
     return this.options;
-  };
-
-  setFilters = (filters: FilterData[]): void => {
-    this.filters = filters;
-  };
-
-  getFilters = (): FilterData[] => {
-    return this.filters;
   };
 
   csv = (url: string): Promise<{ [key: string]: string }[]> => {
@@ -176,8 +167,8 @@ export class DIPlotlyChart extends DIChart {
             this.options.onClick(data, this);
           }
         });
-        if (!this.plot) {
-          this.initCustomWidgets();
+        if (!this.plot && this.options.widgets) {
+          this.initCustomWidgets(this.options.widgets);
         }
         this.addPlot(plot);
         this.initPlotlyWidgets();
@@ -191,13 +182,6 @@ export class DIPlotlyChart extends DIChart {
     );
   }
 
-  private initCustomWidgets() {
-    const { widgets = {} } = this.options;
-    if (widgets.filters) {
-      widgets.filters.forEach((filter) => this.handleFilter(filter));
-    }
-  }
-
   private initPlotlyWidgets() {
     const { widgets = {} } = this.options;
     if (widgets.legend) {
@@ -205,45 +189,7 @@ export class DIPlotlyChart extends DIChart {
     }
   }
 
-  private handleFilter(filter: ChartFilter) {
-    const parent = this.getParentElement();
-    if (parent) {
-      const selectElement = parent.querySelector(`.${filter.className}`) as HTMLSelectElement | null;
-      if (selectElement) {
-        let { options } = filter;
-        if (!options && filter.getOptions) {
-          options = filter.getOptions(this);
-        }
-        if (options && options.length) {
-          this.addFilter(selectElement, options || []);
-          this.addFilterEvents(selectElement, filter);
-          this.setFilters(this.filters.concat({ name: filter.className, value: [options[0]] }));
-        }
-      } else {
-        throw new Error(`No element with class ${filter.className}`);
-      }
-    }
-  }
-
-  private addFilterEvents(element: HTMLSelectElement, filter: ChartFilter) {
-    if (filter.onChange) {
-      element.addEventListener('change', (event: MouseEvent) => {
-        const { value } = <HTMLSelectElement>event.target;
-        this.setFilters(
-          this.filters.map((item) => {
-            if (item.name === filter.className && item.value.indexOf(value) === -1) {
-              item.value = filter.multi ? item.value.concat(value) : [value];
-            }
-
-            return item;
-          }),
-        );
-        filter.onChange(event, this);
-      });
-    }
-  }
-
-  private handleLegend(legend: ChartLegend) {
+  private handleLegend(legend: PlotlyChartLegend) {
     if (this.plot && legend.onClick) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       this.plot.on(<any>'plotly_legendclick', (data: LegendClickEvent) => {

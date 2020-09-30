@@ -126,6 +126,19 @@ export class DIPlotlyChart extends DIChart {
     return this.sourceData;
   }
 
+  getPageTheme = (): [ChartTheme, string[]] | undefined => {
+    const bodyClass = document.body.classList;
+    const colorways = this.getThemes();
+    let theme: [ChartTheme, string[]] | undefined;
+    Object.keys(colorways).forEach((colour: ChartTheme) => {
+      if (bodyClass.contains(`body--${colour}`)) {
+        theme = this.getTheme(colour);
+      }
+    });
+
+    return theme;
+  };
+
   private updateLayoutColorway = (): void => {
     if (!this.plot) return;
 
@@ -194,8 +207,10 @@ export class DIPlotlyChart extends DIChart {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       this.plot.on(<any>'plotly_legendclick', (data: LegendClickEvent) => {
         if (legend.onClick) {
-          legend.onClick(data, this);
+          return legend.onClick(data, this);
         }
+
+        return true;
       });
     }
   }

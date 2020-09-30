@@ -11,17 +11,21 @@
       {% endif %}
     </h3>
     <p class="m-authors__copy">
-      {% if first_author %}
+      {% if first_author and first_author.live %}
         <a href="{% pageurl first_author %}?referrer=author">
           {{ first_author.specific.name }}
         </a>{% if authors|length > 0 %}, {% endif %}
+      {% elif first_author %}
+          {{ first_author.specific.name }}{% if authors|length > 0 %}, {% endif %}
       {% endif %}
       {% for author in authors %}
         {% if author.value %}
-          {% if author.block_type == 'internal_author' %}
+          {% if author.block_type == 'internal_author' and author.value.live %}
             <a href="{% pageurl author.value %}?referrer=author">
               {{ author.value.specific.name }}
             </a>{% if not forloop.last %}, {% endif %}
+          {% elif author.block_type == 'internal_author' %}
+              {{ author.value.specific.name }}{% if not forloop.last %}, {% endif %}
           {% else %}
             {% if author.value.page %}
               <a href="{{ author.value.page }}">{{ author.value.name }}</a>{% if not forloop.last %}, {% endif %}

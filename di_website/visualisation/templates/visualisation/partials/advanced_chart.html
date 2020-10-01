@@ -1,0 +1,42 @@
+{% load wagtailcore_tags wagtailroutablepage_tags wagtailimages_tags footnotes_utils chart_utils %}
+
+<h3 class="type-l type-l--trailer">{{ item.title }}</h3>
+<div class="chart-container chart-container--full">
+  <div class="charts__chart" data-title="{{item.title}}">
+    {% load_as_template raw_html=item.html %}
+    <div class="chart-loading">
+      <div class="chart-loading__block"><div></div><div></div><div></div><div></div></div>
+    </div>
+  </div>
+</div>
+{% include 'visualisation/partials/chart_libraries.html' %}
+<script class="chart-js-inline">
+  window.addEventListener("load", function() {
+    (function () {
+      {% autoescape off %}{{item.javascript}}{% endautoescape %}
+    })();
+  }, false);
+</script>
+
+<div class="chart-fallback">
+  {% image item.fallback_image width-1000 as fallback %}
+  {% image item.fallback_image width-1400 as full %}
+  <a href="{{ full.url }}" target="_blank" title="Click to open image in a new window">
+      <span class="chart-fallback__no-js-small-screen-image" style="background-image: url('{{ fallback.url }}'); {{ fallback|padding_by_ratio }}"></span>
+  </a>
+</div>
+
+<div class="chart-fallback__alert">
+  <p>{{ item.parent.no_js_text }}</p>
+</div>
+<div class="chart-fallback__alert chart-fallback__alert--ss">
+  <p>{{ item.parent.larger_screen_text }}</p>
+</div>
+
+{% include 'visualisation/chart_instructions.html' %}
+
+{% if item.caption %}
+  <figcaption class="media-caption">
+    {% content_with_footnotes item.caption %}
+  </figcaption>
+{% endif %}

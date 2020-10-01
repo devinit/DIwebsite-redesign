@@ -9,6 +9,11 @@
         {% if page %}
             {% include 'publications/share-block.html' with share_type='chart' title=item.title|default:page.title short_url=short_url|add:'#'|add:id data_js='share-section' data_id=id %}
         {% endif %}
-        {% include 'visualisation/chart.html' with item=chart share_link=page.full_url|add:'#'|add:id %}
+
+        {% if chart.get_verbose_name == 'Plotly Studio Chart Page' %}
+          {% include 'visualisation/partials/chart.html' with item=chart share_link=page.full_url|add:'#'|add:id %}
+        {% elif chart.get_verbose_name == 'Advanced Chart Page' %}
+          {% include 'visualisation/partials/advanced_chart.html' with item=chart share_link=page.full_url|add:'#'|add:id %}
+        {% endif %}
     </div>
 {% endif %}

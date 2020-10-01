@@ -202,9 +202,9 @@ class RichTextNoFootnotes(AbstractRichText):
 class InteractiveChartBlock(StructBlock):
 
     class Meta:
-        help_text = 'Select a chart page'
+        help_text = 'Select a Plotly Studio chart page'
         icon = 'fa-area-chart'
-        label = 'Interactive Chart'
+        label = 'Plotly Studio Chart'
         template = 'publications/blocks/interactive_chart.html'
         form_template = 'publications/block_forms/custom_struct.html'
 
@@ -215,7 +215,27 @@ class InteractiveChartBlock(StructBlock):
     def get_context(self, value, parent_context=None):
         context = super().get_context(value, parent_context=parent_context)
         chart_page = value['chart_page']
-        context['chart'] = chart_page if chart_page and chart_page.live else ''
+        context['chart'] = chart_page.specific if chart_page and chart_page.live else ''
+        return context
+
+
+class AdvancedInteractiveChartBlock(StructBlock):
+
+    class Meta:
+        help_text = 'Select an advanced chart page'
+        icon = 'fa-area-chart'
+        label = 'Advanced Interactive Chart'
+        template = 'publications/blocks/interactive_chart.html'
+        form_template = 'publications/block_forms/custom_struct.html'
+
+    chart_page = PageChooserBlock(
+        page_type='visualisation.AdvancedChartPage'
+    )
+
+    def get_context(self, value, parent_context=None):
+        context = super().get_context(value, parent_context=parent_context)
+        chart_page = value['chart_page']
+        context['chart'] = chart_page.specific if chart_page and chart_page.live else ''
         return context
 
 
@@ -232,6 +252,7 @@ def flexible_content_streamfield(blank=False):
         ('infographic', PublicationInfographic()),
         ('anchor', AnchorBlock()),
         ('interactive_chart', InteractiveChartBlock()),
+        ('advanced_interactive_chart', AdvancedInteractiveChartBlock()),
 
     ], blank=blank)
 

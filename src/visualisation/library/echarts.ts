@@ -76,7 +76,6 @@ export class DIEChart extends DIChart {
 
   setOptions = (options: EChartOption): DIEChart => {
     this.options = deepmerge(defaultOptions, options);
-    console.log(this.options);
 
     return this;
   };
@@ -113,9 +112,9 @@ export class DIEChart extends DIChart {
     return this.chart;
   };
 
-  updateChart = (): ECharts => {
+  updateChart = (merge = true): ECharts => {
     if (this.chart) {
-      this.chart.setOption(this.options);
+      this.chart.setOption(this.options, !merge);
     } else {
       this.chart = window.echarts.init(this.chartElement as HTMLDivElement);
       this.chart.setOption(this.options);

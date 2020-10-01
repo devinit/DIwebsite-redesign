@@ -85,6 +85,19 @@ export class DIChart {
     return theme ? [theme, this.getThemes()[theme]] : [this.theme, this.getThemes()[this.theme]];
   };
 
+  getPageTheme = (): [ChartTheme, string[]] | undefined => {
+    const bodyClass = document.body.classList;
+    const colorways = this.getThemes();
+    let theme: [ChartTheme, string[]] | undefined;
+    Object.keys(colorways).forEach((colour: ChartTheme) => {
+      if (bodyClass.contains(`body--${colour}`)) {
+        theme = this.getTheme(colour);
+      }
+    });
+
+    return theme;
+  };
+
   handleFilter(filter: ChartFilter): void {
     const parent = this.getParentElement();
     if (parent) {

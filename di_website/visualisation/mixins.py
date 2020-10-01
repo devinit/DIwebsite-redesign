@@ -147,3 +147,10 @@ class D3OptionsMixin(models.Model):
     d3_modules = StreamField([
         ('module', ChoiceBlock(label='Module', choices=D3_MODULES))
     ], blank=True, verbose_name='D3 Modules')
+
+
+class EChartOptionsMixin(models.Model):
+    class Meta:
+        abstract = True
+
+    use_echarts = models.BooleanField(default=False, blank=True, verbose_name='Use ECharts')

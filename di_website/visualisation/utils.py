@@ -76,3 +76,13 @@ def D3OptionsPanel():
         classname='collapsible',
         heading='d3 Options',
     )
+
+
+def EChartOptionsPanel():
+    return MultiFieldPanel(
+        [
+            FieldPanel('use_echarts')
+        ],
+        classname='collapsible',
+        heading='EChart Options',
+    )

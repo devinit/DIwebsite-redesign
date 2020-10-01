@@ -12,11 +12,11 @@ from di_website.common.edit_handlers import HelpPanel
 from di_website.common.constants import MINIMAL_RICHTEXT_FEATURES
 from di_website.visualisation.mixins import (
     InstructionsMixin, GeneralInstructionsMixin, SpecificInstructionsMixin,
-    ChartOptionsMixin, PlotlyOptionsMixin, D3OptionsMixin, FallbackImageMixin
+    ChartOptionsMixin, PlotlyOptionsMixin, D3OptionsMixin, FallbackImageMixin, EChartOptionsMixin
 )
 from di_website.visualisation.utils import (
     ChartOptionsPanel, InstructionsPanel, SpecificInstructionsPanel,
-    PlotlyOptionsPanel, D3OptionsPanel, FallbackImagePanel
+    PlotlyOptionsPanel, D3OptionsPanel, FallbackImagePanel, EChartOptionsPanel
 )
 from di_website.visualisation.fields import AceEditorField
 
@@ -133,7 +133,7 @@ class ChartPage(ChartOptionsMixin, SpecificInstructionsMixin, FallbackImageMixin
         return JsonResponse(self.chart_json)
 
 
-class AdvancedChartPage(InstructionsMixin, D3OptionsMixin, PlotlyOptionsMixin, FallbackImageMixin, RoutablePageMixin, Page):
+class AdvancedChartPage(InstructionsMixin, EChartOptionsMixin, D3OptionsMixin, PlotlyOptionsMixin, FallbackImageMixin, RoutablePageMixin, Page):
     """
     A code based chart page for advanced users
     """
@@ -154,6 +154,7 @@ class AdvancedChartPage(InstructionsMixin, D3OptionsMixin, PlotlyOptionsMixin, F
     content_panels = Page.content_panels + [
         PlotlyOptionsPanel(),
         D3OptionsPanel(),
+        EChartOptionsPanel(),
         FieldPanel('html', classname='collapsible'),
         FieldPanel('javascript', classname='collapsible'),
         # FieldPanel('css', classname='collapsible'), TODO: add CSS support - may work best in an iFrame

@@ -1,11 +1,14 @@
+import { EChartOption } from 'echarts';
 import { Layout, Data, Config, LegendClickEvent, PlotMouseEvent } from 'plotly.js';
 import { DIPlotlyChart } from '../plotly';
 import { DIChart } from '../dicharts';
+import { DIEChart } from '../echarts';
 
 export interface DIChartConfig {
   className: string;
   plotly?: DIChartPlotlyOptions;
   d3?: DIChartD3Options;
+  echarts?: DIChartEChartOptions;
   elements?: HTMLElement[];
 }
 
@@ -64,6 +67,17 @@ export interface FilterOptions {
 }
 
 export interface DIChartD3Options {
+  onAdd?: (elements: NodeListOf<Element>) => void;
+  widgets?: Partial<ChartWidgets>;
+}
+
+export interface DIChartEChartOptions {
+  options?: EChartOption;
+  csv?: {
+    url: string;
+    onFetch: (data: Array<{ [key: string]: any }>, manager: DIEChart) => void; // eslint-disable-line @typescript-eslint/no-explicit-any
+  };
+  onInit?: (manager: DIEChart) => void;
   onAdd?: (elements: NodeListOf<Element>) => void;
   widgets?: Partial<ChartWidgets>;
 }

@@ -31,10 +31,8 @@ from di_website.publications.models import(
 )
 from di_website.datasection.models import (DataSectionPage, DataSetListing,
                                            DataSource, DatasetPage,
-                                           DataSetSource, FigurePage,
-                                           FigureSource, FigureDataSet,
-                                           DatasetDownloads,
-                                           FigurePageDownloads)
+                                           DataSetSource,
+                                           DatasetDownloads)
 
 
 class Command(BaseCommand):
@@ -84,7 +82,6 @@ class Command(BaseCommand):
         # Fetch data and parse
         source_csv_url = "https://docs.google.com/spreadsheets/d/1pDbdncnm1TF41kJJX2WjZ2Wq9juOvUqU/export?format=csv&id=1pDbdncnm1TF41kJJX2WjZ2Wq9juOvUqU&gid=2086173829"
         dataset_csv_url = "https://docs.google.com/spreadsheets/d/1pDbdncnm1TF41kJJX2WjZ2Wq9juOvUqU/export?format=csv&id=1pDbdncnm1TF41kJJX2WjZ2Wq9juOvUqU&gid=1736754230"
-        figure_csv_url = "https://docs.google.com/spreadsheets/d/1pDbdncnm1TF41kJJX2WjZ2Wq9juOvUqU/export?format=csv&id=1pDbdncnm1TF41kJJX2WjZ2Wq9juOvUqU&gid=1029209261"
 
         source_response = requests.get(source_csv_url)
         source_response.encoding = 'utf-8'
@@ -92,9 +89,7 @@ class Command(BaseCommand):
         dataset_response = requests.get(dataset_csv_url)
         dataset_response.encoding = 'utf-8'
         dataset_text = dataset_response.iter_lines(decode_unicode=True)
-        figure_response = requests.get(figure_csv_url)
-        figure_response.encoding = 'utf-8'
-        figure_text = figure_response.iter_lines(decode_unicode=True)
+
 
         # Data sources
         """
@@ -334,199 +329,6 @@ class Command(BaseCommand):
                             download = DatasetDownloads(
                                 page=new_dataset,
                                 title=dataset_dict["File name csv"],
-                                file=doc)
-                            download.save()
-                        except KeyError:
-                            self.stdout.write(
-                                self.style.WARNING(item_name + " not found."))
-
-        # Figures
-        """
-        (Pdb) figure_dict.keys()
-        dict_keys(['Chart ID', 'What is the descriptive title of the chart?', 'What is the active title used in the report', 'What is the Figure number used in the report', 'What report does the data set come from?', 'What is a long description of the chart data?', 'Release date', 'Geography information', 'Geography unit', 'Keyword search', 'Internal notes', 'Analyst that worked on the chart', 'Licence', 'Suggested citation', 'Source 1 (orange = no source hyperlink [approved])', 'Source 2 (optional)', 'Source 3 (optional)', 'Source 4 (optional)', 'Source 5 (optional)', 'Source 6 (optional)', 'Source 7 (optional)', 'Source 8 (optional)', 'Source 9 (optional)', 'Source 10 (optional)', 'Source 11 (optional)', 'Source 12 (optional)', 'Source 13 (optional)', 'Source 14 (optional)', 'Source 15 (optional)', 'Dataset 1', 'Dataset 2', 'Dataset 3', 'Publication type', 'Done', 'File location', 'File name', 'Tab name', 'File notes', 'Signed-off and ready?'])
-        """
-        figure_source_keys = [
-            'Source 1 (orange = no source hyperlink [approved])',
-            'Source 2 (optional)', 'Source 3 (optional)',
-            'Source 4 (optional)', 'Source 5 (optional)',
-            'Source 6 (optional)', 'Source 7 (optional)',
-            'Source 8 (optional)', 'Source 9 (optional)',
-            'Source 10 (optional)', 'Source 11 (optional)',
-            'Source 12 (optional)', 'Source 13 (optional)',
-            'Source 14 (optional)', 'Source 15 (optional)'
-        ]
-        figure_dataset_keys = ['Dataset 1', 'Dataset 2', 'Dataset 3']
-        skip = True
-        figure_reader = csv.DictReader(figure_text)
-        for figure_dict in figure_reader:
-            if skip:
-                skip = False
-            else:
-                figure_check = FigurePage.objects.filter(
-                    figure_id=figure_dict['Chart ID'])
-                if not figure_check and figure_dict[
-                        'What is the descriptive title of the chart?'] not in MISSING_VALUES and figure_dict['Signed-off and ready?'].lower() == "yes":
-                    print("Figure: ", figure_dict[
-                                'What is the descriptive title of the chart?'])
-                    if type(figure_dict['Release date']) is not datetime:
-                        try:
-                            release_date = datetime.strptime(
-                                figure_dict['Release date'], "%d/%m/%Y")
-                        except (ValueError, TypeError) as e:
-                            release_date = datetime.now()
-                    else:
-                        release_date = figure_dict['Release date']
-
-                    meta_json = []
-                    if figure_dict[
-                            'What is a long description of the chart data?'] not in MISSING_VALUES:
-                        meta_json.append({
-                            "type":
-                            "description",
-                            "value":
-                            wrap_p(figure_dict[
-                                'What is a long description of the chart data?'])
-                        })
-                    if figure_dict['Geography information'] not in MISSING_VALUES:
-                        meta_json.append({
-                            "type":
-                            "geography",
-                            "value":
-                            wrap_p(figure_dict['Geography information'])
-                        })
-                    if figure_dict['Geography unit'] not in MISSING_VALUES:
-                        meta_json.append({
-                            "type": "geographic_coding",
-                            "value": wrap_p(figure_dict['Geography unit'])
-                        })
-                    if figure_dict['Internal notes'] not in MISSING_VALUES:
-                        meta_json.append({
-                            "type": "internal_notes",
-                            "value": wrap_p(figure_dict['Internal notes'])
-                        })
-                    if figure_dict['Licence'] not in MISSING_VALUES:
-                        meta_json.append({
-                            "type": "licence",
-                            "value": wrap_p(figure_dict['Licence'])
-                        })
-                    if figure_dict['Suggested citation'] not in MISSING_VALUES:
-                        meta_json.append({
-                            "type":
-                            "citation",
-                            "value":
-                            wrap_p(figure_dict['Suggested citation'])
-                        })
-
-                    new_figure = FigurePage(
-                        title=figure_dict[
-                            'What is the descriptive title of the chart?'],
-                        figure_id=figure_dict['Chart ID'],
-                        name=figure_dict[
-                            'What is the Figure number used in the report'],
-                        figure_title=figure_dict[
-                            'What is the active title used in the report'],
-                        release_date=release_date,
-                        meta_data=json.dumps(meta_json))
-
-                    # try:
-                    #     tag_list = [tag.strip() for tag in figure_dict['Keyword search'].split(",") if len(tag.strip()) < 100 and len(tag.strip()) > 0]
-                    # except AttributeError:
-                    #     tag_list = []
-                    # new_figure.topics.add(*tag_list)
-
-                    dataset_listing.add_child(instance=new_figure)
-
-                    if figure_dict[
-                        'What report does the data set come from?'] not in MISSING_VALUES:
-                        pub_titles = [pub_title.strip() for pub_title in figure_dict[
-                            'What report does the data set come from?'].split("|")]
-                        for pub_title in pub_titles:
-                            pub_check = Page.objects.filter(title=pub_title).live()
-                            if pub_check:
-                                pub_page = pub_check.first().specific
-                                if not new_figure.publication:
-                                    new_figure.publication = pub_page
-                                if isinstance(pub_page, PublicationPage):
-                                    PublicationPageDataset(item=pub_page, dataset=new_figure).save()
-                                elif isinstance(pub_page, PublicationSummaryPage):
-                                    PublicationSummaryPageDataset(item=pub_page, dataset=new_figure).save()
-                                elif isinstance(pub_page, PublicationChapterPage):
-                                    PublicationChapterPageDataset(item=pub_page, dataset=new_figure).save()
-                                elif isinstance(pub_page, PublicationAppendixPage):
-                                    PublicationAppendixPageDataset(item=pub_page, dataset=new_figure).save()
-                                elif isinstance(pub_page, LegacyPublicationPage):
-                                    LegacyPublicationPageDataset(item=pub_page, dataset=new_figure).save()
-                                elif isinstance(pub_page, ShortPublicationPage):
-                                    ShortPublicationPageDataset(item=pub_page, dataset=new_figure).save()
-
-                    # Authors
-                    author_names = figure_dict[
-                            'Analyst that worked on the chart']
-                    authors = []
-                    if author_names not in MISSING_VALUES:
-                        author_names_list = [author.strip() for author in author_names.split(",")]
-                        for author_name in author_names_list:
-                            internal_author_page_qs = TeamMemberPage.objects.filter(name=author_name)
-                            if internal_author_page_qs:
-                                author_obj = {"type": "internal_author", "value": internal_author_page_qs.first().pk}
-                            else:
-                                author_obj = {"type": "external_author", "value": {"name": author_name, "title": "", "photograph": None, "page": ""}}
-                            authors.append(author_obj)
-                    if authors:
-                        new_figure.authors = json.dumps(authors)
-
-                    new_figure.save_revision().publish()
-
-                    for source_key in figure_source_keys:
-                        key_val = figure_dict[source_key]
-                        if key_val not in MISSING_VALUES:
-                            try:
-                                related_datasource = DataSource.objects.get(
-                                    title=key_val)
-                                FigureSource(page=new_figure,
-                                             source=related_datasource).save()
-                            except DataSource.DoesNotExist:
-                                pass
-
-                    for dataset_key in figure_dataset_keys:
-                        key_val = figure_dict[dataset_key]
-                        if key_val not in MISSING_VALUES:
-                            try:
-                                related_dataset = DatasetPage.objects.get(
-                                    title=key_val)
-                                FigureDataSet(page=new_figure,
-                                              dataset=related_dataset).save()
-                            except DatasetPage.DoesNotExist:
-                                pass
-
-                    if figure_dict["File name"] not in MISSING_VALUES:
-                        item_name = figure_dict["File name"].lower() + ".csv"
-                        try:
-                            item_id = box_items[item_name]
-                            f = BytesIO()
-                            client.file(item_id).download_to(f)
-                            doc = Document(title=figure_dict["File name"])
-                            doc.file.save(item_name, File(f), save=True)
-                            doc.save()
-                            download = FigurePageDownloads(
-                                page=new_figure,
-                                title=figure_dict["File name"],
-                                file=doc)
-                            download.save()
-                        except KeyError:
-                            pass
-
-                        item_name = figure_dict["File name"].lower() + ".xlsx"
-                        try:
-                            item_id = box_items[item_name]
-                            f = BytesIO()
-                            client.file(item_id).download_to(f)
-                            doc = Document(title=figure_dict["File name"])
-                            doc.file.save(item_name, File(f), save=True)
-                            doc.save()
-                            download = FigurePageDownloads(
-                                page=new_figure,
-                                title=figure_dict["File name"],
                                 file=doc)
                             download.save()
                         except KeyError:

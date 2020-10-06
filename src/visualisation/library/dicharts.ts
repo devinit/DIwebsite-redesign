@@ -1,5 +1,5 @@
 import { addLoading, removeLoading } from '../loading';
-import { ChartFilter, ChartTheme, ChartWidgets, FilterData, FilterOptions } from './utils';
+import { ChartFilter, ChartTheme, ChartWidgets, FilterData, FilterOption, FilterOptions } from './utils';
 
 export class DIChart {
   chartElement: HTMLElement;
@@ -32,12 +32,16 @@ export class DIChart {
     }
   };
 
-  addFilter = (selectNode: string | HTMLSelectElement, options: string[], extra?: FilterOptions): HTMLSelectElement => {
+  addFilter = (
+    selectNode: string | HTMLSelectElement,
+    options: (string | FilterOption)[],
+    extra?: FilterOptions,
+  ): HTMLSelectElement => {
     const selectElement = this.getElement(selectNode) as HTMLSelectElement;
     options.forEach((option) => {
       const optionElement = document.createElement('option');
-      optionElement.value = option;
-      optionElement.text = this.getFilterText(option, extra);
+      optionElement.value = typeof option === 'string' ? option : option.value;
+      optionElement.text = this.getFilterText(typeof option === 'string' ? option : option.label, extra);
       selectElement.appendChild(optionElement);
     });
     selectElement.classList.add('data-selector--active');

@@ -66,6 +66,11 @@ export interface FilterOptions {
   labelSuffix?: string;
 }
 
+export interface FilterOption {
+  label: string;
+  value: string;
+}
+
 export interface DIChartD3Options {
   onAdd?: (elements: NodeListOf<Element>) => void;
   widgets?: Partial<ChartWidgets>;

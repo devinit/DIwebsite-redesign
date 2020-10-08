@@ -14,6 +14,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='chartpage',
             name='chart',
-            field=di_website.visualisation.fields.AceEditorField(blank=True, default='{"data":[], "layout":{}}'),
+            field=di_website.visualisation.fields.AceEditorJSONField(blank=True, default='{"data":[], "layout":{}}'),
         ),
     ]

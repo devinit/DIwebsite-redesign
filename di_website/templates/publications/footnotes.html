@@ -7,7 +7,7 @@
                 <h2 class="heading type-l type-l--trailer">Notes</h2>
                 {% for item in page.footnotes_list %}
                 <ul class="footnotes__list">
-                    <li class="footnotes__item">
+                  <li class="footnotes__item">
                         <span class="heading type-m type-m--trailer footnotes__sub">{{ forloop.counter }}</span>
                         <a id="{{ item.footnote_id }}"></a>
                         <p class="footnotes__text">{{ item.text | urlize }}</p>

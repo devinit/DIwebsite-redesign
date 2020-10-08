@@ -7,13 +7,18 @@ from wagtail.core.fields import RichTextField
 from wagtail.core.models import Page
 from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
-from wagtail.images.edit_handlers import ImageChooserPanel
 
 from di_website.common.edit_handlers import HelpPanel
 from di_website.common.constants import MINIMAL_RICHTEXT_FEATURES
-from di_website.publications.utils import WagtailImageField
-from di_website.visualisation.mixins import GeneralInstructionsMixin, SpecificInstructionsMixin, ChartOptionsMixin
-from di_website.visualisation.utils import ChartOptionsPanel, SpecificInstructionsPanel
+from di_website.visualisation.mixins import (
+    InstructionsMixin, GeneralInstructionsMixin, SpecificInstructionsMixin,
+    ChartOptionsMixin, PlotlyOptionsMixin, D3OptionsMixin, FallbackImageMixin, EChartOptionsMixin
+)
+from di_website.visualisation.utils import (
+    ChartOptionsPanel, InstructionsPanel, SpecificInstructionsPanel,
+    PlotlyOptionsPanel, D3OptionsPanel, FallbackImagePanel, EChartOptionsPanel
+)
+from di_website.visualisation.fields import AceEditorField
 
 
 class VisualisationsPage(GeneralInstructionsMixin, Page):
@@ -21,7 +26,7 @@ class VisualisationsPage(GeneralInstructionsMixin, Page):
     Parent page for all visualisations
     """
     parent_page_types = ['home.HomePage']
-    subpage_types = ['visualisation.ChartPage']
+    subpage_types = ['visualisation.ChartPage', 'visualisation.AdvancedChartPage']
     max_count = 1
 
     class Meta:
@@ -71,7 +76,7 @@ class VisualisationsPage(GeneralInstructionsMixin, Page):
         raise Http404()
 
 
-class ChartPage(ChartOptionsMixin, SpecificInstructionsMixin, RoutablePageMixin, Page):
+class ChartPage(ChartOptionsMixin, SpecificInstructionsMixin, FallbackImageMixin, RoutablePageMixin, Page):
     """
     Individual chart page
     """
@@ -79,25 +84,11 @@ class ChartPage(ChartOptionsMixin, SpecificInstructionsMixin, RoutablePageMixin,
     subpage_types = []
 
     class Meta:
-        verbose_name = 'Chart Page'
+        verbose_name = 'Plotly Studio Chart Page'
 
     chart_json = JSONField(
         verbose_name="Chart JSON",
         help_text='Paste exported Chart Studio JSON here. To preserve data integretity, the JSON data should not be edited in Wagtail'
-    )
-    fallback_image = WagtailImageField(
-        required=True,
-        help_text='Fallback image for the chart',
-    )
-    display_fallback_mobile = models.BooleanField(
-        default=True,
-        help_text='Optional: when selected devices with screen widths up to 400px will be served the fallback image',
-        verbose_name='Show on mobile'
-    )
-    display_fallback_tablet = models.BooleanField(
-        default=False,
-        help_text='Optional: when selected devices with screen widths up to 700px will be served the fallback image',
-        verbose_name='Show on tablet'
     )
     caption = RichTextField(
         null=True,
@@ -108,11 +99,7 @@ class ChartPage(ChartOptionsMixin, SpecificInstructionsMixin, RoutablePageMixin,
 
     content_panels = Page.content_panels + [
         FieldPanel('chart_json'),
-        MultiFieldPanel([
-            ImageChooserPanel('fallback_image'),
-            FieldPanel('display_fallback_mobile'),
-            FieldPanel('display_fallback_tablet'),
-        ], heading='Fallback image and options'),
+        FallbackImagePanel(),
         ChartOptionsPanel(),
         SpecificInstructionsPanel(),
         FieldPanel('caption')
@@ -144,3 +131,57 @@ class ChartPage(ChartOptionsMixin, SpecificInstructionsMixin, RoutablePageMixin,
     @route(r'^data/$')
     def data(self, request):
         return JsonResponse(self.chart_json)
+
+
+class AdvancedChartPage(InstructionsMixin, EChartOptionsMixin, D3OptionsMixin, PlotlyOptionsMixin, FallbackImageMixin, RoutablePageMixin, Page):
+    """
+    A code based chart page for advanced users
+    """
+    parent_page_types = [VisualisationsPage]
+    subpage_types = []
+
+    html = AceEditorField(options={'mode':'html'}, blank=True, default='{% load wagtailcore_tags %}')
+    javascript = AceEditorField(options={'mode':'javascript'}, blank=True, default='"use strict";')
+    css = AceEditorField(options={'mode':'css'}, blank=True, default='/* CSS goes here */')
+
+    caption = RichTextField(
+        null=True,
+        blank=True,
+        help_text='Optional: caption text and link(s) for the chart',
+        features=MINIMAL_RICHTEXT_FEATURES
+    )
+
+    content_panels = Page.content_panels + [
+        PlotlyOptionsPanel(),
+        D3OptionsPanel(),
+        EChartOptionsPanel(),
+        FieldPanel('html', classname='collapsible'),
+        FieldPanel('javascript', classname='collapsible'),
+        # FieldPanel('css', classname='collapsible'), TODO: add CSS support - may work best in an iFrame
+        FallbackImagePanel(),
+        InstructionsPanel(),
+        FieldPanel('caption'),
+    ]
+
+    @cached_property
+    def parent(self):
+        return self.get_parent().specific
+
+    @cached_property
+    def instructions_text(self):
+        if self.instructions:
+            return self.instructions
+
+        return ''
+
+    def get_sitemap_urls(self, request):
+        return []
+
+    @route(r'^$')
+    def chart(self, request):
+        if request.user.is_authenticated:
+            return super().serve(request)
+        raise Http404()
+
+    class Meta:
+        verbose_name = 'Advanced Chart Page'

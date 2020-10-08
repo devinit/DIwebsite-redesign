@@ -46,9 +46,11 @@
   </div>
   {% block html_footer %}
     {% include 'includes/scaffold/footer-assets.html' %}
-    {% page_contains_chart as include_chart_script %}
-    {% if include_chart_script %}
+    {% page_contains_chart as charts %}
+    {% if charts.plotly_studio %}
       <script src="{% static 'visualisation/js/chart.js' %}"></script>
+    {% elif charts.advanced %}
+      <script src="{% static 'visualisation/js/dicharts.js' %}"></script>
     {% endif %}
   {% endblock %}
 

@@ -1,6 +1,11 @@
 from django.db import models
-from wagtail.core.fields import RichTextField
+
+from wagtail.core.fields import RichTextField, StreamField
+from wagtail.admin.edit_handlers import StreamFieldPanel
+from wagtail.core.blocks import ChoiceBlock, ListBlock
+
 from di_website.common.constants import INSTRUCTIONS_RICHTEXT_FEATURES
+from di_website.publications.utils import WagtailImageField
 
 
 class GeneralInstructionsMixin(models.Model):
@@ -13,7 +18,16 @@ class GeneralInstructionsMixin(models.Model):
     )
 
 
-class SpecificInstructionsMixin(GeneralInstructionsMixin):
+class InstructionsMixin(GeneralInstructionsMixin):
+    class Meta:
+        abstract = True
+
+    instructions_heading = models.TextField(
+        blank=True, default='Interactive visualisation instructions',
+        verbose_name='Accordion heading')
+
+
+class SpecificInstructionsMixin(InstructionsMixin):
     class Meta:
         abstract = True
 
@@ -22,9 +36,6 @@ class SpecificInstructionsMixin(GeneralInstructionsMixin):
         help_text='Optional: display the general visualisation instructions, edited on the visualisations parent page',
         verbose_name='Show general instructions'
     )
-    instructions_heading = models.TextField(
-        blank=True, default='Interactive visualisation instructions',
-        verbose_name='Accordion heading')
 
 
 class ChartOptionsMixin(models.Model):
@@ -73,3 +84,73 @@ class ChartOptionsMixin(models.Model):
         null=True, blank=True,
         help_text='Optional: appears in the image download at the bottom of the chart'
     )
+
+
+class FallbackImageMixin(models.Model):
+    class Meta:
+        abstract = True
+
+    fallback_image = WagtailImageField(
+        required=True,
+        help_text='Fallback image for the chart',
+    )
+    display_fallback_mobile = models.BooleanField(
+        default=True,
+        help_text='Optional: when selected devices with screen widths up to 400px will be served the fallback image',
+        verbose_name='Show on mobile'
+    )
+    display_fallback_tablet = models.BooleanField(
+        default=False,
+        help_text='Optional: when selected devices with screen widths up to 700px will be served the fallback image',
+        verbose_name='Show on tablet'
+    )
+
+
+class PlotlyOptionsMixin(models.Model):
+    class Meta:
+        abstract = True
+
+    PLOTLY_BUNDLES = [
+        ('basic', 'Basic'),
+        ('cartesian', 'Cartesian')
+    ]
+
+    use_plotly = models.BooleanField(default=False, blank=True, verbose_name='Use Plotly')
+    plotly_bundle = models.CharField(
+        max_length=100,
+        choices=PLOTLY_BUNDLES,
+        blank=True,
+        verbose_name='Plotly Bundle',
+        default='basic',
+        help_text="https://github.com/plotly/plotly.js/blob/master/dist/README.md#partial-bundles"
+    )
+
+
+class D3OptionsMixin(models.Model):
+    class Meta:
+        abstract = True
+
+    D3_MODULES = [
+        ('colour', 'Colour'),
+        ('interpolate', 'Interpolate'),
+        ('scale-chromatic', 'Scale Chromatic'),
+    ]
+
+    D3_VERSIONS = [
+        ('v4', 'Version 4'),
+        ('v5', 'Version 5'),
+        ('v6', 'Version 6'),
+    ]
+
+    use_d3 = models.BooleanField(default=False, blank=True, verbose_name='Use D3')
+    d3_version = models.CharField(default='v4', max_length=50, choices=D3_VERSIONS, verbose_name='D3 Version')
+    d3_modules = StreamField([
+        ('module', ChoiceBlock(label='Module', choices=D3_MODULES))
+    ], blank=True, verbose_name='D3 Modules')
+
+
+class EChartOptionsMixin(models.Model):
+    class Meta:
+        abstract = True
+
+    use_echarts = models.BooleanField(default=False, blank=True, verbose_name='Use ECharts')

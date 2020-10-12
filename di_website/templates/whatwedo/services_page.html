@@ -1,5 +1,5 @@
 {% extends 'layouts/default.html' %}
-{% load navigation_tags wagtailcore_tags wagtailimages_tags card_tags string_utils responsive %}
+{% load navigation_tags wagtailcore_tags wagtailimages_tags card_tags string_utils responsive static %}
 
 {% block body %}
   {% include 'includes/heroes/hero.html' %}
@@ -113,7 +113,7 @@
   <section class="section">
     <div class="row row--narrow">
       <h2 class="section__heading">Examples of our work</h2>
-      {% if examples|length > 9 %}
+      {% if examples|length > 1 %}
         <form method="get" action="{{self.pageurl}}" class="form">
           <div class="form-field form-field--inline">
             <label for="team-filter" class="form-label form-label--hidden">Filter by service type</label>
@@ -164,3 +164,9 @@
 {% endfor %}
 
 {% endblock body %}
+
+
+{% block html_footer %}
+  {{block.super}}
+  <script src="{% static 'whatwedo/js/bundle.js' %}"></script>
+{% endblock html_footer %}

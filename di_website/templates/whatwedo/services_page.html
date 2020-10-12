@@ -111,14 +111,14 @@
 
 {% if examples|length %}
   <section class="section">
-    <div class="row row--narrow">
+    <div class="row row--narrow js-filter--main">
       <h2 class="section__heading">Examples of our work</h2>
       {% if examples|length > 1 %}
         <form method="get" action="{{self.pageurl}}" class="form">
           <div class="form-field form-field--inline">
             <label for="team-filter" class="form-label form-label--hidden">Filter by service type</label>
             <div class="form-field__select-dropdown">
-              <select name="topic" id="topic">
+              <select name="topic" id="topic" class="js-filter">
                 <option value="">Filter by service type</option>
                 {% for topic in topics %}
                   {% if topic.slug == selected_topic %}
@@ -137,7 +137,7 @@
       {% endif %}
       <div class="l-3up {% if examples|length > 9 %}space-section-top{% endif %}">
         {% for item in examples %}
-          <div class="m-slip {{item.topics.slug}}">
+          <div class="m-slip {{item.topics.slug}} js-filter--item">
             <p class="m-slip__copy"><a href="{% pageurl item.other_page %}">{{ item.other_page.title }}</a></p>
           </div>
         {% endfor %}

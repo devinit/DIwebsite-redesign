@@ -96,3 +96,8 @@
 .chart-container .data-selector--wrapper .data-selector.data-selector--active {
   display: inline-block;
 }
+
+/** ==== FILTER ==== **/
+.js-filter--item.hidden {
+  display: none;
+}

@@ -109,31 +109,33 @@
   </section>
 {% endif %}
 
-{% if self.services_related_example.count %}
+{% if examples|length %}
   <section class="section">
     <div class="row row--narrow">
       <h2 class="section__heading">Examples of our work</h2>
-      <form method="get" action="{{self.pageurl}}" class="form">
-        <div class="form-field form-field--inline">
-          <label for="team-filter" class="form-label form-label--hidden">Filter by service type</label>
-          <div class="form-field__select-dropdown">
-            <select name="topic" id="topic">
-              <option value="">Filter by service type</option>
-              {% for topic in topics %}
-                {% if topic.slug == selected_topic %}
-                  <option value="{{topic.slug}}" id="{{topic.slug}}" selected>{{topic}}</option>
-                {% else %}
-                  <option value="{{topic.slug}}" id="{{topic.slug}}">{{topic}}</option>
-                {% endif %}
-              {% endfor %}
-            </select>
+      {% if examples|length > 9 %}
+        <form method="get" action="{{self.pageurl}}" class="form">
+          <div class="form-field form-field--inline">
+            <label for="team-filter" class="form-label form-label--hidden">Filter by service type</label>
+            <div class="form-field__select-dropdown">
+              <select name="topic" id="topic">
+                <option value="">Filter by service type</option>
+                {% for topic in topics %}
+                  {% if topic.slug == selected_topic %}
+                    <option value="{{topic.slug}}" id="{{topic.slug}}" selected>{{topic}}</option>
+                  {% else %}
+                    <option value="{{topic.slug}}" id="{{topic.slug}}">{{topic}}</option>
+                  {% endif %}
+                {% endfor %}
+              </select>
+            </div>
           </div>
-        </div>
-        <div class="form-field form-field--inline">
-          <button type="submit" class="button">Filter</button>
-        </div>
-      </form>
-      <div class="l-3up space-section-top">
+          <div class="form-field form-field--inline">
+            <button type="submit" class="button">Filter</button>
+          </div>
+        </form>
+      {% endif %}
+      <div class="l-3up {% if examples|length > 9 %}space-section-top{% endif %}">
         {% for item in examples %}
           <div class="m-slip ">
             <p class="m-slip__copy"><a href="{% pageurl item.other_page %}">{{ item.other_page.title }}</a></p>

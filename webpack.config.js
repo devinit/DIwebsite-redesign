@@ -72,4 +72,17 @@ const diChartsConfig = {
   },
 };
 
-module.exports = [wagtailAceEditorConfig, diChartsConfig, chartsConfig];
+const appConfig = {
+  ...sharedConfig,
+  entry: {
+    whatwedo: './src/whatwedo/index.ts',
+  },
+  output: {
+    path: path.resolve(__dirname, 'di_website'),
+    filename: '[name]/static/[name]/js/bundle.js',
+    publicPath: '/assets/',
+    chunkFilename: '[name]/js/[name][chunkhash].bundle.js',
+  },
+};
+
+module.exports = [appConfig, wagtailAceEditorConfig, diChartsConfig, chartsConfig];

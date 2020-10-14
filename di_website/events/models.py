@@ -30,6 +30,7 @@ class EventPage(TypesetBodyMixin, HeroMixin, Page):
     end_date = models.DateField(default=datetime.now)
     start_time = models.TimeField(blank=True, null=True)
     end_time = models.TimeField(blank=True, null=True)
+    timezone = models.CharField(max_length=160, help_text='Timezone information for event', blank=True, null=True)
     location = models.CharField(max_length=100, help_text='Physical location of event', blank=True, null=True)
     registration_link = models.URLField(blank=True, null=True)
     raw_content = models.TextField(null=True, blank=True)
@@ -48,6 +49,7 @@ class EventPage(TypesetBodyMixin, HeroMixin, Page):
             FieldPanel('end_date'),
             FieldPanel('start_time'),
             FieldPanel('end_time'),
+            FieldPanel('timezone'),
             FieldPanel('location')
         ], heading='Event Details'),
         FieldPanel('registration_link'),

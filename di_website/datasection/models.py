@@ -215,11 +215,6 @@ class DataSectionPage(TypesetBodyMixin, HeroMixin, Page):
         return context
 
 
-class DataSetTopic(TaggedItemBase):
-    content_object = ParentalKey(
-        'datasection.DatasetPage', on_delete=models.CASCADE, related_name='dataset_topics')
-
-
 class DatasetPage(DataSetMixin, TypesetBodyMixin, HeroMixin, Page):
     """ Content of each dataset """
 
@@ -230,7 +225,6 @@ class DatasetPage(DataSetMixin, TypesetBodyMixin, HeroMixin, Page):
     dataset_title = models.TextField(unique=True, blank=True, null=True)
     related_datasets_title = models.CharField(
         blank=True, max_length=255, default='Related datasets', verbose_name='Section Title')
-    topics = ClusterTaggableManager(through=DataSetTopic, blank=True, verbose_name="Topics")
 
     content_panels = Page.content_panels + [
         hero_panels(),
@@ -252,9 +246,7 @@ class DatasetPage(DataSetMixin, TypesetBodyMixin, HeroMixin, Page):
     def get_context(self, request):
         context = super().get_context(request)
 
-        context['topics'] = Tag.objects.filter(
-                datasection_datasettopic_items__content_object=self
-            ).distinct().order_by('name')
+        context['topics'] = [orderable.topic for orderable in self.dataset_topics.all()]
         context['related_datasets'] = get_related_dataset_pages(
             self.related_datasets.all(), self)
         context['reports'] = self.get_usages()
@@ -283,6 +275,41 @@ class DatasetPage(DataSetMixin, TypesetBodyMixin, HeroMixin, Page):
 
     def get_download_name(self):
         return self.title
+
+
+@register_snippet
+class DataTopic(ClusterableModel):
+    name = models.CharField(max_length=255, unique=True)
+    slug = models.SlugField(
+        max_length=255, blank=True, null=True,
+        help_text="Optional. Will be auto-generated from name if left blank.")
+    panels = [
+        FieldPanel('name'),
+        FieldPanel('slug'),
+    ]
+
+    class Meta:
+        ordering = ["name"]
+        verbose_name_plural = 'Data topics'
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super(DataTopic, self).save(*args, **kwargs)
+
+
+class DatasetPageTopic(Orderable):
+    page = ParentalKey(
+        DatasetPage, related_name='dataset_topics', on_delete=models.CASCADE)
+
+    topic = models.ForeignKey(
+        DataTopic, related_name="+", null=True, blank=True, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.topic.name
 
 
 class DatasetDownloads(Orderable, BaseDownload):
@@ -338,7 +365,7 @@ class DataSetListing(DatasetListingMetadataPageMixin, TypesetBodyMixin, Page):
         report = context['selected_report']
 
         if topic:
-            datasets = DatasetPage.objects.live().specific().filter(topics__slug=topic)
+            datasets = DatasetPage.objects.live().specific().filter(dataset_topics__topic__slug=topic)
         else:
             datasets = self.fetch_all_data()
         if country:
@@ -413,8 +440,7 @@ class DataSetListing(DatasetListingMetadataPageMixin, TypesetBodyMixin, Page):
 
         context['paginator_range'] = get_paginator_range(paginator, context['datasets'])
 
-        ds_content_type = ContentType.objects.get_for_model(DatasetPage)
-        context['topics'] = Tag.objects.filter(datasection_datasettopic_items__content_object__content_type=ds_content_type).distinct().order_by('name')
+        context['topics'] = [page_orderable.topic for page_orderable in DatasetPageTopic.objects.all().order_by('topic__name') if page_orderable.page.live]
         context['countries'] = self.get_active_countries()
         context['sources'] = DataSource.objects.all()
 

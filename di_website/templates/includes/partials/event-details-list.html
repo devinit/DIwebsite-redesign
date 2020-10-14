@@ -14,11 +14,11 @@
 <li>
   <i role="presentation" aria-hidden="true" class="ico ico--14 ico-clock-slate"></i>
   {% if event.start_time and event.end_time %}
-    {{ event.start_time|date:"gA"|lower }} - {{ event.end_time|date:"gA"|lower }}
+    {{ event.start_time|date:"fA"|lower }} - {{ event.end_time|date:"fA"|lower }} {{ event.timezone }}
   {% elif event.start_time %}
-    {{ event.start_time|date:"gA"|lower }}
+    {{ event.start_time|date:"fA"|lower }} {{ event.timezone }}
   {% elif event.end_time %}
-    {{ event.end_time|date:"gA"|lower }}
+    {{ event.end_time|date:"fA"|lower }} {{ event.timezone }}
   {% endif %}
 </li>
 {% endif %}

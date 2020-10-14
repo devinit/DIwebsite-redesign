@@ -86,6 +86,12 @@ class ChartPage(ChartOptionsMixin, SpecificInstructionsMixin, FallbackImageMixin
     class Meta:
         verbose_name = 'Plotly Studio Chart Page'
 
+    subtitle = models.TextField(
+        blank=True,
+        null=True,
+        help_text="Optional: subtitle to appear underneath the chart title."
+    )
+
     chart_json = JSONField(
         verbose_name="Chart JSON",
         help_text='Paste exported Chart Studio JSON here. To preserve data integretity, the JSON data should not be edited in Wagtail'
@@ -98,6 +104,7 @@ class ChartPage(ChartOptionsMixin, SpecificInstructionsMixin, FallbackImageMixin
     )
 
     content_panels = Page.content_panels + [
+        FieldPanel('subtitle'),
         FieldPanel('chart_json'),
         FallbackImagePanel(),
         ChartOptionsPanel(),
@@ -140,6 +147,12 @@ class AdvancedChartPage(InstructionsMixin, EChartOptionsMixin, D3OptionsMixin, P
     parent_page_types = [VisualisationsPage]
     subpage_types = []
 
+    subtitle = models.TextField(
+        blank=True,
+        null=True,
+        help_text="Optional: subtitle to appear underneath the chart title."
+    )
+
     html = AceEditorField(options={'mode':'html'}, blank=True, default='{% load wagtailcore_tags %}')
     javascript = AceEditorField(options={'mode':'javascript'}, blank=True, default='"use strict";')
     css = AceEditorField(options={'mode':'css'}, blank=True, default='/* CSS goes here */')
@@ -152,6 +165,7 @@ class AdvancedChartPage(InstructionsMixin, EChartOptionsMixin, D3OptionsMixin, P
     )
 
     content_panels = Page.content_panels + [
+        FieldPanel('subtitle'),
         PlotlyOptionsPanel(),
         D3OptionsPanel(),
         EChartOptionsPanel(),

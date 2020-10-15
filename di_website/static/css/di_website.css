@@ -118,3 +118,52 @@
 .footnotes .footnotes__list.hidden {
   display: none;
 }
+
+.footnotes button.button {
+  outline: none;
+}
+
+.body--leaf .footnotes button.button {
+  background-color: #109E67;
+  border-color: #109E67;
+}
+
+.body--bluebell .footnotes button.button {
+  background-color: #0089CB;
+  border-color: #0089CB;
+}
+
+.body--rose .footnotes button.button {
+  background-color: #C2145B;
+  border-color: #C2145B;
+}
+
+.body--sunflower .footnotes button.button {
+  background-color: #F49B20;
+  border-color: #F49B20;
+}
+
+.body--marigold .footnotes button.button {
+  background-color: #EB632B;
+  border-color: #EB632B;
+}
+
+.body--lavendar .footnotes button.button {
+  background-color: #89328F;
+  border-color: #89328F;
+}
+
+.body--leaf .footnotes button.button:focus,
+.body--leaf .footnotes button.button:hover,
+.body--bluebell .footnotes button.button:focus,
+.body--bluebell .footnotes button.button:hover,
+.body--rose .footnotes button.button:focus,
+.body--rose .footnotes button.button:hover,
+.body--sunflower .footnotes button.button:focus,
+.body--sunflower .footnotes button.button:hover,
+.body--marigold .footnotes button.button:focus,
+.body--marigold .footnotes button.button:hover,
+.body--lavendar .footnotes button.button:focus,
+.body--lavendar .footnotes button.button:hover {
+  background-color: #443e42;
+}

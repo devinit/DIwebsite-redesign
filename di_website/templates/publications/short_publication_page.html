@@ -3,7 +3,7 @@
 {% load string_utils wagtailcore_tags responsive wagtailimages_tags static %}
 
 {% block hero %}
-{% include 'includes/heroes/hero-pubs-short.html' %}
+  {% include 'includes/heroes/hero-pubs-short.html' %}
 {% endblock hero %}
 
 {% block colour %}body--{{page.colour}}{% endblock %}
@@ -56,3 +56,9 @@
   {% endif %}
 
 {% endblock %}
+
+
+{% block html_footer %}
+  {{block.super}}
+  <script src="{% static 'publications/js/bundle.js' %}"></script>
+{% endblock html_footer %}

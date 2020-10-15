@@ -76,6 +76,8 @@ const appConfig = {
   ...sharedConfig,
   entry: {
     whatwedo: './src/whatwedo/index.ts',
+    publications: './src/publications/index.ts',
+    blog: './src/blog/index.ts',
   },
   output: {
     path: path.resolve(__dirname, 'di_website'),

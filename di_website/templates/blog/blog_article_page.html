@@ -43,3 +43,9 @@
         {% endwith %}
     {% endif %}
 {% endblock %}
+
+
+{% block html_footer %}
+  {{block.super}}
+  <script src="{% static 'blog/js/bundle.js' %}"></script>
+{% endblock html_footer %}

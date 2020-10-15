@@ -1,26 +1,29 @@
 {% load string_utils wagtailcore_tags %}
 {% uid_url page as short_url %}
 {% if page.footnotes_list %}
-    <section class="section section--alt">
-        <div class="row row--narrow">
-            <div class="footnotes">
-                <h2 class="heading type-l type-l--trailer">Notes</h2>
-                {% for item in page.footnotes_list %}
-                <ul class="footnotes__list">
-                  <li class="footnotes__item">
-                        <span class="heading type-m type-m--trailer footnotes__sub">{{ forloop.counter }}</span>
-                        <a id="{{ item.footnote_id }}"></a>
-                        <p class="footnotes__text">{{ item.text | urlize }}</p>
+  <section class="section section--alt">
+    <div class="row row--narrow">
+        <div class="footnotes">
+            <h2 class="heading type-l type-l--trailer">Notes</h2>
+            {% for item in page.footnotes_list %}
+              <ul class="footnotes__list {% if forloop.counter > 10 %}hidden{% endif %}">
+                <li class="footnotes__item">
+                  <span class="heading type-m type-m--trailer footnotes__sub">{{ forloop.counter }}</span>
+                  <a id="{{ item.footnote_id }}"></a>
+                  <p class="footnotes__text">{{ item.text | urlize }}</p>
 
-                        {% section_id forloop.counter|stringformat:"i" page.chapter_number|default_if_none:1 as section_id %}
-                        <a class="footnotes__return" href="#{{ item.source_id }}">Return to source text</a>
-                        <!-- <br/>
-                        <a href="#{{ item.footnote_id }}" data-id="{{ section_id }}" data-js="share-section-trigger" class="footnotes__return">Share footnote</a>
-                        {% include 'publications/share-block.html' with share_type='footnote' title=item.text short_url=short_url|add:'#'|add:item.footnote_id data_js='share-section' data_id=section_id %} -->
-                    </li>
-                </ul>
-                {% endfor %}
-            </div>
+                  {% section_id forloop.counter|stringformat:"i" page.chapter_number|default_if_none:1 as section_id %}
+                  <a class="footnotes__return" href="#{{ item.source_id }}">Return to source text</a>
+                  <!-- <br/>
+                  <a href="#{{ item.footnote_id }}" data-id="{{ section_id }}" data-js="share-section-trigger" class="footnotes__return">Share footnote</a>
+                  {% include 'publications/share-block.html' with share_type='footnote' title=item.text short_url=short_url|add:'#'|add:item.footnote_id data_js='share-section' data_id=section_id %} -->
+                </li>
+              </ul>
+            {% endfor %}
+            {% if page.footnotes_list|length > 10 %}
+              <button class="button" type="button">Show More</button>
+            {% endif %}
         </div>
-    </section>
+    </div>
+  </section>
 {% endif %}

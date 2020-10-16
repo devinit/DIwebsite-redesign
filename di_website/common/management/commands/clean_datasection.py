@@ -9,7 +9,7 @@ from di_website.publications.inlines import (
     LegacyPublicationPageDataset, ShortPublicationPageDataset
 )
 
-from di_website.datasection.models import DataSource, DatasetPage, FigurePage
+from di_website.datasection.models import DataSource, DatasetPage
 
 
 class Command(BaseCommand):
@@ -21,7 +21,6 @@ class Command(BaseCommand):
 
         DataSource.objects.all().delete()
         DatasetPage.objects.all().delete()
-        FigurePage.objects.all().delete()
         PublicationPageDataset.objects.all().delete()
         PublicationSummaryPageDataset.objects.all().delete()
         PublicationChapterPageDataset.objects.all().delete()

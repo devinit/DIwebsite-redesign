@@ -270,16 +270,7 @@ class HomePageFeaturedWork(OtherPageMixin):
         ordering = ('sort_order',)
 
     panels = [
-        PageChooserPanel('other_page', [
-            'events.EventPage',
-            'blog.BlogArticlePage',
-            'news.NewsStoryPage',
-            'publications.PublicationPage',
-            'publications.ShortPublicationPage',
-            'publications.LegacyPublicationPage',
-            'publications.AudioVisualMedia',
-            'project.ProjectPage'
-        ])
+        PageChooserPanel('other_page')
     ]
 
 

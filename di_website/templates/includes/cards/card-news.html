@@ -10,7 +10,9 @@
 
     <div class="card__body">
       {% if item.published_date %}
-        <span class="card__meta">{{ item.published_date|date:"j F Y" }}</span>
+        {% if content_type != 'resources' %}
+          <span class="card__meta">{{ item.published_date|date:"j F Y" }}</span>
+        {% endif %}
       {% else %}
         <span class="card__meta">{{ item.first_published_at|date:"j F Y" }}</span>
       {% endif %}

@@ -61,6 +61,12 @@
 {% endblock aside %}
 
 {% block after_content %}
+  <section class="section">
+    <div class="row row--narrow">
+      {% include 'publications/share.html' %}
+    </div>
+  </section>
+
   {% if related_pages %}
     {% with related_pages=related_pages heading=page.other_pages_heading  %}
       {% include 'includes/partials/related_content.html' %}

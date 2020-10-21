@@ -354,6 +354,12 @@ class PublicationPage(
         PublicationType, related_name="+", null=True, blank=False, on_delete=models.SET_NULL, verbose_name="Resource Type")
     topics = ClusterTaggableManager(through=PublicationTopic, blank=True, verbose_name="Topics")
 
+    hide_date = models.BooleanField(
+        default=True,
+        verbose_name="Hide Related Links Date",
+        help_text="Should the date appear on related links items ?",
+    )
+
     content_panels = Page.content_panels + [
         FieldPanel('colour'),
         hero_panels(),
@@ -377,6 +383,7 @@ class PublicationPage(
         UUIDPanel(),
         InlinePanel('page_notifications', label='Notifications'),
         InlinePanel('publication_related_links', label='Related links', max_num=MAX_RELATED_LINKS),
+        FieldPanel('hide_date'),
     ]
 
     @cached_property

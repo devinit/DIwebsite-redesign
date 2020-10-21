@@ -4,7 +4,7 @@
     <div class="row row--narrow">
         <h2 class="section__heading">{{heading}}</h2>
         <div class="l-2up{% if related_pages|length > 2 %}-3up{% endif %}">
-          {% with nav_param="?nav=more-about" %}
+          {% with nav_param="?nav=more-about" hide_date=page.hide_date%}
             {% for page in related_pages %}
               {% if page.specific|classname == global.blog_classname %}
                   {% with blog=page.specific show_tag=True %}

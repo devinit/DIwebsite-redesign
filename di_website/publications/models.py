@@ -357,7 +357,7 @@ class PublicationPage(
     hide_date = models.BooleanField(
         default=True,
         verbose_name="Hide Related Links Date",
-        help_text="Should the date appear on related links items ?",
+        help_text="Should we hide the date on related links items ?",
     )
 
     content_panels = Page.content_panels + [
@@ -478,6 +478,12 @@ class PublicationForewordPage(
 
     colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=RED)
 
+    hide_date = models.BooleanField(
+        default=True,
+        verbose_name="Hide Related Links Date",
+        help_text="Should we hide the date on related links items ?",
+    )
+
     content_panels = Page.content_panels + [
         hero_panels(),
         FieldPanel('colour'),
@@ -495,6 +501,7 @@ class PublicationForewordPage(
         ),
         ReportDownloadPanel(),
         InlinePanel('publication_related_links', label='Related links', max_num=MAX_RELATED_LINKS),
+        FieldPanel('hide_date'),
         InlinePanel('page_notifications', label='Notifications')
     ]
 
@@ -622,6 +629,12 @@ class PublicationChapterPage(
     )
     colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=RED)
 
+    hide_date = models.BooleanField(
+        default=True,
+        verbose_name="Hide Related Links Date",
+        help_text="Should we hide the date on related links items ?",
+    )
+
     content_panels = Page.content_panels + [
         FieldPanel('colour'),
         hero_panels(),
@@ -646,6 +659,7 @@ class PublicationChapterPage(
         ReportDownloadPanel(),
         InlinePanel('page_notifications', label='Notifications'),
         InlinePanel('publication_related_links', label='Related links', max_num=MAX_RELATED_LINKS),
+        FieldPanel('hide_date'),
     ]
 
     @cached_property
@@ -726,6 +740,12 @@ class PublicationAppendixPage(
     )
     colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=RED)
 
+    hide_date = models.BooleanField(
+        default=True,
+        verbose_name="Hide Related Links Date",
+        help_text="Should we hide the date on related links items ?",
+    )
+
     content_panels = Page.content_panels + [
         FieldPanel('colour'),
         hero_panels(),
@@ -750,6 +770,7 @@ class PublicationAppendixPage(
         ReportDownloadPanel(),
         InlinePanel('page_notifications', label='Notifications'),
         InlinePanel('publication_related_links', label='Related links', max_num=MAX_RELATED_LINKS),
+        FieldPanel('hide_date'),
     ]
 
     @cached_property
@@ -842,6 +863,12 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, LegacyPageSearchMixin
         help_text='Optimal minimum size 800x400px',
     )
 
+    hide_date = models.BooleanField(
+        default=True,
+        verbose_name="Hide Related Links Date",
+        help_text="Should we hide the date on related links items ?",
+    )
+
     content_panels = Page.content_panels + [
         FieldPanel('colour'),
         hero_panels(),
@@ -872,6 +899,7 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, LegacyPageSearchMixin
         ),
         InlinePanel('page_notifications', label='Notifications'),
         InlinePanel('publication_related_links', label='Related links', max_num=MAX_RELATED_LINKS),
+        FieldPanel('hide_date'),
     ]
 
     @cached_property
@@ -936,6 +964,12 @@ class ShortPublicationPage(
         PublicationType, related_name="+", null=True, blank=False, on_delete=models.SET_NULL, verbose_name="Resource Type")
     topics = ClusterTaggableManager(through=ShortPublicationTopic, blank=True, verbose_name="Topics")
 
+    hide_date = models.BooleanField(
+        default=True,
+        verbose_name="Hide Related Links Date",
+        help_text="Should we hide the date on related links items ?",
+    )
+
     content_panels = Page.content_panels + [
         FieldPanel('colour'),
         hero_panels(),
@@ -959,6 +993,7 @@ class ShortPublicationPage(
         ReportDownloadPanel(),
         InlinePanel('page_notifications', label='Notifications'),
         InlinePanel('publication_related_links', label='Related links', max_num=MAX_RELATED_LINKS),
+        FieldPanel('hide_date'),
     ]
 
     @cached_property
@@ -1056,6 +1091,12 @@ class AudioVisualMedia(PublishedDateMixin, TypesetBodyMixin, HeroMixin, ParentPa
     ], blank=True, help_text="The people involved in the podcast or webinar")
     topics = ClusterTaggableManager(through=AudioVisualMediaTopic, blank=True, verbose_name="Topics")
 
+    hide_date = models.BooleanField(
+        default=True,
+        verbose_name="Hide Related Links Date",
+        help_text="Should we hide the date on related links items ?",
+    )
+
     content_panels = Page.content_panels + [
         hero_panels(),
         StreamFieldPanel('participants'),
@@ -1066,7 +1107,8 @@ class AudioVisualMedia(PublishedDateMixin, TypesetBodyMixin, HeroMixin, ParentPa
         FieldPanel('topics'),
         PublishedDatePanel(),
         InlinePanel('publication_related_links', label='Related links', max_num=MAX_RELATED_LINKS),
-        InlinePanel('page_notifications', label='Notifications')
+        InlinePanel('page_notifications', label='Notifications'),
+        FieldPanel('hide_date'),
     ]
 
     parent_page_types = ['PublicationIndexPage']

@@ -8,7 +8,7 @@
 
     <div class="card__body">
       {% if item.published_date %}
-        {% if content_type != 'resources' %}
+        {% if not item.hide_date %}
           <span class="card__meta">{{ item.published_date|date:"j F Y" }}</span>
         {% endif %}
       {% endif %}

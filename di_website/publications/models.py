@@ -1059,7 +1059,7 @@ class AudioVisualMedia(PublishedDateMixin, TypesetBodyMixin, HeroMixin, ParentPa
         FieldPanel('topics'),
         PublishedDatePanel(),
         InlinePanel('publication_related_links', label='Related links', max_num=MAX_RELATED_LINKS),
-        InlinePanel('page_notifications', label='Notifications')
+        InlinePanel('page_notifications', label='Notifications'),
     ]
 
     parent_page_types = ['PublicationIndexPage']

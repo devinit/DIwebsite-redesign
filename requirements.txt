@@ -19,7 +19,7 @@ wagtailgeowidget==5.0.2
 xlrd>=1.0.0
 boxsdk==2.6.1
 cffi==1.13.2
-cryptography==2.8
+cryptography==3.2
 pycparser==2.19
 pyjwt==1.7.1
 wagtail-metadata==3.3.0

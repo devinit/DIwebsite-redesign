@@ -6,13 +6,20 @@ from django.db import migrations
 def combine_time_and_location(apps, schema_editor):
     EventPage = apps.get_model('events', 'EventPage')
     for event in EventPage.objects.all():
-        event.time_and_location = '%s - %s %s %s' % (event.start_time.strftime("%H:%M"), event.end_time.strftime("%H:%M"), '\n', event.location)
+        if event.start_time and event.end_time:
+            event.time_and_location = '%s - %s %s %s' % (event.start_time.strftime("%H:%M"), event.end_time.strftime("%H:%M"), '\n', event.location)
+        elif event.start_time:
+            event.time_and_location = '%s %s %s' % (event.start_time.strftime("%H:%M"), '\n', event.location)
+        elif event.end_time:
+            event.time_and_location = '%s %s %s' % (event.end_time.strftime("%H:%M"), '\n', event.location)
+        else:
+            event.time_and_location = '%s' % (event.location)
         event.save()
 
 def clear_time_and_location(apps, schema_editor):
     EventPage = apps.get_model('events', 'EventPage')
     for event in EventPage.objects.all():
-        event.time_and_location = ""
+        event.time_and_location = ''
         event.save()
 
 

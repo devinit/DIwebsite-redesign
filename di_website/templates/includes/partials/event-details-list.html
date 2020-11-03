@@ -10,21 +10,8 @@
     {{ event.start_date|date:"j F Y" }} - {{ event.end_date|date:"j F Y" }}
   {% endif %}
 </li>
-{% if event.start_time or event.end_time %}
+{% if event.time_and_location %}
 <li>
-  <i role="presentation" aria-hidden="true" class="ico ico--14 ico-clock-slate"></i>
-  {% if event.start_time and event.end_time %}
-    {{ event.start_time|date:"fA"|lower }} - {{ event.end_time|date:"fA"|lower }} {{ event.timezone | default_if_none:'' }}
-  {% elif event.start_time %}
-    {{ event.start_time|date:"fA"|lower }} {{ event.timezone | default_if_none:''  }}
-  {% elif event.end_time %}
-    {{ event.end_time|date:"fA"|lower }} {{ event.timezone | default_if_none:''  }}
-  {% endif %}
-</li>
-{% endif %}
-{% if event.location %}
-<li>
-  <i role="presentation" aria-hidden="true" class="ico ico--14 ico-location-slate"></i>
-  {{ event.location }}
+  {{ event.time_and_location|linebreaks }}
 </li>
 {% endif %}

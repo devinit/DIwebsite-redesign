@@ -10,8 +10,15 @@
     {{ event.start_date|date:"j F Y" }} - {{ event.end_date|date:"j F Y" }}
   {% endif %}
 </li>
-{% if event.time_and_location %}
+{% if event.time %}
 <li>
-  {{ event.time_and_location|linebreaks }}
+  <i role="presentation" aria-hidden="true" class="ico ico--14 ico-clock-slate"></i>
+  {{ event.time }}
+</li>
+{% endif %}
+{% if event.location %}
+<li>
+  <i role="presentation" aria-hidden="true" class="ico ico--14 ico-location-slate"></i>
+  {{ event.location }}
 </li>
 {% endif %}

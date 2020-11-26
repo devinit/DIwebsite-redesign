@@ -66,7 +66,10 @@ export default function initGmaps (selector = '.media-map__location', APIKey = u
             "featureType": "water",
             "stylers": [
                 {
-                    "visibility": "off"
+                    "color": "#f3f3f3"
+                },
+                {
+                    "visibility": "on"
                 }
             ]
         }

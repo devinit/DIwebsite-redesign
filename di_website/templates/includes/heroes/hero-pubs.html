@@ -26,7 +26,11 @@
   <div class="row row--narrow">
     <div class="hero__content">
       <ul class="hero__meta">
-        <li class="hero__meta-item hero__meta-item--block">{{ page.publication_type|default_if_none:"Publication" }}</li>
+        {% if page.get_verbose_name  == "Audio and Visual Media Page" %}
+          <li class="hero__meta-item hero__meta-item--block">{{ page.publication_type|default_if_none:"Podcast" }}</li>
+        {% else %}
+          <li class="hero__meta-item hero__meta-item--block">{{ page.publication_type|default_if_none:"Publication" }}</li>
+        {% endif %}
         {% if page.published_date %}
           <li class="hero__meta-item">{{ page.published_date|date:"j F Y" }}</li>
         {% endif %}

@@ -6,95 +6,94 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Setup Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.x'
-    - name: Cache pip
-      uses: actions/cache@v2
-      with:
-        path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
-        restore-keys: |
-          ${{ runner.os }}-pip-
-          ${{ runner.os }}-
-    - name: Install dependencies
-      run: pip install -r requirements.txt
-    - name: Build the docker-compose stack
-      run: |
-        echo "DATABASE_URL=postgresql://di_website:${{ secrets.DB_PASSWORD }}@db/di_website" > .env
-        docker volume create --name=diwebsite_db
-        docker volume create --name="index_db"
-        docker-compose -f docker-compose.dev.minimal.yml run blue /bin/sh -c "python3 -m coverage run manage.py test && python3 -m coverage xml && mv coverage.xml shared" && cd shared && python3 -m codecov
+      - uses: actions/checkout@v2
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+      - name: Cache pip
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+            ${{ runner.os }}-
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Build the docker-compose stack
+        run: |
+          echo "DATABASE_URL=postgresql://di_website:${{ secrets.DB_PASSWORD }}@db/di_website" > .env
+          docker volume create --name=diwebsite_db
+          docker volume create --name="index_db"
+          docker-compose -f docker-compose.dev.minimal.yml run blue /bin/sh -c "python3 -m coverage run manage.py test && python3 -m coverage xml && mv coverage.xml shared" && cd shared && python3 -m codecov
 
   deploy:
     needs: [build]
     runs-on: ubuntu-latest
-    if:
-      contains('
-        refs/heads/master
-        refs/heads/develop
+    if: contains('
+      refs/heads/master
+      refs/heads/develop
       ', github.ref)
     steps:
-    - uses: actions/checkout@v2
-    - name: zip deploy script
-      run: |
-        mkdir deploy_script
-        cp deploy.sh deploy_script
-        tar -cvf deploy.tar deploy_script
+      - uses: actions/checkout@v2
+      - name: zip deploy script
+        run: |
+          mkdir deploy_script
+          cp deploy.sh deploy_script
+          tar -cvf deploy.tar deploy_script
 
-    - name: Set env for develop branch
-      if: endsWith(github.ref, '/develop')
-      run: |
-        echo "::set-env name=ENVIRONMENT::${{ secrets.DEV_ENV }}"
-        echo "::set-env name=HOST::${{ secrets.DEV_HOST }}"
-        echo "::set-env name=USERNAME::${{ secrets.USERNAME }}"
-        echo "::set-env name=BRANCH::${{ secrets.DEV_BRANCH }}"
+      - name: Set env for develop branch
+        if: endsWith(github.ref, '/develop')
+        run: |
+          echo "ENVIRONMENT=${{ secrets.DEV_ENV }}" >> $GITHUB_ENV
+          echo "HOST=${{ secrets.DEV_HOST }}" >> $GITHUB_ENV
+          echo "USERNAME=${{ secrets.USERNAME }}" >> $GITHUB_ENV
+          echo "BRANCH=${{ secrets.DEV_BRANCH }}" >> $GITHUB_ENV
 
-    - name: Set env for master branch
-      if: endsWith(github.ref, '/master')
-      run: |
-        echo "::set-env name=ENVIRONMENT::${{ secrets.PROD_ENV }}"
-        echo "::set-env name=HOST::${{ secrets.PROD_HOST }}"
-        echo "::set-env name=USERNAME::${{ secrets.USERNAME }}"
-        echo "::set-env name=BRANCH::${{ secrets.PROD_BRANCH }}"
+      - name: Set env for master branch
+        if: endsWith(github.ref, '/master')
+        run: |
+          echo "ENVIRONMENT=${{ secrets.PROD_ENV }}" >> $GITHUB_ENV
+          echo "HOST=${{ secrets.PROD_HOST }}" >> $GITHUB_ENV
+          echo "USERNAME=${{ secrets.USERNAME }}" >> $GITHUB_ENV
+          echo "BRANCH=${{ secrets.PROD_BRANCH }}" >> $GITHUB_ENV
 
-    - name: copy deploy file via ssh
-      uses: appleboy/scp-action@master
-      env:
-        HOST: ${{ env.HOST }}
-        USERNAME: ${{ env.USERNAME }}
-        PORT: ${{ secrets.PORT }}
-        KEY: ${{ secrets.KEY }}
-      with:
-        source: "deploy_script"
-        target: "."
+      - name: copy deploy file via ssh
+        uses: appleboy/scp-action@master
+        env:
+          HOST: ${{ env.HOST }}
+          USERNAME: ${{ env.USERNAME }}
+          PORT: ${{ secrets.PORT }}
+          KEY: ${{ secrets.KEY }}
+        with:
+          source: 'deploy_script'
+          target: '.'
 
-    - name: run deployment
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ env.HOST }}
-        username: ${{ env.USERNAME }}
-        key: ${{ secrets.KEY }}
-        port: ${{ secrets.PORT }}
-        script: |
-          export BRANCH=${{ env.BRANCH }}
-          export RABBITMQ_PASSWORD=${{ secrets.RABBITMQ_PASSWORD }}
-          export ELASTIC_SEARCH_URL=${{ secrets.ELASTIC_SEARCH_URL }}
-          export ELASTIC_PASSWORD=${{ secrets.ELASTIC_PASSWORD }}
-          export SECRET_KEY="${{ secrets.SECRET_KEY }}"
-          export ELASTIC_USERNAME=${{ secrets.ELASTIC_USERNAME }}
-          export ENVIRONMENT=${{ env.ENVIRONMENT }}
-          export CELERY_BROKER_URL=${{ secrets.CELERY_BROKER_URL }}
-          export DATABASE_URL=${{ secrets.DATABASE_URL }}
-          export DEFAULT_FROM_EMAIL=${{ secrets.DEFAULT_FROM_EMAIL }}
-          export EMAIL_HOST=${{ secrets.EMAIL_HOST }}
-          export EMAIL_BACKEND=${{ secrets.EMAIL_BACKEND }}
-          export EMAIL_HOST_USER=${{ secrets.EMAIL_HOST_USER }}
-          export EMAIL_HOST_PASSWORD=${{secrets.EMAIL_HOST_PASSWORD }}
-          export HS_API_KEY=${{ secrets.HS_API_KEY }}
-          export HS_TICKET_PIPELINE=${{ secrets.HS_TICKET_PIPELINE }}
-          export HS_TICKET_PIPELINE_STAGE=${{ secrets.HS_TICKET_PIPELINE_STAGE }}
-          cp -r deploy_script/deploy.sh .
-          chmod +x deploy.sh && ./deploy.sh run
+      - name: run deployment
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ env.HOST }}
+          username: ${{ env.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            export BRANCH=${{ env.BRANCH }}
+            export RABBITMQ_PASSWORD=${{ secrets.RABBITMQ_PASSWORD }}
+            export ELASTIC_SEARCH_URL=${{ secrets.ELASTIC_SEARCH_URL }}
+            export ELASTIC_PASSWORD=${{ secrets.ELASTIC_PASSWORD }}
+            export SECRET_KEY="${{ secrets.SECRET_KEY }}"
+            export ELASTIC_USERNAME=${{ secrets.ELASTIC_USERNAME }}
+            export ENVIRONMENT=${{ env.ENVIRONMENT }}
+            export CELERY_BROKER_URL=${{ secrets.CELERY_BROKER_URL }}
+            export DATABASE_URL=${{ secrets.DATABASE_URL }}
+            export DEFAULT_FROM_EMAIL=${{ secrets.DEFAULT_FROM_EMAIL }}
+            export EMAIL_HOST=${{ secrets.EMAIL_HOST }}
+            export EMAIL_BACKEND=${{ secrets.EMAIL_BACKEND }}
+            export EMAIL_HOST_USER=${{ secrets.EMAIL_HOST_USER }}
+            export EMAIL_HOST_PASSWORD=${{secrets.EMAIL_HOST_PASSWORD }}
+            export HS_API_KEY=${{ secrets.HS_API_KEY }}
+            export HS_TICKET_PIPELINE=${{ secrets.HS_TICKET_PIPELINE }}
+            export HS_TICKET_PIPELINE_STAGE=${{ secrets.HS_TICKET_PIPELINE_STAGE }}
+            cp -r deploy_script/deploy.sh .
+            chmod +x deploy.sh && ./deploy.sh run

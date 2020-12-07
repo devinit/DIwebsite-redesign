@@ -8,7 +8,7 @@
             {% for page in related_pages %}
               {% if page.specific|classname == global.blog_classname %}
                   {% with blog=page.specific show_tag=True %}
-                      {% include 'includes/cards/card-blog.html' with hide_date=True %}
+                      {% include 'includes/cards/card-blog.html' with hide_date=False %}
                   {% endwith %}
               {% elif page.specific|classname == global.event_classname %}
                   {% with event=page.specific show_tag=True %}
@@ -16,11 +16,11 @@
                   {% endwith %}
               {% elif page.specific|classname == global.news_classname %}
                   {% with item=page.specific show_tag=True %}
-                      {% include 'includes/cards/card-news.html' with hide_date=True %}
+                      {% include 'includes/cards/card-news.html' with hide_date=False %}
                   {% endwith %}
               {% elif page.specific|classname in global.publication_classnames %}
                 {% with item=page.specific show_tag=True %}
-                  {% include 'includes/cards/card-publication.html' with hide_date=True %}
+                  {% include 'includes/cards/card-publication.html' with hide_date=False %}
                 {% endwith %}
               {% else %}
                   {% with item=page.specific tag=tag %}

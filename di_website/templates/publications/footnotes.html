@@ -6,7 +6,7 @@
         <div class="footnotes">
             <h2 class="heading type-l type-l--trailer">Notes</h2>
             {% for item in page.footnotes_list %}
-              <ul class="footnotes__list {% if forloop.counter > 10 %}extra hidden{% endif %}">
+              <ul class="footnotes__list {% if forloop.counter > 5 %}extra hidden{% endif %}">
                 <li class="footnotes__item">
                   <span class="heading type-m type-m--trailer footnotes__sub">{{ forloop.counter }}</span>
                   <a id="{{ item.footnote_id }}"></a>

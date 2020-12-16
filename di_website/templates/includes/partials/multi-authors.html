@@ -2,7 +2,11 @@
 
 <div class="m-authors">
     <h3 class="m-authors__title">
-      {% if first_author and authors|length > 0 %}
+      {% if title and authors|length > 1 %}
+        {{ title }}
+      {% elif title %}
+        Participant
+      {% elif first_author and authors|length > 0 %}
         Authors
       {% elif authors|length > 1 %}
         Authors

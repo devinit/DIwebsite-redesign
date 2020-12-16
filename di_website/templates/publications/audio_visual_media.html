@@ -3,52 +3,57 @@
 {% load static wagtailcore_tags wagtailimages_tags string_utils card_tags navigation_tags %}
 
 {% block hero %}
-    {% include 'includes/heroes/hero.html' %}
+  {% include 'includes/heroes/hero-pubs.html' %}
 {% endblock hero %}
 
 {% block body %}
-    {% if page.call_to_action_title %}
-      <section class="section section--post">
-        <div class="row row--narrow">
-          <div class="max-meter max-meter--center">
+  <section class="section section--post">
+    <div class="row row--narrow">
+      <div class="max-meter max-meter--center">
+        {% if page.participants|length > 0 %}
+          {% include 'includes/partials/multi-authors.html' with authors=page.participants title='Participants' %}
+        {% endif %}
+        {% if page.call_to_action_title %}
+          <div class="space-section-both">
             {% include 'includes/partials/call-to-action.html' %}
           </div>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="row row--narrow">
+      <div class="max-meter max-meter--center">
+        <div class="is-typeset wysiwyg">
+          {% for block in page.body %}
+            {% include_block block %}
+          {% endfor %}
+        </div>
+      </div>
+  </section>
+
+  {% for section in page.sections %}
+    {% if section.block_type == 'audio_block' %}
+      <section class="section">
+        <div class="row row--narrow">
+          {% include_block section %}
         </div>
       </section>
+    {% else %}
+      {% include_block section with center=True %}
     {% endif %}
+  {% endfor %}
 
-    <section class="section">
-        <div class="row row--narrow">
-            <div class="max-meter max-meter--center">
-              <div class="is-typeset wysiwyg">
-                {% for block in page.body %}
-                    {% include_block block %}
-                {% endfor %}
-            </div>
-        </div>
-    </section>
-
-    {% for section in page.sections %}
-        {% if section.block_type == 'audio_block' %}
-          <section class="section">
-            <div class="row row--narrow">
-              {% include_block section %}
-            </div>
-          </section>
-        {% else %}
-            {% include_block section with center=True %}
-        {% endif %}
-    {% endfor %}
-
-    <section class="section">
-      <div class="row row--narrow">
-        {% include 'publications/share.html' %}
-      </div>
-    </section>
+  <section class="section">
+    <div class="row row--narrow">
+      {% include 'publications/share.html' %}
+    </div>
+  </section>
 
   {% if related_pages %}
-      {% with heading='Related content' %}
-          {% include 'includes/partials/related_content.html' %}
-      {% endwith %}
+    {% with heading='Related content' %}
+      {% include 'includes/partials/related_content.html' %}
+    {% endwith %}
   {% endif %}
 {% endblock %}

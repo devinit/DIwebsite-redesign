@@ -241,6 +241,7 @@ class PublicationIndexPage(HeroMixin, Page):
             stories = stories.filter(page_countries__country__slug=country_filter)
             legacy_pubs = legacy_pubs.filter(page_countries__country__slug=country_filter)
             short_pubs = short_pubs.filter(page_countries__country__slug=country_filter)
+            audio_visual_media = audio_visual_media.filter(page_countries__country__slug=country_filter)
 
         if types_filter:
             stories = stories.filter(publication_type__slug=types_filter)
@@ -1056,6 +1057,7 @@ class AudioVisualMedia(PublishedDateMixin, TypesetBodyMixin, HeroMixin, ParentPa
         StreamFieldPanel('body'),
         StreamFieldPanel('sections'),
         FieldPanel('publication_type'),
+        InlinePanel('page_countries', label="Countries"),
         FieldPanel('topics'),
         PublishedDatePanel(),
         InlinePanel('publication_related_links', label='Related links', max_num=MAX_RELATED_LINKS),

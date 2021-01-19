@@ -41,10 +41,13 @@
       {% if page.get_verbose_name  == "Publication Appendix" %}
         <h2 class="hero__subtitle">{{ page.get_parent.title }}: Appendix {{ page.appendix_number }}</h2>
       {% endif %}
+      {% if page.get_verbose_name  == "Publication Summary" %}
+        <h2 class="hero__subtitle">{{ page.get_parent.title }}: Executive summary</h2>
+      {% endif %}
       <h1 class="hero__title">
         <span>{{ page.title }}</span>
       </h1>
-      {% if page.get_verbose_name  == "Publication Summary" or page.get_verbose_name == "Legacy Publication" %}
+      {% if page.get_verbose_name == "Legacy Publication" %}
         <h2 class="hero__subtitle">{{ page.hero_text|content }}</h2>
       {% endif %}
 

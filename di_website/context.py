@@ -78,7 +78,6 @@ def globals(request):
             'case_study_srcs': 'fill-330x250 1w, fill-430x250 400w, fill-710x250 500w, fill-740x250 780w',
             'blog_classname': 'BlogArticlePage',
             'dataset_classname': 'DatasetPage',
-            'figure_classname': 'FigurePage',
             'publication_classnames': ['PublicationPage', 'ShortPublicationPage', 'LegacyPublicationPage', 'AudioVisualMedia'],
             'event_classname': 'EventPage',
             'news_classname': 'NewsStoryPage',

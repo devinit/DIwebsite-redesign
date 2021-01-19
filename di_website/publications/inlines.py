@@ -76,7 +76,7 @@ class PublicationDataset(Orderable):
         related_name='+'
     )
 
-    panels = [PageChooserPanel('dataset', ['datasection.DatasetPage', 'datasection.FigurePage'])]
+    panels = [PageChooserPanel('dataset', ['datasection.DatasetPage'])]
 
 
 class PublicationPageDataset(PublicationDataset):

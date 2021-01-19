@@ -10,7 +10,9 @@
 
     <div class="card__body">
       {% if blog.published_date %}
-        <span class="card__meta">{{ blog.published_date|date:"j F Y" }}</span>
+        {% if not hide_date %}
+          <span class="card__meta">{{ blog.published_date|date:"j F Y" }}</span>
+        {% endif %}
       {% endif %}
       <h3 class="card__title"><span>{{ blog.title }}</span></h3>
       <div class="card__excerpt">

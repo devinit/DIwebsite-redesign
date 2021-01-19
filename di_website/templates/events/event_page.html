@@ -19,16 +19,10 @@
             {{ page.start_date|date:"j F Y" }} - {{ page.end_date|date:"j F Y" }}
           {% endif %}
         </li>
-        {% if page.start_time or page.end_time %}
+        {% if page.time %}
           <li>
             <i role="presentation" aria-hidden="true" class="ico ico--14 ico-clock-slate"></i>
-            {% if page.start_time and page.end_time %}
-              {{ page.start_time|date:"gA"|lower }} - {{ page.end_time|date:"gA"|lower }}
-            {% elif page.start_time %}
-              {{ page.start_time|date:"gA"|lower }}
-            {% elif page.end_time %}
-              {{ page.end_time|date:"gA"|lower }}
-            {% endif %}
+            {{ page.time }}
           </li>
         {% endif %}
         {% if page.location %}
@@ -61,6 +55,12 @@
 {% endblock aside %}
 
 {% block after_content %}
+  <section class="section">
+    <div class="row row--narrow">
+      {% include 'publications/share.html' %}
+    </div>
+  </section>
+
   {% if related_pages %}
     {% with related_pages=related_pages heading=page.other_pages_heading  %}
       {% include 'includes/partials/related_content.html' %}

@@ -35,9 +35,15 @@
   {% include 'publications/footnotes.html' %}
 
   {% if related_pages %}
-    {% with heading='Related content'  %}
+    {% with heading='Related content' %}
       {% include 'includes/partials/related_content.html' %}
     {% endwith %}
   {% endif %}
 
 {% endblock %}
+
+
+{% block html_footer %}
+  {{block.super}}
+  <script src="{% static 'publications/js/bundle.js' %}"></script>
+{% endblock html_footer %}

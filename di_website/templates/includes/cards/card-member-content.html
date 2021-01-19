@@ -6,7 +6,6 @@
             {% if item|classname == global.blog_classname %}Blog{% endif %}
             {% if item|classname in global.publication_classnames %}{{ item.publication_type|default_if_none:"Publication" }}{% endif %}
             {% if item|classname == global.dataset_classname %}Dataset{% endif %}
-            {% if item|classname == global.figure_classname %}Figure{% endif %}
         </span>
         {% if item.published_date  %}
           <span class="card__meta">{{ item.published_date|date:"j F Y" }}</span>

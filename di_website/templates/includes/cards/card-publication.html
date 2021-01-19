@@ -7,17 +7,17 @@
     {% include 'includes/cards/card-image.html' with item=item %}
 
     <div class="card__body">
-      {% if item.published_date %}
+      {% if item.published_date and not hide_date %}
         <span class="card__meta">{{ item.published_date|date:"j F Y" }}</span>
       {% endif %}
-        <h3 class="card__title"><span>{{ item.title }}</span></h3>
-        <div class="card__excerpt">
-          {% if item.hero_text %}
-            {{item.hero_text|richtext}}
-          {% else %}
-            {{ item.body|first|striptags|truncatewords:40 }}
-          {% endif %}
-        </div>
+      <h3 class="card__title"><span>{{ item.title }}</span></h3>
+      <div class="card__excerpt">
+        {% if item.hero_text %}
+          {{item.hero_text|richtext}}
+        {% else %}
+          {{ item.body|first|striptags|truncatewords:40 }}
+        {% endif %}
+      </div>
     </div>
   </a>
 {% endif %}

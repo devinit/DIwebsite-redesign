@@ -169,7 +169,7 @@ if config('ELASTIC_SEARCH_URL', ''):
     WAGTAILSEARCH_BACKENDS = {
         'default': {
             'BACKEND': 'wagtail.search.backends.elasticsearch6',
-            'AUTO_UPDATE': False,
+            'AUTO_UPDATE': True,
             'ATOMIC_REBUILD': True,
             'URLS': [config('ELASTIC_SEARCH_URL', '')],
             'TIMEOUT': 10,

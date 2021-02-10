@@ -109,12 +109,5 @@ class EventPageRelatedLink(OtherPageMixin):
     page = ParentalKey(Page, related_name='event_related_links', on_delete=models.CASCADE)
 
     panels = [
-        PageChooserPanel('other_page', [
-            'events.EventPage',
-            'blog.BlogArticlePage',
-            'news.NewsStoryPage',
-            'publications.PublicationPage',
-            'publications.ShortPublicationPage',
-            'publications.LegacyPublicationPage'
-        ])
+        PageChooserPanel('other_page')
     ]

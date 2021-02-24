@@ -167,10 +167,15 @@ class PublicationType(ClusterableModel):
     slug = models.SlugField(
         max_length=255, blank=True, null=True,
         help_text="Optional. Will be auto-generated from name if left blank.")
+    show_in_filter = models.BooleanField(
+        default=True,
+        help_text='Used to exclude obsolete tags that are still tied to resources',
+        verbose_name='Show in filter')
 
     panels = [
         FieldPanel('name'),
         SnippetChooserPanel('resource_category'),
+        FieldPanel('show_in_filter'),
         FieldPanel('slug'),
     ]
 
@@ -302,7 +307,7 @@ class PublicationIndexPage(HeroMixin, Page):
             models.Q(publications_legacypublicationtopic_items__content_object__content_type=leg_pubs_content_type) |
             models.Q(publications_shortpublicationtopic_items__content_object__content_type=short_pubs_content_type)
         ).distinct().order_by('name')
-        resource_types = PublicationType.objects.all().order_by('resource_category', 'name')
+        resource_types = PublicationType.objects.filter(show_in_filter=True).order_by('resource_category', 'name')
         context['resource_types'] = resource_types
         # ensure only used resource types are pushed to the page
         for resource_type in resource_types:

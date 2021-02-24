@@ -37,6 +37,12 @@
     </div>
   </section>
 
+  <section class="section">
+    <div class="row row--narrow">
+      {% include 'publications/share.html' %}
+    </div>
+  </section>
+
   {% if related_pages %}
     {% with related_pages=related_pages heading='Related content'  %}
       {% include 'includes/partials/related_content.html' %}

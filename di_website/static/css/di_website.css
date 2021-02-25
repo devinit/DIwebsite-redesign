@@ -167,3 +167,8 @@
 .body--lavendar .footnotes button.button:hover {
   background-color: #443e42;
 }
+
+/** ==== GENERAL ==== **/
+select optgroup {
+  font-style: normal;
+}

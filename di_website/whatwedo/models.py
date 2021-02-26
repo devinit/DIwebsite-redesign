@@ -195,7 +195,7 @@ class ServicesPage(TypesetBodyMixin, HeroMixin, Page):
         InlinePanel('page_notifications', label='Notifications')
     ]
 
-    subpage_types = ['home.StandardPage', 'general.General']
+    subpage_types = ['general.General']
     parent_page_types = [WhatWeDoPage]
 
 

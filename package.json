@@ -1,6 +1,6 @@
 {
     "name": "di-website",
-    "version": "1.0.0",
+    "version": "1.7.0",
     "description": "The new and improved DI Website",
     "scripts": {
         "emit": "tsc",

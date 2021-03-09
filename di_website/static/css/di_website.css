@@ -169,7 +169,9 @@
 }
 
 /** ==== PLAYER ==== **/
-.vp-center .player {
+.vp-center .player,
+div.player
+div#player {
   max-width: 100% !important;
   background-color: #000;
 }

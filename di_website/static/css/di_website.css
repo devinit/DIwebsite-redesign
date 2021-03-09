@@ -168,6 +168,12 @@
   background-color: #443e42;
 }
 
+/** ==== PLAYER ==== **/
+.vp-center .player {
+  max-width: 100% !important;
+  background-color: #000;
+}
+
 /** ==== GENERAL ==== **/
 select optgroup {
   font-style: normal;

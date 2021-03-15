@@ -78,6 +78,7 @@ const appConfig = {
     whatwedo: './src/whatwedo/index.ts',
     publications: './src/publications/index.ts',
     blog: './src/blog/index.ts',
+    dashboard: './src/dashboard/index.ts',
   },
   output: {
     path: path.resolve(__dirname, 'di_website'),

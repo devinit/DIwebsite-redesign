@@ -22,9 +22,8 @@ const sharedConfig = {
         include: path.resolve(__dirname, 'src'),
       },
       {
-        test: /\.css$/,
-        loader: 'css-loader',
-        include: path.resolve(__dirname, 'src'),
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
       },
     ],
   },

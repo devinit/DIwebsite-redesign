@@ -1,7 +1,16 @@
 import React, { FunctionComponent } from 'react';
+import { Card } from './components/Card';
+import { Grid } from './components/Grid';
 
 const Dashboard: FunctionComponent = () => {
-  return <div>Dashboard Goes Here!</div>;
+  return (
+    <Grid>
+      <Card></Card>
+      <Card></Card>
+      <Card></Card>
+      <Card></Card>
+    </Grid>
+  );
 };
 
 export { Dashboard };

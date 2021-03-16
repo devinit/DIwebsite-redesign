@@ -58,7 +58,7 @@ const chartsConfig = {
     chunkFilename: 'chart[chunkhash].js',
     libraryTarget: 'umd',
   },
-  externals: ['jquery'],
+  externals: ['jquery', 'echarts'],
 };
 chartsConfig.module.rules[0].loader = 'babel-loader';
 
@@ -70,6 +70,7 @@ const diChartsConfig = {
     filename: 'dicharts.js',
     library: 'DICharts',
   },
+  externals: ['echarts'],
 };
 
 const appConfig = {

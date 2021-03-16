@@ -12,7 +12,7 @@ const sharedConfig = {
     rules: [
       {
         test: /\.(ts|tsx)$/,
-        loader: 'ts-loader',
+        loader: 'babel-loader',
         include: path.resolve(__dirname, 'src'),
       },
       {
@@ -30,6 +30,10 @@ const sharedConfig = {
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js'],
+  },
+  performance: {
+    maxEntrypointSize: 512000,
+    maxAssetSize: 512000,
   },
 };
 

@@ -1,11 +1,17 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, ReactText } from 'react';
 
-const Card: FunctionComponent = () => {
+type CardProps = {
+  meta?: ReactText;
+  title?: ReactText;
+};
+
+const Card: FunctionComponent<CardProps> = (props) => {
   return (
     <div className="card card--offset">
       <div className="card__body">
-        <span className="card__meta">Salary 2020</span>
-        <h3 className="card__title">$75,000</h3>
+        {props.meta ? <span className="card__meta">{props.meta}</span> : null}
+        {props.title ? <h3 className="card__title">{props.title}</h3> : null}
+        {props.children}
       </div>
     </div>
   );

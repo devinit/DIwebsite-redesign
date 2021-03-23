@@ -1,7 +1,9 @@
 import * as echarts from 'echarts';
 import React, { FunctionComponent, useEffect, useRef } from 'react';
 import { Card } from '../components/Card';
+import { FinanceDashboard } from '../components/FinanceDashboard';
 import { Grid } from '../components/Grid';
+import { Section } from '../components/Section/Section';
 
 const makeBasicChart = (node: HTMLDivElement) => {
   const chart = echarts.init(node);
@@ -33,16 +35,19 @@ const Dashboard: FunctionComponent = () => {
 
   return (
     <>
-      <Grid>
-        <Card meta="Salary" title="$75,0000"></Card>
-        <Card></Card>
-        <Card></Card>
-      </Grid>
-      <Grid columns={1}>
-        <Card>
-          <div ref={element} style={{ height: '300px' }}></div>
-        </Card>
-      </Grid>
+      <Section>
+        <Grid>
+          <Card meta="Salary" title="$75,0000"></Card>
+          <Card></Card>
+          <Card></Card>
+        </Grid>
+        <Grid columns={1}>
+          <Card>
+            <div ref={element} style={{ height: '300px' }}></div>
+          </Card>
+        </Grid>
+      </Section>
+      <FinanceDashboard />
     </>
   );
 };

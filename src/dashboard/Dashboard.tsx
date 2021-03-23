@@ -4,6 +4,7 @@ import { Card } from '../components/Card';
 import { FinanceDashboard } from '../components/FinanceDashboard';
 import { Grid } from '../components/Grid';
 import { Section } from '../components/Section/Section';
+import { useDashboardData } from './hooks/data';
 
 const makeBasicChart = (node: HTMLDivElement) => {
   const chart = echarts.init(node);
@@ -27,6 +28,8 @@ const makeBasicChart = (node: HTMLDivElement) => {
 
 const Dashboard: FunctionComponent = () => {
   const element = useRef<HTMLDivElement>(null);
+  const data = useDashboardData();
+
   useEffect(() => {
     if (element.current) {
       makeBasicChart(element.current);
@@ -47,7 +50,7 @@ const Dashboard: FunctionComponent = () => {
           </Card>
         </Grid>
       </Section>
-      <FinanceDashboard />
+      <FinanceDashboard data={data} />
     </>
   );
 };

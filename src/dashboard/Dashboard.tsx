@@ -5,7 +5,8 @@ import { DataSystemsDashboard } from '../components/DataSystemsDashboard';
 import { DevelopmentDashboard } from '../components/DevelopmentDashboard';
 import { FinanceDashboard } from '../components/FinanceDashboard';
 import { Grid } from '../components/Grid';
-import { Section } from '../components/Section/Section';
+import { HumanResourcesDashboard } from '../components/HumanResourcesDashboard';
+import { Section } from '../components/Section';
 import { useDashboardData } from './hooks/data';
 
 const makeBasicChart = (node: HTMLDivElement) => {
@@ -55,6 +56,7 @@ const Dashboard: FunctionComponent = () => {
       <FinanceDashboard data={data} />
       <DevelopmentDashboard data={data} />
       <DataSystemsDashboard data={data} />
+      <HumanResourcesDashboard data={data} />
     </>
   );
 };

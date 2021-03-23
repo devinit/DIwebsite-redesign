@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { DashboardData } from '../../utils/types';
-import { Section } from '../Section/Section';
+import { Section } from '../Section';
 
 type FinanceDashboardProps = {
   year?: number;

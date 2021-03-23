@@ -2,18 +2,18 @@ import React, { FunctionComponent } from 'react';
 import { DashboardData } from '../../utils/types';
 import { Section } from '../Section';
 
-type DevelopmentDashboardProps = {
+type HumanResourcesDashboardProps = {
   year?: number;
   quarter?: 1 | 2 | 3 | 4;
   data: DashboardData[];
 };
 
-const DevelopmentDashboard: FunctionComponent<DevelopmentDashboardProps> = () => {
+const HumanResourcesDashboard: FunctionComponent<HumanResourcesDashboardProps> = () => {
   return (
-    <Section title="Development & Fundraising">
+    <Section title="Human Resources">
       <div>Content Goes Here</div>
     </Section>
   );
 };
 
-export { DevelopmentDashboard };
+export { HumanResourcesDashboard };

@@ -10,7 +10,7 @@ type DataSystemsDashboardProps = {
 
 const DataSystemsDashboard: FunctionComponent<DataSystemsDashboardProps> = () => {
   return (
-    <Section title="IT & Data Systems">
+    <Section title="IT & Data Systems" id="data-systems">
       <div>Content Goes Here</div>
     </Section>
   );

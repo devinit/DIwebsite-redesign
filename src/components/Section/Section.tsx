@@ -7,8 +7,11 @@ type SectionProps = {
 const Section: FunctionComponent<SectionProps> = (props) => {
   return (
     <section className="section">
-      <div className="row row--narrow">{props.title ? <h2 className="section__heading">{props.title}</h2> : null}</div>
-      {props.children}
+      <div className="row row--narrow">
+        {props.title ? <h2 className="section__heading">{props.title}</h2> : null}
+
+        {props.children}
+      </div>
     </section>
   );
 };

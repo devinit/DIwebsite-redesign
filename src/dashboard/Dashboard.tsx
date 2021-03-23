@@ -6,6 +6,7 @@ import { DevelopmentDashboard } from '../components/DevelopmentDashboard';
 import { FinanceDashboard } from '../components/FinanceDashboard';
 import { Grid } from '../components/Grid';
 import { HumanResourcesDashboard } from '../components/HumanResourcesDashboard';
+import { ProjectManagementDashboard } from '../components/ProjectManagementDashboard';
 import { Section } from '../components/Section';
 import { useDashboardData } from './hooks/data';
 
@@ -57,6 +58,7 @@ const Dashboard: FunctionComponent = () => {
       <DevelopmentDashboard data={data} />
       <DataSystemsDashboard data={data} />
       <HumanResourcesDashboard data={data} />
+      <ProjectManagementDashboard data={data} />
     </>
   );
 };

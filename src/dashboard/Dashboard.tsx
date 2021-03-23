@@ -1,36 +1,26 @@
-import * as Plottable from 'plottable';
-import 'plottable/plottable.css';
+import * as echarts from 'echarts';
 import React, { FunctionComponent, useEffect, useRef } from 'react';
 import { Card } from './components/Card';
 import { Grid } from './components/Grid';
 
 const makeBasicChart = (node: HTMLDivElement) => {
-  // const Plottable = await import('plottable');
-  const xScale = new Plottable.Scales.Linear();
-  const yScale = new Plottable.Scales.Linear();
-
-  const xAxis = new Plottable.Axes.Numeric(xScale, 'bottom');
-  const yAxis = new Plottable.Axes.Numeric(yScale, 'left');
-
-  const plot = new Plottable.Plots.Line();
-  plot.x((d: { x: number; y: number }) => d.x, xScale);
-  plot.y((d) => d.y, yScale);
-  const data = [
-    { x: 0, y: 1 },
-    { x: 1, y: 2 },
-    { x: 2, y: 4 },
-    { x: 3, y: 8 },
-  ];
-
-  const dataset = new Plottable.Dataset(data);
-  plot.addDataset(dataset);
-
-  const chart = new Plottable.Components.Table([
-    [yAxis, plot],
-    [null, xAxis],
-  ]);
-
-  chart.renderTo(node);
+  const chart = echarts.init(node);
+  const option: echarts.EChartOption = {
+    xAxis: {
+      type: 'category',
+      data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+    },
+    yAxis: {
+      type: 'value',
+    },
+    series: [
+      {
+        data: [150, 230, 224, 218, 135, 147, 260],
+        type: 'line',
+      },
+    ],
+  };
+  chart.setOption(option);
 };
 
 const Dashboard: FunctionComponent = () => {
@@ -42,12 +32,18 @@ const Dashboard: FunctionComponent = () => {
   }, []);
 
   return (
-    <Grid>
-      <Card></Card>
-      <Card></Card>
-      <Card></Card>
-      <div ref={element} style={{ height: '300px' }}></div>
-    </Grid>
+    <>
+      <Grid>
+        <Card meta="Salary" title="$75,0000"></Card>
+        <Card></Card>
+        <Card></Card>
+      </Grid>
+      <Grid columns={1}>
+        <Card>
+          <div ref={element} style={{ height: '300px' }}></div>
+        </Card>
+      </Grid>
+    </>
   );
 };
 

@@ -10,7 +10,7 @@ type ProjectManagementDashboardProps = {
 
 const ProjectManagementDashboard: FunctionComponent<ProjectManagementDashboardProps> = () => {
   return (
-    <Section title="Project Management">
+    <Section title="Project Management" id="project-management">
       <div>Content Goes Here</div>
     </Section>
   );

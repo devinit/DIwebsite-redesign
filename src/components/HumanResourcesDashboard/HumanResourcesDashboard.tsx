@@ -10,7 +10,7 @@ type HumanResourcesDashboardProps = {
 
 const HumanResourcesDashboard: FunctionComponent<HumanResourcesDashboardProps> = () => {
   return (
-    <Section title="Human Resources">
+    <Section title="Human Resources" id="hr">
       <div>Content Goes Here</div>
     </Section>
   );

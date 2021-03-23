@@ -10,7 +10,7 @@ type DevelopmentDashboardProps = {
 
 const DevelopmentDashboard: FunctionComponent<DevelopmentDashboardProps> = () => {
   return (
-    <Section title="Development & Fundraising">
+    <Section title="Development & Fundraising" id="development">
       <div>Content Goes Here</div>
     </Section>
   );

@@ -10,7 +10,7 @@ type CommsEngagementDashboardProps = {
 
 const CommsEngagementDashboard: FunctionComponent<CommsEngagementDashboardProps> = () => {
   return (
-    <Section title="Comms & Engagement">
+    <Section title="Comms & Engagement" id="comms-engagement">
       <div>Content Goes Here</div>
     </Section>
   );

@@ -9,7 +9,11 @@ type FinanceDashboardProps = {
 };
 
 const FinanceDashboard: FunctionComponent<FinanceDashboardProps> = () => {
-  return <Section title="Finance Dashboard">Content Goes Here</Section>;
+  return (
+    <Section title="Finance">
+      <div>Content Goes Here</div>
+    </Section>
+  );
 };
 
 export { FinanceDashboard };

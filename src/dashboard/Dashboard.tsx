@@ -1,9 +1,10 @@
 import * as echarts from 'echarts';
-import React, { FunctionComponent, useEffect, useRef } from 'react';
+import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
 import { Card } from '../components/Card';
 import { CommsEngagementDashboard } from '../components/CommsEngagementDashboard';
 import { DataSystemsDashboard } from '../components/DataSystemsDashboard';
 import { DevelopmentDashboard } from '../components/DevelopmentDashboard';
+import { Filter, Option } from '../components/Filter';
 import { FinanceDashboard } from '../components/FinanceDashboard';
 import { Grid } from '../components/Grid';
 import { HumanResourcesDashboard } from '../components/HumanResourcesDashboard';
@@ -31,9 +32,23 @@ const makeBasicChart = (node: HTMLDivElement) => {
   chart.setOption(option);
 };
 
+const years: Option[] = [
+  { value: '2020', caption: '2020' },
+  { value: '2021', caption: '2021' },
+];
+
+const quarters: Option[] = [
+  { value: '1', caption: 'Q1' },
+  { value: '2', caption: 'Q2' },
+  { value: '3', caption: 'Q3' },
+  { value: '4', caption: 'Q4' },
+];
+
 const Dashboard: FunctionComponent = () => {
   const element = useRef<HTMLDivElement>(null);
   const data = useDashboardData();
+  const [year, setYear] = useState<string>();
+  const [quarter, setQuarter] = useState<string>();
 
   useEffect(() => {
     if (element.current) {
@@ -41,9 +56,26 @@ const Dashboard: FunctionComponent = () => {
     }
   }, []);
 
+  const onSelectYear = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setYear(event.currentTarget.value);
+  };
+
+  const onSelectQuarter = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setQuarter(event.currentTarget.value);
+  };
+  console.log(year, quarter);
+
   return (
     <>
       <Section>
+        <div className="highlight">
+          <form className="form">
+            <Filter id="year" label="Year" options={years} onChange={onSelectYear} />
+            <Filter id="quarter" label="Quarter" options={quarters} onChange={onSelectQuarter} />
+          </form>
+        </div>
+      </Section>
+      <Section id="general">
         <Grid>
           <Card meta="Salary" title="$75,0000"></Card>
           <Card></Card>

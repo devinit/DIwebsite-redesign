@@ -1,6 +1,7 @@
 import * as echarts from 'echarts';
 import React, { FunctionComponent, useEffect, useRef } from 'react';
 import { Card } from '../components/Card';
+import { DataSystemsDashboard } from '../components/DataSystemsDashboard';
 import { DevelopmentDashboard } from '../components/DevelopmentDashboard';
 import { FinanceDashboard } from '../components/FinanceDashboard';
 import { Grid } from '../components/Grid';
@@ -53,6 +54,7 @@ const Dashboard: FunctionComponent = () => {
       </Section>
       <FinanceDashboard data={data} />
       <DevelopmentDashboard data={data} />
+      <DataSystemsDashboard data={data} />
     </>
   );
 };

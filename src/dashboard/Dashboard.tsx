@@ -1,7 +1,7 @@
 import * as echarts from 'echarts';
 import React, { FunctionComponent, useEffect, useRef } from 'react';
-import { Card } from './components/Card';
-import { Grid } from './components/Grid';
+import { Card } from '../components/Card';
+import { Grid } from '../components/Grid';
 
 const makeBasicChart = (node: HTMLDivElement) => {
   const chart = echarts.init(node);

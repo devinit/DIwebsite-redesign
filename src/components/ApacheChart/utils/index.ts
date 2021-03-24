@@ -75,3 +75,41 @@ export const renderBasicColumnChart = (node: HTMLDivElement): void => {
   };
   chart.setOption(deepmerge(defaultOptions, option));
 };
+
+export const renderBasicPieChart = (node: HTMLDivElement): void => {
+  const chart = echarts.init(node);
+  const option: echarts.EChartOption = {
+    legend: {
+      top: 'bottom',
+    },
+    toolbox: {
+      show: true,
+      feature: {
+        mark: { show: true },
+        dataView: { show: true, readOnly: false },
+        restore: { show: true },
+        saveAsImage: { show: true },
+      },
+    },
+    xAxis: { show: false },
+    yAxis: { show: false },
+    series: [
+      {
+        name: 'Rose',
+        type: 'pie',
+        radius: '65%',
+        center: ['50%', '50%'],
+        label: {
+          show: true,
+        },
+        data: [
+          { value: 40, name: 'rose 1' },
+          { value: 38, name: 'rose 2' },
+          { value: 32, name: 'rose 3' },
+          { value: 30, name: 'rose 4' },
+        ],
+      },
+    ],
+  };
+  chart.setOption(deepmerge(defaultOptions, option));
+};

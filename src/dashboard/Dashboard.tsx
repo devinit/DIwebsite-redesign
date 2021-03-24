@@ -1,3 +1,4 @@
+import deepmerge from 'deepmerge';
 import * as echarts from 'echarts';
 import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
 import { Card, CardMetaLarge, CardTitleLarge } from '../components/Card';
@@ -10,6 +11,7 @@ import { Grid } from '../components/Grid';
 import { HumanResourcesDashboard } from '../components/HumanResourcesDashboard';
 import { ProjectManagementDashboard } from '../components/ProjectManagementDashboard';
 import { Section } from '../components/Section';
+import { defaultOptions } from '../utils/echarts';
 import { useDashboardData } from './hooks/data';
 
 const makeBasicChart = (node: HTMLDivElement) => {
@@ -29,7 +31,7 @@ const makeBasicChart = (node: HTMLDivElement) => {
       },
     ],
   };
-  chart.setOption(option);
+  chart.setOption(deepmerge(defaultOptions, option));
 };
 
 const years: Option[] = [
@@ -76,13 +78,23 @@ const Dashboard: FunctionComponent = () => {
         </div>
       </Section>
       <Section id="general">
-        <Grid>
+        <Grid columns={4}>
           <Card>
-            <CardMetaLarge>Income Secured</CardMetaLarge>
-            <CardTitleLarge>$75,000</CardTitleLarge>
+            <CardMetaLarge>Contract Income Secured</CardMetaLarge>
+            <CardTitleLarge>£75,000</CardTitleLarge>
           </Card>
-          <Card></Card>
-          <Card></Card>
+          <Card>
+            <CardMetaLarge>Grant Income Secured</CardMetaLarge>
+            <CardTitleLarge>£185,000</CardTitleLarge>
+          </Card>
+          <Card>
+            <CardMetaLarge>Salary Vs Income</CardMetaLarge>
+            <CardTitleLarge>85%</CardTitleLarge>
+          </Card>
+          <Card>
+            <CardMetaLarge>Staff Vs Leavers</CardMetaLarge>
+            <CardTitleLarge>84/3</CardTitleLarge>
+          </Card>
         </Grid>
         <Grid columns={1}>
           <Card>

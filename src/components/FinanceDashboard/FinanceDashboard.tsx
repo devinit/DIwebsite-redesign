@@ -28,6 +28,11 @@ const FinanceDashboard: FunctionComponent<FinanceDashboardProps> = () => {
           <ApacheChart options={{}} height="250px" />
         </Card>
       </Grid>
+      <Grid columns={1}>
+        <Card meta="Testing Bar Chart">
+          <ApacheChart options={{}} height="250px" type="bar" />
+        </Card>
+      </Grid>
     </Section>
   );
 };

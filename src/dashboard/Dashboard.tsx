@@ -1,6 +1,5 @@
-import deepmerge from 'deepmerge';
-import * as echarts from 'echarts';
-import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
+import React, { FunctionComponent, useState } from 'react';
+import { ApacheChart } from '../components/ApacheChart';
 import { Card, CardMetaLarge, CardTitleLarge } from '../components/Card';
 import { CommsEngagementDashboard } from '../components/CommsEngagementDashboard';
 import { DataSystemsDashboard } from '../components/DataSystemsDashboard';
@@ -11,28 +10,7 @@ import { Grid } from '../components/Grid';
 import { HumanResourcesDashboard } from '../components/HumanResourcesDashboard';
 import { ProjectManagementDashboard } from '../components/ProjectManagementDashboard';
 import { Section } from '../components/Section';
-import { defaultOptions } from '../utils/echarts';
 import { useDashboardData } from './hooks/data';
-
-const makeBasicChart = (node: HTMLDivElement) => {
-  const chart = echarts.init(node);
-  const option: echarts.EChartOption = {
-    xAxis: {
-      type: 'category',
-      data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-    },
-    yAxis: {
-      type: 'value',
-    },
-    series: [
-      {
-        data: [150, 230, 224, 218, 135, 147, 260],
-        type: 'line',
-      },
-    ],
-  };
-  chart.setOption(deepmerge(defaultOptions, option));
-};
 
 const years: Option[] = [
   { value: '2020', caption: '2020' },
@@ -47,16 +25,9 @@ const quarters: Option[] = [
 ];
 
 const Dashboard: FunctionComponent = () => {
-  const element = useRef<HTMLDivElement>(null);
   const data = useDashboardData();
   const [year, setYear] = useState<string>();
   const [quarter, setQuarter] = useState<string>();
-
-  useEffect(() => {
-    if (element.current) {
-      makeBasicChart(element.current);
-    }
-  }, []);
 
   const onSelectYear = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setYear(event.currentTarget.value);
@@ -98,7 +69,7 @@ const Dashboard: FunctionComponent = () => {
         </Grid>
         <Grid columns={1}>
           <Card>
-            <div ref={element} style={{ height: '300px' }}></div>
+            <ApacheChart options={{}} />
           </Card>
         </Grid>
       </Section>

@@ -1,6 +1,6 @@
 import * as echarts from 'echarts';
 import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
-import { Card } from '../components/Card';
+import { Card, CardMetaLarge, CardTitleLarge } from '../components/Card';
 import { CommsEngagementDashboard } from '../components/CommsEngagementDashboard';
 import { DataSystemsDashboard } from '../components/DataSystemsDashboard';
 import { DevelopmentDashboard } from '../components/DevelopmentDashboard';
@@ -77,7 +77,10 @@ const Dashboard: FunctionComponent = () => {
       </Section>
       <Section id="general">
         <Grid>
-          <Card meta="Salary" title="$75,0000"></Card>
+          <Card>
+            <CardMetaLarge>Income Secured</CardMetaLarge>
+            <CardTitleLarge>$75,000</CardTitleLarge>
+          </Card>
           <Card></Card>
           <Card></Card>
         </Grid>

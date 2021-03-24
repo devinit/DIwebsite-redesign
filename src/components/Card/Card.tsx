@@ -1,4 +1,5 @@
 import React, { FunctionComponent, ReactText } from 'react';
+import styled from 'styled-components';
 
 type CardProps = {
   meta?: ReactText;
@@ -16,5 +17,14 @@ const Card: FunctionComponent<CardProps> = (props) => {
     </div>
   );
 };
+
+export const CardMetaLarge = styled.span.attrs(() => ({ className: 'card__meta' }))`
+  font-size: 1.3rem;
+`;
+
+export const CardTitleLarge = styled.h3.attrs(() => ({ className: 'card__title' }))`
+  font-size: 3rem;
+  margin-bottom: 0;
+`;
 
 export { Card };

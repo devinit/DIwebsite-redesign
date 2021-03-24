@@ -1,5 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { DashboardData } from '../../utils/types';
+import { Card } from '../Card';
+import { Grid } from '../Grid';
 import { Section } from '../Section';
 
 type FinanceDashboardProps = {
@@ -11,7 +13,12 @@ type FinanceDashboardProps = {
 const FinanceDashboard: FunctionComponent<FinanceDashboardProps> = () => {
   return (
     <Section title="Finance" id="finance">
-      <div>Content Goes Here</div>
+      <Grid columns={2}>
+        <Card meta="Proportion of staff time spent on projects">Content Goes Here</Card>
+        <Card meta="Proportion of value of staff time spent on direct & indirect overheads">Content Goes Here</Card>
+        <Card meta="Personnel costs as a proportion of income (% of target)">Chart Goes Here</Card>
+        <Card meta="Consultant costs %, YTD (excluding GNR)">Chart Goes Here</Card>
+      </Grid>
     </Section>
   );
 };

@@ -25,12 +25,23 @@ const FinanceDashboard: FunctionComponent<FinanceDashboardProps> = () => {
           <ApacheChart options={{}} height="250px" />
         </Card>
         <Card meta="Consultant costs %, YTD (excluding GNR)">
-          <ApacheChart options={{}} height="250px" />
+          <ApacheChart options={{}} height="250px" type="pie" />
         </Card>
       </Grid>
       <Grid columns={1}>
         <Card meta="Testing Bar Chart">
           <ApacheChart options={{}} height="250px" type="bar" />
+        </Card>
+      </Grid>
+      <Grid columns={3}>
+        <Card meta="Testing Pie Charts">
+          <ApacheChart options={{}} height="250px" type="pie" />
+        </Card>
+        <Card meta="Testing Pie Charts">
+          <ApacheChart options={{}} height="250px" type="pie" />
+        </Card>
+        <Card meta="Testing Pie Charts">
+          <ApacheChart options={{}} height="250px" type="pie" />
         </Card>
       </Grid>
     </Section>

@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect, useRef } from 'react';
-import { makeBasicLineChart, renderBasicColumnChart } from './utils';
+import { makeBasicLineChart, renderBasicColumnChart, renderBasicPieChart } from './utils';
 
 type ApacheChartProps = {
   width?: string;
@@ -19,6 +19,10 @@ const ApacheChart: FunctionComponent<ApacheChartProps> = (props) => {
           break;
         case 'bar':
           renderBasicColumnChart(element.current);
+          break;
+        case 'pie':
+          renderBasicPieChart(element.current);
+          break;
         default:
           break;
       }

@@ -4,6 +4,7 @@ export type DashboardData = {
   value: number;
   department: string;
   narrative?: string;
+  target?: number;
 };
 
 export type DashboardGrid = {

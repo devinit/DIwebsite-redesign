@@ -1,3 +1,4 @@
+import { getQuarterYear } from '../../../dashboard/utils';
 import { DashboardData, DashboardGrid } from '../../../utils/types';
 
 export const grids: DashboardGrid[] = [
@@ -19,12 +20,15 @@ export const grids: DashboardGrid[] = [
             const dates = [...new Set(financeData.map(({ date }) => date))];
 
             return dates.map((date) => {
-              const dataset: Record<string, string | number> = { date };
+              const [quarter, year] = getQuarterYear(date);
+              const dataset: Record<string, string | number> = { quarter: `${year} Q${quarter}`, year };
               metrics.forEach((metric) => {
                 const matchingData = financeData.find((item) => item.date === date && metric === item.metric);
                 if (matchingData) {
                   dataset[metric] = matchingData.value;
-                  dataset['target'] = 80;
+                  if (matchingData.target) {
+                    dataset['target'] = matchingData.target;
+                  }
                 }
               });
 
@@ -37,7 +41,7 @@ export const grids: DashboardGrid[] = [
             },
             legend: {},
             dataset: {
-              dimensions: ['date', 'Non-Overhead Staff', 'All Staff'],
+              dimensions: ['quarter', 'Non-Overhead Staff', 'All Staff'],
             },
             grid: {
               left: '3%',

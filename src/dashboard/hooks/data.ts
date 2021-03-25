@@ -15,15 +15,13 @@ export const useDashboardData = (): DashboardData[] => {
           const titleRow = dashboardData.splice(0, 1)[0] as string[];
 
           setData(
-            dashboardData.map<DashboardData>((row: string[]) => {
-              return {
-                metric: row[titleRow.indexOf('Indicator')],
-                date: row[titleRow.indexOf('Date')],
-                value: parseFloat(row[titleRow.indexOf('Value')]),
-                department: row[titleRow.indexOf('Department')],
-                narrative: row[titleRow.indexOf('Narrative')],
-              };
-            }),
+            dashboardData.map<DashboardData>((row: string[]) => ({
+              metric: row[titleRow.indexOf('Indicator')],
+              date: row[titleRow.indexOf('Date')],
+              value: parseFloat(row[titleRow.indexOf('Value')]),
+              department: row[titleRow.indexOf('Department')],
+              narrative: row[titleRow.indexOf('Narrative')],
+            })),
           );
         }
       },

@@ -1,4 +1,4 @@
-import { getQuarterYear } from '../../../dashboard/utils';
+import { colours, getQuarterYear } from '../../../dashboard/utils';
 import { DashboardData, DashboardGrid } from '../../../utils/types';
 
 export const grids: DashboardGrid[] = [
@@ -27,7 +27,7 @@ export const grids: DashboardGrid[] = [
                 if (matchingData) {
                   dataset[metric] = matchingData.value;
                   if (matchingData.target) {
-                    dataset['target'] = matchingData.target;
+                    dataset['Target'] = matchingData.target;
                   }
                 }
               });
@@ -36,12 +36,13 @@ export const grids: DashboardGrid[] = [
             });
           },
           options: {
+            color: colours,
             tooltip: {
               trigger: 'axis',
             },
             legend: {},
             dataset: {
-              dimensions: ['quarter', 'Non-Overhead Staff', 'All Staff'],
+              dimensions: ['quarter', 'Non-Overhead Staff', 'All Staff', 'Target'],
             },
             grid: {
               left: '3%',
@@ -55,8 +56,17 @@ export const grids: DashboardGrid[] = [
               },
             },
             xAxis: { type: 'category' },
-            yAxis: { type: 'value' },
-            series: [{ type: 'bar' }, { type: 'bar' }],
+            yAxis: { type: 'value', scale: true, axisLabel: { formatter: '{value}%' } },
+            series: [
+              { type: 'line' },
+              { type: 'line' },
+              {
+                type: 'line',
+                symbol: 'none',
+                lineStyle: { type: 'dashed', color: '#333' },
+                itemStyle: { color: '#333' },
+              },
+            ],
           },
         },
       },

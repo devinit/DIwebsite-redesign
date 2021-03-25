@@ -25,21 +25,21 @@ const FinanceDashboard: FunctionComponent<FinanceDashboardProps> = ({ data }) =>
     return <ApacheChart demo options={{ title: { text: 'THIS IS A DEMO CHART' } }} height="250px" />;
   };
 
-  if (!data.length) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <Section title="Finance" id="finance">
-      {grids.map(({ id, columns, content }) => (
-        <Grid key={id} columns={columns || 1}>
-          {content.map(({ meta, title, chart, ...item }) => (
-            <Card key={item.id} meta={meta} title={title && typeof title === 'function' ? title() : title}>
-              {chart ? renderChart(chart) : null}
-            </Card>
-          ))}
-        </Grid>
-      ))}
+      {!data.length ? (
+        <div>Loading...</div>
+      ) : (
+        grids.map(({ id, columns, content }) => (
+          <Grid key={id} columns={columns || 1}>
+            {content.map(({ meta, title, chart, ...item }) => (
+              <Card key={item.id} meta={meta} title={title && typeof title === 'function' ? title() : title}>
+                {chart ? renderChart(chart) : null}
+              </Card>
+            ))}
+          </Grid>
+        ))
+      )}
     </Section>
   );
 };

@@ -1,4 +1,4 @@
-import { colours, generateDataset, getQuarterYear } from '../../../dashboard/utils';
+import { colours, generateDataset } from '../../../dashboard/utils';
 import { DashboardData, DashboardGrid } from '../../../utils/types';
 
 export const grids: DashboardGrid[] = [
@@ -95,6 +95,81 @@ export const grids: DashboardGrid[] = [
                 itemStyle: { color: '#333' },
               },
             ],
+          },
+        },
+      },
+      {
+        id: 'personnel-costs',
+        meta: 'Personnel costs as a proporation of income (% of target)',
+        chart: {
+          data: (data: DashboardData[]): Record<string, unknown>[] =>
+            generateDataset(
+              data.filter(
+                ({ department, metric }) =>
+                  department === 'Finance' &&
+                  (metric === 'Consultants as proportion of income' || metric === 'Salary as a proportion of income'),
+              ),
+            ),
+          options: {
+            color: colours,
+            tooltip: {
+              trigger: 'axis',
+            },
+            legend: {
+              top: '10%',
+            },
+            dataset: {
+              dimensions: ['quarter', 'Consultants as proportion of income', 'Salary as a proportion of income'],
+            },
+            grid: {
+              left: '3%',
+              right: '4%',
+              bottom: '3%',
+              containLabel: true,
+            },
+            toolbox: {
+              feature: {
+                saveAsImage: {},
+              },
+            },
+            xAxis: { type: 'category' },
+            yAxis: { type: 'value', splitNumber: 3, axisLabel: { formatter: '{value}%' } },
+            series: [{ type: 'bar' }, { type: 'bar' }],
+          },
+        },
+      },
+      {
+        id: 'consultant-costs',
+        meta: 'Consultant costs %, YTD (excluding GNR)',
+        chart: {
+          data: (data: DashboardData[]): Record<string, unknown>[] =>
+            generateDataset(
+              data.filter(
+                ({ department, metric }) =>
+                  department === 'Finance' && metric === 'Average consultant % for year to date (excl GNR)',
+              ),
+            ),
+          options: {
+            color: colours,
+            tooltip: { trigger: 'axis' },
+            legend: { show: false },
+            dataset: {
+              dimensions: ['quarter', 'Average consultant % for year to date (excl GNR)'],
+            },
+            grid: {
+              left: '3%',
+              right: '4%',
+              bottom: '3%',
+              containLabel: true,
+            },
+            toolbox: {
+              feature: {
+                saveAsImage: {},
+              },
+            },
+            xAxis: { type: 'category' },
+            yAxis: { type: 'value', splitNumber: 3, axisLabel: { formatter: '{value}%' } },
+            series: [{ type: 'bar' }],
           },
         },
       },

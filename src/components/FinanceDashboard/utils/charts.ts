@@ -1,4 +1,4 @@
-import { colours, getQuarterYear } from '../../../dashboard/utils';
+import { colours, generateDataset, getQuarterYear } from '../../../dashboard/utils';
 import { DashboardData, DashboardGrid } from '../../../utils/types';
 
 export const grids: DashboardGrid[] = [
@@ -10,31 +10,13 @@ export const grids: DashboardGrid[] = [
         id: 'project-time',
         meta: 'Proportion of staff time spent on projects',
         chart: {
-          data: (data: DashboardData[]): Record<string, unknown>[] => {
-            const financeData = data.filter(
-              ({ department, metric }) =>
-                department === 'Finance' && (metric === 'Non-Overhead Staff' || metric === 'All Staff'),
-            );
-            // extract unique metrics & dates
-            const metrics = [...new Set(financeData.map(({ metric }) => metric))];
-            const dates = [...new Set(financeData.map(({ date }) => date))];
-
-            return dates.map((date) => {
-              const [quarter, year] = getQuarterYear(date);
-              const dataset: Record<string, string | number> = { quarter: `${year} Q${quarter}`, year };
-              metrics.forEach((metric) => {
-                const matchingData = financeData.find((item) => item.date === date && metric === item.metric);
-                if (matchingData) {
-                  dataset[metric] = matchingData.value;
-                  if (matchingData.target) {
-                    dataset['Target'] = matchingData.target;
-                  }
-                }
-              });
-
-              return dataset;
-            });
-          },
+          data: (data: DashboardData[]): Record<string, unknown>[] =>
+            generateDataset(
+              data.filter(
+                ({ department, metric }) =>
+                  department === 'Finance' && (metric === 'Non-Overhead Staff' || metric === 'All Staff'),
+              ),
+            ),
           options: {
             color: colours,
             tooltip: {
@@ -60,6 +42,52 @@ export const grids: DashboardGrid[] = [
             series: [
               { type: 'line' },
               { type: 'line' },
+              {
+                type: 'line',
+                symbol: 'none',
+                lineStyle: { type: 'dashed', color: '#333' },
+                itemStyle: { color: '#333' },
+              },
+            ],
+          },
+        },
+      },
+      {
+        id: 'overhead-time',
+        meta: 'Proportion of time spent on direct and indirect overheads',
+        chart: {
+          data: (data: DashboardData[]): Record<string, unknown>[] =>
+            generateDataset(
+              data.filter(
+                ({ department, metric }) =>
+                  department === 'Finance' && (metric === 'Direct Overheads' || metric === 'Indirect Overheads'),
+              ),
+            ),
+          options: {
+            color: colours,
+            tooltip: {
+              trigger: 'axis',
+            },
+            legend: {},
+            dataset: {
+              dimensions: ['quarter', 'Direct Overheads', 'Indirect Overheads', 'Target'],
+            },
+            grid: {
+              left: '3%',
+              right: '4%',
+              bottom: '3%',
+              containLabel: true,
+            },
+            toolbox: {
+              feature: {
+                saveAsImage: {},
+              },
+            },
+            xAxis: { type: 'category' },
+            yAxis: { type: 'value', splitNumber: 3, axisLabel: { formatter: '{value}%' } },
+            series: [
+              { type: 'bar' },
+              { type: 'bar' },
               {
                 type: 'line',
                 symbol: 'none',

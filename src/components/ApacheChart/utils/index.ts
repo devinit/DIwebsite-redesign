@@ -2,6 +2,11 @@ import deepmerge from 'deepmerge';
 import * as echarts from 'echarts';
 import { defaultOptions } from '../../../utils/echarts';
 
+export const renderChart = (node: HTMLDivElement, option: echarts.EChartOption): void => {
+  const chart = echarts.init(node);
+  chart.setOption(deepmerge(defaultOptions, option));
+};
+
 export const makeBasicLineChart = (node: HTMLDivElement): void => {
   const chart = echarts.init(node);
   const option: echarts.EChartOption = {

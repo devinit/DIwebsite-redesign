@@ -1,7 +1,8 @@
 import React, { FunctionComponent, useEffect, useRef } from 'react';
-import { makeBasicLineChart, renderBasicColumnChart, renderBasicPieChart } from './utils';
+import { makeBasicLineChart, renderBasicColumnChart, renderBasicPieChart, renderChart } from './utils';
 
 type ApacheChartProps = {
+  demo?: boolean;
   width?: string;
   height?: string;
   options: echarts.EChartOption;
@@ -13,18 +14,22 @@ const ApacheChart: FunctionComponent<ApacheChartProps> = (props) => {
 
   useEffect(() => {
     if (element.current) {
-      switch (props.type) {
-        case 'line':
-          makeBasicLineChart(element.current);
-          break;
-        case 'bar':
-          renderBasicColumnChart(element.current);
-          break;
-        case 'pie':
-          renderBasicPieChart(element.current);
-          break;
-        default:
-          break;
+      if (props.demo) {
+        switch (props.type) {
+          case 'line':
+            makeBasicLineChart(element.current);
+            break;
+          case 'bar':
+            renderBasicColumnChart(element.current);
+            break;
+          case 'pie':
+            renderBasicPieChart(element.current);
+            break;
+          default:
+            break;
+        }
+      } else {
+        renderChart(element.current, props.options);
       }
     }
   }, []);

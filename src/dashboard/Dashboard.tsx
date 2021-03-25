@@ -69,7 +69,7 @@ const Dashboard: FunctionComponent = () => {
         </Grid>
         <Grid columns={1}>
           <Card>
-            <ApacheChart options={{}} />
+            <ApacheChart demo options={{}} />
           </Card>
         </Grid>
       </Section>

@@ -8,3 +8,5 @@ export const getQuarterYear = (dateString: string): [number, number] => {
     return [0, 0];
   }
 };
+
+export const colours = ['#6c120a', '#a21e25', '#cd2b2a', '#dc372d', '#ec6250', '#f6b0a0', '#fbd7cb', '#fce3dc'];

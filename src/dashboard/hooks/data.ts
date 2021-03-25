@@ -21,6 +21,7 @@ export const useDashboardData = (): DashboardData[] => {
               value: parseFloat(row[titleRow.indexOf('Value')]),
               department: row[titleRow.indexOf('Department')],
               narrative: row[titleRow.indexOf('Narrative')],
+              target: parseFloat(row[titleRow.indexOf('Target')]),
             })),
           );
         }

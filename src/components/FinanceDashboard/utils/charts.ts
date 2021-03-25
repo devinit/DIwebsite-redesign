@@ -56,7 +56,7 @@ export const grids: DashboardGrid[] = [
               },
             },
             xAxis: { type: 'category' },
-            yAxis: { type: 'value', scale: true, axisLabel: { formatter: '{value}%' } },
+            yAxis: { type: 'value', scale: true, splitNumber: 3, axisLabel: { formatter: '{value}%' } },
             series: [
               { type: 'line' },
               { type: 'line' },

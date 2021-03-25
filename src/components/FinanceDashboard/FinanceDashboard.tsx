@@ -1,9 +1,11 @@
+import deepmerge from 'deepmerge';
 import React, { FunctionComponent } from 'react';
-import { DashboardData } from '../../utils/types';
+import { DashboardChart, DashboardData } from '../../utils/types';
 import { ApacheChart } from '../ApacheChart';
 import { Card } from '../Card';
 import { Grid } from '../Grid';
 import { Section } from '../Section';
+import { grids } from './utils';
 
 type FinanceDashboardProps = {
   year?: number;
@@ -11,39 +13,33 @@ type FinanceDashboardProps = {
   data: DashboardData[];
 };
 
-const FinanceDashboard: FunctionComponent<FinanceDashboardProps> = () => {
+const FinanceDashboard: FunctionComponent<FinanceDashboardProps> = ({ data }) => {
+  const renderChart = (chart: DashboardChart) => {
+    if (chart.data && chart.options) {
+      const dataset = chart.data(data);
+      const options = deepmerge(chart.options, { dataset: { source: dataset } });
+
+      return <ApacheChart options={options} height="250px" />;
+    }
+
+    return <ApacheChart demo options={{ title: { text: 'THIS IS A DEMO CHART' } }} height="250px" />;
+  };
+
+  if (!data.length) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <Section title="Finance" id="finance">
-      <Grid columns={2}>
-        <Card meta="Proportion of staff time spent on projects">
-          <ApacheChart options={{}} height="250px" />
-        </Card>
-        <Card meta="Proportion of value of staff time spent on direct & indirect overheads">
-          <ApacheChart options={{}} height="250px" />
-        </Card>
-        <Card meta="Personnel costs as a proportion of income (% of target)">
-          <ApacheChart options={{}} height="250px" />
-        </Card>
-        <Card meta="Consultant costs %, YTD (excluding GNR)">
-          <ApacheChart options={{}} height="250px" type="pie" />
-        </Card>
-      </Grid>
-      <Grid columns={1}>
-        <Card meta="Testing Bar Chart">
-          <ApacheChart options={{}} height="250px" type="bar" />
-        </Card>
-      </Grid>
-      <Grid columns={3}>
-        <Card meta="Testing Pie Charts">
-          <ApacheChart options={{}} height="250px" type="pie" />
-        </Card>
-        <Card meta="Testing Pie Charts">
-          <ApacheChart options={{}} height="250px" type="pie" />
-        </Card>
-        <Card meta="Testing Pie Charts">
-          <ApacheChart options={{}} height="250px" type="pie" />
-        </Card>
-      </Grid>
+      {grids.map(({ id, columns, content }) => (
+        <Grid key={id} columns={columns || 1}>
+          {content.map(({ meta, title, chart, ...item }) => (
+            <Card key={item.id} meta={meta} title={title && typeof title === 'function' ? title() : title}>
+              {chart ? renderChart(chart) : null}
+            </Card>
+          ))}
+        </Grid>
+      ))}
     </Section>
   );
 };

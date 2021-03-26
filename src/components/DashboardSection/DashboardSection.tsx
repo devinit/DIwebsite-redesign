@@ -28,7 +28,7 @@ const DashboardSection: FunctionComponent<DashboardSectionProps> = ({ year, quar
       const dataset = chart.data(data);
       const options = deepmerge(chart.options, { dataset: { source: dataset } });
 
-      return <ApacheChart options={options} height="250px" />;
+      return <ApacheChart options={options} height={chart.height || '250px'} />;
     }
 
     return <ApacheChart demo options={{ title: { text: 'THIS IS A DEMO CHART' } }} height="250px" />;

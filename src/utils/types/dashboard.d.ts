@@ -24,6 +24,7 @@ export type DashboardContent = {
 };
 
 export type DashboardChart = {
+  height?: string;
   data: (data: DashboardData[]) => Record<string, React.ReactText>[] | React.ReactText[][];
   options: echarts.EChartOption;
 };

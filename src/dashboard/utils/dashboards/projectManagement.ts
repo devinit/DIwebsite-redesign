@@ -4,11 +4,38 @@ import { DashboardData, DashboardGrid } from '../../../utils/types';
 export const projectManagement: DashboardGrid[] = [
   {
     id: '1',
+    columns: 4,
+    content: [
+      {
+        id: 'active-projects-dipr',
+        meta: 'Active Projects DIPR',
+        styled: true,
+        title: (): React.ReactText => {
+          // TODO: Use actual value here
+
+          return 5;
+        },
+      },
+      {
+        id: 'active-projects-dipr',
+        meta: 'Active Projects DII',
+        styled: true,
+        title: (): React.ReactText => {
+          // TODO: Use actual value here
+
+          return 3;
+        },
+      },
+    ],
+  },
+  {
+    id: '2',
     columns: 2,
     content: [
       {
         id: 'project-status',
         meta: 'Project Status',
+        styled: true,
         chart: {
           data: (data: DashboardData[]): React.ReactText[][] =>
             generateArrayDataset(
@@ -76,6 +103,7 @@ export const projectManagement: DashboardGrid[] = [
       {
         id: 'project-spending',
         meta: 'Project Spending',
+        styled: true,
         chart: {
           data: (data: DashboardData[]): React.ReactText[][] =>
             generateArrayDataset(

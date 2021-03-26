@@ -18,7 +18,7 @@ export type DashboardGrid = {
 export type DashboardContent = {
   id: string;
   meta: string;
-  title?: string | (() => string);
+  title?: string | ((data: DashboardData[]) => React.ReactText);
   styled?: boolean; // refers to styled meta & title - usually used for stat cards
   chart?: DashboardChart;
 };

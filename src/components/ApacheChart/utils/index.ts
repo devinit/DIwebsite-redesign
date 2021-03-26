@@ -1,5 +1,6 @@
 import deepmerge from 'deepmerge';
 import * as echarts from 'echarts';
+import { colours } from '../../../dashboard/utils';
 import { defaultOptions } from '../../../utils/echarts';
 
 export const renderChart = (node: HTMLDivElement, option: echarts.EChartOption): void => {
@@ -10,6 +11,7 @@ export const renderChart = (node: HTMLDivElement, option: echarts.EChartOption):
 export const makeBasicLineChart = (node: HTMLDivElement): void => {
   const chart = echarts.init(node);
   const option: echarts.EChartOption = {
+    color: colours,
     tooltip: {
       trigger: 'axis',
     },
@@ -61,6 +63,7 @@ export const makeBasicLineChart = (node: HTMLDivElement): void => {
 export const renderBasicColumnChart = (node: HTMLDivElement): void => {
   const chart = echarts.init(node);
   const option: echarts.EChartOption = {
+    color: colours,
     legend: {},
     tooltip: {},
     dataset: {
@@ -84,6 +87,7 @@ export const renderBasicColumnChart = (node: HTMLDivElement): void => {
 export const renderBasicPieChart = (node: HTMLDivElement): void => {
   const chart = echarts.init(node);
   const option: echarts.EChartOption = {
+    color: colours,
     legend: {
       top: 'bottom',
     },

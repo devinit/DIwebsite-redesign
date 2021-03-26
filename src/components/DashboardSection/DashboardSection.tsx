@@ -1,9 +1,9 @@
 import deepmerge from 'deepmerge';
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { filterDashboardData } from '../../dashboard/utils';
-import { DashboardChart, DashboardData, DashboardGrid } from '../../utils/types';
+import { DashboardChart, DashboardContent, DashboardData, DashboardGrid } from '../../utils/types';
 import { ApacheChart } from '../ApacheChart';
-import { Card } from '../Card';
+import { Card, CardMetaLarge, CardTitleLarge } from '../Card';
 import { Grid } from '../Grid';
 import { Section } from '../Section';
 
@@ -34,6 +34,25 @@ const DashboardSection: FunctionComponent<DashboardSectionProps> = ({ year, quar
     return <ApacheChart demo options={{ title: { text: 'THIS IS A DEMO CHART' } }} height="250px" />;
   };
 
+  const renderCard = ({ meta, chart, ...content }: DashboardContent) => {
+    const title = content.title && typeof content.title === 'function' ? content.title(data) : content.title;
+    if (content.styled) {
+      return (
+        <Card key={content.id}>
+          {meta ? <CardMetaLarge>{meta}</CardMetaLarge> : null}
+          {title ? <CardTitleLarge>{title}</CardTitleLarge> : null}
+          {chart ? renderChart(chart) : null}
+        </Card>
+      );
+    }
+
+    return (
+      <Card key={content.id} meta={meta} title={title}>
+        {chart ? renderChart(chart) : null}
+      </Card>
+    );
+  };
+
   return (
     <Section title={props.title} id={props.id}>
       {!data.length ? (
@@ -41,11 +60,7 @@ const DashboardSection: FunctionComponent<DashboardSectionProps> = ({ year, quar
       ) : (
         props.grids.map(({ id, columns, content }) => (
           <Grid key={id} columns={columns || 1}>
-            {content.map(({ meta, title, chart, ...item }) => (
-              <Card key={item.id} meta={meta} title={title && typeof title === 'function' ? title() : title}>
-                {chart ? renderChart(chart) : null}
-              </Card>
-            ))}
+            {content.map(renderCard)}
           </Grid>
         ))
       )}

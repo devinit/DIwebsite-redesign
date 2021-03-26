@@ -7,11 +7,11 @@ import { DevelopmentDashboard } from '../components/DevelopmentDashboard';
 import { Filter, Option } from '../components/Filter';
 import { DashboardSection } from '../components/DashboardSection';
 import { Grid } from '../components/Grid';
-import { HumanResourcesDashboard } from '../components/HumanResourcesDashboard';
 import { ProjectManagementDashboard } from '../components/ProjectManagementDashboard';
 import { Section } from '../components/Section';
 import { useDashboardData } from './hooks/data';
 import { financeDashboard } from './utils/dashboards';
+import { hr } from './utils/dashboards/hr';
 
 const years: Option[] = [
   { value: '2020', caption: '2020' },
@@ -82,9 +82,9 @@ const Dashboard: FunctionComponent = () => {
         grids={financeDashboard}
         year={2020}
       />
+      <DashboardSection id="hr" title="Human Resources" department="HR" data={data} grids={hr} year={2020} />
       <DevelopmentDashboard data={data} />
       <DataSystemsDashboard data={data} />
-      <HumanResourcesDashboard data={data} />
       <ProjectManagementDashboard data={data} />
       <CommsEngagementDashboard data={data} />
     </>

@@ -1,4 +1,4 @@
-import { colours, generateDataset } from '../../../dashboard/utils';
+import { colours, generateDataset } from '../';
 import { DashboardData, DashboardGrid } from '../../../utils/types';
 
 export const financeDashboard: DashboardGrid[] = [

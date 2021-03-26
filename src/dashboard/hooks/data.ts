@@ -16,12 +16,12 @@ export const useDashboardData = (): DashboardData[] => {
 
           setData(
             dashboardData.map<DashboardData>((row: string[]) => ({
-              metric: row[titleRow.indexOf('Indicator')],
-              date: row[titleRow.indexOf('Date')],
-              value: parseFloat(row[titleRow.indexOf('Value')]),
+              metric: row[titleRow.indexOf('Metric')],
+              date: row[titleRow.indexOf('date')],
+              value: parseFloat(row[titleRow.indexOf('value')]),
               department: row[titleRow.indexOf('Department')],
-              narrative: row[titleRow.indexOf('Narrative')],
-              target: parseFloat(row[titleRow.indexOf('Target')]),
+              narrative: row[titleRow.indexOf('narrative')],
+              target: parseFloat(row[titleRow.indexOf('target')]),
             })),
           );
         }

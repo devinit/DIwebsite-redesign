@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 
 export type Option = {
-  value: string;
+  value: string | number;
   caption: string;
 };
 

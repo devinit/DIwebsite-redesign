@@ -2,20 +2,19 @@ import React, { FunctionComponent, useState } from 'react';
 import { ApacheChart } from '../components/ApacheChart';
 import { Card, CardMetaLarge, CardTitleLarge } from '../components/Card';
 import { CommsEngagementDashboard } from '../components/CommsEngagementDashboard';
+import { DashboardSection } from '../components/DashboardSection';
 import { DataSystemsDashboard } from '../components/DataSystemsDashboard';
 import { DevelopmentDashboard } from '../components/DevelopmentDashboard';
 import { Filter, Option } from '../components/Filter';
-import { DashboardSection } from '../components/DashboardSection';
 import { Grid } from '../components/Grid';
-import { ProjectManagementDashboard } from '../components/ProjectManagementDashboard';
 import { Section } from '../components/Section';
 import { useDashboardData } from './hooks/data';
-import { financeDashboard } from './utils/dashboards';
+import { financeDashboard, projectManagement } from './utils/dashboards';
 import { hr } from './utils/dashboards/hr';
 
 const years: Option[] = [
-  { value: '2020', caption: '2020' },
-  { value: '2021', caption: '2021' },
+  { value: 2020, caption: '2020' },
+  { value: 2021, caption: '2021' },
 ];
 
 const quarters: Option[] = [
@@ -27,11 +26,11 @@ const quarters: Option[] = [
 
 const Dashboard: FunctionComponent = () => {
   const data = useDashboardData();
-  const [year, setYear] = useState<string>();
+  const [year, setYear] = useState<number>(2020);
   const [quarter, setQuarter] = useState<string>();
 
   const onSelectYear = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setYear(event.currentTarget.value);
+    setYear(parseInt(event.currentTarget.value));
   };
 
   const onSelectQuarter = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -80,12 +79,20 @@ const Dashboard: FunctionComponent = () => {
         department="Finance"
         data={data}
         grids={financeDashboard}
-        year={2020}
+        year={year}
       />
-      <DashboardSection id="hr" title="Human Resources" department="HR" data={data} grids={hr} year={2020} />
+      <DashboardSection id="hr" title="Human Resources" department="HR" data={data} grids={hr} year={year} />
+      <DashboardSection
+        id="project-management"
+        title="Project Management"
+        department="Project management"
+        data={data}
+        grids={projectManagement}
+        year={year}
+        quarter={4}
+      />
       <DevelopmentDashboard data={data} />
       <DataSystemsDashboard data={data} />
-      <ProjectManagementDashboard data={data} />
       <CommsEngagementDashboard data={data} />
     </>
   );

@@ -35,6 +35,32 @@ export const generateObjectDataset = (data: DashboardData[]): Record<string, Rea
   });
 };
 
+export const generateArrayDataset = (data: DashboardData[]): React.ReactText[][] => {
+  // extract unique metrics & dates
+  const metrics = [...new Set(data.map(({ metric }) => metric))];
+  const dates = [...new Set(data.map(({ date }) => date))];
+
+  const dataset: React.ReactText[][] = metrics.map((metric) =>
+    new Array<React.ReactText>(metric).concat(
+      dates.map((date) => {
+        const matchingData = data.find((item) => item.date === date && metric === item.metric);
+
+        return matchingData ? matchingData.value : 0;
+      }),
+    ),
+  );
+
+  return [
+    new Array<React.ReactText>('metric').concat(
+      dates.map((date) => {
+        const [quarter, year] = getQuarterYear(date);
+
+        return `${year} Q${quarter}`;
+      }),
+    ),
+  ].concat(dataset);
+};
+
 export const filterDashboardData = (
   data: DashboardData[],
   { year, quarter, department }: DashboardFilters,

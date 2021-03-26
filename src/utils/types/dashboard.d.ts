@@ -24,7 +24,7 @@ export type DashboardContent = {
 };
 
 export type DashboardChart = {
-  data: (data: DashboardData[]) => Record<string, unknown>[];
+  data: (data: DashboardData[]) => Record<string, React.ReactText>[] | React.ReactText[][];
   options: echarts.EChartOption;
 };
 

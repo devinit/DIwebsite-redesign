@@ -9,6 +9,7 @@ export const financeDashboard: DashboardGrid[] = [
       {
         id: 'project-time',
         meta: 'Proportion of staff time spent on projects',
+        styled: true,
         chart: {
           data: (data: DashboardData[]): Record<string, React.ReactText>[] =>
             generateObjectDataset(
@@ -52,6 +53,7 @@ export const financeDashboard: DashboardGrid[] = [
       {
         id: 'overhead-time',
         meta: 'Proportion of time spent on direct and indirect overheads',
+        styled: true,
         chart: {
           data: (data: DashboardData[]): Record<string, React.ReactText>[] =>
             generateObjectDataset(
@@ -95,6 +97,7 @@ export const financeDashboard: DashboardGrid[] = [
       {
         id: 'personnel-costs',
         meta: 'Personnel costs as a proporation of income (% of target)',
+        styled: true,
         chart: {
           data: (data: DashboardData[]): Record<string, React.ReactText>[] =>
             generateObjectDataset(
@@ -154,6 +157,7 @@ export const financeDashboard: DashboardGrid[] = [
       {
         id: 'consultant-costs',
         meta: 'Consultant costs %, YTD (excluding GNR)',
+        styled: true,
         chart: {
           data: (data: DashboardData[]): Record<string, React.ReactText>[] =>
             generateObjectDataset(

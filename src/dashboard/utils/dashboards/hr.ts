@@ -9,6 +9,7 @@ export const hr: DashboardGrid[] = [
       {
         id: 'staff',
         meta: 'Ratio of Staff and Leavers',
+        styled: true,
         chart: {
           data: (data: DashboardData[]): Record<string, React.ReactText>[] =>
             generateObjectDataset(

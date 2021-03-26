@@ -1,4 +1,4 @@
-import { colours, generateArrayDataset } from '../';
+import { colours, generateArrayDataset } from '..';
 import { DashboardData, DashboardGrid } from '../../../utils/types';
 
 export const projectManagement: DashboardGrid[] = [

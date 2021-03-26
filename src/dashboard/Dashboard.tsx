@@ -1,7 +1,5 @@
 import React, { FunctionComponent, useState } from 'react';
-import { ApacheChart } from '../components/ApacheChart';
 import { Card, CardMetaLarge, CardTitleLarge } from '../components/Card';
-import { CommsEngagementDashboard } from '../components/CommsEngagementDashboard';
 import { DashboardSection } from '../components/DashboardSection';
 import { DataSystemsDashboard } from '../components/DataSystemsDashboard';
 import { DevelopmentDashboard } from '../components/DevelopmentDashboard';
@@ -9,7 +7,7 @@ import { Filter, Option } from '../components/Filter';
 import { Grid } from '../components/Grid';
 import { Section } from '../components/Section';
 import { useDashboardData } from './hooks/data';
-import { financeDashboard, projectManagement, hr as humanResourcesDashboard } from './utils/dashboards';
+import { comms, financeDashboard, hr as humanResourcesDashboard, projectManagement } from './utils/dashboards';
 
 const years: Option[] = [
   { value: 2020, caption: '2020' },
@@ -35,7 +33,7 @@ const Dashboard: FunctionComponent = () => {
   const onSelectQuarter = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setQuarter(event.currentTarget.value);
   };
-  console.log(year, quarter);
+  console.log(quarter);
 
   return (
     <>
@@ -66,11 +64,6 @@ const Dashboard: FunctionComponent = () => {
             <CardTitleLarge>84/3</CardTitleLarge>
           </Card>
         </Grid>
-        <Grid columns={1}>
-          <Card>
-            <ApacheChart demo options={{}} />
-          </Card>
-        </Grid>
       </Section>
       <DashboardSection
         id="finance"
@@ -97,9 +90,17 @@ const Dashboard: FunctionComponent = () => {
         year={year}
         quarter={4}
       />
+      <DashboardSection
+        id="comms-engagement"
+        title="Comms & Engagement"
+        department="Comms and engagement"
+        data={data}
+        grids={comms}
+        year={year}
+        quarter={4}
+      />
       <DevelopmentDashboard data={data} />
       <DataSystemsDashboard data={data} />
-      <CommsEngagementDashboard data={data} />
     </>
   );
 };

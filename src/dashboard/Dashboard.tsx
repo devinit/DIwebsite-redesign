@@ -74,7 +74,14 @@ const Dashboard: FunctionComponent = () => {
           </Card>
         </Grid>
       </Section>
-      <DashboardSection id="finance" title="Finance" data={data} grids={financeDashboard} />
+      <DashboardSection
+        id="finance"
+        title="Finance"
+        department="Finance"
+        data={data}
+        grids={financeDashboard}
+        year={2020}
+      />
       <DevelopmentDashboard data={data} />
       <DataSystemsDashboard data={data} />
       <HumanResourcesDashboard data={data} />

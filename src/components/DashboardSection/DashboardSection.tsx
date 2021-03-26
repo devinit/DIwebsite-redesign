@@ -1,19 +1,21 @@
 import deepmerge from 'deepmerge';
 import React, { FunctionComponent } from 'react';
-import { DashboardChart, DashboardData } from '../../utils/types';
+import { DashboardChart, DashboardData, DashboardGrid } from '../../utils/types';
 import { ApacheChart } from '../ApacheChart';
 import { Card } from '../Card';
 import { Grid } from '../Grid';
 import { Section } from '../Section';
-import { grids } from './utils';
 
-type FinanceDashboardProps = {
+type DashboardSectionProps = {
+  id: string;
+  title?: string;
   year?: number;
   quarter?: 1 | 2 | 3 | 4;
   data: DashboardData[];
+  grids: DashboardGrid[];
 };
 
-const FinanceDashboard: FunctionComponent<FinanceDashboardProps> = ({ data }) => {
+const DashboardSection: FunctionComponent<DashboardSectionProps> = ({ data, ...props }) => {
   const renderChart = (chart: DashboardChart) => {
     if (chart.data && chart.options) {
       const dataset = chart.data(data);
@@ -26,11 +28,11 @@ const FinanceDashboard: FunctionComponent<FinanceDashboardProps> = ({ data }) =>
   };
 
   return (
-    <Section title="Finance" id="finance">
+    <Section title={props.title} id={props.id}>
       {!data.length ? (
         <div>Loading...</div>
       ) : (
-        grids.map(({ id, columns, content }) => (
+        props.grids.map(({ id, columns, content }) => (
           <Grid key={id} columns={columns || 1}>
             {content.map(({ meta, title, chart, ...item }) => (
               <Card key={item.id} meta={meta} title={title && typeof title === 'function' ? title() : title}>
@@ -44,4 +46,4 @@ const FinanceDashboard: FunctionComponent<FinanceDashboardProps> = ({ data }) =>
   );
 };
 
-export { FinanceDashboard };
+export { DashboardSection };

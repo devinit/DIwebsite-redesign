@@ -1,7 +1,7 @@
 import { colours, generateDataset } from '../../../dashboard/utils';
 import { DashboardData, DashboardGrid } from '../../../utils/types';
 
-export const grids: DashboardGrid[] = [
+export const financeDashboard: DashboardGrid[] = [
   {
     id: '1',
     columns: 2,

@@ -1,4 +1,4 @@
-import { colours, generateDataset } from '../';
+import { colours, generateObjectDataset } from '../';
 import { DashboardData, DashboardGrid } from '../../../utils/types';
 
 export const hr: DashboardGrid[] = [
@@ -11,7 +11,7 @@ export const hr: DashboardGrid[] = [
         meta: 'Ratio of Staff and Leavers',
         chart: {
           data: (data: DashboardData[]): Record<string, unknown>[] =>
-            generateDataset(
+            generateObjectDataset(
               data.filter(({ metric }) => metric === 'Total Staff' || metric === 'Total leavers in the period'),
             ),
           options: {

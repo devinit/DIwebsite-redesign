@@ -11,7 +11,7 @@ import { HumanResourcesDashboard } from '../components/HumanResourcesDashboard';
 import { ProjectManagementDashboard } from '../components/ProjectManagementDashboard';
 import { Section } from '../components/Section';
 import { useDashboardData } from './hooks/data';
-import { financeDashboard } from '../components/DashboardSection/utils';
+import { financeDashboard } from './utils/dashboards';
 
 const years: Option[] = [
   { value: '2020', caption: '2020' },

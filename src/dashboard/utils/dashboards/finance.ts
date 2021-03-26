@@ -10,7 +10,7 @@ export const financeDashboard: DashboardGrid[] = [
         id: 'project-time',
         meta: 'Proportion of staff time spent on projects',
         chart: {
-          data: (data: DashboardData[]): Record<string, unknown>[] =>
+          data: (data: DashboardData[]): Record<string, React.ReactText>[] =>
             generateObjectDataset(
               data.filter(({ metric }) => metric === 'Non-Overhead staff' || metric === 'All staff'),
             ),
@@ -53,7 +53,7 @@ export const financeDashboard: DashboardGrid[] = [
         id: 'overhead-time',
         meta: 'Proportion of time spent on direct and indirect overheads',
         chart: {
-          data: (data: DashboardData[]): Record<string, unknown>[] =>
+          data: (data: DashboardData[]): Record<string, React.ReactText>[] =>
             generateObjectDataset(
               data.filter(({ metric }) => metric === 'Direct overheads' || metric === 'Indirect overheads'),
             ),
@@ -96,7 +96,7 @@ export const financeDashboard: DashboardGrid[] = [
         id: 'personnel-costs',
         meta: 'Personnel costs as a proporation of income (% of target)',
         chart: {
-          data: (data: DashboardData[]): Record<string, unknown>[] =>
+          data: (data: DashboardData[]): Record<string, React.ReactText>[] =>
             generateObjectDataset(
               data.filter(
                 ({ metric }) =>
@@ -155,7 +155,7 @@ export const financeDashboard: DashboardGrid[] = [
         id: 'consultant-costs',
         meta: 'Consultant costs %, YTD (excluding GNR)',
         chart: {
-          data: (data: DashboardData[]): Record<string, unknown>[] =>
+          data: (data: DashboardData[]): Record<string, React.ReactText>[] =>
             generateObjectDataset(
               data.filter(({ metric }) => metric === 'Average consultant % for year to date (excl GNR)'),
             ),

@@ -10,7 +10,7 @@ export const hr: DashboardGrid[] = [
         id: 'staff',
         meta: 'Ratio of Staff and Leavers',
         chart: {
-          data: (data: DashboardData[]): Record<string, unknown>[] =>
+          data: (data: DashboardData[]): Record<string, React.ReactText>[] =>
             generateObjectDataset(
               data.filter(({ metric }) => metric === 'Total Staff' || metric === 'Total leavers in the period'),
             ),

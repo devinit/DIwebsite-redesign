@@ -5,12 +5,13 @@ import { CommsEngagementDashboard } from '../components/CommsEngagementDashboard
 import { DataSystemsDashboard } from '../components/DataSystemsDashboard';
 import { DevelopmentDashboard } from '../components/DevelopmentDashboard';
 import { Filter, Option } from '../components/Filter';
-import { FinanceDashboard } from '../components/FinanceDashboard';
+import { DashboardSection } from '../components/DashboardSection';
 import { Grid } from '../components/Grid';
 import { HumanResourcesDashboard } from '../components/HumanResourcesDashboard';
 import { ProjectManagementDashboard } from '../components/ProjectManagementDashboard';
 import { Section } from '../components/Section';
 import { useDashboardData } from './hooks/data';
+import { financeDashboard } from '../components/DashboardSection/utils';
 
 const years: Option[] = [
   { value: '2020', caption: '2020' },
@@ -73,7 +74,7 @@ const Dashboard: FunctionComponent = () => {
           </Card>
         </Grid>
       </Section>
-      <FinanceDashboard data={data} />
+      <DashboardSection id="finance" title="Finance" data={data} grids={financeDashboard} />
       <DevelopmentDashboard data={data} />
       <DataSystemsDashboard data={data} />
       <HumanResourcesDashboard data={data} />

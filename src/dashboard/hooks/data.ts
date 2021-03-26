@@ -18,6 +18,8 @@ export const useDashboardData = (): DashboardData[] => {
             dashboardData.map<DashboardData>((row: string[]) => ({
               metric: row[titleRow.indexOf('Metric')],
               date: row[titleRow.indexOf('date')],
+              year: parseInt(row[titleRow.indexOf('year')]),
+              quarter: row[titleRow.indexOf('quarter')],
               value: parseFloat(row[titleRow.indexOf('value')]),
               department: row[titleRow.indexOf('Department')],
               narrative: row[titleRow.indexOf('narrative')],

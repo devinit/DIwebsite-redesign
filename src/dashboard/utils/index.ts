@@ -1,4 +1,4 @@
-import { DashboardData } from '../../utils/types';
+import { DashboardData, DashboardFilters } from '../../utils/types';
 
 export const getQuarterYear = (dateString: string): [number, number] => {
   try {
@@ -13,7 +13,7 @@ export const getQuarterYear = (dateString: string): [number, number] => {
 
 export const colours = ['#6c120a', '#a21e25', '#cd2b2a', '#dc372d', '#ec6250', '#f6b0a0', '#fbd7cb', '#fce3dc'];
 
-export const generateDataset = (data: DashboardData[]) => {
+export const generateDataset = (data: DashboardData[]): Record<string, React.ReactText>[] => {
   // extract unique metrics & dates
   const metrics = [...new Set(data.map(({ metric }) => metric))];
   const dates = [...new Set(data.map(({ date }) => date))];
@@ -33,4 +33,25 @@ export const generateDataset = (data: DashboardData[]) => {
 
     return dataset;
   });
+};
+
+export const filterDashboardData = (
+  data: DashboardData[],
+  { year, quarter, department }: DashboardFilters,
+): DashboardData[] => {
+  return data
+    .filter((row) => (department ? row.department === department : true))
+    .filter((row) => {
+      if (year && !quarter) {
+        return row.year === year;
+      }
+      if (quarter && !year) {
+        return row.quarter === `Q${quarter}`;
+      }
+      if (year && quarter) {
+        return row.year === year && row.quarter === `Q${quarter}`;
+      }
+
+      return true;
+    });
 };

@@ -92,4 +92,4 @@ const appConfig = {
   },
 };
 
-module.exports = [appConfig, wagtailAceEditorConfig, diChartsConfig, chartsConfig];
+module.exports = [appConfig];

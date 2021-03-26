@@ -1,5 +1,6 @@
 import deepmerge from 'deepmerge';
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
+import { filterDashboardData } from '../../dashboard/utils';
 import { DashboardChart, DashboardData, DashboardGrid } from '../../utils/types';
 import { ApacheChart } from '../ApacheChart';
 import { Card } from '../Card';
@@ -9,13 +10,19 @@ import { Section } from '../Section';
 type DashboardSectionProps = {
   id: string;
   title?: string;
+  department?: string;
   year?: number;
   quarter?: 1 | 2 | 3 | 4;
   data: DashboardData[];
   grids: DashboardGrid[];
 };
 
-const DashboardSection: FunctionComponent<DashboardSectionProps> = ({ data, ...props }) => {
+const DashboardSection: FunctionComponent<DashboardSectionProps> = ({ year, quarter, department, ...props }) => {
+  const [data, setData] = useState(props.data);
+  useEffect(() => {
+    setData(filterDashboardData(props.data, { year, quarter, department }));
+  }, [props.data.length]);
+
   const renderChart = (chart: DashboardChart) => {
     if (chart.data && chart.options) {
       const dataset = chart.data(data);

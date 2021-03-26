@@ -5,6 +5,8 @@ export type DashboardData = {
   department: string;
   narrative?: string;
   target?: number;
+  year: number;
+  quarter: string;
 };
 
 export type DashboardGrid = {
@@ -24,4 +26,10 @@ export type DashboardContent = {
 export type DashboardChart = {
   data: (data: DashboardData[]) => Record<string, unknown>[];
   options: echarts.EChartOption;
+};
+
+export type DashboardFilters = {
+  year?: number;
+  quarter?: 1 | 2 | 3 | 4;
+  department?: string;
 };

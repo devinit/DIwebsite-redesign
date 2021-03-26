@@ -11,12 +11,7 @@ export const financeDashboard: DashboardGrid[] = [
         meta: 'Proportion of staff time spent on projects',
         chart: {
           data: (data: DashboardData[]): Record<string, unknown>[] =>
-            generateDataset(
-              data.filter(
-                ({ department, metric }) =>
-                  department === 'Finance' && (metric === 'Non-Overhead Staff' || metric === 'All Staff'),
-              ),
-            ),
+            generateDataset(data.filter(({ metric }) => metric === 'Non-Overhead staff' || metric === 'All staff')),
           options: {
             color: colours,
             tooltip: {
@@ -24,7 +19,7 @@ export const financeDashboard: DashboardGrid[] = [
             },
             legend: {},
             dataset: {
-              dimensions: ['quarter', 'Non-Overhead Staff', 'All Staff', 'Target'],
+              dimensions: ['quarter', 'Non-Overhead staff', 'All staff', 'Target'],
             },
             grid: {
               left: '3%',
@@ -58,10 +53,7 @@ export const financeDashboard: DashboardGrid[] = [
         chart: {
           data: (data: DashboardData[]): Record<string, unknown>[] =>
             generateDataset(
-              data.filter(
-                ({ department, metric }) =>
-                  department === 'Finance' && (metric === 'Direct Overheads' || metric === 'Indirect Overheads'),
-              ),
+              data.filter(({ metric }) => metric === 'Direct overheads' || metric === 'Indirect overheads'),
             ),
           options: {
             color: colours,
@@ -70,7 +62,7 @@ export const financeDashboard: DashboardGrid[] = [
             },
             legend: {},
             dataset: {
-              dimensions: ['quarter', 'Direct Overheads', 'Indirect Overheads', 'Target'],
+              dimensions: ['quarter', 'Direct overheads', 'Indirect overheads', 'Target'],
             },
             grid: {
               left: '3%',
@@ -105,9 +97,8 @@ export const financeDashboard: DashboardGrid[] = [
           data: (data: DashboardData[]): Record<string, unknown>[] =>
             generateDataset(
               data.filter(
-                ({ department, metric }) =>
-                  department === 'Finance' &&
-                  (metric === 'Consultants as proportion of income' || metric === 'Salary as a proportion of income'),
+                ({ metric }) =>
+                  metric === 'Consultants as proportion of income' || metric === 'Salary as a proportion of income',
               ),
             ),
           options: {
@@ -143,12 +134,7 @@ export const financeDashboard: DashboardGrid[] = [
         meta: 'Consultant costs %, YTD (excluding GNR)',
         chart: {
           data: (data: DashboardData[]): Record<string, unknown>[] =>
-            generateDataset(
-              data.filter(
-                ({ department, metric }) =>
-                  department === 'Finance' && metric === 'Average consultant % for year to date (excl GNR)',
-              ),
-            ),
+            generateDataset(data.filter(({ metric }) => metric === 'Average consultant % for year to date (excl GNR)')),
           options: {
             color: colours,
             tooltip: { trigger: 'axis' },

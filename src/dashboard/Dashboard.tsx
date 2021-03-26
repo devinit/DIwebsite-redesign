@@ -9,8 +9,7 @@ import { Filter, Option } from '../components/Filter';
 import { Grid } from '../components/Grid';
 import { Section } from '../components/Section';
 import { useDashboardData } from './hooks/data';
-import { financeDashboard, projectManagement } from './utils/dashboards';
-import { hr } from './utils/dashboards/hr';
+import { financeDashboard, projectManagement, hr as humanResourcesDashboard } from './utils/dashboards';
 
 const years: Option[] = [
   { value: 2020, caption: '2020' },
@@ -81,7 +80,14 @@ const Dashboard: FunctionComponent = () => {
         grids={financeDashboard}
         year={year}
       />
-      <DashboardSection id="hr" title="Human Resources" department="HR" data={data} grids={hr} year={year} />
+      <DashboardSection
+        id="hr"
+        title="Human Resources"
+        department="HR"
+        data={data}
+        grids={humanResourcesDashboard}
+        year={year}
+      />
       <DashboardSection
         id="project-management"
         title="Project Management"

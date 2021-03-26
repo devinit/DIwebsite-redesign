@@ -35,7 +35,7 @@ export const financeDashboard: DashboardGrid[] = [
                 saveAsImage: {},
               },
             },
-            xAxis: { type: 'category' },
+            xAxis: { type: 'category', boundaryGap: true, axisTick: { alignWithLabel: true } },
             yAxis: { type: 'value', scale: true, splitNumber: 3, axisLabel: { formatter: '{value}%' } },
             series: [
               { type: 'line' },

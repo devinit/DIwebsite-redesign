@@ -4,7 +4,7 @@ import { DashboardData, DashboardGrid } from '../../../utils/types';
 export const hr: DashboardGrid[] = [
   {
     id: '1',
-    columns: 1,
+    columns: 2,
     content: [
       {
         id: 'staff',
@@ -41,6 +41,51 @@ export const hr: DashboardGrid[] = [
               { type: 'bar', stack: 'hr' },
               { type: 'bar', stack: 'hr' },
             ],
+          },
+        },
+      },
+      {
+        id: 'stability',
+        meta: 'Stability Index',
+        styled: true,
+        chart: {
+          data: (data: DashboardData[]): Record<string, React.ReactText>[] =>
+            generateObjectDataset(data.filter(({ metric }) => metric === 'Stability Index')),
+          options: {
+            color: colours,
+            tooltip: {
+              show: false,
+              trigger: 'axis',
+            },
+            legend: { show: false },
+            dataset: {
+              dimensions: ['quarter', 'Stability Index'],
+            },
+            grid: {
+              left: '3%',
+              right: '4%',
+              bottom: '3%',
+              containLabel: true,
+            },
+            toolbox: {
+              feature: {
+                saveAsImage: {},
+              },
+            },
+            xAxis: { type: 'category' },
+            yAxis: { type: 'value', show: false, splitNumber: 3 },
+            /* eslint-disable @typescript-eslint/no-explicit-any */
+            series: [
+              {
+                type: 'bar',
+                label: {
+                  show: true,
+                  position: 'top',
+                  formatter: (params: any): string => `${params.value[params.dimensionNames[params.encode.y[0]]]}%`,
+                },
+              },
+            ],
+            /* eslint-enable @typescript-eslint/no-explicit-any */
           },
         },
       },

@@ -1,4 +1,4 @@
-import { colours, generateDataset } from '../';
+import { colours, generateObjectDataset } from '../';
 import { DashboardData, DashboardGrid } from '../../../utils/types';
 
 export const financeDashboard: DashboardGrid[] = [
@@ -11,7 +11,9 @@ export const financeDashboard: DashboardGrid[] = [
         meta: 'Proportion of staff time spent on projects',
         chart: {
           data: (data: DashboardData[]): Record<string, unknown>[] =>
-            generateDataset(data.filter(({ metric }) => metric === 'Non-Overhead staff' || metric === 'All staff')),
+            generateObjectDataset(
+              data.filter(({ metric }) => metric === 'Non-Overhead staff' || metric === 'All staff'),
+            ),
           options: {
             color: colours,
             tooltip: {
@@ -52,7 +54,7 @@ export const financeDashboard: DashboardGrid[] = [
         meta: 'Proportion of time spent on direct and indirect overheads',
         chart: {
           data: (data: DashboardData[]): Record<string, unknown>[] =>
-            generateDataset(
+            generateObjectDataset(
               data.filter(({ metric }) => metric === 'Direct overheads' || metric === 'Indirect overheads'),
             ),
           options: {
@@ -95,7 +97,7 @@ export const financeDashboard: DashboardGrid[] = [
         meta: 'Personnel costs as a proporation of income (% of target)',
         chart: {
           data: (data: DashboardData[]): Record<string, unknown>[] =>
-            generateDataset(
+            generateObjectDataset(
               data.filter(
                 ({ metric }) =>
                   metric === 'Consultants as proportion of income' || metric === 'Salary as proportion of income',
@@ -154,7 +156,9 @@ export const financeDashboard: DashboardGrid[] = [
         meta: 'Consultant costs %, YTD (excluding GNR)',
         chart: {
           data: (data: DashboardData[]): Record<string, unknown>[] =>
-            generateDataset(data.filter(({ metric }) => metric === 'Average consultant % for year to date (excl GNR)')),
+            generateObjectDataset(
+              data.filter(({ metric }) => metric === 'Average consultant % for year to date (excl GNR)'),
+            ),
           options: {
             color: colours,
             tooltip: { show: false, trigger: 'axis' },

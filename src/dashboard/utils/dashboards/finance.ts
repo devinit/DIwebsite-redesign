@@ -98,19 +98,20 @@ export const financeDashboard: DashboardGrid[] = [
             generateDataset(
               data.filter(
                 ({ metric }) =>
-                  metric === 'Consultants as proportion of income' || metric === 'Salary as a proportion of income',
+                  metric === 'Consultants as proportion of income' || metric === 'Salary as proportion of income',
               ),
             ),
           options: {
             color: colours,
             tooltip: {
+              show: false,
               trigger: 'axis',
             },
             legend: {
               top: '10%',
             },
             dataset: {
-              dimensions: ['quarter', 'Consultants as proportion of income', 'Salary as a proportion of income'],
+              dimensions: ['quarter', 'Consultants as proportion of income', 'Salary as proportion of income'],
             },
             grid: {
               left: '3%',
@@ -124,8 +125,27 @@ export const financeDashboard: DashboardGrid[] = [
               },
             },
             xAxis: { type: 'category' },
-            yAxis: { type: 'value', splitNumber: 3, axisLabel: { formatter: '{value}%' } },
-            series: [{ type: 'bar' }, { type: 'bar' }],
+            yAxis: { type: 'value', show: false, splitNumber: 3, axisLabel: { formatter: '{value}%' } },
+            /* eslint-disable @typescript-eslint/no-explicit-any */
+            series: [
+              {
+                type: 'bar',
+                label: {
+                  show: true,
+                  position: 'top',
+                  formatter: (params: any): string => `${params.value[params.dimensionNames[params.encode.y[0]]]}%`,
+                },
+              },
+              {
+                type: 'bar',
+                label: {
+                  show: true,
+                  position: 'top',
+                  formatter: (params: any): string => `${params.value[params.dimensionNames[params.encode.y[0]]]}%`,
+                },
+              },
+            ],
+            /* eslint-enable @typescript-eslint/no-explicit-any */
           },
         },
       },
@@ -137,7 +157,7 @@ export const financeDashboard: DashboardGrid[] = [
             generateDataset(data.filter(({ metric }) => metric === 'Average consultant % for year to date (excl GNR)')),
           options: {
             color: colours,
-            tooltip: { trigger: 'axis' },
+            tooltip: { show: false, trigger: 'axis' },
             legend: { show: false },
             dataset: {
               dimensions: ['quarter', 'Average consultant % for year to date (excl GNR)'],
@@ -154,8 +174,19 @@ export const financeDashboard: DashboardGrid[] = [
               },
             },
             xAxis: { type: 'category' },
-            yAxis: { type: 'value', splitNumber: 3, axisLabel: { formatter: '{value}%' } },
-            series: [{ type: 'bar' }],
+            yAxis: { type: 'value', show: false, splitNumber: 3, axisLabel: { formatter: '{value}%' } },
+            /* eslint-disable @typescript-eslint/no-explicit-any */
+            series: [
+              {
+                type: 'bar',
+                label: {
+                  show: true,
+                  position: 'top',
+                  formatter: (params: any): string => `${params.value[params.dimensionNames[params.encode.y[0]]]}%`,
+                },
+              },
+            ],
+            /* eslint-enable @typescript-eslint/no-explicit-any */
           },
         },
       },

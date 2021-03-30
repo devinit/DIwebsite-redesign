@@ -21,12 +21,6 @@ const DevelopmentDashboard: FunctionComponent<DevelopmentDashboardProps> = () =>
         <Card meta="Proportion of value of staff time spent on direct & indirect overheads">
           <ApacheChart demo options={{}} height="250px" />
         </Card>
-        <Card meta="Personnel costs as a proportion of income (% of target)">
-          <ApacheChart demo options={{}} height="250px" />
-        </Card>
-        <Card meta="Consultant costs %, YTD (excluding GNR)">
-          <ApacheChart demo options={{}} height="250px" type="pie" />
-        </Card>
       </Grid>
       <Grid columns={1}>
         <Card meta="Testing Bar Chart">

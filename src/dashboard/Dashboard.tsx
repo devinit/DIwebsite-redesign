@@ -45,7 +45,7 @@ const Dashboard: FunctionComponent = () => {
           </form>
         </div>
       </Section>
-      <Section id="general">
+      <Section id="summary">
         <Grid columns={4}>
           <Card>
             <CardMetaLarge>Contract Income Secured</CardMetaLarge>
@@ -91,8 +91,8 @@ const Dashboard: FunctionComponent = () => {
         quarter={4}
       />
       <DashboardSection
-        id="comms-engagement"
-        title="Comms & Engagement"
+        id="communications"
+        title="Communications"
         department="Comms and engagement"
         data={data}
         grids={comms}

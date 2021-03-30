@@ -290,3 +290,6 @@ WAGTAIL_ENABLE_UPDATE_CHECK = False
 
 # Fix for max fields error message
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 10000
+
+# GitHub Token
+GITHUB_TOKEN = os.getenv('GITHUB_TOKEN')

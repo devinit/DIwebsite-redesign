@@ -292,7 +292,6 @@ WAGTAIL_ENABLE_UPDATE_CHECK = False
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 10000
 
 
-
 # Patch for Youtube embed error (TODO: remove once upgraded to Wagtail 2.11+)
 WAGTAILEMBEDS_FINDERS = [
     {
@@ -319,3 +318,5 @@ WAGTAILEMBEDS_FINDERS = [
         'class': 'wagtail.embeds.finders.oembed',
     }
 ]
+# GitHub Token
+GITHUB_TOKEN = os.getenv('GITHUB_TOKEN')

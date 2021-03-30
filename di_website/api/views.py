@@ -123,8 +123,9 @@ def dashboard_data_view(request):
                     for row in csvReader:
                         item = {
                             'department': row[0], 'metric': row[1], 'et': row[2], 'category': row[3],
-                            'year': row[4], 'quarter': row[5], 'date': row[6], 'value': row[7],
-                            'target': row[8], 'narrative': row[9], 'baseline': row[10]
+                            'year': int(row[4]) if row[4] else None, 'quarter': row[5], 'date': row[6],
+                            'value': float(row[7]) if row[7] else None, 'target': float(row[8]) if row[8] else None,
+                            'narrative': row[9], 'baseline': row[10]
                         }
                         data.append(item)
 
@@ -133,4 +134,5 @@ def dashboard_data_view(request):
         if hasattr(e, 'message'):
             return JsonResponse({ 'error': e.message }, safe=False)
 
+        print(e)
         return JsonResponse({ 'error': 'An error occurred' }, safe=False)

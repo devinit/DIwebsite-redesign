@@ -2,12 +2,17 @@ import React, { FunctionComponent, useState } from 'react';
 import { Card, CardMetaLarge, CardTitleLarge } from '../components/Card';
 import { DashboardSection } from '../components/DashboardSection';
 import { DataSystemsDashboard } from '../components/DataSystemsDashboard';
-import { DevelopmentDashboard } from '../components/DevelopmentDashboard';
 import { Filter, Option } from '../components/Filter';
 import { Grid } from '../components/Grid';
 import { Section } from '../components/Section';
 import { useDashboardData } from './hooks/data';
-import { comms, financeDashboard, hr as humanResourcesDashboard, projectManagement } from './utils/dashboards';
+import {
+  comms,
+  financeDashboard,
+  fundraising,
+  hr as humanResourcesDashboard,
+  projectManagement,
+} from './utils/dashboards';
 
 const years: Option[] = [
   { value: 2020, caption: '2020' },
@@ -99,7 +104,14 @@ const Dashboard: FunctionComponent = () => {
         year={year}
         quarter={4}
       />
-      <DevelopmentDashboard data={data} />
+      <DashboardSection
+        id="development"
+        title="Development & Fundraising"
+        department="Development and fundraising"
+        data={data}
+        grids={fundraising}
+        year={year}
+      />
       <DataSystemsDashboard data={data} />
     </>
   );

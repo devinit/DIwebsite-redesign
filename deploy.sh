@@ -274,6 +274,8 @@ then
     elastic_search_reindex
 
     start_new_process "Generating static assets"
+    npm ci
+    npm run build
     docker-compose exec -T ${new_state} python manage.py collectstatic --noinput
     sudo chown -R di_website:di_website assets
 

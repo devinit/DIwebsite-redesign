@@ -36,16 +36,24 @@ Pattern library available online at [http://development-initiatives.surge.sh/](h
 
         pip install -r requirements.txt
 
-6. Migrate
+6. Install node dependencies
+
+        npm install
+
+7. Build JS
+
+        npm run build
+
+8. Migrate
 
         python3 manage.py migrate
 
 
-7. Install Rabbitmq in Ubuntu
+9. Install Rabbitmq in Ubuntu
 
         sudo apt-get install rabbitmq-server
 
-8. Add
+10. Add
 
         export DJANGO_SETTINGS_MODULE=di_website.settings.dev
 
@@ -53,19 +61,19 @@ Pattern library available online at [http://development-initiatives.surge.sh/](h
 
         path_to_virtual_env_folder/bin/
 
-9. Run Celery worker
+11. Run Celery worker
 
         celery -A wagtaillinkchecker worker -l info
 
-10. Build static assets - refer to *Pattern library* section, then in the project root
+12. Build static assets - refer to *Pattern library* section, then in the project root
 
         python3 manage.py collectstatic
 
-11. Run
+13. Run
 
         python3 manage.py runserver
 
-12. Test
+14. Test
 
         python3 manage.py test
 

@@ -25,3 +25,4 @@ pyjwt==1.7.1
 wagtail-metadata==3.3.0
 whitenoise==5.2.0
 wagtailmedia==0.5.0
+PyGithub==1.54.1

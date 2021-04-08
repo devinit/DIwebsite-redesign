@@ -12,7 +12,7 @@ const sharedConfig = {
     rules: [
       {
         test: /\.(ts|tsx)$/,
-        loader: 'ts-loader',
+        loader: 'babel-loader',
         include: path.resolve(__dirname, 'src'),
       },
       {
@@ -22,14 +22,17 @@ const sharedConfig = {
         include: path.resolve(__dirname, 'src'),
       },
       {
-        test: /\.css$/,
-        loader: 'css-loader',
-        include: path.resolve(__dirname, 'src'),
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
       },
     ],
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js'],
+  },
+  performance: {
+    maxEntrypointSize: 512000,
+    maxAssetSize: 512000,
   },
 };
 
@@ -58,7 +61,7 @@ const chartsConfig = {
     chunkFilename: 'chart[chunkhash].js',
     libraryTarget: 'umd',
   },
-  externals: ['jquery'],
+  externals: ['jquery', 'echarts'],
 };
 chartsConfig.module.rules[0].loader = 'babel-loader';
 
@@ -70,6 +73,7 @@ const diChartsConfig = {
     filename: 'dicharts.js',
     library: 'DICharts',
   },
+  externals: ['echarts'],
 };
 
 const appConfig = {
@@ -78,6 +82,7 @@ const appConfig = {
     whatwedo: './src/whatwedo/index.ts',
     publications: './src/publications/index.ts',
     blog: './src/blog/index.ts',
+    dashboard: './src/dashboard/index.ts',
   },
   output: {
     path: path.resolve(__dirname, 'di_website'),

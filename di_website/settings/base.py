@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'di_website.api',
     'di_website.spotlight',
     'di_website.visualisation',
+    'di_website.dashboard',
 
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
@@ -289,3 +290,6 @@ WAGTAIL_ENABLE_UPDATE_CHECK = False
 
 # Fix for max fields error message
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 10000
+
+# GitHub Token
+GITHUB_TOKEN = os.getenv('GITHUB_TOKEN')

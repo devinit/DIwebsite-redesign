@@ -117,4 +117,4 @@ const Dashboard: FunctionComponent = () => {
   );
 };
 
-export { Dashboard };
+export default Dashboard;

@@ -1,4 +1,4 @@
-import { finance, random } from 'faker';
+import { finance, datatype } from 'faker';
 import { colours } from '../';
 import { DashboardGrid } from '../../../utils/types';
 
@@ -57,8 +57,8 @@ export const fundraising: DashboardGrid[] = [
             // generateObjectDataset(data.filter(({ metric }) => metric === 'Income secured this quarter')),
             return ['2020 Q1', '2020 Q2', '2020 Q3', '2020 Q4'].map((quarter) => ({
               quarter,
-              contracts: random.number(10),
-              grants: random.number(10),
+              contracts: datatype.number(10),
+              grants: datatype.number(10),
             }));
           },
           options: {

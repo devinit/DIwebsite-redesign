@@ -54,7 +54,7 @@ const Dashboard: FunctionComponent = () => {
         <Grid columns={4}>
           <Card>
             <CardMetaLarge>Contract Income Secured</CardMetaLarge>
-            <CardTitleLarge>£75,000</CardTitleLarge>
+            <CardTitleLarge>£85,000</CardTitleLarge>
           </Card>
           <Card>
             <CardMetaLarge>Grant Income Secured</CardMetaLarge>

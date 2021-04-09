@@ -1,8 +1,7 @@
 'use strict';
 /* eslint-disable @typescript-eslint/no-var-requires */
 const webpackConfig = require('./webpack.config');
-const merge = require('webpack-merge');
-const TerserPlugin = require('terser-webpack-plugin');
+const { merge } = require('webpack-merge');
 
 const webpackConfigProduction = webpackConfig.map((config) =>
   merge(config, {
@@ -10,12 +9,6 @@ const webpackConfigProduction = webpackConfig.map((config) =>
     mode: 'production',
     optimization: {
       minimize: true,
-      minimizer: [
-        new TerserPlugin({
-          parallel: true,
-          cache: true,
-        }),
-      ],
     },
   }),
 );

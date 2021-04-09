@@ -17,7 +17,7 @@ export const projectManagement: DashboardGrid[] = [
         },
       },
       {
-        id: 'active-projects-dipr',
+        id: 'active-projects-dii',
         meta: 'Active Projects DII',
         styled: true,
         title: (): React.ReactText => {

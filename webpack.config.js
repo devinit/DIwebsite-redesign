@@ -34,6 +34,8 @@ const sharedConfig = {
     maxEntrypointSize: 512000,
     maxAssetSize: 512000,
   },
+  watch: true,
+  devtool: 'inline-source-map',
 };
 
 const wagtailAceEditorConfig = {
@@ -85,10 +87,14 @@ const appConfig = {
     dashboard: './src/dashboard/index.ts',
   },
   output: {
-    path: path.resolve(__dirname, 'di_website'),
-    filename: '[name]/static/[name]/js/bundle.js',
+    path: path.resolve(__dirname, 'src/assets/'),
+    filename: '[name]/js/bundle.js',
     publicPath: '/assets/',
-    chunkFilename: '[name]/js/[name][chunkhash].bundle.js',
+    chunkFilename: (pathData) => {
+      const { runtime: name } = pathData.chunk;
+
+      return `${name}/js/${name}[chunkhash].bundle.js`;
+    },
   },
 };
 

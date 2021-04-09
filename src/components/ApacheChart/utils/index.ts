@@ -1,15 +1,39 @@
 import deepmerge from 'deepmerge';
-import * as echarts from 'echarts';
 import { colours } from '../../../dashboard/utils';
 import { defaultOptions } from '../../../utils/echarts';
 
-export const renderChart = (node: HTMLDivElement, option: echarts.EChartOption): void => {
-  const chart = echarts.init(node);
-  chart.setOption(deepmerge(defaultOptions, option));
+const loadApacheCharts = async (): Promise<typeof echarts> => {
+  const echarts = await import('echarts/core');
+  const { BarChart, LineChart, PieChart } = await import('echarts/charts');
+  const { TitleComponent, TooltipComponent, GridComponent, LegendComponent, DatasetComponent } = await import(
+    'echarts/components'
+  );
+  const { CanvasRenderer } = await import('echarts/renderers');
+
+  echarts.use([
+    TitleComponent,
+    TooltipComponent,
+    GridComponent,
+    LegendComponent,
+    DatasetComponent,
+    BarChart,
+    LineChart,
+    PieChart,
+    CanvasRenderer,
+  ]);
+
+  return echarts;
 };
 
-export const makeBasicLineChart = (node: HTMLDivElement): void => {
-  const chart = echarts.init(node);
+export const renderChart = async (node: HTMLDivElement, option: echarts.EChartOption): Promise<void> => {
+  const { init } = await loadApacheCharts();
+  const chart = init(node);
+  chart.setOption(deepmerge(defaultOptions, option) as any); // eslint-disable-line @typescript-eslint/no-explicit-any
+};
+
+export const makeBasicLineChart = async (node: HTMLDivElement): Promise<void> => {
+  const { init } = await loadApacheCharts();
+  const chart = init(node);
   const option: echarts.EChartOption = {
     color: colours,
     tooltip: {
@@ -57,11 +81,12 @@ export const makeBasicLineChart = (node: HTMLDivElement): void => {
       },
     ],
   };
-  chart.setOption(deepmerge(defaultOptions, option));
+  chart.setOption(deepmerge(defaultOptions, option) as any); // eslint-disable-line @typescript-eslint/no-explicit-any
 };
 
-export const renderBasicColumnChart = (node: HTMLDivElement): void => {
-  const chart = echarts.init(node);
+export const renderBasicColumnChart = async (node: HTMLDivElement): Promise<void> => {
+  const { init } = await loadApacheCharts();
+  const chart = init(node);
   const option: echarts.EChartOption = {
     color: colours,
     legend: {},
@@ -81,11 +106,12 @@ export const renderBasicColumnChart = (node: HTMLDivElement): void => {
     // to a column of dataset.source by default.
     series: [{ type: 'bar' }, { type: 'bar' }, { type: 'bar' }],
   };
-  chart.setOption(deepmerge(defaultOptions, option));
+  chart.setOption(deepmerge(defaultOptions, option) as any); // eslint-disable-line @typescript-eslint/no-explicit-any
 };
 
-export const renderBasicPieChart = (node: HTMLDivElement): void => {
-  const chart = echarts.init(node);
+export const renderBasicPieChart = async (node: HTMLDivElement): Promise<void> => {
+  const { init } = await loadApacheCharts();
+  const chart = init(node);
   const option: echarts.EChartOption = {
     color: colours,
     legend: {
@@ -120,5 +146,5 @@ export const renderBasicPieChart = (node: HTMLDivElement): void => {
       },
     ],
   };
-  chart.setOption(deepmerge(defaultOptions, option));
+  chart.setOption(deepmerge(defaultOptions, option) as any); // eslint-disable-line @typescript-eslint/no-explicit-any
 };

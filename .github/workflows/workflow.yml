@@ -95,5 +95,6 @@ jobs:
             export HS_API_KEY=${{ secrets.HS_API_KEY }}
             export HS_TICKET_PIPELINE=${{ secrets.HS_TICKET_PIPELINE }}
             export HS_TICKET_PIPELINE_STAGE=${{ secrets.HS_TICKET_PIPELINE_STAGE }}
+            export GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
             cp -r deploy_script/deploy.sh .
             chmod +x deploy.sh && ./deploy.sh run

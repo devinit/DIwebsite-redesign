@@ -220,6 +220,11 @@ function setup_blue_green_deployment {
     # create the new state image
     docker tag diwebsite-redesign_web:new diwebsite-redesign_web:${new_state}
 
+    # install JS dependencies
+    echo "Update JS dependencies"
+    npm ci
+    npm run build
+
     # update the new state container
     echo "Update the ${new_state} container"
     docker-compose up -d ${new_state}
@@ -274,8 +279,6 @@ then
     elastic_search_reindex
 
     start_new_process "Generating static assets"
-    npm ci
-    npm run build
     docker-compose exec -T ${new_state} python manage.py collectstatic --noinput
     sudo chown -R di_website:di_website assets
 

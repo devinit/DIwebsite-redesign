@@ -35,6 +35,7 @@ const sharedConfig = {
     maxAssetSize: 512000,
   },
   watch: true,
+  devtool: 'inline-source-map',
 };
 
 const wagtailAceEditorConfig = {

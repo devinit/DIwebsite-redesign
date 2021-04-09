@@ -16,7 +16,7 @@ const webpackConfigProduction = webpackConfig.map((config) =>
 );
 
 function cleaning(cb) {
-  ['di_website/visualisation/static/visualisation/js'].forEach((_path) => {
+  ['src/assets/**'].forEach((_path) => {
     src(_path, { read: false }).pipe(clean());
   });
 

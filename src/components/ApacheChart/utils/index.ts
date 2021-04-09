@@ -1,15 +1,16 @@
 import deepmerge from 'deepmerge';
-import * as echarts from 'echarts';
 import { colours } from '../../../dashboard/utils';
 import { defaultOptions } from '../../../utils/echarts';
 
-export const renderChart = (node: HTMLDivElement, option: echarts.EChartOption): void => {
-  const chart = echarts.init(node);
+export const renderChart = async (node: HTMLDivElement, option: echarts.EChartOption): Promise<void> => {
+  const { init } = await import('echarts');
+  const chart = init(node);
   chart.setOption(deepmerge(defaultOptions, option));
 };
 
-export const makeBasicLineChart = (node: HTMLDivElement): void => {
-  const chart = echarts.init(node);
+export const makeBasicLineChart = async (node: HTMLDivElement): Promise<void> => {
+  const { init } = await import('echarts');
+  const chart = init(node);
   const option: echarts.EChartOption = {
     color: colours,
     tooltip: {
@@ -60,8 +61,9 @@ export const makeBasicLineChart = (node: HTMLDivElement): void => {
   chart.setOption(deepmerge(defaultOptions, option));
 };
 
-export const renderBasicColumnChart = (node: HTMLDivElement): void => {
-  const chart = echarts.init(node);
+export const renderBasicColumnChart = async (node: HTMLDivElement): Promise<void> => {
+  const { init } = await import('echarts');
+  const chart = init(node);
   const option: echarts.EChartOption = {
     color: colours,
     legend: {},
@@ -84,8 +86,9 @@ export const renderBasicColumnChart = (node: HTMLDivElement): void => {
   chart.setOption(deepmerge(defaultOptions, option));
 };
 
-export const renderBasicPieChart = (node: HTMLDivElement): void => {
-  const chart = echarts.init(node);
+export const renderBasicPieChart = async (node: HTMLDivElement): Promise<void> => {
+  const { init } = await import('echarts');
+  const chart = init(node);
   const option: echarts.EChartOption = {
     color: colours,
     legend: {

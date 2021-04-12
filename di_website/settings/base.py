@@ -321,3 +321,5 @@ WAGTAILEMBEDS_FINDERS = [
 ]
 # GitHub Token
 GITHUB_TOKEN = os.getenv('GITHUB_TOKEN')
+
+PASSWORD_REQUIRED_TEMPLATE = 'password_required.html'

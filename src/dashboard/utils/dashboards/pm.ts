@@ -3,7 +3,43 @@ import { DashboardData, DashboardGrid } from '../../../utils/types';
 
 export const projectManagement: DashboardGrid[] = [
   {
-    id: '1',
+    id: '0',
+    columns: 1,
+    content: [
+      {
+        id: 'iati-title',
+        meta: 'Ranking on IATI dashboard (suggest move from top 10% to top 5%)',
+      },
+    ],
+  },
+  {
+    id: '2',
+    columns: 4,
+    content: [
+      {
+        id: 'iati-q1',
+        meta: 'Q4 2020',
+        styled: true,
+        title: (): React.ReactText => {
+          // TODO: Use actual value here
+
+          return '1%';
+        },
+      },
+      {
+        id: 'iati-q2',
+        meta: 'Q1 2021',
+        styled: true,
+        title: (): React.ReactText => {
+          // TODO: Use actual value here
+
+          return '1%';
+        },
+      },
+    ],
+  },
+  {
+    id: '2',
     columns: 4,
     content: [
       {
@@ -29,7 +65,7 @@ export const projectManagement: DashboardGrid[] = [
     ],
   },
   {
-    id: '2',
+    id: '3',
     columns: 2,
     content: [
       {

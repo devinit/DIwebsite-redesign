@@ -34,3 +34,5 @@ export type DashboardFilters = {
   quarter?: 1 | 2 | 3 | 4;
   department?: string;
 };
+
+export type Quarter = 1 | 2 | 3 | 4;

@@ -36,6 +36,10 @@ const DashboardSection: FunctionComponent<DashboardSectionProps> = ({ year, quar
 
   const renderCard = ({ meta, chart, ...content }: DashboardContent) => {
     const title = content.title && typeof content.title === 'function' ? content.title(data) : content.title;
+    if (meta && !title && !chart) {
+      return <div className="m-stat__title">{meta}</div>;
+    }
+
     if (content.styled) {
       return (
         <Card key={content.id}>

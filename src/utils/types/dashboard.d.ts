@@ -21,6 +21,7 @@ export type DashboardContent = {
   title?: string | ((data: DashboardData[]) => React.ReactText);
   styled?: boolean; // refers to styled meta & title - usually used for stat cards
   chart?: DashboardChart;
+  info?: string | ((data: DashboardData[]) => string);
 };
 
 export type DashboardChart = {

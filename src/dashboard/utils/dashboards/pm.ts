@@ -3,7 +3,7 @@ import { DashboardData, DashboardGrid } from '../../../utils/types';
 
 export const projectManagement: DashboardGrid[] = [
   {
-    id: '0',
+    id: '1',
     columns: 1,
     content: [
       {
@@ -20,26 +20,34 @@ export const projectManagement: DashboardGrid[] = [
         id: 'iati-q1',
         meta: 'Q4 2020',
         styled: true,
-        title: (): React.ReactText => {
-          // TODO: Use actual value here
+        title: (data: DashboardData[]): React.ReactText => {
+          const currentMetric = 'Ranking on IATI dashboard (suggest move from top 10% to top 5%)';
+          const metricData = data.filter(
+            ({ metric, year, quarter }) => metric === currentMetric && year === 2020 && quarter === 'Q4',
+          );
 
-          return '1%';
+          return metricData && metricData.length ? `${metricData[0].value}%` : 'None';
         },
       },
       {
         id: 'iati-q2',
         meta: 'Q1 2021',
         styled: true,
-        title: (): React.ReactText => {
-          // TODO: Use actual value here
+        title: (data: DashboardData[]): React.ReactText => {
+          console.log(data);
 
-          return '1%';
+          const currentMetric = 'Ranking on IATI dashboard (suggest move from top 10% to top 5%)';
+          const metricData = data.filter(
+            ({ metric, year, quarter }) => metric === currentMetric && year === 2021 && quarter === 'Q1',
+          );
+
+          return metricData && metricData.length ? `${metricData[0].value}%` : 'None';
         },
       },
     ],
   },
   {
-    id: '2',
+    id: '3',
     columns: 4,
     content: [
       {
@@ -65,7 +73,7 @@ export const projectManagement: DashboardGrid[] = [
     ],
   },
   {
-    id: '3',
+    id: '4',
     columns: 2,
     content: [
       {

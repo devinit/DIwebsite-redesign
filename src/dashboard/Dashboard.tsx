@@ -29,7 +29,7 @@ const quarters: Option[] = [
 
 const Dashboard: FunctionComponent = () => {
   const data = useDashboardData();
-  const [year, setYear] = useState<number>();
+  const [year, setYear] = useState<number>(2020);
   const [quarter, setQuarter] = useState<Quarter>();
 
   const onSelectYear = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -93,8 +93,6 @@ const Dashboard: FunctionComponent = () => {
         department="Project management"
         data={data}
         grids={projectManagement}
-        year={year}
-        quarter={4}
       />
       <DashboardSection
         id="communications"

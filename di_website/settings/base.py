@@ -294,3 +294,5 @@ DATA_UPLOAD_MAX_NUMBER_FIELDS = 10000
 
 # GitHub Token
 GITHUB_TOKEN = os.getenv('GITHUB_TOKEN')
+
+PASSWORD_REQUIRED_TEMPLATE = 'password_required.html'

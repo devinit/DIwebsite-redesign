@@ -26,7 +26,7 @@ export const projectManagement: DashboardGrid[] = [
             ({ metric, year, quarter }) => metric === currentMetric && year === 2020 && quarter === 'Q4',
           );
 
-          return metricData && metricData.length ? `${metricData[0].value}%` : 'None';
+          return metricData && metricData.length && metricData[0].value ? `${metricData[0].value}%` : 'None';
         },
       },
       {
@@ -41,39 +41,57 @@ export const projectManagement: DashboardGrid[] = [
             ({ metric, year, quarter }) => metric === currentMetric && year === 2021 && quarter === 'Q1',
           );
 
-          return metricData && metricData.length ? `${metricData[0].value}%` : 'None';
+          return metricData && metricData.length && metricData[0].value ? `${metricData[0].value}%` : 'None';
         },
       },
     ],
   },
   {
     id: '3',
-    columns: 4,
+    columns: 1,
     content: [
       {
-        id: 'active-projects-dipr',
-        meta: 'Active Projects DIPR',
-        styled: true,
-        title: (): React.ReactText => {
-          // TODO: Use actual value here
-
-          return 5;
-        },
-      },
-      {
-        id: 'active-projects-dii',
-        meta: 'Active Projects DII',
-        styled: true,
-        title: (): React.ReactText => {
-          // TODO: Use actual value here
-
-          return 3;
-        },
+        id: 'projects-title',
+        meta: 'Active Projects',
       },
     ],
   },
   {
     id: '4',
+    columns: 4,
+    content: [
+      {
+        id: 'active-projects-dipr',
+        meta: 'DIPR (Q1 2021)',
+        styled: true,
+        title: (data: DashboardData[]): React.ReactText => {
+          console.log(data);
+
+          const currentMetric = '# active projects DIPR';
+          const metricData = data.filter(
+            ({ metric, year, quarter }) => metric === currentMetric && year === 2021 && quarter === 'Q4',
+          );
+
+          return metricData && metricData.length && metricData[0].value ? `${metricData[0].value}%` : 'None';
+        },
+      },
+      {
+        id: 'active-projects-dii',
+        meta: 'DII (Q1 2021)',
+        styled: true,
+        title: (data: DashboardData[]): React.ReactText => {
+          const currentMetric = '# active projects DII';
+          const metricData = data.filter(
+            ({ metric, year, quarter }) => metric === currentMetric && year === 2021 && quarter === 'Q4',
+          );
+
+          return metricData && metricData.length && metricData[0].value ? `${metricData[0].value}%` : 'None';
+        },
+      },
+    ],
+  },
+  {
+    id: '5',
     columns: 2,
     content: [
       {

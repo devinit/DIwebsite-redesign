@@ -233,6 +233,14 @@ export const projectManagement: DashboardGrid[] = [
             /* eslint-enable @typescript-eslint/no-explicit-any,@typescript-eslint/explicit-module-boundary-types */
           },
         },
+        info: (data: DashboardData[]): string => {
+          const metricData = data.filter(
+            ({ metric, year, quarter }) =>
+              metric === 'Number of projects with Warning status' && year === 2021 && quarter === 'Q1',
+          );
+
+          return metricData && metricData.length && metricData[0].narrative ? `${metricData[0].narrative}` : '';
+        },
       },
       {
         id: 'project-spending-2020',

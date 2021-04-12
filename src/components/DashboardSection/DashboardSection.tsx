@@ -5,6 +5,7 @@ import { DashboardChart, DashboardContent, DashboardData, DashboardGrid, Quarter
 import { ApacheChart } from '../ApacheChart';
 import { Card, CardMetaLarge, CardTitleLarge } from '../Card';
 import { Grid } from '../Grid';
+import { HiddenMediaCaption } from '../HiddenMediaCaption';
 import { Section } from '../Section';
 
 type DashboardSectionProps = {
@@ -43,6 +44,7 @@ const DashboardSection: FunctionComponent<DashboardSectionProps> = ({ year, quar
         </div>
       );
     }
+    const info = content.info && typeof content.info === 'function' ? content.info(data) : content.info;
 
     if (content.styled) {
       return (
@@ -50,6 +52,13 @@ const DashboardSection: FunctionComponent<DashboardSectionProps> = ({ year, quar
           {meta ? <CardMetaLarge>{meta}</CardMetaLarge> : null}
           {title ? <CardTitleLarge>{title}</CardTitleLarge> : null}
           {chart ? renderChart(chart) : null}
+          {info ? (
+            <HiddenMediaCaption buttonCaption="Narrative">
+              {info.split('\n').map((i, key) => (
+                <p key={`${key}`}>{i}</p>
+              ))}
+            </HiddenMediaCaption>
+          ) : null}
         </Card>
       );
     }

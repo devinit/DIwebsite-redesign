@@ -1,7 +1,7 @@
 import deepmerge from 'deepmerge';
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { filterDashboardData } from '../../dashboard/utils';
-import { DashboardChart, DashboardContent, DashboardData, DashboardGrid } from '../../utils/types';
+import { DashboardChart, DashboardContent, DashboardData, DashboardGrid, Quarter } from '../../utils/types';
 import { ApacheChart } from '../ApacheChart';
 import { Card, CardMetaLarge, CardTitleLarge } from '../Card';
 import { Grid } from '../Grid';
@@ -12,7 +12,7 @@ type DashboardSectionProps = {
   title?: string;
   department?: string;
   year?: number;
-  quarter?: 1 | 2 | 3 | 4;
+  quarter?: Quarter;
   data: DashboardData[];
   grids: DashboardGrid[];
 };

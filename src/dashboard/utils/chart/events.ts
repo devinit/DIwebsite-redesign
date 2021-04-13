@@ -12,7 +12,7 @@ export const showNarrative = (chartNode: HTMLDivElement, content: string): void 
     hideNarrative(chartNode);
     const caption = document.createElement('figcaption');
     caption.classList.add('media-caption', 'chart-event-caption');
-    content.split('/n').forEach((note) => {
+    content.split('\n').forEach((note) => {
       const paragraph = document.createElement('p');
       paragraph.innerHTML = note;
       caption.appendChild(paragraph);

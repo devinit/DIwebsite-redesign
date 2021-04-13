@@ -35,8 +35,6 @@ export const projectManagement: DashboardGrid[] = [
         meta: 'Q1 2021',
         styled: true,
         title: (data: DashboardData[]): React.ReactText => {
-          console.log(data);
-
           const currentMetric = 'Ranking on IATI dashboard (suggest move from top 10% to top 5%)';
           const metricData = data.filter(
             ({ metric, year, quarter }) => metric === currentMetric && year === 2021 && quarter === 'Q1',
@@ -231,16 +229,29 @@ export const projectManagement: DashboardGrid[] = [
                 },
               },
             ],
-            /* eslint-enable @typescript-eslint/no-explicit-any,@typescript-eslint/explicit-module-boundary-types */
           },
-        },
-        info: (data: DashboardData[]): string => {
-          const metricData = data.filter(
-            ({ metric, year, quarter }) =>
-              metric === 'Number of projects with Warning status' && year === 2021 && quarter === 'Q1',
-          );
+          onHover: (data: DashboardData[], chartNode: HTMLDivElement, params: any): void => {
+            const metricData = data.filter(
+              ({ metric, year, quarter }) =>
+                [
+                  'Number of projects with On track status',
+                  'Number of projects with Warning status',
+                  'Number of projects with High risk status',
+                ].includes(metric) &&
+                year === 2021 &&
+                quarter === 'Q1',
+            );
+            const metric = params.data[0];
 
-          return metricData && metricData.length && metricData[0].narrative ? `${metricData[0].narrative}` : '';
+            const dataPoint = metricData.find((item) => item.metric === metric);
+            if (dataPoint && dataPoint.narrative) {
+              showNarrative(chartNode, dataPoint.narrative);
+            }
+          },
+          onBlur: (_data: DashboardData[], chartNode: HTMLDivElement): void => {
+            hideNarrative(chartNode);
+          },
+          /* eslint-enable @typescript-eslint/no-explicit-any,@typescript-eslint/explicit-module-boundary-types */
         },
       },
       {

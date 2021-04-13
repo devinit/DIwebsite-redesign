@@ -1,14 +1,24 @@
-import { colours, toPounds } from '../';
+import { toPounds } from '../';
 import { DashboardData, DashboardGrid } from '../../../utils/types';
 
 export const fundraising: DashboardGrid[] = [
   {
     id: '1',
+    columns: 1,
+    content: [
+      {
+        id: 'contracts',
+        meta: 'Contracts - Q1 2021',
+      },
+    ],
+  },
+  {
+    id: '2',
     columns: 2,
     content: [
       {
         id: 'contract-income',
-        meta: 'Income Secured From Contracts (Q1 2021)',
+        meta: 'Income Secured - Q1 2021',
         styled: true,
         title: (data: DashboardData[]): React.ReactText => {
           const currentMetric = 'Income secured this quarter';
@@ -21,12 +31,40 @@ export const fundraising: DashboardGrid[] = [
         },
       },
       {
-        id: 'grant-income',
-        meta: 'Income Secured From Grants (Q1 2021)',
+        id: 'contract-weighted',
+        meta: 'Weighted value 50/80% probable pipeline at end of quarter',
         styled: true,
         title: (data: DashboardData[]): React.ReactText => {
-          console.log(data);
+          const currentMetric = 'Weighted value 50/80% probable pipeline at end of quarter';
+          const metricData = data.filter(
+            ({ metric, year, quarter, category }) =>
+              metric.trim() === currentMetric && category.trim() === 'Contracts' && year === 2021 && quarter === 'Q1',
+          );
 
+          return metricData && metricData.length && metricData[0].value ? toPounds(metricData[0].value) : 'None';
+        },
+      },
+    ],
+  },
+  {
+    id: '3',
+    columns: 1,
+    content: [
+      {
+        id: 'grants',
+        meta: 'Grants - Q1 2021',
+      },
+    ],
+  },
+  {
+    id: '4',
+    columns: 2,
+    content: [
+      {
+        id: 'grant-income-secured',
+        meta: 'Income Secured',
+        styled: true,
+        title: (data: DashboardData[]): React.ReactText => {
           const currentMetric = 'Income secured this quarter';
           const metricData = data.filter(
             ({ metric, year, quarter, category }) =>
@@ -36,92 +74,46 @@ export const fundraising: DashboardGrid[] = [
           return metricData && metricData.length && metricData[0].value ? toPounds(metricData[0].value) : 'None';
         },
       },
-    ],
-  },
-  {
-    id: '2',
-    columns: 2,
-    content: [
       {
-        id: 'ops-dropped',
-        meta: 'Total number of ops dropped due to capacity constraints',
+        id: 'grant-income',
+        meta: 'Income at 90% at end of quarter (waiting for agreement to be signed for 2021-2023)',
         styled: true,
-        chart: {
-          data: (): Record<string, React.ReactText>[] => {
-            // generateObjectDataset(data.filter(({ metric }) => metric === 'Income secured this quarter')),
-            return ['2020 Q1', '2020 Q2', '2020 Q3', '2020 Q4'].map((quarter) => ({
-              quarter,
-              contracts: 6,
-              grants: 9,
-            }));
-          },
-          options: {
-            color: colours,
-            tooltip: {
-              trigger: 'axis',
-            },
-            legend: {
-              formatter: (name): string => (name === 'contracts' ? 'Contracts' : 'Grants'),
-            },
-            dataset: {
-              dimensions: ['quarter', 'contracts', 'grants'],
-            },
-            grid: {
-              left: '3%',
-              right: '4%',
-              bottom: '3%',
-              containLabel: true,
-            },
-            toolbox: {
-              feature: {
-                saveAsImage: {},
-              },
-            },
-            xAxis: { type: 'category' },
-            yAxis: { type: 'value', splitNumber: 3 },
-            series: [{ type: 'line' }, { type: 'line' }],
-          },
+        title: (data: DashboardData[]): React.ReactText => {
+          const currentMetric = 'Income at 90% at end of quarter (waiting for agreement to be signed for 2021-2023)';
+          const metricData = data.filter(
+            ({ metric, year, quarter, category }) =>
+              metric.trim() === currentMetric && category.trim() === 'Grants' && year === 2021 && quarter === 'Q1',
+          );
+
+          return metricData && metricData.length && metricData[0].value ? toPounds(metricData[0].value) : 'None';
         },
       },
       {
-        id: 'proposals',
-        meta: 'Total value of proposals submitted in quarter',
+        id: 'grant-weighted',
+        meta: 'Weighted value of 50% & 80% probable pipeline at end of quarter (income 2021-2023)',
         styled: true,
-        chart: {
-          data: (): Record<string, React.ReactText>[] => {
-            // generateObjectDataset(data.filter(({ metric }) => metric === 'Income secured this quarter')),
-            return ['2020 Q1', '2020 Q2', '2020 Q3', '2020 Q4'].map((quarter) => ({
-              quarter,
-              contracts: 12000,
-              grants: 34567,
-            }));
-          },
-          options: {
-            color: colours,
-            tooltip: {
-              trigger: 'axis',
-            },
-            legend: {
-              formatter: (name): string => (name === 'contracts' ? 'Contracts' : 'Grants'),
-            },
-            dataset: {
-              dimensions: ['quarter', 'contracts', 'grants'],
-            },
-            grid: {
-              left: '3%',
-              right: '4%',
-              bottom: '3%',
-              containLabel: true,
-            },
-            toolbox: {
-              feature: {
-                saveAsImage: {},
-              },
-            },
-            xAxis: { type: 'category' },
-            yAxis: { type: 'value', splitNumber: 3, axisLabel: { formatter: '£{value}' } },
-            series: [{ type: 'bar' }, { type: 'bar' }],
-          },
+        title: (data: DashboardData[]): React.ReactText => {
+          const currentMetric = 'Weighted value of 50% & 80% probable pipeline at end of quarter (income 2021-2023)';
+          const metricData = data.filter(
+            ({ metric, year, quarter, category }) =>
+              metric.trim() === currentMetric && category.trim() === 'Grants' && year === 2021 && quarter === 'Q1',
+          );
+
+          return metricData && metricData.length && metricData[0].value ? toPounds(metricData[0].value) : 'None';
+        },
+      },
+      {
+        id: 'grant-speculative',
+        meta: 'Speculative pipeline value, not weighted (>50% probable)',
+        styled: true,
+        title: (data: DashboardData[]): React.ReactText => {
+          const currentMetric = 'Speculative pipeline value, not weighted (>50% probable)';
+          const metricData = data.filter(
+            ({ metric, year, quarter, category }) =>
+              metric.trim() === currentMetric && category.trim() === 'Grants' && year === 2021 && quarter === 'Q1',
+          );
+
+          return metricData && metricData.length && metricData[0].value ? toPounds(metricData[0].value) : 'None';
         },
       },
     ],

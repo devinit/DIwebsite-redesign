@@ -109,7 +109,8 @@ const Dashboard: FunctionComponent = () => {
         department="Development and fundraising"
         data={data}
         grids={fundraising}
-        year={year}
+        year={2021}
+        quarter={1}
       />
       <DataSystemsDashboard data={data} />
     </>

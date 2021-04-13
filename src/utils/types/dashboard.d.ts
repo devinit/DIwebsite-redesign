@@ -7,6 +7,7 @@ export type DashboardData = {
   target?: number;
   year: number;
   quarter: string;
+  category: string;
 };
 
 export type DashboardGrid = {

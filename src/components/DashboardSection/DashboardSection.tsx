@@ -29,7 +29,16 @@ const DashboardSection: FunctionComponent<DashboardSectionProps> = ({ year, quar
       const dataset = chart.data(data);
       const options = deepmerge(chart.options, { dataset: { source: dataset } });
 
-      return <ApacheChart options={options} height={chart.height || '250px'} data={data} onClick={chart.onClick} />;
+      return (
+        <ApacheChart
+          options={options}
+          height={chart.height || '250px'}
+          data={data}
+          onClick={chart.onClick}
+          onHover={chart.onHover}
+          onBlur={chart.onBlur}
+        />
+      );
     }
 
     return (
@@ -39,6 +48,8 @@ const DashboardSection: FunctionComponent<DashboardSectionProps> = ({ year, quar
         height="250px"
         data={data}
         onClick={chart.onClick}
+        onHover={chart.onHover}
+        onBlur={chart.onBlur}
       />
     );
   };

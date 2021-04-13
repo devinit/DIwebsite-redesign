@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const sharedConfig = {
   target: 'web',
@@ -96,6 +97,7 @@ const appConfig = {
       return `${name}/js/${name}[chunkhash].bundle.js`;
     },
   },
+  // plugins: [new BundleAnalyzerPlugin()],
 };
 
 module.exports = [appConfig, wagtailAceEditorConfig, diChartsConfig, chartsConfig];

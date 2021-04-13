@@ -1,5 +1,6 @@
 import { colours, generateArrayDataset } from '..';
 import { DashboardData, DashboardGrid } from '../../../utils/types';
+import { hideNarrative, showNarrative } from '../chart';
 
 export const projectManagement: DashboardGrid[] = [
   {
@@ -317,6 +318,26 @@ export const projectManagement: DashboardGrid[] = [
                 ['% projects overspending', '% projects underspending', '% projects on track'].includes(metric),
               ),
             ),
+          // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types,@typescript-eslint/no-explicit-any
+          onHover: (data: DashboardData[], chartNode: HTMLDivElement, params: any): void => {
+            const metricData = data.filter(({ metric }) =>
+              ['% projects overspending', '% projects underspending', '% projects on track'].includes(metric),
+            );
+            const index = params.encode.value[0];
+            const dimension = params.dimensionNames[index];
+            const [year, quarter] = dimension.split(' ');
+            const metric = params.data[0];
+
+            const dataPoint = metricData.find(
+              (item) => item.metric === metric && `${item.year}` === year && item.quarter === quarter,
+            );
+            if (dataPoint && dataPoint.narrative) {
+              showNarrative(chartNode, dataPoint.narrative);
+            }
+          },
+          onBlur: (_data: DashboardData[], chartNode: HTMLDivElement): void => {
+            hideNarrative(chartNode);
+          },
           options: {
             color: colours,
             tooltip: { trigger: 'item', show: false },

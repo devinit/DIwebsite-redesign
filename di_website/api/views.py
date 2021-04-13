@@ -121,13 +121,14 @@ def dashboard_data_view(request):
                     header = next(csvReader)
 
                     for row in csvReader:
-                        item = {
-                            'department': row[0], 'metric': row[1], 'et': row[2], 'category': row[3],
-                            'year': int(row[4]) if row[4] else None, 'quarter': row[5], 'date': row[6],
-                            'value': float(row[7]) if row[7] else None, 'target': float(row[8]) if row[8] else None,
-                            'narrative': row[9], 'baseline': row[10]
-                        }
-                        data.append(item)
+                        if len(row) == 11: # csv has 11 rows
+                            item = {
+                                'department': row[0], 'metric': row[1], 'et': row[2], 'category': row[3],
+                                'year': int(row[4]) if row[4] else None, 'quarter': row[5], 'date': row[6],
+                                'value': float(row[7]) if row[7] else None, 'target': float(row[8]) if row[8] else None,
+                                'narrative': row[9], 'baseline': row[10]
+                            }
+                            data.append(item)
 
         return JsonResponse({ 'data': data }, safe=False)
     except Exception as e:

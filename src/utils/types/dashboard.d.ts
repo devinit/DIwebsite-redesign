@@ -28,6 +28,7 @@ export type DashboardChart = {
   height?: string;
   data: (data: DashboardData[]) => Record<string, React.ReactText>[] | React.ReactText[][];
   options: echarts.EChartOption;
+  onClick?: (data: DashboardData[], node: HTMLDivElement, params: any) => void; // eslint-disable-line @typescript-eslint/no-explicit-any
 };
 
 export type DashboardFilters = {

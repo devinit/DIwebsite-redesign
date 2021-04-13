@@ -84,3 +84,9 @@ export const filterDashboardData = (
       return true;
     });
 };
+
+export const toPounds = (value: number): string => {
+  const formatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'GBP' });
+
+  return formatter.format(value);
+};

@@ -7,6 +7,8 @@ type ApacheChartProps = {
   height?: string;
   options: echarts.EChartOption;
   type?: 'bar' | 'line' | 'pie';
+  data: unknown;
+  onClick?: (data: unknown, chartNode: HTMLDivElement, params: unknown) => void; // eslint-disable-line @typescript-eslint/no-explicit-any
 };
 
 const ApacheChart: FunctionComponent<ApacheChartProps> = (props) => {
@@ -29,7 +31,13 @@ const ApacheChart: FunctionComponent<ApacheChartProps> = (props) => {
             break;
         }
       } else {
-        renderChart(element.current, props.options);
+        renderChart(element.current, props.options).then((chart) => {
+          if (props.onClick) {
+            chart.on('click', (params: unknown) => {
+              props.onClick!(props.data, element.current!, params); // eslint-disable-line @typescript-eslint/no-non-null-assertion
+            });
+          }
+        });
       }
     }
   }, []);

@@ -5,6 +5,7 @@ import { DataSystemsDashboard } from '../components/DataSystemsDashboard';
 import { Filter, Option } from '../components/Filter';
 import { Grid } from '../components/Grid';
 import { Section } from '../components/Section';
+import { Quarter } from '../utils/types';
 import { useDashboardData } from './hooks/data';
 import {
   comms,
@@ -29,16 +30,15 @@ const quarters: Option[] = [
 const Dashboard: FunctionComponent = () => {
   const data = useDashboardData();
   const [year, setYear] = useState<number>(2020);
-  const [quarter, setQuarter] = useState<string>();
+  const [quarter, setQuarter] = useState<Quarter>();
 
   const onSelectYear = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setYear(parseInt(event.currentTarget.value));
   };
 
   const onSelectQuarter = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setQuarter(event.currentTarget.value);
+    setQuarter(parseInt(event.currentTarget.value) as Quarter);
   };
-  console.log(quarter);
 
   return (
     <>
@@ -77,6 +77,7 @@ const Dashboard: FunctionComponent = () => {
         data={data}
         grids={financeDashboard}
         year={year}
+        quarter={quarter}
       />
       <DashboardSection
         id="hr"
@@ -92,8 +93,6 @@ const Dashboard: FunctionComponent = () => {
         department="Project management"
         data={data}
         grids={projectManagement}
-        year={year}
-        quarter={4}
       />
       <DashboardSection
         id="communications"

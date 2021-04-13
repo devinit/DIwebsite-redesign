@@ -7,6 +7,10 @@ type ApacheChartProps = {
   height?: string;
   options: echarts.EChartOption;
   type?: 'bar' | 'line' | 'pie';
+  data: unknown;
+  onClick?: (data: unknown, chartNode: HTMLDivElement, params: unknown) => void;
+  onHover?: (data: unknown, chartNode: HTMLDivElement, params: unknown) => void;
+  onBlur?: (data: unknown, chartNode: HTMLDivElement, params: unknown) => void;
 };
 
 const ApacheChart: FunctionComponent<ApacheChartProps> = (props) => {
@@ -29,7 +33,23 @@ const ApacheChart: FunctionComponent<ApacheChartProps> = (props) => {
             break;
         }
       } else {
-        renderChart(element.current, props.options);
+        renderChart(element.current, props.options).then((chart) => {
+          if (props.onClick) {
+            chart.on('click', (params: unknown) => {
+              props.onClick!(props.data, element.current!, params); // eslint-disable-line @typescript-eslint/no-non-null-assertion
+            });
+          }
+          if (props.onHover) {
+            chart.on('mouseover', (params: unknown) => {
+              props.onHover!(props.data, element.current!, params); // eslint-disable-line @typescript-eslint/no-non-null-assertion
+            });
+          }
+          if (props.onBlur) {
+            chart.on('mouseout', (params: unknown) => {
+              props.onBlur!(props.data, element.current!, params); // eslint-disable-line @typescript-eslint/no-non-null-assertion
+            });
+          }
+        });
       }
     }
   }, []);

@@ -28,6 +28,9 @@ export const generateObjectDataset = (data: DashboardData[]): Record<string, Rea
         if (matchingData.target) {
           dataset['Target'] = matchingData.target;
         }
+        if (matchingData.narrative) {
+          dataset['narrative'] = matchingData.narrative;
+        }
       }
     });
 

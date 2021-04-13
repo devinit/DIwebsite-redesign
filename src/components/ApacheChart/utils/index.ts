@@ -25,10 +25,12 @@ const loadApacheCharts = async (): Promise<typeof echarts> => {
   return echarts;
 };
 
-export const renderChart = async (node: HTMLDivElement, option: echarts.EChartOption): Promise<void> => {
+export const renderChart = async (node: HTMLDivElement, option: echarts.EChartOption): Promise<echarts.ECharts> => {
   const { init } = await loadApacheCharts();
-  const chart = init(node);
+  const chart: echarts.ECharts = init(node) as any; // eslint-disable-line @typescript-eslint/no-explicit-any
   chart.setOption(deepmerge(defaultOptions, option) as any); // eslint-disable-line @typescript-eslint/no-explicit-any
+
+  return chart;
 };
 
 export const makeBasicLineChart = async (node: HTMLDivElement): Promise<void> => {

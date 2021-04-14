@@ -1,6 +1,7 @@
-import { colours, generateObjectDataset } from '../';
+import { generateObjectDataset } from '../';
 import { DashboardData, DashboardGrid } from '../../../utils/types';
 
+const colours = ['#0c457b', '#0071b1', '#4397d3', '#00538e', '#88bae5', '#0089cc']; // shades of blue
 export const hr: DashboardGrid[] = [
   {
     id: '1',
@@ -8,7 +9,7 @@ export const hr: DashboardGrid[] = [
     content: [
       {
         id: 'staff',
-        meta: 'Ratio of Staff and Leavers',
+        meta: 'Ratio of Staff to Leavers',
         styled: true,
         chart: {
           data: (data: DashboardData[]): Record<string, React.ReactText>[] =>

@@ -1,7 +1,8 @@
-import { colours, generateArrayDataset } from '..';
+import { generateArrayDataset } from '..';
 import { DashboardData, DashboardGrid } from '../../../utils/types';
 import { hideNarrative, showNarrative } from '../chart';
 
+const colours = ['#07482e', '#005b3e', '#1e8259', '#5ab88a', '#c5e1cb'];
 export const projectManagement: DashboardGrid[] = [
   {
     id: '1',

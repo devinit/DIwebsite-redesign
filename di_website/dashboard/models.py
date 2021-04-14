@@ -20,7 +20,7 @@ class OrganisationDashboard(MetadataPageMixin, Page):
     @cached_property
     def get_sections(self):
         sections = [
-            { 'id': 'summary', 'caption': 'Summary' },
+            # { 'id': 'summary', 'caption': 'Summary' },
             { 'id': 'finance', 'caption': 'Finance' },
             { 'id': 'development', 'caption': 'Development & Fundraising' },
             { 'id': 'data-systems', 'caption': 'IT & Data Systems' },

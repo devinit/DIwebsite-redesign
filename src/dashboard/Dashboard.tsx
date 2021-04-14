@@ -42,7 +42,7 @@ const Dashboard: FunctionComponent = () => {
 
   return (
     <>
-      <Section>
+      <Section className="display-none">
         <div className="highlight">
           <form className="form">
             <Filter id="year" label="Year" options={years} onChange={onSelectYear} />
@@ -50,7 +50,7 @@ const Dashboard: FunctionComponent = () => {
           </form>
         </div>
       </Section>
-      <Section id="summary">
+      <Section id="summary" className="display-none">
         <Grid columns={4}>
           <Card>
             <CardMetaLarge>Contract Income Secured</CardMetaLarge>

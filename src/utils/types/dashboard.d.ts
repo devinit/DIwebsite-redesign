@@ -14,6 +14,7 @@ export type DashboardGrid = {
   id: string;
   columns?: number;
   content: DashboardContent[];
+  className?: string;
 };
 
 export type DashboardContent = {

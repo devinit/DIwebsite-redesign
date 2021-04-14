@@ -59,6 +59,10 @@
     height: 0;
 }
 
+.display-none {
+  display: none;
+}
+
 /** ==== CHARTS ==== **/
 // .svg-container .main-svg .hoverlayer .hovertext
 .plotly-charts-tooltip {

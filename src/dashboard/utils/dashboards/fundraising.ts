@@ -58,7 +58,7 @@ export const fundraising: DashboardGrid[] = [
   },
   {
     id: '4',
-    columns: 2,
+    columns: 4,
     content: [
       {
         id: 'grant-income-secured',
@@ -74,6 +74,13 @@ export const fundraising: DashboardGrid[] = [
           return metricData && metricData.length && metricData[0].value ? toPounds(metricData[0].value) : 'None';
         },
       },
+    ],
+  },
+  {
+    id: '5',
+    columns: 1,
+    className: 'm-pills',
+    content: [
       {
         id: 'grant-income',
         meta: 'Income at 90% at end of quarter (waiting for agreement to be signed for 2021-2023)',
@@ -88,6 +95,13 @@ export const fundraising: DashboardGrid[] = [
           return metricData && metricData.length && metricData[0].value ? toPounds(metricData[0].value) : 'None';
         },
       },
+    ],
+  },
+  {
+    id: '6',
+    columns: 1,
+    className: 'm-pills',
+    content: [
       {
         id: 'grant-weighted',
         meta: 'Weighted value of 50% & 80% probable pipeline at end of quarter (income 2021-2023)',
@@ -102,6 +116,12 @@ export const fundraising: DashboardGrid[] = [
           return metricData && metricData.length && metricData[0].value ? toPounds(metricData[0].value) : 'None';
         },
       },
+    ],
+  },
+  {
+    id: '7',
+    columns: 2,
+    content: [
       {
         id: 'grant-speculative',
         meta: 'Speculative pipeline value, not weighted (>50% probable)',

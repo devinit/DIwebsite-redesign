@@ -1,6 +1,6 @@
-import { colours } from '../';
 import { DashboardData, DashboardGrid } from '../../../utils/types';
 
+const colours = ['#7d4712', '#a85d00', '#df8000', '#f9b865', '#feedd4'];
 export const comms: DashboardGrid[] = [
   {
     id: '1',

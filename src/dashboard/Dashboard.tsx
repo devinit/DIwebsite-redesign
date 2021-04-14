@@ -93,8 +93,6 @@ const Dashboard: FunctionComponent = () => {
         department="Comms and engagement"
         data={data}
         grids={comms}
-        year={year}
-        quarter={4}
       />
       <DashboardSection
         id="development"

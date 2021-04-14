@@ -4,247 +4,81 @@ const colours = ['#7d4712', '#a85d00', '#df8000', '#f9b865', '#feedd4'];
 export const comms: DashboardGrid[] = [
   {
     id: '1',
-    columns: 3,
+    columns: 1,
     content: [
       {
-        id: 'bounce-rate',
-        meta: 'Bounce rate on the website (mean)',
-        styled: true,
-        chart: {
-          data: (data: DashboardData[]): Record<string, React.ReactText>[] => {
-            // generateObjectDataset(data.filter(({ metric }) => metric === 'Bounce rate on the website (mean)'));
-
-            return [
-              {
-                quarter: '2020 Q1',
-                'Bounce rate on the website (mean)': 12,
-              },
-              {
-                quarter: '2020 Q2',
-                'Bounce rate on the website (mean)': 23,
-              },
-              {
-                quarter: '2020 Q3',
-                'Bounce rate on the website (mean)': 8,
-              },
-              {
-                quarter: '2020 Q4',
-                'Bounce rate on the website (mean)': 10,
-              },
-            ];
-          },
-          options: {
-            color: colours,
-            tooltip: {
-              trigger: 'axis',
-            },
-            legend: { show: false },
-            dataset: {
-              dimensions: ['quarter', 'Bounce rate on the website (mean)'],
-            },
-            grid: {
-              left: '3%',
-              right: '4%',
-              bottom: '3%',
-              containLabel: true,
-            },
-            toolbox: {
-              feature: {
-                saveAsImage: {},
-              },
-            },
-            xAxis: { type: 'category', boundaryGap: true, axisTick: { alignWithLabel: true } },
-            yAxis: { type: 'value', scale: true, splitNumber: 3 },
-            series: [{ type: 'line' }],
-          },
-        },
-      },
-      {
-        id: 'dwell-time',
-        meta: 'Dwell time on the website (mean)',
-        styled: true,
-        chart: {
-          data: (data: DashboardData[]): Record<string, React.ReactText>[] => {
-            // generateObjectDataset(data.filter(({ metric }) => metric === 'Dwell time on the website (mean)'));
-            return [
-              {
-                quarter: '2020 Q1',
-                'Dwell time on the website (mean)': 12,
-              },
-              {
-                quarter: '2020 Q2',
-                'Dwell time on the website (mean)': 23,
-              },
-              {
-                quarter: '2020 Q3',
-                'Dwell time on the website (mean)': 21,
-              },
-              {
-                quarter: '2020 Q4',
-                'Dwell time on the website (mean)': 29,
-              },
-            ];
-          },
-          options: {
-            color: colours,
-            tooltip: {
-              trigger: 'axis',
-            },
-            legend: { show: false },
-            dataset: {
-              dimensions: ['quarter', 'Dwell time on the website (mean)'],
-            },
-            grid: {
-              left: '3%',
-              right: '4%',
-              bottom: '3%',
-              containLabel: true,
-            },
-            toolbox: {
-              feature: {
-                saveAsImage: {},
-              },
-            },
-            xAxis: { type: 'category', boundaryGap: true, axisTick: { alignWithLabel: true } },
-            yAxis: { type: 'value', scale: true, splitNumber: 3 },
-            series: [{ type: 'line' }],
-          },
-        },
-      },
-      {
-        id: 'seo',
-        meta: 'Average SEO ranking',
-        styled: true,
-        chart: {
-          data: (data: DashboardData[]): Record<string, React.ReactText>[] => {
-            // generateObjectDataset(data.filter(({ metric }) => metric === 'Average SEO ranking'));
-
-            return [
-              {
-                quarter: '2020 Q1',
-                'Average SEO ranking': 80,
-              },
-              {
-                quarter: '2020 Q2',
-                'Average SEO ranking': 84,
-              },
-              {
-                quarter: '2020 Q3',
-                'Average SEO ranking': 94,
-              },
-              {
-                quarter: '2020 Q4',
-                'Average SEO ranking': 90,
-              },
-            ];
-          },
-          options: {
-            color: colours,
-            tooltip: {
-              trigger: 'axis',
-            },
-            legend: { show: false },
-            dataset: {
-              dimensions: ['quarter', 'Average SEO ranking'],
-            },
-            grid: {
-              left: '3%',
-              right: '4%',
-              bottom: '3%',
-              containLabel: true,
-            },
-            toolbox: {
-              feature: {
-                saveAsImage: {},
-              },
-            },
-            xAxis: { type: 'category', boundaryGap: true, axisTick: { alignWithLabel: true } },
-            yAxis: { type: 'value', scale: true, splitNumber: 3 },
-            series: [{ type: 'line' }],
-          },
-        },
+        id: 'comms-title',
+        meta: 'Q1 2021',
       },
     ],
   },
   {
     id: '2',
-    columns: 2,
+    columns: 3,
     content: [
       {
-        id: 'engagement-rate',
-        meta: 'Social media engagement rate',
+        id: 'bounce-rate',
+        meta: 'Bounce rate on the website (%)',
         styled: true,
-        chart: {
-          data: (): Record<string, React.ReactText>[] => {
-            return [
-              {
-                quarter: '2020 Q1',
-                'Twitter engagement rate': 80,
-                'Linkedin engagement rate': 45,
-              },
-              {
-                quarter: '2020 Q2',
-                'Twitter engagement rate': 84,
-                'Linkedin engagement rate': 23,
-              },
-              {
-                quarter: '2020 Q3',
-                'Twitter engagement rate': 94,
-                'Linkedin engagement rate': 60,
-              },
-              {
-                quarter: '2020 Q4',
-                'Twitter engagement rate': 90,
-                'Linkedin engagement rate': 34,
-              },
-            ];
-          },
-          options: {
-            color: colours,
-            tooltip: {
-              show: false,
-              trigger: 'axis',
-            },
-            legend: {
-              top: '10%',
-            },
-            dataset: {
-              dimensions: ['quarter', 'Twitter engagement rate', 'Linkedin engagement rate'],
-            },
-            grid: {
-              left: '3%',
-              right: '4%',
-              bottom: '3%',
-              containLabel: true,
-            },
-            toolbox: {
-              feature: {
-                saveAsImage: {},
-              },
-            },
-            xAxis: { type: 'category' },
-            yAxis: { type: 'value', show: false, splitNumber: 3, axisLabel: { formatter: '{value}%' } },
-            /* eslint-disable @typescript-eslint/no-explicit-any */
-            series: [
-              {
-                type: 'bar',
-                label: {
-                  show: true,
-                  position: 'top',
-                  formatter: (params: any): string => `${params.value[params.dimensionNames[params.encode.y[0]]]}%`,
-                },
-              },
-              {
-                type: 'bar',
-                label: {
-                  show: true,
-                  position: 'top',
-                  formatter: (params: any): string => `${params.value[params.dimensionNames[params.encode.y[0]]]}%`,
-                },
-              },
-            ],
-            /* eslint-enable @typescript-eslint/no-explicit-any */
-          },
+        title: (data: DashboardData[]): React.ReactText => {
+          const currentMetric = 'Bounce rate on the website (%)';
+          const metricData = data.filter(
+            ({ metric, year, quarter }) => metric.trim() === currentMetric && year === 2021 && quarter === 'Q1',
+          );
+
+          return metricData && metricData.length && metricData[0].value ? `${metricData[0].value}%` : 'None';
+        },
+      },
+      {
+        id: 'dwell-time',
+        meta: 'Dwell time on the website (minutes)',
+        styled: true,
+        title: (data: DashboardData[]): React.ReactText => {
+          const currentMetric = 'Dwell time on the website (minutes)';
+          const metricData = data.filter(
+            ({ metric, year, quarter }) => metric.trim() === currentMetric && year === 2021 && quarter === 'Q1',
+          );
+
+          return metricData && metricData.length && metricData[0].value ? `${metricData[0].value}` : 'None';
+        },
+      },
+      {
+        id: 'seo',
+        meta: 'Overall on-page SEO score',
+        styled: true,
+        title: (data: DashboardData[]): React.ReactText => {
+          const currentMetric = 'Overall on-page SEO score';
+          const metricData = data.filter(
+            ({ metric, year, quarter }) => metric.trim() === currentMetric && year === 2021 && quarter === 'Q1',
+          );
+
+          return metricData && metricData.length && metricData[0].value ? `${metricData[0].value}` : 'None';
+        },
+      },
+      {
+        id: 'twitter',
+        meta: 'Twitter engagement rate',
+        styled: true,
+        title: (data: DashboardData[]): React.ReactText => {
+          const currentMetric = 'Twitter engagement rate';
+          const metricData = data.filter(
+            ({ metric, year, quarter }) => metric.trim() === currentMetric && year === 2021 && quarter === 'Q1',
+          );
+
+          return metricData && metricData.length && metricData[0].value ? `${metricData[0].value}%` : 'None';
+        },
+      },
+      {
+        id: 'linkedin',
+        meta: 'Linkedin engagement rate',
+        styled: true,
+        title: (data: DashboardData[]): React.ReactText => {
+          const currentMetric = 'Linkedin engagement rate';
+          const metricData = data.filter(
+            ({ metric, year, quarter }) => metric.trim() === currentMetric && year === 2021 && quarter === 'Q1',
+          );
+
+          return metricData && metricData.length && metricData[0].value ? `${metricData[0].value}%` : 'None';
         },
       },
     ],

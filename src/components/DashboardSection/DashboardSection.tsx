@@ -94,8 +94,8 @@ const DashboardSection: FunctionComponent<DashboardSectionProps> = ({ year, quar
       {!data.length ? (
         <div>Loading...</div>
       ) : (
-        props.grids.map(({ id, columns, content }) => (
-          <Grid key={id} columns={columns || 1}>
+        props.grids.map(({ id, columns, content, className }) => (
+          <Grid key={id} columns={columns || 1} className={className}>
             {content.map(renderCard)}
           </Grid>
         ))

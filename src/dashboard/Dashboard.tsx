@@ -79,14 +79,7 @@ const Dashboard: FunctionComponent = () => {
         year={year}
         quarter={quarter}
       />
-      <DashboardSection
-        id="hr"
-        title="Human Resources"
-        department="HR"
-        data={data}
-        grids={humanResourcesDashboard}
-        year={year}
-      />
+      <DashboardSection id="hr" title="Human Resources" department="HR" data={data} grids={humanResourcesDashboard} />
       <DashboardSection
         id="project-management"
         title="Project Management"

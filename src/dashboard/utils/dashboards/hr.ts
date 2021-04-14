@@ -125,14 +125,18 @@ export const hr: DashboardGrid[] = [
                 saveAsImage: {},
               },
             },
-            xAxis: { type: 'category', boundaryGap: true, axisTick: { alignWithLabel: true }, position: 'top' },
-            yAxis: { type: 'value', show: false, splitNumber: 3 },
+            xAxis: { name: 'Gender Pay Gap (Mean)', show: false },
+            yAxis: { type: 'category' },
             series: [
               {
                 type: 'bar',
+                encode: {
+                  x: 'Gender Pay Gap (Mean)',
+                  y: 'quarter',
+                },
                 label: {
                   show: true,
-                  formatter: (params: any): string => `${params.value[params.dimensionNames[params.encode.y[0]]]}%`,
+                  formatter: (params: any): string => `${params.value[params.dimensionNames[params.encode.x[0]]]}%`,
                 },
               },
             ],
@@ -172,14 +176,17 @@ export const hr: DashboardGrid[] = [
                 saveAsImage: {},
               },
             },
-            xAxis: { type: 'category', boundaryGap: true, axisTick: { alignWithLabel: true }, position: 'top' },
-            yAxis: { type: 'value', show: false, splitNumber: 3 },
+            xAxis: {
+              name: 'Gender Pay Gap (Median)',
+              show: false,
+            },
+            yAxis: { type: 'category', show: true, axisTick: { alignWithLabel: true } },
             series: [
               {
                 type: 'bar',
                 label: {
                   show: true,
-                  formatter: (params: any): string => `${params.value[params.dimensionNames[params.encode.y[0]]]}%`,
+                  formatter: (params: any): string => `${params.value[params.dimensionNames[params.encode.x[0]]]}%`,
                 },
               },
             ],

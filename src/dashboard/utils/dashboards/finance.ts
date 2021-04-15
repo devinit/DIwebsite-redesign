@@ -7,6 +7,21 @@ const grid: echarts.EChartOption.Grid = {
   bottom: '3%',
   containLabel: true,
 };
+const getAggregatedDatasetSource = (data: DashboardData[], metrics: string[]) => {
+  const metricData = data.filter(({ metric }) => metrics.includes(metric));
+  const dataAveragesForMetricYear = metricData.reduce<DashboardData[]>((prev, curr) => {
+    if (!prev.find((item) => item.metric === curr.metric && item.year === curr.year)) {
+      const metricDataForYear = metricData.filter(({ metric, year }) => metric === curr.metric && year === curr.year);
+      const sum = metricDataForYear.reduce((currentSum, curr) => currentSum + curr.value, 0);
+      const average = sum / metricDataForYear.length;
+      prev.push({ ...curr, value: average });
+    }
+
+    return prev;
+  }, []);
+
+  return generateObjectDataset(dataAveragesForMetricYear);
+};
 
 export const financeDashboard: DashboardGrid[] = [
   {
@@ -18,23 +33,8 @@ export const financeDashboard: DashboardGrid[] = [
         meta: 'Proportion of staff time spent on projects',
         styled: true,
         chart: {
-          data: (data: DashboardData[]): Record<string, React.ReactText>[] => {
-            const metricData = data.filter(({ metric }) => metric === 'Non-Overhead staff' || metric === 'All staff');
-            const dataAveragesForMetricYear = metricData.reduce<DashboardData[]>((prev, curr) => {
-              if (!prev.find((item) => item.metric === curr.metric && item.year === curr.year)) {
-                const metricDataForYear = metricData.filter(
-                  ({ metric, year }) => metric === curr.metric && year === curr.year,
-                );
-                const sum = metricDataForYear.reduce((currentSum, curr) => currentSum + curr.value, 0);
-                const average = sum / metricDataForYear.length;
-                prev.push({ ...curr, value: average });
-              }
-
-              return prev;
-            }, []);
-
-            return generateObjectDataset(dataAveragesForMetricYear);
-          },
+          data: (data: DashboardData[]): Record<string, React.ReactText>[] =>
+            getAggregatedDatasetSource(data, ['Non-Overhead staff', 'All staff']),
           options: {
             color: colours,
             tooltip: { show: false },
@@ -103,25 +103,8 @@ export const financeDashboard: DashboardGrid[] = [
         meta: 'Proportion of time spent on direct and indirect overheads',
         styled: true,
         chart: {
-          data: (data: DashboardData[]): Record<string, React.ReactText>[] => {
-            const metricData = data.filter(
-              ({ metric }) => metric === 'Direct overheads' || metric === 'Indirect overheads',
-            );
-            const dataAveragesForMetricYear = metricData.reduce<DashboardData[]>((prev, curr) => {
-              if (!prev.find((item) => item.metric === curr.metric && item.year === curr.year)) {
-                const metricDataForYear = metricData.filter(
-                  ({ metric, year }) => metric === curr.metric && year === curr.year,
-                );
-                const sum = metricDataForYear.reduce((currentSum, curr) => currentSum + curr.value, 0);
-                const average = sum / metricDataForYear.length;
-                prev.push({ ...curr, value: average });
-              }
-
-              return prev;
-            }, []);
-
-            return generateObjectDataset(dataAveragesForMetricYear);
-          },
+          data: (data: DashboardData[]): Record<string, React.ReactText>[] =>
+            getAggregatedDatasetSource(data, ['Direct overheads', 'Indirect overheads']),
           options: {
             color: colours,
             tooltip: { show: false },
@@ -192,18 +175,13 @@ export const financeDashboard: DashboardGrid[] = [
         styled: true,
         chart: {
           data: (data: DashboardData[]): Record<string, React.ReactText>[] =>
-            generateObjectDataset(
-              data.filter(
-                ({ metric }) =>
-                  metric === 'Consultants as proportion of income' || metric === 'Salary as proportion of income',
-              ),
-            ),
+            getAggregatedDatasetSource(data, ['Consultants as proportion of income', 'Salary as proportion of income']),
           options: {
             color: colours,
             tooltip: { show: false },
             legend: { top: '10%' },
             dataset: {
-              dimensions: ['quarter', 'Consultants as proportion of income', 'Salary as proportion of income'],
+              dimensions: ['year', 'Consultants as proportion of income', 'Salary as proportion of income'],
             },
             grid,
             xAxis: { type: 'category' },
@@ -222,6 +200,39 @@ export const financeDashboard: DashboardGrid[] = [
             ),
             /* eslint-enable @typescript-eslint/no-explicit-any */
           },
+          onClick: ({ data, chart, params }: EventOptions): void => {
+            const { year: y } = params.data;
+            const source = generateObjectDataset(
+              (data as DashboardData[]).filter(
+                ({ metric, year }) =>
+                  ['Consultants as proportion of income', 'Salary as proportion of income'].includes(metric) &&
+                  y === year,
+              ),
+            );
+            const options: echarts.EChartOption = {
+              tooltip: { show: false },
+              dataset: {
+                source,
+                dimensions: ['quarter', 'Consultants as proportion of income', 'Salary as proportion of income'],
+              },
+              grid,
+              xAxis: { type: 'category' },
+              yAxis: { type: 'value', splitNumber: 3, axisLabel: { formatter: '{value}%' } },
+              series: [{ type: 'bar' }, { type: 'bar' }],
+            };
+            const previousOptions = chart.getOption();
+            const chartNode = chart.getDom();
+            const canvas = chartNode.getElementsByTagName('canvas')[0];
+            if (canvas) {
+              const onClick = () => {
+                chart.setOption(previousOptions);
+                canvas.removeEventListener('click', onClick);
+              };
+              canvas.addEventListener('click', onClick);
+            }
+
+            chart.setOption(options);
+          },
         },
       },
       {
@@ -230,15 +241,13 @@ export const financeDashboard: DashboardGrid[] = [
         styled: true,
         chart: {
           data: (data: DashboardData[]): Record<string, React.ReactText>[] =>
-            generateObjectDataset(
-              data.filter(({ metric }) => metric === 'Average consultant % for year to date (excl GNR)'),
-            ),
+            getAggregatedDatasetSource(data, ['Average consultant % for year to date (excl GNR)']),
           options: {
             color: colours,
             tooltip: { show: false },
             legend: { show: false },
             dataset: {
-              dimensions: ['quarter', 'Average consultant % for year to date (excl GNR)'],
+              dimensions: ['year', 'Average consultant % for year to date (excl GNR)'],
             },
             grid,
             xAxis: { type: 'category' },
@@ -255,6 +264,38 @@ export const financeDashboard: DashboardGrid[] = [
               },
             ],
             /* eslint-enable @typescript-eslint/no-explicit-any */
+          },
+          onClick: ({ data, chart, params }: EventOptions): void => {
+            const { year: y } = params.data;
+            const source = generateObjectDataset(
+              (data as DashboardData[]).filter(
+                ({ metric, year }) =>
+                  ['Average consultant % for year to date (excl GNR)'].includes(metric) && y === year,
+              ),
+            );
+            const options: echarts.EChartOption = {
+              tooltip: { show: false },
+              dataset: {
+                source,
+                dimensions: ['quarter', 'Average consultant % for year to date (excl GNR)'],
+              },
+              grid,
+              xAxis: { type: 'category' },
+              yAxis: { type: 'value', splitNumber: 3, axisLabel: { formatter: '{value}%' } },
+              series: [{ type: 'bar' }],
+            };
+            const previousOptions = chart.getOption();
+            const chartNode = chart.getDom();
+            const canvas = chartNode.getElementsByTagName('canvas')[0];
+            if (canvas) {
+              const onClick = () => {
+                chart.setOption(previousOptions);
+                canvas.removeEventListener('click', onClick);
+              };
+              canvas.addEventListener('click', onClick);
+            }
+
+            chart.setOption(options);
           },
         },
       },

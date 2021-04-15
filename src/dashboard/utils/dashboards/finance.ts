@@ -1,5 +1,5 @@
 import { colours, generateObjectDataset } from '../';
-import { DashboardData, DashboardGrid } from '../../../utils/types';
+import { DashboardData, DashboardGrid, EventOptions } from '../../../utils/types';
 
 const grid: echarts.EChartOption.Grid = {
   left: '3%',
@@ -56,6 +56,35 @@ export const financeDashboard: DashboardGrid[] = [
                 },
               }),
             ),
+          },
+          onClick: ({ data, chart, params }: EventOptions): void => {
+            const { year: y } = params.data;
+            const source = generateObjectDataset(
+              (data as DashboardData[]).filter(
+                ({ metric, year }) => (metric === 'Non-Overhead staff' || metric === 'All staff') && y === year,
+              ),
+            );
+            const options: echarts.EChartOption = {
+              dataset: {
+                source,
+                dimensions: ['quarter', 'Non-Overhead staff', 'All staff', 'Target'],
+              },
+              grid,
+              xAxis: { type: 'category', boundaryGap: true, axisTick: { alignWithLabel: true } },
+              yAxis: { type: 'value', scale: true, splitNumber: 3, axisLabel: { formatter: '{value}%' } },
+              series: [
+                { type: 'line' },
+                { type: 'line' },
+                {
+                  type: 'line',
+                  symbol: 'none',
+                  lineStyle: { type: 'dashed', color: '#333' },
+                  itemStyle: { color: '#333' },
+                },
+              ],
+            };
+
+            chart.setOption(options);
           },
         },
       },

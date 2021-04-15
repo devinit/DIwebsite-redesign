@@ -38,17 +38,17 @@ const ApacheChart: FunctionComponent<ApacheChartProps> = (props) => {
           /* eslint-disable @typescript-eslint/no-non-null-assertion */
           if (props.onClick) {
             chart.on('click', (params: unknown) => {
-              props.onClick!({ data: props.data, chartNode: element.current!, chart, params });
+              props.onClick!({ data: props.data, chart, params });
             });
           }
           if (props.onHover) {
             chart.on('mouseover', (params: unknown) => {
-              props.onHover!({ data: props.data, chartNode: element.current!, chart, params });
+              props.onHover!({ data: props.data, chart, params });
             });
           }
           if (props.onBlur) {
             chart.on('mouseout', (params: unknown) => {
-              props.onBlur!({ data: props.data, chartNode: element.current!, chart, params });
+              props.onBlur!({ data: props.data, chart, params });
             });
           }
           /* eslint-enable @typescript-eslint/no-non-null-assertion */

@@ -18,30 +18,44 @@ export const financeDashboard: DashboardGrid[] = [
         meta: 'Proportion of staff time spent on projects',
         styled: true,
         chart: {
-          data: (data: DashboardData[]): Record<string, React.ReactText>[] =>
-            generateObjectDataset(
-              data.filter(({ metric }) => metric === 'Non-Overhead staff' || metric === 'All staff'),
-            ),
+          data: (data: DashboardData[]): Record<string, React.ReactText>[] => {
+            const metricData = data.filter(({ metric }) => metric === 'Non-Overhead staff' || metric === 'All staff');
+            const dataAveragesForMetricYear = metricData.reduce<DashboardData[]>((prev, curr) => {
+              if (!prev.find((item) => item.metric === curr.metric && item.year === curr.year)) {
+                const metricDataForYear = metricData.filter(
+                  ({ metric, year }) => metric === curr.metric && year === curr.year,
+                );
+                const sum = metricDataForYear.reduce((currentSum, curr) => currentSum + curr.value, 0);
+                const average = sum / metricDataForYear.length;
+                prev.push({ ...curr, value: average });
+              }
+
+              return prev;
+            }, []);
+
+            return generateObjectDataset(dataAveragesForMetricYear);
+          },
           options: {
             color: colours,
-            tooltip: { trigger: 'axis' },
+            tooltip: { show: false },
             legend: {},
             dataset: {
-              dimensions: ['quarter', 'Non-Overhead staff', 'All staff', 'Target'],
+              dimensions: ['year', 'Non-Overhead staff', 'All staff'],
             },
             grid,
             xAxis: { type: 'category', boundaryGap: true, axisTick: { alignWithLabel: true } },
-            yAxis: { type: 'value', scale: true, splitNumber: 3, axisLabel: { formatter: '{value}%' } },
-            series: [
-              { type: 'line' },
-              { type: 'line' },
-              {
-                type: 'line',
-                symbol: 'none',
-                lineStyle: { type: 'dashed', color: '#333' },
-                itemStyle: { color: '#333' },
-              },
-            ],
+            yAxis: { type: 'value', splitNumber: 3, axisLabel: { formatter: '{value}%' } },
+            series: Array.from(
+              { length: 2 },
+              (): echarts.EChartOption.Series => ({
+                type: 'bar',
+                label: {
+                  show: true,
+                  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+                  formatter: (params: any): string => `${params.value[params.dimensionNames[params.encode.y[0]]]}%`,
+                },
+              }),
+            ),
           },
         },
       },

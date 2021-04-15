@@ -296,3 +296,31 @@ DATA_UPLOAD_MAX_NUMBER_FIELDS = 10000
 GITHUB_TOKEN = os.getenv('GITHUB_TOKEN')
 
 PASSWORD_REQUIRED_TEMPLATE = 'password_required.html'
+
+# Patch for Youtube embed error (TODO: remove once upgraded to Wagtail 2.11+)
+
+WAGTAILEMBEDS_FINDERS = [
+    {
+        'class': 'wagtail.embeds.finders.oembed',
+        'providers': [
+            {
+                "endpoint": "https://www.youtube.com/oembed",
+                "urls": [
+                    r'^https?://(?:[-\w]+\.)?youtube\.com/watch.+$',
+                    r'^https?://(?:[-\w]+\.)?youtube\.com/v/.+$',
+                    r'^https?://youtu\.be/.+$',
+                    r'^https?://(?:[-\w]+\.)?youtube\.com/user/.+$',
+                    r'^https?://(?:[-\w]+\.)?youtube\.com/[^#?/]+#[^#?/]+/.+$',
+                    r'^https?://m\.youtube\.com/index.+$',
+                    r'^https?://(?:[-\w]+\.)?youtube\.com/profile.+$',
+                    r'^https?://(?:[-\w]+\.)?youtube\.com/view_play_list.+$',
+                    r'^https?://(?:[-\w]+\.)?youtube\.com/playlist.+$',
+                ],
+            }
+        ],
+        'options': {'scheme': 'https'}
+    },
+    {
+        'class': 'wagtail.embeds.finders.oembed',
+    }
+]

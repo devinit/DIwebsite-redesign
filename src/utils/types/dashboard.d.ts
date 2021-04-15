@@ -30,9 +30,11 @@ export type DashboardChart = {
   height?: string;
   data: (data: DashboardData[]) => Record<string, React.ReactText>[] | React.ReactText[][];
   options: echarts.EChartOption;
-  onClick?: (data: DashboardData[], node: HTMLDivElement, params: any) => void; // eslint-disable-line @typescript-eslint/no-explicit-any
-  onHover?: (data: DashboardData[], node: HTMLDivElement, params: any) => void; // eslint-disable-line @typescript-eslint/no-explicit-any
-  onBlur?: (data: DashboardData[], node: HTMLDivElement, params: any) => void; // eslint-disable-line @typescript-eslint/no-explicit-any
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+  onClick?: (options: EventOptions) => void;
+  onHover?: (options: EventOptions) => void;
+  onBlur?: (options: EventOptions) => void;
+  /* eslint-enable @typescript-eslint/no-explicit-any */
 };
 
 export type DashboardFilters = {
@@ -42,3 +44,10 @@ export type DashboardFilters = {
 };
 
 export type Quarter = 1 | 2 | 3 | 4;
+
+export type EventOptions = {
+  data: unknown[];
+  chartNode: HTMLDivElement;
+  chart: echarts.ECharts;
+  params: any;
+};

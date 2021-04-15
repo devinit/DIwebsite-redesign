@@ -47,7 +47,6 @@ export type Quarter = 1 | 2 | 3 | 4;
 
 export type EventOptions = {
   data: unknown[];
-  chartNode: HTMLDivElement;
   chart: echarts.ECharts;
-  params: any;
+  params: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 };

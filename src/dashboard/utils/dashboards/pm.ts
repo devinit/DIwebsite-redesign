@@ -231,7 +231,7 @@ export const projectManagement: DashboardGrid[] = [
               },
             ],
           },
-          onHover: ({ data, chartNode, params }: EventOptions): void => {
+          onHover: ({ data, chart, params }: EventOptions): void => {
             const metricData = (data as DashboardData[]).filter(
               ({ metric, year, quarter }) =>
                 [
@@ -246,11 +246,11 @@ export const projectManagement: DashboardGrid[] = [
 
             const dataPoint = metricData.find((item) => item.metric === metric);
             if (dataPoint && dataPoint.narrative) {
-              showNarrative(chartNode, dataPoint.narrative);
+              showNarrative(chart.getDom() as HTMLDivElement, dataPoint.narrative);
             }
           },
-          onBlur: ({ chartNode }: EventOptions): void => {
-            hideNarrative(chartNode);
+          onBlur: ({ chart }: EventOptions): void => {
+            hideNarrative(chart.getDom() as HTMLDivElement);
           },
           /* eslint-enable @typescript-eslint/no-explicit-any,@typescript-eslint/explicit-module-boundary-types */
         },
@@ -331,7 +331,7 @@ export const projectManagement: DashboardGrid[] = [
               ),
             ),
           // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types,@typescript-eslint/no-explicit-any
-          onHover: ({ data, chartNode, params }: EventOptions): void => {
+          onHover: ({ data, chart, params }: EventOptions): void => {
             const metricData = (data as DashboardData[]).filter(({ metric }) =>
               ['% projects overspending', '% projects underspending', '% projects on track'].includes(metric),
             );
@@ -344,11 +344,11 @@ export const projectManagement: DashboardGrid[] = [
               (item) => item.metric === metric && `${item.year}` === year && item.quarter === quarter,
             );
             if (dataPoint && dataPoint.narrative) {
-              showNarrative(chartNode, dataPoint.narrative);
+              showNarrative(chart.getDom() as HTMLDivElement, dataPoint.narrative);
             }
           },
-          onBlur: ({ chartNode }: EventOptions): void => {
-            hideNarrative(chartNode);
+          onBlur: ({ chart }: EventOptions): void => {
+            hideNarrative(chart.getDom() as HTMLDivElement);
           },
           options: {
             color: colours,

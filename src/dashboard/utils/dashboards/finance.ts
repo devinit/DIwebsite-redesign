@@ -44,7 +44,7 @@ export const financeDashboard: DashboardGrid[] = [
             },
             grid,
             xAxis: { type: 'category', boundaryGap: true, axisTick: { alignWithLabel: true } },
-            yAxis: { type: 'value', splitNumber: 3, axisLabel: { formatter: '{value}%' } },
+            yAxis: { type: 'value', scale: false, splitNumber: 3, axisLabel: { formatter: '{value}%' } },
             series: Array.from(
               { length: 2 },
               (): echarts.EChartOption.Series => ({
@@ -83,6 +83,16 @@ export const financeDashboard: DashboardGrid[] = [
                 },
               ],
             };
+            const previousOptions = chart.getOption();
+            const chartNode = chart.getDom();
+            const canvas = chartNode.getElementsByTagName('canvas')[0];
+            if (canvas) {
+              const onClick = () => {
+                chart.setOption(previousOptions);
+                canvas.removeEventListener('click', onClick);
+              };
+              canvas.addEventListener('click', onClick);
+            }
 
             chart.setOption(options);
           },

@@ -1,5 +1,5 @@
 import { generateArrayDataset } from '..';
-import { DashboardData, DashboardGrid } from '../../../utils/types';
+import { DashboardData, DashboardGrid, EventOptions } from '../../../utils/types';
 import { hideNarrative, showNarrative } from '../chart';
 
 const colours = ['#07482e', '#005b3e', '#1e8259', '#5ab88a', '#c5e1cb'];
@@ -231,8 +231,8 @@ export const projectManagement: DashboardGrid[] = [
               },
             ],
           },
-          onHover: (data: DashboardData[], chartNode: HTMLDivElement, params: any): void => {
-            const metricData = data.filter(
+          onHover: ({ data, chart, params }: EventOptions): void => {
+            const metricData = (data as DashboardData[]).filter(
               ({ metric, year, quarter }) =>
                 [
                   'Number of projects with On track status',
@@ -246,11 +246,11 @@ export const projectManagement: DashboardGrid[] = [
 
             const dataPoint = metricData.find((item) => item.metric === metric);
             if (dataPoint && dataPoint.narrative) {
-              showNarrative(chartNode, dataPoint.narrative);
+              showNarrative(chart.getDom() as HTMLDivElement, dataPoint.narrative);
             }
           },
-          onBlur: (_data: DashboardData[], chartNode: HTMLDivElement): void => {
-            hideNarrative(chartNode);
+          onBlur: ({ chart }: EventOptions): void => {
+            hideNarrative(chart.getDom() as HTMLDivElement);
           },
           /* eslint-enable @typescript-eslint/no-explicit-any,@typescript-eslint/explicit-module-boundary-types */
         },
@@ -331,8 +331,8 @@ export const projectManagement: DashboardGrid[] = [
               ),
             ),
           // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types,@typescript-eslint/no-explicit-any
-          onHover: (data: DashboardData[], chartNode: HTMLDivElement, params: any): void => {
-            const metricData = data.filter(({ metric }) =>
+          onHover: ({ data, chart, params }: EventOptions): void => {
+            const metricData = (data as DashboardData[]).filter(({ metric }) =>
               ['% projects overspending', '% projects underspending', '% projects on track'].includes(metric),
             );
             const index = params.encode.value[0];
@@ -344,11 +344,11 @@ export const projectManagement: DashboardGrid[] = [
               (item) => item.metric === metric && `${item.year}` === year && item.quarter === quarter,
             );
             if (dataPoint && dataPoint.narrative) {
-              showNarrative(chartNode, dataPoint.narrative);
+              showNarrative(chart.getDom() as HTMLDivElement, dataPoint.narrative);
             }
           },
-          onBlur: (_data: DashboardData[], chartNode: HTMLDivElement): void => {
-            hideNarrative(chartNode);
+          onBlur: ({ chart }: EventOptions): void => {
+            hideNarrative(chart.getDom() as HTMLDivElement);
           },
           options: {
             color: colours,

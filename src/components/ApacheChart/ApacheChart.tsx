@@ -1,4 +1,5 @@
 import React, { FunctionComponent, useEffect, useRef } from 'react';
+import { EventOptions } from '../../utils/types';
 import { makeBasicLineChart, renderBasicColumnChart, renderBasicPieChart, renderChart } from './utils';
 
 type ApacheChartProps = {
@@ -7,10 +8,10 @@ type ApacheChartProps = {
   height?: string;
   options: echarts.EChartOption;
   type?: 'bar' | 'line' | 'pie';
-  data: unknown;
-  onClick?: (data: unknown, chartNode: HTMLDivElement, params: unknown) => void;
-  onHover?: (data: unknown, chartNode: HTMLDivElement, params: unknown) => void;
-  onBlur?: (data: unknown, chartNode: HTMLDivElement, params: unknown) => void;
+  data: unknown[];
+  onClick?: (options: EventOptions) => void;
+  onHover?: (options: EventOptions) => void;
+  onBlur?: (options: EventOptions) => void;
 };
 
 const ApacheChart: FunctionComponent<ApacheChartProps> = (props) => {
@@ -34,21 +35,23 @@ const ApacheChart: FunctionComponent<ApacheChartProps> = (props) => {
         }
       } else {
         renderChart(element.current, props.options).then((chart) => {
+          /* eslint-disable @typescript-eslint/no-non-null-assertion */
           if (props.onClick) {
             chart.on('click', (params: unknown) => {
-              props.onClick!(props.data, element.current!, params); // eslint-disable-line @typescript-eslint/no-non-null-assertion
+              props.onClick!({ data: props.data, chart, params });
             });
           }
           if (props.onHover) {
             chart.on('mouseover', (params: unknown) => {
-              props.onHover!(props.data, element.current!, params); // eslint-disable-line @typescript-eslint/no-non-null-assertion
+              props.onHover!({ data: props.data, chart, params });
             });
           }
           if (props.onBlur) {
             chart.on('mouseout', (params: unknown) => {
-              props.onBlur!(props.data, element.current!, params); // eslint-disable-line @typescript-eslint/no-non-null-assertion
+              props.onBlur!({ data: props.data, chart, params });
             });
           }
+          /* eslint-enable @typescript-eslint/no-non-null-assertion */
         });
       }
     }

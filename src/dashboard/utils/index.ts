@@ -90,3 +90,22 @@ export const toPounds = (value: number): string => {
 
   return formatter.format(value);
 };
+
+export const getAggregatedDatasetSource = (
+  data: DashboardData[],
+  metrics: string[],
+): Record<string, React.ReactText>[] => {
+  const metricData = data.filter(({ metric }) => metrics.includes(metric));
+  const dataAveragesForMetricYear = metricData.reduce<DashboardData[]>((prev, curr) => {
+    if (!prev.find((item) => item.metric === curr.metric && item.year === curr.year)) {
+      const metricDataForYear = metricData.filter(({ metric, year }) => metric === curr.metric && year === curr.year);
+      const sum = metricDataForYear.reduce((currentSum, curr) => currentSum + curr.value, 0);
+      const average = sum / metricDataForYear.length;
+      prev.push({ ...curr, value: average });
+    }
+
+    return prev;
+  }, []);
+
+  return generateObjectDataset(dataAveragesForMetricYear);
+};

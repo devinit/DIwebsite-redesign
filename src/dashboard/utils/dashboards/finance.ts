@@ -43,6 +43,7 @@ export const financeDashboard: DashboardGrid[] = [
             ),
           },
           onClick: ({ data, chart, params }: EventOptions): void => {
+            if (!params.data) return;
             const { year: y } = params.data;
             const source = generateObjectDataset(
               (data as DashboardData[]).filter(
@@ -114,6 +115,7 @@ export const financeDashboard: DashboardGrid[] = [
             ),
           },
           onClick: ({ data, chart, params }: EventOptions): void => {
+            if (!params.data) return;
             const { year: y } = params.data;
             const source = generateObjectDataset(
               (data as DashboardData[]).filter(
@@ -188,6 +190,7 @@ export const financeDashboard: DashboardGrid[] = [
             /* eslint-enable @typescript-eslint/no-explicit-any */
           },
           onClick: ({ data, chart, params }: EventOptions): void => {
+            if (!params.data) return;
             const { year: y } = params.data;
             const source = generateObjectDataset(
               (data as DashboardData[]).filter(
@@ -224,7 +227,7 @@ export const financeDashboard: DashboardGrid[] = [
       },
       {
         id: 'consultant-costs',
-        meta: 'Consultant costs %, YTD (excluding GNR)',
+        meta: 'Average consultant % for year to date (excl GNR)',
         styled: true,
         chart: {
           data: (data: DashboardData[]): Record<string, React.ReactText>[] =>
@@ -253,6 +256,7 @@ export const financeDashboard: DashboardGrid[] = [
             /* eslint-enable @typescript-eslint/no-explicit-any */
           },
           onClick: ({ data, chart, params }: EventOptions): void => {
+            if (!params.data) return;
             const { year: y } = params.data;
             const source = generateObjectDataset(
               (data as DashboardData[]).filter(

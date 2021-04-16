@@ -11,8 +11,6 @@ export const getQuarterYear = (dateString: string): [number, number] => {
   }
 };
 
-export const colours = ['#6c120a', '#a21e25', '#cd2b2a', '#dc372d', '#ec6250', '#f6b0a0', '#fbd7cb', '#fce3dc'];
-
 export const generateObjectDataset = (data: DashboardData[]): Record<string, React.ReactText>[] => {
   // extract unique metrics & dates
   const metrics = [...new Set(data.map(({ metric }) => metric))];
@@ -89,4 +87,31 @@ export const toPounds = (value: number): string => {
   const formatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'GBP' });
 
   return formatter.format(value);
+};
+
+export const getAggregatedDatasetSource = (
+  data: DashboardData[],
+  metrics: string[],
+  aggregation: 'sum' | 'average' = 'average',
+): Record<string, React.ReactText>[] => {
+  const metricData = data.filter(({ metric }) => metrics.includes(metric));
+
+  const dataAggregateForMetricYear = metricData.reduce<DashboardData[]>((prev, curr) => {
+    if (!prev.find((item) => item.metric === curr.metric && item.year === curr.year)) {
+      const metricDataForYear = metricData.filter(
+        ({ metric, year, value }) => metric === curr.metric && year === curr.year && typeof value === 'number',
+      );
+      const sum = metricDataForYear.reduce((currentSum, curr) => currentSum + curr.value, 0);
+      if (aggregation === 'average') {
+        const average = sum / metricDataForYear.length;
+        prev.push({ ...curr, value: average });
+      } else {
+        prev.push({ ...curr, value: sum });
+      }
+    }
+
+    return prev;
+  }, []);
+
+  return generateObjectDataset(dataAggregateForMetricYear);
 };

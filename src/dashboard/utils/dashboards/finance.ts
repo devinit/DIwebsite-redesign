@@ -1,27 +1,6 @@
-import { colours, generateObjectDataset } from '../';
+import { generateObjectDataset, getAggregatedDatasetSource } from '../';
 import { DashboardData, DashboardGrid, EventOptions } from '../../../utils/types';
-
-const grid: echarts.EChartOption.Grid = {
-  left: '3%',
-  right: '4%',
-  bottom: '3%',
-  containLabel: true,
-};
-const getAggregatedDatasetSource = (data: DashboardData[], metrics: string[]) => {
-  const metricData = data.filter(({ metric }) => metrics.includes(metric));
-  const dataAveragesForMetricYear = metricData.reduce<DashboardData[]>((prev, curr) => {
-    if (!prev.find((item) => item.metric === curr.metric && item.year === curr.year)) {
-      const metricDataForYear = metricData.filter(({ metric, year }) => metric === curr.metric && year === curr.year);
-      const sum = metricDataForYear.reduce((currentSum, curr) => currentSum + curr.value, 0);
-      const average = sum / metricDataForYear.length;
-      prev.push({ ...curr, value: average });
-    }
-
-    return prev;
-  }, []);
-
-  return generateObjectDataset(dataAveragesForMetricYear);
-};
+import { addChartReverseListener, colours, grid } from '../chart';
 
 export const financeDashboard: DashboardGrid[] = [
   {
@@ -38,19 +17,18 @@ export const financeDashboard: DashboardGrid[] = [
           options: {
             color: colours,
             tooltip: { show: false },
-            legend: {},
-            dataset: {
-              dimensions: ['year', 'Non-Overhead staff', 'All staff'],
-            },
+            legend: { data: ['Non-Overhead staff', 'All staff'] },
+            dataset: { dimensions: ['year', 'Non-Overhead staff', 'All staff'] },
             grid,
             xAxis: { type: 'category', boundaryGap: true, axisTick: { alignWithLabel: true } },
-            yAxis: { type: 'value', scale: false, splitNumber: 3, axisLabel: { formatter: '{value}%' } },
+            yAxis: { type: 'value', show: false },
             series: Array.from(
               { length: 2 },
               (): echarts.EChartOption.Series => ({
                 type: 'bar',
                 label: {
                   show: true,
+                  position: 'top',
                   /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
                   formatter: (params: any): string => `${params.value[params.dimensionNames[params.encode.y[0]]]}%`,
                 },
@@ -58,20 +36,22 @@ export const financeDashboard: DashboardGrid[] = [
             ),
           },
           onClick: ({ data, chart, params }: EventOptions): void => {
+            if (!params.data) return;
             const { year: y } = params.data;
             const source = generateObjectDataset(
               (data as DashboardData[]).filter(
                 ({ metric, year }) => (metric === 'Non-Overhead staff' || metric === 'All staff') && y === year,
               ),
             );
+            addChartReverseListener(chart);
+
             const options: echarts.EChartOption = {
+              legend: { data: ['Non-Overhead staff', 'All staff', 'Target'] },
               dataset: {
                 source,
                 dimensions: ['quarter', 'Non-Overhead staff', 'All staff', 'Target'],
               },
-              grid,
-              xAxis: { type: 'category', boundaryGap: true, axisTick: { alignWithLabel: true } },
-              yAxis: { type: 'value', scale: true, splitNumber: 3, axisLabel: { formatter: '{value}%' } },
+              yAxis: { type: 'value', show: true, scale: true, splitNumber: 3, axisLabel: { formatter: '{value}%' } },
               series: [
                 { type: 'line' },
                 { type: 'line' },
@@ -83,17 +63,6 @@ export const financeDashboard: DashboardGrid[] = [
                 },
               ],
             };
-            const previousOptions = chart.getOption();
-            const chartNode = chart.getDom();
-            const canvas = chartNode.getElementsByTagName('canvas')[0];
-            if (canvas) {
-              const onClick = () => {
-                chart.setOption(previousOptions);
-                canvas.removeEventListener('click', onClick);
-              };
-              canvas.addEventListener('click', onClick);
-            }
-
             chart.setOption(options);
           },
         },
@@ -108,19 +77,18 @@ export const financeDashboard: DashboardGrid[] = [
           options: {
             color: colours,
             tooltip: { show: false },
-            legend: {},
-            dataset: {
-              dimensions: ['year', 'Direct overheads', 'Indirect overheads'],
-            },
+            legend: { data: ['Direct overheads', 'Indirect overheads'] },
+            dataset: { dimensions: ['year', 'Direct overheads', 'Indirect overheads'] },
             grid,
             xAxis: { type: 'category' },
-            yAxis: { type: 'value', splitNumber: 3, axisLabel: { formatter: '{value}%' } },
+            yAxis: { type: 'value', show: false },
             series: Array.from(
               { length: 2 },
               (): echarts.EChartOption.Series => ({
                 type: 'bar',
                 label: {
                   show: true,
+                  position: 'top',
                   /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
                   formatter: (params: any): string => `${params.value[params.dimensionNames[params.encode.y[0]]]}%`,
                 },
@@ -128,21 +96,23 @@ export const financeDashboard: DashboardGrid[] = [
             ),
           },
           onClick: ({ data, chart, params }: EventOptions): void => {
+            if (!params.data) return;
             const { year: y } = params.data;
             const source = generateObjectDataset(
               (data as DashboardData[]).filter(
                 ({ metric, year }) => (metric === 'Direct overheads' || metric === 'Indirect overheads') && y === year,
               ),
             );
+            addChartReverseListener(chart);
+
             const options: echarts.EChartOption = {
               tooltip: { show: true, trigger: 'axis' },
+              legend: { data: ['Direct overheads', 'Indirect overheads', 'Target'] },
               dataset: {
                 source,
                 dimensions: ['quarter', 'Direct overheads', 'Indirect overheads', 'Target'],
               },
-              grid,
-              xAxis: { type: 'category' },
-              yAxis: { type: 'value', splitNumber: 3, axisLabel: { formatter: '{value}%' } },
+              yAxis: { show: true, splitNumber: 3, axisLabel: { formatter: '{value}%' } },
               series: [
                 { type: 'bar', label: { show: false, formatter: () => '' } },
                 { type: 'bar', label: { show: false, formatter: () => '' } },
@@ -154,17 +124,6 @@ export const financeDashboard: DashboardGrid[] = [
                 },
               ],
             };
-            const previousOptions = chart.getOption();
-            const chartNode = chart.getDom();
-            const canvas = chartNode.getElementsByTagName('canvas')[0];
-            if (canvas) {
-              const onClick = () => {
-                chart.setOption(previousOptions);
-                canvas.removeEventListener('click', onClick);
-              };
-              canvas.addEventListener('click', onClick);
-            }
-
             chart.setOption(options);
           },
         },
@@ -185,7 +144,7 @@ export const financeDashboard: DashboardGrid[] = [
             },
             grid,
             xAxis: { type: 'category' },
-            yAxis: { type: 'value', show: false, splitNumber: 3, axisLabel: { formatter: '{value}%' } },
+            yAxis: { type: 'value', show: false },
             /* eslint-disable @typescript-eslint/no-explicit-any */
             series: Array.from(
               { length: 2 },
@@ -201,6 +160,7 @@ export const financeDashboard: DashboardGrid[] = [
             /* eslint-enable @typescript-eslint/no-explicit-any */
           },
           onClick: ({ data, chart, params }: EventOptions): void => {
+            if (!params.data) return;
             const { year: y } = params.data;
             const source = generateObjectDataset(
               (data as DashboardData[]).filter(
@@ -209,6 +169,8 @@ export const financeDashboard: DashboardGrid[] = [
                   y === year,
               ),
             );
+            addChartReverseListener(chart);
+
             const options: echarts.EChartOption = {
               tooltip: { show: false },
               dataset: {
@@ -220,24 +182,13 @@ export const financeDashboard: DashboardGrid[] = [
               yAxis: { type: 'value', splitNumber: 3, axisLabel: { formatter: '{value}%' } },
               series: [{ type: 'bar' }, { type: 'bar' }],
             };
-            const previousOptions = chart.getOption();
-            const chartNode = chart.getDom();
-            const canvas = chartNode.getElementsByTagName('canvas')[0];
-            if (canvas) {
-              const onClick = () => {
-                chart.setOption(previousOptions);
-                canvas.removeEventListener('click', onClick);
-              };
-              canvas.addEventListener('click', onClick);
-            }
-
             chart.setOption(options);
           },
         },
       },
       {
         id: 'consultant-costs',
-        meta: 'Consultant costs %, YTD (excluding GNR)',
+        meta: 'Average consultant % for year to date (excl GNR)',
         styled: true,
         chart: {
           data: (data: DashboardData[]): Record<string, React.ReactText>[] =>
@@ -266,6 +217,7 @@ export const financeDashboard: DashboardGrid[] = [
             /* eslint-enable @typescript-eslint/no-explicit-any */
           },
           onClick: ({ data, chart, params }: EventOptions): void => {
+            if (!params.data) return;
             const { year: y } = params.data;
             const source = generateObjectDataset(
               (data as DashboardData[]).filter(
@@ -273,29 +225,15 @@ export const financeDashboard: DashboardGrid[] = [
                   ['Average consultant % for year to date (excl GNR)'].includes(metric) && y === year,
               ),
             );
-            const options: echarts.EChartOption = {
+            addChartReverseListener(chart);
+
+            chart.setOption({
               tooltip: { show: false },
               dataset: {
                 source,
                 dimensions: ['quarter', 'Average consultant % for year to date (excl GNR)'],
               },
-              grid,
-              xAxis: { type: 'category' },
-              yAxis: { type: 'value', splitNumber: 3, axisLabel: { formatter: '{value}%' } },
-              series: [{ type: 'bar' }],
-            };
-            const previousOptions = chart.getOption();
-            const chartNode = chart.getDom();
-            const canvas = chartNode.getElementsByTagName('canvas')[0];
-            if (canvas) {
-              const onClick = () => {
-                chart.setOption(previousOptions);
-                canvas.removeEventListener('click', onClick);
-              };
-              canvas.addEventListener('click', onClick);
-            }
-
-            chart.setOption(options);
+            });
           },
         },
       },

@@ -1,4 +1,4 @@
-import { colours, generateObjectDataset } from '../';
+import { colours, generateObjectDataset, getAggregatedDatasetSource } from '../';
 import { DashboardData, DashboardGrid, EventOptions } from '../../../utils/types';
 
 const grid: echarts.EChartOption.Grid = {
@@ -6,21 +6,6 @@ const grid: echarts.EChartOption.Grid = {
   right: '4%',
   bottom: '3%',
   containLabel: true,
-};
-const getAggregatedDatasetSource = (data: DashboardData[], metrics: string[]) => {
-  const metricData = data.filter(({ metric }) => metrics.includes(metric));
-  const dataAveragesForMetricYear = metricData.reduce<DashboardData[]>((prev, curr) => {
-    if (!prev.find((item) => item.metric === curr.metric && item.year === curr.year)) {
-      const metricDataForYear = metricData.filter(({ metric, year }) => metric === curr.metric && year === curr.year);
-      const sum = metricDataForYear.reduce((currentSum, curr) => currentSum + curr.value, 0);
-      const average = sum / metricDataForYear.length;
-      prev.push({ ...curr, value: average });
-    }
-
-    return prev;
-  }, []);
-
-  return generateObjectDataset(dataAveragesForMetricYear);
 };
 
 export const financeDashboard: DashboardGrid[] = [
@@ -38,7 +23,7 @@ export const financeDashboard: DashboardGrid[] = [
           options: {
             color: colours,
             tooltip: { show: false },
-            legend: {},
+            legend: { data: ['Non-Overhead staff', 'All staff'] },
             dataset: {
               dimensions: ['year', 'Non-Overhead staff', 'All staff'],
             },
@@ -65,6 +50,7 @@ export const financeDashboard: DashboardGrid[] = [
               ),
             );
             const options: echarts.EChartOption = {
+              legend: { data: ['Non-Overhead staff', 'All staff', 'Target'] },
               dataset: {
                 source,
                 dimensions: ['quarter', 'Non-Overhead staff', 'All staff', 'Target'],
@@ -108,7 +94,7 @@ export const financeDashboard: DashboardGrid[] = [
           options: {
             color: colours,
             tooltip: { show: false },
-            legend: {},
+            legend: { data: ['Direct overheads', 'Indirect overheads'] },
             dataset: {
               dimensions: ['year', 'Direct overheads', 'Indirect overheads'],
             },
@@ -136,6 +122,7 @@ export const financeDashboard: DashboardGrid[] = [
             );
             const options: echarts.EChartOption = {
               tooltip: { show: true, trigger: 'axis' },
+              legend: { data: ['Direct overheads', 'Indirect overheads', 'Target'] },
               dataset: {
                 source,
                 dimensions: ['quarter', 'Direct overheads', 'Indirect overheads', 'Target'],

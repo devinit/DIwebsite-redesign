@@ -1,4 +1,6 @@
-import React, { FunctionComponent, useEffect, useRef } from 'react';
+import classNames from 'classnames';
+import styled from 'styled-components';
+import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
 import { EventOptions } from '../../utils/types';
 import { makeBasicLineChart, renderBasicColumnChart, renderBasicPieChart, renderChart } from './utils';
 
@@ -14,8 +16,13 @@ type ApacheChartProps = {
   onBlur?: (options: EventOptions) => void;
 };
 
+const StyledChart = styled.div`
+  min-height: 100% !important;
+`;
+
 const ApacheChart: FunctionComponent<ApacheChartProps> = (props) => {
   const element = useRef<HTMLDivElement>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (element.current) {
@@ -35,6 +42,7 @@ const ApacheChart: FunctionComponent<ApacheChartProps> = (props) => {
         }
       } else {
         renderChart(element.current, props.options).then((chart) => {
+          setLoading(false);
           /* eslint-disable @typescript-eslint/no-non-null-assertion */
           if (props.onClick) {
             chart.on('click', (params: unknown) => {
@@ -57,7 +65,23 @@ const ApacheChart: FunctionComponent<ApacheChartProps> = (props) => {
     }
   }, []);
 
-  return <div ref={element} style={{ height: props.height }}></div>;
+  return (
+    <div className={classNames('chart-container chart-container--full', { 'chart-container--loading': loading })}>
+      <StyledChart className="charts__chart">
+        <div ref={element} style={{ height: props.height }}></div>
+        {loading ? (
+          <div className="chart-loading">
+            <div className="chart-loading__block">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </div>
+        ) : null}
+      </StyledChart>
+    </div>
+  );
 };
 
 ApacheChart.defaultProps = {

@@ -94,18 +94,24 @@ export const toPounds = (value: number): string => {
 export const getAggregatedDatasetSource = (
   data: DashboardData[],
   metrics: string[],
+  aggregation: 'sum' | 'average' = 'average',
 ): Record<string, React.ReactText>[] => {
   const metricData = data.filter(({ metric }) => metrics.includes(metric));
-  const dataAveragesForMetricYear = metricData.reduce<DashboardData[]>((prev, curr) => {
+
+  const dataAggregateForMetricYear = metricData.reduce<DashboardData[]>((prev, curr) => {
     if (!prev.find((item) => item.metric === curr.metric && item.year === curr.year)) {
       const metricDataForYear = metricData.filter(({ metric, year }) => metric === curr.metric && year === curr.year);
       const sum = metricDataForYear.reduce((currentSum, curr) => currentSum + curr.value, 0);
-      const average = sum / metricDataForYear.length;
-      prev.push({ ...curr, value: average });
+      if (aggregation === 'average') {
+        const average = sum / metricDataForYear.length;
+        prev.push({ ...curr, value: average });
+      } else {
+        prev.push({ ...curr, value: sum });
+      }
     }
 
     return prev;
   }, []);
 
-  return generateObjectDataset(dataAveragesForMetricYear);
+  return generateObjectDataset(dataAggregateForMetricYear);
 };

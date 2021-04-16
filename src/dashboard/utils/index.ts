@@ -98,7 +98,9 @@ export const getAggregatedDatasetSource = (
 
   const dataAggregateForMetricYear = metricData.reduce<DashboardData[]>((prev, curr) => {
     if (!prev.find((item) => item.metric === curr.metric && item.year === curr.year)) {
-      const metricDataForYear = metricData.filter(({ metric, year }) => metric === curr.metric && year === curr.year);
+      const metricDataForYear = metricData.filter(
+        ({ metric, year, value }) => metric === curr.metric && year === curr.year && typeof value === 'number',
+      );
       const sum = metricDataForYear.reduce((currentSum, curr) => currentSum + curr.value, 0);
       if (aggregation === 'average') {
         const average = sum / metricDataForYear.length;

@@ -26,10 +26,13 @@ export type DashboardContent = {
   info?: string | ((data: DashboardData[]) => string);
 };
 
-export type DashboardChart = {
+export interface DashboardChart extends DashboardChartEvents {
   height?: string;
   data: (data: DashboardData[]) => Record<string, React.ReactText>[] | React.ReactText[][];
   options: echarts.EChartOption;
+}
+
+export type DashboardChartEvents = {
   /* eslint-disable @typescript-eslint/no-explicit-any */
   onClick?: (options: EventOptions) => void;
   onHover?: (options: EventOptions) => void;

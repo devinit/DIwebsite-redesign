@@ -1,6 +1,6 @@
-import { generateObjectDataset, getAggregatedDatasetSource } from '..';
-import { DashboardData, DashboardGrid, EventOptions } from '../../../utils/types';
-import { addChartReverseListener, grid, hideNarrative, showNarrative } from '../chart';
+import { getAggregatedDatasetSource } from '..';
+import { DashboardData, DashboardGrid } from '../../../utils/types';
+import { getEventHandlers, grid } from '../chart';
 
 const colours = ['#07482e', '#005b3e', '#1e8259', '#5ab88a', '#c5e1cb'];
 const dashboardMetrics = [
@@ -13,30 +13,6 @@ const dashboardMetrics = [
   ],
   ['% projects overspending', '% projects underspending', '% projects on track'],
 ];
-const getEventHandlers = (metrics: string | string[]) => {
-  return {
-    onClick: ({ data, chart, params }: EventOptions): void => {
-      if (!params.data) return;
-      const { year: y } = params.data;
-      const source = generateObjectDataset(
-        (data as DashboardData[]).filter(({ metric, year }) => metrics.includes(metric) && y === year),
-      );
-      addChartReverseListener(chart);
-
-      chart.setOption({ dataset: { source, dimensions: ['quarter'].concat(metrics) } });
-    },
-    onHover: ({ chart, params }: EventOptions): void => {
-      if (!params.data) return;
-      const metric = params.seriesName;
-      const narrative = params.data[`${metric} - narrative`];
-
-      if (narrative) {
-        showNarrative(chart.getDom() as HTMLDivElement, narrative);
-      }
-    },
-    onBlur: ({ chart }: EventOptions): void => hideNarrative(chart.getDom() as HTMLDivElement),
-  };
-};
 
 export const projectManagement: DashboardGrid[] = [
   {

@@ -49,6 +49,15 @@ export const projectManagement: DashboardGrid[] = [
 
             chart.setOption({ dataset: { source, dimensions: ['quarter', dashboardMetrics[0]] } });
           },
+          onHover: ({ chart, params }: EventOptions): void => {
+            if (!params.data) return;
+            const { narrative } = params.data;
+
+            if (narrative) {
+              showNarrative(chart.getDom() as HTMLDivElement, narrative);
+            }
+          },
+          onBlur: ({ chart }: EventOptions): void => hideNarrative(chart.getDom() as HTMLDivElement),
         },
       },
     ],

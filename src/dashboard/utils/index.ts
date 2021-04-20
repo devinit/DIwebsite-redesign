@@ -104,9 +104,9 @@ export const getAggregatedDatasetSource = (
       const sum = metricDataForYear.reduce((currentSum, curr) => currentSum + curr.value, 0);
       if (aggregation === 'average') {
         const average = sum / metricDataForYear.length;
-        prev.push({ ...curr, value: average });
+        prev.push({ ...curr, value: average, quarter: '', narrative: '' }); // TODO: add actual narratives for year
       } else {
-        prev.push({ ...curr, value: sum });
+        prev.push({ ...curr, value: sum, quarter: '', narrative: '' }); // TODO: add actual narratives for year
       }
     }
 

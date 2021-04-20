@@ -3,6 +3,7 @@
     "version": "1.7.0",
     "description": "The new and improved DI Website",
     "scripts": {
+        "start": "gulp",
         "emit": "tsc",
         "lint": "eslint 'src/**/*.{ts,tsx}' --quiet && tsc --noEmit",
         "dev": "gulp",

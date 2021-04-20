@@ -3,24 +3,52 @@ import { DashboardData, DashboardGrid, EventOptions } from '../../../utils/types
 import { addChartReverseListener, grid, hideNarrative, showNarrative } from '../chart';
 
 const colours = ['#07482e', '#005b3e', '#1e8259', '#5ab88a', '#c5e1cb'];
-const dashboardMetrics = ['Ranking on IATI dashboard (suggest move from top 10% to top 5%)'];
+const dashboardMetrics = [
+  'Ranking on IATI dashboard (suggest move from top 10% to top 5%)',
+  ['# active projects DIPR', '# active projects DII'],
+];
+const getEventHandlers = (metrics: string | string[]) => {
+  return {
+    onClick: ({ data, chart, params }: EventOptions): void => {
+      if (!params.data) return;
+      const { year: y } = params.data;
+      const source = generateObjectDataset(
+        (data as DashboardData[]).filter(({ metric, year }) => metrics.includes(metric) && y === year),
+      );
+      addChartReverseListener(chart);
+
+      chart.setOption({ dataset: { source, dimensions: ['quarter'].concat(metrics) } });
+    },
+    onHover: ({ chart, params }: EventOptions): void => {
+      if (!params.data) return;
+      const metric = params.seriesName;
+      const narrative = params.data[`${metric} - narrative`];
+
+      if (narrative) {
+        showNarrative(chart.getDom() as HTMLDivElement, narrative);
+      }
+    },
+    onBlur: ({ chart }: EventOptions): void => hideNarrative(chart.getDom() as HTMLDivElement),
+  };
+};
+
 export const projectManagement: DashboardGrid[] = [
   {
     id: '1',
-    columns: 1,
+    columns: 2,
     content: [
       {
         id: 'iati-ranking',
-        meta: dashboardMetrics[0],
+        meta: dashboardMetrics[0] as string,
         styled: true,
         chart: {
           data: (data: DashboardData[]): Record<string, React.ReactText>[] =>
-            getAggregatedDatasetSource(data, [dashboardMetrics[0]]),
+            getAggregatedDatasetSource(data, [dashboardMetrics[0] as string]),
           options: {
             color: colours,
             tooltip: { show: false, trigger: 'axis' },
             legend: { show: false },
-            dataset: { dimensions: ['year', dashboardMetrics[0]] },
+            dataset: { dimensions: ['year', dashboardMetrics[0] as string] },
             grid,
             toolbox: { feature: { saveAsImage: {} } },
             xAxis: { type: 'category' },
@@ -37,59 +65,29 @@ export const projectManagement: DashboardGrid[] = [
               },
             ],
           },
-          onClick: ({ data, chart, params }: EventOptions): void => {
-            if (!params.data) return;
-            const { year: y } = params.data;
-            const source = generateObjectDataset(
-              (data as DashboardData[]).filter(
-                ({ metric, year }) => [dashboardMetrics[0]].includes(metric) && y === year,
-              ),
-            );
-            addChartReverseListener(chart);
-
-            chart.setOption({ dataset: { source, dimensions: ['quarter', dashboardMetrics[0]] } });
-          },
-          onHover: ({ chart, params }: EventOptions): void => {
-            if (!params.data) return;
-            const { narrative } = params.data;
-
-            if (narrative) {
-              showNarrative(chart.getDom() as HTMLDivElement, narrative);
-            }
-          },
-          onBlur: ({ chart }: EventOptions): void => hideNarrative(chart.getDom() as HTMLDivElement),
-        },
-      },
-    ],
-  },
-  {
-    id: '2',
-    columns: 4,
-    content: [
-      {
-        id: 'iati-q1',
-        meta: 'Q4 2020',
-        styled: true,
-        title: (data: DashboardData[]): React.ReactText => {
-          const currentMetric = 'Ranking on IATI dashboard (suggest move from top 10% to top 5%)';
-          const metricData = data.filter(
-            ({ metric, year, quarter }) => metric === currentMetric && year === 2020 && quarter === 'Q4',
-          );
-
-          return metricData && metricData.length && metricData[0].value ? `${metricData[0].value}%` : 'None';
+          ...getEventHandlers(dashboardMetrics[0]),
         },
       },
       {
-        id: 'iati-q2',
-        meta: 'Q1 2021',
+        id: 'active-projects',
+        meta: 'Active Projects DIPR vs DII',
         styled: true,
-        title: (data: DashboardData[]): React.ReactText => {
-          const currentMetric = 'Ranking on IATI dashboard (suggest move from top 10% to top 5%)';
-          const metricData = data.filter(
-            ({ metric, year, quarter }) => metric === currentMetric && year === 2021 && quarter === 'Q1',
-          );
-
-          return metricData && metricData.length && metricData[0].value ? `${metricData[0].value}%` : 'None';
+        chart: {
+          data: (data: DashboardData[]): Record<string, React.ReactText>[] =>
+            getAggregatedDatasetSource(data, dashboardMetrics[1] as string[]),
+          options: {
+            color: colours,
+            tooltip: { show: true, trigger: 'axis' },
+            legend: { show: true },
+            dataset: { dimensions: ['year', ...(dashboardMetrics[1] as string[])] },
+            grid,
+            toolbox: { feature: { saveAsImage: {} } },
+            xAxis: { type: 'category' },
+            yAxis: { type: 'value', show: false, splitNumber: 3 },
+            /* eslint-disable @typescript-eslint/no-explicit-any */
+            series: [{ type: 'bar' }, { type: 'bar' }],
+          },
+          ...getEventHandlers(dashboardMetrics[1]),
         },
       },
     ],

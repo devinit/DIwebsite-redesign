@@ -1,16 +1,55 @@
-import { generateArrayDataset } from '..';
+import { generateArrayDataset, generateObjectDataset, getAggregatedDatasetSource } from '..';
 import { DashboardData, DashboardGrid, EventOptions } from '../../../utils/types';
-import { hideNarrative, showNarrative } from '../chart';
+import { addChartReverseListener, grid, hideNarrative, showNarrative } from '../chart';
 
 const colours = ['#07482e', '#005b3e', '#1e8259', '#5ab88a', '#c5e1cb'];
+const dashboardMetrics = ['Ranking on IATI dashboard (suggest move from top 10% to top 5%)'];
 export const projectManagement: DashboardGrid[] = [
   {
     id: '1',
     columns: 1,
     content: [
       {
-        id: 'iati-title',
-        meta: 'Ranking on IATI dashboard (suggest move from top 10% to top 5%)',
+        id: 'iati-ranking',
+        meta: dashboardMetrics[0],
+        styled: true,
+        chart: {
+          data: (data: DashboardData[]): Record<string, React.ReactText>[] =>
+            getAggregatedDatasetSource(data, [dashboardMetrics[0]]),
+          options: {
+            color: colours,
+            tooltip: { show: false, trigger: 'axis' },
+            legend: { show: false },
+            dataset: { dimensions: ['year', dashboardMetrics[0]] },
+            grid,
+            toolbox: { feature: { saveAsImage: {} } },
+            xAxis: { type: 'category' },
+            yAxis: { type: 'value', show: false, splitNumber: 3 },
+            /* eslint-disable @typescript-eslint/no-explicit-any */
+            series: [
+              {
+                type: 'bar',
+                label: {
+                  show: true,
+                  position: 'top',
+                  formatter: (params: any): string => `${params.value[params.dimensionNames[params.encode.y[0]]]}%`,
+                },
+              },
+            ],
+          },
+          onClick: ({ data, chart, params }: EventOptions): void => {
+            if (!params.data) return;
+            const { year: y } = params.data;
+            const source = generateObjectDataset(
+              (data as DashboardData[]).filter(
+                ({ metric, year }) => [dashboardMetrics[0]].includes(metric) && y === year,
+              ),
+            );
+            addChartReverseListener(chart);
+
+            chart.setOption({ dataset: { source, dimensions: ['quarter', dashboardMetrics[0]] } });
+          },
+        },
       },
     ],
   },

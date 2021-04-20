@@ -7,6 +7,8 @@ const dashboardMetrics = [
   'Bounce rate on the website (%)',
   'Dwell time on the website (minutes)',
   'Overall on-page SEO score',
+  'Twitter engagement rate',
+  'Linkedin engagement rate',
 ];
 
 export const comms: DashboardGrid[] = [
@@ -113,75 +115,70 @@ export const comms: DashboardGrid[] = [
           ...getEventHandlers(dashboardMetrics[2]),
         },
       },
-    ],
-  },
-  {
-    id: '2',
-    columns: 3,
-    content: [
       {
-        id: 'bounce-rate',
-        meta: 'Bounce rate on the website (%)',
+        id: 'twitter-engagement',
+        meta: dashboardMetrics[3],
         styled: true,
-        title: (data: DashboardData[]): React.ReactText => {
-          const currentMetric = 'Bounce rate on the website (%)';
-          const metricData = data.filter(
-            ({ metric, year, quarter }) => metric.trim() === currentMetric && year === 2021 && quarter === 'Q1',
-          );
+        chart: {
+          data: (data: DashboardData[]): Record<string, React.ReactText>[] =>
+            getAggregatedDatasetSource(data, Array<string>().concat(dashboardMetrics[3])),
+          options: {
+            color: colours,
+            tooltip: {
+              show: true,
+              trigger: 'item',
+              formatter: (params: echarts.EChartOption.Tooltip.Format): string => {
+                const { value, seriesName } = params;
 
-          return metricData && metricData.length && metricData[0].value ? `${metricData[0].value}%` : 'None';
+                if (value && seriesName && (value as any)[seriesName]) { // eslint-disable-line
+                  return `${(value as any)[seriesName]}%`; // eslint-disable-line
+                }
+
+                return 'No Data';
+              },
+            },
+            legend: { show: false },
+            dataset: { dimensions: ['year'].concat(dashboardMetrics[3]) },
+            grid,
+            toolbox: { feature: { saveAsImage: {} } },
+            xAxis: { type: 'category' },
+            yAxis: { type: 'value', show: true, splitNumber: 3, axisLabel: { formatter: '{value}%' } },
+            series: [{ type: 'bar' }],
+          },
+          ...getEventHandlers(dashboardMetrics[3]),
         },
       },
       {
-        id: 'dwell-time',
-        meta: 'Dwell time on the website (minutes)',
+        id: 'linkedin-engagement',
+        meta: dashboardMetrics[4],
         styled: true,
-        title: (data: DashboardData[]): React.ReactText => {
-          const currentMetric = 'Dwell time on the website (minutes)';
-          const metricData = data.filter(
-            ({ metric, year, quarter }) => metric.trim() === currentMetric && year === 2021 && quarter === 'Q1',
-          );
+        chart: {
+          data: (data: DashboardData[]): Record<string, React.ReactText>[] =>
+            getAggregatedDatasetSource(data, Array<string>().concat(dashboardMetrics[4])),
+          options: {
+            color: colours,
+            tooltip: {
+              show: true,
+              trigger: 'item',
+              formatter: (params: echarts.EChartOption.Tooltip.Format): string => {
+                const { value, seriesName } = params;
 
-          return metricData && metricData.length && metricData[0].value ? `${metricData[0].value}` : 'None';
-        },
-      },
-      {
-        id: 'seo',
-        meta: 'Overall on-page SEO score',
-        styled: true,
-        title: (data: DashboardData[]): React.ReactText => {
-          const currentMetric = 'Overall on-page SEO score';
-          const metricData = data.filter(
-            ({ metric, year, quarter }) => metric.trim() === currentMetric && year === 2021 && quarter === 'Q1',
-          );
+                if (value && seriesName && (value as any)[seriesName]) { // eslint-disable-line
+                  return `${(value as any)[seriesName]}%`; // eslint-disable-line
+                }
 
-          return metricData && metricData.length && metricData[0].value ? `${metricData[0].value}` : 'None';
-        },
-      },
-      {
-        id: 'twitter',
-        meta: 'Twitter engagement rate',
-        styled: true,
-        title: (data: DashboardData[]): React.ReactText => {
-          const currentMetric = 'Twitter engagement rate';
-          const metricData = data.filter(
-            ({ metric, year, quarter }) => metric.trim() === currentMetric && year === 2021 && quarter === 'Q1',
-          );
-
-          return metricData && metricData.length && metricData[0].value ? `${metricData[0].value}%` : 'None';
-        },
-      },
-      {
-        id: 'linkedin',
-        meta: 'Linkedin engagement rate',
-        styled: true,
-        title: (data: DashboardData[]): React.ReactText => {
-          const currentMetric = 'Linkedin engagement rate';
-          const metricData = data.filter(
-            ({ metric, year, quarter }) => metric.trim() === currentMetric && year === 2021 && quarter === 'Q1',
-          );
-
-          return metricData && metricData.length && metricData[0].value ? `${metricData[0].value}%` : 'None';
+                return 'No Data';
+              },
+            },
+            legend: { show: false },
+            dataset: { dimensions: ['year'].concat(dashboardMetrics[4]) },
+            grid,
+            toolbox: { feature: { saveAsImage: {} } },
+            xAxis: { type: 'category' },
+            yAxis: { type: 'value', show: true, splitNumber: 3, axisLabel: { formatter: '{value}%' } },
+            series: [{ type: 'bar' }],
+          },
+          ...getEventHandlers(dashboardMetrics[4]),
         },
       },
     ],

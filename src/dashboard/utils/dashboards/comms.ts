@@ -1,14 +1,43 @@
+import { getAggregatedDatasetSource } from '..';
 import { DashboardData, DashboardGrid } from '../../../utils/types';
+import { getEventHandlers, grid } from '../chart';
 
-// const colours = ['#7d4712', '#a85d00', '#df8000', '#f9b865', '#feedd4'];
+const colours = ['#7d4712', '#a85d00', '#df8000', '#f9b865', '#feedd4'];
+const dashboardMetrics = ['Bounce rate on the website (%)'];
+
 export const comms: DashboardGrid[] = [
   {
     id: '1',
-    columns: 1,
+    columns: 3,
     content: [
       {
-        id: 'comms-title',
-        meta: 'Q1 2021',
+        id: 'bounce-rate',
+        meta: dashboardMetrics[0],
+        styled: true,
+        chart: {
+          data: (data: DashboardData[]): Record<string, React.ReactText>[] =>
+            getAggregatedDatasetSource(data, Array<string>().concat(dashboardMetrics[0])),
+          options: {
+            color: colours,
+            tooltip: {
+              show: true,
+              trigger: 'item',
+              formatter: (params: echarts.EChartOption.Tooltip.Format): string => {
+                const { value, seriesName } = params;
+
+                return `${(value as any)[seriesName!]}%`; // eslint-disable-line
+              },
+            },
+            legend: { show: false },
+            dataset: { dimensions: ['year'].concat(dashboardMetrics[0]) },
+            grid,
+            toolbox: { feature: { saveAsImage: {} } },
+            xAxis: { type: 'category' },
+            yAxis: { type: 'value', show: true, splitNumber: 3, axisLabel: { formatter: '{value}%' } },
+            series: [{ type: 'bar' }],
+          },
+          ...getEventHandlers(dashboardMetrics[0]),
+        },
       },
     ],
   },

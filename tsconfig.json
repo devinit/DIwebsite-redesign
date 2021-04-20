@@ -23,7 +23,9 @@
     },
     "exclude": [
         "node_modules/",
-        "patterns/"
+        "patterns/",
+        "assets/",
+        "static/"
     ],
     "include": [
         "src/"

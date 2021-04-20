@@ -9,6 +9,7 @@ const dashboardMetrics = [
   'Overall on-page SEO score',
   'Twitter engagement rate',
   'Linkedin engagement rate',
+  'Proportion of new linkedin followers from target stakeholder groups',
 ];
 
 export const comms: DashboardGrid[] = [
@@ -179,6 +180,46 @@ export const comms: DashboardGrid[] = [
             series: [{ type: 'bar' }],
           },
           ...getEventHandlers(dashboardMetrics[4]),
+        },
+      },
+    ],
+  },
+  {
+    id: '2',
+    columns: 1,
+    className: 'm-pills',
+    content: [
+      {
+        id: 'linkedin-followers',
+        meta: dashboardMetrics[5],
+        styled: true,
+        chart: {
+          data: (data: DashboardData[]): Record<string, React.ReactText>[] =>
+            getAggregatedDatasetSource(data, Array<string>().concat(dashboardMetrics[5])),
+          options: {
+            color: colours,
+            tooltip: {
+              show: true,
+              trigger: 'item',
+              formatter: (params: echarts.EChartOption.Tooltip.Format): string => {
+                const { value, seriesName } = params;
+
+                if (value && seriesName && (value as any)[seriesName]) { // eslint-disable-line
+                  return `${(value as any)[seriesName]}%`; // eslint-disable-line
+                }
+
+                return 'No Data';
+              },
+            },
+            legend: { show: false },
+            dataset: { dimensions: ['year'].concat(dashboardMetrics[5]) },
+            grid,
+            toolbox: { feature: { saveAsImage: {} } },
+            xAxis: { type: 'category' },
+            yAxis: { type: 'value', show: true, splitNumber: 3, axisLabel: { formatter: '{value}%' } },
+            series: [{ type: 'bar' }],
+          },
+          ...getEventHandlers(dashboardMetrics[5]),
         },
       },
     ],

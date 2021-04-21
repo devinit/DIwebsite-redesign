@@ -2,7 +2,7 @@ import { getAggregatedDatasetSource } from '..';
 import { DashboardData, DashboardGrid } from '../../../utils/types';
 import { getEventHandlers, grid } from '../chart';
 
-const colours = ['#07482e', '#005b3e', '#1e8259', '#5ab88a', '#c5e1cb'];
+const colours = ['#07482e', '#1e8259', '#005b3e', '#5ab88a', '#c5e1cb'];
 const dashboardMetrics = [
   'Ranking on IATI dashboard (suggest move from top 10% to top 5%)',
   ['# active projects DIPR', '# active projects DII'],

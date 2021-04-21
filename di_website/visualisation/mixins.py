@@ -104,6 +104,7 @@ class FallbackImageMixin(models.Model):
         help_text='Optional: when selected devices with screen widths up to 700px will be served the fallback image',
         verbose_name='Show on tablet'
     )
+    alternative_text = models.TextField(blank=True, null=True, help_text="Accessibility text for screen readers e.t.c")
 
 
 class PlotlyOptionsMixin(models.Model):

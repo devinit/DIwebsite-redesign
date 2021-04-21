@@ -9,7 +9,7 @@ from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 
 from di_website.common.edit_handlers import HelpPanel
-from di_website.common.constants import MINIMAL_RICHTEXT_FEATURES
+from di_website.common.constants import INSTRUCTIONS_RICHTEXT_FEATURES, MINIMAL_RICHTEXT_FEATURES, SIMPLE_RICHTEXT_FEATURES
 from di_website.visualisation.mixins import (
     InstructionsMixin, GeneralInstructionsMixin, SpecificInstructionsMixin,
     ChartOptionsMixin, PlotlyOptionsMixin, D3OptionsMixin, FallbackImageMixin, EChartOptionsMixin
@@ -161,7 +161,7 @@ class AdvancedChartPage(InstructionsMixin, EChartOptionsMixin, D3OptionsMixin, P
         null=True,
         blank=True,
         help_text='Optional: caption text and link(s) for the chart',
-        features=MINIMAL_RICHTEXT_FEATURES
+        features=INSTRUCTIONS_RICHTEXT_FEATURES + SIMPLE_RICHTEXT_FEATURES
     )
 
     content_panels = Page.content_panels + [

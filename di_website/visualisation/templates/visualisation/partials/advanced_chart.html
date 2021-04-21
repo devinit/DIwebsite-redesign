@@ -27,7 +27,7 @@
   {% image item.fallback_image width-1000 as fallback %}
   {% image item.fallback_image width-1400 as full %}
   <a href="{{ full.url }}" target="_blank" title="Click to open image in a new window">
-      <span class="chart-fallback__no-js-small-screen-image" style="background-image: url('{{ fallback.url }}'); {{ fallback|padding_by_ratio }}"></span>
+    <span class="chart-fallback__no-js-small-screen-image" role="img" aria-label="{{item.alternative_text|default:fallback.alt}}" style="background-image: url('{{ fallback.url }}'); {{ fallback|padding_by_ratio }}"></span>
   </a>
 </div>
 

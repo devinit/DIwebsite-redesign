@@ -1,6 +1,6 @@
 import { getAggregatedDatasetSource } from '..';
 import { DashboardData, DashboardGrid } from '../../../utils/types';
-import { getEventHandlers, grid } from '../chart';
+import { getEventHandlers, grid, tootipFormatter } from '../chart';
 
 const colours = ['#7d4712', '#a85d00', '#df8000', '#f9b865', '#feedd4'];
 const dashboardMetrics = [
@@ -26,19 +26,7 @@ export const comms: DashboardGrid[] = [
             getAggregatedDatasetSource(data, Array<string>().concat(dashboardMetrics[0])),
           options: {
             color: colours,
-            tooltip: {
-              show: true,
-              trigger: 'item',
-              formatter: (params: echarts.EChartOption.Tooltip.Format): string => {
-                const { value, seriesName } = params;
-
-                if (value && seriesName && (value as any)[seriesName]) { // eslint-disable-line
-                  return `${(value as any)[seriesName]}%`; // eslint-disable-line
-                }
-
-                return 'No Data';
-              },
-            },
+            tooltip: { show: true, trigger: 'item', formatter: tootipFormatter({ suffix: '%' }) },
             legend: { show: false },
             dataset: { dimensions: ['year'].concat(dashboardMetrics[0]) },
             grid,
@@ -59,19 +47,7 @@ export const comms: DashboardGrid[] = [
             getAggregatedDatasetSource(data, Array<string>().concat(dashboardMetrics[1])),
           options: {
             color: colours,
-            tooltip: {
-              show: true,
-              trigger: 'item',
-              formatter: (params: echarts.EChartOption.Tooltip.Format): string => {
-                const { value, seriesName } = params;
-
-                if (value && seriesName && (value as any)[seriesName]) { // eslint-disable-line
-                  return `${(value as any)[seriesName]}`; // eslint-disable-line
-                }
-
-                return 'No Data';
-              },
-            },
+            tooltip: { show: true, trigger: 'item', formatter: tootipFormatter({}) },
             legend: { show: false },
             dataset: { dimensions: ['year'].concat(dashboardMetrics[1]) },
             grid,
@@ -92,19 +68,7 @@ export const comms: DashboardGrid[] = [
             getAggregatedDatasetSource(data, Array<string>().concat(dashboardMetrics[2])),
           options: {
             color: colours,
-            tooltip: {
-              show: true,
-              trigger: 'item',
-              formatter: (params: echarts.EChartOption.Tooltip.Format): string => {
-                const { value, seriesName } = params;
-
-                if (value && seriesName && (value as any)[seriesName]) { // eslint-disable-line
-                  return `${(value as any)[seriesName]}`; // eslint-disable-line
-                }
-
-                return 'No Data';
-              },
-            },
+            tooltip: { show: true, trigger: 'item', formatter: tootipFormatter({}) },
             legend: { show: false },
             dataset: { dimensions: ['year'].concat(dashboardMetrics[2]) },
             grid,
@@ -125,19 +89,7 @@ export const comms: DashboardGrid[] = [
             getAggregatedDatasetSource(data, Array<string>().concat(dashboardMetrics[3])),
           options: {
             color: colours,
-            tooltip: {
-              show: true,
-              trigger: 'item',
-              formatter: (params: echarts.EChartOption.Tooltip.Format): string => {
-                const { value, seriesName } = params;
-
-                if (value && seriesName && (value as any)[seriesName]) { // eslint-disable-line
-                  return `${(value as any)[seriesName]}%`; // eslint-disable-line
-                }
-
-                return 'No Data';
-              },
-            },
+            tooltip: { show: true, trigger: 'item', formatter: tootipFormatter({ suffix: '%' }) },
             legend: { show: false },
             dataset: { dimensions: ['year'].concat(dashboardMetrics[3]) },
             grid,
@@ -158,19 +110,7 @@ export const comms: DashboardGrid[] = [
             getAggregatedDatasetSource(data, Array<string>().concat(dashboardMetrics[4])),
           options: {
             color: colours,
-            tooltip: {
-              show: true,
-              trigger: 'item',
-              formatter: (params: echarts.EChartOption.Tooltip.Format): string => {
-                const { value, seriesName } = params;
-
-                if (value && seriesName && (value as any)[seriesName]) { // eslint-disable-line
-                  return `${(value as any)[seriesName]}%`; // eslint-disable-line
-                }
-
-                return 'No Data';
-              },
-            },
+            tooltip: { show: true, trigger: 'item', formatter: tootipFormatter({ suffix: '%' }) },
             legend: { show: false },
             dataset: { dimensions: ['year'].concat(dashboardMetrics[4]) },
             grid,
@@ -198,19 +138,7 @@ export const comms: DashboardGrid[] = [
             getAggregatedDatasetSource(data, Array<string>().concat(dashboardMetrics[5])),
           options: {
             color: colours,
-            tooltip: {
-              show: true,
-              trigger: 'item',
-              formatter: (params: echarts.EChartOption.Tooltip.Format): string => {
-                const { value, seriesName } = params;
-
-                if (value && seriesName && (value as any)[seriesName]) { // eslint-disable-line
-                  return `${(value as any)[seriesName]}%`; // eslint-disable-line
-                }
-
-                return 'No Data';
-              },
-            },
+            tooltip: { show: true, trigger: 'item', formatter: tootipFormatter({ suffix: '%' }) },
             legend: { show: false },
             dataset: { dimensions: ['year'].concat(dashboardMetrics[5]) },
             grid,

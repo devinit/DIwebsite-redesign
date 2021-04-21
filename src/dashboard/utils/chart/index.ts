@@ -25,3 +25,15 @@ export const addChartReverseListener = (chart: echarts.ECharts, merge = false): 
     canvas.addEventListener('click', onClick);
   }
 };
+
+export const tootipFormatter = ({ prefix = '', suffix = '' }: { prefix?: string; suffix?: string }) => (
+  params: echarts.EChartOption.Tooltip.Format,
+): string => {
+  const { value, seriesName } = params;
+
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+  return value && seriesName && (value as any)[seriesName]
+    ? `${prefix}${(value as any)[seriesName]}${suffix}`
+    : 'No Data';
+  /* eslint-enable @typescript-eslint/no-explicit-any */
+};

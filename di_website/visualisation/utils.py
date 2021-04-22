@@ -48,6 +48,7 @@ def FallbackImagePanel():
             ImageChooserPanel('fallback_image'),
             FieldPanel('display_fallback_mobile'),
             FieldPanel('display_fallback_tablet'),
+            FieldPanel('alternative_text'),
         ], heading='Fallback image and options')
 
 

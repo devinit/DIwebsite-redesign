@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'di_website.api',
     'di_website.spotlight',
     'di_website.visualisation',
+    'di_website.dashboard',
 
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
@@ -238,6 +239,7 @@ STATICFILES_FINDERS = [
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'patterns/converted-html/assets'),
     os.path.join(BASE_DIR, 'di_website/static'),
+    os.path.join(BASE_DIR, 'src/assets'),
 ]
 
 # ManifestStaticFilesStorage is recommended in production, to prevent outdated
@@ -291,7 +293,6 @@ WAGTAIL_ENABLE_UPDATE_CHECK = False
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 10000
 
 
-
 # Patch for Youtube embed error (TODO: remove once upgraded to Wagtail 2.11+)
 WAGTAILEMBEDS_FINDERS = [
     {
@@ -318,3 +319,7 @@ WAGTAILEMBEDS_FINDERS = [
         'class': 'wagtail.embeds.finders.oembed',
     }
 ]
+# GitHub Token
+GITHUB_TOKEN = os.getenv('GITHUB_TOKEN')
+
+PASSWORD_REQUIRED_TEMPLATE = 'password_required.html'

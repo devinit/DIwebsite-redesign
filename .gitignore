@@ -123,3 +123,9 @@ deploy_key
 /spotlight-*.csv
 
 node_modules/
+
+/di_website/**/static/**/js/*.js
+/di_website/**/static/**/js/*.LICENSE.txt
+
+/src/assets/**/js/*.js
+/src/assets/**/js/*.LICENSE.txt

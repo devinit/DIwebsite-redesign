@@ -1,21 +1,26 @@
+import csv
 import json
+import shutil
+import tempfile
+import urllib.request
 
+from django.conf import settings
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 
+from github import Github
 from wagtail.core.models import Site
 
-from di_website.home.templatetags.navigation_tags import get_menu_items
-from di_website.home.templatetags.footer_tags import get_footer_text
 from di_website.datasection.models import DataSectionPage
-from .utils import (
-    serialise_page,
-    serialiseDatasources,
-    serialise_location_comparison_page,
-    fetch_and_serialise_newsletters,
-    fetch_and_serialise_footer_sections,
-    serialise_spotlight_theme)
-from di_website.spotlight.models import SpotlightPage, SpotlightTheme, SpotlightLocationComparisonPage
+from di_website.home.templatetags.footer_tags import get_footer_text
+from di_website.home.templatetags.navigation_tags import get_menu_items
+from di_website.spotlight.models import (SpotlightLocationComparisonPage,
+                                         SpotlightPage, SpotlightTheme)
+
+from .utils import (fetch_and_serialise_footer_sections,
+                    fetch_and_serialise_newsletters,
+                    serialise_location_comparison_page, serialise_page,
+                    serialise_spotlight_theme, serialiseDatasources)
 
 
 @require_http_methods(["GET"])
@@ -89,3 +94,46 @@ def spotlight_page_view(request, slug=None):
             return JsonResponse(page, safe=False)
         except IndexError:
             return JsonResponse({}, safe=False)
+
+
+@require_http_methods(["GET"])
+def dashboard_data_view(request):
+    """
+    Handles the /api/dashboard endpoint, fetching dashboard data from a private GitHub repo
+    """
+    GITHUB_REPO = 'devinit/org-dashboard-data'
+    BRANCH_NAME = 'master'
+    FILE = 'all.csv'
+
+    try:
+        g = Github(settings.GITHUB_TOKEN)
+
+        repo = g.get_repo(GITHUB_REPO)
+        branch = repo.get_branch(branch=BRANCH_NAME)
+        contents = repo.get_contents(FILE, ref=branch.commit.sha)
+        data = []
+        with urllib.request.urlopen(contents.download_url) as response:
+            with tempfile.NamedTemporaryFile(delete=True) as tmp_file:
+                shutil.copyfileobj(response, tmp_file)
+
+                with open(tmp_file.name) as csvf:
+                    csvReader = csv.reader(csvf)
+                    header = next(csvReader)
+
+                    for row in csvReader:
+                        if len(row) == 11: # csv has 11 rows
+                            item = {
+                                'department': row[0], 'metric': row[1], 'et': row[2], 'category': row[3],
+                                'year': int(row[4]) if row[4] else None, 'quarter': row[5], 'date': row[6],
+                                'value': float(row[7]) if row[7] else None, 'target': float(row[8]) if row[8] else None,
+                                'narrative': row[9], 'baseline': row[10]
+                            }
+                            data.append(item)
+
+        return JsonResponse({ 'data': data }, safe=False)
+    except Exception as e:
+        if hasattr(e, 'message'):
+            return JsonResponse({ 'error': e.message }, safe=False)
+
+        print(e)
+        return JsonResponse({ 'error': 'An error occurred' }, safe=False)

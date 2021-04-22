@@ -4,7 +4,7 @@ from wagtail.core.fields import RichTextField, StreamField
 from wagtail.admin.edit_handlers import StreamFieldPanel
 from wagtail.core.blocks import ChoiceBlock, ListBlock
 
-from di_website.common.constants import INSTRUCTIONS_RICHTEXT_FEATURES
+from di_website.common.constants import INSTRUCTIONS_RICHTEXT_FEATURES, SIMPLE_RICHTEXT_FEATURES
 from di_website.publications.utils import WagtailImageField
 
 
@@ -14,7 +14,7 @@ class GeneralInstructionsMixin(models.Model):
 
     instructions = RichTextField(
         blank=True,
-        features=INSTRUCTIONS_RICHTEXT_FEATURES,
+        features=INSTRUCTIONS_RICHTEXT_FEATURES + SIMPLE_RICHTEXT_FEATURES,
     )
 
 
@@ -104,6 +104,7 @@ class FallbackImageMixin(models.Model):
         help_text='Optional: when selected devices with screen widths up to 700px will be served the fallback image',
         verbose_name='Show on tablet'
     )
+    alternative_text = models.TextField(blank=True, null=True, help_text="Accessibility text for screen readers e.t.c")
 
 
 class PlotlyOptionsMixin(models.Model):

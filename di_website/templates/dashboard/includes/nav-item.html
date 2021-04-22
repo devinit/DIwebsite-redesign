@@ -1,0 +1,12 @@
+{% load wagtailcore_tags %}
+
+<li class="chapter-nav__item">
+  <a
+    href="{% pageurl page %}#{{ item.id }}"
+    class="chapter-nav-link js-chapter-link"
+    tabindex="-1"
+    data-has-sections="7"
+  >
+    <span class="chapter-nav__title">{{ item.caption }}</span>
+  </a>
+</li>

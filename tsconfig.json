@@ -18,10 +18,14 @@
         "resolveJsonModule": true,
         "jsx": "preserve",
         "noUnusedLocals": true,
-        "noUnusedParameters": true
+        "noUnusedParameters": true,
+        "downlevelIteration": true,
     },
     "exclude": [
-        "node_modules/"
+        "node_modules/",
+        "patterns/",
+        "assets/",
+        "static/"
     ],
     "include": [
         "src/"

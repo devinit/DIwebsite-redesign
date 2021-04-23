@@ -7,6 +7,7 @@ const dashboardMetrics = [
   'Income secured this quarter',
   'Weighted value 50/80% probable pipeline at end of quarter',
   'Income at 90% at end of quarter (waiting for agreement to be signed for 2021-2023)',
+  'Weighted value of 50% & 80% probable pipeline at end of quarter (income 2021-2023)',
 ];
 
 export const fundraising: DashboardGrid[] = [
@@ -232,6 +233,27 @@ export const fundraising: DashboardGrid[] = [
             series: [{ type: 'bar' }],
           },
           ...getEventHandlers(dashboardMetrics[2]),
+        },
+      },
+      {
+        id: 'weighted-value',
+        meta: 'Weighted value of 50% & 80% probable pipeline at end of quarter (income 2021-2023)',
+        styled: true,
+        chart: {
+          data: (data: DashboardData[]): Record<string, React.ReactText>[] =>
+            getAggregatedDatasetSource(data, Array<string>().concat(dashboardMetrics[3])),
+          options: {
+            color: colours,
+            tooltip: { show: true, trigger: 'item', formatter: tootipFormatter({ currency: true }) },
+            legend: { show: false },
+            dataset: { dimensions: ['year'].concat(dashboardMetrics[3]) },
+            grid,
+            toolbox: { feature: { saveAsImage: {} } },
+            xAxis: { type: 'category' },
+            yAxis: { type: 'value', show: true, splitNumber: 3, axisLabel: { formatter: '£{value}' } },
+            series: [{ type: 'bar' }],
+          },
+          ...getEventHandlers(dashboardMetrics[3]),
         },
       },
     ],

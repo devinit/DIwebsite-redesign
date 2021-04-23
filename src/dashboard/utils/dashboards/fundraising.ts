@@ -13,17 +13,41 @@ export const fundraising: DashboardGrid[] = [
     content: [
       {
         id: 'contract-income',
-        meta: 'Total Income Secured',
+        meta: 'Total Income Secured (Contracts + Grants)',
         styled: true,
         chart: {
           height: '300px',
-          data: (data: DashboardData[]): Record<string, React.ReactText>[] =>
-            getAggregatedDatasetSource(data, [dashboardMetrics[0] as string], 'sum'),
+          data: (data: DashboardData[]): Record<string, React.ReactText>[] => {
+            const metricData = data.filter(({ metric }) => dashboardMetrics[0].includes(metric));
+
+            const dataAggregateForMetricYear = metricData.reduce<DashboardData[]>((prev, curr) => {
+              const categoryMetric = `${dashboardMetrics[0]} - ${curr.category.trim()}`;
+              if (!prev.find((item) => item.metric === categoryMetric && item.year === curr.year)) {
+                const metricDataForYear = metricData.filter(
+                  ({ metric, year, category }) =>
+                    metric === curr.metric && year === curr.year && category === curr.category,
+                );
+                const sum = metricDataForYear.reduce((currentSum, curr) => currentSum + curr.value, 0);
+                prev.push({ ...curr, metric: categoryMetric, value: sum });
+              }
+
+              return prev;
+            }, []);
+
+            return generateObjectDataset(dataAggregateForMetricYear);
+          },
+
           options: {
             color: colours,
-            tooltip: { show: true, trigger: 'item', formatter: tootipFormatter({ currency: true }) },
+            tooltip: { show: true, trigger: 'axis' },
             legend: { show: false },
-            dataset: { dimensions: ['year', dashboardMetrics[0] as string] },
+            dataset: {
+              dimensions: [
+                'year',
+                `${dashboardMetrics[0] as string} - Contracts`,
+                `${dashboardMetrics[0] as string} - Grants`,
+              ],
+            },
             grid,
             toolbox: { feature: { saveAsImage: {} } },
             xAxis: { type: 'category' },
@@ -34,33 +58,58 @@ export const fundraising: DashboardGrid[] = [
               axisTick: { show: true },
               axisLabel: { formatter: '£{value}' },
             },
-            series: [{ type: 'bar', barWidth: '30%' }],
+            series: [
+              { type: 'bar', barWidth: '30%', stack: 'fundraising' },
+              { type: 'bar', barWidth: '30%', stack: 'fundraising' },
+            ],
           },
           ...getEventHandlers(dashboardMetrics[0]),
           onClick: ({ data, chart, params }: EventOptions): void => {
             if (!params.data) return;
             const { year: y } = params.data;
-            const source = generateObjectDataset(
-              (data as DashboardData[])
-                .filter(({ metric, year }) => dashboardMetrics[0] === metric && y === year)
-                .reduce<DashboardData[]>((prev, curr) => {
-                  const matchingMetric = prev.find((item) => item.quarter === curr.quarter);
-                  if (matchingMetric) {
-                    prev[0].value += curr.value;
-                  } else {
-                    prev.push({ ...curr });
-                  }
-
-                  return prev;
-                }, []),
+            const metricData = (data as DashboardData[]).filter(
+              ({ metric, year }) => dashboardMetrics[0].includes(metric) && y === year,
             );
+            const dataAggregateForMetricYear = metricData.reduce<DashboardData[]>((prev, curr) => {
+              const categoryMetric = `${dashboardMetrics[0]} - ${curr.category.trim()}`;
+              if (!prev.find((item) => item.metric === categoryMetric)) {
+                const metricDataForYear = metricData.filter(
+                  ({ metric, quarter, category }) =>
+                    metric === curr.metric && quarter === curr.quarter && category === curr.category,
+                );
+                const sum = metricDataForYear.reduce((currentSum, curr) => currentSum + curr.value, 0);
+                prev.push({ ...curr, metric: categoryMetric, value: sum });
+              } else {
+                prev.push({ ...curr, metric: categoryMetric });
+              }
+
+              return prev;
+            }, []);
+            const source = generateObjectDataset(dataAggregateForMetricYear);
             addChartReverseListener(chart);
 
             chart.setOption({
-              dataset: { source, dimensions: ['quarter'].concat(dashboardMetrics[0]) },
+              dataset: {
+                source,
+                dimensions: [
+                  'quarter',
+                  `${dashboardMetrics[0] as string} - Contracts`,
+                  `${dashboardMetrics[0] as string} - Grants`,
+                ],
+              },
             });
           },
         },
+      },
+    ],
+  },
+  {
+    id: '0',
+    columns: 1,
+    content: [
+      {
+        id: 'contracts',
+        meta: 'Contracts',
       },
     ],
   },

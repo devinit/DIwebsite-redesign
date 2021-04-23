@@ -8,6 +8,7 @@ const dashboardMetrics = [
   'Weighted value 50/80% probable pipeline at end of quarter',
   'Income at 90% at end of quarter (waiting for agreement to be signed for 2021-2023)',
   'Weighted value of 50% & 80% probable pipeline at end of quarter (income 2021-2023)',
+  'Speculative pipeline value, not weighted (>50% probable)',
 ];
 
 export const fundraising: DashboardGrid[] = [
@@ -237,7 +238,7 @@ export const fundraising: DashboardGrid[] = [
       },
       {
         id: 'weighted-value',
-        meta: 'Weighted value of 50% & 80% probable pipeline at end of quarter (income 2021-2023)',
+        meta: dashboardMetrics[3],
         styled: true,
         chart: {
           data: (data: DashboardData[]): Record<string, React.ReactText>[] =>
@@ -256,45 +257,25 @@ export const fundraising: DashboardGrid[] = [
           ...getEventHandlers(dashboardMetrics[3]),
         },
       },
-    ],
-  },
-  {
-    id: '6',
-    columns: 1,
-    className: 'm-pills',
-    content: [
       {
-        id: 'grant-weighted',
-        meta: 'Weighted value of 50% & 80% probable pipeline at end of quarter (income 2021-2023)',
+        id: 'speculative-pileline-value',
+        meta: dashboardMetrics[4],
         styled: true,
-        title: (data: DashboardData[]): React.ReactText => {
-          const currentMetric = 'Weighted value of 50% & 80% probable pipeline at end of quarter (income 2021-2023)';
-          const metricData = data.filter(
-            ({ metric, year, quarter, category }) =>
-              metric.trim() === currentMetric && category.trim() === 'Grants' && year === 2021 && quarter === 'Q1',
-          );
-
-          return metricData && metricData.length && metricData[0].value ? toPounds(metricData[0].value) : 'None';
-        },
-      },
-    ],
-  },
-  {
-    id: '7',
-    columns: 2,
-    content: [
-      {
-        id: 'grant-speculative',
-        meta: 'Speculative pipeline value, not weighted (>50% probable)',
-        styled: true,
-        title: (data: DashboardData[]): React.ReactText => {
-          const currentMetric = 'Speculative pipeline value, not weighted (>50% probable)';
-          const metricData = data.filter(
-            ({ metric, year, quarter, category }) =>
-              metric.trim() === currentMetric && category.trim() === 'Grants' && year === 2021 && quarter === 'Q1',
-          );
-
-          return metricData && metricData.length && metricData[0].value ? toPounds(metricData[0].value) : 'None';
+        chart: {
+          data: (data: DashboardData[]): Record<string, React.ReactText>[] =>
+            getAggregatedDatasetSource(data, Array<string>().concat(dashboardMetrics[4])),
+          options: {
+            color: colours,
+            tooltip: { show: true, trigger: 'item', formatter: tootipFormatter({ currency: true }) },
+            legend: { show: false },
+            dataset: { dimensions: ['year'].concat(dashboardMetrics[4]) },
+            grid,
+            toolbox: { feature: { saveAsImage: {} } },
+            xAxis: { type: 'category' },
+            yAxis: { type: 'value', show: true, splitNumber: 3, axisLabel: { formatter: '£{value}' } },
+            series: [{ type: 'bar' }],
+          },
+          ...getEventHandlers(dashboardMetrics[4]),
         },
       },
     ],

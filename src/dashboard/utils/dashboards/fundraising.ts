@@ -3,7 +3,7 @@ import { DashboardData, DashboardGrid, EventOptions } from '../../../utils/types
 import { addChartReverseListener, getEventHandlers, grid, tootipFormatter } from '../chart';
 
 const colours = ['#42184c', '#632572', '#994d98', '#cb98c4', '#ebcfe5'];
-const dashboardMetrics = ['Income secured this quarter'];
+const dashboardMetrics = ['Income secured this quarter', 'Weighted value 50/80% probable pipeline at end of quarter'];
 
 export const fundraising: DashboardGrid[] = [
   {
@@ -106,6 +106,7 @@ export const fundraising: DashboardGrid[] = [
   {
     id: '0',
     columns: 1,
+    className: 'pt-20',
     content: [
       {
         id: 'contracts',
@@ -119,16 +120,23 @@ export const fundraising: DashboardGrid[] = [
     content: [
       {
         id: 'contract-weighted',
-        meta: 'Weighted value 50/80% probable pipeline at end of quarter',
+        meta: dashboardMetrics[1],
         styled: true,
-        title: (data: DashboardData[]): React.ReactText => {
-          const currentMetric = 'Weighted value 50/80% probable pipeline at end of quarter';
-          const metricData = data.filter(
-            ({ metric, year, quarter, category }) =>
-              metric.trim() === currentMetric && category.trim() === 'Contracts' && year === 2021 && quarter === 'Q1',
-          );
-
-          return metricData && metricData.length && metricData[0].value ? toPounds(metricData[0].value) : 'None';
+        chart: {
+          data: (data: DashboardData[]): Record<string, React.ReactText>[] =>
+            getAggregatedDatasetSource(data, Array<string>().concat(dashboardMetrics[1])),
+          options: {
+            color: colours,
+            tooltip: { show: true, trigger: 'item', formatter: tootipFormatter({ currency: true }) },
+            legend: { show: false },
+            dataset: { dimensions: ['year'].concat(dashboardMetrics[1]) },
+            grid,
+            toolbox: { feature: { saveAsImage: {} } },
+            xAxis: { type: 'category' },
+            yAxis: { type: 'value', show: true, splitNumber: 3, axisLabel: { formatter: '£{value}' } },
+            series: [{ type: 'bar' }],
+          },
+          ...getEventHandlers(dashboardMetrics[1]),
         },
       },
     ],

@@ -141,7 +141,7 @@ export const fundraising: DashboardGrid[] = [
       },
       {
         id: 'income-secured',
-        meta: dashboardMetrics[0],
+        meta: 'Income Secured From Contracts',
         styled: true,
         chart: {
           data: (data: DashboardData[]): Record<string, React.ReactText>[] => {
@@ -180,20 +180,33 @@ export const fundraising: DashboardGrid[] = [
   },
   {
     id: '4',
-    columns: 4,
+    columns: 2,
     content: [
       {
-        id: 'grant-income-secured',
-        meta: 'Income Secured',
+        id: 'income-secured',
+        meta: 'Income Secured From Grants',
         styled: true,
-        title: (data: DashboardData[]): React.ReactText => {
-          const currentMetric = 'Income secured this quarter';
-          const metricData = data.filter(
-            ({ metric, year, quarter, category }) =>
-              metric.trim() === currentMetric && category.trim() === 'Grants' && year === 2021 && quarter === 'Q1',
-          );
+        chart: {
+          data: (data: DashboardData[]): Record<string, React.ReactText>[] => {
+            const categoryMetric = 'Grants';
+            const metricData = data.filter(
+              ({ metric, category }) => dashboardMetrics[0].includes(metric) && category === categoryMetric,
+            );
 
-          return metricData && metricData.length && metricData[0].value ? toPounds(metricData[0].value) : 'None';
+            return getAggregatedDatasetSource(metricData, Array<string>().concat(dashboardMetrics[0]));
+          },
+          options: {
+            color: colours,
+            tooltip: { show: true, trigger: 'item', formatter: tootipFormatter({ currency: true }) },
+            legend: { show: false },
+            dataset: { dimensions: ['year'].concat(dashboardMetrics[0]) },
+            grid,
+            toolbox: { feature: { saveAsImage: {} } },
+            xAxis: { type: 'category' },
+            yAxis: { type: 'value', show: true, splitNumber: 3, axisLabel: { formatter: '£{value}' } },
+            series: [{ type: 'bar' }],
+          },
+          ...getEventHandlers(dashboardMetrics[0]),
         },
       },
     ],

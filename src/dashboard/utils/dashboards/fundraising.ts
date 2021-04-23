@@ -139,6 +139,33 @@ export const fundraising: DashboardGrid[] = [
           ...getEventHandlers(dashboardMetrics[1]),
         },
       },
+      {
+        id: 'income-secured',
+        meta: dashboardMetrics[0],
+        styled: true,
+        chart: {
+          data: (data: DashboardData[]): Record<string, React.ReactText>[] => {
+            const categoryMetric = 'Contracts';
+            const metricData = data.filter(
+              ({ metric, category }) => dashboardMetrics[0].includes(metric) && category === categoryMetric,
+            );
+
+            return getAggregatedDatasetSource(metricData, Array<string>().concat(dashboardMetrics[0]));
+          },
+          options: {
+            color: colours,
+            tooltip: { show: true, trigger: 'item', formatter: tootipFormatter({ currency: true }) },
+            legend: { show: false },
+            dataset: { dimensions: ['year'].concat(dashboardMetrics[0]) },
+            grid,
+            toolbox: { feature: { saveAsImage: {} } },
+            xAxis: { type: 'category' },
+            yAxis: { type: 'value', show: true, splitNumber: 3, axisLabel: { formatter: '£{value}' } },
+            series: [{ type: 'bar' }],
+          },
+          ...getEventHandlers(dashboardMetrics[0]),
+        },
+      },
     ],
   },
   {
@@ -147,7 +174,7 @@ export const fundraising: DashboardGrid[] = [
     content: [
       {
         id: 'grants',
-        meta: 'Grants - Q1 2021',
+        meta: 'Grants',
       },
     ],
   },

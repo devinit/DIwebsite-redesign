@@ -1,5 +1,5 @@
 import deepmerge from 'deepmerge';
-import { colours } from '../../../dashboard/utils';
+import { colours } from '../../../dashboard/utils/chart';
 import { defaultOptions } from '../../../utils/echarts';
 
 const loadApacheCharts = async (): Promise<typeof echarts> => {

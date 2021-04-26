@@ -2,7 +2,7 @@ import { getAggregatedDatasetSource } from '..';
 import { DashboardData, DashboardGrid } from '../../../utils/types';
 import { getEventHandlers, grid } from '../chart';
 
-const colours = ['#FF9A5C', '#FFA770', '#FFB485'];
+const colours = ['#893f90', '#c189bb', '#a45ea1', '#7b3b89', '#551f65'];
 
 export const dataSystems: DashboardGrid[] = [
     {

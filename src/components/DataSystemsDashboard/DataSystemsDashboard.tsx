@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from 'react';
+import { dataSystems } from '../../dashboard/utils/dashboards/dataSystems';
 import { DashboardData } from '../../utils/types';
-import { Section } from '../Section';
+import { DashboardSection } from '../DashboardSection';
 
 type DataSystemsDashboardProps = {
   year?: number;
@@ -8,11 +9,15 @@ type DataSystemsDashboardProps = {
   data: DashboardData[];
 };
 
-const DataSystemsDashboard: FunctionComponent<DataSystemsDashboardProps> = () => {
+const DataSystemsDashboard: FunctionComponent<DataSystemsDashboardProps> = ({ data }) => {
   return (
-    <Section title="IT & Data Systems" id="data-systems">
-      <div>Content Goes Here</div>
-    </Section>
+    <DashboardSection
+      id="data-systems"
+      title="IT & Data Systems"
+      department="IT systems and data systems"
+      data={data}
+      grids={dataSystems}
+    />
   );
 };
 

@@ -13,7 +13,7 @@ const DataSystemsDashboard: FunctionComponent<DataSystemsDashboardProps> = ({ da
   return (
     <DashboardSection
       id="data-systems"
-      title="IT & Data Systems"
+      title="IT"
       department="IT systems and data systems"
       data={data}
       grids={dataSystems}

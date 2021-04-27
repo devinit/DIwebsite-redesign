@@ -14,15 +14,21 @@ export const getQuarterYear = (dateString: string): [number, number] => {
 export const generateObjectDataset = (data: DashboardData[]): Record<string, React.ReactText>[] => {
   // extract unique metrics & dates
   const metrics = [...new Set(data.map(({ metric }) => metric))];
-  const dates = [...new Set(data.map(({ date }) => date))];
+  const dates = [...new Set(data.map(({ date }) => date))].sort();
 
-  return dates.map((date) => {
+  return dates.reduce<Record<string, string | number>[]>((prev, date) => {
     const [quarter, year] = getQuarterYear(date);
-    const dataset: Record<string, string | number> = { quarter: `${year} Q${quarter}`, year };
+    const matchingDataset = prev.find((_dataset) => _dataset.quarter === `${year} Q${quarter}`);
+    const dataset: Record<string, string | number> = matchingDataset || { quarter: `${year} Q${quarter}`, year };
+
     metrics.forEach((metric) => {
       const matchingData = data.find((item) => item.date === date && metric === item.metric);
       if (matchingData) {
-        dataset[metric] = matchingData.value;
+        if (matchingDataset) {
+          (dataset[metric] as number) += matchingData.value;
+        } else {
+          dataset[metric] = matchingData.value;
+        }
         if (matchingData.target) {
           dataset['Target'] = matchingData.target;
         }
@@ -31,9 +37,10 @@ export const generateObjectDataset = (data: DashboardData[]): Record<string, Rea
         }
       }
     });
+    if (!matchingDataset) prev.push(dataset);
 
-    return dataset;
-  });
+    return prev;
+  }, []);
 };
 
 export const generateArrayDataset = (data: DashboardData[]): React.ReactText[][] => {

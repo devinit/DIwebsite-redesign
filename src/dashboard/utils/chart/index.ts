@@ -46,3 +46,11 @@ export const tootipFormatter = ({ prefix = '', suffix = '', currency }: Formatte
   return 'No Data';
   /* eslint-enable @typescript-eslint/no-explicit-any */
 };
+
+export const getBarLabelConfig = (options: FormatterOptions & { position?: string }) => ({
+  show: true,
+  position: options.position || 'top',
+  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+  formatter: (params: any): string =>
+    `${options.prefix || ''}${params.value[params.dimensionNames[params.encode.y[0]]]}${options.suffix || ''}`,
+});

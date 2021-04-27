@@ -30,7 +30,11 @@ export const addChartReverseListener = (chart: echarts.ECharts, merge = false): 
 
 type FormatterOptions = { prefix?: string; suffix?: string; currency?: boolean };
 
-export const tootipFormatter = ({ prefix = '', suffix = '', currency }: FormatterOptions) => (
+export const tootipFormatter = ({
+  prefix = '',
+  suffix = '',
+  currency,
+}: FormatterOptions): echarts.EChartOption.Tooltip.Formatter => (
   params: echarts.EChartOption.Tooltip.Format,
 ): string => {
   const { value, seriesName } = params;

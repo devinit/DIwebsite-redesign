@@ -1,6 +1,5 @@
 import React, { FunctionComponent } from 'react';
 import { DashboardSection } from '../components/DashboardSection';
-import { DataSystemsDashboard } from '../components/DataSystemsDashboard';
 import { useDashboardData } from './hooks/data';
 import {
   comms,
@@ -8,6 +7,7 @@ import {
   fundraising,
   hr as humanResourcesDashboard,
   projectManagement,
+  dataSystems,
 } from './utils/dashboards';
 
 const Dashboard: FunctionComponent = () => {
@@ -38,7 +38,13 @@ const Dashboard: FunctionComponent = () => {
         data={data}
         grids={fundraising}
       />
-      <DataSystemsDashboard data={data} />
+      <DashboardSection
+        id="data-systems"
+        title="IT"
+        department="IT systems and data systems"
+        data={data}
+        grids={dataSystems}
+      />
     </>
   );
 };

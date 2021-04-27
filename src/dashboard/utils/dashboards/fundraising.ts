@@ -1,4 +1,4 @@
-import { generateObjectDataset, getAggregatedDatasetSource, toPounds } from '../';
+import { generateObjectDataset, getAggregatedDatasetSource } from '../';
 import { DashboardData, DashboardGrid, EventOptions } from '../../../utils/types';
 import { addChartReverseListener, getEventHandlers, grid, tootipFormatter } from '../chart';
 

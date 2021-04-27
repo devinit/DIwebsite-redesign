@@ -46,7 +46,7 @@ export const fundraising: DashboardGrid[] = [
           options: {
             color: colours,
             tooltip: { show: true, trigger: 'axis' },
-            legend: { show: false },
+            legend: { show: true },
             dataset: {
               dimensions: [
                 'year',
@@ -65,8 +65,8 @@ export const fundraising: DashboardGrid[] = [
               axisLabel: { formatter: '£{value}' },
             },
             series: [
-              { type: 'bar', barWidth: '30%', stack: 'fundraising' },
-              { type: 'bar', barWidth: '30%', stack: 'fundraising' },
+              { type: 'bar', barWidth: '30%' },
+              { type: 'bar', barWidth: '30%' },
             ],
           },
           ...getEventHandlers(dashboardMetrics[0]),

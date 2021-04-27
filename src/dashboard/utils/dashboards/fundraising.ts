@@ -65,8 +65,8 @@ export const fundraising: DashboardGrid[] = [
               axisLabel: { formatter: '£{value}' },
             },
             series: [
-              { type: 'bar', barWidth: '30%' },
-              { type: 'bar', barWidth: '30%' },
+              { type: 'bar', barWidth: '30%', stack: 'fundraising' },
+              { type: 'bar', barWidth: '30%', stack: 'fundraising' },
             ],
           },
           ...getEventHandlers(dashboardMetrics[0]),

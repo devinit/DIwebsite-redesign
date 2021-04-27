@@ -1,6 +1,6 @@
 import deepmerge from 'deepmerge';
 import { addChartReverseListener } from '.';
-import { generateObjectDataset } from '..';
+import { DateDivision, generateObjectDataset } from '..';
 import { DashboardChartEvents, DashboardData, EventOptions } from '../../../utils/types';
 
 export const hideNarrative = (chartNode: HTMLDivElement): void => {
@@ -34,6 +34,7 @@ export const showNarrative = (chartNode: HTMLDivElement, content: string): void 
 export const getEventHandlers = (
   metrics: string | string[],
   options: Partial<echarts.EChartOption> = {},
+  division: DateDivision = 'quarter', // determines whether to split x-axis dates by month or quarter
 ): DashboardChartEvents => {
   return {
     onClick: ({ data, chart, params }: EventOptions): void => {
@@ -41,6 +42,7 @@ export const getEventHandlers = (
       const { year: y } = params.data;
       const source = generateObjectDataset(
         (data as DashboardData[]).filter(({ metric, year }) => metrics.includes(metric) && y === year),
+        division,
       );
       addChartReverseListener(chart);
 

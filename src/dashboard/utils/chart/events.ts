@@ -1,3 +1,4 @@
+import deepmerge from 'deepmerge';
 import { addChartReverseListener } from '.';
 import { generateObjectDataset } from '..';
 import { DashboardChartEvents, DashboardData, EventOptions } from '../../../utils/types';
@@ -30,7 +31,10 @@ export const showNarrative = (chartNode: HTMLDivElement, content: string): void 
  * @param metrics - Indicators for a particular chart
  * @returns Object with event handlers - onClick, onHover, onBlur
  */
-export const getEventHandlers = (metrics: string | string[]): DashboardChartEvents => {
+export const getEventHandlers = (
+  metrics: string | string[],
+  options: Partial<echarts.EChartOption> = {},
+): DashboardChartEvents => {
   return {
     onClick: ({ data, chart, params }: EventOptions): void => {
       if (!params.data) return;
@@ -40,7 +44,7 @@ export const getEventHandlers = (metrics: string | string[]): DashboardChartEven
       );
       addChartReverseListener(chart);
 
-      chart.setOption({ dataset: { source, dimensions: ['quarter'].concat(metrics) } });
+      chart.setOption(deepmerge(options, { dataset: { source, dimensions: ['quarter'].concat(metrics) } }));
     },
     onHover: ({ chart, params }: EventOptions): void => {
       if (!params.data) return;

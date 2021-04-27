@@ -37,7 +37,10 @@ export const tootipFormatter = ({ prefix = '', suffix = '', currency }: Formatte
 
   /* eslint-disable @typescript-eslint/no-explicit-any */
   if (value && seriesName && (value as any)[seriesName]) {
-    const rawValue = (value as any)[seriesName];
+    let rawValue = (value as any)[seriesName];
+    if (typeof rawValue === 'number') {
+      rawValue = Math.round(rawValue * 100) / 100;
+    }
     const parsedValue = currency ? toPounds(rawValue) : rawValue;
 
     return `${prefix}${parsedValue}${suffix}`;
@@ -51,6 +54,14 @@ export const getBarLabelConfig = (options: FormatterOptions & { position?: strin
   show: true,
   position: options.position || 'top',
   /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-  formatter: (params: any): string =>
-    `${options.prefix || ''}${params.value[params.dimensionNames[params.encode.y[0]]]}${options.suffix || ''}`,
+  formatter: (params: any): string => {
+    const value = params.value[params.dimensionNames[params.encode.y[0]]];
+    if (typeof value === 'number') {
+      const roundedValue = Math.round(value * 100) / 100;
+
+      return `${options.prefix || ''}${roundedValue}${options.suffix || ''}`;
+    }
+
+    return `${options.prefix || ''}${value}${options.suffix || ''}`;
+  },
 });

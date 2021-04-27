@@ -181,6 +181,38 @@ export const hr: DashboardGrid[] = [
           ...getEventHandlers('Total Sick Days', { yAxis: { show: false } }, 'month'),
         },
       },
+      {
+        id: 'sick-days-staff',
+        meta: 'Number of Staff Who logged Sick days per period of sickness',
+        styled: true,
+        chart: {
+          data: (data: DashboardData[]): Record<string, React.ReactText>[] => {
+            const monthlyData = data.filter(
+              ({ metric, quarter }) =>
+                metric === 'No. Staff Logged Sick days/ periods of sickness' && fullMonths.includes(quarter),
+            );
+
+            return getAggregatedDatasetSource(
+              monthlyData,
+              ['No. Staff Logged Sick days/ periods of sickness'],
+              'sum',
+              'month',
+            );
+          },
+          options: {
+            color: colours,
+            tooltip: { trigger: 'item' },
+            legend: { show: false },
+            dataset: { dimensions: ['year', 'No. Staff Logged Sick days/ periods of sickness'] },
+            grid,
+            toolbox: { show: true, feature: { saveAsImage: { show: true } } },
+            xAxis: { type: 'category', axisTick: { alignWithLabel: true, interval: 1 } },
+            yAxis: { type: 'value', splitNumber: 3 },
+            series: [{ type: 'bar', label: getBarLabelConfig({}) }],
+          },
+          ...getEventHandlers('No. Staff Logged Sick days/ periods of sickness', { yAxis: { show: false } }, 'month'),
+        },
+      },
     ],
   },
 ];

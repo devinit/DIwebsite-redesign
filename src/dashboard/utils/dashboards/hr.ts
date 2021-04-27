@@ -1,6 +1,6 @@
-import { generateObjectDataset, getAggregatedDatasetSource } from '../';
+import { fullMonths, generateObjectDataset, getAggregatedDatasetSource } from '../';
 import { DashboardContent, DashboardData, DashboardGrid, EventOptions } from '../../../utils/types';
-import { addChartReverseListener, grid } from '../chart';
+import { addChartReverseListener, getBarLabelConfig, getEventHandlers, grid } from '../chart';
 
 const colours = ['#0c457b', '#0071b1', '#4397d3', '#00538e', '#88bae5', '#0089cc']; // shades of blue
 
@@ -124,7 +124,7 @@ export const hr: DashboardGrid[] = [
               getAggregatedDatasetSource(data, [meta]),
             options: {
               color: colours,
-              tooltip: { trigger: 'axis' },
+              tooltip: { trigger: 'item' },
               legend: { show: false },
               dataset: { dimensions: ['year', meta] },
               toolbox: { show: true, feature: { saveAsImage: { show: true } } },
@@ -155,6 +155,32 @@ export const hr: DashboardGrid[] = [
         };
       }),
       /* eslint-enable @typescript-eslint/no-explicit-any */
+      {
+        id: 'sick-days',
+        meta: 'Total Sick Days',
+        styled: true,
+        chart: {
+          data: (data: DashboardData[]): Record<string, React.ReactText>[] => {
+            const monthlyData = data.filter(
+              ({ metric, quarter }) => metric === 'Total Sick Days' && fullMonths.includes(quarter),
+            );
+
+            return getAggregatedDatasetSource(monthlyData, ['Total Sick Days'], 'sum', 'month');
+          },
+          options: {
+            color: colours,
+            tooltip: { trigger: 'item' },
+            legend: { show: false },
+            dataset: { dimensions: ['year', 'Total Sick Days'] },
+            grid,
+            toolbox: { show: true, feature: { saveAsImage: { show: true } } },
+            xAxis: { type: 'category', axisTick: { alignWithLabel: true, interval: 1 } },
+            yAxis: { type: 'value', splitNumber: 3 },
+            series: [{ type: 'bar', label: getBarLabelConfig({}) }],
+          },
+          ...getEventHandlers('Total Sick Days', { yAxis: { show: false } }, 'month'),
+        },
+      },
     ],
   },
 ];

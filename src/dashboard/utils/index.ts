@@ -1,6 +1,20 @@
 import { DashboardData, DashboardFilters } from '../../utils/types';
 
 export type DateDivision = 'month' | 'quarter'; // determines whether to split x-axis dates by month or quarter
+export const fullMonths = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
 
 export const getQuarterYear = (dateString: string): [number, number] => {

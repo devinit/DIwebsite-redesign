@@ -1,5 +1,22 @@
 import { DashboardData, DashboardFilters } from '../../utils/types';
 
+export type DateDivision = 'month' | 'quarter'; // determines whether to split x-axis dates by month or quarter
+export const fullMonths = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+
 export const getQuarterYear = (dateString: string): [number, number] => {
   try {
     const date = new Date(dateString);
@@ -11,18 +28,38 @@ export const getQuarterYear = (dateString: string): [number, number] => {
   }
 };
 
-export const generateObjectDataset = (data: DashboardData[]): Record<string, React.ReactText>[] => {
+export const getMonthYear = (dateString: string): [string, number] => {
+  try {
+    const date = new Date(dateString);
+
+    return [months[date.getMonth()], date.getFullYear()];
+  } catch (error) {
+    return ['', 0];
+  }
+};
+
+export const generateObjectDataset = (
+  data: DashboardData[],
+  division: DateDivision = 'quarter', // determines whether to split x-axis dates by month or quarter
+): Record<string, React.ReactText>[] => {
   // extract unique metrics & dates
   const metrics = [...new Set(data.map(({ metric }) => metric))];
-  const dates = [...new Set(data.map(({ date }) => date))];
+  const dates = [...new Set(data.map(({ date }) => date))].sort();
 
-  return dates.map((date) => {
-    const [quarter, year] = getQuarterYear(date);
-    const dataset: Record<string, string | number> = { quarter: `${year} Q${quarter}`, year };
+  return dates.reduce<Record<string, string | number>[]>((prev, date) => {
+    const [quarterMonth, year] = division === 'quarter' ? getQuarterYear(date) : getMonthYear(date);
+    const quarter = division === 'quarter' ? `${year} Q${quarterMonth}` : quarterMonth;
+    const matchingDataset = prev.find((_dataset) => _dataset.quarter === quarter);
+    const dataset: Record<string, string | number> = matchingDataset || { quarter: quarter, year };
+
     metrics.forEach((metric) => {
       const matchingData = data.find((item) => item.date === date && metric === item.metric);
       if (matchingData) {
-        dataset[metric] = matchingData.value;
+        if (matchingDataset) {
+          (dataset[metric] as number) += matchingData.value;
+        } else {
+          dataset[metric] = matchingData.value;
+        }
         if (matchingData.target) {
           dataset['Target'] = matchingData.target;
         }
@@ -31,9 +68,10 @@ export const generateObjectDataset = (data: DashboardData[]): Record<string, Rea
         }
       }
     });
+    if (!matchingDataset) prev.push(dataset);
 
-    return dataset;
-  });
+    return prev;
+  }, []);
 };
 
 export const generateArrayDataset = (data: DashboardData[]): React.ReactText[][] => {
@@ -93,6 +131,7 @@ export const getAggregatedDatasetSource = (
   data: DashboardData[],
   metrics: string[],
   aggregation: 'sum' | 'average' = 'average',
+  division: DateDivision = 'quarter', // determines whether to split x-axis dates by month or quarter
 ): Record<string, React.ReactText>[] => {
   const metricData = data.filter(({ metric }) => metrics.includes(metric));
 
@@ -113,5 +152,5 @@ export const getAggregatedDatasetSource = (
     return prev;
   }, []);
 
-  return generateObjectDataset(dataAggregateForMetricYear);
+  return generateObjectDataset(dataAggregateForMetricYear, division);
 };

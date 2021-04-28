@@ -30,14 +30,21 @@ export const addChartReverseListener = (chart: echarts.ECharts, merge = false): 
 
 type FormatterOptions = { prefix?: string; suffix?: string; currency?: boolean };
 
-export const tootipFormatter = ({ prefix = '', suffix = '', currency }: FormatterOptions) => (
+export const tootipFormatter = ({
+  prefix = '',
+  suffix = '',
+  currency,
+}: FormatterOptions): echarts.EChartOption.Tooltip.Formatter => (
   params: echarts.EChartOption.Tooltip.Format,
 ): string => {
   const { value, seriesName } = params;
 
   /* eslint-disable @typescript-eslint/no-explicit-any */
   if (value && seriesName && (value as any)[seriesName]) {
-    const rawValue = (value as any)[seriesName];
+    let rawValue = (value as any)[seriesName];
+    if (typeof rawValue === 'number') {
+      rawValue = Math.round(rawValue * 100) / 100;
+    }
     const parsedValue = currency ? toPounds(rawValue) : rawValue;
 
     return `${prefix}${parsedValue}${suffix}`;
@@ -46,3 +53,21 @@ export const tootipFormatter = ({ prefix = '', suffix = '', currency }: Formatte
   return 'No Data';
   /* eslint-enable @typescript-eslint/no-explicit-any */
 };
+
+export const getBarLabelConfig = (options: FormatterOptions & { position?: string }) => ({
+  show: true,
+  position: options.position || 'top',
+  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+  formatter: (params: any): string => {
+    const value = params.value[params.dimensionNames[params.encode.y[0]]];
+    if (typeof value === 'number') {
+      const roundedValue = Math.round(value * 100) / 100;
+      const parsedValue = options.currency ? toPounds(roundedValue) : roundedValue;
+
+      return `${options.prefix || ''}${parsedValue}${options.suffix || ''}`;
+    }
+    const parsedValue = options.currency ? toPounds(value) : value;
+
+    return `${options.prefix || ''}${parsedValue}${options.suffix || ''}`;
+  },
+});

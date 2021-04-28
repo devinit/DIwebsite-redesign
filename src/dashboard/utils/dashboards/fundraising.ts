@@ -46,7 +46,7 @@ export const fundraising: DashboardGrid[] = [
           options: {
             color: colours,
             tooltip: { show: true, trigger: 'axis' },
-            legend: { show: false },
+            legend: { show: true },
             dataset: {
               dimensions: [
                 'year',
@@ -147,7 +147,7 @@ export const fundraising: DashboardGrid[] = [
       },
       {
         id: 'income-secured',
-        meta: 'Income Secured From Contracts',
+        meta: 'Income Secured From Contracts (Target £1.2M)',
         styled: true,
         chart: {
           data: (data: DashboardData[]): Record<string, React.ReactText>[] => {
@@ -190,7 +190,7 @@ export const fundraising: DashboardGrid[] = [
     content: [
       {
         id: 'income-secured',
-        meta: 'Income Secured From Grants',
+        meta: 'Income Secured From Grants (Target £2.5m)',
         styled: true,
         chart: {
           data: (data: DashboardData[]): Record<string, React.ReactText>[] => {

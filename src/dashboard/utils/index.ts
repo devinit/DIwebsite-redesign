@@ -38,6 +38,13 @@ export const getMonthYear = (dateString: string): [string, number] => {
   }
 };
 
+const getAnnualTargetFromData = (data: DashboardData[], metric: string, date: string): number | null => {
+  const year = new Date(date).getFullYear();
+  const annualData = data.find((item) => metric === item.metric && item.year === year && item.quarter === 'Annual');
+
+  return (annualData && annualData.target) || null;
+};
+
 export const generateObjectDataset = (
   data: DashboardData[],
   division: DateDivision = 'quarter', // determines whether to split x-axis dates by month or quarter
@@ -62,6 +69,11 @@ export const generateObjectDataset = (
         }
         if (matchingData.target) {
           dataset['Target'] = matchingData.target;
+        } else {
+          const target = getAnnualTargetFromData(data, metric, date);
+          if (target) {
+            dataset['Target'] = target;
+          }
         }
         if (matchingData.narrative) {
           dataset[`${metric} - narrative`] = matchingData.narrative;

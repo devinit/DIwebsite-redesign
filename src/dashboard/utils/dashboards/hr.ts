@@ -115,16 +115,30 @@ export const hr: DashboardGrid[] = [
             getAggregatedDatasetSource(data, [dashboardMetrics[1] as string]),
           options: {
             color: colours,
-            tooltip: { show: false, trigger: 'axis' },
-            legend: { show: false },
-            dataset: { dimensions: ['year'].concat(dashboardMetrics[1]) },
+            tooltip: { show: true, trigger: 'axis' },
+            legend: { show: true },
+            dataset: { dimensions: ['year'].concat(dashboardMetrics[1], 'Target') },
             grid,
             toolbox: { feature: { saveAsImage: {} } },
             xAxis: { type: 'category' },
             yAxis: { type: 'value', show: false, splitNumber: 3 },
-            series: [{ type: 'bar', label: getBarLabelConfig({ currency: true, suffix: 'm' }) }],
+            series: [
+              { type: 'bar', label: getBarLabelConfig({ currency: true, suffix: 'm' }), barGap: '-100%' },
+              { type: 'bar' },
+            ],
           },
-          ...getEventHandlers(dashboardMetrics[1]),
+          ...getEventHandlers([dashboardMetrics[1] as string, 'Target'], {
+            series: [
+              {},
+              {
+                type: 'line',
+                symbol: 'none',
+                lineStyle: { type: 'dashed', color: '#333' },
+                itemStyle: { color: '#333' },
+                silent: true,
+              },
+            ],
+          }),
         },
       },
       {

@@ -62,10 +62,12 @@ export const getBarLabelConfig = (options: FormatterOptions & { position?: strin
     const value = params.value[params.dimensionNames[params.encode.y[0]]];
     if (typeof value === 'number') {
       const roundedValue = Math.round(value * 100) / 100;
+      const parsedValue = options.currency ? toPounds(roundedValue) : roundedValue;
 
-      return `${options.prefix || ''}${roundedValue}${options.suffix || ''}`;
+      return `${options.prefix || ''}${parsedValue}${options.suffix || ''}`;
     }
+    const parsedValue = options.currency ? toPounds(value) : value;
 
-    return `${options.prefix || ''}${value}${options.suffix || ''}`;
+    return `${options.prefix || ''}${parsedValue}${options.suffix || ''}`;
   },
 });

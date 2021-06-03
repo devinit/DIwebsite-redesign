@@ -195,6 +195,27 @@ button.button--alt {
 	}
 }
 
+.button--secondary {
+	border-color: $action-respond;
+	color: $action-respond;
+	@include link-active-styles {
+		border-color: $action;
+		background-color: $action;
+		color: #fff;
+	}
+	&--fill {
+		border-color: $action-respond;
+		background-color: $action-respond;
+		color: #fff;
+	}
+}
+
+.button--small {
+	padding: .75em;
+	@include font-size($para - 3);
+	line-height: 1;
+}
+
 .button--reverse {
 	border-color: #fff;
 	color: #fff;

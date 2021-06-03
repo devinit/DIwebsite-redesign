@@ -3,7 +3,6 @@
 // Colour variations
 // ------------------------------------------------------------
 
-
 // Blue
 // ------------------------------------------------------------
 body.body--bluebell {
@@ -52,7 +51,10 @@ body.body--bluebell {
     }
     .m-authors {
         a {
-            color: $bluebell
+            color: $bluebell;
+            &:hover, &:focus {
+                color: $slate;
+            }
         }
     }
     .is-typeset {
@@ -158,6 +160,17 @@ body.body--bluebell {
                 color: #fff;
             }
         }
+        button.button {
+        	background: $bluebell;
+        	color: #fff;
+        }
+        .list-item a {
+        	color: $bluebell;
+        	text-decoration: underline;
+        	&:hover, &:focus {
+                color: $slate;
+            }
+        }
         .download-button {
             &:hover, &:focus {
                 background-color: $slate;
@@ -176,6 +189,18 @@ body.body--bluebell {
             &:hover, &:focus {
                 background-color: #fff;
                 color: $heading-color;
+            }
+        }
+        button.button {
+        	background: #fff;
+        	color: $slate;
+        }
+        .list-item a {
+        	color: #fff;
+        	text-decoration: underline;
+        	&:hover, &:focus {
+        		color: #fff;
+                text-decoration: none;
             }
         }
         .download-button {
@@ -255,6 +280,9 @@ body.body--leaf {
     .m-authors {
         a {
             color: $leaf;
+            &:hover, &:focus {
+                color: $slate;
+            }
         }
     }
     .is-typeset {
@@ -364,6 +392,17 @@ body.body--leaf {
                 color: #fff;
             }
         }
+        button.button {
+        	background: $leaf;
+        	color: #fff;
+        }
+        .list-item a {
+        	color: $leaf;
+        	text-decoration: underline;
+        	&:hover, &:focus {
+                color: $slate;
+            }
+        }
         .download-button {
             &:hover, &:focus {
                 background-color: $slate;
@@ -382,6 +421,18 @@ body.body--leaf {
             &:hover, &:focus {
                 background-color: #fff;
                 color: $heading-color;
+            }
+        }
+        button.button {
+        	background: #fff;
+        	color: $slate;
+        }
+        .list-item a {
+        	color: #fff;
+        	text-decoration: underline;
+        	&:hover, &:focus {
+        		color: #fff;
+                text-decoration: none;
             }
         }
         .download-button {
@@ -464,6 +515,9 @@ body.body--sunflower {
     .m-authors {
         a {
             color: $sunflower;
+            &:hover, &:focus {
+                color: $slate;
+            }
         }
     }
     .is-typeset {
@@ -573,6 +627,17 @@ body.body--sunflower {
                 color: #fff;
             }
         }
+        button.button {
+        	background: $sunflower;
+        	color: #fff;
+        }
+        .list-item a {
+        	color: $sunflower;
+        	text-decoration: underline;
+        	&:hover, &:focus {
+                color: $slate;
+            }
+        }
         .download-button {
             &:hover, &:focus {
                 background-color: $slate;
@@ -591,6 +656,18 @@ body.body--sunflower {
             &:hover, &:focus {
                 background-color: #fff;
                 color: $heading-color;
+            }
+        }
+        button.button {
+        	background: #fff;
+        	color: $slate;
+        }
+        .list-item a {
+        	color: #fff;
+        	text-decoration: underline;
+        	&:hover, &:focus {
+        		color: #fff;
+                text-decoration: none;
             }
         }
         .download-button {
@@ -670,6 +747,9 @@ body.body--marigold {
     .m-authors {
         a {
             color: $marigold;
+            &:hover, &:focus {
+                color: $slate;
+            }
         }
     }
     .is-typeset {
@@ -779,6 +859,17 @@ body.body--marigold {
                 color: #fff;
             }
         }
+        button.button {
+        	background: $marigold;
+        	color: #fff;
+        }
+        .list-item a {
+        	color: $marigold;
+        	text-decoration: underline;
+        	&:hover, &:focus {
+                color: $slate;
+            }
+        }
         .download-button {
             &:hover, &:focus {
                 background-color: $slate;
@@ -797,6 +888,18 @@ body.body--marigold {
             &:hover, &:focus {
                 background-color: #fff;
                 color: $heading-color;
+            }
+        }
+        button.button {
+        	background: #fff;
+        	color: $slate;
+        }
+        .list-item a {
+        	color: #fff;
+        	text-decoration: underline;
+        	&:hover, &:focus {
+        		color: #fff;
+                text-decoration: none;
             }
         }
         .download-button {
@@ -876,6 +979,9 @@ body.body--rose {
     .m-authors {
         a {
             color: $rose;
+            &:hover, &:focus {
+                color: $slate;
+            }
         }
     }
     .is-typeset {
@@ -985,6 +1091,17 @@ body.body--rose {
                 color: #fff;
             }
         }
+        button.button {
+        	background: $rose;
+        	color: #fff;
+        }
+        .list-item a {
+        	color: $rose;
+        	text-decoration: underline;
+        	&:hover, &:focus {
+                color: $slate;
+            }
+        }
         .download-button {
             &:hover, &:focus {
                 background-color: $slate;
@@ -1003,6 +1120,18 @@ body.body--rose {
             &:hover, &:focus {
                 background-color: #fff;
                 color: $heading-color;
+            }
+        }
+        button.button {
+        	background: #fff;
+        	color: $slate;
+        }
+        .list-item a {
+        	color: #fff;
+        	text-decoration: underline;
+        	&:hover, &:focus {
+        		color: #fff;
+                text-decoration: none;
             }
         }
         .download-button {
@@ -1082,6 +1211,9 @@ body.body--lavendar {
     .m-authors {
         a {
             color: $lavendar;
+            &:hover, &:focus {
+                color: $slate;
+            }
         }
     }
     .is-typeset {
@@ -1191,6 +1323,17 @@ body.body--lavendar {
                 color: #fff;
             }
         }
+        button.button {
+        	background: $lavendar;
+        	color: #fff;
+        }
+        .list-item a {
+        	color: $lavendar;
+        	text-decoration: underline;
+        	&:hover, &:focus {
+                color: $slate;
+            }
+        }
         .download-button {
             &:hover, &:focus {
                 background-color: $slate;
@@ -1209,6 +1352,18 @@ body.body--lavendar {
             &:hover, &:focus {
                 background-color: #fff;
                 color: $heading-color;
+            }
+        }
+        button.button {
+        	background: #fff;
+        	color: $slate;
+        }
+        .list-item a {
+        	color: #fff;
+        	text-decoration: underline;
+        	&:hover, &:focus {
+        		color: #fff;
+                text-decoration: none;
             }
         }
         .download-button {

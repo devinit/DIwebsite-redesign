@@ -21,6 +21,7 @@ import countrySearch from './utils/countrySearch';
 import spotlights from './utils/spotlights';
 import simpleModal from './utils/simpleModal';
 import setupNotices from './utils/setupNotices';
+import listShowHide from './utils/listShowHide';
 
 function globals () {
 
@@ -190,6 +191,8 @@ function globals () {
 
     simpleModal('.js-modal-trigger','.modal--share', 'modal--share-open');
 
+    // list toggles, used to show hide list items.
+    listShowHide();
 }
 
 $(function run () {

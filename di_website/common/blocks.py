@@ -422,5 +422,6 @@ class SectionStreamBlock(StreamBlock):
     audio_block = AudioMediaBlock(max_num=1)
     video_duo = VideoDuoTextBlock()
     full_width_video_block = FullWidthVideoBlock()
+    cta = CallToActionBlock(template='blocks/section_call_to_action.html')
 
     required = False

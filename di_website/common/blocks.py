@@ -4,7 +4,6 @@ from wagtail.core.blocks import (
     BooleanBlock,
     CharBlock,
     ChoiceBlock,
-    DecimalBlock,
     ListBlock,
     PageChooserBlock,
     RichTextBlock,
@@ -304,6 +303,27 @@ class BasicInfographicBlock(Infographic):
         template = 'blocks/basic_infographic.html'
 
 
+class CallToActionBlock(StructBlock):
+    title = CharBlock(required=True, label='Title')
+    body = TextBlock(
+        required=False, label='Description',
+        help_text='Optional: describe the purpose of your call to action in a bit more detail')
+    button_text = CharBlock(
+        required=False, label='Button Caption',
+        help_text='Optional: this is required to show the button')
+    button_url = URLBlock(
+        required=False, label='Button URL',
+        help_text='Optional: this is required to show the button')
+    button_page = PageChooserBlock(
+        required=False, label='Button Page',
+        help_text='Optional: has priority over the button URL field')
+
+    class Meta:
+        icon = 'fa-flag'
+        label = 'Call To Action'
+        template = 'blocks/call_to_action.html'
+
+
 class TypesetFootnoteStreamBlock(StreamBlock):
     """
     The custom blocks that can be used under an element with the typeset class (not sections)
@@ -325,6 +345,7 @@ class TypesetFootnoteStreamBlock(StreamBlock):
         required=False
     )
     infographic = BasicInfographicBlock()
+    cta = CallToActionBlock()
 
     required = False
 

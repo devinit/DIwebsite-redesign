@@ -180,3 +180,11 @@ select optgroup {
 .pt-20 {
   padding-top: 20px;
 }
+
+/** ==== CALL TO ACTION === **/
+.is-typeset .cta__heading {
+  font-size: 2rem;
+  color: #fff;
+  margin-top: inherit;
+  margin-bottom: .5em;
+}

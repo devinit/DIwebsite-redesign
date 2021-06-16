@@ -161,8 +161,11 @@ body.body--bluebell {
             }
         }
         button.button {
-        	background: $bluebell;
-        	color: #fff;
+        	background-color: transparent;
+        	&:hover, &:focus {
+                background-color: $bluebell!important;
+                color: #fff;
+            }
         }
         .list-item a {
         	color: $bluebell;
@@ -192,8 +195,10 @@ body.body--bluebell {
             }
         }
         button.button {
-        	background: #fff;
-        	color: $slate;
+        	&:hover, &:focus {
+                background-color: #fff!important;
+                color: $heading-color;
+            }
         }
         .list-item a {
         	color: #fff;
@@ -393,8 +398,11 @@ body.body--leaf {
             }
         }
         button.button {
-        	background: $leaf;
-        	color: #fff;
+        	background-color: transparent;
+        	&:hover, &:focus {
+                background-color: $leaf!important;
+                color: #fff;
+            }
         }
         .list-item a {
         	color: $leaf;
@@ -424,8 +432,10 @@ body.body--leaf {
             }
         }
         button.button {
-        	background: #fff;
-        	color: $slate;
+        	&:hover, &:focus {
+                background-color: #fff!important;
+                color: $heading-color;
+            }
         }
         .list-item a {
         	color: #fff;
@@ -628,8 +638,11 @@ body.body--sunflower {
             }
         }
         button.button {
-        	background: $sunflower;
-        	color: #fff;
+        	background-color: transparent;
+        	&:hover, &:focus {
+                background-color: $sunflower!important;
+                color: #fff;
+            }
         }
         .list-item a {
         	color: $sunflower;
@@ -659,8 +672,10 @@ body.body--sunflower {
             }
         }
         button.button {
-        	background: #fff;
-        	color: $slate;
+        	&:hover, &:focus {
+                background-color: #fff!important;
+                color: $heading-color;
+            }
         }
         .list-item a {
         	color: #fff;
@@ -860,8 +875,11 @@ body.body--marigold {
             }
         }
         button.button {
-        	background: $marigold;
-        	color: #fff;
+        	background-color: transparent;
+        	&:hover, &:focus {
+                background-color: $marigold!important;
+                color: #fff;
+            }
         }
         .list-item a {
         	color: $marigold;
@@ -891,8 +909,10 @@ body.body--marigold {
             }
         }
         button.button {
-        	background: #fff;
-        	color: $slate;
+        	&:hover, &:focus {
+                background-color: #fff!important;
+                color: $heading-color;
+            }
         }
         .list-item a {
         	color: #fff;
@@ -1092,8 +1112,11 @@ body.body--rose {
             }
         }
         button.button {
-        	background: $rose;
-        	color: #fff;
+        	background-color: transparent;
+        	&:hover, &:focus {
+                background-color: $rose!important;
+                color: #fff;
+            }
         }
         .list-item a {
         	color: $rose;
@@ -1123,8 +1146,10 @@ body.body--rose {
             }
         }
         button.button {
-        	background: #fff;
-        	color: $slate;
+        	&:hover, &:focus {
+                background-color: #fff!important;
+                color: $heading-color;
+            }
         }
         .list-item a {
         	color: #fff;
@@ -1324,8 +1349,11 @@ body.body--lavendar {
             }
         }
         button.button {
-        	background: $lavendar;
-        	color: #fff;
+        	background-color: transparent;
+        	&:hover, &:focus {
+                background-color: $lavendar!important;
+                color: #fff;
+            }
         }
         .list-item a {
         	color: $lavendar;
@@ -1355,8 +1383,10 @@ body.body--lavendar {
             }
         }
         button.button {
-        	background: #fff;
-        	color: $slate;
+        	&:hover, &:focus {
+                background-color: #fff!important;
+                color: $heading-color;
+            }
         }
         .list-item a {
         	color: #fff;

@@ -86,7 +86,8 @@
 .hero__content {
     max-width: 650px;
     .button {
-        margin-top: 1.5em;
+        margin-top: 2rem;
+        margin-right: 1.5em;
     }
     @include respond-to($c-vp) {
         max-width: 500px;

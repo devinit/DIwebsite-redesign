@@ -377,7 +377,6 @@ class PublicationPage(
         hero_panels(),
         StreamFieldPanel('authors'),
         call_to_action_panel(),
-        InlinePanel('publication_cta', label='Call To Action'),
         SnippetChooserPanel('publication_type'),
         FieldPanel('topics'),
         InlinePanel('publication_datasets', label='Datasets'),
@@ -396,6 +395,7 @@ class PublicationPage(
         UUIDPanel(),
         InlinePanel('page_notifications', label='Notifications'),
         InlinePanel('publication_related_links', label='Related links', max_num=MAX_RELATED_LINKS),
+        InlinePanel('publication_cta', label='Call To Action', max_num=2),
     ]
 
     @cached_property

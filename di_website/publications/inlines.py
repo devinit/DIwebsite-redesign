@@ -112,6 +112,7 @@ class PublicationCallToAction(Orderable):
     CTA_POSITION_CHOICES = [
         ('top', 'Top'),
         ('bottom', 'Bottom'),
+        ('top-bottom', 'Top & Bottom'),
     ]
     data_format = models.TextField(
         max_length=100,

@@ -727,7 +727,7 @@ class PublicationChapterPage(
 
 class PublicationAppendixPage(
     HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin,
-    UUIDMixin, FilteredDatasetMixin, ReportDownloadMixin, InheritCTAMixin, Page):
+    UUIDMixin, FilteredDatasetMixin, ReportDownloadMixin, Page):
 
     class Meta:
         verbose_name = 'Publication Appendix'

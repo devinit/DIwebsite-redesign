@@ -19,20 +19,6 @@
 
   {% for block in page.content %}
 
-    {% if forloop.first and page.call_to_action %}
-      <section class="section section--post">
-        <div class="row row--narrow">
-          <div class="max-meter max-meter--center">
-            {% for item in page.call_to_action %}
-              {% if item.position == 'top' or item.position == 'top-bottom' %}
-                  {% include 'includes/partials/call-to-action-inline.html' %}
-              {% endif %}
-            {% endfor %}
-          </div>
-        </div>
-      </section>
-    {% endif %}
-
     <section class="section {% if forloop.first %}section--post{% endif %}">
       <div class="row row--narrow">
         {% if block.block_type == 'rich_text' and forloop.first %}

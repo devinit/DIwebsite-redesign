@@ -39,7 +39,7 @@ from di_website.downloads.utils import DownloadsPanel
 from .edit_handlers import MultiFieldPanel
 from .inlines import *
 from .mixins import (
-    FilteredDatasetMixin, FlexibleContentMixin, LegacyPageSearchMixin, PageSearchMixin, ParentPageSearchMixin,
+    FilteredDatasetMixin, FlexibleContentMixin, InheritCTAMixin, LegacyPageSearchMixin, PageSearchMixin, ParentPageSearchMixin,
     PublishedDateMixin, ReportChildMixin, ReportDownloadMixin, UniqueForParentPageMixin, UUIDMixin)
 from .utils import (
     ContentPanel, PublishedDatePanel, ReportDownloadPanel, UUIDPanel, WagtailImageField,
@@ -484,7 +484,7 @@ class PublicationPage(
 
 class PublicationForewordPage(
     HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin, UniqueForParentPageMixin,
-    UUIDMixin, FilteredDatasetMixin, ReportDownloadMixin, Page):
+    UUIDMixin, FilteredDatasetMixin, ReportDownloadMixin, InheritCTAMixin, Page):
     class Meta:
         verbose_name = 'Publication Foreword'
 
@@ -548,7 +548,7 @@ class PublicationForewordPage(
 
 class PublicationSummaryPage(
     HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin, UniqueForParentPageMixin,
-    UUIDMixin, FilteredDatasetMixin, ReportDownloadMixin, Page):
+    UUIDMixin, FilteredDatasetMixin, ReportDownloadMixin, InheritCTAMixin, Page):
 
     class Meta:
         verbose_name = 'Publication Summary'
@@ -624,7 +624,7 @@ class PublicationSummaryPage(
 
 class PublicationChapterPage(
     HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin,
-    UUIDMixin, FilteredDatasetMixin, ReportDownloadMixin, Page):
+    UUIDMixin, FilteredDatasetMixin, ReportDownloadMixin, InheritCTAMixin, Page):
 
     class Meta:
         verbose_name = 'Publication Chapter'
@@ -727,7 +727,7 @@ class PublicationChapterPage(
 
 class PublicationAppendixPage(
     HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin,
-    UUIDMixin, FilteredDatasetMixin, ReportDownloadMixin, Page):
+    UUIDMixin, FilteredDatasetMixin, ReportDownloadMixin, InheritCTAMixin, Page):
 
     class Meta:
         verbose_name = 'Publication Appendix'

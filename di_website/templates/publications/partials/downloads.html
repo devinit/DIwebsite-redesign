@@ -1,6 +1,13 @@
 {% load wagtailimages_tags %}
 <section class="section">
   <div class="row row--narrow">
+    {% for item in page.call_to_action %}
+      {% if item.position == 'bottom' or item.position == 'top-bottom' %}
+        <div class="space-section-bottom">
+          {% include 'includes/partials/call-to-action-inline.html' %}
+        </div>
+      {% endif %}
+    {% endfor %}
     {% include 'publications/share.html' %}
     <div class="space-section-both" id="downloads">
       {% include 'downloads/download-list.html' %}

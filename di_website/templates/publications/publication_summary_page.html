@@ -12,11 +12,15 @@
 
   {% include 'publications/chapter-nav/nav.html' with page=page.get_parent.specific menu_label='Contents' chapter_number=0 %}
 
-  {% if page.get_parent.specific.call_to_action_title %}
+  {% if page.call_to_action %}
     <section class="section section--post">
       <div class="row row--narrow">
         <div class="space-section-top">
-          {% include 'includes/partials/call-to-action.html' with page=page.get_parent.specific %}
+          {% for item in page.call_to_action %}
+            {% if item.position == 'top' or item.position == 'top-bottom' %}
+                {% include 'includes/partials/call-to-action-inline.html' %}
+            {% endif %}
+          {% endfor %}
         </div>
       </div>
     </section>

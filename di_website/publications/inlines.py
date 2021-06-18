@@ -136,11 +136,13 @@ class PublicationCallToAction(Orderable):
         help_text='Optional: this is required to show the button')
     position = models.CharField(
         max_length=100, null=True, blank=True, choices=CTA_POSITION_CHOICES, verbose_name='Position', default='top')
+    inherit = models.BooleanField(default=False, help_text='Optional: show this CTA on child pages')
 
     panels = [
         FieldPanel('title'),
         FieldPanel('body'),
         FieldPanel('button_text'),
         FieldPanel('button_url'),
+        FieldPanel('inherit'),
         FieldPanel('position'),
     ]

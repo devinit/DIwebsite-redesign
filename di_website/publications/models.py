@@ -338,7 +338,7 @@ class PublicationIndexPage(HeroMixin, Page):
 
 class PublicationPage(
     HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUIDMixin,
-    FilteredDatasetMixin, CallToActionMixin, ReportDownloadMixin, Page):
+    FilteredDatasetMixin, ReportDownloadMixin, Page):
 
     class Meta:
         verbose_name = 'Publication Page'
@@ -376,7 +376,6 @@ class PublicationPage(
         FieldPanel('colour'),
         hero_panels(),
         StreamFieldPanel('authors'),
-        call_to_action_panel(),
         SnippetChooserPanel('publication_type'),
         FieldPanel('topics'),
         InlinePanel('publication_datasets', label='Datasets'),
@@ -460,6 +459,10 @@ class PublicationPage(
             return max([chapter.chapter_number for chapter in self.chapters])
         except ValueError:
             return 0
+
+    @cached_property
+    def call_to_action(self):
+        return self.publication_cta.all()
 
     def save(self, *args, **kwargs):
         super(PublicationPage, self).save(*args, **kwargs)

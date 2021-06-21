@@ -13,8 +13,7 @@ def move_calls_to_action(apps, schema_editor):
                 title=page.call_to_action_title,
                 body=page.call_to_action_body,
                 button_text=page.call_to_action_button_text,
-                button_url=page.call_to_action_button_url,
-                inherit=True,)
+                button_url=page.call_to_action_button_url)
             page.publication_cta.add(cta)
             cta.save()
             page.save()

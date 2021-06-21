@@ -114,11 +114,6 @@ class PublicationCallToAction(Orderable):
         ('bottom', 'Bottom'),
         ('top-bottom', 'Top & Bottom'),
     ]
-    data_format = models.TextField(
-        max_length=100,
-        choices=CTA_POSITION_CHOICES,
-        default='plain',
-        help_text='Options are plain, currency, percent')
 
     title = models.CharField(
         max_length=255,
@@ -137,7 +132,7 @@ class PublicationCallToAction(Orderable):
         help_text='Optional: this is required to show the button')
     position = models.CharField(
         max_length=100, null=True, blank=True, choices=CTA_POSITION_CHOICES, verbose_name='Position', default='top')
-    inherit = models.BooleanField(default=False, help_text='Optional: show this CTA on child pages')
+    inherit = models.BooleanField(default=True, help_text='Optional: show this CTA on child pages')
 
     panels = [
         FieldPanel('title'),

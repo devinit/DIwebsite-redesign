@@ -1,3 +1,5 @@
+import { toPounds } from '..';
+
 export * from './events';
 
 export const colours = ['#6c120a', '#a21e25', '#cd2b2a', '#dc372d', '#ec6250', '#f6b0a0', '#fbd7cb', '#fce3dc'];
@@ -25,3 +27,47 @@ export const addChartReverseListener = (chart: echarts.ECharts, merge = false): 
     canvas.addEventListener('click', onClick);
   }
 };
+
+type FormatterOptions = { prefix?: string; suffix?: string; currency?: boolean };
+
+export const tootipFormatter = ({
+  prefix = '',
+  suffix = '',
+  currency,
+}: FormatterOptions): echarts.EChartOption.Tooltip.Formatter => (
+  params: echarts.EChartOption.Tooltip.Format,
+): string => {
+  const { value, seriesName } = params;
+
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+  if (value && seriesName && (value as any)[seriesName]) {
+    let rawValue = (value as any)[seriesName];
+    if (typeof rawValue === 'number') {
+      rawValue = Math.round(rawValue * 100) / 100;
+    }
+    const parsedValue = currency ? toPounds(rawValue) : rawValue;
+
+    return `${prefix}${parsedValue}${suffix}`;
+  }
+
+  return 'No Data';
+  /* eslint-enable @typescript-eslint/no-explicit-any */
+};
+
+export const getBarLabelConfig = (options: FormatterOptions & { position?: string }) => ({
+  show: true,
+  position: options.position || 'top',
+  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+  formatter: (params: any): string => {
+    const value = params.value[params.dimensionNames[params.encode.y[0]]];
+    if (typeof value === 'number') {
+      const roundedValue = Math.round(value * 100) / 100;
+      const parsedValue = options.currency ? toPounds(roundedValue) : roundedValue;
+
+      return `${options.prefix || ''}${parsedValue}${options.suffix || ''}`;
+    }
+    const parsedValue = options.currency ? toPounds(value) : value;
+
+    return `${options.prefix || ''}${parsedValue}${options.suffix || ''}`;
+  },
+});

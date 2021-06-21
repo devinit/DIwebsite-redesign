@@ -23,7 +23,7 @@ class OrganisationDashboard(MetadataPageMixin, Page):
             # { 'id': 'summary', 'caption': 'Summary' },
             { 'id': 'finance', 'caption': 'Finance' },
             { 'id': 'development', 'caption': 'Development & Fundraising' },
-            { 'id': 'data-systems', 'caption': 'IT & Data Systems' },
+            { 'id': 'it', 'caption': 'IT' },
             { 'id': 'hr', 'caption': 'Human Resources' },
             { 'id': 'project-management', 'caption': 'Project Management' },
             { 'id': 'communications', 'caption': 'Communications' },

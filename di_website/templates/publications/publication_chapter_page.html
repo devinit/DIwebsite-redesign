@@ -18,11 +18,15 @@
 
   {% for block in page.content %}
 
-    {% if forloop.first and page.get_parent.specific.call_to_action_title %}
+    {% if forloop.first and page.call_to_action %}
       <section class="section section--post">
         <div class="row row--narrow">
           <div class="max-meter max-meter--center">
-            {% include 'includes/partials/call-to-action.html' with page=page.get_parent.specific %}
+            {% for item in page.call_to_action %}
+              {% if item.position == 'top' or item.position == 'top-bottom' %}
+                  {% include 'includes/partials/call-to-action-inline.html' %}
+              {% endif %}
+            {% endfor %}
           </div>
         </div>
       </section>

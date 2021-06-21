@@ -39,7 +39,7 @@ from di_website.downloads.utils import DownloadsPanel
 from .edit_handlers import MultiFieldPanel
 from .inlines import *
 from .mixins import (
-    FilteredDatasetMixin, FlexibleContentMixin, LegacyPageSearchMixin, PageSearchMixin, ParentPageSearchMixin,
+    FilteredDatasetMixin, FlexibleContentMixin, InheritCTAMixin, LegacyPageSearchMixin, PageSearchMixin, ParentPageSearchMixin,
     PublishedDateMixin, ReportChildMixin, ReportDownloadMixin, UniqueForParentPageMixin, UUIDMixin)
 from .utils import (
     ContentPanel, PublishedDatePanel, ReportDownloadPanel, UUIDPanel, WagtailImageField,
@@ -338,7 +338,7 @@ class PublicationIndexPage(HeroMixin, Page):
 
 class PublicationPage(
     HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUIDMixin,
-    FilteredDatasetMixin, CallToActionMixin, ReportDownloadMixin, Page):
+    FilteredDatasetMixin, ReportDownloadMixin, Page):
 
     class Meta:
         verbose_name = 'Publication Page'
@@ -376,7 +376,6 @@ class PublicationPage(
         FieldPanel('colour'),
         hero_panels(),
         StreamFieldPanel('authors'),
-        call_to_action_panel(),
         SnippetChooserPanel('publication_type'),
         FieldPanel('topics'),
         InlinePanel('publication_datasets', label='Datasets'),
@@ -395,6 +394,7 @@ class PublicationPage(
         UUIDPanel(),
         InlinePanel('page_notifications', label='Notifications'),
         InlinePanel('publication_related_links', label='Related links', max_num=MAX_RELATED_LINKS),
+        InlinePanel('publication_cta', label='Call To Action', max_num=2),
     ]
 
     @cached_property
@@ -460,6 +460,10 @@ class PublicationPage(
         except ValueError:
             return 0
 
+    @cached_property
+    def call_to_action(self):
+        return self.publication_cta.all()
+
     def save(self, *args, **kwargs):
         super(PublicationPage, self).save(*args, **kwargs)
 
@@ -480,7 +484,7 @@ class PublicationPage(
 
 class PublicationForewordPage(
     HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin, UniqueForParentPageMixin,
-    UUIDMixin, FilteredDatasetMixin, ReportDownloadMixin, Page):
+    UUIDMixin, FilteredDatasetMixin, ReportDownloadMixin, InheritCTAMixin, Page):
     class Meta:
         verbose_name = 'Publication Foreword'
 
@@ -544,7 +548,7 @@ class PublicationForewordPage(
 
 class PublicationSummaryPage(
     HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin, UniqueForParentPageMixin,
-    UUIDMixin, FilteredDatasetMixin, ReportDownloadMixin, Page):
+    UUIDMixin, FilteredDatasetMixin, ReportDownloadMixin, InheritCTAMixin, Page):
 
     class Meta:
         verbose_name = 'Publication Summary'
@@ -620,7 +624,7 @@ class PublicationSummaryPage(
 
 class PublicationChapterPage(
     HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin,
-    UUIDMixin, FilteredDatasetMixin, ReportDownloadMixin, Page):
+    UUIDMixin, FilteredDatasetMixin, ReportDownloadMixin, InheritCTAMixin, Page):
 
     class Meta:
         verbose_name = 'Publication Chapter'

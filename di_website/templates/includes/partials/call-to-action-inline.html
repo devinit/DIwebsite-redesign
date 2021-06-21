@@ -1,0 +1,12 @@
+{% load wagtailcore_tags %}
+
+<div class="cta">
+  <h2 class="cta__heading">{{ item.title }}</h2>
+  <p class="cta__excerpt">{{ item.body }}</p>
+
+  {% if item.button_text and item.button_url %}
+    <a href="{{ item.button_url }}" target="_blank" class="button button--reverse">
+      {{ item.button_text }}
+    </a>
+  {% endif %}
+</div>

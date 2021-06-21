@@ -1,12 +1,12 @@
 import { getAggregatedDatasetSource } from '..';
 import { DashboardData, DashboardGrid } from '../../../utils/types';
-import { getEventHandlers, grid } from '../chart';
+import { getBarLabelConfig, getEventHandlers, grid, tootipFormatter } from '../chart';
 
-const colours = ['#7d4712', '#a85d00', '#df8000', '#f9b865', '#feedd4'];
+const colours = ['#65093d', '#7e1850', '#9f1459', '#d12568', '#f3a5b6'];
 const dashboardMetrics = [
   'Bounce rate on the website (%)',
   'Dwell time on the website (minutes)',
-  'Overall on-page SEO score',
+  'Overall site SEO score',
   'Twitter engagement rate',
   'Linkedin engagement rate',
   'Proportion of new linkedin followers from target stakeholder groups',
@@ -26,26 +26,14 @@ export const comms: DashboardGrid[] = [
             getAggregatedDatasetSource(data, Array<string>().concat(dashboardMetrics[0])),
           options: {
             color: colours,
-            tooltip: {
-              show: true,
-              trigger: 'item',
-              formatter: (params: echarts.EChartOption.Tooltip.Format): string => {
-                const { value, seriesName } = params;
-
-                if (value && seriesName && (value as any)[seriesName]) { // eslint-disable-line
-                  return `${(value as any)[seriesName]}%`; // eslint-disable-line
-                }
-
-                return 'No Data';
-              },
-            },
+            tooltip: { show: true, trigger: 'item', formatter: tootipFormatter({ suffix: '%' }) },
             legend: { show: false },
             dataset: { dimensions: ['year'].concat(dashboardMetrics[0]) },
             grid,
             toolbox: { feature: { saveAsImage: {} } },
             xAxis: { type: 'category' },
-            yAxis: { type: 'value', show: true, splitNumber: 3, axisLabel: { formatter: '{value}%' } },
-            series: [{ type: 'bar' }],
+            yAxis: { type: 'value', show: false, splitNumber: 3, axisLabel: { formatter: '{value}%' } },
+            series: [{ type: 'bar', label: getBarLabelConfig({ suffix: '%' }) }],
           },
           ...getEventHandlers(dashboardMetrics[0]),
         },
@@ -59,26 +47,14 @@ export const comms: DashboardGrid[] = [
             getAggregatedDatasetSource(data, Array<string>().concat(dashboardMetrics[1])),
           options: {
             color: colours,
-            tooltip: {
-              show: true,
-              trigger: 'item',
-              formatter: (params: echarts.EChartOption.Tooltip.Format): string => {
-                const { value, seriesName } = params;
-
-                if (value && seriesName && (value as any)[seriesName]) { // eslint-disable-line
-                  return `${(value as any)[seriesName]}`; // eslint-disable-line
-                }
-
-                return 'No Data';
-              },
-            },
+            tooltip: { show: true, trigger: 'item', formatter: tootipFormatter({}) },
             legend: { show: false },
             dataset: { dimensions: ['year'].concat(dashboardMetrics[1]) },
             grid,
             toolbox: { feature: { saveAsImage: {} } },
             xAxis: { type: 'category' },
-            yAxis: { type: 'value', show: true, splitNumber: 3, axisLabel: { formatter: '{value}' } },
-            series: [{ type: 'bar' }],
+            yAxis: { type: 'value', show: false, splitNumber: 3, axisLabel: { formatter: '{value}' } },
+            series: [{ type: 'bar', label: getBarLabelConfig({}) }],
           },
           ...getEventHandlers(dashboardMetrics[1]),
         },
@@ -92,26 +68,14 @@ export const comms: DashboardGrid[] = [
             getAggregatedDatasetSource(data, Array<string>().concat(dashboardMetrics[2])),
           options: {
             color: colours,
-            tooltip: {
-              show: true,
-              trigger: 'item',
-              formatter: (params: echarts.EChartOption.Tooltip.Format): string => {
-                const { value, seriesName } = params;
-
-                if (value && seriesName && (value as any)[seriesName]) { // eslint-disable-line
-                  return `${(value as any)[seriesName]}`; // eslint-disable-line
-                }
-
-                return 'No Data';
-              },
-            },
+            tooltip: { show: true, trigger: 'item', formatter: tootipFormatter({}) },
             legend: { show: false },
             dataset: { dimensions: ['year'].concat(dashboardMetrics[2]) },
             grid,
             toolbox: { feature: { saveAsImage: {} } },
             xAxis: { type: 'category' },
-            yAxis: { type: 'value', show: true, splitNumber: 3, axisLabel: { formatter: '{value}' } },
-            series: [{ type: 'bar' }],
+            yAxis: { type: 'value', show: false, splitNumber: 3, axisLabel: { formatter: '{value}' } },
+            series: [{ type: 'bar', label: getBarLabelConfig({}) }],
           },
           ...getEventHandlers(dashboardMetrics[2]),
         },
@@ -125,26 +89,14 @@ export const comms: DashboardGrid[] = [
             getAggregatedDatasetSource(data, Array<string>().concat(dashboardMetrics[3])),
           options: {
             color: colours,
-            tooltip: {
-              show: true,
-              trigger: 'item',
-              formatter: (params: echarts.EChartOption.Tooltip.Format): string => {
-                const { value, seriesName } = params;
-
-                if (value && seriesName && (value as any)[seriesName]) { // eslint-disable-line
-                  return `${(value as any)[seriesName]}%`; // eslint-disable-line
-                }
-
-                return 'No Data';
-              },
-            },
+            tooltip: { show: true, trigger: 'item', formatter: tootipFormatter({ suffix: '%' }) },
             legend: { show: false },
             dataset: { dimensions: ['year'].concat(dashboardMetrics[3]) },
             grid,
             toolbox: { feature: { saveAsImage: {} } },
             xAxis: { type: 'category' },
-            yAxis: { type: 'value', show: true, splitNumber: 3, axisLabel: { formatter: '{value}%' } },
-            series: [{ type: 'bar' }],
+            yAxis: { type: 'value', show: false, splitNumber: 3, axisLabel: { formatter: '{value}%' } },
+            series: [{ type: 'bar', label: getBarLabelConfig({ suffix: '%' }) }],
           },
           ...getEventHandlers(dashboardMetrics[3]),
         },
@@ -158,26 +110,14 @@ export const comms: DashboardGrid[] = [
             getAggregatedDatasetSource(data, Array<string>().concat(dashboardMetrics[4])),
           options: {
             color: colours,
-            tooltip: {
-              show: true,
-              trigger: 'item',
-              formatter: (params: echarts.EChartOption.Tooltip.Format): string => {
-                const { value, seriesName } = params;
-
-                if (value && seriesName && (value as any)[seriesName]) { // eslint-disable-line
-                  return `${(value as any)[seriesName]}%`; // eslint-disable-line
-                }
-
-                return 'No Data';
-              },
-            },
+            tooltip: { show: true, trigger: 'item', formatter: tootipFormatter({ suffix: '%' }) },
             legend: { show: false },
             dataset: { dimensions: ['year'].concat(dashboardMetrics[4]) },
             grid,
             toolbox: { feature: { saveAsImage: {} } },
             xAxis: { type: 'category' },
-            yAxis: { type: 'value', show: true, splitNumber: 3, axisLabel: { formatter: '{value}%' } },
-            series: [{ type: 'bar' }],
+            yAxis: { type: 'value', show: false, splitNumber: 3, axisLabel: { formatter: '{value}%' } },
+            series: [{ type: 'bar', label: getBarLabelConfig({ suffix: '%' }) }],
           },
           ...getEventHandlers(dashboardMetrics[4]),
         },
@@ -198,26 +138,14 @@ export const comms: DashboardGrid[] = [
             getAggregatedDatasetSource(data, Array<string>().concat(dashboardMetrics[5])),
           options: {
             color: colours,
-            tooltip: {
-              show: true,
-              trigger: 'item',
-              formatter: (params: echarts.EChartOption.Tooltip.Format): string => {
-                const { value, seriesName } = params;
-
-                if (value && seriesName && (value as any)[seriesName]) { // eslint-disable-line
-                  return `${(value as any)[seriesName]}%`; // eslint-disable-line
-                }
-
-                return 'No Data';
-              },
-            },
+            tooltip: { show: true, trigger: 'item', formatter: tootipFormatter({ suffix: '%' }) },
             legend: { show: false },
             dataset: { dimensions: ['year'].concat(dashboardMetrics[5]) },
             grid,
             toolbox: { feature: { saveAsImage: {} } },
             xAxis: { type: 'category' },
-            yAxis: { type: 'value', show: true, splitNumber: 3, axisLabel: { formatter: '{value}%' } },
-            series: [{ type: 'bar' }],
+            yAxis: { type: 'value', show: false, splitNumber: 3, axisLabel: { formatter: '{value}%' } },
+            series: [{ type: 'bar', label: getBarLabelConfig({ suffix: '%' }) }],
           },
           ...getEventHandlers(dashboardMetrics[5]),
         },

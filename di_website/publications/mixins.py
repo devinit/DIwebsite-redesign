@@ -165,3 +165,14 @@ class ReportDownloadMixin(models.Model):
         on_delete=models.SET_NULL,
         related_name='+'
     )
+
+class InheritCTAMixin(models.Model):
+    """
+    Used by child pages of the PublicationPage to inherit Call To Action
+    """
+    class Meta:
+        abstract = True
+
+    @cached_property
+    def call_to_action(self):
+        return self.get_parent().specific.publication_cta.filter(inherit=True)

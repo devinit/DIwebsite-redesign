@@ -1,0 +1,21 @@
+{% load wagtailcore_tags %}
+
+<div class="cta">
+  <h2 class="cta__heading">{{ self.title }}</h2>
+  {% if self.body %}
+    <p class="cta__excerpt">{{ self.body }}</p>
+  {% endif %}
+
+  {% if self.button_text %}
+
+    {% if self.button_page %}
+      <a href="{% pageurl self.button_page %}" target="_blank" class="button button--reverse">
+        {{ self.button_text }}
+      </a>
+    {% elif self.button_url %}
+      <a href="{{ self.button_url }}" target="_blank" class="button button--reverse">
+        {{ self.button_text }}
+      </a>
+    {% endif %}
+  {% endif %}
+</div>

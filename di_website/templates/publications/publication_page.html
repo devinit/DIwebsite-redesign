@@ -11,17 +11,20 @@
 {% block body %}
   {% include 'publications/chapter-nav/nav.html' %}
 
-  {% if page.authors|length > 0 or page.call_to_action_title %}
+  {% if page.authors|length > 0 or page.call_to_action %}
     <section class="section section--large">
       <div class="row row--narrow">
         {% if page.authors|length > 0 %}
           {% include 'includes/partials/multi-authors.html' with authors=page.authors %}
         {% endif %}
-        {% if page.call_to_action_title %}
-          <div class="space-section-top">
-            {% include 'includes/partials/call-to-action.html' %}
-          </div>
-        {% endif %}
+
+        {% for item in page.call_to_action %}
+          {% if item.position == 'top' or item.position == 'top-bottom' %}
+            <div class="space-section-top">
+              {% include 'includes/partials/call-to-action-inline.html' %}
+            </div>
+          {% endif %}
+        {% endfor %}
       </div>
     </section>
   {% endif %}
@@ -58,6 +61,14 @@
 
   <section class="section">
     <div class="row row--narrow">
+      {% for item in page.call_to_action %}
+        {% if item.position == 'bottom' or item.position == 'top-bottom' %}
+          <div class="space-section-bottom">
+            {% include 'includes/partials/call-to-action-inline.html' %}
+          </div>
+        {% endif %}
+      {% endfor %}
+
       {% include 'publications/share.html' %}
       <div class="space-section-both" id="downloads">
         {% include 'downloads/download-list.html' %}

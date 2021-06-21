@@ -175,4 +175,4 @@ class InheritCTAMixin(models.Model):
 
     @cached_property
     def call_to_action(self):
-        return self.get_parent().specific.publication_cta.all()
+        return self.get_parent().specific.publication_cta.filter(inherit=True)

@@ -1,17 +1,20 @@
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags %} 
 
-<div class="notice__wrapper notice__wrapper--notice" data-notice id="global-notice">
-    <div class="row">
-        <div class="notice__content">
-            <h2>{{ notice.heading }}</h2>
-            <p>{{ notice.body }} 
-                {% if notice.title %}
-                    <a href="{{notice.cookie_policy.url}}">{{ notice.title }}</a>
-                {% else %}
-                    <a href="{{notice.cookie_policy.url}}">{{ notice.cookie_policy.title }}</a>
-                {% endif %}
-            </p>
-            <button data-notice-dismiss class="notice__button"></button>
+{% if notice.heading or notice.body %}
+    <div class="notice__wrapper notice__wrapper--notice" data-notice id="global-notice">
+        <div class="row">
+            <div class="notice__content">
+                <h2>{{ notice.heading }}</h2>
+                <p>
+                    {{ notice.body }} 
+                    {% if notice.title %}
+                        <a href="{{notice.cookie_policy.url}}">{{ notice.title }}</a>
+                    {% else %}
+                        <a href="{{notice.cookie_policy.url}}">{{ notice.cookie_policy.title }}</a>
+                    {% endif %}
+                </p>
+                <button data-notice-dismiss class="notice__button"></button>
+            </div>
         </div>
     </div>
-</div>
+{% endif %}

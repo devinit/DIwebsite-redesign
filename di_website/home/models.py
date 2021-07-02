@@ -165,8 +165,8 @@ class FooterText(models.Model):
 
 @register_snippet
 class CookieNotice(models.Model):
-    heading = models.CharField(max_length=255, blank=False)
-    body = models.TextField(blank=False, null=False)
+    heading = models.CharField(max_length=255, blank=False, null=False, default='Notice')
+    body = models.TextField(blank=True, null=True)
     title = models.CharField(max_length=255, blank=True, null=True)
     cookie_policy = models.ForeignKey(
         'wagtaildocs.Document',

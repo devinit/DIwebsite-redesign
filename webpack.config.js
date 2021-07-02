@@ -86,6 +86,7 @@ const appConfig = {
     publications: './src/publications/index.ts',
     blog: './src/blog/index.ts',
     dashboard: './src/dashboard/index.ts',
+    cookie: './src/cookie/index.ts',
   },
   output: {
     path: path.resolve(__dirname, 'src/assets/'),
@@ -97,7 +98,6 @@ const appConfig = {
       return `${name}/js/${name}[chunkhash].bundle.js`;
     },
   },
-  // plugins: [new BundleAnalyzerPlugin()],
 };
 
 module.exports = [appConfig, wagtailAceEditorConfig, diChartsConfig, chartsConfig];

@@ -15,6 +15,7 @@ from wagtail.core.models import Orderable, Page
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.snippets.models import register_snippet
 from wagtail.core.blocks import CharBlock, PageChooserBlock, RichTextBlock, StructBlock
+from wagtail.documents.edit_handlers import DocumentChooserPanel
 
 from wagtailmetadata.models import MetadataPageMixin
 
@@ -160,6 +161,28 @@ class FooterText(models.Model):
 
     class Meta:
         verbose_name_plural = 'Footer Text'
+
+
+@register_snippet
+class CookieNotice(models.Model):
+    heading = models.CharField(max_length=255, blank=False)
+    body = RichTextField(features=SIMPLE_RICHTEXT_FEATURES, blank=False)
+    cookie_policy = models.ForeignKey(
+        'wagtaildocs.Document',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
+    panels = [
+        FieldPanel('heading'),
+        FieldPanel('body'),
+        DocumentChooserPanel('cookie_policy'),
+    ]
+
+    def __str__(self):
+        return self.heading
 
 
 class HomePageMetaData(MetadataPageMixin):

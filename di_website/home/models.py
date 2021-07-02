@@ -166,7 +166,8 @@ class FooterText(models.Model):
 @register_snippet
 class CookieNotice(models.Model):
     heading = models.CharField(max_length=255, blank=False)
-    body = RichTextField(features=SIMPLE_RICHTEXT_FEATURES, blank=False)
+    body = models.TextField(blank=False, null=False)
+    title = models.CharField(max_length=255, blank=True, null=True)
     cookie_policy = models.ForeignKey(
         'wagtaildocs.Document',
         null=True,
@@ -178,7 +179,10 @@ class CookieNotice(models.Model):
     panels = [
         FieldPanel('heading'),
         FieldPanel('body'),
-        DocumentChooserPanel('cookie_policy'),
+        MultiFieldPanel([
+            FieldPanel('title'),
+            DocumentChooserPanel('cookie_policy'),
+        ], heading='Download Link'),
     ]
 
     def __str__(self):

@@ -4,7 +4,13 @@
     <div class="row">
         <div class="notice__content">
             <h2>{{ notice.heading }}</h2>
-            <p>{{ notice.body | richtext }} <a href="{{notice.cookie_policy.url}}">{{ notice.cookie_policy.title }}</a></p>
+            <p>{{ notice.body }} 
+                {% if notice.title %}
+                    <a href="{{notice.cookie_policy.url}}">{{ notice.title }}</a>
+                {% else %}
+                    <a href="{{notice.cookie_policy.url}}">{{ notice.cookie_policy.title }}</a>
+                {% endif %}
+            </p>
             <button data-notice-dismiss class="notice__button"></button>
         </div>
     </div>

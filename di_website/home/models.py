@@ -165,28 +165,29 @@ class FooterText(models.Model):
 
 @register_snippet
 class CookieNotice(models.Model):
-    heading = models.CharField(max_length=255, blank=False, null=False, default='Notice')
+    heading = models.CharField(max_length=255, blank=True, null=True)
     body = models.TextField(blank=True, null=True)
-    title = models.CharField(max_length=255, blank=True, null=True)
+    download_link_caption = models.CharField(max_length=255, blank=True, null=True, verbose_name='Link Caption')
     cookie_policy = models.ForeignKey(
         'wagtaildocs.Document',
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+'
+        related_name='+',
+        verbose_name='Policy Doc'
     )
 
     panels = [
         FieldPanel('heading'),
         FieldPanel('body'),
         MultiFieldPanel([
-            FieldPanel('title'),
+            FieldPanel('download_link_caption'),
             DocumentChooserPanel('cookie_policy'),
         ], heading='Download Link'),
     ]
 
     def __str__(self):
-        return self.heading
+        return self.heading or self.body or 'Blank Notice'
 
 
 class HomePageMetaData(MetadataPageMixin):

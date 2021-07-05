@@ -1,10 +1,11 @@
 {% load responsive string_utils wagtailcore_tags footnotes_utils %}
 <div class="pullout">
+  {% uid_url page as short_url %}
   <a href="#{{ id }}" data-id="{{ id }}" data-js="share-section-trigger"
             class="section-chapter__link">{% include 'publications/icon.html' with file='ico-link-'|add:page.colour size=16 %}Share
             Box</a>
         {% if page %}
-            {% include 'publications/share-block.html' with share_type='box' title=item.title|default:page.title short_url=short_url|add:'#'|add:id data_js='share-section' data_id=id %}
+            {% include 'publications/share-block.html' with share_type='box' title=page.section_label|default:page.label short_url=short_url|add:'#'|add:id data_js='share-section' data_id=id %}
         {% endif %}
   <div class="max-meter max-meter--center">
       <div class="pullout__heading-wrapper">

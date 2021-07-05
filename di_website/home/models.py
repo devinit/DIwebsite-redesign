@@ -189,6 +189,10 @@ class CookieNotice(models.Model):
     def __str__(self):
         return self.heading or self.body or 'Blank Notice'
 
+    class Meta():
+        verbose_name = "Cookie Notice"
+        verbose_name_plural = "Cookie Notices"
+
 
 class HomePageMetaData(MetadataPageMixin):
 

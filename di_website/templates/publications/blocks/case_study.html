@@ -1,9 +1,9 @@
 {% load responsive string_utils wagtailcore_tags footnotes_utils %}
 {% uid_url page as short_url %}
 <a href="#{{ id }}" data-id="{{ id }}" data-js="share-section-trigger"
-    class="section-chapter__link">{% include 'publications/icon.html' with file='ico-link-'|add:page.colour size=16 %}Share
-  Box</a>
-{% include 'publications/share-block.html' with share_type='box' title=value.heading short_url=short_url|add:'#'|add:id data_js='share-section' data_id=id %}
+  class="section-chapter__link">{% include 'publications/icon.html' with file='ico-link-'|add:page.colour size=16 %}Share
+  Case Study</a>
+{% include 'publications/share-block.html' with share_type='case study' title=value.heading short_url=short_url|add:'#'|add:id data_js='share-section' data_id=id %}
 <div class="pullout" id="{{ id }}">
   <div class="max-meter max-meter--center">
       <div class="pullout__heading-wrapper">

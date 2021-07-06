@@ -18,7 +18,7 @@ from modelcluster.models import ClusterableModel
 from wagtail.admin.edit_handlers import (FieldPanel, InlinePanel, PageChooserPanel, StreamFieldPanel)
 from wagtail.contrib.redirects.models import Redirect
 from wagtail.contrib.search_promotions.templatetags.wagtailsearchpromotions_tags import get_search_promotions
-from wagtail.core import hooks
+from wagtail.core import blocks, hooks
 from wagtail.core.blocks import (CharBlock, PageChooserBlock, StructBlock, URLBlock)
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Orderable, Page
@@ -353,6 +353,12 @@ class PublicationPage(
 
     colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=RED)
 
+    read_online_button_text = models.CharField(max_length=256, default="Read Online", blank=True, null=True)
+
+    request_hard_copy_text = models.CharField(max_length=256, default="Request a hard copy", blank=True, null=True)
+
+    use_other_template = models.BooleanField(default=False)
+
     authors = StreamField([
         ('internal_author', PageChooserBlock(
             required=False,
@@ -374,6 +380,9 @@ class PublicationPage(
 
     content_panels = Page.content_panels + [
         FieldPanel('colour'),
+        FieldPanel('read_online_button_text'),
+        FieldPanel('request_hard_copy_text'),
+        FieldPanel('use_other_template'),
         hero_panels(),
         StreamFieldPanel('authors'),
         SnippetChooserPanel('publication_type'),
@@ -464,6 +473,12 @@ class PublicationPage(
     def call_to_action(self):
         return self.publication_cta.all()
 
+    def get_template(self, request):
+        if self.use_other_template:
+            return 'publications/publication_page_b.html'
+
+        return 'publications/publication_page.html'
+
     def save(self, *args, **kwargs):
         super(PublicationPage, self).save(*args, **kwargs)
 
@@ -493,9 +508,17 @@ class PublicationForewordPage(
 
     colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=RED)
 
+    add_content_links = StreamField([
+            ('links', blocks.StructBlock([
+                ('title', blocks.CharBlock(required=False)),
+                ('link', blocks.URLBlock(required=False)),
+        ], icon='fa-link')
+    ),], blank=True)
+
     content_panels = Page.content_panels + [
         hero_panels(),
         FieldPanel('colour'),
+        StreamFieldPanel('add_content_links'),
         ContentPanel(),
         InlinePanel('publication_datasets', label='Datasets'),
         DownloadsPanel(
@@ -558,10 +581,18 @@ class PublicationSummaryPage(
     subpage_types = []
 
     colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=RED)
+    
+    add_content_links = StreamField([
+            ('links', blocks.StructBlock([
+                ('title', blocks.CharBlock(required=False)),
+                ('link', blocks.URLBlock(required=False)),
+        ], icon='fa-link')
+    ),], blank=True)
 
     content_panels = Page.content_panels + [
         FieldPanel('colour'),
         hero_panels(),
+        StreamFieldPanel('add_content_links'),
         ContentPanel(),
         InlinePanel('publication_datasets', label='Datasets'),
         DownloadsPanel(
@@ -637,9 +668,17 @@ class PublicationChapterPage(
     )
     colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=RED)
 
+    add_content_links = StreamField([
+            ('links', blocks.StructBlock([
+                ('title', blocks.CharBlock(required=False)),
+                ('link', blocks.URLBlock(required=False)),
+        ], icon='fa-link')
+    ),], blank=True)
+
     content_panels = Page.content_panels + [
         FieldPanel('colour'),
         hero_panels(),
+        StreamFieldPanel('add_content_links'),
         MultiFieldPanel(
             [
                 FieldPanel('chapter_number', widget=forms.Select),
@@ -741,9 +780,17 @@ class PublicationAppendixPage(
     )
     colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=RED)
 
+    add_content_links = StreamField([
+            ('links', blocks.StructBlock([
+                ('title', blocks.CharBlock(required=False)),
+                ('link', blocks.URLBlock(required=False)),
+        ], icon='fa-link')
+    ),], blank=True)
+
     content_panels = Page.content_panels + [
         FieldPanel('colour'),
         hero_panels(),
+        StreamFieldPanel('add_content_links'),
         MultiFieldPanel(
             [
                 FieldPanel('appendix_number', widget=forms.Select),

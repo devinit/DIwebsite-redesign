@@ -127,6 +127,10 @@
 		"name": "14-publication-summary",
 		"stage": "approved"
 	},
+    {
+        "name": "14a-publication-summary-v2",
+        "stage": "approved"
+    },
 	{
 		"name": "14-1-publication-long-form",
 		"stage": "approved"

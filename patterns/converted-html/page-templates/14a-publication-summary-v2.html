@@ -118,10 +118,14 @@
                         <h1 class="hero__title"><span>Publication title</span></h1>
                         
                         
-                                <a href="#downloads" class="button button--reverse">Publication downloads</a>
+                        
+                                <a href="#exec-summary" class="button button--reverse">Read online</a>
                         
                         
+                                <a href="#downloads" class="button button--reverse">Download options</a>
                         
+                        
+                                <a href="#hardcopy" class="button button--reverse">Request a hard copy</a>
                         
                 </div>
         </div>
@@ -146,31 +150,26 @@
         </div>
     </section>
 
-    <section class="section section--large">
+    <section class="section section--large" id="exec-summary">
         <div class="chapter-block-wrapper">
             <div class="chapter-block_image" style="background-image: url(/assets/img/42900842442_cc4630d48a_o-600x375.jpg);"></div>
             <div class="row row--narrow">
                 <div class="larger-center">
                     <div class="chapter-block__item">
                         <div class="chapter-block_content">
-                            <h2 class="chapter-block__heading">Module title</h2>
+                            <h2 class="chapter-block__heading">Executive Summary</h2>
                             <p class="chapter-block__excerpt">Ait amet, consecLorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper sus agna aliquam era.</p>
                             <a href="#" id="" class="button button--a11y" title="Read the summary"><span>Read the Summary</span></a>
-                            <div class="button download-button">
-                                Download the summary <i role="presentation" aria-hidden="true" class="ico ico--14 ico-arrow-down-slate"></i>
-                                <ul>
-                                    <li>
-                                        <a href="">English<span class="downloadSize">PDF, 1.8Mb</span></a>
-                                    </li>
-                                    <li>
-                                        <a href="">French<span class="downloadSize">PDF, 1.8Mb</span></a>
-                                    </li>
-                                    <li>
-                                        <a href="">German<span class="downloadSize">PDF, 1.8Mb</span></a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <a href="/page-templates/02-1-current-report-chapter" id="" class="button button--secondary button--a11y" title="Download data"><span>Download data for chapter 2</span></a>
+                            <ul
+                                data-js="toggleable-list"
+                                data-button-class="button button--a11y button--reverse"
+                                data-show-text="Show chapter contents"
+                                data-less-text="Hide chapter contents">
+                                <li class="list-item" data-js="toggleable-list--item"><a href="#">Introduction: people and crisis</a></li>
+                                <li class="list-item" data-js="toggleable-list--item"><a href="#">Poverty and protracted crisis</a></li>
+                                <li class="list-item" data-js="toggleable-list--item"><a href="#">People affected by crisis</a></li>
+                                <li class="list-item space-section-bottom--small" data-js="toggleable-list--item"><a href="#">Displacement and vulnerability to crisis</a></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -178,7 +177,7 @@
         </div>
     </section>
 
-    <section class="section section--large">
+    <section class="section section--large" id="chapter-one">
         <div class="chapter-block-wrapper chapter-block-wrapper--alt">
             <div class="chapter-block_image" style="background-image: url(/assets/img/5520009236_fcbf74d793_o-600x375.jpg);"></div>
             <div class="row row--narrow">
@@ -189,21 +188,16 @@
                             <h2 class="chapter-block__heading">Module title</h2>
                             <p class="chapter-block__excerpt">Ait amet, consecLorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper sust dolore.</p>
                             <a href="#" id="" class="button button--reverse button--a11y" title="Read chapter one"><span>Read chapter one</span></a>
-                            <div class="button download-button download-button--reverse">
-                                <span>Download chapter one <i role="presentation" aria-hidden="true" class="ico ico--10 ico-arrow-down-blank"></i></span>
-                                <ul>
-                                    <li>
-                                        <a href="">English<span class="downloadSize">PDF, 1.8Mb</span></a>
-                                    </li>
-                                    <li>
-                                        <a href="">French<span class="downloadSize">PDF, 1.8Mb</span></a>
-                                    </li>
-                                    <li>
-                                        <a href="">German<span class="downloadSize">PDF, 1.8Mb</span></a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <a href="/page-templates/02-1-current-report-chapter" id="" class="button button--reverse button--a11y" title="Download data"><span>Download data for chapter 2</span></a>
+                            <ul
+                                data-js="toggleable-list"
+                                data-button-class="button button--a11y button--reverse"
+                                data-show-text="Show chapter contents"
+                                data-less-text="Hide chapter contents">
+                                <li class="list-item" data-js="toggleable-list--item"><a href="#">Introduction: people and crisis</a></li>
+                                <li class="list-item" data-js="toggleable-list--item"><a href="#">Poverty and protracted crisis</a></li>
+                                <li class="list-item" data-js="toggleable-list--item"><a href="#">People affected by crisis</a></li>
+                                <li class="list-item space-section-bottom--small" data-js="toggleable-list--item"><a href="#">Displacement and vulnerability to crisis</a></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -211,7 +205,7 @@
         </div>
     </section>
 
-    <section class="section section--large">
+    <section class="section section--large" id="chapter-two">
         <div class="chapter-block-wrapper">
             <div class="chapter-block_image" style="background-image: url(/assets/img/34301158651_2500a029c5_o-600x375.jpg);"></div>
             <div class="row row--narrow">
@@ -222,21 +216,16 @@
                             <h2 class="chapter-block__heading">Module title</h2>
                             <p class="chapter-block__excerpt">Ait amet, consecLorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper sus agna aliquam era.</p>
                             <a href="#" id="" class="button button--a11y" title="Read chapter 2"><span>Read chapter 2</span></a>
-                            <div class="button download-button">
-                                Download chapter 2 <i role="presentation" aria-hidden="true" class="ico ico--14 ico-arrow-down-slate"></i>
-                                <ul>
-                                    <li>
-                                        <a href="">English<span class="downloadSize">PDF, 1.8Mb</span></a>
-                                    </li>
-                                    <li>
-                                        <a href="">French<span class="downloadSize">PDF, 1.8Mb</span></a>
-                                    </li>
-                                    <li>
-                                        <a href="">German<span class="downloadSize">PDF, 1.8Mb</span></a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <a href="/page-templates/02-1-current-report-chapter" id="" class="button button--secondary button--a11y" title="Download data"><span>Download data for chapter 2</span></a>
+                            <ul
+                                data-js="toggleable-list"
+                                data-button-class="button button--a11y button--reverse"
+                                data-show-text="Show chapter contents"
+                                data-less-text="Hide chapter contents">
+                                <li class="list-item" data-js="toggleable-list--item"><a href="#">Introduction: people and crisis</a></li>
+                                <li class="list-item" data-js="toggleable-list--item"><a href="#">Poverty and protracted crisis</a></li>
+                                <li class="list-item" data-js="toggleable-list--item"><a href="#">People affected by crisis</a></li>
+                                <li class="list-item space-section-bottom--small" data-js="toggleable-list--item"><a href="#">Displacement and vulnerability to crisis</a></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -244,7 +233,7 @@
         </div>
     </section>
 
-    <section class="section section--large">
+    <section class="section section--large" id="chapter-three">
         <div class="chapter-block-wrapper chapter-block-wrapper--alt">
             <div class="chapter-block_image" style="background-image: url(/assets/img/27634474642_e47d75c1f8_o-600x375.jpg);"></div>
             <div class="row row--narrow">
@@ -255,21 +244,16 @@
                             <h2 class="chapter-block__heading">Module title</h2>
                             <p class="chapter-block__excerpt">Ait amet, consecLorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper sust dolore.</p>
                             <a href="#" id="" class="button button--reverse button--a11y" title="Read chapter 3"><span>Read chapter 3</span></a>
-                            <div class="button download-button download-button--reverse">
-                                <span>Download chapter 3 <i role="presentation" aria-hidden="true" class="ico ico--10 ico-arrow-down-blank"></i></span>
-                                <ul>
-                                    <li>
-                                        <a href="">English<span class="downloadSize">PDF, 1.8Mb</span></a>
-                                    </li>
-                                    <li>
-                                        <a href="">French<span class="downloadSize">PDF, 1.8Mb</span></a>
-                                    </li>
-                                    <li>
-                                        <a href="">German<span class="downloadSize">PDF, 1.8Mb</span></a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <a href="/page-templates/02-1-current-report-chapter" id="" class="button button--reverse button--a11y" title="Download data"><span>Download data for chapter 3</span></a>
+                            <ul
+                                data-js="toggleable-list"
+                                data-button-class="button button--a11y button--reverse"
+                                data-show-text="Show chapter contents"
+                                data-less-text="Hide chapter contents">
+                                <li class="list-item" data-js="toggleable-list--item"><a href="#">Introduction: people and crisis</a></li>
+                                <li class="list-item" data-js="toggleable-list--item"><a href="#">Poverty and protracted crisis</a></li>
+                                <li class="list-item" data-js="toggleable-list--item"><a href="#">People affected by crisis</a></li>
+                                <li class="list-item space-section-bottom--small" data-js="toggleable-list--item"><a href="#">Displacement and vulnerability to crisis</a></li>
+                            </ul>
                         </div>
                     </div>
                 </div>

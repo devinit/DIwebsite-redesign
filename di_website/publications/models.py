@@ -472,6 +472,13 @@ class PublicationPage(
     def call_to_action(self):
         return self.publication_cta.all()
 
+    @cached_property
+    def call_to_action_has_top_position(self):
+        for cta in self.publication_cta.all():
+            if cta.position == 'top':
+                return True
+        return False
+
     def get_template(self, request):
         return 'publications/publication_page_b.html'
 

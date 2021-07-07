@@ -1,16 +1,16 @@
-{% if item.add_content_links %}
+{% load string_utils %}
+
+{% if item.sections %}
     <ul
         data-js="toggleable-list"
         data-button-class="button button--a11y button--reverse"
         data-show-text="Show chapter contents"
         data-less-text="Hide chapter contents">
-        {% for block in item.add_content_links %}
-            {% if block.block_type == 'links' %}
-                {% if forloop.last %}
-                    <li class="list-item space-section-bottom--small" data-js="toggleable-list--item"><a href="{{block.value.link}}">{{block.value.title}}</a></li>
-                {% else %}
-                    <li class="list-item" data-js="toggleable-list--item"><a href="{{block.value.link}}">{{block.value.title}}</a></li>
-                {% endif %}    
+        {% for section in item.sections %}
+            {% if forloop.last %}
+                <li class="list-item space-section-bottom--small" data-js="toggleable-list--item"><a href="{{ item.url }}#section-{% section_id section.value.section_id item.chapter_number %}">{{ section.value.heading }}</a></li>
+            {% else %}
+                <li class="list-item" data-js="toggleable-list--item"><a href="{{ item.url }}#section-{% section_id section.value.section_id item.chapter_number %}">{{ section.value.heading }}</a></li>
             {% endif %}
         {% endfor %}
     </ul>

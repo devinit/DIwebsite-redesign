@@ -180,7 +180,7 @@ class InheritCTAMixin(models.Model):
 
 
 class HeroButtonMixin(models.Model):
-    read_online_text = models.CharField(max_length=256, default="Read Online", blank=True, null=True)
+    read_online_button_text = models.CharField(max_length=256, default="Read Online", blank=True, null=True)
     request_hard_copy_text = models.CharField(max_length=256, default="Request a hard copy", blank=True, null=True)
 
     class Meta:

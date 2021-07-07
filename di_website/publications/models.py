@@ -376,7 +376,7 @@ class PublicationPage(
         FieldPanel('colour'),        
         MultiFieldPanel(
             [
-                FieldPanel('read_online_text'),
+                FieldPanel('read_online_button_text'),
                 FieldPanel('request_hard_copy_text'),
             ],
             heading='Hero Buttons',

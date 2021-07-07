@@ -49,10 +49,14 @@
         <a href="#exec-summary" class="button button--reverse">{{ page.read_online_button_text }}</a>
       {% endif %}
       {% if page.publication_downloads_list|length > 0 or page.data_downloads_list|length > 0 %}
-        <a href="#downloads" class="button button--reverse">Downloads</a>
+        <a href="#downloads" class="button button--reverse">Download options</a>
       {% endif %}
       {% if page.request_hard_copy_text %}
-        <a href="#hardcopy" class="button button--reverse">{{ page.request_hard_copy_text }}</a>
+        {% for item in page.call_to_action %}
+          {% if item.position == 'top' %}                       
+            <a href="#hardcopy" class="button button--reverse">{{ page.request_hard_copy_text }}</a>
+          {% endif %}
+        {% endfor %}        
       {% endif %}
     </div>
   </div>

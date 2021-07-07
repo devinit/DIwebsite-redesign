@@ -39,7 +39,7 @@ from di_website.downloads.utils import DownloadsPanel
 from .edit_handlers import MultiFieldPanel
 from .inlines import *
 from .mixins import (
-    FilteredDatasetMixin, FlexibleContentMixin, InheritCTAMixin, LegacyPageSearchMixin, PageSearchMixin, ParentPageSearchMixin,
+    FilteredDatasetMixin, FlexibleContentMixin, HeroButtonMixin, InheritCTAMixin, LegacyPageSearchMixin, PageSearchMixin, ParentPageSearchMixin,
     PublishedDateMixin, ReportChildMixin, ReportDownloadMixin, UniqueForParentPageMixin, UUIDMixin)
 from .utils import (
     ContentPanel, PublishedDatePanel, ReportDownloadPanel, UUIDPanel, WagtailImageField,
@@ -337,7 +337,7 @@ class PublicationIndexPage(HeroMixin, Page):
 
 
 class PublicationPage(
-    HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUIDMixin,
+    HeroMixin, HeroButtonMixin, PublishedDateMixin, ParentPageSearchMixin, UUIDMixin,
     FilteredDatasetMixin, ReportDownloadMixin, Page):
 
     class Meta:
@@ -351,13 +351,7 @@ class PublicationPage(
         'PublicationAppendixPage',
     ]
 
-    colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=RED)
-
-    read_online_button_text = models.CharField(max_length=256, default="Read Online", blank=True, null=True)
-
-    request_hard_copy_text = models.CharField(max_length=256, default="Request a hard copy", blank=True, null=True)
-
-    use_other_template = models.BooleanField(default=False)
+    colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=RED)    
 
     authors = StreamField([
         ('internal_author', PageChooserBlock(
@@ -379,10 +373,15 @@ class PublicationPage(
     topics = ClusterTaggableManager(through=PublicationTopic, blank=True, verbose_name="Topics")
 
     content_panels = Page.content_panels + [
-        FieldPanel('colour'),
-        FieldPanel('read_online_button_text'),
-        FieldPanel('request_hard_copy_text'),
-        FieldPanel('use_other_template'),
+        FieldPanel('colour'),        
+        MultiFieldPanel(
+            [
+                FieldPanel('read_online_text'),
+                FieldPanel('request_hard_copy_text'),
+            ],
+            heading='Hero Buttons',
+            description='Edit text for buttons in the hero.'
+        ),
         hero_panels(),
         StreamFieldPanel('authors'),
         SnippetChooserPanel('publication_type'),
@@ -474,10 +473,7 @@ class PublicationPage(
         return self.publication_cta.all()
 
     def get_template(self, request):
-        if self.use_other_template:
-            return 'publications/publication_page_b.html'
-
-        return 'publications/publication_page.html'
+        return 'publications/publication_page_b.html'
 
     def save(self, *args, **kwargs):
         super(PublicationPage, self).save(*args, **kwargs)
@@ -508,17 +504,9 @@ class PublicationForewordPage(
 
     colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=RED)
 
-    add_content_links = StreamField([
-            ('links', blocks.StructBlock([
-                ('title', blocks.CharBlock(required=False)),
-                ('link', blocks.URLBlock(required=False)),
-        ], icon='fa-link')
-    ),], blank=True)
-
     content_panels = Page.content_panels + [
         hero_panels(),
         FieldPanel('colour'),
-        StreamFieldPanel('add_content_links'),
         ContentPanel(),
         InlinePanel('publication_datasets', label='Datasets'),
         DownloadsPanel(
@@ -581,18 +569,10 @@ class PublicationSummaryPage(
     subpage_types = []
 
     colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=RED)
-    
-    add_content_links = StreamField([
-            ('links', blocks.StructBlock([
-                ('title', blocks.CharBlock(required=False)),
-                ('link', blocks.URLBlock(required=False)),
-        ], icon='fa-link')
-    ),], blank=True)
 
     content_panels = Page.content_panels + [
         FieldPanel('colour'),
         hero_panels(),
-        StreamFieldPanel('add_content_links'),
         ContentPanel(),
         InlinePanel('publication_datasets', label='Datasets'),
         DownloadsPanel(
@@ -668,17 +648,9 @@ class PublicationChapterPage(
     )
     colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=RED)
 
-    add_content_links = StreamField([
-            ('links', blocks.StructBlock([
-                ('title', blocks.CharBlock(required=False)),
-                ('link', blocks.URLBlock(required=False)),
-        ], icon='fa-link')
-    ),], blank=True)
-
     content_panels = Page.content_panels + [
         FieldPanel('colour'),
         hero_panels(),
-        StreamFieldPanel('add_content_links'),
         MultiFieldPanel(
             [
                 FieldPanel('chapter_number', widget=forms.Select),
@@ -780,17 +752,9 @@ class PublicationAppendixPage(
     )
     colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=RED)
 
-    add_content_links = StreamField([
-            ('links', blocks.StructBlock([
-                ('title', blocks.CharBlock(required=False)),
-                ('link', blocks.URLBlock(required=False)),
-        ], icon='fa-link')
-    ),], blank=True)
-
     content_panels = Page.content_panels + [
         FieldPanel('colour'),
         hero_panels(),
-        StreamFieldPanel('add_content_links'),
         MultiFieldPanel(
             [
                 FieldPanel('appendix_number', widget=forms.Select),

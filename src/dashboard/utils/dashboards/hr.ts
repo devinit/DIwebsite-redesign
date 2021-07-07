@@ -82,8 +82,8 @@ export const hr: DashboardGrid[] = [
         },
       },
       ...[
-        { id: 'gender-pay-mean', meta: 'Gender Pay Gap (Mean)' },
-        { id: 'gender-pay-median', meta: 'Gender Pay Gap (Median)' },
+        { id: 'gender-pay-mean', meta: 'Gender Pay Gap (Mean) UK' },
+        { id: 'gender-pay-median', meta: 'Gender Pay Gap (Median) UK' },
       ].map<DashboardContent>(({ id, meta }) => {
         return {
           id: id,

@@ -5,7 +5,7 @@ import { getBarLabelConfig, getEventHandlers, grid } from '../chart';
 const colours = ['#0c457b', '#0071b1', '#4397d3', '#00538e', '#88bae5', '#0089cc']; // shades of blue
 const dashboardMetrics = [
   ['Total Staff', 'Total leavers in the period (Voluntary)', 'Total leavers in the period (Planned)'],
-  'Staffing budget',
+  'Staffing against budget',
   'Staffing budget as a %age of org budget (65% ceiling)',
   'Stability Index',
 ];
@@ -82,8 +82,8 @@ export const hr: DashboardGrid[] = [
         },
       },
       ...[
-        { id: 'gender-pay-mean', meta: 'Gender Pay Gap (Mean)' },
-        { id: 'gender-pay-median', meta: 'Gender Pay Gap (Median)' },
+        { id: 'gender-pay-mean', meta: 'Gender Pay Gap (Mean) UK' },
+        { id: 'gender-pay-median', meta: 'Gender Pay Gap (Median) UK' },
       ].map<DashboardContent>(({ id, meta }) => {
         return {
           id: id,
@@ -108,7 +108,7 @@ export const hr: DashboardGrid[] = [
       }),
       {
         id: 'staffing-budget',
-        meta: 'Staffing budget',
+        meta: 'Staffing against budget',
         styled: true,
         chart: {
           data: (data: DashboardData[]): Record<string, React.ReactText>[] =>

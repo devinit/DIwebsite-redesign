@@ -42,7 +42,7 @@
                 {% endif %}
                 <h2 class="chapter-block__heading">{{ item.title }}</h2>
                 <p class="para {% cycle '' 'reverse-text' %}">{{ item | content_excerpt }}</p>
-                <a href="{{ item.url }}" class="button button--a11y {% cycle '' 'button--reverse' %}" title="Read {{ item.label }}"><span>Read {{ item.label }}</span></a>                
+                <a href="{{ item.url }}" class="button button--a11y {% cycle '' 'button--reverse' %}" title="Read {{ item.label }}"><span>Read {{ item.label }}</span></a>
                 {% include 'publications/chapter_content.html' %}
               </div>
             </div>

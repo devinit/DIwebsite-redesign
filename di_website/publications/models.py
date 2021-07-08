@@ -351,7 +351,7 @@ class PublicationPage(
         'PublicationAppendixPage',
     ]
 
-    colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=RED)    
+    colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=RED)
 
     authors = StreamField([
         ('internal_author', PageChooserBlock(
@@ -373,7 +373,7 @@ class PublicationPage(
     topics = ClusterTaggableManager(through=PublicationTopic, blank=True, verbose_name="Topics")
 
     content_panels = Page.content_panels + [
-        FieldPanel('colour'),        
+        FieldPanel('colour'),
         MultiFieldPanel(
             [
                 FieldPanel('read_online_button_text'),
@@ -480,7 +480,11 @@ class PublicationPage(
         return False
 
     def get_template(self, request):
-        return 'publications/publication_page_b.html'
+        variant = request.google_optimize.get('publication_page_v2', None)
+        if variant == 'Publication Page Template B':
+            return 'publications/publication_page_b.html'
+
+        return 'publications/publication_page.html'
 
     def save(self, *args, **kwargs):
         super(PublicationPage, self).save(*args, **kwargs)

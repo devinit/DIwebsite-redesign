@@ -1,8 +1,6 @@
 import csv
-import json
-import shutil
-import tempfile
-import urllib.request
+
+import requests
 
 from django.conf import settings
 from django.http import JsonResponse
@@ -112,23 +110,22 @@ def dashboard_data_view(request):
         branch = repo.get_branch(branch=BRANCH_NAME)
         contents = repo.get_contents(FILE, ref=branch.commit.sha)
         data = []
-        with urllib.request.urlopen(contents.download_url) as response:
-            with tempfile.NamedTemporaryFile(delete=True) as tmp_file:
-                shutil.copyfileobj(response, tmp_file)
 
-                with open(tmp_file.name) as csvf:
-                    csvReader = csv.reader(csvf)
-                    header = next(csvReader)
+        with requests.Session() as s:
+            download = s.get(contents.download_url)
+            decoded_content = download.content.decode('utf-8')
 
-                    for row in csvReader:
-                        if len(row) == 11: # csv has 11 rows
-                            item = {
-                                'department': row[0], 'metric': row[1], 'et': row[2], 'category': row[3],
-                                'year': int(row[4]) if row[4] else None, 'quarter': row[5], 'date': row[6],
-                                'value': float(row[7]) if row[7] else None, 'target': float(row[8]) if row[8] else None,
-                                'narrative': row[9], 'baseline': row[10]
-                            }
-                            data.append(item)
+            cr = csv.reader(decoded_content.splitlines(), delimiter=',')
+            header = next(cr)
+            for row in cr:
+                if len(row) == 11: # csv has 11 rows
+                    item = {
+                        'department': row[0], 'metric': row[1], 'et': row[2], 'category': row[3],
+                        'year': int(row[4]) if row[4] else None, 'quarter': row[5], 'date': row[6],
+                        'value': float(row[7]) if row[7] else None, 'target': float(row[8]) if row[8] else None,
+                        'narrative': row[9], 'baseline': row[10]
+                    }
+                    data.append(item)
 
         return JsonResponse({ 'data': data }, safe=False)
     except Exception as e:

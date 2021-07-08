@@ -100,7 +100,7 @@ def dashboard_data_view(request):
     Handles the /api/dashboard endpoint, fetching dashboard data from a private GitHub repo
     """
     GITHUB_REPO = 'devinit/org-dashboard-data'
-    BRANCH_NAME = 'develop'
+    BRANCH_NAME = 'master'
     FILE = 'all.csv'
 
     try:

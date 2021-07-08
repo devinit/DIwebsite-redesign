@@ -1,6 +1,6 @@
 {% load wagtailcore_tags %}
 
-<div class="cta">
+<div class="cta" {% if item.position == 'top' %} id="hardcopy" {% endif %}>
   <h2 class="cta__heading">{{ item.title }}</h2>
   <p class="cta__excerpt">{{ item.body }}</p>
 

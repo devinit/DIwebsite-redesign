@@ -44,9 +44,13 @@
       {% if page.hero_link and page.hero_link_caption %}
         <a href="{% pageurl page.hero_link %}" class="button button--reverse">{{ page.hero_link_caption }}</a>
       {% endif %}
-      {% if page.publication_downloads_list|length > 0 or page.data_downloads_list|length > 0 %}
-        <a href="#downloads" class="button button--reverse">Downloads</a>
-      {% endif %}
+
+      {% block hero-buttons %}
+        {% if page.publication_downloads_list|length > 0 or page.data_downloads_list|length > 0 %}
+          <a href="#downloads" class="button button--reverse">Downloads</a>
+        {% endif %}
+      {% endblock hero-buttons %}
+
     </div>
   </div>
 </section>

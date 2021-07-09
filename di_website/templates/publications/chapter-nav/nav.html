@@ -1,7 +1,7 @@
 {% load string_utils report_utils wagtailcore_tags %}
 
 {% if page.listing_and_appendicies %}
-    <div class="js-chapter-nav{% if page.get_verbose_name == "Short Publication" %}-simple{% endif %}">
+    <div class="js-chapter-nav{% if page.get_verbose_name == "Short Publication" %}-simple{% endif %} {{classes}}">
         <div class="page__action">
             {% if page.get_verbose_name != "Short Publication" %}
               {% include 'publications/chapter-nav/prev-next.html' %}

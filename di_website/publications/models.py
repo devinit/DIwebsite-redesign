@@ -374,15 +374,15 @@ class PublicationPage(
 
     content_panels = Page.content_panels + [
         FieldPanel('colour'),
+        hero_panels(),
         MultiFieldPanel(
             [
                 FieldPanel('read_online_button_text'),
                 FieldPanel('request_hard_copy_text'),
             ],
-            heading='Hero Buttons',
-            description='Edit text for buttons in the hero.'
+            heading='Hero Button Captions',
+            description='Edit captions for hero buttons'
         ),
-        hero_panels(),
         StreamFieldPanel('authors'),
         SnippetChooserPanel('publication_type'),
         FieldPanel('topics'),
@@ -478,13 +478,6 @@ class PublicationPage(
             if cta.position == 'top':
                 return True
         return False
-
-    def get_template(self, request):
-        variant = request.google_optimize.get('publication_page_v2', None)
-        if variant == 'Publication Page Template B':
-            return 'publications/publication_page_b.html'
-
-        return 'publications/publication_page.html'
 
     def save(self, *args, **kwargs):
         super(PublicationPage, self).save(*args, **kwargs)

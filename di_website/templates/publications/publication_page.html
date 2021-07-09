@@ -1,6 +1,17 @@
 {% extends "layouts/default.html" %}
 {% load static string_utils wagtailcore_tags responsive wagtailimages_tags %}
 
+{% block html_header %}
+  {{block.super}}
+
+  <style>.async-hide { opacity: 0 !important} </style>
+  <script>(function(a,s,y,n,c,h,i,d,e){s.className+=' '+y;h.start=1*new Date;
+  h.end=i=function(){s.className=s.className.replace(RegExp(' ?'+y),'')};
+  (a[n]=a[n]||[]).hide=h;setTimeout(function(){i();h.end=null},c);h.timeout=c;
+  })(window,document.documentElement,'async-hide','dataLayer',4000,
+  {'OPT-P66WTGG':true});</script>
+{% endblock html_header %}
+
 {% block hero %}
   {% include 'includes/heroes/hero-pubs.html' with classes="optimize-original" %}
   {% include 'includes/heroes/hero-pubs-b.html' with classes="optimize-variant display-none" %}

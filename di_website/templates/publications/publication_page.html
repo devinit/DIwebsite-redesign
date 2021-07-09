@@ -30,7 +30,7 @@
   {% endif %}
 
   {% for item in page.listing %}
-    <section class="section section--large">
+    <section class="section section--large optimize-original">
       <div class="chapter-block-wrapper {% cycle '' 'chapter-block-wrapper--alt' %}">
         {% responsiveimage item.hero_image fill-665x320 srcset="fill-360x150 1w, fill-460x150 400w, fill-740x200 500w, fill-350x400 780w, fill-475x400 1000w, fill-680x400 1350w" as image %}
         <div class="chapter-block_image" {{ image | responsive_id }}>{{ image | responsive_css }}</div>
@@ -49,6 +49,30 @@
                 {% cycle 'ico-arrow-down-slate' 'ico-arrow-down-blank' as download_icon silent %}
                 {% include 'publications/downloads.html' with button_class=button_class download_title='Download '|add:item.label download_icon=download_icon %}
                 {% include 'publications/data-downloads.html' with button_class=data_button_class download_title='Download data for '|add:item.label %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  {% endfor %}
+
+  {% for item in page.listing_and_appendicies %}
+    <section class="section section--large optimize-variant display-none" {% if item.label == 'the executive summary' %} id="exec-summary" {% endif %}>
+      <div class="chapter-block-wrapper {% cycle '' 'chapter-block-wrapper--alt' %}">
+        {% responsiveimage item.hero_image fill-665x320 srcset="fill-360x150 1w, fill-460x150 400w, fill-740x200 500w, fill-350x400 780w, fill-475x400 1000w, fill-680x400 1350w" as image %}
+        <div class="chapter-block_image" {{ image | responsive_id }}>{{ image | responsive_css }}</div>
+        <div class="row row--narrow">
+          <div class="larger-center">
+            <div class="chapter-block__item">
+              <div class="chapter-block_content">
+                {% if item.chapter_number %}
+                  <p class="chapter-title {% cycle 'reverse-text' '' %}">{{ item.label | title }}</p>
+                {% endif %}
+                <h2 class="chapter-block__heading">{{ item.title }}</h2>
+                <p class="para {% cycle '' 'reverse-text' %}">{{ item | content_excerpt }}</p>
+                <a href="{{ item.url }}" class="button button--a11y {% cycle '' 'button--reverse' %}" title="Read {{ item.label }}"><span>Read {{ item.label }}</span></a>
+                {% include 'publications/chapter_content.html' %}
               </div>
             </div>
           </div>

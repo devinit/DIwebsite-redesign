@@ -480,8 +480,8 @@ class PublicationPage(
         return False
 
     def get_template(self, request):
-        variant = request.google_optimize.get('publication_page_v2', None)
-        if variant == 'Publication Page Template B':
+        variant = request.GET.get('variant', 0)
+        if variant == 1:
             return 'publications/publication_page_b.html'
 
         return 'publications/publication_page.html'

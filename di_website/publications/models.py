@@ -479,13 +479,6 @@ class PublicationPage(
                 return True
         return False
 
-    def get_template(self, request):
-        variant = request.GET.get('variant', 0)
-        if variant == 1:
-            return 'publications/publication_page_b.html'
-
-        return 'publications/publication_page.html'
-
     def save(self, *args, **kwargs):
         super(PublicationPage, self).save(*args, **kwargs)
 

@@ -86,6 +86,7 @@ const appConfig = {
     publications: './src/publications/index.ts',
     blog: './src/blog/index.ts',
     dashboard: './src/dashboard/index.ts',
+    notice: './src/notice/index.ts',
   },
   output: {
     path: path.resolve(__dirname, 'src/assets/'),

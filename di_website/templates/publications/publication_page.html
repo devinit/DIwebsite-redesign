@@ -9,7 +9,7 @@
 {% block colour %}body--{{page.colour}}{% endblock %}
 
 {% block body %}
-  {% include 'publications/chapter-nav/nav.html' %}
+  {% include 'publications/chapter-nav/nav.html' with classes="optimize-original" %}
 
   {% if page.authors|length > 0 or page.call_to_action %}
     <section class="section section--large">

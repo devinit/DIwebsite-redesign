@@ -129,7 +129,7 @@
 	},
     {
         "name": "14a-publication-summary-v2",
-        "stage": "approved"
+        "stage": "review"
     },
 	{
 		"name": "14-1-publication-long-form",
@@ -185,7 +185,7 @@
 	},
 	{
 		"name": "21-data-section",
-		"stage": "review"
+		"stage": "approved"
 	},
 	{
 		"name": "21-1-dataset-listing",

@@ -1,7 +1,7 @@
 {% load wagtailimages_tags wagtailcore_tags responsive string_utils %}
 
 {% responsiveimage page.hero_image fill-1600x780-c100 srcset=global.hero_srcs as image %}
-<section class="hero {% if image %}hero--image{% else %}hero--minor{% endif %}">
+<section class="hero {% if image %}hero--image{% else %}hero--minor{% endif %} {{classes}}">
   {% if image %}
     <div class="hero__image" {{ image | responsive_id }}>{{ image | responsive_css }}</div>
     {% if self.hero_image_credit_name %}
@@ -44,9 +44,13 @@
       {% if page.hero_link and page.hero_link_caption %}
         <a href="{% pageurl page.hero_link %}" class="button button--reverse">{{ page.hero_link_caption }}</a>
       {% endif %}
-      {% if page.publication_downloads_list|length > 0 or page.data_downloads_list|length > 0 %}
-        <a href="#downloads" class="button button--reverse">Downloads</a>
-      {% endif %}
+
+      {% block hero-buttons %}
+        {% if page.publication_downloads_list|length > 0 or page.data_downloads_list|length > 0 %}
+          <a href="#downloads" class="button button--reverse">Downloads</a>
+        {% endif %}
+      {% endblock hero-buttons %}
+
     </div>
   </div>
 </section>

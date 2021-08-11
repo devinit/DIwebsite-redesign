@@ -83,6 +83,7 @@ INSTALLED_APPS = [
     'wagtailfontawesome',
     'widget_tweaks',
     'wagtailmetadata',
+    'django_google_optimize',
 
     'django.contrib.sitemaps',
     'django.contrib.admin',
@@ -105,6 +106,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
 
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
+    'django_google_optimize.middleware.google_optimize',
 ]
 
 ROOT_URLCONF = 'di_website.urls'

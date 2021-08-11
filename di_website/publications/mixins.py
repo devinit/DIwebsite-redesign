@@ -166,6 +166,7 @@ class ReportDownloadMixin(models.Model):
         related_name='+'
     )
 
+
 class InheritCTAMixin(models.Model):
     """
     Used by child pages of the PublicationPage to inherit Call To Action
@@ -176,3 +177,14 @@ class InheritCTAMixin(models.Model):
     @cached_property
     def call_to_action(self):
         return self.get_parent().specific.publication_cta.filter(inherit=True)
+
+
+class HeroButtonMixin(models.Model):
+    read_online_button_text = models.CharField(
+        max_length=256, default="Read Online", blank=True, null=True, verbose_name='Read Online')
+    request_hard_copy_text = models.CharField(
+        max_length=256, default="Request a hard copy", blank=True,
+        null=True, verbose_name='Read Hard Copy')
+
+    class Meta:
+        abstract = True

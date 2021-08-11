@@ -1,4 +1,4 @@
-{% load wagtailuserbar wagtailmetadata_tags report_utils static %}
+{% load wagtailuserbar wagtailmetadata_tags report_utils static cookie_tags %}
 <!doctype html>
 <!--[if IE 9]> <html lang="en-GB" class="no-js ie9"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--><html lang="en-GB" class="no-js"><!--<![endif]-->
@@ -30,6 +30,7 @@
   <!-- End Google Tag Manager (noscript) -->
   {% wagtailuserbar %}
   <div class="ui-base">
+    {% cookie_notice %}
     <a href="#pagecontent" class="skiplink" data-js="skiplink">Skip to main content</a>
     {% block header %}
       {% include 'includes/scaffold/header.html' %}

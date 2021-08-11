@@ -18,7 +18,7 @@ from modelcluster.models import ClusterableModel
 from wagtail.admin.edit_handlers import (FieldPanel, InlinePanel, PageChooserPanel, StreamFieldPanel)
 from wagtail.contrib.redirects.models import Redirect
 from wagtail.contrib.search_promotions.templatetags.wagtailsearchpromotions_tags import get_search_promotions
-from wagtail.core import hooks
+from wagtail.core import blocks, hooks
 from wagtail.core.blocks import (CharBlock, PageChooserBlock, StructBlock, URLBlock)
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Orderable, Page
@@ -39,7 +39,7 @@ from di_website.downloads.utils import DownloadsPanel
 from .edit_handlers import MultiFieldPanel
 from .inlines import *
 from .mixins import (
-    FilteredDatasetMixin, FlexibleContentMixin, InheritCTAMixin, LegacyPageSearchMixin, PageSearchMixin, ParentPageSearchMixin,
+    FilteredDatasetMixin, FlexibleContentMixin, HeroButtonMixin, InheritCTAMixin, LegacyPageSearchMixin, PageSearchMixin, ParentPageSearchMixin,
     PublishedDateMixin, ReportChildMixin, ReportDownloadMixin, UniqueForParentPageMixin, UUIDMixin)
 from .utils import (
     ContentPanel, PublishedDatePanel, ReportDownloadPanel, UUIDPanel, WagtailImageField,
@@ -337,7 +337,7 @@ class PublicationIndexPage(HeroMixin, Page):
 
 
 class PublicationPage(
-    HeroMixin, PublishedDateMixin, ParentPageSearchMixin, UUIDMixin,
+    HeroMixin, HeroButtonMixin, PublishedDateMixin, ParentPageSearchMixin, UUIDMixin,
     FilteredDatasetMixin, ReportDownloadMixin, Page):
 
     class Meta:
@@ -375,6 +375,14 @@ class PublicationPage(
     content_panels = Page.content_panels + [
         FieldPanel('colour'),
         hero_panels(),
+        MultiFieldPanel(
+            [
+                FieldPanel('read_online_button_text'),
+                FieldPanel('request_hard_copy_text'),
+            ],
+            heading='Hero Button Captions',
+            description='Edit captions for hero buttons'
+        ),
         StreamFieldPanel('authors'),
         SnippetChooserPanel('publication_type'),
         FieldPanel('topics'),
@@ -463,6 +471,13 @@ class PublicationPage(
     @cached_property
     def call_to_action(self):
         return self.publication_cta.all()
+
+    @cached_property
+    def call_to_action_has_top_position(self):
+        for cta in self.publication_cta.all():
+            if cta.position == 'top':
+                return True
+        return False
 
     def save(self, *args, **kwargs):
         super(PublicationPage, self).save(*args, **kwargs)

@@ -6,12 +6,11 @@ const toggleFeature = (classNames: string, show = true) => {
     } else {
       element.classList.add('display-none');
     }
-  })
-}
+  });
+};
 
 const setupOptimize = () => {
-  const variant = window.google_optimize.get('_aj7TeknQICK1m3pwQRBKw');
-  console.log(variant);
+  const variant = window.google_optimize.get('0Ll-dkJQS-C_Ya7kygQPvA');
 
   toggleFeature('.optimize-original', variant ? !(`${variant}` === '1') : true);
   toggleFeature('.optimize-variant', !!variant && `${variant}` === '1');

@@ -835,7 +835,7 @@ class PublicationAppendixPage(
         return sections
 
 
-class LegacyPublicationPage(HeroMixin, PublishedDateMixin, LegacyPageSearchMixin, FilteredDatasetMixin, CallToActionMixin, ReportDownloadMixin, Page):
+class LegacyPublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, FilteredDatasetMixin, CallToActionMixin, ReportDownloadMixin, Page):
 
     class Meta:
         verbose_name = 'Legacy Publication'
@@ -939,7 +939,7 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, LegacyPageSearchMixin
 
 
 class ShortPublicationPage(
-    HeroMixin, PublishedDateMixin, FlexibleContentMixin, PageSearchMixin,
+    HeroMixin, PublishedDateMixin, FlexibleContentMixin, ParentPageSearchMixin,
     UUIDMixin, FilteredDatasetMixin, CallToActionMixin, ReportDownloadMixin, Page):
 
     class Meta:

@@ -15,6 +15,9 @@ import os
 import dj_database_url
 from decouple import config
 import dotenv
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
@@ -84,6 +87,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'wagtailmetadata',
     'django_google_optimize',
+    'cloudinary',
 
     'django.contrib.sitemaps',
     'django.contrib.admin',
@@ -255,6 +259,14 @@ STATIC_URL = '/assets/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'storage')
 MEDIA_URL = '/media/'
+
+# Cloudinary settings
+
+cloudinary.config(
+  cloud_name = os.getenv('CLOUDINARY_NAME'),
+  api_key = os.getenv('CLOUDINARY_API_KEY'),
+  api_secret = os.getenv('CLOUDINARY_API_SECRET')
+)
 
 
 # Wagtail settings

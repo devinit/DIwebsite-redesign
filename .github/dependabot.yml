@@ -5,7 +5,7 @@ updates:
 
  # Maintain dependencies for npm
   - package-ecosystem: "npm"
-    directory: "/"
+    directory: "/patterns"
     target-branch: "feature/update_patterns_dependencies"
     schedule:
       interval: "daily"

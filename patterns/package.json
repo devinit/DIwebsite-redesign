@@ -19,6 +19,7 @@
     "google-maps": "^4.3.3",
     "jquery": "^3.4.0",
     "plotly.js-dist": "^2.5.0",
-    "skelly": "^2.0.0-rc.8"
+    "skelly": "^2.0.0-rc.8",
+    "set-value": ">=4.0.1"
   }
 }

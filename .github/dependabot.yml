@@ -1,0 +1,11 @@
+# Set update schedule for each package manager
+
+version: 2
+updates:
+
+ # Maintain dependencies for npm
+  - package-ecosystem: "npm"
+    directory: "/"
+    target-branch: "feature/update_patterns_dependencies"
+    schedule:
+      interval: "daily"

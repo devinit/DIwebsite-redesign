@@ -261,7 +261,7 @@ class AceEditorJSONBlock(StructBlock):
     content = TextBlock(
         label='JSON Content',
         help_text='Enter your JSON here',
-        classname='ace-editor-json-block'
+        form_classname='ace-editor-json-block'
     )
 
     class Meta:

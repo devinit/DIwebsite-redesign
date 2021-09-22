@@ -90,7 +90,7 @@
         "plotly.js-geo-dist": "^1.54.3",
         "plotly.js-gl2d-dist": "^1.54.3",
         "plotly.js-gl3d-dist": "^1.54.3",
-        "plotly.js-mapbox-dist": "^1.54.3",
+        "plotly.js-mapbox-dist": "^2.5.1",
         "plottable": "^3.9.0",
         "react": "^17.0.1",
         "react-dom": "^17.0.1",

@@ -1,6 +1,6 @@
 from django.forms import Media, widgets
 from django.db import models
-from django.contrib.postgres.fields import JSONField
+from django.db.models import JSONField
 
 from wagtail.admin.staticfiles import versioned_static
 

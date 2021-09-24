@@ -56,7 +56,7 @@ INSTALLED_APPS = [
     'di_website.api',
     'di_website.spotlight',
     'di_website.visualisation',
-    'di_website.dashboard',
+    'di_website.dashboard',    
 
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
@@ -325,3 +325,5 @@ WAGTAILEMBEDS_FINDERS = [
 GITHUB_TOKEN = os.getenv('GITHUB_TOKEN')
 
 PASSWORD_REQUIRED_TEMPLATE = 'password_required.html'
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'

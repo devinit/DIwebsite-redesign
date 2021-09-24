@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class SpotlightConfig(AppConfig):
-    name = 'spotlight'
+    name = 'di_website.spotlight'

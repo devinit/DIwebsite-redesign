@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class PlaceConfig(AppConfig):
-    name = 'place'
+    name = 'di_website.place'

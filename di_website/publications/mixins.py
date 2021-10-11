@@ -77,23 +77,24 @@ class UUIDMixin(models.Model):
     class Meta:
         abstract = True
 
-    uuid = models.CharField(
-        max_length=6,
-        unique=True,
-        default=uid,
-    )
+    uuid = models.CharField(max_length=6, default=uid)
 
     def save(self, *args, **kwargs):
-        try:
+        old_path = '/%s' % self.uuid
+        # using Redirect to enforce uuid uniqueness as using a unique field is prone to validation errors on page revisions
+        existing_redirect = Redirect.objects.filter(old_path=old_path).first()
+        if existing_redirect and existing_redirect.redirect_page.id == self.id:
             super(UUIDMixin, self).save(*args, **kwargs)
-        except ValidationError:
+        else:
             self.uuid = uid()
             super(UUIDMixin, self).save(*args, **kwargs)
 
-        old_path = '/%s' % self.uuid
-        redirect = Redirect.objects.filter(old_path=old_path).first()
-        if not redirect:
-            Redirect(old_path=old_path, redirect_page=self).save()
+            old_path = '/%s' % self.uuid
+            redirect = Redirect.objects.filter(old_path=old_path).first()
+            if not redirect:
+                Redirect(old_path=old_path, redirect_page=self).save()
+            else:
+                self.save(*args, **kwargs)
 
 
 class ReportChildMixin(models.Model):

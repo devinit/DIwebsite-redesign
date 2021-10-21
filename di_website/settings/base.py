@@ -183,13 +183,13 @@ if config('ELASTIC_SEARCH_URL', ''):
                             'ngram_tokenizer': {
                                 'type': 'nGram',
                                 'min_gram': 3,
-                                'max_gram': 10,
+                                'max_gram': 3,
                                 'token_cars': elastic_search_tokens
                             },
                             'edgengram_tokenizer': {
                                 'type': 'edgeNGram',
-                                'min_gram': 1,
-                                'max_gram': 10,
+                                'min_gram': 3,
+                                'max_gram': 3,
                                 'side': 'front',
                                 'token_cars': elastic_search_tokens
                             }
@@ -197,13 +197,13 @@ if config('ELASTIC_SEARCH_URL', ''):
                         'filter': {
                             'ngram': {
                                 'type': 'nGram',
-                                'min_gram': 3,
-                                'max_gram': 10
+                                'min_gram': 1,
+                                'max_gram': 2
                             },
                             'edgengram': {
                                 'type': 'edgeNGram',
-                                'min_gram': 1,
-                                'max_gram': 10
+                                'min_gram': 2,
+                                'max_gram': 3
                             }
                         },
                         'index': {

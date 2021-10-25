@@ -18,4 +18,8 @@ if [ "x$DJANGO_LOAD_INITIAL_DATA" = 'xon' ]; then
 	/venv/bin/python manage.py load_initial_data
 fi
 
+# Load cronjob to reload webserver
+echo "Adding crontab to reload Nginx every 2300 Hours"
+echo "0 23 * * * nginx -s reload & nginx" | crontab -
+
 exec "$@"

@@ -119,7 +119,7 @@ services:
       - SITE_URL
       - WWW_SITE_URL
       - DATA_SITE_URL
-    entrypoint: /bin/sh -c "certbot certonly --webroot --webroot-path=/var/www/certbot --email di-devs@devinit.org --agree-tos --no-eff-email --staging -d $SITE_URL -d $WWW_SITE_URL -d $DATA_SITE_URL && trap exit TERM; while :; do certbot renew --deploy-hook /etc/letsencrypt/certbot_success.sh; sleep 12h & wait $${!}; done;"
+    entrypoint: /bin/sh -c "certbot certonly --webroot --webroot-path=/var/www/certbot --email di-devs@devinit.org --agree-tos --no-eff-email -d $SITE_URL -d $WWW_SITE_URL -d $DATA_SITE_URL && trap exit TERM; while :; do certbot renew --deploy-hook /etc/letsencrypt/certbot_success.sh; sleep 12h & wait $${!}; done;"
     volumes:
       - ./letsencrypt:/var/www/certbot/
       - ./ssl:/etc/letsencrypt/

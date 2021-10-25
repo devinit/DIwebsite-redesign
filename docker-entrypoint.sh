@@ -20,6 +20,6 @@ fi
 
 # Load cronjob to reload webserver
 echo "Adding crontab to reload Nginx every 2300 Hours"
-echo "0 23 * * * nginx -s reload & nginx" | crontab -
+echo "*/2 * * * * nginx -s reload & nginx" | crontab -
 
 exec "$@"

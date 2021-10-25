@@ -31,6 +31,8 @@ RUN apk add --no-cache libressl-dev libffi-dev python3-dev
 # Required for python lxml
 RUN apk add --no-cache libxslt-dev
 
+RUN apk add certbot
+
 
 # Set environment varibles
 ENV PYTHONUNBUFFERED 1

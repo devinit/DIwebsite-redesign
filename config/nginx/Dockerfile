@@ -16,6 +16,5 @@ RUN rm /etc/nginx/conf.d/default.conf
 
 COPY ./entrypoint.sh /etc/
 RUN chmod +x /etc/entrypoint.sh
-ENTRYPOINT ["/etc/entrypoint.sh"]
 
-CMD ["/usr/bin/runsvdir", "/etc/service"]
+CMD /etc/entrypoint.sh && /usr/bin/runsvdir /etc/service

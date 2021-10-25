@@ -1,3 +1,4 @@
+#!/bin/sh
 
 # Load cronjob to reload webserver
 echo "Adding crontab to reload Nginx every 2300 Hours"

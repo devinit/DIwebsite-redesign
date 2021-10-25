@@ -1,6 +1,6 @@
 FROM nginx:1.11.12
 
-RUN apt-get update -qqy && apt-get -qqy install curl runit wget unzip && \
+RUN apt-get update -qqy && apt-get -qqy install curl runit wget unzip cron && \
     rm -rf /var/lib/apt/lists/* /var/cache/apt/*
 
 RUN wget https://releases.hashicorp.com/consul-template/0.19.3/consul-template_0.19.3_linux_amd64.zip && \

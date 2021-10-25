@@ -14,4 +14,8 @@ ADD django.conf.ctmpl /etc/consul-templates
 RUN chmod +x /etc/service/nginx/run && chmod +x /etc/service/consul-template/run
 RUN rm /etc/nginx/conf.d/default.conf
 
+COPY ./entrypoint.sh /etc/
+RUN chmod +x /etc/entrypoint.sh
+ENTRYPOINT [ "/etc/entrypoint.sh" ]
+
 CMD ["/usr/bin/runsvdir", "/etc/service"]

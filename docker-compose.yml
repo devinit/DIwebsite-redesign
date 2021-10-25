@@ -113,6 +113,8 @@ services:
   certbot:
     container_name: certbot
     image: certbot/certbot:latest
+    depends_on:
+      - nginx
     environment:
       - SITE_URL
       - WWW_SITE_URL

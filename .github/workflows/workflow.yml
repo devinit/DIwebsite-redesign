@@ -52,6 +52,7 @@ jobs:
           echo "BRANCH=${{ secrets.DEV_BRANCH }}" >> $GITHUB_ENV
           echo "WWW_SITE_URL=dev.devinit.org" >> $GITHUB_ENV
           echo "SITE_URL=dev.devinit.org" >> $GITHUB_ENV
+          echo "DATA_SITE_URL=dev.devinit.org" >> $GITHUB_ENV
 
       - name: Set env for master branch
         if: endsWith(github.ref, '/master')
@@ -62,6 +63,7 @@ jobs:
           echo "BRANCH=${{ secrets.PROD_BRANCH }}" >> $GITHUB_ENV
           echo "WWW_SITE_URL=www.devinit.org" >> $GITHUB_ENV
           echo "SITE_URL=devinit.org" >> $GITHUB_ENV
+          echo "DATA_SITE_URL=data.devinit.org" >> $GITHUB_ENV
 
       - name: copy deploy file via ssh
         uses: appleboy/scp-action@master
@@ -102,5 +104,6 @@ jobs:
             export GITHUB_TOKEN=${{ secrets.TOKEN_GITHUB }}
             export SITE_URL=${{ env.SITE_URL }}
             export WWW_SITE_URL=${{ env.WWW_SITE_URL }}
+            export DATA_SITE_URL=${{ env.DATA_SITE_URL }}
             cp -r deploy_script/deploy.sh .
             chmod +x deploy.sh && ./deploy.sh run

@@ -108,6 +108,19 @@ services:
     networks:
       - web
       - consul
+    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+
+  certbot:
+    container_name: certbot
+    image: certbot/certbot:latest
+    environment:
+      - SITE_URL
+      - WWW_SITE_URL
+    command: certonly --webroot --webroot-path=/var/www/certbot --email di-devs@devinit.org --agree-tos --no-eff-email -d $${SITE_URL} -d $${WWW_SITE_URL}
+    volumes:
+      - ./letsencrypt:/var/www/certbot/
+      - ./ssl:/etc/letsencrypt/
+      - ./certbot_logs:/var/log/letsencrypt
 
   rabbitmq:
     image: rabbitmq:latest

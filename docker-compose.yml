@@ -99,16 +99,12 @@ services:
       - ./assets:/assets
       - ./storage:/media
       - ./ssl:/etc/ssl/
-      - ./ssl:/etc/letsencrypt/
       - ./letsencrypt:/letsencrypt/
       - ../wp-content:/wp-content
     restart: always
     environment:
       - SERVICE_NAME=nginx
       - SERVICE_TAGS=nginx
-      - SITE_URL
-      - WWW_SITE_URL
-      - DATA_SITE_URL
     networks:
       - web
       - consul

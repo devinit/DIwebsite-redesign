@@ -270,6 +270,10 @@ then
     start_new_process "Starting up services ..."
     cd $APP_DIR
     sudo chown -R di_website:di_website storage
+    sudo chown -R di_website:di_website ssl
+    cp certbot_success.sh ./ssl
+    chmod +x ssl/certbot_success.sh
+    sudo chown -R di_website:di_website certbot_logs
     #run this script within this subprocess
     chmod +x scripts/*
     source scripts/init.sh

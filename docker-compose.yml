@@ -115,6 +115,7 @@ services:
     image: certbot/certbot:latest
     depends_on:
       - nginx
+    env_file: .env
     environment:
       - SITE_URL
       - WWW_SITE_URL

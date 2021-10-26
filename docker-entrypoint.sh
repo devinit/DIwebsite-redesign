@@ -18,4 +18,5 @@ if [ "x$DJANGO_LOAD_INITIAL_DATA" = 'xon' ]; then
 	/venv/bin/python manage.py load_initial_data
 fi
 
+
 exec "$@"

@@ -1,6 +1,6 @@
 import { generateObjectDataset, getAggregatedDatasetSource } from '../';
 import { DashboardData, DashboardGrid, EventOptions } from '../../../utils/types';
-import { addChartReverseListener, colours, grid } from '../chart';
+import { addChartReverseListener, colours, getBarLabelConfig, grid } from '../chart';
 
 export const financeDashboard: DashboardGrid[] = [
   {
@@ -26,12 +26,7 @@ export const financeDashboard: DashboardGrid[] = [
               { length: 2 },
               (): echarts.EChartOption.Series => ({
                 type: 'bar',
-                label: {
-                  show: true,
-                  position: 'top',
-                  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-                  formatter: (params: any): string => `${params.value[params.dimensionNames[params.encode.y[0]]]}%`,
-                },
+                label: getBarLabelConfig({ suffix: '%' }),
               }),
             ),
           },
@@ -86,12 +81,7 @@ export const financeDashboard: DashboardGrid[] = [
               { length: 2 },
               (): echarts.EChartOption.Series => ({
                 type: 'bar',
-                label: {
-                  show: true,
-                  position: 'top',
-                  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-                  formatter: (params: any): string => `${params.value[params.dimensionNames[params.encode.y[0]]]}%`,
-                },
+                label: getBarLabelConfig({ suffix: '%' }),
               }),
             ),
           },
@@ -150,11 +140,7 @@ export const financeDashboard: DashboardGrid[] = [
               { length: 2 },
               (): echarts.EChartOption.Series => ({
                 type: 'bar',
-                label: {
-                  show: true,
-                  position: 'top',
-                  formatter: (params: any): string => `${params.value[params.dimensionNames[params.encode.y[0]]]}%`,
-                },
+                label: getBarLabelConfig({ suffix: '%' }),
               }),
             ),
             /* eslint-enable @typescript-eslint/no-explicit-any */
@@ -207,11 +193,7 @@ export const financeDashboard: DashboardGrid[] = [
             series: [
               {
                 type: 'bar',
-                label: {
-                  show: true,
-                  position: 'top',
-                  formatter: (params: any): string => `${params.value[params.dimensionNames[params.encode.y[0]]]}%`,
-                },
+                label: getBarLabelConfig({ suffix: '%' }),
               },
             ],
             /* eslint-enable @typescript-eslint/no-explicit-any */

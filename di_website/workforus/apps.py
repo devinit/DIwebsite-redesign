@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class WorkforusConfig(AppConfig):
-    name = 'workforus'
+    name = 'di_website.workforus'

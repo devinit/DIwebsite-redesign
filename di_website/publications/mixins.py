@@ -46,15 +46,15 @@ class ParentPageSearchMixin(object):
 class PageSearchMixin(object):
     search_fields = Page.search_fields + [
         index.FilterField('slug'),
-        index.SearchField('content', partial_match=True, boost=1)
+        index.SearchField('content', partial_match=True)
     ]
 
 
 class LegacyPageSearchMixin(object):
     search_fields = Page.search_fields + [
         index.FilterField('slug'),
-        index.SearchField('raw_content', partial_match=True, boost=1),
-        index.SearchField('content', partial_match=True, boost=1)
+        index.SearchField('raw_content', partial_match=True),
+        index.SearchField('content', partial_match=True)
     ]
 
 

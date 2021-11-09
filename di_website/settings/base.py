@@ -171,7 +171,7 @@ if config('ELASTIC_SEARCH_URL', ''):
 
     WAGTAILSEARCH_BACKENDS = {
         'default': {
-            'BACKEND': 'wagtail.search.backends.elasticsearch6',
+            'BACKEND': 'wagtail.search.backends.elasticsearch7',
             'AUTO_UPDATE': True,
             'ATOMIC_REBUILD': True,
             'URLS': [config('ELASTIC_SEARCH_URL', '')],
@@ -181,13 +181,13 @@ if config('ELASTIC_SEARCH_URL', ''):
                     'analysis': {
                         'tokenizer': {
                             'ngram_tokenizer': {
-                                'type': 'nGram',
+                                'type': 'ngram',
                                 'min_gram': 3,
                                 'max_gram': 3,
                                 'token_cars': elastic_search_tokens
                             },
                             'edgengram_tokenizer': {
-                                'type': 'edgeNGram',
+                                'type': 'edge_ngram',
                                 'min_gram': 3,
                                 'max_gram': 3,
                                 'side': 'front',
@@ -196,12 +196,12 @@ if config('ELASTIC_SEARCH_URL', ''):
                         },
                         'filter': {
                             'ngram': {
-                                'type': 'nGram',
+                                'type': 'ngram',
                                 'min_gram': 1,
                                 'max_gram': 2
                             },
                             'edgengram': {
-                                'type': 'edgeNGram',
+                                'type': 'edge_ngram',
                                 'min_gram': 2,
                                 'max_gram': 3
                             }

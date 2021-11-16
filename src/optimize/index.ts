@@ -10,7 +10,7 @@ const toggleFeature = (classNames: string, show = true) => {
 };
 
 const setupOptimize = () => {
-  const variant = window.google_optimize.get('0Ll-dkJQS-C_Ya7kygQPvA');
+  const variant = window.google_optimize.get('0n_jQyGsR4-IfwB0dHX3Kw');
 
   toggleFeature('.optimize-original', variant ? !(`${variant}` === '1') : true);
   toggleFeature('.optimize-variant', !!variant && `${variant}` === '1');

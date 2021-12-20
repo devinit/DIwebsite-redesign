@@ -1,3 +1,4 @@
+from wagtail.core.blocks.field_block import BooleanBlock
 from wagtail.core.fields import StreamField
 from wagtail.contrib.table_block.blocks import TableBlock
 from wagtail.images.blocks import ImageChooserBlock
@@ -169,6 +170,43 @@ class Table(StructBlock):
     )
 
 
+class PivotTable(StructBlock):
+
+    class Meta:
+        help_text = 'Uses a CSV data source to displays tabular data with an optional heading.'
+        icon = 'list-ol'
+        label = 'Pivot Table'
+        form_template = 'publications/block_forms/custom_struct.html'
+        template = 'publications/blocks/pivot-table.html'
+
+    heading = CharBlock(
+        required=False
+    )
+    data_source_url = URLBlock(help_text='Link to the CSV data file')
+    row_label = CharBlock(help_text='CSV column to show as the label for each table row')
+    column_label = CharBlock(help_text='CSV column to show as the label for each table column')
+    cell_value = CharBlock(help_text='CSV column who data shall appear in the table cells')
+    show_row_total = BooleanBlock(default=True, required=False)
+    show_column_total = BooleanBlock(default=True, required=False)
+    filter_by = CharBlock(
+        required=False,
+        help_text='Optional: taken from the CSV data file - comma separated column names to filter by'
+    )
+    caption = RichTextBlock(
+        required=False,
+        features=FOOTNOTE_RICHTEXT_FEATURES,
+        help_text='Optional: caption text to appear below the table'
+    )
+    caption_link = URLBlock(
+        required=False,
+        help_text='Optional: external link to appear below the table'
+    )
+    caption_label = CharBlock(
+        required=False,
+        help_text='Optional: label for the caption link, defaults to the link if left blank'
+    )
+
+
 class AbstractRichText(StructBlock):
 
     class Meta:
@@ -248,6 +286,7 @@ def flexible_content_streamfield(blank=False):
         ('downloads', Downloads()),
         ('section_heading', SectionHeading()),
         ('table', Table()),
+        ('pivot_table', PivotTable()),
         ('rich_text', RichText()),
         ('infographic', PublicationInfographic()),
         ('anchor', AnchorBlock()),

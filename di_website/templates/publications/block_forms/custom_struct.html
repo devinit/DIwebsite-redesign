@@ -11,7 +11,7 @@
         {% for child in children.values %}
             <li{% if child.block.required %} class="required"{% endif %}>
                 {% if child.block.label %}
-                    <label{% if child.id_for_label %} for="{{ child.id_for_label }}"{% endif %}>{{ child.block.label }}:</label>
+                    <label{% if child.id_for_label %} for="{{ child.id_for_label }}"{% endif %} style="width: 50%;text-transform:capitalize;">{{ child.block.label }}:</label>
                 {% endif %}
                 {{ child.render_form }}
             </li>

@@ -8,7 +8,7 @@
 {% endif %}
 
 {% if item.use_d3 %}
-  <script src="https://d3js.org/d3.{{item.d3_version}}.js"></script>
+  <script src="https://d3js.org/d3.{{item.d3_version}}.min.js"></script>
 
   {% for module in item.d3_modules %}
     {% if module.value == 'colour' %}
@@ -23,5 +23,5 @@
 
 {% if item.use_echarts %}
   <script src="https://cdn.jsdelivr.net/npm/echarts@5.1.2/dist/echarts.min.js"></script>
-  <script src="https://d3js.org/d3.v4.js"></script>
+  <script src="https://d3js.org/d3.v4.min.js"></script>
 {% endif %}

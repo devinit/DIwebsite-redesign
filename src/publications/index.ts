@@ -1,3 +1,4 @@
-import { handleFootnotes } from '../plugins/footnotes';
+import { handleFootnotes, initPivotTables } from '../plugins';
 
 handleFootnotes();
+initPivotTables();

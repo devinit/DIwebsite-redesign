@@ -1,17 +1,23 @@
 import { createElement } from 'react';
 import { render } from 'react-dom';
-import { PivotTable } from '../components/PivotTable';
+import { Filter, PivotTable } from '../components/PivotTable';
+
+const parseFiltersFromString = (filters: string[], filterDefaults: string[]): Filter[] =>
+  filters.map((filter, index) => ({
+    name: filter,
+    value: index < filterDefaults.length ? filterDefaults[index] : undefined,
+  }));
 
 export const initPivotTables = function (): void {
   const pivotTables = document.querySelectorAll('.js-pivot-table');
   Array.prototype.forEach.call(pivotTables, (tableWrapper: HTMLDivElement) => {
-    const { url: dataURL, filters, row, column, cell, rowTotal, columnTotal } = tableWrapper.dataset;
+    const { url: dataURL, filters, row, column, cell, rowTotal, columnTotal, filterDefaults } = tableWrapper.dataset;
     if (dataURL) {
       window.d3.csv(dataURL, (data) => {
         render(
           createElement(PivotTable, {
             data,
-            filters: filters?.split(',') || [],
+            filters: parseFiltersFromString(filters?.split(',') || [], filterDefaults?.split(',') || []),
             rowLabel: row || '',
             columnLabel: column || '',
             showRowTotal: rowTotal === 'True',

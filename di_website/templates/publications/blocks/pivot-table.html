@@ -7,14 +7,14 @@
         </div>
     {% endif %}
     <div class="table-styled js-pivot-table"
-      data-url="{{value.data_source_url}}"
-      data-filters="{{value.filter_by}}"
-      data-row="{{value.row_label}}"
-      data-column="{{value.column_label}}"
-      data-cell="{{value.cell_value}}"
-      data-row-total="{{value.show_row_total}}"
-      data-column-total="{{value.show_column_total}}">
-        {{ value.bound_blocks.table }}
+        data-url="{{value.data_source_url}}"
+        data-filters="{{value.filter_by}}"
+        data-row="{{value.row_label}}"
+        data-column="{{value.column_label}}"
+        data-cell="{{value.cell_value}}"
+        data-row-total="{{value.show_row_total}}"
+        data-column-total="{{value.show_column_total}}"
+        data-filter-defaults="{{value.default_filter_values}}">
     </div>
     {% if value.caption or value.caption_link %}
         <figcaption class="media-caption">

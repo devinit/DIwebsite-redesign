@@ -1,49 +1,32 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { Filter } from '../Filter';
-
-interface PivotTableProps {
-  data: Record<string, unknown>[];
-  filters: Filter[];
-  rowLabel: string;
-  columnLabel: string;
-  cellValue: string;
-  showRowTotal?: boolean;
-  showColumnTotal?: boolean;
-}
-
-export interface Filter {
-  name: string;
-  value?: string | number;
-}
-
-const applyFilters = (data: Record<string, unknown>[], filter: Filter[]) => {
-  return data.filter(
-    (record) => filter.filter((f) => (f.value ? record[f.name] === f.value : true)).length === filter.length,
-  );
-};
+import { PivotTableProps, applyFilters, getFilterValues } from './utils';
 
 const PivotTable: FC<PivotTableProps> = (props) => {
-  console.log(props);
-  const renderFilters = () => {
-    const filterData = applyFilters(props.data, props.filters);
-    console.log(filterData);
-  };
+  const [data, setData] = useState(props.data);
+  const [filters, setFilters] = useState(props.filters);
 
-  renderFilters();
+  useEffect(() => {
+    setData(applyFilters(props.data, props.filters));
+  }, [props.data.length, filters]);
+  console.log(data);
+  const renderFilters = () => {
+    return props.filters.map((filter, index) => {
+      return (
+        <Filter
+          key={filter.name}
+          id={filter.name}
+          label={filter.name}
+          options={getFilterValues(props.data, filter).map((value) => ({ value: value, caption: value }))}
+        />
+      );
+    });
+  };
 
   return (
     <div>
       <div className="filter--wrapper highlight">
-        <form className="form resources-filters">
-          <Filter
-            id="pivot-filter"
-            label="Options:"
-            options={[
-              { value: 'testing', caption: 'Testing' },
-              { value: 'test', caption: 'Loading' },
-            ]}
-          />
-        </form>
+        <form className="form resources-filters">{renderFilters()}</form>
       </div>
     </div>
   );

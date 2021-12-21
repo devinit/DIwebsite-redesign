@@ -192,6 +192,10 @@ class PivotTable(StructBlock):
         required=False,
         help_text='Optional: taken from the CSV data file - comma separated column names to filter by'
     )
+    default_filter_values = CharBlock(
+        required=False,
+        help_text='Optional: Comma separated values to match the provided filters'
+    )
     caption = RichTextBlock(
         required=False,
         features=FOOTNOTE_RICHTEXT_FEATURES,

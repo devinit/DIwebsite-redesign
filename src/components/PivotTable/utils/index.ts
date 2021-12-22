@@ -15,3 +15,15 @@ export const getFilterValues = (data: Record<string, unknown>[], filter: Filter)
     return filterValues;
   }, []);
 };
+
+export const getColumns = (data: Record<string, unknown>[], propertyName: string) => {
+  return data
+    .reduce<string[]>((columns, current) => {
+      if (!columns.includes(current[propertyName] as string)) {
+        return columns.concat(current[propertyName] as string);
+      }
+
+      return columns;
+    }, [])
+    .sort();
+};

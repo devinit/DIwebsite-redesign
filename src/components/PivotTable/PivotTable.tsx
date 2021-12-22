@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Filter as SelectFilter } from '../Filter';
 import { Table } from '../Table';
-import { PivotTableProps, Filter, applyFilters, getFilterValues } from './utils';
+import { PivotTableProps, Filter, applyFilters, getFilterValues, getColumns } from './utils';
 
 const PivotTable: FC<PivotTableProps> = (props) => {
   const [data, setData] = useState(props.data);
@@ -38,15 +38,13 @@ const PivotTable: FC<PivotTableProps> = (props) => {
     });
   };
 
-  console.log(data);
-
   return (
     <div>
-      <div className="filter--wrapper highlight">
+      <div className="filter--wrapper" style={{ padding: '3rem 0' }}>
         <form className="form resources-filters">{renderFilters()}</form>
-
-        <Table />
       </div>
+
+      <Table columns={getColumns(data, props.columnLabel)} />
     </div>
   );
 };

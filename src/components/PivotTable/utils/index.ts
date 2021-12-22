@@ -27,3 +27,7 @@ export const getColumns = (data: Record<string, unknown>[], propertyName: string
     }, [])
     .sort();
 };
+
+export const getRows = (data: Record<string, unknown>[], rowLabel: string, columns: string[]) => {
+  return [];
+};

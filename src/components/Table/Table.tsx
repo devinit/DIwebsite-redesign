@@ -4,7 +4,6 @@ interface TableProps {
   columns: string[];
   rows: string[][];
   rowHeader?: boolean;
-  columnHeader?: boolean;
 }
 
 const Table: FC<TableProps> = (props) => {

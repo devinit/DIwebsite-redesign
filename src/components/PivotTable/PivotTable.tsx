@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Filter as SelectFilter } from '../Filter';
 import { Table } from '../Table';
-import { PivotTableProps, Filter, applyFilters, getFilterValues, getColumns, getRows } from './utils';
+import { PivotTableProps, Filter, applyFilters, getFilterValues, getColumnValues, getRows } from './utils';
 
 const PivotTable: FC<PivotTableProps> = (props) => {
   const [data, setData] = useState(props.data);
@@ -38,8 +38,8 @@ const PivotTable: FC<PivotTableProps> = (props) => {
     });
   };
 
-  const columns = ['Row Labels'].concat(getColumns(data, props.columnLabel));
-  const rows = getRows(data, props.rowLabel, columns);
+  const columns = ['Row Labels'].concat(getColumnValues(data, props.columnLabel));
+  const rows = getRows(data, { row: props.rowLabel, column: props.columnLabel, cell: props.cellValue }, columns);
 
   return (
     <div>
@@ -47,7 +47,7 @@ const PivotTable: FC<PivotTableProps> = (props) => {
         <form className="form resources-filters">{renderFilters()}</form>
       </div>
 
-      <Table columns={columns} rows={rows} />
+      <Table columns={columns} rows={rows} rowHeader />
     </div>
   );
 };

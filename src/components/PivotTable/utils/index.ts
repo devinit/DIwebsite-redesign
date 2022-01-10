@@ -16,7 +16,7 @@ export const getFilterValues = (data: Record<string, unknown>[], filter: Filter)
   }, []);
 };
 
-export const getColumns = (data: Record<string, unknown>[], propertyName: string) => {
+export const getColumnValues = (data: Record<string, unknown>[], propertyName: string) => {
   return data
     .reduce<string[]>((columns, current) => {
       if (!columns.includes(current[propertyName] as string)) {
@@ -28,6 +28,33 @@ export const getColumns = (data: Record<string, unknown>[], propertyName: string
     .sort();
 };
 
-export const getRows = (data: Record<string, unknown>[], rowLabel: string, columns: string[]) => {
-  return [];
+interface DataField {
+  row: string;
+  column: string;
+  cell: string;
+}
+
+export const getRows = (data: Record<string, unknown>[], fields: DataField, columns: string[]): string[][] => {
+  const rowLabels = getColumnValues(data, fields.row);
+
+  return rowLabels.map((label) => {
+    const row: string[] = [label].concat(
+      columns.slice(1).map((column) => {
+        const matchingData = data.find((d) => d[fields.row] === label && d[fields.column] === column);
+
+        if (matchingData) {
+          console.log(matchingData);
+
+          const value = matchingData[fields.cell] as string;
+          if (value) {
+            return `${parseInt(value).toFixed(1)}`;
+          }
+        }
+
+        return '';
+      }),
+    );
+
+    return row;
+  });
 };

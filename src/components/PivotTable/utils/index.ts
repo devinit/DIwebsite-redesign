@@ -34,10 +34,18 @@ interface DataField {
   cell: string;
 }
 
+export const getRowTotals = (rows: string[][]) => {
+  const rowTotals = rows.map((row) => {
+    const values = row.slice(1).map((value)=> Number(value));
+    return values.reduce((previousValue, currentValue) => previousValue + currentValue)
+  })
+  return rowTotals
+}
+
 export const getRows = (data: Record<string, unknown>[], fields: DataField, columns: string[]): string[][] => {
   const rowLabels = getColumnValues(data, fields.row);
 
-  return rowLabels.map((label) => {
+  const rows = rowLabels.map((label) => {
     const row: string[] = [label].concat(
       columns.slice(1).map((column) => {
         const matchingData = data.find((d) => d[fields.row] === label && d[fields.column] === column);
@@ -57,12 +65,6 @@ export const getRows = (data: Record<string, unknown>[], fields: DataField, colu
 
     return row;
   });
+  const rowValueTotals: Number[] = getRowTotals(rows);
+  return rows.map((row, index) => row.concat(rowValueTotals[index].toString()));
 };
-
-export const getRowTotals = (rows) => {
-  const rowTotals = rows.map((row) => {
-    const values = row.slice(1).map((value)=> Number(value));
-    return values.reduce((previousValue, currentValue) => previousValue + currentValue)
-  })
-  return rowTotals
-}

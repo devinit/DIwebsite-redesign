@@ -41,7 +41,6 @@ const PivotTable: FC<PivotTableProps> = (props) => {
   const columns = ['Row Labels'].concat(getColumnValues(data, props.columnLabel)).concat('Grand Total');
   const rows = getRows(data, { row: props.rowLabel, column: props.columnLabel, cell: props.cellValue }, columns);
 
-
   return (
     <div>
       <div className="filter--wrapper" style={{ padding: '3rem 0' }}>

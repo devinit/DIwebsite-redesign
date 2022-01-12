@@ -58,3 +58,11 @@ export const getRows = (data: Record<string, unknown>[], fields: DataField, colu
     return row;
   });
 };
+
+export const getRowTotals = (rows) => {
+  const rowTotals = rows.map((row) => {
+    const values = row.slice(1).map((value)=> Number(value));
+    return values.reduce((previousValue, currentValue) => previousValue + currentValue)
+  })
+  return rowTotals
+}

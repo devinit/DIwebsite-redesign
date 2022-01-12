@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Filter as SelectFilter } from '../Filter';
 import { Table } from '../Table';
-import { PivotTableProps, Filter, applyFilters, getFilterValues, getColumnValues, getRows } from './utils';
+import { PivotTableProps, Filter, applyFilters, getFilterValues, getColumnValues, getRows, getRowTotals } from './utils';
 
 const PivotTable: FC<PivotTableProps> = (props) => {
   const [data, setData] = useState(props.data);

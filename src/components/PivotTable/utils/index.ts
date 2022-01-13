@@ -42,7 +42,7 @@ export const getTotals = (items: string[][]) => {
   return totals
 }
 
-export const getColumnTotals = (columns: string[], rows: string[]) => {
+export const getColumnTotals = (columns: string[], rows: string[][]) => {
   const columnValueList: string[][] = [];
   columns.slice(1).map((_column, index) => {
     const columnValues: string[] = [];
@@ -53,7 +53,24 @@ export const getColumnTotals = (columns: string[], rows: string[]) => {
     })
     columnValueList.push(columnValues)
   })
-  return getTotals(columnValueList);
+  const totals = columnValueList.map((values) => {
+    return values.map((val)=> Number(val)).reduce((previousValue, currentValue) => previousValue + currentValue)
+  })
+  return totals
+};
+
+export const getAllRows = (rows: string[][], columnTotals: Number[]) => {
+  rows.map((row, index) => {
+    if(index === rows.length - 1){
+      row.map((_item, id) => {
+        row[id+1] = columnTotals[id]?.toString();
+      })
+      return row
+    }else{
+      return row
+    }
+  })
+  return rows
 }
 
 export const getRows = (data: Record<string, unknown>[], fields: DataField, columns: string[]): string[][] => {

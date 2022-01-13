@@ -73,7 +73,7 @@ export const getAllRows = (rows: string[][], columnTotals: Number[]) => {
   return rows
 }
 
-export const getRows = (data: Record<string, unknown>[], fields: DataField, columns: string[]): string[][] => {
+export const getRows = (data: Record<string, unknown>[], fields: DataField, columns: string[], showRowTotal): string[][] => {
   const rowLabels = getColumnValues(data, fields.row).concat('Grand Total');
   const rows = rowLabels.map((label) => {
     const row: string[] = [label].concat(
@@ -81,7 +81,6 @@ export const getRows = (data: Record<string, unknown>[], fields: DataField, colu
         const matchingData = data.find((d) => d[fields.row] === label && d[fields.column] === column);
 
         if (matchingData) {
-          // console.log(matchingData);
           const value = matchingData[fields.cell] as string;
           if (value) {
             return `${parseInt(value).toFixed(1)}`;
@@ -94,9 +93,13 @@ export const getRows = (data: Record<string, unknown>[], fields: DataField, colu
 
     return row;
   });
-  const rowValueTotals: Number[] = getTotals(rows);
-  return rows.map((row, index) => {
-    row[row.length-1] = rowValueTotals[index].toString();
-    return row
-  })
+  if (showRowTotal) {
+    const rowValueTotals: Number[] = getTotals(rows);
+    return rows.map((row, index) => {
+      row[row.length-1] = rowValueTotals[index].toString();
+      return row
+    })
+  }else{
+    return rows
+  }
 };

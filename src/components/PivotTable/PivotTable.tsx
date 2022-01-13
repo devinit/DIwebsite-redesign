@@ -38,8 +38,8 @@ const PivotTable: FC<PivotTableProps> = (props) => {
     });
   };
 
-  const columns = ['Row Labels'].concat(getColumnValues(data, props.columnLabel)).concat('Grand Total');
-  const dataRows = getRows(data, { row: props.rowLabel, column: props.columnLabel, cell: props.cellValue }, columns);
+  const columns = props.showRowTotal?['Row Labels'].concat(getColumnValues(data, props.columnLabel)).concat('Grand Total'):['Row Labels'].concat(getColumnValues(data, props.columnLabel));
+  const dataRows = getRows(data, { row: props.rowLabel, column: props.columnLabel, cell: props.cellValue }, columns, props.showRowTotal);
   const columnValueTotals = getColumnTotals(columns, dataRows);
   const rows = getAllRows(dataRows, columnValueTotals)
 

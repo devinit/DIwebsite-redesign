@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Filter as SelectFilter } from '../Filter';
 import { Table } from '../Table';
-import { PivotTableProps, Filter, applyFilters, getFilterValues, getColumnValues, getRows, getColumnTotals, getAllRows} from './utils';
+import { PivotTableProps, Filter, applyFilters, getFilterValues, getColumnValues, getRows, getColumnTotals, getRowsWithTotals} from './utils';
 
 const PivotTable: FC<PivotTableProps> = (props) => {
   const [data, setData] = useState(props.data);
@@ -39,9 +39,9 @@ const PivotTable: FC<PivotTableProps> = (props) => {
   };
 
   const columns = props.showRowTotal?['Row Labels'].concat(getColumnValues(data, props.columnLabel)).concat('Grand Total'):['Row Labels'].concat(getColumnValues(data, props.columnLabel));
-  const dataRows = getRows(data, { row: props.rowLabel, column: props.columnLabel, cell: props.cellValue }, columns, props.showRowTotal);
+  const dataRows = getRows(data, { row: props.rowLabel, column: props.columnLabel, cell: props.cellValue }, columns, props.showRowTotal as boolean, props.showColumnTotal as boolean);
   const columnValueTotals = getColumnTotals(columns, dataRows);
-  const rows = getAllRows(dataRows, columnValueTotals)
+  const rows = props.showColumnTotal?getRowsWithTotals(dataRows, columnValueTotals): dataRows;
 
   return (
     <div>

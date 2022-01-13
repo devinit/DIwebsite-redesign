@@ -34,12 +34,26 @@ interface DataField {
   cell: string;
 }
 
-export const getRowTotals = (rows: string[][]) => {
-  const rowTotals = rows.map((row) => {
-    const values = row.slice(1).map((value)=> Number(value));
+export const getTotals = (items: string[][]) => {
+  const totals = items.map((item) => {
+    const values = item.slice(1).map((value)=> Number(value));
     return values.reduce((previousValue, currentValue) => previousValue + currentValue)
   })
-  return rowTotals
+  return totals
+}
+
+export const getColumnTotals = (columns: string[], rows: string[]) => {
+  const columnValueList: string[][] = [];
+  columns.slice(1).map((_column, index) => {
+    const columnValues: string[] = [];
+    rows.map((row, id) => {
+      if(id !== rows.length - 1){
+        columnValues.push(row.slice(1)[index])
+      }
+    })
+    columnValueList.push(columnValues)
+  })
+  return getTotals(columnValueList);
 }
 
 export const getRows = (data: Record<string, unknown>[], fields: DataField, columns: string[]): string[][] => {
@@ -63,23 +77,9 @@ export const getRows = (data: Record<string, unknown>[], fields: DataField, colu
 
     return row;
   });
-  const rowValueTotals: Number[] = getRowTotals(rows);
+  const rowValueTotals: Number[] = getTotals(rows);
   return rows.map((row, index) => {
     row[row.length-1] = rowValueTotals[index].toString();
     return row
   })
 };
-
-// export const columnTotals = (columns,rows) => {
-//   console.log(columns)
-//   const columnValueList: Number[][] = [];
-//   columns.slice(1).map((_column, index) => {
-//     const columnValues: Number[] = [];
-//     rows.map((row) => {
-//       console.log(row)
-//       columnValues.push(Number(row[index]))
-//     })
-//     columnValueList.push(columnValues)
-//   })
-//   console.log(columnValueList)
-// }

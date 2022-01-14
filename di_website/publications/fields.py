@@ -10,7 +10,8 @@ from wagtail.core.blocks import (
     StructBlock,
     TextBlock,
     URLBlock,
-    PageChooserBlock
+    PageChooserBlock,
+    IntegerBlock
 )
 from wagtail.snippets.blocks import SnippetChooserBlock
 
@@ -208,6 +209,10 @@ class PivotTable(StructBlock):
     caption_label = CharBlock(
         required=False,
         help_text='Optional: label for the caption link, defaults to the link if left blank'
+    )
+    minimum_highlight_value = IntegerBlock(
+        required=False,
+        help_text='Optional: minimum value below which table values should be highlighted'
     )
 
 

@@ -5,6 +5,7 @@ interface TableProps {
   columns: string[];
   rows: string[][];
   rowHeader?: boolean;
+  minimumValue?: string
 }
 
 interface StyledTableDataProps {
@@ -13,7 +14,7 @@ interface StyledTableDataProps {
 
 const Table: FC<TableProps> = (props) => {
   const TableData = styled.td<StyledTableDataProps>`
-    background: ${p => (+p.cell <= 1) ? '#ffb3b3': 'none' }
+    background: ${p => props.minimumValue?(+p.cell <= +props.minimumValue) ? '#ffb3b3': 'none' : 'none'}
   `
   return (
     <div className="table-styled">

@@ -6,6 +6,7 @@ export interface PivotTableProps {
   cellValue: string;
   showRowTotal?: boolean;
   showColumnTotal?: boolean;
+  minimumValue?: string;
 }
 
 export interface Filter {

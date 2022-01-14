@@ -49,7 +49,7 @@ const PivotTable: FC<PivotTableProps> = (props) => {
         <form className="form resources-filters">{renderFilters()}</form>
       </div>
 
-      <Table columns={columns} rows={rows as string[][]} rowHeader />
+      <Table columns={columns} rows={rows as string[][]} rowHeader minimumValue={props.minimumValue} />
     </div>
   );
 };

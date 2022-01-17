@@ -197,6 +197,10 @@ class PivotTable(StructBlock):
         required=False,
         help_text='Optional: Comma separated values to match the provided filters'
     )
+    minimum_highlight_value = IntegerBlock(
+        required=False,
+        help_text='Optional: minimum value below which table values should be highlighted'
+    )
     caption = RichTextBlock(
         required=False,
         features=FOOTNOTE_RICHTEXT_FEATURES,
@@ -209,10 +213,6 @@ class PivotTable(StructBlock):
     caption_label = CharBlock(
         required=False,
         help_text='Optional: label for the caption link, defaults to the link if left blank'
-    )
-    minimum_highlight_value = IntegerBlock(
-        required=False,
-        help_text='Optional: minimum value below which table values should be highlighted'
     )
 
 

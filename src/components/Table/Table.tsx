@@ -16,6 +16,7 @@ const Table: FC<TableProps> = (props) => {
   const TableData = styled.td<StyledTableDataProps>`
     background: ${(p) => (props.minimumValue ? (+p.cell <= +props.minimumValue ? '#ffb3b3' : 'none') : 'none')};
   `;
+
   return (
     <div className="table-styled">
       <table>

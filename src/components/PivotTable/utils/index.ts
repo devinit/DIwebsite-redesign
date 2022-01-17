@@ -37,8 +37,10 @@ interface DataField {
 export const getTotals = (items: string[][]) => {
   const totals = items.map((item) => {
     const values = item.slice(1).map((value) => Number(value));
+
     return values.reduce((previousValue, currentValue) => previousValue + currentValue);
   });
+
   return totals;
 };
 
@@ -56,20 +58,23 @@ export const getColumnTotals = (columns: string[], rows: string[][]) => {
   const totals = columnValueList.map((values) => {
     return values.map((val) => Number(val)).reduce((previousValue, currentValue) => previousValue + currentValue);
   });
+
   return totals;
 };
 
-export const getRowsWithTotals = (rows: string[][], columnTotals: Number[]) => {
+export const getRowsWithTotals = (rows: string[][], columnTotals: number[]) => {
   rows.map((row, index) => {
     if (index === rows.length - 1) {
       row.map((_item, id) => {
         row[id + 1] = columnTotals[id]?.toString();
       });
+
       return row;
     } else {
       return row;
     }
   });
+
   return rows;
 };
 
@@ -102,9 +107,11 @@ export const getRows = (
     return row;
   });
   if (showRowTotal) {
-    const rowValueTotals: Number[] = getTotals(rows);
+    const rowValueTotals: number[] = getTotals(rows);
+
     return rows.map((row, index) => {
       row[row.length - 1] = rowValueTotals[index].toString();
+
       return row;
     });
   } else {

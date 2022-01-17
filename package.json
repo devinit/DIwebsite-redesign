@@ -82,6 +82,7 @@
         "faker": "^5.5.3",
         "isomorphic-fetch": "^2.2.1",
         "localforage": "^1.9.0",
+        "mobx": "^6.3.12",
         "papaparse": "^5.3.0",
         "plotly.js": "^1.54.5",
         "plotly.js-basic-dist": "^1.54.3",

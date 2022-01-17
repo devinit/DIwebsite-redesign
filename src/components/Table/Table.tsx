@@ -16,6 +16,9 @@ const Table: FC<TableProps> = (props) => {
   const TableData = styled.td<StyledTableDataProps>`
     background: ${(p) => (props.minimumValue ? (+p.cell <= +props.minimumValue ? '#ffb3b3' : 'none') : 'none')};
   `;
+  const TableHeader = styled.th`
+    font-weight: bold;
+  `;
 
   return (
     <div className="table-styled">
@@ -23,9 +26,9 @@ const Table: FC<TableProps> = (props) => {
         <thead>
           <tr>
             {props.columns.map((column) => (
-              <th key={column} scope="col">
+              <TableHeader key={column} scope="col">
                 {column}
-              </th>
+              </TableHeader>
             ))}
           </tr>
         </thead>
@@ -35,9 +38,9 @@ const Table: FC<TableProps> = (props) => {
               <tr key={`${index}`}>
                 {row.map((cell, key) =>
                   key === 0 && props.rowHeader ? (
-                    <th key={key} scope="col">
+                    <TableHeader key={key} scope="col">
                       {cell}
-                    </th>
+                    </TableHeader>
                   ) : (
                     <TableData key={key} cell={cell}>
                       {cell}

@@ -1,6 +1,5 @@
 import { createElement } from 'react';
 import { render } from 'react-dom';
-import { typeOf } from '../assets/dashboard/js/dashboard41067194d546037a5453.bundle';
 import { Filter, PivotTable } from '../components/PivotTable';
 
 const parseFiltersFromString = (filters: string[], filterDefaults: string[]): Filter[] =>
@@ -12,7 +11,17 @@ const parseFiltersFromString = (filters: string[], filterDefaults: string[]): Fi
 export const initPivotTables = function (): void {
   const pivotTables = document.querySelectorAll('.js-pivot-table');
   Array.prototype.forEach.call(pivotTables, (tableWrapper: HTMLDivElement) => {
-    const { url: dataURL, filters, row, column, cell, rowTotal, columnTotal, filterDefaults, minimumValue } = tableWrapper.dataset;
+    const {
+      url: dataURL,
+      filters,
+      row,
+      column,
+      cell,
+      rowTotal,
+      columnTotal,
+      filterDefaults,
+      minimumValue,
+    } = tableWrapper.dataset;
     if (dataURL) {
       window.d3.csv(dataURL, (data) => {
         render(

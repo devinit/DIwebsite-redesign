@@ -36,45 +36,53 @@ interface DataField {
 
 export const getTotals = (items: string[][]) => {
   const totals = items.map((item) => {
-    const values = item.slice(1).map((value)=> Number(value));
-    return values.reduce((previousValue, currentValue) => previousValue + currentValue)
-  })
-  return totals
-}
+    const values = item.slice(1).map((value) => Number(value));
+    return values.reduce((previousValue, currentValue) => previousValue + currentValue);
+  });
+  return totals;
+};
 
 export const getColumnTotals = (columns: string[], rows: string[][]) => {
   const columnValueList: string[][] = [];
   columns.slice(1).map((_column, index) => {
     const columnValues: string[] = [];
     rows.map((row, id) => {
-      if(id !== rows.length - 1){
-        columnValues.push(row.slice(1)[index])
+      if (id !== rows.length - 1) {
+        columnValues.push(row.slice(1)[index]);
       }
-    })
-    columnValueList.push(columnValues)
-  })
+    });
+    columnValueList.push(columnValues);
+  });
   const totals = columnValueList.map((values) => {
-    return values.map((val)=> Number(val)).reduce((previousValue, currentValue) => previousValue + currentValue)
-  })
-  return totals
+    return values.map((val) => Number(val)).reduce((previousValue, currentValue) => previousValue + currentValue);
+  });
+  return totals;
 };
 
 export const getRowsWithTotals = (rows: string[][], columnTotals: Number[]) => {
   rows.map((row, index) => {
-    if(index === rows.length - 1){
+    if (index === rows.length - 1) {
       row.map((_item, id) => {
-        row[id+1] = columnTotals[id]?.toString();
-      })
-      return row
-    }else{
-      return row
+        row[id + 1] = columnTotals[id]?.toString();
+      });
+      return row;
+    } else {
+      return row;
     }
-  })
-  return rows
-}
+  });
+  return rows;
+};
 
-export const getRows = (data: Record<string, unknown>[], fields: DataField, columns: string[], showRowTotal: boolean, showColumnTotal: boolean): string[][] => {
-  const rowLabels = showColumnTotal? getColumnValues(data, fields.row).concat('Grand Total'): getColumnValues(data, fields.row);
+export const getRows = (
+  data: Record<string, unknown>[],
+  fields: DataField,
+  columns: string[],
+  showRowTotal: boolean,
+  showColumnTotal: boolean,
+): string[][] => {
+  const rowLabels = showColumnTotal
+    ? getColumnValues(data, fields.row).concat('Grand Total')
+    : getColumnValues(data, fields.row);
   const rows = rowLabels.map((label) => {
     const row: string[] = [label].concat(
       columns.slice(1).map((column) => {
@@ -96,10 +104,10 @@ export const getRows = (data: Record<string, unknown>[], fields: DataField, colu
   if (showRowTotal) {
     const rowValueTotals: Number[] = getTotals(rows);
     return rows.map((row, index) => {
-      row[row.length-1] = rowValueTotals[index].toString();
-      return row
-    })
-  }else{
-    return rows
+      row[row.length - 1] = rowValueTotals[index].toString();
+      return row;
+    });
+  } else {
+    return rows;
   }
 };

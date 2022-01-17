@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 interface TableProps {
   columns: string[];
   rows: string[][];
   rowHeader?: boolean;
-  minimumValue?: string
+  minimumValue?: string;
 }
 
 interface StyledTableDataProps {
@@ -14,8 +14,8 @@ interface StyledTableDataProps {
 
 const Table: FC<TableProps> = (props) => {
   const TableData = styled.td<StyledTableDataProps>`
-    background: ${p => props.minimumValue?(+p.cell <= +props.minimumValue) ? '#ffb3b3': 'none' : 'none'}
-  `
+    background: ${(p) => (props.minimumValue ? (+p.cell <= +props.minimumValue ? '#ffb3b3' : 'none') : 'none')};
+  `;
   return (
     <div className="table-styled">
       <table>

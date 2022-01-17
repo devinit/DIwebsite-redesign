@@ -19,17 +19,27 @@ const Table: FC<TableProps> = (props) => {
   const TableHeader = styled.th`
     font-weight: bold;
   `;
+  const ColumnTotalHeader = styled.th`
+    font-weight: bold;
+    white-space: nowrap;
+  `
 
   return (
     <div className="table-styled">
       <table>
         <thead>
           <tr>
-            {props.columns.map((column) => (
-              <TableHeader key={column} scope="col">
-                {column}
-              </TableHeader>
-            ))}
+            {props.columns.map((column) =>
+              column !== 'Grand Total' ? (
+                <TableHeader key={column} scope="col">
+                  {column}
+                </TableHeader>
+              ) : (
+                <ColumnTotalHeader key={column} scope="col">
+                  {column}
+                </ColumnTotalHeader>
+              ),
+            )}
           </tr>
         </thead>
         <tbody>

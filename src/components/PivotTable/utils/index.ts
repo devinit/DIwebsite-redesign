@@ -96,7 +96,7 @@ export const getRows = (
         if (matchingData) {
           const value = matchingData[fields.cell] as string;
           if (value) {
-            return `${parseInt(value).toFixed(1)}`;
+            return `${parseInt(value).toFixed()}`;
           }
         }
 

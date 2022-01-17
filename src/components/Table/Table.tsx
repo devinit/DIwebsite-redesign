@@ -22,7 +22,7 @@ const Table: FC<TableProps> = (props) => {
   const ColumnTotalHeader = styled.th`
     font-weight: bold;
     white-space: nowrap;
-  `
+  `;
 
   return (
     <div className="table-styled">

@@ -10,20 +10,20 @@ interface TableProps {
 
 interface StyledTableDataProps {
   cell: string;
+  minimumValue: string;
 }
 
+const TableData = styled.td<StyledTableDataProps>`
+  background: ${(p) => (p.minimumValue ? (+p.cell <= +p.minimumValue ? '#ffb3b3' : 'none') : 'none')};
+`;
+const TableHeader = styled.th`
+  font-weight: bold;
+`;
+const ColumnTotalHeader = styled.th`
+  font-weight: bold;
+  white-space: nowrap;
+`;
 const Table: FC<TableProps> = (props) => {
-  const TableData = styled.td<StyledTableDataProps>`
-    background: ${(p) => (props.minimumValue ? (+p.cell <= +props.minimumValue ? '#ffb3b3' : 'none') : 'none')};
-  `;
-  const TableHeader = styled.th`
-    font-weight: bold;
-  `;
-  const ColumnTotalHeader = styled.th`
-    font-weight: bold;
-    white-space: nowrap;
-  `;
-
   return (
     <div className="table-styled">
       <table>
@@ -52,7 +52,7 @@ const Table: FC<TableProps> = (props) => {
                       {cell}
                     </TableHeader>
                   ) : (
-                    <TableData key={key} cell={cell}>
+                    <TableData key={key} cell={cell} minimumValue={props.minimumValue as string}>
                       {cell}
                     </TableData>
                   ),

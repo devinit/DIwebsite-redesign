@@ -945,7 +945,7 @@ class ShortPublicationPage(
     class Meta:
         verbose_name = 'Short Publication'
 
-    parent_page_types = ['PublicationIndexPage', 'datasection.DataSectionPage']
+    parent_page_types = ['PublicationIndexPage', 'datasection.DataSectionPage', 'home.HomePage']
     subpage_types = []
 
     colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=RED)

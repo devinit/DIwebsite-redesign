@@ -69,6 +69,10 @@ def UUIDPanel():
     return FieldPanel('uuid')
 
 
+def StateMixinPanel():
+    return FieldPanel('use_state')
+
+
 def ReportDownloadPanel():
     return MultiFieldPanel([
         FieldPanel('download_report_title'),

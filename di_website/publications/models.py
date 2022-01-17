@@ -33,7 +33,7 @@ from wagtailmedia.edit_handlers import MediaChooserPanel
 
 from di_website.common.base import (get_paginator_range, get_related_pages, hero_panels, call_to_action_panel)
 from di_website.common.constants import (MAX_PAGE_SIZE, MAX_RELATED_LINKS, RICHTEXT_FEATURES)
-from di_website.common.mixins import (HeroMixin, OtherPageMixin, SectionBodyMixin, TypesetBodyMixin, CallToActionMixin)
+from di_website.common.mixins import (HeroMixin, OtherPageMixin, SectionBodyMixin, StateMixin, TypesetBodyMixin, CallToActionMixin)
 from di_website.downloads.utils import DownloadsPanel
 
 from .edit_handlers import MultiFieldPanel
@@ -42,7 +42,7 @@ from .mixins import (
     FilteredDatasetMixin, FlexibleContentMixin, HeroButtonMixin, InheritCTAMixin, LegacyPageSearchMixin, PageSearchMixin, ParentPageSearchMixin,
     PublishedDateMixin, ReportChildMixin, ReportDownloadMixin, UniqueForParentPageMixin, UUIDMixin)
 from .utils import (
-    ContentPanel, PublishedDatePanel, ReportDownloadPanel, UUIDPanel, WagtailImageField,
+    ContentPanel, PublishedDatePanel, ReportDownloadPanel, StateMixinPanel, UUIDPanel, WagtailImageField,
     get_downloads, get_first_child_of_type, get_ordered_children_of_type)
 
 RED = 'poppy'
@@ -939,7 +939,7 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin
 
 
 class ShortPublicationPage(
-    HeroMixin, PublishedDateMixin, FlexibleContentMixin, ParentPageSearchMixin,
+    HeroMixin, StateMixin, PublishedDateMixin, FlexibleContentMixin, ParentPageSearchMixin,
     UUIDMixin, FilteredDatasetMixin, CallToActionMixin, ReportDownloadMixin, Page):
 
     class Meta:
@@ -968,6 +968,7 @@ class ShortPublicationPage(
 
     content_panels = Page.content_panels + [
         FieldPanel('colour'),
+        StateMixinPanel(),
         hero_panels(),
         StreamFieldPanel('authors'),
         call_to_action_panel(),

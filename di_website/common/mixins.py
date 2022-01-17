@@ -155,3 +155,10 @@ class CallToActionMixin(models.Model):
 
     class Meta:
         abstract = True
+
+
+class StateMixin(models.Model):
+    use_state = models.BooleanField(default=False, help_text='Optional: add the global reactive mobx managed state')
+
+    class Meta:
+        abstract = True

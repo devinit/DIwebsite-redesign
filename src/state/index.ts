@@ -1,8 +1,9 @@
-import { makeObservable, observable, action, computed, autorun } from 'mobx';
+import { makeObservable, observable, action, computed, autorun, IReactionDisposer } from 'mobx';
 
 class State {
   id = Math.random();
   state = {};
+  listeners: IReactionDisposer[] = [];
 
   constructor() {
     makeObservable(this, {
@@ -10,7 +11,6 @@ class State {
       setState: action,
       getState: computed,
     });
-    this.state = {};
   }
 
   setState(state, merge = true) {
@@ -18,15 +18,26 @@ class State {
   }
 
   get getState() {
-    console.log(this.state);
-
     return this.state;
+  }
+
+  addListener(callback: () => void) {
+    this.listeners = this.listeners.concat(autorun(callback));
+
+    return this.listeners.length - 1; // returns index of the added listener - shall be used to remove
+  }
+
+  removeListener(index: number) {
+    if (index < this.listeners.length && this.listeners[index]) {
+      this.listeners[index]();
+      this.listeners[index] = null;
+    }
+  }
+
+  resetListeners() {
+    this.listeners = [];
   }
 }
 
-const state = new State();
-(window as any).DIState = state;
-
-autorun(() => {
-  console.log('State: ', state.getState);
-});
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+(window as any).DIState = new State();

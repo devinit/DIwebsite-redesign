@@ -14,6 +14,8 @@
           {% include 'visualisation/partials/chart.html' with item=chart share_link=page.full_url|add:'#'|add:id %}
         {% elif chart.get_verbose_name == 'Advanced Chart Page' %}
           {% include 'visualisation/partials/advanced_chart.html' with item=chart share_link=page.full_url|add:'#'|add:id %}
+        {% elif chart.get_verbose_name == 'Raw Code Snippet' %}
+          {% include 'visualisation/partials/raw_code_snippet.html' with item=chart share_link=page.full_url|add:'#'|add:id %}
         {% endif %}
     </div>
 {% endif %}

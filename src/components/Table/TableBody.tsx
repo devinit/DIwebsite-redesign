@@ -2,10 +2,9 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 
 interface TableBodyProps {
-  row: string[];
+  rows: string[][];
   rowHeader?: boolean;
   minimumValue?: string;
-  index: number;
 }
 interface StyledTableDataProps {
   cell: string;
@@ -21,25 +20,29 @@ const TableHeader = styled.th`
 
 const TableBody: FC<TableBodyProps> = (props) => {
   return (
-    <tr key={`${props.index}`}>
-      {props.row.map((cell, key) =>
-        key === 0 && props.rowHeader ? (
-          cell === 'Grand Total' ? (
-            <TableHeader key={key} scope="col">
-              {cell}
-            </TableHeader>
-          ) : (
-            <th key={key} scope="col">
-              {cell}
-            </th>
-          )
-        ) : (
-          <TableData key={key} cell={cell} minimumValue={props.minimumValue as string}>
-            {cell ? cell.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : cell}
-          </TableData>
-        ),
-      )}
-    </tr>
+    <tbody>
+      {props.rows.map((row, index) => (
+        <tr key={`${index}`}>
+          {row.map((cell, key) =>
+            key === 0 && props.rowHeader ? (
+              cell === 'Grand Total' ? (
+                <TableHeader key={key} scope="col">
+                  {cell}
+                </TableHeader>
+              ) : (
+                <th key={key} scope="col">
+                  {cell}
+                </th>
+              )
+            ) : (
+              <TableData key={key} cell={cell} minimumValue={props.minimumValue as string}>
+                {cell ? cell.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : cell}
+              </TableData>
+            ),
+          )}
+        </tr>
+      ))}
+    </tbody>
   );
 };
 export { TableBody };

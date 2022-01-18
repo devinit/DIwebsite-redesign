@@ -2,38 +2,31 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 
 interface TableHeadProps {
-  column: string;
+  columns: string[];
+}
+interface StyledHeaderProps {
+  column?: string;
 }
 
-const TableHeader = styled.th`
-  font-weight: bold;
-`;
-const ColumnTotalHeader = styled.th`
-  font-weight: bold;
-  white-space: nowrap;
+const TableHeader = styled.th<StyledHeaderProps>`
+  font-weight: ${(p) => (p.column === 'Grand Total' || 'Row Labels' ? 'bold' : 'normal')};
+  white-space: ${(p) => (p.column === 'Grand Total' ? 'nowrap' : 'none')};
 `;
 
 const TableHead: FC<TableHeadProps> = (props) => {
-  if (props.column !== 'Grand Total') {
-    if (props.column === 'Row Labels') {
-      return (
-        <TableHeader key={props.column} scope="col">
-          {props.column}
-        </TableHeader>
-      );
-    }
-
-    return (
-      <th key={props.column} scope="col">
-        {props.column}
-      </th>
-    );
-  }
-
   return (
-    <ColumnTotalHeader key={props.column} scope="col">
-      {props.column}
-    </ColumnTotalHeader>
+    <thead>
+      <tr>
+        {props.columns.map((column, key) => (
+          <th scope="col" key={key}>
+            {column}
+          </th>
+        ))}
+      </tr>
+    </thead>
+    // <TableHeader key={props.column} column={props.column} scope="col">
+    //   {props.column}
+    // </TableHeader>
   );
 };
 export { TableHead };

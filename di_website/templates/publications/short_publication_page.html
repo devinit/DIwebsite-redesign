@@ -57,6 +57,12 @@
 
 {% endblock %}
 
+{% block html_header %}
+  {{block.super}}
+  {% if self.use_state %}
+  <script src="{% static 'state/js/bundle.js' %}"></script>
+  {% endif %}
+{% endblock html_header %}
 
 {% block html_footer %}
   {{block.super}}

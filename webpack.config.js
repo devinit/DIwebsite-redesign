@@ -88,6 +88,7 @@ const appConfig = {
     dashboard: './src/dashboard/index.ts',
     notice: './src/notice/index.ts',
     optimize: './src/optimize/index.ts',
+    state: './src/state/index.ts',
   },
   output: {
     path: path.resolve(__dirname, 'src/assets/'),

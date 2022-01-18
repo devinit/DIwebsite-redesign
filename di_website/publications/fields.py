@@ -229,7 +229,7 @@ class AdvancedInteractiveChartBlock(StructBlock):
         form_template = 'publications/block_forms/custom_struct.html'
 
     chart_page = PageChooserBlock(
-        page_type='visualisation.AdvancedChartPage'
+        page_type=['visualisation.AdvancedChartPage','visualisation.RawCodePage']
     )
 
     def get_context(self, value, parent_context=None):

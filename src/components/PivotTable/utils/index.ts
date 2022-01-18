@@ -1,4 +1,3 @@
-import { constrainZoomValues } from 'plottable/build/src/interactions/panZoomConstraints';
 import { Filter } from './types';
 
 export * from './types';

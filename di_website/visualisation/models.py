@@ -161,4 +161,4 @@ class RawCodePage(CodePageMixin, Page):
     subpage_types = []
 
     class Meta:
-        verbose_name = 'Raw Code Page'
+        verbose_name = 'Raw Code Snippet'

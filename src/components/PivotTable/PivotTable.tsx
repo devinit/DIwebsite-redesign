@@ -1,5 +1,4 @@
 import React, { FC, useEffect, useState } from 'react';
-import styled from 'styled-components';
 import { Filter as SelectFilter } from '../Filter';
 import { Table } from '../Table';
 import { TableBody } from '../Table/TableBody';

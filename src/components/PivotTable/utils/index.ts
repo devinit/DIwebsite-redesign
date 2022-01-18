@@ -62,16 +62,14 @@ export const getColumnTotals = (columns: string[], rows: string[][]) => {
   return totals;
 };
 
-export const getRowsWithTotals = (rows: string[][], columnTotals: number[]) => {
-  rows.map((row, index) => {
+export const getRowsWithTotals = (rows: string[][], columnTotals: number[]): string[][] => {
+  rows.forEach((row, index) => {
     if (index === rows.length - 1) {
-      row.map((_item, id) => {
-        row[id + 1] = columnTotals[id]?.toString();
+      row.forEach((_item, key) => {
+        if (key < row.length - 1) {
+          row[key + 1] = columnTotals[key]?.toString();
+        }
       });
-
-      return row;
-    } else {
-      return row;
     }
   });
 

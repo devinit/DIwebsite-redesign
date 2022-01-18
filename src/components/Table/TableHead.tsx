@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 interface TableHeadProps {
   columns: string[];
+  as?: 'pivotTableHeader' | 'tableHeader';
 }
 interface StyledHeaderProps {
   column?: string;
@@ -17,16 +18,20 @@ const TableHead: FC<TableHeadProps> = (props) => {
   return (
     <thead>
       <tr>
-        {props.columns.map((column, key) => (
-          <th scope="col" key={key}>
-            {column}
-          </th>
-        ))}
+        {props.columns.map((column, key) =>
+          props.as === 'tableHeader' ? (
+            <th scope="col" key={key}>
+              {column}
+            </th>
+          ) : (
+            <TableHeader key={key} column={column}>
+              {column}
+            </TableHeader>
+          ),
+        )}
       </tr>
     </thead>
-    // <TableHeader key={props.column} column={props.column} scope="col">
-    //   {props.column}
-    // </TableHeader>
   );
 };
+TableHead.defaultProps = { as: 'tableHeader' };
 export { TableHead };

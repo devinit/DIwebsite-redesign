@@ -1,4 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
+import styled from 'styled-components';
 import { Filter as SelectFilter } from '../Filter';
 import { Table } from '../Table';
 import { TableBody } from '../Table/TableBody';
@@ -68,7 +69,7 @@ const PivotTable: FC<PivotTableProps> = (props) => {
         <form className="form resources-filters">{renderFilters()}</form>
       </div>
       <Table>
-        <TableHead columns={columns} />
+        <TableHead columns={columns} as="pivotTableHeader" />
         <TableBody rows={rows} rowHeader minimumValue={props.minimumValue} />
       </Table>
     </div>

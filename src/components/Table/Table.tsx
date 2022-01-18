@@ -53,7 +53,7 @@ const Table: FC<TableProps> = (props) => {
                     </TableHeader>
                   ) : (
                     <TableData key={key} cell={cell} minimumValue={props.minimumValue as string}>
-                      {cell}
+                      {cell ? cell.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : cell}
                     </TableData>
                   ),
                 )}

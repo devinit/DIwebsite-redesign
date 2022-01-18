@@ -9,16 +9,14 @@ from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 
 from di_website.common.edit_handlers import HelpPanel
-from di_website.common.constants import INSTRUCTIONS_RICHTEXT_FEATURES, MINIMAL_RICHTEXT_FEATURES, SIMPLE_RICHTEXT_FEATURES
+from di_website.common.constants import MINIMAL_RICHTEXT_FEATURES
 from di_website.visualisation.mixins import (
-    InstructionsMixin, GeneralInstructionsMixin, SpecificInstructionsMixin,
+    CodePageMixin, InstructionsMixin, GeneralInstructionsMixin, SpecificInstructionsMixin,
     ChartOptionsMixin, PlotlyOptionsMixin, D3OptionsMixin, FallbackImageMixin, EChartOptionsMixin
 )
 from di_website.visualisation.utils import (
-    ChartOptionsPanel, InstructionsPanel, SpecificInstructionsPanel,
-    PlotlyOptionsPanel, D3OptionsPanel, FallbackImagePanel, EChartOptionsPanel
+    ChartOptionsPanel, SpecificInstructionsPanel, FallbackImagePanel
 )
-from di_website.visualisation.fields import AceEditorField
 
 
 class VisualisationsPage(GeneralInstructionsMixin, Page):
@@ -140,62 +138,16 @@ class ChartPage(ChartOptionsMixin, SpecificInstructionsMixin, FallbackImageMixin
         return JsonResponse(self.chart_json)
 
 
-class AdvancedChartPage(InstructionsMixin, EChartOptionsMixin, D3OptionsMixin, PlotlyOptionsMixin, FallbackImageMixin, RoutablePageMixin, Page):
+class AdvancedChartPage(InstructionsMixin, EChartOptionsMixin, D3OptionsMixin, PlotlyOptionsMixin, FallbackImageMixin, CodePageMixin, Page):
     """
     A code based chart page for advanced users
     """
     parent_page_types = [VisualisationsPage]
     subpage_types = []
 
-    subtitle = models.TextField(
-        blank=True,
-        null=True,
-        help_text="Optional: subtitle to appear underneath the chart title."
-    )
-
-    html = AceEditorField(options={'mode':'html'}, blank=True, default='{% load wagtailcore_tags %}')
-    javascript = AceEditorField(options={'mode':'javascript'}, blank=True, default='"use strict";')
-    css = AceEditorField(options={'mode':'css'}, blank=True, default='/* CSS goes here */')
-
-    caption = RichTextField(
-        null=True,
-        blank=True,
-        help_text='Optional: caption text and link(s) for the chart',
-        features=INSTRUCTIONS_RICHTEXT_FEATURES + SIMPLE_RICHTEXT_FEATURES
-    )
-
-    content_panels = Page.content_panels + [
-        FieldPanel('subtitle'),
-        PlotlyOptionsPanel(),
-        D3OptionsPanel(),
-        EChartOptionsPanel(),
-        FieldPanel('html', classname='collapsible'),
-        FieldPanel('javascript', classname='collapsible'),
-        # FieldPanel('css', classname='collapsible'), TODO: add CSS support - may work best in an iFrame
+    content_panels = CodePageMixin.content_panels + [
         FallbackImagePanel(),
-        InstructionsPanel(),
-        FieldPanel('caption'),
     ]
-
-    @cached_property
-    def parent(self):
-        return self.get_parent().specific
-
-    @cached_property
-    def instructions_text(self):
-        if self.instructions:
-            return self.instructions
-
-        return ''
-
-    def get_sitemap_urls(self, request):
-        return []
-
-    @route(r'^$')
-    def chart(self, request):
-        if request.user.is_authenticated:
-            return super().serve(request)
-        raise Http404()
 
     class Meta:
         verbose_name = 'Advanced Chart Page'

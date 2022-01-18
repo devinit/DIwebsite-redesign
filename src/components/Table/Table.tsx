@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
+import { TableBody } from './TableBody';
 
 interface TableProps {
   columns: string[];
@@ -8,14 +9,6 @@ interface TableProps {
   minimumValue?: string;
 }
 
-interface StyledTableDataProps {
-  cell: string;
-  minimumValue: string;
-}
-
-const TableData = styled.td<StyledTableDataProps>`
-  background: ${(p) => (p.minimumValue ? (+p.cell <= +p.minimumValue ? '#ffb3b3' : 'none') : 'none')};
-`;
 const TableHeader = styled.th`
   font-weight: bold;
 `;
@@ -49,29 +42,15 @@ const Table: FC<TableProps> = (props) => {
           </tr>
         </thead>
         <tbody>
-          {props.rows.map((row, index) => {
-            return (
-              <tr key={`${index}`}>
-                {row.map((cell, key) =>
-                  key === 0 && props.rowHeader ? (
-                    cell === 'Grand Total' ? (
-                      <TableHeader key={key} scope="col">
-                        {cell}
-                      </TableHeader>
-                    ) : (
-                      <th key={key} scope="col">
-                        {cell}
-                      </th>
-                    )
-                  ) : (
-                    <TableData key={key} cell={cell} minimumValue={props.minimumValue as string}>
-                      {cell ? cell.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : cell}
-                    </TableData>
-                  ),
-                )}
-              </tr>
-            );
-          })}
+          {props.rows.map((row, index) => (
+            <TableBody
+              key={index}
+              row={row}
+              index={index}
+              rowHeader={props.rowHeader}
+              minimumValue={props.minimumValue}
+            />
+          ))}
         </tbody>
       </table>
     </div>

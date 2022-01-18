@@ -44,60 +44,6 @@ class SpecificInstructionsMixin(InstructionsMixin):
     )
 
 
-class CodePageMixin(RoutablePageMixin, models.Model):
-    class Meta:
-        abstract = True
-
-    subtitle = models.TextField(
-        blank=True,
-        null=True,
-        help_text="Optional: subtitle to appear underneath the title."
-    )
-
-    html = AceEditorField(options={'mode':'html'}, blank=True, default='{% load wagtailcore_tags %}')
-    javascript = AceEditorField(options={'mode':'javascript'}, blank=True, default='"use strict";')
-    css = AceEditorField(options={'mode':'css'}, blank=True, default='/* CSS goes here */')
-
-    caption = RichTextField(
-        null=True,
-        blank=True,
-        help_text='Optional: caption text and link(s) for the chart',
-        features=INSTRUCTIONS_RICHTEXT_FEATURES + SIMPLE_RICHTEXT_FEATURES
-    )
-
-    content_panels = Page.content_panels + [
-        FieldPanel('subtitle'),
-        PlotlyOptionsPanel(),
-        D3OptionsPanel(),
-        EChartOptionsPanel(),
-        FieldPanel('html', classname='collapsible'),
-        FieldPanel('javascript', classname='collapsible'),
-        # FieldPanel('css', classname='collapsible'), TODO: add CSS support - may work best in an iFrame
-        InstructionsPanel(),
-        FieldPanel('caption'),
-    ]
-
-    @cached_property
-    def parent(self):
-        return self.get_parent().specific
-
-    @cached_property
-    def instructions_text(self):
-        if self.instructions:
-            return self.instructions
-
-        return ''
-
-    def get_sitemap_urls(self, request):
-        return []
-
-    @route(r'^$')
-    def chart(self, request):
-        if request.user.is_authenticated:
-            return super().serve(request)
-        raise Http404()
-
-
 class ChartOptionsMixin(models.Model):
     class Meta:
         abstract = True
@@ -215,3 +161,57 @@ class EChartOptionsMixin(models.Model):
         abstract = True
 
     use_echarts = models.BooleanField(default=False, blank=True, verbose_name='Use ECharts')
+
+
+class CodePageMixin(InstructionsMixin, EChartOptionsMixin, D3OptionsMixin, PlotlyOptionsMixin, RoutablePageMixin, models.Model):
+    class Meta:
+        abstract = True
+
+    subtitle = models.TextField(
+        blank=True,
+        null=True,
+        help_text="Optional: subtitle to appear underneath the title."
+    )
+
+    html = AceEditorField(options={'mode':'html'}, blank=True, default='{% load wagtailcore_tags %}')
+    javascript = AceEditorField(options={'mode':'javascript'}, blank=True, default='"use strict";')
+    css = AceEditorField(options={'mode':'css'}, blank=True, default='/* CSS goes here */')
+
+    caption = RichTextField(
+        null=True,
+        blank=True,
+        help_text='Optional: caption text and link(s) for the chart',
+        features=INSTRUCTIONS_RICHTEXT_FEATURES + SIMPLE_RICHTEXT_FEATURES
+    )
+
+    content_panels = Page.content_panels + [
+        FieldPanel('subtitle'),
+        PlotlyOptionsPanel(),
+        D3OptionsPanel(),
+        EChartOptionsPanel(),
+        FieldPanel('html', classname='collapsible'),
+        FieldPanel('javascript', classname='collapsible'),
+        # FieldPanel('css', classname='collapsible'), TODO: add CSS support - may work best in an iFrame
+        InstructionsPanel(),
+        FieldPanel('caption'),
+    ]
+
+    @cached_property
+    def parent(self):
+        return self.get_parent().specific
+
+    @cached_property
+    def instructions_text(self):
+        if self.instructions:
+            return self.instructions
+
+        return ''
+
+    def get_sitemap_urls(self, request):
+        return []
+
+    @route(r'^$')
+    def chart(self, request):
+        if request.user.is_authenticated:
+            return super().serve(request)
+        raise Http404()

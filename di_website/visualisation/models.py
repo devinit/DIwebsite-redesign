@@ -11,8 +11,8 @@ from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from di_website.common.edit_handlers import HelpPanel
 from di_website.common.constants import MINIMAL_RICHTEXT_FEATURES
 from di_website.visualisation.mixins import (
-    CodePageMixin, InstructionsMixin, GeneralInstructionsMixin, SpecificInstructionsMixin,
-    ChartOptionsMixin, PlotlyOptionsMixin, D3OptionsMixin, FallbackImageMixin, EChartOptionsMixin
+    CodePageMixin, GeneralInstructionsMixin, SpecificInstructionsMixin,
+    ChartOptionsMixin, FallbackImageMixin
 )
 from di_website.visualisation.utils import (
     ChartOptionsPanel, SpecificInstructionsPanel, FallbackImagePanel
@@ -24,7 +24,7 @@ class VisualisationsPage(GeneralInstructionsMixin, Page):
     Parent page for all visualisations
     """
     parent_page_types = ['home.HomePage']
-    subpage_types = ['visualisation.ChartPage', 'visualisation.AdvancedChartPage']
+    subpage_types = ['visualisation.ChartPage', 'visualisation.AdvancedChartPage', 'visualisation.RawCodePage']
     max_count = 1
 
     class Meta:
@@ -138,7 +138,7 @@ class ChartPage(ChartOptionsMixin, SpecificInstructionsMixin, FallbackImageMixin
         return JsonResponse(self.chart_json)
 
 
-class AdvancedChartPage(InstructionsMixin, EChartOptionsMixin, D3OptionsMixin, PlotlyOptionsMixin, FallbackImageMixin, CodePageMixin, Page):
+class AdvancedChartPage(FallbackImageMixin, CodePageMixin, Page):
     """
     A code based chart page for advanced users
     """
@@ -151,3 +151,14 @@ class AdvancedChartPage(InstructionsMixin, EChartOptionsMixin, D3OptionsMixin, P
 
     class Meta:
         verbose_name = 'Advanced Chart Page'
+
+
+class RawCodePage(CodePageMixin, Page):
+    """
+    A code based page for anything really, rendered in a nicely formated card
+    """
+    parent_page_types = [VisualisationsPage]
+    subpage_types = []
+
+    class Meta:
+        verbose_name = 'Raw Code Page'

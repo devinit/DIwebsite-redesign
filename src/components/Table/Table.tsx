@@ -31,9 +31,15 @@ const Table: FC<TableProps> = (props) => {
           <tr>
             {props.columns.map((column) =>
               column !== 'Grand Total' ? (
-                <TableHeader key={column} scope="col">
-                  {column}
-                </TableHeader>
+                column === 'Row Labels' ? (
+                  <TableHeader key={column} scope="col">
+                    {column}
+                  </TableHeader>
+                ) : (
+                  <th key={column} scope="col">
+                    {column}
+                  </th>
+                )
               ) : (
                 <ColumnTotalHeader key={column} scope="col">
                   {column}
@@ -48,9 +54,15 @@ const Table: FC<TableProps> = (props) => {
               <tr key={`${index}`}>
                 {row.map((cell, key) =>
                   key === 0 && props.rowHeader ? (
-                    <TableHeader key={key} scope="col">
-                      {cell}
-                    </TableHeader>
+                    cell === 'Grand Total' ? (
+                      <TableHeader key={key} scope="col">
+                        {cell}
+                      </TableHeader>
+                    ) : (
+                      <th key={key} scope="col">
+                        {cell}
+                      </th>
+                    )
                   ) : (
                     <TableData key={key} cell={cell} minimumValue={props.minimumValue as string}>
                       {cell ? cell.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : cell}

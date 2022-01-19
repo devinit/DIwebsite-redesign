@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
+import styled from 'styled-components';
 import { Filter as SelectFilter } from '../Filter';
 import { Table } from '../Table';
-import { TableBody } from '../Table/TableBody';
 import { TableHead } from '../Table/TableHead';
 import {
   PivotTableProps,
@@ -14,6 +14,13 @@ import {
   getRowsWithTotals,
   addCommas,
 } from './utils';
+
+const HighlightedTableCell = styled.td<{ cell: string; minimumValue: string }>`
+  background: ${(p) => (p.minimumValue ? (+p.cell <= +p.minimumValue ? '#ffb3b3' : 'none') : 'none')};
+`;
+const BoldTableHeader = styled.th`
+  font-weight: bold;
+`;
 
 const PivotTable: FC<PivotTableProps> = (props) => {
   const [data, setData] = useState(props.data);
@@ -70,7 +77,29 @@ const PivotTable: FC<PivotTableProps> = (props) => {
       </div>
       <Table>
         <TableHead columns={columns} as="pivotTableHeader" />
-        <TableBody rows={addCommas(rows)} rowHeader as="pivotTableBody" minimumValue={props.minimumValue} />
+        <tbody>
+          {addCommas(rows).map((row, index) => (
+            <tr key={`${index}`}>
+              {row.map((cell, key) =>
+                key === 0 ? (
+                  cell === 'Grand Total' ? (
+                    <BoldTableHeader key={key} scope="col">
+                      {cell}
+                    </BoldTableHeader>
+                  ) : (
+                    <th key={key} scope="col">
+                      {cell}
+                    </th>
+                  )
+                ) : (
+                  <HighlightedTableCell key={key} cell={cell} minimumValue={props.minimumValue as string}>
+                    {cell}
+                  </HighlightedTableCell>
+                ),
+              )}
+            </tr>
+          ))}
+        </tbody>
       </Table>
     </div>
   );

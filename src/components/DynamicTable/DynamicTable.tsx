@@ -4,8 +4,9 @@ import { Table } from '../Table';
 interface DynamicTableProps {
   data: Record<string, unknown>[];
 }
-const DynamicTable: FC<DynamicTableProps> = (props) => {
-  console.log(props.data[0]);
+const DynamicTable: FC<DynamicTableProps> = ({ data }) => {
+  const columns = Object.keys(data[0]);
+  console.log(columns)
 
   return (
     <div>

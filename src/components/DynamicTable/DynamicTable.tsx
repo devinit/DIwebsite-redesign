@@ -1,12 +1,20 @@
-import React, { FC } from 'react';
+import { use } from 'echarts';
+import React, { FC, useEffect, useState } from 'react';
 import { Table } from '../Table';
 
 interface DynamicTableProps {
   data: Record<string, unknown>[];
 }
 const DynamicTable: FC<DynamicTableProps> = ({ data }) => {
-  const columns: string[] = Object.keys(data[0]);
-  const rows: string[][] = data.map((record) => Object.values(record) as string[]);
+  const [columns, setColumns] = useState<string[]>([]);
+  const [rows, setRows] = useState<string[][]>([]);
+
+  useEffect(() => {
+    if (data) {
+      setColumns(Object.keys(data[0]));
+      setRows(data.map((record) => Object.values(record) as string[]));
+    }
+  }, [data.length]);
 
   return (
     <div>

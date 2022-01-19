@@ -3,7 +3,8 @@ name: CI
 on: [push, pull_request]
 
 jobs:
-  build:
+  python-build:
+    name: Python Build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -28,8 +29,41 @@ jobs:
           docker volume create --name="index_db"
           docker-compose -f docker-compose.dev.minimal.yml run blue /bin/sh -c "python3 -m coverage run manage.py test && python3 -m coverage xml && mv coverage.xml shared" && cd shared && python3 -m codecov
 
+  js-test:
+    name: JS Lint & Build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install Dependencies
+        run: |
+          npm install
+
+      - name: Lint
+        run: |
+          npm run lint
+
+      - name: Build
+        run: |
+          npm run build
+
   deploy:
-    needs: [build]
+    name: Deploy
+    needs: [python-build,js-test]
     runs-on: ubuntu-latest
     if: contains('
       refs/heads/master

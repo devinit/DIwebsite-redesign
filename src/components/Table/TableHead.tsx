@@ -1,18 +1,10 @@
 import React, { FC } from 'react';
-import styled from 'styled-components';
+import { StyledPivotTableHeader } from '../PivotTable/utils';
 
 interface TableHeadProps {
   columns: string[];
   as?: 'pivotTableHeader' | 'tableHeader';
 }
-interface StyledHeaderProps {
-  column?: string;
-}
-
-const TableHeader = styled.th<StyledHeaderProps>`
-  font-weight: ${(p) => (p.column === 'Grand Total' || 'Row Labels' ? 'bold' : 'normal')};
-  white-space: ${(p) => (p.column === 'Grand Total' ? 'nowrap' : 'none')};
-`;
 
 const TableHead: FC<TableHeadProps> = (props) => {
   return (
@@ -24,9 +16,9 @@ const TableHead: FC<TableHeadProps> = (props) => {
               {column}
             </th>
           ) : (
-            <TableHeader key={key} column={column}>
+            <StyledPivotTableHeader key={key} column={column}>
               {column}
-            </TableHeader>
+            </StyledPivotTableHeader>
           ),
         )}
       </tr>

@@ -2,7 +2,6 @@ import React, { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Filter as SelectFilter } from '../Filter';
 import { Table } from '../Table';
-import { TableHead } from '../Table/TableHead';
 import {
   PivotTableProps,
   Filter,
@@ -20,6 +19,10 @@ const HighlightedTableCell = styled.td<{ cell: string; minimumValue: string }>`
 `;
 const BoldTableHeader = styled.th`
   font-weight: bold;
+`;
+export const StyledPivotTableHeader = styled.th<{ column: string }>`
+  font-weight: ${(p) => (p.column === 'Grand Total' || 'Row Labels' ? 'bold' : 'normal')};
+  white-space: ${(p) => (p.column === 'Grand Total' ? 'nowrap' : 'none')};
 `;
 
 const PivotTable: FC<PivotTableProps> = (props) => {
@@ -76,7 +79,11 @@ const PivotTable: FC<PivotTableProps> = (props) => {
         <form className="form resources-filters">{renderFilters()}</form>
       </div>
       <Table>
-        <TableHead columns={columns} as="pivotTableHeader" />
+        {columns.map((column, key) => (
+          <StyledPivotTableHeader key={key} column={column}>
+            {column}
+          </StyledPivotTableHeader>
+        ))}
         <tbody>
           {addCommas(rows).map((row, index) => (
             <tr key={`${index}`}>

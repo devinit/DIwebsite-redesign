@@ -1,16 +1,6 @@
-import styled from 'styled-components';
 import { Filter } from './types';
 
 export * from './types';
-
-interface StyledHeaderProps {
-  column?: string;
-}
-
-export const StyledPivotTableHeader = styled.th<StyledHeaderProps>`
-  font-weight: ${(p) => (p.column === 'Grand Total' || 'Row Labels' ? 'bold' : 'normal')};
-  white-space: ${(p) => (p.column === 'Grand Total' ? 'nowrap' : 'none')};
-`;
 
 export const applyFilters = (data: Record<string, unknown>[], filter: Filter[]): Record<string, unknown>[] =>
   data.filter((record) => filter.filter((f) => (f.value ? record[f.name] === f.value : true)).length === filter.length);

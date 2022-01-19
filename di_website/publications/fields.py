@@ -228,8 +228,6 @@ class DynamicTable(StructBlock):
         required=False
     )
     data_source_url = URLBlock(help_text='Link to the CSV data file')
-    # column_label = CharBlock(help_text='CSV column to show as the label for each table column')
-    # cell_value = CharBlock(help_text='CSV column whose data shall appear in the table cells')
     caption = RichTextBlock(
         required=False,
         features=FOOTNOTE_RICHTEXT_FEATURES,

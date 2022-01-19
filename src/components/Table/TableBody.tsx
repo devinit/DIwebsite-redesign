@@ -5,6 +5,7 @@ interface TableBodyProps {
   rows: string[][];
   rowHeader?: boolean;
   minimumValue?: string;
+  as?: 'tableBody' | 'pivotTableBody';
 }
 interface StyledTableDataProps {
   cell: string;
@@ -25,7 +26,7 @@ const TableBody: FC<TableBodyProps> = (props) => {
         <tr key={`${index}`}>
           {row.map((cell, key) =>
             key === 0 && props.rowHeader ? (
-              cell === 'Grand Total' ? (
+              props.as === 'pivotTableBody' && cell === 'Grand Total' ? (
                 <TableHeader key={key} scope="col">
                   {cell}
                 </TableHeader>
@@ -34,10 +35,12 @@ const TableBody: FC<TableBodyProps> = (props) => {
                   {cell}
                 </th>
               )
-            ) : (
+            ) : props.as === 'pivotTableBody' ? (
               <TableData key={key} cell={cell} minimumValue={props.minimumValue as string}>
                 {cell ? cell.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : cell}
               </TableData>
+            ) : (
+              <td key={key}>{cell}</td>
             ),
           )}
         </tr>

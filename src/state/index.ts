@@ -3,7 +3,7 @@ import { makeObservable, observable, action, computed, autorun, IReactionDispose
 class State {
   id = Math.random();
   state = {};
-  listeners: IReactionDisposer[] = [];
+  listeners: Array<IReactionDisposer | null> = [];
 
   constructor() {
     makeObservable(this, {
@@ -13,7 +13,7 @@ class State {
     });
   }
 
-  setState(state, merge = true) {
+  setState(state: Record<string, unknown>, merge = true) {
     this.state = merge ? { ...this.state, ...state } : state;
   }
 
@@ -29,7 +29,7 @@ class State {
 
   removeListener(index: number) {
     if (index < this.listeners.length && this.listeners[index]) {
-      this.listeners[index]();
+      (this.listeners[index] as IReactionDisposer)();
       this.listeners[index] = null;
     }
   }

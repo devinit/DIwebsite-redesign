@@ -6,7 +6,7 @@ interface DynamicTableProps {
 }
 const DynamicTable: FC<DynamicTableProps> = ({ data }) => {
   const columns = Object.keys(data[0]);
-  console.log(columns)
+  const rows = data.map((record) => Object.values(record));
 
   return (
     <div>

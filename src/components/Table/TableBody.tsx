@@ -37,7 +37,6 @@ const TableBody: FC<TableBodyProps> = (props) => {
               )
             ) : props.as === 'pivotTableBody' ? (
               <TableData key={key} cell={cell} minimumValue={props.minimumValue as string}>
-                {/* {cell ? cell.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : cell} */}
                 {cell}
               </TableData>
             ) : (

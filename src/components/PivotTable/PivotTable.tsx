@@ -12,6 +12,7 @@ import {
   getRows,
   getColumnTotals,
   getRowsWithTotals,
+  addCommas,
 } from './utils';
 
 const PivotTable: FC<PivotTableProps> = (props) => {
@@ -69,7 +70,7 @@ const PivotTable: FC<PivotTableProps> = (props) => {
       </div>
       <Table>
         <TableHead columns={columns} as="pivotTableHeader" />
-        <TableBody rows={rows} rowHeader as="pivotTableBody" minimumValue={props.minimumValue} />
+        <TableBody rows={addCommas(rows)} rowHeader as="pivotTableBody" minimumValue={props.minimumValue} />
       </Table>
     </div>
   );

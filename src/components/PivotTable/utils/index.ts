@@ -94,7 +94,7 @@ export const getRows = (
         if (matchingData) {
           const value = matchingData[fields.cell] as string;
           if (value) {
-            return `${parseInt(value).toFixed()}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            return `${parseInt(value).toFixed()}`;
           }
         }
 
@@ -115,4 +115,16 @@ export const getRows = (
   } else {
     return rows;
   }
+};
+
+export const addCommas = (rows: string[][]): string[][] => {
+  rows.forEach((row) => {
+    row.slice(1).forEach((item, index) => {
+      if (item) {
+        row[index + 1] = item.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      }
+    });
+  });
+
+  return rows;
 };

@@ -58,6 +58,14 @@ class LegacyPageSearchMixin(object):
     ]
 
 
+class PublicationPageSearchMixin(object):
+    search_fields = Page.search_fields + [
+        index.FilterField('slug'),
+        index.SearchField('title', partial_match=True, boost=2),
+        index.SearchField('hero_text', partial_match=True, boost=2)
+    ]
+
+
 def CustomPageSearchFields(fields):
     return Page.search_fields + [index.SearchField(x, partial_match=True) for x in fields]
 

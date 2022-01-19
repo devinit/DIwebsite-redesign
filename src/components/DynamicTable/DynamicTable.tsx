@@ -1,4 +1,3 @@
-import { use } from 'echarts';
 import React, { FC, useEffect, useState } from 'react';
 import { Table } from '../Table';
 

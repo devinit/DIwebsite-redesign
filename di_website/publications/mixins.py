@@ -39,7 +39,7 @@ class UniqueForParentPageMixin(object):
 
 class ParentPageSearchMixin(object):
     search_fields = Page.search_fields + [
-        index.FilterField('slug') 
+        index.FilterField('slug')
     ]
 
 

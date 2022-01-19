@@ -2,13 +2,14 @@ import React, { FC } from 'react';
 import { Table } from '../Table';
 
 interface DynamicTableProps {
-  columns: string[];
-  rows: string[][];
+  data: Record<string, unknown>[];
 }
 const DynamicTable: FC<DynamicTableProps> = (props) => {
+  console.log(props.data[0]);
+
   return (
     <div>
-      <Table>
+      {/* <Table>
         <tr>
           {props.columns.map((column, index) => (
             <th key={index}>{column}</th>
@@ -23,7 +24,7 @@ const DynamicTable: FC<DynamicTableProps> = (props) => {
             </tr>
           ))}
         </tbody>
-      </Table>
+      </Table> */}
     </div>
   );
 };

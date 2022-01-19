@@ -1,8 +1,13 @@
+import classNames from 'classnames';
 import React, { FC } from 'react';
 
-const Table: FC = (props) => {
+interface TableProps {
+  className?: string;
+}
+
+const Table: FC<TableProps> = (props) => {
   return (
-    <div className="table-styled">
+    <div className={classNames('table-styled', props.className)}>
       <table>{props.children}</table>
     </div>
   );

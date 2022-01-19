@@ -12,9 +12,9 @@ def user_content(author_page):
     """
     Blogs, Publications that were authored by the user
     """
-    return list(chain(
-        BlogArticlePage.objects.filter(internal_author_page=author_page).live(),
-        BlogArticlePage.objects.filter(other_authors__contains="\"value\": {},".format(author_page.pk)).live(),
+    return sorted(list(chain(
+        BlogArticlePage.objects.filter(internal_author_page=author_page).live().order_by('-published_date'),
+        BlogArticlePage.objects.filter(other_authors__contains="\"value\": {},".format(author_page.pk)).live().order_by('-published_date'),
         BlogArticlePage.objects.filter(other_authors__contains="\"value\": {}}}".format(author_page.pk)).live(),
         PublicationPage.objects.filter(authors__contains="\"value\": {},".format(author_page.pk)).live(),
         PublicationPage.objects.filter(authors__contains="\"value\": {}}}".format(author_page.pk)).live(),
@@ -26,4 +26,4 @@ def user_content(author_page):
         AudioVisualMedia.objects.filter(participants__contains="\"value\": {}}}".format(author_page.pk)).live(),
         # DatasetPage.objects.filter(authors__contains="\"value\": {},".format(author_page.pk)).live(),
         # DatasetPage.objects.filter(authors__contains="\"value\": {}}}".format(author_page.pk)).live(),
-    ))
+    )), key=lambda content:content.published_date, reverse=True)

@@ -39,7 +39,7 @@ class UniqueForParentPageMixin(object):
 
 class ParentPageSearchMixin(object):
     search_fields = Page.search_fields + [
-        index.FilterField('slug')
+        index.FilterField('slug') 
     ]
 
 
@@ -55,6 +55,14 @@ class LegacyPageSearchMixin(object):
         index.FilterField('slug'),
         index.SearchField('raw_content', partial_match=True, boost=1),
         index.SearchField('content', partial_match=True, boost=1)
+    ]
+
+
+class PublicationPageSearchMixin(object):
+    search_fields = Page.search_fields + [
+        index.FilterField('slug'),
+        index.SearchField('title', partial_match=True),
+        index.SearchField('hero_text', partial_match=True, boost=1)
     ]
 
 

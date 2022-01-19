@@ -39,7 +39,7 @@ from di_website.downloads.utils import DownloadsPanel
 from .edit_handlers import MultiFieldPanel
 from .inlines import *
 from .mixins import (
-    FilteredDatasetMixin, FlexibleContentMixin, HeroButtonMixin, InheritCTAMixin, LegacyPageSearchMixin, PageSearchMixin, ParentPageSearchMixin,
+    FilteredDatasetMixin, FlexibleContentMixin, HeroButtonMixin, InheritCTAMixin, PublicationPageSearchMixin,
     PublishedDateMixin, ReportChildMixin, ReportDownloadMixin, UniqueForParentPageMixin, UUIDMixin)
 from .utils import (
     ContentPanel, PublishedDatePanel, ReportDownloadPanel, StateMixinPanel, UUIDPanel, WagtailImageField,
@@ -263,7 +263,7 @@ class PublicationIndexPage(HeroMixin, Page):
                     pub_children = reduce(operator.or_, [pub.get_children() for pub in stories]).live().specific().search(search_filter).annotate_score("_child_score")
                     if pub_children:
                         matching_parents = reduce(operator.or_, [stories.parent_of(child).annotate(_score=models.Value(child._child_score, output_field=models.FloatField())) for child in pub_children])
-                        stories = list(chain(stories.exclude(id__in=matching_parents.values_list('id', flat=True)).search(search_filter).annotate_score("_score"), matching_parents))
+                        stories = list(chain(stories.search(search_filter).annotate_score("_score"), matching_parents, pub_children))
                     else:
                         stories = stories.search(search_filter).annotate_score("_score")
                 else:
@@ -337,7 +337,7 @@ class PublicationIndexPage(HeroMixin, Page):
 
 
 class PublicationPage(
-    HeroMixin, HeroButtonMixin, PublishedDateMixin, ParentPageSearchMixin, UUIDMixin,
+    HeroMixin, HeroButtonMixin, PublishedDateMixin, PublicationPageSearchMixin, UUIDMixin,
     FilteredDatasetMixin, ReportDownloadMixin, Page):
 
     class Meta:
@@ -498,7 +498,7 @@ class PublicationPage(
 
 
 class PublicationForewordPage(
-    HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin, UniqueForParentPageMixin,
+    HeroMixin, ReportChildMixin, FlexibleContentMixin, PublishedDateMixin, PublicationPageSearchMixin, UniqueForParentPageMixin,
     UUIDMixin, FilteredDatasetMixin, ReportDownloadMixin, InheritCTAMixin, Page):
     class Meta:
         verbose_name = 'Publication Foreword'
@@ -513,6 +513,7 @@ class PublicationForewordPage(
         FieldPanel('colour'),
         ContentPanel(),
         InlinePanel('publication_datasets', label='Datasets'),
+        PublishedDatePanel(),
         DownloadsPanel(
             heading='Downloads',
             description='Downloads for this foreword.'
@@ -562,7 +563,7 @@ class PublicationForewordPage(
 
 
 class PublicationSummaryPage(
-    HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin, UniqueForParentPageMixin,
+    HeroMixin, ReportChildMixin, FlexibleContentMixin, PublishedDateMixin, PublicationPageSearchMixin, UniqueForParentPageMixin,
     UUIDMixin, FilteredDatasetMixin, ReportDownloadMixin, InheritCTAMixin, Page):
 
     class Meta:
@@ -579,6 +580,7 @@ class PublicationSummaryPage(
         hero_panels(),
         ContentPanel(),
         InlinePanel('publication_datasets', label='Datasets'),
+        PublishedDatePanel(),
         DownloadsPanel(
             heading='Downloads',
             description='Downloads for this summary.'
@@ -638,7 +640,7 @@ class PublicationSummaryPage(
 
 
 class PublicationChapterPage(
-    HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin,
+    HeroMixin, ReportChildMixin, FlexibleContentMixin, PublishedDateMixin, PublicationPageSearchMixin,
     UUIDMixin, FilteredDatasetMixin, ReportDownloadMixin, InheritCTAMixin, Page):
 
     class Meta:
@@ -664,6 +666,7 @@ class PublicationChapterPage(
         ),
         ContentPanel(),
         InlinePanel('publication_datasets', label='Datasets'),
+        PublishedDatePanel(),
         DownloadsPanel(
             heading='Downloads',
             description='Downloads for this chapter.'
@@ -741,7 +744,7 @@ class PublicationChapterPage(
 
 
 class PublicationAppendixPage(
-    HeroMixin, ReportChildMixin, FlexibleContentMixin, PageSearchMixin,
+    HeroMixin, ReportChildMixin, FlexibleContentMixin, PublishedDateMixin, PublicationPageSearchMixin,
     UUIDMixin, FilteredDatasetMixin, ReportDownloadMixin, Page):
 
     class Meta:
@@ -768,6 +771,7 @@ class PublicationAppendixPage(
         ),
         ContentPanel(),
         InlinePanel('publication_datasets', label='Datasets'),
+        PublishedDatePanel(),
         DownloadsPanel(
             heading='Downloads',
             description='Downloads for this appendix page.'
@@ -835,7 +839,7 @@ class PublicationAppendixPage(
         return sections
 
 
-class LegacyPublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin, FilteredDatasetMixin, CallToActionMixin, ReportDownloadMixin, Page):
+class LegacyPublicationPage(HeroMixin, PublishedDateMixin, PublicationPageSearchMixin, FilteredDatasetMixin, CallToActionMixin, ReportDownloadMixin, Page):
 
     class Meta:
         verbose_name = 'Legacy Publication'
@@ -939,7 +943,7 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, ParentPageSearchMixin
 
 
 class ShortPublicationPage(
-    HeroMixin, StateMixin, PublishedDateMixin, FlexibleContentMixin, ParentPageSearchMixin,
+    HeroMixin, StateMixin, PublishedDateMixin, FlexibleContentMixin, PublicationPageSearchMixin,
     UUIDMixin, FilteredDatasetMixin, CallToActionMixin, ReportDownloadMixin, Page):
 
     class Meta:
@@ -1061,7 +1065,7 @@ class ShortPublicationPage(
         return context
 
 
-class AudioVisualMedia(PublishedDateMixin, TypesetBodyMixin, HeroMixin, ParentPageSearchMixin, SectionBodyMixin, CallToActionMixin, Page):
+class AudioVisualMedia(PublishedDateMixin, TypesetBodyMixin, HeroMixin, PublicationPageSearchMixin, SectionBodyMixin, CallToActionMixin, Page):
 
     """
     Audio Visual page to be used as a child of the Resources Index Page

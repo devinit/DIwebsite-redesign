@@ -5,19 +5,21 @@ interface DynamicTableProps {
   data: Record<string, unknown>[];
 }
 const DynamicTable: FC<DynamicTableProps> = ({ data }) => {
-  const columns = Object.keys(data[0]);
-  const rows = data.map((record) => Object.values(record));
+  const columns: string[] = Object.keys(data[0]);
+  const rows: string[][] = data.map((record) => Object.values(record) as string[]);
 
   return (
     <div>
-      {/* <Table>
-        <tr>
-          {props.columns.map((column, index) => (
-            <th key={index}>{column}</th>
-          ))}
-        </tr>
+      <Table>
+        <thead>
+          <tr>
+            {columns.map((column, index) => (
+              <th key={index}>{column}</th>
+            ))}
+          </tr>
+        </thead>
         <tbody>
-          {props.rows.map((row, key) => (
+          {rows.map((row, key) => (
             <tr key={key}>
               {row.map((cell, id) => (
                 <td key={id}>{cell}</td>
@@ -25,7 +27,7 @@ const DynamicTable: FC<DynamicTableProps> = ({ data }) => {
             </tr>
           ))}
         </tbody>
-      </Table> */}
+      </Table>
     </div>
   );
 };

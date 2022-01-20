@@ -79,11 +79,15 @@ const PivotTable: FC<PivotTableProps> = (props) => {
         <form className="form resources-filters">{renderFilters()}</form>
       </div>
       <Table>
-        {columns.map((column, key) => (
-          <StyledPivotTableHeader key={key} column={column}>
-            {column}
-          </StyledPivotTableHeader>
-        ))}
+        <thead>
+          <tr>
+            {columns.map((column, key) => (
+              <StyledPivotTableHeader key={key} column={column}>
+                {column}
+              </StyledPivotTableHeader>
+            ))}
+          </tr>
+        </thead>
         <tbody>
           {addCommas(rows).map((row, index) => (
             <tr key={`${index}`}>

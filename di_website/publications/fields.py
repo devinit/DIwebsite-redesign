@@ -215,6 +215,34 @@ class PivotTable(StructBlock):
         help_text='Optional: label for the caption link, defaults to the link if left blank'
     )
 
+class DynamicTable(StructBlock):
+
+    class Meta:
+        help_text = 'Uses a CSV data source to display tabular data with an optional heading.'
+        icon = 'list-ol'
+        label = 'Dynamic Table'
+        form_template = 'publications/block_forms/custom_struct.html'
+        template = 'publications/blocks/dynamic-table.html'
+
+    heading = CharBlock(
+        required=False
+    )
+    data_source_url = URLBlock(help_text='Link to the CSV data file')
+    caption = RichTextBlock(
+        required=False,
+        features=FOOTNOTE_RICHTEXT_FEATURES,
+        help_text='Optional: caption text to appear below the table'
+    )
+    caption_link = URLBlock(
+        required=False,
+        help_text='Optional: external link to appear below the table'
+    )
+    caption_label = CharBlock(
+        required=False,
+        help_text='Optional: label for the caption link, defaults to the link if left blank'
+    )
+
+
 
 class AbstractRichText(StructBlock):
 
@@ -296,6 +324,7 @@ def flexible_content_streamfield(blank=False):
         ('section_heading', SectionHeading()),
         ('table', Table()),
         ('pivot_table', PivotTable()),
+        ('dynamic_table', DynamicTable()),
         ('rich_text', RichText()),
         ('infographic', PublicationInfographic()),
         ('anchor', AnchorBlock()),

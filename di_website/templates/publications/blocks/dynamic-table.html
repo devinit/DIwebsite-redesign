@@ -6,10 +6,7 @@
     <h3>{{ value.heading }}</h3>
   </div>
   {% endif %}
-  <div
-    class="table-styled js-dynamic-table"
-    data-url="{{value.data_source_url}}"
-  ></div>
+  <div class="table-styled js-dynamic-table" data-url="{{value.data_source_url}}"></div>
   {% if value.caption or value.caption_link %}
   <figcaption class="media-caption">
     {% if value.caption %} {% content_with_footnotes value.caption %} {% endif %} {% if value.caption_link %}

@@ -23,9 +23,8 @@ class VisualisationsPage(GeneralInstructionsMixin, Page):
     """
     Parent page for all visualisations
     """
-    parent_page_types = ['home.HomePage']
-    subpage_types = ['visualisation.ChartPage', 'visualisation.AdvancedChartPage', 'visualisation.RawCodePage']
-    max_count = 1
+    parent_page_types = ['home.HomePage', 'visualisation.VisualisationsPage']
+    subpage_types = ['visualisation.ChartPage', 'visualisation.AdvancedChartPage', 'visualisation.RawCodePage', 'visualisation.VisualisationsPage']
 
     class Meta:
         verbose_name = 'Visualisations Page'

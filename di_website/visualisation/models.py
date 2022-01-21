@@ -11,11 +11,11 @@ from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from di_website.common.edit_handlers import HelpPanel
 from di_website.common.constants import MINIMAL_RICHTEXT_FEATURES
 from di_website.visualisation.mixins import (
-    CodePageMixin, GeneralInstructionsMixin, SpecificInstructionsMixin,
+    CaptionMixin, CodePageMixin, GeneralInstructionsMixin, InstructionsMixin, SpecificInstructionsMixin,
     ChartOptionsMixin, FallbackImageMixin
 )
 from di_website.visualisation.utils import (
-    ChartOptionsPanel, SpecificInstructionsPanel, FallbackImagePanel
+    CaptionPanel, ChartOptionsPanel, InstructionsPanel, SpecificInstructionsPanel, FallbackImagePanel
 )
 
 
@@ -24,7 +24,13 @@ class VisualisationsPage(GeneralInstructionsMixin, Page):
     Parent page for all visualisations
     """
     parent_page_types = ['home.HomePage', 'visualisation.VisualisationsPage']
-    subpage_types = ['visualisation.ChartPage', 'visualisation.AdvancedChartPage', 'visualisation.RawCodePage', 'visualisation.VisualisationsPage']
+    subpage_types = [
+        'visualisation.VisualisationsPage',
+        'visualisation.ChartPage',
+        'visualisation.AdvancedChartPage',
+        'visualisation.RawCodePage',
+        'visualisation.PivotTable',
+    ]
 
     class Meta:
         verbose_name = 'Visualisations Page'
@@ -161,3 +167,101 @@ class RawCodePage(CodePageMixin, Page):
 
     class Meta:
         verbose_name = 'Raw Code Snippet'
+
+
+class PivotTable(InstructionsMixin, CaptionMixin, Page):
+    parent_page_types = [VisualisationsPage]
+    subpage_types = []
+
+    HIGHLIGHT_CONDITION = [
+        ('lt', 'Less Than'),
+        ('gt', 'Greater Than'),
+        ('eq', 'Equals'),
+        ('lte', 'Less Than or Equal'),
+        ('gte', 'Greater Than or Equal'),
+    ]
+
+    data_source_url = models.TextField(help_text='Link to the CSV data file')
+    row_label = models.CharField(max_length=200, help_text='CSV column to show as the label for each table row')
+    column_label = models.CharField(max_length=200, help_text='CSV column to show as the label for each table column')
+    cell_value = models.CharField(max_length=200, help_text='CSV column whose data shall appear in the table cells')
+    show_row_total = models.BooleanField(default=True, blank=True)
+    show_column_total = models.BooleanField(default=True, blank=True)
+    filter_by = models.TextField(
+        blank=True,
+        null=True,
+        help_text='Optional: taken from the CSV data file - comma separated column names to filter by'
+    )
+    default_filter_values = models.TextField(
+        blank=True,
+        null=True,
+        help_text='Optional: Comma separated values to match the provided filters'
+    )
+    cell_highlight_condition = models.CharField(
+        blank=True,
+        null=True,
+        max_length=5,
+        choices=HIGHLIGHT_CONDITION,
+        default='lt',
+        verbose_name='Cell Condition',
+        help_text='Optional: condition for highlighting cells'
+    )
+    cell_highlight_value = models.IntegerField(
+        blank=True,
+        null=True,
+        verbose_name='Cell value',
+        help_text='Optional: value to conditionally highlight cells'
+    )
+    row_highlight_field = models.CharField(
+        blank=True,
+        null=True,
+        max_length=100,
+        verbose_name='Column/Field',
+        help_text='Optional: column the value of which to conditionally highlight row'
+    )
+    row_highlight_condition = models.CharField(
+        blank=True,
+        null=True,
+        max_length=5,
+        choices=HIGHLIGHT_CONDITION,
+        default='lt',
+        verbose_name='Condition',
+        help_text='Optional: condition for highlighting a row'
+    )
+    row_highlight_value = models.IntegerField(
+        blank=True,
+        null=True,
+        verbose_name='Column value',
+        help_text='Optional: column value to conditionally highlight row'
+    )
+
+    content_panels = Page.content_panels + [
+        FieldPanel('data_source_url'),
+        MultiFieldPanel([
+            FieldPanel('row_label'),
+            FieldPanel('column_label'),
+            FieldPanel('cell_value'),
+        ], heading='Table Data Config'),
+        MultiFieldPanel([
+            FieldPanel('show_row_total'),
+            FieldPanel('show_column_total'),
+        ], heading='Totals'),
+        MultiFieldPanel([
+            FieldPanel('filter_by'),
+            FieldPanel('default_filter_values'),
+        ], heading='Filters'),
+        MultiFieldPanel([
+            FieldPanel('cell_highlight_condition'),
+            FieldPanel('cell_highlight_value'),
+        ], heading='Highlight Cell'),
+        MultiFieldPanel([
+            FieldPanel('row_highlight_field'),
+            FieldPanel('row_highlight_condition'),
+            FieldPanel('row_highlight_value'),
+        ], heading='Highlight Row'),
+        InstructionsPanel(),
+        CaptionPanel(),
+    ]
+
+    class Meta:
+        verbose_name = 'Pivot Table'

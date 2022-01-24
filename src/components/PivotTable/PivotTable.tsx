@@ -68,8 +68,8 @@ const PivotTable: FC<PivotTableProps> = (props) => {
   };
 
   const columns = props.showRowTotal
-    ? ['Row Labels'].concat(getColumnValues(data, props.columnLabel)).concat('Grand Total')
-    : ['Row Labels'].concat(getColumnValues(data, props.columnLabel));
+    ? [props.rowLabelHeading].concat(getColumnValues(data, props.columnLabel)).concat('Grand Total')
+    : [props.rowLabelHeading].concat(getColumnValues(data, props.columnLabel));
   const [dataRows, highlightedRows] = getRows(
     data,
     { row: props.rowLabel, column: props.columnLabel, cell: props.cellValue },

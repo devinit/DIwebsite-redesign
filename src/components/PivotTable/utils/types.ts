@@ -2,6 +2,7 @@ export interface PivotTableProps {
   data: Record<string, unknown>[];
   filters: Filter[];
   rowLabel: string;
+  rowLabelHeading: string;
   columnLabel: string;
   cellValue: string;
   showRowTotal?: boolean;

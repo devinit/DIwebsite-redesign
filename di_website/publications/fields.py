@@ -10,8 +10,7 @@ from wagtail.core.blocks import (
     StructBlock,
     TextBlock,
     URLBlock,
-    PageChooserBlock,
-    IntegerBlock
+    PageChooserBlock
 )
 from wagtail.snippets.blocks import SnippetChooserBlock
 
@@ -174,46 +173,20 @@ class Table(StructBlock):
 class PivotTable(StructBlock):
 
     class Meta:
-        help_text = 'Uses a CSV data source to displays tabular data with an optional heading.'
-        icon = 'list-ol'
+        help_text = 'Uses a CSV data source to displays tabular data with an optional title.'
+        icon = 'table'
         label = 'Pivot Table'
         form_template = 'publications/block_forms/custom_struct.html'
         template = 'publications/blocks/pivot-table.html'
 
-    heading = CharBlock(
-        required=False
-    )
-    data_source_url = URLBlock(help_text='Link to the CSV data file')
-    row_label = CharBlock(help_text='CSV column to show as the label for each table row')
-    column_label = CharBlock(help_text='CSV column to show as the label for each table column')
-    cell_value = CharBlock(help_text='CSV column who data shall appear in the table cells')
-    show_row_total = BooleanBlock(default=True, required=False)
-    show_column_total = BooleanBlock(default=True, required=False)
-    filter_by = CharBlock(
-        required=False,
-        help_text='Optional: taken from the CSV data file - comma separated column names to filter by'
-    )
-    default_filter_values = CharBlock(
-        required=False,
-        help_text='Optional: Comma separated values to match the provided filters'
-    )
-    minimum_highlight_value = IntegerBlock(
-        required=False,
-        help_text='Optional: minimum value below which table values should be highlighted'
-    )
-    caption = RichTextBlock(
-        required=False,
-        features=FOOTNOTE_RICHTEXT_FEATURES,
-        help_text='Optional: caption text to appear below the table'
-    )
-    caption_link = URLBlock(
-        required=False,
-        help_text='Optional: external link to appear below the table'
-    )
-    caption_label = CharBlock(
-        required=False,
-        help_text='Optional: label for the caption link, defaults to the link if left blank'
-    )
+    show_title = BooleanBlock(required=False, default=True)
+    pivot_table = PageChooserBlock(page_type=['visualisation.PivotTable'])
+
+    def get_context(self, value, parent_context=None):
+        context = super().get_context(value, parent_context=parent_context)
+        pivot_table = value['pivot_table']
+        context['table'] = pivot_table.specific if pivot_table and pivot_table.live else ''
+        return context
 
 class DynamicTable(StructBlock):
 

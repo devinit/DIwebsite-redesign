@@ -67,4 +67,5 @@
 {% block html_footer %}
   {{block.super}}
   <script src="{% static 'publications/js/bundle.js' %}"></script>
+  {% include 'visualisation/partials/load_pivot_table_dependencies.html' %}
 {% endblock html_footer %}

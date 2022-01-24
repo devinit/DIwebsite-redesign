@@ -1,5 +1,4 @@
-import { handleFootnotes, initPivotTables, initDynamicTables } from '../plugins';
+import { handleFootnotes, initDynamicTables } from '../plugins';
 
 handleFootnotes();
-initPivotTables();
 initDynamicTables();

@@ -1,0 +1,44 @@
+{% load wagtailcore_tags wagtailroutablepage_tags wagtailimages_tags footnotes_utils chart_utils %}
+
+{% if show_title %}
+  <h3 class="type-l type-l--trailer">{{ item.title }}</h3>
+  {% if item.subtitle %}
+    <div class="is-typeset wysiwyg">
+      <p>{{ item.subtitle }}</p>
+    </div>
+  {% endif %}
+{% endif %}
+<div class="chart-container chart-container--full">
+  <div class="charts__chart" data-title="{{item.title}}">
+    <div
+      class="table-styled js-pivot-table"
+      data-url="{{item.data_source_url}}"
+      data-filters="{{item.filter_by}}"
+      data-row="{{item.row_label}}"
+      data-row-label-heading="{{item.row_label_heading|default:''}}"
+      data-column="{{item.column_label}}"
+      data-cell="{{item.cell_value}}"
+      data-row-total="{{item.show_row_total}}"
+      data-column-total="{{item.show_column_total}}"
+      data-filter-defaults="{{item.default_filter_values}}"
+      data-cell-highlight-condition="{{item.cell_highlight_condition}}"
+      data-cell-highlight-value="{{item.cell_highlight_value}}"
+      data-row-highlight-field="{{item.row_highlight_field}}"
+      data-row-highlight-condition="{{item.row_highlight_condition}}"
+      data-row-highlight-value="{{item.row_highlight_value}}"
+    ></div>
+
+    <div class="chart-loading">
+      <div class="chart-loading__block">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% include 'visualisation/chart_instructions.html' %} {% if item.caption %}
+<figcaption class="media-caption">{% content_with_footnotes item.caption %}</figcaption>
+{% endif %}

@@ -12,10 +12,11 @@ import {
   getColumnTotals,
   getRowsWithTotals,
   addCommas,
+  highlightCell,
 } from './utils';
 
-const HighlightedTableCell = styled.td<{ cell: string; minimumValue: string }>`
-  background: ${(p) => (p.minimumValue ? (+p.cell <= +p.minimumValue ? '#ffb3b3' : 'none') : 'none')};
+const HighlightedTableCell = styled.td<{ cell: string; highlight: boolean }>`
+  background: ${(p) => (p.highlight ? '#ffb3b3' : 'none')};
 `;
 const BoldTableHeader = styled.th`
   font-weight: bold;
@@ -23,6 +24,12 @@ const BoldTableHeader = styled.th`
 export const StyledPivotTableHeader = styled.th<{ column: string }>`
   font-weight: ${(p) => (p.column === 'Grand Total' || 'Row Labels' ? 'bold' : 'normal')};
   white-space: ${(p) => (p.column === 'Grand Total' ? 'nowrap' : 'none')};
+`;
+export const FilterWrapper = styled.div`
+  padding: 1rem 2rem 2rem 2rem;
+`;
+export const TableRow = styled.tr<{ highlight: boolean }>`
+  background: ${(p) => (p.highlight ? '#ffb3b3' : 'none')};
 `;
 
 const PivotTable: FC<PivotTableProps> = (props) => {
@@ -61,23 +68,26 @@ const PivotTable: FC<PivotTableProps> = (props) => {
   };
 
   const columns = props.showRowTotal
-    ? ['Row Labels'].concat(getColumnValues(data, props.columnLabel)).concat('Grand Total')
-    : ['Row Labels'].concat(getColumnValues(data, props.columnLabel));
-  const dataRows = getRows(
+    ? [props.rowLabelHeading].concat(getColumnValues(data, props.columnLabel)).concat('Grand Total')
+    : [props.rowLabelHeading].concat(getColumnValues(data, props.columnLabel));
+  const [dataRows, highlightedRows] = getRows(
     data,
     { row: props.rowLabel, column: props.columnLabel, cell: props.cellValue },
     columns,
     props.showRowTotal as boolean,
     props.showColumnTotal as boolean,
+    { field: props.rowHighlightField, condition: props.rowHighlightCondition, value: props.rowHighlightValue },
   );
   const columnValueTotals = getColumnTotals(columns, dataRows);
   const rows = props.showColumnTotal ? getRowsWithTotals(dataRows, columnValueTotals) : dataRows;
 
   return (
     <div>
-      <div className="filter--wrapper" style={{ padding: '3rem 0' }}>
-        <form className="form resources-filters">{renderFilters()}</form>
-      </div>
+      {props.filters.length ? (
+        <FilterWrapper className="filter--wrapper">
+          <form className="form resources-filters">{renderFilters()}</form>
+        </FilterWrapper>
+      ) : null}
       <Table>
         <thead>
           <tr>
@@ -90,7 +100,7 @@ const PivotTable: FC<PivotTableProps> = (props) => {
         </thead>
         <tbody>
           {addCommas(rows).map((row, index) => (
-            <tr key={`${index}`}>
+            <TableRow key={`${index}`} highlight={highlightedRows.includes(row[0])}>
               {row.map((cell, key) =>
                 key === 0 ? (
                   cell === 'Grand Total' ? (
@@ -103,12 +113,20 @@ const PivotTable: FC<PivotTableProps> = (props) => {
                     </th>
                   )
                 ) : (
-                  <HighlightedTableCell key={key} cell={cell} minimumValue={props.minimumValue as string}>
+                  <HighlightedTableCell
+                    key={key}
+                    cell={cell}
+                    highlight={highlightCell(
+                      Number(cell),
+                      props.cellHighlightCondition,
+                      Number(props.cellHighlightValue),
+                    )}
+                  >
                     {cell}
                   </HighlightedTableCell>
                 ),
               )}
-            </tr>
+            </TableRow>
           ))}
         </tbody>
       </Table>

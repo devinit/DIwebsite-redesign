@@ -11,7 +11,7 @@ from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from di_website.common.constants import INSTRUCTIONS_RICHTEXT_FEATURES, SIMPLE_RICHTEXT_FEATURES
 from di_website.publications.utils import WagtailImageField
 from di_website.visualisation.fields import AceEditorField
-from di_website.visualisation.utils import D3OptionsPanel, EChartOptionsPanel, InstructionsPanel, PlotlyOptionsPanel
+from di_website.visualisation.utils import CaptionPanel, D3OptionsPanel, EChartOptionsPanel, InstructionsPanel, PlotlyOptionsPanel
 
 
 class GeneralInstructionsMixin(models.Model):
@@ -163,7 +163,19 @@ class EChartOptionsMixin(models.Model):
     use_echarts = models.BooleanField(default=False, blank=True, verbose_name='Use ECharts')
 
 
-class CodePageMixin(InstructionsMixin, EChartOptionsMixin, D3OptionsMixin, PlotlyOptionsMixin, RoutablePageMixin, models.Model):
+class CaptionMixin(models.Model):
+    class Meta:
+        abstract = True
+
+    caption = RichTextField(
+        null=True,
+        blank=True,
+        help_text='Optional: caption text and link(s) for the chart',
+        features=INSTRUCTIONS_RICHTEXT_FEATURES + SIMPLE_RICHTEXT_FEATURES
+    )
+
+
+class CodePageMixin(InstructionsMixin, CaptionMixin, EChartOptionsMixin, D3OptionsMixin, PlotlyOptionsMixin, RoutablePageMixin, models.Model):
     class Meta:
         abstract = True
 
@@ -177,13 +189,6 @@ class CodePageMixin(InstructionsMixin, EChartOptionsMixin, D3OptionsMixin, Plotl
     javascript = AceEditorField(options={'mode':'javascript'}, blank=True, default='"use strict";')
     css = AceEditorField(options={'mode':'css'}, blank=True, default='/* CSS goes here */')
 
-    caption = RichTextField(
-        null=True,
-        blank=True,
-        help_text='Optional: caption text and link(s) for the chart',
-        features=INSTRUCTIONS_RICHTEXT_FEATURES + SIMPLE_RICHTEXT_FEATURES
-    )
-
     content_panels = Page.content_panels + [
         FieldPanel('subtitle'),
         PlotlyOptionsPanel(),
@@ -193,7 +198,7 @@ class CodePageMixin(InstructionsMixin, EChartOptionsMixin, D3OptionsMixin, Plotl
         FieldPanel('javascript', classname='collapsible'),
         # FieldPanel('css', classname='collapsible'), TODO: add CSS support - may work best in an iFrame
         InstructionsPanel(),
-        FieldPanel('caption'),
+        CaptionPanel(),
     ]
 
     @cached_property

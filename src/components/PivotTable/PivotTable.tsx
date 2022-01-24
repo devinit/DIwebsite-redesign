@@ -24,6 +24,9 @@ export const StyledPivotTableHeader = styled.th<{ column: string }>`
   font-weight: ${(p) => (p.column === 'Grand Total' || 'Row Labels' ? 'bold' : 'normal')};
   white-space: ${(p) => (p.column === 'Grand Total' ? 'nowrap' : 'none')};
 `;
+export const FilterWrapper = styled.div`
+  padding: 1rem 2rem 2rem 2rem;
+`;
 
 const PivotTable: FC<PivotTableProps> = (props) => {
   const [data, setData] = useState(props.data);
@@ -75,9 +78,11 @@ const PivotTable: FC<PivotTableProps> = (props) => {
 
   return (
     <div>
-      <div className="filter--wrapper" style={{ padding: '3rem 0' }}>
-        <form className="form resources-filters">{renderFilters()}</form>
-      </div>
+      {props.filters.length ? (
+        <FilterWrapper className="filter--wrapper">
+          <form className="form resources-filters">{renderFilters()}</form>
+        </FilterWrapper>
+      ) : null}
       <Table>
         <thead>
           <tr>

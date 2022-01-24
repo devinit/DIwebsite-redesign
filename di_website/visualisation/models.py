@@ -229,9 +229,10 @@ class PivotTable(InstructionsMixin, CaptionMixin, Page):
         verbose_name='Condition',
         help_text='Optional: condition for highlighting a row'
     )
-    row_highlight_value = models.IntegerField(
+    row_highlight_value = models.CharField(
         blank=True,
         null=True,
+        max_length=200,
         verbose_name='Column value',
         help_text='Optional: column value to conditionally highlight row'
     )

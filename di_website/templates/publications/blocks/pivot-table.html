@@ -1,33 +1,15 @@
-{% load string_utils footnotes_utils %}
+{% load string_utils %}
 
-<div class="max-meter max-meter--center responsive-graph">
-  {% if value.heading %}
-  <div class="is-typeset is-typeset--article">
-    <h3>{{ value.heading }}</h3>
-  </div>
-  {% endif %}
-  <div
-    class="table-styled js-pivot-table"
-    data-url="{{value.data_source_url}}"
-    data-filters="{{value.filter_by}}"
-    data-row="{{value.row_label}}"
-    data-column="{{value.column_label}}"
-    data-cell="{{value.cell_value}}"
-    data-row-total="{{value.show_row_total}}"
-    data-column-total="{{value.show_column_total}}"
-    data-filter-defaults="{{value.default_filter_values}}"
-    data-cell-highlight-condition="{{value.cell_highlight_condition}}"
-    data-cell-highlight-value="{{value.cell_highlight_value}}"
-    data-row-highlight-field="{{value.cell_highlight_field}}"
-    data-row-highlight-condition="{{value.cell_highlight_condition}}"
-    data-row-highlight-value="{{value.cell_highlight_value}}"
-  ></div>
-  {% if value.caption or value.caption_link %}
-  <figcaption class="media-caption">
-    {% if value.caption %} {% content_with_footnotes value.caption %} {% endif %} {% if value.caption_link %}
-    <p><a href="{{ value.caption_link }}">{{ value.caption_label | default:value.caption_link }}</a></p>
+{% if table %}
+  {% uid_url page as short_url %}
+  <div class="max-meter max-meter--center responsive-graph" id="{{ id }}">
+    <a href="#{{ id }}" data-id="{{ id }}" data-js="share-section-trigger"
+      class="section-chapter__link">{% include 'publications/icon.html' with file='ico-link-'|add:page.colour size=16 %}Share
+      table</a>
+    {% if page %}
+      {% include 'publications/share-block.html' with share_type='chart' title=item.title|default:page.title short_url=short_url|add:'#'|add:id data_js='share-section' data_id=id %}
     {% endif %}
-  </figcaption>
-  {% endif %}
-</div>
-<script src="https://d3js.org/d3.v4.min.js"></script>
+
+    {% include 'visualisation/partials/pivot_table.html' with item=table show_title=self.show_title share_link=page.full_url|add:'#'|add:id %}
+  </div>
+{% endif %}

@@ -27,3 +27,16 @@ def load_as_template(context, raw_html=None):
     context = Context(context)
 
     return template.render(context)
+
+
+@register.simple_tag(takes_context=True)
+def has_pivot_table(context):
+    context = Context(context)
+    self = context['page']
+    has_pivot_table = False
+    for block in self.content:
+        if block.block_type == 'pivot_table':
+            has_pivot_table = True
+            break
+
+    return has_pivot_table

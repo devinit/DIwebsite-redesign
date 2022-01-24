@@ -19,3 +19,9 @@ export interface Filter {
   name: string;
   value?: string;
 }
+
+export interface RowHighlight {
+  field?: string;
+  condition?: HighlightCondition;
+  value?: string | number;
+}

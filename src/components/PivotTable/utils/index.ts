@@ -1,4 +1,4 @@
-import { Filter, HighlightCondition } from './types';
+import { Filter, HighlightCondition, RowHighlight } from './types';
 
 export * from './types';
 
@@ -76,22 +76,49 @@ export const getRowsWithTotals = (rows: string[][], columnTotals: number[]): str
   return rows;
 };
 
+const highlightRow = (data: Record<string, unknown>, highlight: RowHighlight) => {
+  if (!highlight.condition || !highlight.field || !highlight.value) return false;
+
+  switch (highlight.condition) {
+    case 'lt':
+      return (data[highlight.field] as number) < highlight.value;
+    case 'gt':
+      return (data[highlight.field] as number) > highlight.value;
+    case 'lte':
+      return (data[highlight.field] as number) <= highlight.value;
+    case 'gte':
+      return (data[highlight.field] as number) >= highlight.value;
+    case 'eq':
+      return (data[highlight.field] as number | string) === highlight.value;
+
+    default:
+      false;
+  }
+};
+
 export const getRows = (
   data: Record<string, unknown>[],
   fields: DataField,
   columns: string[],
   showRowTotal: boolean,
   showColumnTotal: boolean,
-): string[][] => {
+  highlight: RowHighlight,
+): [string[][], string[]] => {
+  const GRAND_TOTAL_LABEL = 'Grand Total';
   const rowLabels = showColumnTotal
-    ? getColumnValues(data, fields.row).concat('Grand Total')
+    ? getColumnValues(data, fields.row).concat(GRAND_TOTAL_LABEL)
     : getColumnValues(data, fields.row);
+
+  const highlightedRows: string[] = [];
   const rows = rowLabels.map((label) => {
     const row: string[] = [label].concat(
       columns.slice(1).map((column) => {
         const matchingData = data.find((d) => d[fields.row] === label && d[fields.column] === column);
 
         if (matchingData) {
+          if (!highlightedRows.includes(label) && highlightRow(matchingData, highlight)) {
+            highlightedRows.push(label);
+          }
           const value = matchingData[fields.cell] as string;
           if (value) {
             return `${parseInt(value).toFixed()}`;
@@ -107,13 +134,15 @@ export const getRows = (
   if (showRowTotal) {
     const rowValueTotals: number[] = getTotals(rows);
 
-    return rows.map((row, index) => {
+    const rowsWithTotals = rows.map((row, index) => {
       row[row.length - 1] = rowValueTotals[index].toString();
 
       return row;
     });
+
+    return [rowsWithTotals, highlightedRows];
   } else {
-    return rows;
+    return [rows, highlightedRows];
   }
 };
 

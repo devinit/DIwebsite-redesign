@@ -28,6 +28,9 @@ export const StyledPivotTableHeader = styled.th<{ column: string }>`
 export const FilterWrapper = styled.div`
   padding: 1rem 2rem 2rem 2rem;
 `;
+export const TableRow = styled.tr<{ highlight: boolean }>`
+  background: ${(p) => (p.highlight ? '#ffb3b3' : 'none')};
+`;
 
 const PivotTable: FC<PivotTableProps> = (props) => {
   const [data, setData] = useState(props.data);
@@ -67,12 +70,13 @@ const PivotTable: FC<PivotTableProps> = (props) => {
   const columns = props.showRowTotal
     ? ['Row Labels'].concat(getColumnValues(data, props.columnLabel)).concat('Grand Total')
     : ['Row Labels'].concat(getColumnValues(data, props.columnLabel));
-  const dataRows = getRows(
+  const [dataRows, highlightedRows] = getRows(
     data,
     { row: props.rowLabel, column: props.columnLabel, cell: props.cellValue },
     columns,
     props.showRowTotal as boolean,
     props.showColumnTotal as boolean,
+    { field: props.rowHighlightField, condition: props.rowHighlightCondition, value: props.rowHighlightValue },
   );
   const columnValueTotals = getColumnTotals(columns, dataRows);
   const rows = props.showColumnTotal ? getRowsWithTotals(dataRows, columnValueTotals) : dataRows;
@@ -96,7 +100,7 @@ const PivotTable: FC<PivotTableProps> = (props) => {
         </thead>
         <tbody>
           {addCommas(rows).map((row, index) => (
-            <tr key={`${index}`}>
+            <TableRow key={`${index}`} highlight={highlightedRows.includes(row[0])}>
               {row.map((cell, key) =>
                 key === 0 ? (
                   cell === 'Grand Total' ? (
@@ -122,7 +126,7 @@ const PivotTable: FC<PivotTableProps> = (props) => {
                   </HighlightedTableCell>
                 ),
               )}
-            </tr>
+            </TableRow>
           ))}
         </tbody>
       </Table>

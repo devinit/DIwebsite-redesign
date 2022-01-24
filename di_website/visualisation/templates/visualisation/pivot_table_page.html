@@ -39,5 +39,6 @@
 {% block footer %}{% endblock %}
 {% block html_footer %}
     {{ block.super }}
+    <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="{% static 'visualisation/widgets/js/pivot-table.js' %}"></script>
 {% endblock %}

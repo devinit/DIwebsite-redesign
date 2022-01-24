@@ -172,6 +172,7 @@ class RawCodePage(CodePageMixin, Page):
 class PivotTable(InstructionsMixin, CaptionMixin, Page):
     parent_page_types = [VisualisationsPage]
     subpage_types = []
+    template = 'visualisation/pivot_table_page.html'
 
     HIGHLIGHT_CONDITION = [
         ('lt', 'Less Than'),

@@ -184,6 +184,7 @@ class PivotTable(InstructionsMixin, CaptionMixin, Page):
 
     data_source_url = models.TextField(help_text='Link to the CSV data file')
     row_label = models.CharField(max_length=200, help_text='CSV column to show as the label for each table row')
+    row_label_heading = models.CharField(max_length=200, default='Row labels', blank=True, null=True, help_text='Optional: heading of the row label column')
     column_label = models.CharField(max_length=200, help_text='CSV column to show as the label for each table column')
     cell_value = models.CharField(max_length=200, help_text='CSV column whose data shall appear in the table cells')
     show_row_total = models.BooleanField(default=True, blank=True)
@@ -243,6 +244,7 @@ class PivotTable(InstructionsMixin, CaptionMixin, Page):
             FieldPanel('row_label'),
             FieldPanel('column_label'),
             FieldPanel('cell_value'),
+            FieldPanel('row_label_heading'),
         ], heading='Table Data Config'),
         MultiFieldPanel([
             FieldPanel('show_row_total'),

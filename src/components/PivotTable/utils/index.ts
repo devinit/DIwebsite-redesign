@@ -1,4 +1,4 @@
-import { Filter } from './types';
+import { Filter, HighlightCondition } from './types';
 
 export * from './types';
 
@@ -16,7 +16,7 @@ export const getFilterValues = (data: Record<string, unknown>[], filter: Filter)
   }, []);
 };
 
-export const getColumnValues = (data: Record<string, unknown>[], propertyName: string) => {
+export const getColumnValues = (data: Record<string, unknown>[], propertyName: string): string[] => {
   return data
     .reduce<string[]>((columns, current) => {
       if (!columns.includes(current[propertyName] as string)) {
@@ -34,7 +34,7 @@ interface DataField {
   cell: string;
 }
 
-export const getTotals = (items: string[][]) => {
+export const getTotals = (items: string[][]): number[] => {
   const totals = items.map((item) => {
     const values = item.slice(1).map((value) => Number(value));
 
@@ -44,7 +44,7 @@ export const getTotals = (items: string[][]) => {
   return totals;
 };
 
-export const getColumnTotals = (columns: string[], rows: string[][]) => {
+export const getColumnTotals = (columns: string[], rows: string[][]): number[] => {
   const columnValueList: string[][] = [];
   columns.slice(1).map((_column, index) => {
     const columnValues: string[] = [];
@@ -127,4 +127,23 @@ export const addCommas = (rows: string[][]): string[][] => {
   });
 
   return rows;
+};
+
+export const highlightCell = (cellValue: number, condition?: HighlightCondition, compareValue?: number): boolean => {
+  if (!condition || !compareValue) return false;
+
+  switch (condition) {
+    case 'lt':
+      return cellValue < compareValue;
+    case 'gt':
+      return cellValue > compareValue;
+    case 'lte':
+      return cellValue <= compareValue;
+    case 'gte':
+      return cellValue >= compareValue;
+    case 'eq':
+      return cellValue === compareValue;
+    default:
+      return false;
+  }
 };

@@ -2,9 +2,9 @@
 
 <h3 class="type-l type-l--trailer">{{ item.title }}</h3>
 {% if item.subtitle %}
-  <div class="is-typeset wysiwyg">
-    <p>{{ item.subtitle }}</p>
-  </div>
+<div class="is-typeset wysiwyg">
+  <p>{{ item.subtitle }}</p>
+</div>
 {% endif %}
 <div class="chart-container chart-container--full">
   <div class="charts__chart" data-title="{{item.title}}">
@@ -18,19 +18,24 @@
       data-row-total="{{item.show_row_total}}"
       data-column-total="{{item.show_column_total}}"
       data-filter-defaults="{{item.default_filter_values}}"
-      data-minimum-value="{{item.minimum_highlight_value}}"
+      data-cell-highlight-condition="{{item.cell_highlight_condition}}"
+      data-cell-highlight-value="{{item.cell_highlight_value}}"
+      data-row-highlight-field="{{item.cell_highlight_field}}"
+      data-row-highlight-condition="{{item.cell_highlight_condition}}"
+      data-row-highlight-value="{{item.cell_highlight_value}}"
     ></div>
 
     <div class="chart-loading">
-      <div class="chart-loading__block"><div></div><div></div><div></div><div></div></div>
+      <div class="chart-loading__block">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
     </div>
   </div>
 </div>
 
-{% include 'visualisation/chart_instructions.html' %}
-
-{% if item.caption %}
-  <figcaption class="media-caption">
-    {% content_with_footnotes item.caption %}
-  </figcaption>
+{% include 'visualisation/chart_instructions.html' %} {% if item.caption %}
+<figcaption class="media-caption">{% content_with_footnotes item.caption %}</figcaption>
 {% endif %}

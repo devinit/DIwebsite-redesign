@@ -12,10 +12,11 @@ import {
   getColumnTotals,
   getRowsWithTotals,
   addCommas,
+  highlightCell,
 } from './utils';
 
-const HighlightedTableCell = styled.td<{ cell: string; minimumValue: string }>`
-  background: ${(p) => (p.minimumValue ? (+p.cell <= +p.minimumValue ? '#ffb3b3' : 'none') : 'none')};
+const HighlightedTableCell = styled.td<{ cell: string; highlight: boolean }>`
+  background: ${(p) => (p.highlight ? '#ffb3b3' : 'none')};
 `;
 const BoldTableHeader = styled.th`
   font-weight: bold;
@@ -108,7 +109,15 @@ const PivotTable: FC<PivotTableProps> = (props) => {
                     </th>
                   )
                 ) : (
-                  <HighlightedTableCell key={key} cell={cell} minimumValue={props.minimumValue as string}>
+                  <HighlightedTableCell
+                    key={key}
+                    cell={cell}
+                    highlight={highlightCell(
+                      Number(cell),
+                      props.cellHighlightCondition,
+                      Number(props.cellHighlightValue),
+                    )}
+                  >
                     {cell}
                   </HighlightedTableCell>
                 ),

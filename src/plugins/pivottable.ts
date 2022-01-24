@@ -1,6 +1,6 @@
 import { createElement } from 'react';
 import { render } from 'react-dom';
-import { Filter, PivotTable } from '../components/PivotTable';
+import { Filter, HighlightCondition, PivotTable } from '../components/PivotTable';
 import { addLoading, removeLoading } from '../visualisation/loading';
 
 const parseFiltersFromString = (filters: string[], filterDefaults: string[]): Filter[] =>
@@ -25,7 +25,11 @@ export const initPivotTables = function (): void {
       rowTotal,
       columnTotal,
       filterDefaults,
-      minimumValue,
+      cellHighlightCondition,
+      cellHighlightValue,
+      rowHighlightField,
+      rowHighlightCondition,
+      rowHighlightValue,
     } = tableWrapper.dataset;
     if (dataURL) {
       window.d3.csv(dataURL, (data) => {
@@ -41,7 +45,11 @@ export const initPivotTables = function (): void {
             showRowTotal: rowTotal === 'True',
             showColumnTotal: columnTotal === 'True',
             cellValue: cell || '',
-            minimumValue: minimumValue || '',
+            cellHighlightCondition: cellHighlightCondition as HighlightCondition,
+            cellHighlightValue,
+            rowHighlightField,
+            rowHighlightCondition: rowHighlightCondition as HighlightCondition,
+            rowHighlightValue,
           }),
           tableWrapper,
         );

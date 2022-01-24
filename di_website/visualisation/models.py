@@ -265,5 +265,13 @@ class PivotTable(InstructionsMixin, CaptionMixin, Page):
         CaptionPanel(),
     ]
 
+
+    @cached_property
+    def instructions_text(self):
+        if self.instructions:
+            return self.instructions
+
+        return ''
+
     class Meta:
         verbose_name = 'Pivot Table'

@@ -1,6 +1,6 @@
 {% extends 'layouts/default.html' %}
 
-{% load static %}
+{% load static chart_utils %}
 
 {% block header %}{% endblock %}
 {% block metadata %}{% endblock %}
@@ -37,7 +37,14 @@
 {% endblock %}
 
 {% block footer %}{% endblock %}
+
+{% block html_header %}
+  {{block.super}}
+  {% if page.header_assets %}{% load_as_template raw_html=page.header_assets %}{% endif %}
+{% endblock html_header %}
+
 {% block html_footer %}
     {{ block.super }}
+    {% if page.footer_assets %}{% load_as_template raw_html=page.footer_assets %}{% endif %}
     <script src="{% static 'visualisation/js/dicharts.js' %}"></script>
 {% endblock %}

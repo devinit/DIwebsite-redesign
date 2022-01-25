@@ -212,6 +212,20 @@ class CodePageMixin(InstructionsMixin, CaptionMixin, EChartOptionsMixin, D3Optio
 
         return ''
 
+    @cached_property
+    def header_assets(self):
+        if self.parent.header_assets:
+            return self.parent.header_assets
+
+        return ''
+
+    @cached_property
+    def footer_assets(self):
+        if self.parent.footer_assets:
+            return self.parent.footer_assets
+
+        return ''
+
     def get_sitemap_urls(self, request):
         return []
 

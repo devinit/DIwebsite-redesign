@@ -45,6 +45,6 @@
 
 {% block html_footer %}
     {{ block.super }}
-    {% if page.footer_assets %}{% load_as_template raw_html=page.footer_assets %}{% endif %}
     <script src="{% static 'visualisation/js/dicharts.js' %}"></script>
+    {% if page.footer_assets %}{% load_as_template raw_html=page.footer_assets %}{% endif %}
 {% endblock %}

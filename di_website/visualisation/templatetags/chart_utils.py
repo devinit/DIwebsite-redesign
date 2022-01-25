@@ -40,3 +40,32 @@ def has_pivot_table(context):
             break
 
     return has_pivot_table
+
+@register.simple_tag(takes_context=True)
+def load_viz_assets(context, source='header'):
+    context = Context(context)
+    self = context['page']
+    assets = []
+    for block in self.content:
+        if block.block_type == 'advanced_interactive_chart':
+            chart_page = block.value['chart_page']
+            if chart_page and source == 'header':
+                header_assets = chart_page.specific.header_assets
+                duplicate = False
+                for asset in assets:
+                    if asset == header_assets:
+                        duplicate = True
+
+                if not duplicate:
+                    assets.append(header_assets)
+            elif chart_page and source == 'footer':
+                footer_assets = chart_page.specific.footer_assets
+                duplicate = False
+                for asset in assets:
+                    if asset == footer_assets:
+                        duplicate = True
+
+                if not duplicate:
+                    assets.append(footer_assets)
+
+    return load_as_template(context, '\n'.join(assets))

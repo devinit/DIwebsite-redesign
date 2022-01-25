@@ -10,6 +10,7 @@ from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 
 from di_website.common.edit_handlers import HelpPanel
 from di_website.common.constants import MINIMAL_RICHTEXT_FEATURES
+from di_website.visualisation.fields import AceEditorField
 from di_website.visualisation.mixins import (
     CaptionMixin, CodePageMixin, GeneralInstructionsMixin, InstructionsMixin, SpecificInstructionsMixin,
     ChartOptionsMixin, FallbackImageMixin
@@ -35,6 +36,19 @@ class VisualisationsPage(GeneralInstructionsMixin, Page):
     class Meta:
         verbose_name = 'Visualisations Page'
 
+    header_assets = AceEditorField(
+        options={'mode':'html'},
+        blank=True,
+        default='{% load wagtailcore_tags %}',
+        help_text='Optional: code that should be added to document head e.g. CSS'
+    )
+    footer_assets = AceEditorField(
+        options={'mode':'html'},
+        blank=True,
+        default='{% load wagtailcore_tags %}',
+        help_text='Optional: code that should be added to bottom of the document body e.g. JavaScript'
+    )
+
     no_js_text = models.CharField(
         max_length=255,
         default='To view this interactive visualisation make sure JavaScript is available on your device.',
@@ -48,6 +62,13 @@ class VisualisationsPage(GeneralInstructionsMixin, Page):
     )
 
     content_panels = Page.content_panels + [
+        MultiFieldPanel(
+            [
+                FieldPanel('header_assets'),
+                FieldPanel('footer_assets'),
+            ],
+            heading='Assets'
+        ),
         MultiFieldPanel(
             [
                 HelpPanel('''

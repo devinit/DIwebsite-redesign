@@ -276,6 +276,8 @@ class AdvancedInteractiveChartBlock(StructBlock):
         template = 'publications/blocks/interactive_chart.html'
         form_template = 'publications/block_forms/custom_struct.html'
 
+    show_title = BooleanBlock(required=False, default=True)
+    allow_share = BooleanBlock(required=False, default=True)
     chart_page = PageChooserBlock(
         page_type=['visualisation.AdvancedChartPage','visualisation.RawCodePage']
     )

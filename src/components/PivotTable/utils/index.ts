@@ -158,20 +158,20 @@ export const addCommas = (rows: string[][]): string[][] => {
   return rows;
 };
 
-export const highlightCell = (cellValue: number, condition?: HighlightCondition, compareValue?: number): boolean => {
+export const highlightCell = (cellValue: string, condition?: HighlightCondition, compareValue?: number): boolean => {
   if (!condition || !compareValue) return false;
-
+  const value = Number(cellValue.replace(',', ''));
   switch (condition) {
     case 'lt':
-      return cellValue < compareValue;
+      return value < compareValue;
     case 'gt':
-      return cellValue > compareValue;
+      return value > compareValue;
     case 'lte':
-      return cellValue <= compareValue;
+      return value <= compareValue;
     case 'gte':
-      return cellValue >= compareValue;
+      return value >= compareValue;
     case 'eq':
-      return cellValue === compareValue;
+      return value === compareValue;
     default:
       return false;
   }

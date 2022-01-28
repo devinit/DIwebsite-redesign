@@ -116,11 +116,7 @@ const PivotTable: FC<PivotTableProps> = (props) => {
                   <HighlightedTableCell
                     key={key}
                     cell={cell}
-                    highlight={highlightCell(
-                      Number(cell),
-                      props.cellHighlightCondition,
-                      Number(props.cellHighlightValue),
-                    )}
+                    highlight={highlightCell(cell, props.cellHighlightCondition, Number(props.cellHighlightValue))}
                   >
                     {cell}
                   </HighlightedTableCell>

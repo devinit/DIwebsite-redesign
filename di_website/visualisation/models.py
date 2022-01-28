@@ -3,9 +3,11 @@ from django.db import models
 from django.http import Http404, JsonResponse
 from django.utils.functional import cached_property
 
+from modelcluster.fields import ParentalKey
+
 from wagtail.core.fields import RichTextField
-from wagtail.core.models import Page
-from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
+from wagtail.core.models import Page, Orderable
+from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, InlinePanel
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 
 from di_website.common.edit_handlers import HelpPanel
@@ -235,6 +237,76 @@ class PivotTable(InstructionsMixin, CaptionMixin, Page):
         verbose_name='Cell value',
         help_text='Optional: value to conditionally highlight cells'
     )
+    # row_highlight_field = models.CharField(
+    #     blank=True,
+    #     null=True,
+    #     max_length=100,
+    #     verbose_name='Column/Field',
+    #     help_text='Optional: column the value of which to conditionally highlight row'
+    # )
+    # row_highlight_condition = models.CharField(
+    #     blank=True,
+    #     null=True,
+    #     max_length=5,
+    #     choices=HIGHLIGHT_CONDITION,
+    #     default='lt',
+    #     verbose_name='Condition',
+    #     help_text='Optional: condition for highlighting a row'
+    # )
+    # row_highlight_value = models.CharField(
+    #     blank=True,
+    #     null=True,
+    #     max_length=200,
+    #     verbose_name='Column value',
+    #     help_text='Optional: column value to conditionally highlight row'
+    # )
+
+    content_panels = Page.content_panels + [
+        FieldPanel('data_source_url'),
+        MultiFieldPanel([
+            FieldPanel('row_label'),
+            FieldPanel('column_label'),
+            FieldPanel('cell_value'),
+            FieldPanel('row_label_heading'),
+        ], heading='Table Data Config'),
+        MultiFieldPanel([
+            FieldPanel('show_row_total'),
+            FieldPanel('show_column_total'),
+        ], heading='Totals'),
+        MultiFieldPanel([
+            FieldPanel('filter_by'),
+            FieldPanel('default_filter_values'),
+        ], heading='Filters'),
+        MultiFieldPanel([
+            FieldPanel('cell_highlight_condition'),
+            FieldPanel('cell_highlight_value'),
+        ], heading='Highlight Cell'),
+        InlinePanel('row_highlights', label='Highlight Row'),
+        InstructionsPanel(),
+        CaptionPanel(),
+    ]
+
+
+    @cached_property
+    def instructions_text(self):
+        if self.instructions:
+            return self.instructions
+
+        return ''
+
+    class Meta:
+        verbose_name = 'Pivot Table'
+
+class PivotTableRowHighlight(Orderable):
+    HIGHLIGHT_CONDITION = [
+        ('lt', 'Less Than'),
+        ('gt', 'Greater Than'),
+        ('eq', 'Equals'),
+        ('lte', 'Less Than or Equal'),
+        ('gte', 'Greater Than or Equal'),
+    ]
+
+    table = ParentalKey(PivotTable, related_name='row_highlights', on_delete=models.CASCADE)
     row_highlight_field = models.CharField(
         blank=True,
         null=True,
@@ -258,43 +330,3 @@ class PivotTable(InstructionsMixin, CaptionMixin, Page):
         verbose_name='Column value',
         help_text='Optional: column value to conditionally highlight row'
     )
-
-    content_panels = Page.content_panels + [
-        FieldPanel('data_source_url'),
-        MultiFieldPanel([
-            FieldPanel('row_label'),
-            FieldPanel('column_label'),
-            FieldPanel('cell_value'),
-            FieldPanel('row_label_heading'),
-        ], heading='Table Data Config'),
-        MultiFieldPanel([
-            FieldPanel('show_row_total'),
-            FieldPanel('show_column_total'),
-        ], heading='Totals'),
-        MultiFieldPanel([
-            FieldPanel('filter_by'),
-            FieldPanel('default_filter_values'),
-        ], heading='Filters'),
-        MultiFieldPanel([
-            FieldPanel('cell_highlight_condition'),
-            FieldPanel('cell_highlight_value'),
-        ], heading='Highlight Cell'),
-        MultiFieldPanel([
-            FieldPanel('row_highlight_field'),
-            FieldPanel('row_highlight_condition'),
-            FieldPanel('row_highlight_value'),
-        ], heading='Highlight Row'),
-        InstructionsPanel(),
-        CaptionPanel(),
-    ]
-
-
-    @cached_property
-    def instructions_text(self):
-        if self.instructions:
-            return self.instructions
-
-        return ''
-
-    class Meta:
-        verbose_name = 'Pivot Table'

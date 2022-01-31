@@ -31,7 +31,10 @@ export const initPivotTables = function (): void {
       rowHighlightField,
       rowHighlightCondition,
       rowHighlightValue,
+      rowHighlightColour,
+      rowHighlights,
     } = tableWrapper.dataset;
+    console.log(JSON.parse(rowHighlights as string));
     if (dataURL) {
       window.d3.csv(dataURL, (data) => {
         if (tableParent) {
@@ -52,6 +55,7 @@ export const initPivotTables = function (): void {
             rowHighlightField,
             rowHighlightCondition: rowHighlightCondition as HighlightCondition,
             rowHighlightValue,
+            rowHighlightColour,
           }),
           tableWrapper,
         );

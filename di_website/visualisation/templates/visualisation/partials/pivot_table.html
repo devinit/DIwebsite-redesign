@@ -8,6 +8,7 @@
     </div>
   {% endif %}
 {% endif %}
+{% gets_row_highlights as row_highlights %}
 <div class="chart-container chart-container--full">
   <div class="charts__chart" data-title="{{item.title}}">
     <div
@@ -23,11 +24,12 @@
       data-filter-defaults="{{item.default_filter_values}}"
       data-cell-highlight-condition="{{item.cell_highlight_condition}}"
       data-cell-highlight-value="{{item.cell_highlight_value}}"
-      data-row-highlight-field="{{item.row_highlight_field}}"
-      data-row-highlight-condition="{{item.row_highlight_condition}}"
-      data-row-highlight-value="{{item.row_highlight_value}}"
+      data-row-highlights="{{row_highlights}}"
+      data-row-highlight-field="{{item.row_highlights.row_highlight_field}}"
+      data-row-highlight-condition="{{item.row_highlights.row_highlight_condition}}"
+      data-row-highlight-value="{{item.row_highlights.row_highlight_value}}"
+      data-row-highlight-colour="{{item.row_highlights.row_highlight_colour}}"
     ></div>
-
     <div class="chart-loading">
       <div class="chart-loading__block">
         <div></div>

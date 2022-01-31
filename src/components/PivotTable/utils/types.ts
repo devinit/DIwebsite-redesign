@@ -12,6 +12,7 @@ export interface PivotTableProps {
   rowHighlightField?: string;
   rowHighlightCondition?: HighlightCondition;
   rowHighlightValue?: string;
+  rowHighlightColour?: string;
 }
 
 export type HighlightCondition = 'lt' | 'gt' | 'lte' | 'gte' | 'eq';

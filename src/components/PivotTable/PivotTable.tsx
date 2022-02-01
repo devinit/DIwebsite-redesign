@@ -102,7 +102,7 @@ const PivotTable: FC<PivotTableProps> = (props) => {
         </thead>
         <tbody>
           {addCommas(rows).map((row, index) => (
-            <TableRow key={`${index}`} highlightColor={rowHighlightChecker(highlightedRows, row)}>
+            <TableRow key={`${index}`} highlightColor={rowHighlightChecker(highlightedRows, row[0])}>
               {row.map((cell, key) =>
                 key === 0 ? (
                   cell === 'Grand Total' ? (

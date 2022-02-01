@@ -31,6 +31,6 @@ export interface RowHighlight {
 }
 
 export interface HighlightedRow {
-  label?: string;
-  color?: string;
+  label: string;
+  color: string;
 }

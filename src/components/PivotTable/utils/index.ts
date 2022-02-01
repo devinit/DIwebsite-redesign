@@ -116,7 +116,8 @@ export const getRows = (
         const matchingData = data.find((d) => d[fields.row] === label && d[fields.column] === column);
 
         if (matchingData) {
-          highlights.map((highlight) => {
+          // for those that match multiple highlight conditions, only the first will be applied
+          highlights.forEach((highlight) => {
             if (!highlightedRows.map((item) => item.label).includes(label) && highlightRow(matchingData, highlight)) {
               highlightedRows.push({ label, color: highlight.color as string });
             }
@@ -179,8 +180,8 @@ export const highlightCell = (cellValue: string, condition?: HighlightCondition,
   }
 };
 
-export const rowHighlightChecker = (highlightedRows: HighlightedRow[], row: string[]): string => {
-  const highlightedRow = highlightedRows.find((item) => item.label === row[0]);
+export const rowHighlightChecker = (highlightedRows: HighlightedRow[], value: string): string => {
+  const highlightedRow = highlightedRows.find((item) => item.label === value);
 
-  return highlightedRow ? (highlightedRow.color as string) : '';
+  return highlightedRow ? highlightedRow.color : '';
 };

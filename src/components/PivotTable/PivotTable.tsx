@@ -14,6 +14,7 @@ import {
   addCommas,
   highlightCell,
   RowHighlight,
+  rowHighlightChecker,
 } from './utils';
 
 const HighlightedTableCell = styled.td<{ cell: string; highlight: boolean }>`
@@ -29,8 +30,8 @@ export const StyledPivotTableHeader = styled.th<{ column: string }>`
 export const FilterWrapper = styled.div`
   padding: 1rem 2rem 2rem 2rem;
 `;
-export const TableRow = styled.tr<{ highlight: boolean }>`
-  background: ${(p) => (p.highlight ? '#ffb3b3' : 'none')};
+export const TableRow = styled.tr<{ highlight: string }>`
+  background: ${(p) => (p.highlight ? p.highlight : 'none')};
 `;
 
 const PivotTable: FC<PivotTableProps> = (props) => {
@@ -101,7 +102,7 @@ const PivotTable: FC<PivotTableProps> = (props) => {
         </thead>
         <tbody>
           {addCommas(rows).map((row, index) => (
-            <TableRow key={`${index}`} highlight={highlightedRows.map((item) => item.label).includes(row[0])}>
+            <TableRow key={`${index}`} highlight={rowHighlightChecker(highlightedRows, row)}>
               {row.map((cell, key) =>
                 key === 0 ? (
                   cell === 'Grand Total' ? (

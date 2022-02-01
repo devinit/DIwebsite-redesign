@@ -200,13 +200,13 @@ class PivotTableRowHighlight(Orderable):
         ('gte', 'Greater Than or Equal'),
     ]
 
-    RED = 'poppy'
-    BLUE = 'bluebell'
-    PINK = 'rose'
-    YELLOW = 'sunflower'
-    ORANGE = 'marigold'
-    PURPLE = 'lavendar'
-    GREEN = 'leaf'
+    RED = '#E35335'
+    BLUE = '#A2A2D0'
+    PINK = '#ffb3b3'
+    YELLOW = '#f6a90f'
+    ORANGE = ' #eba832'
+    PURPLE = '#E6E6FA'
+    GREEN = '#2D5A27'
     COLOUR_CHOICES = (
     (RED, 'Red'),
     (BLUE, 'Blue'),

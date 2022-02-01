@@ -77,7 +77,6 @@ const PivotTable: FC<PivotTableProps> = (props) => {
     columns,
     props.showRowTotal as boolean,
     props.showColumnTotal as boolean,
-    // { field: props.rowHighlightField, condition: props.rowHighlightCondition, value: props.rowHighlightValue },
     props.rowHighlights as RowHighlight[],
   );
   const columnValueTotals = getColumnTotals(columns, dataRows);
@@ -102,7 +101,7 @@ const PivotTable: FC<PivotTableProps> = (props) => {
         </thead>
         <tbody>
           {addCommas(rows).map((row, index) => (
-            <TableRow key={`${index}`} highlight={highlightedRows.includes(row[0])}>
+            <TableRow key={`${index}`} highlight={highlightedRows.map((item) => item.label).includes(row[0])}>
               {row.map((cell, key) =>
                 key === 0 ? (
                   cell === 'Grand Total' ? (

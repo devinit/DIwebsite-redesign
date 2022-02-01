@@ -102,7 +102,6 @@ export const getRows = (
   columns: string[],
   showRowTotal: boolean,
   showColumnTotal: boolean,
-  // highlight: RowHighlight,
   highlights: RowHighlight[],
 ): [string[][], HighlightedRow[]] => {
   const GRAND_TOTAL_LABEL = 'Grand Total';
@@ -134,7 +133,6 @@ export const getRows = (
 
     return row;
   });
-  console.log(highlightedRows);
   if (showRowTotal) {
     const rowValueTotals: number[] = getTotals(rows);
 

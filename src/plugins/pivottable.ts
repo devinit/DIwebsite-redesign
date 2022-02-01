@@ -28,13 +28,8 @@ export const initPivotTables = function (): void {
       filterDefaults,
       cellHighlightCondition,
       cellHighlightValue,
-      // rowHighlightField,
-      // rowHighlightCondition,
-      // rowHighlightValue,
-      // rowHighlightColour,
       rowHighlights,
     } = tableWrapper.dataset;
-    console.log(JSON.parse(rowHighlights as string));
     if (dataURL) {
       window.d3.csv(dataURL, (data) => {
         if (tableParent) {
@@ -53,10 +48,6 @@ export const initPivotTables = function (): void {
             cellHighlightCondition: cellHighlightCondition as HighlightCondition,
             cellHighlightValue,
             rowHighlights: JSON.parse(rowHighlights as string),
-            // rowHighlightField,
-            // rowHighlightCondition: rowHighlightCondition as HighlightCondition,
-            // rowHighlightValue,
-            // rowHighlightColour,
           }),
           tableWrapper,
         );

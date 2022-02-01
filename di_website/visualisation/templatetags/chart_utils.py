@@ -80,6 +80,6 @@ def gets_row_highlights(context):
                 "field": highlight.row_highlight_field,
                 "condition": highlight.row_highlight_condition,
                 "value": highlight.row_highlight_value,
-                "color": highlight.row_highlight_colour
+                "color": highlight.row_highlight_colour or '#ffb3b3'
                 })
     return json.dumps(highlights)

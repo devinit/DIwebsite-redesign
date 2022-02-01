@@ -200,30 +200,13 @@ class PivotTableRowHighlight(Orderable):
         ('gte', 'Greater Than or Equal'),
     ]
 
-    RED = '#E35335'
-    BLUE = '#A2A2D0'
-    PINK = '#ffb3b3'
-    YELLOW = '#f6a90f'
-    ORANGE = ' #eba832'
-    PURPLE = '#E6E6FA'
-    GREEN = '#2D5A27'
-    COLOUR_CHOICES = (
-    (RED, 'Red'),
-    (BLUE, 'Blue'),
-    (PINK, 'Pink'),
-    (YELLOW, 'Yellow'),
-    (ORANGE, 'Orange'),
-    (PURPLE, 'Purple'),
-    (GREEN, 'Green')
-    )
-
     page = ParentalKey('visualisation.PivotTable', related_name='row_highlights', on_delete=models.CASCADE)
     row_highlight_field = models.CharField(
         blank=True,
         null=True,
         max_length=100,
         verbose_name='Column/Field',
-        help_text='Optional: column the value of which to conditionally highlight row'
+        help_text='Optional: value of the column for which to conditionally highlight row'
     )
     row_highlight_condition = models.CharField(
         blank=True,
@@ -244,8 +227,7 @@ class PivotTableRowHighlight(Orderable):
     row_highlight_colour = models.CharField(
         blank=True,
         max_length=256,
-        choices=COLOUR_CHOICES,
-        default=PINK
+        help_text='Optional: hex colour of highlighted row'
     )
 
 class PivotTable(InstructionsMixin, CaptionMixin, Page):

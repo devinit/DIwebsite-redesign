@@ -102,7 +102,8 @@ export const getRows = (
   columns: string[],
   showRowTotal: boolean,
   showColumnTotal: boolean,
-  highlight: RowHighlight,
+  // highlight: RowHighlight,
+  highlights: RowHighlight[],
 ): [string[][], string[]] => {
   const GRAND_TOTAL_LABEL = 'Grand Total';
   const rowLabels = showColumnTotal
@@ -116,9 +117,11 @@ export const getRows = (
         const matchingData = data.find((d) => d[fields.row] === label && d[fields.column] === column);
 
         if (matchingData) {
-          if (!highlightedRows.includes(label) && highlightRow(matchingData, highlight)) {
-            highlightedRows.push(label);
-          }
+          highlights.map((highlight) => {
+            if (!highlightedRows.includes(label) && highlightRow(matchingData, highlight)) {
+              highlightedRows.push(label);
+            }
+          });
           const value = matchingData[fields.cell] as string;
           if (value) {
             return `${parseInt(value).toFixed()}`;
@@ -131,6 +134,7 @@ export const getRows = (
 
     return row;
   });
+  console.log(highlightedRows);
   if (showRowTotal) {
     const rowValueTotals: number[] = getTotals(rows);
 

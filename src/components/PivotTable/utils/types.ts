@@ -9,6 +9,7 @@ export interface PivotTableProps {
   showColumnTotal?: boolean;
   cellHighlightCondition?: HighlightCondition;
   cellHighlightValue?: string;
+  rowHighlights?: RowHighlight[];
   rowHighlightField?: string;
   rowHighlightCondition?: HighlightCondition;
   rowHighlightValue?: string;
@@ -26,4 +27,5 @@ export interface RowHighlight {
   field?: string;
   condition?: HighlightCondition;
   value?: string | number;
+  color?: string;
 }

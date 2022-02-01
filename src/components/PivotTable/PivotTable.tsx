@@ -13,6 +13,7 @@ import {
   getRowsWithTotals,
   addCommas,
   highlightCell,
+  RowHighlight,
 } from './utils';
 
 const HighlightedTableCell = styled.td<{ cell: string; highlight: boolean }>`
@@ -76,7 +77,8 @@ const PivotTable: FC<PivotTableProps> = (props) => {
     columns,
     props.showRowTotal as boolean,
     props.showColumnTotal as boolean,
-    { field: props.rowHighlightField, condition: props.rowHighlightCondition, value: props.rowHighlightValue },
+    // { field: props.rowHighlightField, condition: props.rowHighlightCondition, value: props.rowHighlightValue },
+    props.rowHighlights as RowHighlight[],
   );
   const columnValueTotals = getColumnTotals(columns, dataRows);
   const rows = props.showColumnTotal ? getRowsWithTotals(dataRows, columnValueTotals) : dataRows;

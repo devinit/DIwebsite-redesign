@@ -29,3 +29,8 @@ export interface RowHighlight {
   value?: string | number;
   color?: string;
 }
+
+export interface HighlightedRow {
+  label?: string;
+  color?: string;
+}

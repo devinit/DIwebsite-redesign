@@ -1,4 +1,4 @@
-import { Filter, HighlightCondition, RowHighlight } from './types';
+import { Filter, HighlightCondition, HighlightedRow, RowHighlight } from './types';
 
 export * from './types';
 
@@ -104,13 +104,13 @@ export const getRows = (
   showColumnTotal: boolean,
   // highlight: RowHighlight,
   highlights: RowHighlight[],
-): [string[][], string[]] => {
+): [string[][], HighlightedRow[]] => {
   const GRAND_TOTAL_LABEL = 'Grand Total';
   const rowLabels = showColumnTotal
     ? getColumnValues(data, fields.row).concat(GRAND_TOTAL_LABEL)
     : getColumnValues(data, fields.row);
 
-  const highlightedRows: string[] = [];
+  const highlightedRows: HighlightedRow[] = [];
   const rows = rowLabels.map((label) => {
     const row: string[] = [label].concat(
       columns.slice(1).map((column) => {
@@ -118,8 +118,8 @@ export const getRows = (
 
         if (matchingData) {
           highlights.map((highlight) => {
-            if (!highlightedRows.includes(label) && highlightRow(matchingData, highlight)) {
-              highlightedRows.push(label);
+            if (!highlightedRows.map((item) => item.label).includes(label) && highlightRow(matchingData, highlight)) {
+              highlightedRows.push({ label, color: highlight.color as string });
             }
           });
           const value = matchingData[fields.cell] as string;

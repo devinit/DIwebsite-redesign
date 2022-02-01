@@ -30,8 +30,8 @@ export const StyledPivotTableHeader = styled.th<{ column: string }>`
 export const FilterWrapper = styled.div`
   padding: 1rem 2rem 2rem 2rem;
 `;
-export const TableRow = styled.tr<{ highlight: string }>`
-  background: ${(p) => (p.highlight ? p.highlight : 'none')};
+export const TableRow = styled.tr<{ highlightColor: string }>`
+  background: ${(p) => (p.highlightColor ? p.highlightColor : 'none')};
 `;
 
 const PivotTable: FC<PivotTableProps> = (props) => {

@@ -69,3 +69,17 @@ def load_viz_assets(context, source='header'):
                     assets.append(footer_assets)
 
     return load_as_template(context, '\n'.join(assets))
+
+@register.simple_tag(takes_context=True)
+def gets_row_highlights(context):
+    context = Context(context)
+    self = context['page']
+    highlights = []
+    for highlight in self.row_highlights.all():
+        highlights.append({
+                "field": highlight.row_highlight_field,
+                "condition": highlight.row_highlight_condition,
+                "value": highlight.row_highlight_value,
+                "color": highlight.row_highlight_colour or '#ffb3b3'
+                })
+    return json.dumps(highlights)

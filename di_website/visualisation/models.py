@@ -3,9 +3,11 @@ from django.db import models
 from django.http import Http404, JsonResponse
 from django.utils.functional import cached_property
 
+from modelcluster.fields import ParentalKey
+
 from wagtail.core.fields import RichTextField
-from wagtail.core.models import Page
-from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
+from wagtail.core.models import Page, Orderable
+from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, InlinePanel
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 
 from di_website.common.edit_handlers import HelpPanel
@@ -189,6 +191,45 @@ class RawCodePage(CodePageMixin, Page):
     class Meta:
         verbose_name = 'Raw Code Snippet'
 
+class PivotTableRowHighlight(Orderable):
+    HIGHLIGHT_CONDITION = [
+        ('lt', 'Less Than'),
+        ('gt', 'Greater Than'),
+        ('eq', 'Equals'),
+        ('lte', 'Less Than or Equal'),
+        ('gte', 'Greater Than or Equal'),
+    ]
+
+    page = ParentalKey('visualisation.PivotTable', related_name='row_highlights', on_delete=models.CASCADE)
+    row_highlight_field = models.CharField(
+        blank=True,
+        null=True,
+        max_length=100,
+        verbose_name='Column/Field',
+        help_text='Optional: value of the column for which to conditionally highlight row'
+    )
+    row_highlight_condition = models.CharField(
+        blank=True,
+        null=True,
+        max_length=5,
+        choices=HIGHLIGHT_CONDITION,
+        default='lt',
+        verbose_name='Condition',
+        help_text='Optional: condition for highlighting a row'
+    )
+    row_highlight_value = models.CharField(
+        blank=True,
+        null=True,
+        max_length=200,
+        verbose_name='Column value',
+        help_text='Optional: column value to conditionally highlight row'
+    )
+    row_highlight_colour = models.CharField(
+        blank=True,
+        max_length=256,
+        default='#ffb3b3',
+        help_text='Optional: HTML colour of highlighted row - when in doubt, refer to https://htmlcolors.com/'
+    )
 
 class PivotTable(InstructionsMixin, CaptionMixin, Page):
     parent_page_types = [VisualisationsPage]
@@ -235,29 +276,6 @@ class PivotTable(InstructionsMixin, CaptionMixin, Page):
         verbose_name='Cell value',
         help_text='Optional: value to conditionally highlight cells'
     )
-    row_highlight_field = models.CharField(
-        blank=True,
-        null=True,
-        max_length=100,
-        verbose_name='Column/Field',
-        help_text='Optional: column the value of which to conditionally highlight row'
-    )
-    row_highlight_condition = models.CharField(
-        blank=True,
-        null=True,
-        max_length=5,
-        choices=HIGHLIGHT_CONDITION,
-        default='lt',
-        verbose_name='Condition',
-        help_text='Optional: condition for highlighting a row'
-    )
-    row_highlight_value = models.CharField(
-        blank=True,
-        null=True,
-        max_length=200,
-        verbose_name='Column value',
-        help_text='Optional: column value to conditionally highlight row'
-    )
 
     content_panels = Page.content_panels + [
         FieldPanel('data_source_url'),
@@ -280,10 +298,8 @@ class PivotTable(InstructionsMixin, CaptionMixin, Page):
             FieldPanel('cell_highlight_value'),
         ], heading='Highlight Cell'),
         MultiFieldPanel([
-            FieldPanel('row_highlight_field'),
-            FieldPanel('row_highlight_condition'),
-            FieldPanel('row_highlight_value'),
-        ], heading='Highlight Row'),
+            InlinePanel('row_highlights', label='Row Highlight'),
+        ], heading="Highlight Row"),
         InstructionsPanel(),
         CaptionPanel(),
     ]

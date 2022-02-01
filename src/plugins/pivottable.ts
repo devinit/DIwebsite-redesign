@@ -28,9 +28,7 @@ export const initPivotTables = function (): void {
       filterDefaults,
       cellHighlightCondition,
       cellHighlightValue,
-      rowHighlightField,
-      rowHighlightCondition,
-      rowHighlightValue,
+      rowHighlights,
     } = tableWrapper.dataset;
     if (dataURL) {
       window.d3.csv(dataURL, (data) => {
@@ -49,9 +47,7 @@ export const initPivotTables = function (): void {
             cellValue: cell || '',
             cellHighlightCondition: cellHighlightCondition as HighlightCondition,
             cellHighlightValue,
-            rowHighlightField,
-            rowHighlightCondition: rowHighlightCondition as HighlightCondition,
-            rowHighlightValue,
+            rowHighlights: JSON.parse(rowHighlights as string),
           }),
           tableWrapper,
         );

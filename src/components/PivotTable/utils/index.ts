@@ -1,4 +1,4 @@
-import { Filter, HighlightCondition, RowHighlight } from './types';
+import { Filter, HighlightCondition, HighlightedRow, RowHighlight } from './types';
 
 export * from './types';
 
@@ -102,23 +102,26 @@ export const getRows = (
   columns: string[],
   showRowTotal: boolean,
   showColumnTotal: boolean,
-  highlight: RowHighlight,
-): [string[][], string[]] => {
+  highlights: RowHighlight[],
+): [string[][], HighlightedRow[]] => {
   const GRAND_TOTAL_LABEL = 'Grand Total';
   const rowLabels = showColumnTotal
     ? getColumnValues(data, fields.row).concat(GRAND_TOTAL_LABEL)
     : getColumnValues(data, fields.row);
 
-  const highlightedRows: string[] = [];
+  const highlightedRows: HighlightedRow[] = [];
   const rows = rowLabels.map((label) => {
     const row: string[] = [label].concat(
       columns.slice(1).map((column) => {
         const matchingData = data.find((d) => d[fields.row] === label && d[fields.column] === column);
 
         if (matchingData) {
-          if (!highlightedRows.includes(label) && highlightRow(matchingData, highlight)) {
-            highlightedRows.push(label);
-          }
+          // for those that match multiple highlight conditions, only the first will be applied
+          highlights.forEach((highlight) => {
+            if (!highlightedRows.map((item) => item.label).includes(label) && highlightRow(matchingData, highlight)) {
+              highlightedRows.push({ label, color: highlight.color as string });
+            }
+          });
           const value = matchingData[fields.cell] as string;
           if (value) {
             return `${parseInt(value).toFixed()}`;
@@ -158,21 +161,27 @@ export const addCommas = (rows: string[][]): string[][] => {
   return rows;
 };
 
-export const highlightCell = (cellValue: number, condition?: HighlightCondition, compareValue?: number): boolean => {
+export const highlightCell = (cellValue: string, condition?: HighlightCondition, compareValue?: number): boolean => {
   if (!condition || !compareValue) return false;
-
+  const value = Number(cellValue.replace(',', ''));
   switch (condition) {
     case 'lt':
-      return cellValue < compareValue;
+      return value < compareValue;
     case 'gt':
-      return cellValue > compareValue;
+      return value > compareValue;
     case 'lte':
-      return cellValue <= compareValue;
+      return value <= compareValue;
     case 'gte':
-      return cellValue >= compareValue;
+      return value >= compareValue;
     case 'eq':
-      return cellValue === compareValue;
+      return value === compareValue;
     default:
       return false;
   }
+};
+
+export const rowHighlightChecker = (highlightedRows: HighlightedRow[], value: string): string => {
+  const highlightedRow = highlightedRows.find((item) => item.label === value);
+
+  return highlightedRow ? highlightedRow.color : '';
 };

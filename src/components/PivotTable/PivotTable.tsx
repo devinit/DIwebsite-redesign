@@ -13,6 +13,8 @@ import {
   getRowsWithTotals,
   addCommas,
   highlightCell,
+  RowHighlight,
+  rowHighlightChecker,
 } from './utils';
 
 const HighlightedTableCell = styled.td<{ cell: string; highlight: boolean }>`
@@ -28,8 +30,8 @@ export const StyledPivotTableHeader = styled.th<{ column: string }>`
 export const FilterWrapper = styled.div`
   padding: 1rem 2rem 2rem 2rem;
 `;
-export const TableRow = styled.tr<{ highlight: boolean }>`
-  background: ${(p) => (p.highlight ? '#ffb3b3' : 'none')};
+export const TableRow = styled.tr<{ highlightColor: string }>`
+  background: ${(p) => (p.highlightColor ? p.highlightColor : 'none')};
 `;
 
 const PivotTable: FC<PivotTableProps> = (props) => {
@@ -76,7 +78,7 @@ const PivotTable: FC<PivotTableProps> = (props) => {
     columns,
     props.showRowTotal as boolean,
     props.showColumnTotal as boolean,
-    { field: props.rowHighlightField, condition: props.rowHighlightCondition, value: props.rowHighlightValue },
+    props.rowHighlights as RowHighlight[],
   );
   const columnValueTotals = getColumnTotals(columns, dataRows);
   const rows = props.showColumnTotal ? getRowsWithTotals(dataRows, columnValueTotals) : dataRows;
@@ -100,7 +102,7 @@ const PivotTable: FC<PivotTableProps> = (props) => {
         </thead>
         <tbody>
           {addCommas(rows).map((row, index) => (
-            <TableRow key={`${index}`} highlight={highlightedRows.includes(row[0])}>
+            <TableRow key={`${index}`} highlightColor={rowHighlightChecker(highlightedRows, row[0])}>
               {row.map((cell, key) =>
                 key === 0 ? (
                   cell === 'Grand Total' ? (
@@ -116,11 +118,7 @@ const PivotTable: FC<PivotTableProps> = (props) => {
                   <HighlightedTableCell
                     key={key}
                     cell={cell}
-                    highlight={highlightCell(
-                      Number(cell),
-                      props.cellHighlightCondition,
-                      Number(props.cellHighlightValue),
-                    )}
+                    highlight={highlightCell(cell, props.cellHighlightCondition, Number(props.cellHighlightValue))}
                   >
                     {cell}
                   </HighlightedTableCell>

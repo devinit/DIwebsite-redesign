@@ -227,7 +227,8 @@ class PivotTableRowHighlight(Orderable):
     row_highlight_colour = models.CharField(
         blank=True,
         max_length=256,
-        help_text='Optional: hex colour of highlighted row'
+        default='#ffb3b3',
+        help_text='Optional: HTML colour of highlighted row - when in doubt, refer to https://htmlcolors.com/'
     )
 
 class PivotTable(InstructionsMixin, CaptionMixin, Page):

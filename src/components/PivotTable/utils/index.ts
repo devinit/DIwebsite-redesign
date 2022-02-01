@@ -180,8 +180,7 @@ export const highlightCell = (cellValue: string, condition?: HighlightCondition,
 };
 
 export const rowHighlightChecker = (highlightedRows: HighlightedRow[], row: string[]): string => {
-  const myChecker = highlightedRows.filter((item) => item.label === row[0]);
-  if (myChecker.length > 0) return myChecker[0].color as string;
+  const highlightedRow = highlightedRows.find((item) => item.label === row[0]);
 
-  return '';
+  return highlightedRow ? (highlightedRow.color as string) : '';
 };

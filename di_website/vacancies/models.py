@@ -114,10 +114,12 @@ class VacancyPage(TypesetBodyMixin, SectionBodyMixin, HeroMixin, Page):
         on_delete=models.SET_NULL
         )
     application_close = models.DateField(
+        "vacancies.ClosingDate",
         blank=True,
         null=True,
         auto_now=False,
-        auto_now_add=False
+        auto_now_add=False,
+        # on_delete=models.SET_NULL
     )
     first_interview = models.CharField(
         blank=True,
@@ -161,10 +163,10 @@ class VacancyPage(TypesetBodyMixin, SectionBodyMixin, HeroMixin, Page):
             FieldPanel('vacancy'),
             FieldPanel('duration'),
             FieldPanel('location'),
-            FieldPanel('salary_scale', widget=forms.CheckboxSelectMultiple)
+            FieldPanel('salary_scale', widget=forms.Select)
         ], heading='Vacancy Info'),
         MultiFieldPanel([
-            FieldPanel('application_close'),
+            FieldPanel('application_close', widget=forms.Select),
             FieldPanel('first_interview'),
             FieldPanel('second_interview'),
             FieldPanel('job_start')
@@ -208,7 +210,7 @@ class SalaryScale(models.Model):
     ]
 
     def __str__(self):
-        return self.title
+        return self.salary_scale
 
     class Meta:
         verbose_name = 'salary scale'
@@ -228,7 +230,7 @@ class ClosingDate(models.Model):
     ]
 
     def __str__(self):
-        return self.application_close
+        return str(self.application_close)
 
     class Meta:
         verbose_name_plural = 'applications close'

@@ -13,21 +13,24 @@
         {% breadcrumbs %}
         <div class="highlight">
             <span class="highlight__flag">{{ page.duration }}</span>
-            {% with salary_scale=page.salary_scale.all %}
+            {% with salary_scale=page.salary_scale.all application_close=page.application_close.all %}
+                
                 
                 <ul class="highlight__list">
                     {% if page.location %}
                         <li><span>Location:</span>{{ page.location }}</li>
                     {% endif %}
+
                     {% if salary_scale %}
                         {% for salary in salary_scale %}
                             <l1><span>{{salary.salary_scale}}</span></l1>
                         {% endfor %}
                     {% endif %}
                        
-
-                    {% if page.application_close %}
-                        <li><span>Closing date:</span>{{ page.application_close|date:"j F Y" }}</li>
+                    {% if application_close %}
+                        {% for close in application_close %}
+                            <li><span></span>{{ close.application_close }}</li>
+                        {% endfor %}        
                     {% endif %}
 
                     {% if page.first_interview %}

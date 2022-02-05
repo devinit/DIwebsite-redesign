@@ -191,6 +191,25 @@ class VacancyPage(TypesetBodyMixin, SectionBodyMixin, HeroMixin, Page):
         verbose_name = 'Vacancy Page'
 
 
+@register_snippet
+class SalaryScale(models.Model):
+    salary_scale = models.CharField(max_length=225, blank=True)
+
+    panels = [
+        FieldPanel('salary_scale')
+    ]
+
+    def __str__(self):
+        return self.salary_scale
+
+    class Meta:
+        verbose_name = 'salary scale'
+        verbose_name_plural = 'salary scales'
+
+@register_snippet
+class ClosingDate(models.Model):
+
+
 class VacancyDownload(Orderable):
     page = ParentalKey(
         VacancyPage, related_name='page_downloads', on_delete=models.CASCADE

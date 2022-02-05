@@ -208,7 +208,22 @@ class SalaryScale(models.Model):
 
 @register_snippet
 class ClosingDate(models.Model):
+    application_close = models.DateField(
+        blank=True,
+        null=True,
+        auto_now=False,
+        auto_now_add=False
+    )
 
+    panels = [
+        FieldPanel('application_close')
+    ]
+
+    def __str__(self):
+        return self.application_close
+
+    class Meta:
+        verbose_name_plural = 'applications close'
 
 class VacancyDownload(Orderable):
     page = ParentalKey(

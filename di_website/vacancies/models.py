@@ -1,4 +1,5 @@
 from django.db import models
+from django import forms
 from django.utils.functional import cached_property
 
 from wagtail.admin.edit_handlers import (
@@ -16,7 +17,7 @@ from di_website.common.base import hero_panels
 from di_website.common.mixins import HeroMixin, SectionBodyMixin, TypesetBodyMixin
 from di_website.common.constants import RICHTEXT_FEATURES_NO_FOOTNOTES
 
-from modelcluster.fields import ParentalKey
+from modelcluster.fields import ParentalKey, ParentalManyToManyField
 
 
 @register_snippet
@@ -106,7 +107,7 @@ class VacancyPage(TypesetBodyMixin, SectionBodyMixin, HeroMixin, Page):
         on_delete=models.SET_NULL,
         related_name='+'
     )
-    salary_scale = models.CharField(blank=True, max_length=255)
+    salary_scale = ParentalManyToManyField('vacancies.SalaryScale', blank=True)
     application_close = models.DateField(
         blank=True,
         null=True,
@@ -155,7 +156,7 @@ class VacancyPage(TypesetBodyMixin, SectionBodyMixin, HeroMixin, Page):
             FieldPanel('vacancy'),
             FieldPanel('duration'),
             FieldPanel('location'),
-            FieldPanel('salary_scale')
+            FieldPanel('salary_scale', widget=forms.CheckboxSelectMultiple)
         ], heading='Vacancy Info'),
         MultiFieldPanel([
             FieldPanel('application_close'),

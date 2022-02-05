@@ -107,7 +107,12 @@ class VacancyPage(TypesetBodyMixin, SectionBodyMixin, HeroMixin, Page):
         on_delete=models.SET_NULL,
         related_name='+'
     )
-    salary_scale = ParentalManyToManyField('vacancies.SalaryScale', blank=True)
+    salary_scale = models.ForeignKey(
+        "vacancies.SalaryScale",
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL
+        )
     application_close = models.DateField(
         blank=True,
         null=True,
@@ -194,14 +199,16 @@ class VacancyPage(TypesetBodyMixin, SectionBodyMixin, HeroMixin, Page):
 
 @register_snippet
 class SalaryScale(models.Model):
+    title = models.CharField(max_length=225, blank=True)
     salary_scale = models.CharField(max_length=225, blank=True)
 
     panels = [
+        FieldPanel('title'),
         FieldPanel('salary_scale')
     ]
 
     def __str__(self):
-        return self.salary_scale
+        return self.title
 
     class Meta:
         verbose_name = 'salary scale'

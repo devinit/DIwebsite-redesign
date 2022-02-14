@@ -84,7 +84,7 @@ Pattern library available online at [http://development-initiatives.surge.sh/](h
     ```
 2. Run command:
 
-        docker-compose -f docker-compose-dev.yml up --build
+        docker-compose -f docker-compose.dev.yml up --build
 
 3. You'll need to manually run migrations:
 

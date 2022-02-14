@@ -79,6 +79,23 @@ const diChartsConfig = {
   externals: ['echarts'],
 };
 
+const pivotTableConfig = {
+  ...sharedConfig,
+  entry: './src/visualisation/widgets/pivot-table.ts',
+  output: {
+    path: path.resolve(__dirname, 'di_website/visualisation/static/visualisation/widgets/js'),
+    filename: 'pivot-table.js',
+    publicPath: '/assets/visualisation/widgets/js/',
+    chunkFilename: 'table[chunkhash].js',
+    libraryTarget: 'umd',
+  },
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: './di_website/visualisation/static/visualisation/widgets/css/ace-editor.css',
+    }),
+  ],
+};
+
 const appConfig = {
   ...sharedConfig,
   entry: {
@@ -88,6 +105,7 @@ const appConfig = {
     dashboard: './src/dashboard/index.ts',
     notice: './src/notice/index.ts',
     optimize: './src/optimize/index.ts',
+    state: './src/state/index.ts',
   },
   output: {
     path: path.resolve(__dirname, 'src/assets/'),
@@ -101,4 +119,4 @@ const appConfig = {
   },
 };
 
-module.exports = [appConfig, wagtailAceEditorConfig, diChartsConfig, chartsConfig];
+module.exports = [appConfig, wagtailAceEditorConfig, pivotTableConfig, diChartsConfig, chartsConfig];

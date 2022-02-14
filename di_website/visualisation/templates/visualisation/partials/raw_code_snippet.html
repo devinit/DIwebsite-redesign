@@ -1,0 +1,34 @@
+{% load wagtailcore_tags wagtailroutablepage_tags wagtailimages_tags footnotes_utils chart_utils %}
+
+{% if show_title %}
+  <h3 class="type-l type-l--trailer">{{ item.title }}</h3>
+  {% if item.subtitle %}
+  <div class="is-typeset wysiwyg">
+    <p>{{ item.subtitle }}</p>
+  </div>
+  {% endif %}
+{% endif %}
+<div class="chart-container chart-container--full">
+  <div class="charts__chart" data-title="{{item.title}}">
+    {% load_as_template raw_html=item.html %}
+    <div class="chart-loading">
+      <div class="chart-loading__block"><div></div><div></div><div></div><div></div></div>
+    </div>
+  </div>
+</div>
+{% include 'visualisation/partials/chart_libraries.html' %}
+<script class="chart-js-inline">
+  window.addEventListener("load", function() {
+    (function () {
+      {% autoescape off %}{{item.javascript}}{% endautoescape %}
+    })();
+  }, false);
+</script>
+
+{% include 'visualisation/chart_instructions.html' %}
+
+{% if item.caption %}
+  <figcaption class="media-caption">
+    {% content_with_footnotes item.caption %}
+  </figcaption>
+{% endif %}

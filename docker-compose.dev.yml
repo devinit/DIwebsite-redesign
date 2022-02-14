@@ -47,5 +47,4 @@ volumes:
   diwebsite_db:
     external: true
   index_db:
-    driver: local
     external: true

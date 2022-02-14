@@ -32,6 +32,7 @@
       {% include_block block %}
     {% endfor %}
 
+    {% if page.dataset_info or page.get_dataset_listing_page %}
     <div class="row row--narrow {% if page.tools %}space-section-top{% endif %}">
       <div class="l-2up">
         <div class="l-2up__col">
@@ -72,6 +73,7 @@
         </div>
       </div>
     </div>
+    {% endif %}
   </section>
 
   <section class="section">

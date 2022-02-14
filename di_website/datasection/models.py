@@ -188,7 +188,8 @@ class DataSectionPage(TypesetBodyMixin, HeroMixin, Page):
 
     @cached_property
     def get_dataset_listing_page(self):
-        return self.get_children().type(DataSetListing)[0]
+        dataset_listing = self.get_children().type(DataSetListing)
+        return dataset_listing[0] if dataset_listing else None
 
     def count_quotes(self):
         quote_counter = 0
@@ -211,7 +212,7 @@ class DataSectionPage(TypesetBodyMixin, HeroMixin, Page):
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
         context['random_quote'] = self.get_random_quote()
-        context['dataset_count'] = DatasetPage.objects.live().count()
+        context['dataset_count'] = DatasetPage.objects.descendant_of(self).live().count()
         return context
 
 

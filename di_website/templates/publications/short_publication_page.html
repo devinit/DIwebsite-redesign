@@ -1,6 +1,6 @@
 {% extends "layouts/default.html" %}
 
-{% load string_utils wagtailcore_tags responsive wagtailimages_tags static %}
+{% load string_utils wagtailcore_tags responsive wagtailimages_tags static chart_utils %}
 
 {% block hero %}
   {% include 'includes/heroes/hero-pubs-short.html' %}
@@ -57,8 +57,17 @@
 
 {% endblock %}
 
+{% block html_header %}
+  {{block.super}}
+  {% load_viz_assets source='header' %}
+  {% if self.use_state %}
+  <script src="{% static 'state/js/bundle.js' %}"></script>
+  {% endif %}
+{% endblock html_header %}
 
 {% block html_footer %}
   {{block.super}}
   <script src="{% static 'publications/js/bundle.js' %}"></script>
+  {% load_viz_assets source='footer' %}
+  {% include 'visualisation/partials/pivot_table_footer_assets.html' %}
 {% endblock html_footer %}

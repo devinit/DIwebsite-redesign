@@ -1,3 +1,4 @@
+from wagtail.core.blocks.field_block import BooleanBlock
 from wagtail.core.fields import StreamField
 from wagtail.contrib.table_block.blocks import TableBlock
 from wagtail.images.blocks import ImageChooserBlock
@@ -169,6 +170,53 @@ class Table(StructBlock):
     )
 
 
+class PivotTable(StructBlock):
+
+    class Meta:
+        help_text = 'Uses a CSV data source to displays tabular data with an optional title.'
+        icon = 'table'
+        label = 'Pivot Table'
+        form_template = 'publications/block_forms/custom_struct.html'
+        template = 'publications/blocks/pivot-table.html'
+
+    show_title = BooleanBlock(required=False, default=True)
+    pivot_table = PageChooserBlock(page_type=['visualisation.PivotTable'])
+
+    def get_context(self, value, parent_context=None):
+        context = super().get_context(value, parent_context=parent_context)
+        pivot_table = value['pivot_table']
+        context['table'] = pivot_table.specific if pivot_table and pivot_table.live else ''
+        return context
+
+class DynamicTable(StructBlock):
+
+    class Meta:
+        help_text = 'Uses a CSV data source to display tabular data with an optional heading.'
+        icon = 'list-ol'
+        label = 'Dynamic Table'
+        form_template = 'publications/block_forms/custom_struct.html'
+        template = 'publications/blocks/dynamic-table.html'
+
+    heading = CharBlock(
+        required=False
+    )
+    data_source_url = URLBlock(help_text='Link to the CSV data file')
+    caption = RichTextBlock(
+        required=False,
+        features=FOOTNOTE_RICHTEXT_FEATURES,
+        help_text='Optional: caption text to appear below the table'
+    )
+    caption_link = URLBlock(
+        required=False,
+        help_text='Optional: external link to appear below the table'
+    )
+    caption_label = CharBlock(
+        required=False,
+        help_text='Optional: label for the caption link, defaults to the link if left blank'
+    )
+
+
+
 class AbstractRichText(StructBlock):
 
     class Meta:
@@ -228,8 +276,10 @@ class AdvancedInteractiveChartBlock(StructBlock):
         template = 'publications/blocks/interactive_chart.html'
         form_template = 'publications/block_forms/custom_struct.html'
 
+    show_title = BooleanBlock(required=False, default=True)
+    allow_share = BooleanBlock(required=False, default=True)
     chart_page = PageChooserBlock(
-        page_type='visualisation.AdvancedChartPage'
+        page_type=['visualisation.AdvancedChartPage','visualisation.RawCodePage']
     )
 
     def get_context(self, value, parent_context=None):
@@ -248,6 +298,8 @@ def flexible_content_streamfield(blank=False):
         ('downloads', Downloads()),
         ('section_heading', SectionHeading()),
         ('table', Table()),
+        ('pivot_table', PivotTable()),
+        ('dynamic_table', DynamicTable()),
         ('rich_text', RichText()),
         ('infographic', PublicationInfographic()),
         ('anchor', AnchorBlock()),

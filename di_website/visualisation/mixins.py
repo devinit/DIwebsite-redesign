@@ -1,11 +1,17 @@
 from django.db import models
+from django.utils.functional import cached_property
+from django.http import Http404
 
+from wagtail.core.models import Page
 from wagtail.core.fields import RichTextField, StreamField
-from wagtail.admin.edit_handlers import StreamFieldPanel
-from wagtail.core.blocks import ChoiceBlock, ListBlock
+from wagtail.admin.edit_handlers import FieldPanel
+from wagtail.core.blocks import ChoiceBlock
+from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 
 from di_website.common.constants import INSTRUCTIONS_RICHTEXT_FEATURES, SIMPLE_RICHTEXT_FEATURES
 from di_website.publications.utils import WagtailImageField
+from di_website.visualisation.fields import AceEditorField
+from di_website.visualisation.utils import CaptionPanel, D3OptionsPanel, EChartOptionsPanel, InstructionsPanel, PlotlyOptionsPanel
 
 
 class GeneralInstructionsMixin(models.Model):
@@ -155,3 +161,76 @@ class EChartOptionsMixin(models.Model):
         abstract = True
 
     use_echarts = models.BooleanField(default=False, blank=True, verbose_name='Use ECharts')
+
+
+class CaptionMixin(models.Model):
+    class Meta:
+        abstract = True
+
+    caption = RichTextField(
+        null=True,
+        blank=True,
+        help_text='Optional: caption text and link(s) for the chart',
+        features=INSTRUCTIONS_RICHTEXT_FEATURES + SIMPLE_RICHTEXT_FEATURES
+    )
+
+
+class CodePageMixin(InstructionsMixin, CaptionMixin, EChartOptionsMixin, D3OptionsMixin, PlotlyOptionsMixin, RoutablePageMixin, models.Model):
+    class Meta:
+        abstract = True
+
+    subtitle = models.TextField(
+        blank=True,
+        null=True,
+        help_text="Optional: subtitle to appear underneath the title."
+    )
+
+    html = AceEditorField(options={'mode':'html'}, blank=True, default='{% load wagtailcore_tags %}')
+    javascript = AceEditorField(options={'mode':'javascript'}, blank=True, default='"use strict";')
+    css = AceEditorField(options={'mode':'css'}, blank=True, default='/* CSS goes here */')
+
+    content_panels = Page.content_panels + [
+        FieldPanel('subtitle'),
+        PlotlyOptionsPanel(),
+        D3OptionsPanel(),
+        EChartOptionsPanel(),
+        FieldPanel('html', classname='collapsible'),
+        FieldPanel('javascript', classname='collapsible'),
+        # FieldPanel('css', classname='collapsible'), TODO: add CSS support - may work best in an iFrame
+        InstructionsPanel(),
+        CaptionPanel(),
+    ]
+
+    @cached_property
+    def parent(self):
+        return self.get_parent().specific
+
+    @cached_property
+    def instructions_text(self):
+        if self.instructions:
+            return self.instructions
+
+        return ''
+
+    @cached_property
+    def header_assets(self):
+        if self.parent.header_assets:
+            return self.parent.header_assets
+
+        return ''
+
+    @cached_property
+    def footer_assets(self):
+        if self.parent.footer_assets:
+            return self.parent.footer_assets
+
+        return ''
+
+    def get_sitemap_urls(self, request):
+        return []
+
+    @route(r'^$')
+    def chart(self, request):
+        if request.user.is_authenticated:
+            return super().serve(request)
+        raise Http404()

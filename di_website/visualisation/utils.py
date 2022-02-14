@@ -29,6 +29,10 @@ def InstructionsPanel():
     )
 
 
+def CaptionPanel():
+    return FieldPanel('caption')
+
+
 def SpecificInstructionsPanel():
     return MultiFieldPanel(
         [

@@ -2,7 +2,8 @@
 
 import json
 from django.core.management.base import BaseCommand
-from di_website.publications.models import LegacyPublicationPage
+from django.core.exceptions import ValidationError
+from di_website.publications.models import LegacyPublicationPage, PublicationType
 
 
 class Command(BaseCommand):
@@ -16,6 +17,8 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         """Implement the command handler."""
+        discussion_paper = PublicationType.objects.get(name="Discussion paper")
+
         with open(options['json_file'][0]) as json_file:
             json_data = json.load(json_file)
 
@@ -30,6 +33,10 @@ class Command(BaseCommand):
                     self.stdout.write(self.style.SUCCESS("Replacing old link in page: " + page.slug))
                     new_content = old_content.replace(old_link, new_link)
                     page.raw_content = new_content
-                    page.save()
+                    try:
+                        page.save()
+                    except ValidationError:
+                        page.publication_type = discussion_paper
+                        page.save()
 
         self.stdout.write(self.style.SUCCESS("Done."))

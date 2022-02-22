@@ -192,7 +192,7 @@ class DynamicTable(StructBlock):
 
     class Meta:
         help_text = 'Uses a CSV data source to display tabular data with an optional heading.'
-        icon = 'list-ol'
+        icon = 'table'
         label = 'Dynamic Table'
         form_template = 'publications/block_forms/custom_struct.html'
         template = 'publications/blocks/dynamic-table.html'

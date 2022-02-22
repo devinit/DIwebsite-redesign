@@ -18,22 +18,18 @@ from modelcluster.models import ClusterableModel
 from wagtail.admin.edit_handlers import (FieldPanel, InlinePanel, PageChooserPanel, StreamFieldPanel)
 from wagtail.contrib.redirects.models import Redirect
 from wagtail.contrib.search_promotions.templatetags.wagtailsearchpromotions_tags import get_search_promotions
-from wagtail.core import blocks, hooks
+from wagtail.core import hooks
 from wagtail.core.blocks import (CharBlock, PageChooserBlock, StructBlock, URLBlock)
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Orderable, Page
-from wagtail.documents.edit_handlers import DocumentChooserPanel
-from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.blocks import ImageChooserBlock
-from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search.models import Query
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
-from wagtailmedia.edit_handlers import MediaChooserPanel
 
 from di_website.common.base import (get_paginator_range, get_related_pages, hero_panels, call_to_action_panel)
 from di_website.common.constants import (MAX_PAGE_SIZE, MAX_RELATED_LINKS, RICHTEXT_FEATURES)
-from di_website.common.mixins import (HeroMixin, OtherPageMixin, SectionBodyMixin, StateMixin, TypesetBodyMixin, CallToActionMixin)
+from di_website.common.mixins import (HeroMixin, OtherPageMixin, SectionBodyMixin, TypesetBodyMixin, CallToActionMixin)
 from di_website.downloads.utils import DownloadsPanel
 
 from .edit_handlers import MultiFieldPanel
@@ -42,7 +38,7 @@ from .mixins import (
     FilteredDatasetMixin, FlexibleContentMixin, HeroButtonMixin, InheritCTAMixin, PublicationPageSearchMixin,
     PublishedDateMixin, ReportChildMixin, ReportDownloadMixin, UniqueForParentPageMixin, UUIDMixin)
 from .utils import (
-    ContentPanel, PublishedDatePanel, ReportDownloadPanel, StateMixinPanel, UUIDPanel, WagtailImageField,
+    ContentPanel, PublishedDatePanel, ReportDownloadPanel, UUIDPanel, WagtailImageField,
     get_downloads, get_first_child_of_type, get_ordered_children_of_type)
 
 RED = 'poppy'
@@ -943,7 +939,7 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, PublicationPageSearch
 
 
 class ShortPublicationPage(
-    HeroMixin, StateMixin, PublishedDateMixin, FlexibleContentMixin, PublicationPageSearchMixin,
+    HeroMixin, PublishedDateMixin, FlexibleContentMixin, PublicationPageSearchMixin,
     UUIDMixin, FilteredDatasetMixin, CallToActionMixin, ReportDownloadMixin, Page):
 
     class Meta:
@@ -972,7 +968,6 @@ class ShortPublicationPage(
 
     content_panels = Page.content_panels + [
         FieldPanel('colour'),
-        StateMixinPanel(),
         hero_panels(),
         StreamFieldPanel('authors'),
         call_to_action_panel(),

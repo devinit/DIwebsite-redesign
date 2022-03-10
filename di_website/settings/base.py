@@ -107,6 +107,7 @@ MIDDLEWARE = [
 
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
     'django_google_optimize.middleware.google_optimize',
+    'di_website.custom_middleware.NullInjectionMiddleware',
 ]
 
 ROOT_URLCONF = 'di_website.urls'

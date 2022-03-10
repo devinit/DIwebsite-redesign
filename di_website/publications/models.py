@@ -328,6 +328,10 @@ class PublicationIndexPage(HeroMixin, Page):
             LegacyPublicationPage.objects.filter(publication_type=resource_type).first() or
             AudioVisualMedia.objects.filter(publication_type=resource_type).first())
 
+    def remove_nul_bytes(self, search_term):
+        """Remove nul bytes from serach term."""
+        return search_term.replace('%00', '')
+
     class Meta():
         verbose_name = 'Resources Index Page'
 

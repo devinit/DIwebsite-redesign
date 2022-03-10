@@ -244,15 +244,6 @@ class DatasetPage(DataSetMixin, TypesetBodyMixin, HeroMixin, Page):
         InlinePanel('page_notifications', label='Notifications')
     ]
 
-    def serve(self, request):
-        path = request.get_full_path()
-        if ('%00' in path):
-            new_path = self.remove_nul_bytes(path)
-            return HttpResponseRedirect(new_path)
-        else:
-            # Display page as usual
-            return super().serve(request)
-
     def get_context(self, request):
         context = super().get_context(request)
 
@@ -285,10 +276,6 @@ class DatasetPage(DataSetMixin, TypesetBodyMixin, HeroMixin, Page):
 
     def get_download_name(self):
         return self.title
-
-    def remove_nul_bytes(self, path):
-        """Remove nul bytes from path."""
-        return path.replace('%00', '')
 
 
 @register_snippet

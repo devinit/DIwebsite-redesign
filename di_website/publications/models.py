@@ -8,7 +8,7 @@ from django import forms
 from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db import models
-from django.http import HttpResponseRedirect
+# from django.http import HttpResponseRedirect
 from django.utils.functional import cached_property
 from django.utils.text import slugify
 
@@ -199,15 +199,6 @@ class PublicationIndexPage(HeroMixin, Page):
     subpage_types = ['PublicationPage', 'LegacyPublicationPage', 'ShortPublicationPage', 'general.General', 'AudioVisualMedia']
     parent_page_types = ['home.HomePage']
 
-    def serve(self, request):
-        path = request.get_full_path()
-        if ('%00' in path):
-            new_path = self.remove_nul_bytes(path)
-            return HttpResponseRedirect(new_path)
-        else:
-            # Display page as usual
-            return super().serve(request)
-
     def get_context(self, request):
         context = super(PublicationIndexPage, self).get_context(request)
         search_filter = request.GET.get('q', None)
@@ -337,10 +328,6 @@ class PublicationIndexPage(HeroMixin, Page):
             ShortPublicationPage.objects.filter(publication_type=resource_type).first() or
             LegacyPublicationPage.objects.filter(publication_type=resource_type).first() or
             AudioVisualMedia.objects.filter(publication_type=resource_type).first())
-
-    def remove_nul_bytes(self, path):
-        """Remove nul bytes from path."""
-        return path.replace('%00', '')
 
     class Meta():
         verbose_name = 'Resources Index Page'

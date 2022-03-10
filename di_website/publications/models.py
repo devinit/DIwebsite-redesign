@@ -202,7 +202,6 @@ class PublicationIndexPage(HeroMixin, Page):
     def serve(self, request):
         path = request.get_full_path()
         if ('%00' in path):
-            print('going elsewhere')
             new_path = self.remove_nul_bytes(path)
             return HttpResponseRedirect(new_path)
         else:
@@ -339,9 +338,9 @@ class PublicationIndexPage(HeroMixin, Page):
             LegacyPublicationPage.objects.filter(publication_type=resource_type).first() or
             AudioVisualMedia.objects.filter(publication_type=resource_type).first())
 
-    def remove_nul_bytes(self, search_term):
-        """Remove nul bytes from serach term."""
-        return search_term.replace('%00', '')
+    def remove_nul_bytes(self, path):
+        """Remove nul bytes from path."""
+        return path.replace('%00', '')
 
     class Meta():
         verbose_name = 'Resources Index Page'

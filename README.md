@@ -78,6 +78,18 @@ Pattern library available online at [http://development-initiatives.surge.sh/](h
         python3 manage.py test
 
 ## Develop with Docker
+
+**Install dependencies**
+
+- [PostgreSQL](https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-20-04-quickstart)
+- [Elastic Search](https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-elasticsearch-on-ubuntu-20-04)
+
+To exclude the Elastic Search dependency, run `docker-compose` with the `docker-compose.minimal.yml` file, as below
+
+        docker-compose -f docker-compose.minimal.yml up --build
+
+**Steps to develop with docker:**
+
 1. Create docker volume diwebsite_db
     ```docker
     docker volume create --name=diwebsite_db

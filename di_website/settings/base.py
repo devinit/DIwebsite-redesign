@@ -167,7 +167,7 @@ if config('ELASTIC_SEARCH_URL', ''):
     elastic_search_tokens = [
         'letter',
         'digit',
-        'whitespace'
+        'symbol',
     ]
 
     WAGTAILSEARCH_BACKENDS = {
@@ -180,37 +180,32 @@ if config('ELASTIC_SEARCH_URL', ''):
             'INDEX_SETTINGS': {
                 'settings': {
                     'analysis': {
-                        'tokenizer': {
-                            'ngram_tokenizer': {
-                                'type': 'nGram',
-                                'min_gram': 3,
-                                'max_gram': 3,
-                                'token_cars': elastic_search_tokens
-                            },
-                            'edgengram_tokenizer': {
-                                'type': 'edgeNGram',
-                                'min_gram': 3,
-                                'max_gram': 3,
-                                'side': 'front',
-                                'token_cars': elastic_search_tokens
+                        'analyzer': {
+                            "default": {
+                                "tokenizer": "edgengram_tokenizer",
+                                "filter": [ "stop_filter",  "lowercase_filter" ]
                             }
                         },
                         'filter': {
-                            'ngram': {
-                                'type': 'nGram',
-                                'min_gram': 1,
-                                'max_gram': 2
+                            'stop_filter': {
+                                'type': 'stop',
+                                'ignore_case': True
                             },
-                            'edgengram': {
-                                'type': 'edgeNGram',
-                                'min_gram': 2,
-                                'max_gram': 3
+                            'lowercase_filter': {
+                                'type': 'lowercase'
                             }
                         },
-                        'index': {
-                            'number_of_shards': 2
-                        }
-
+                        'tokenizer': {
+                            'edgengram_tokenizer': {
+                                'type': 'edgeNGram',
+                                'min_gram': 3,
+                                'max_gram': 10,
+                                'token_chars': elastic_search_tokens
+                            }
+                        },
+                    },
+                    'index': {
+                        'number_of_shards': 2
                     }
                 }
             }

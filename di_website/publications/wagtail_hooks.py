@@ -1,14 +1,16 @@
 import json
+
+from django.conf import settings
 from django.template import loader
-from django.utils.html import escape, format_html
+from django.utils.html import escape, format_html, format_html_join
 from django.utils.safestring import mark_safe
-from wagtail.core import hooks
-from wagtail.core.whitelist import allow_without_attributes, attribute_rule
+
+from draftjs_exporter.dom import DOM
+
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail.admin.rich_text.converters.html_to_contentstate import InlineEntityElementHandler
-from draftjs_exporter.dom import DOM
-from django.utils.html import format_html_join
-from django.conf import settings
+from wagtail.core import hooks
+from wagtail.core.whitelist import allow_without_attributes, attribute_rule
 
 
 @hooks.register('register_rich_text_features')
@@ -25,7 +27,7 @@ def register_anchor_feature(features):
     }
 
     features.register_editor_plugin(
-        'draftail', feature_name, draftail_features.EntityFeature(control)
+        'draftail', feature_name, draftail_features.EntityFeature(control, js=['common/js/anchor.js'])
     )
 
     features.register_converter_rule('contentstate', feature_name, {
@@ -38,9 +40,7 @@ def anchor_entity_decorator(props):
     """Draft.js ContentState to database HTML.
     Converts the ANCHOR entities into an a tag.
     """
-    return DOM.create_element('a', {
-        'href': props['href'],
-    }, props['children'])
+    return DOM.create_element('a', { 'href': props['href'] }, props['children'])
 
 
 class AnchorEntityElementHandler(InlineEntityElementHandler):
@@ -55,17 +55,6 @@ class AnchorEntityElementHandler(InlineEntityElementHandler):
         return {
             'href': attrs['href'],
         }
-
-
-@hooks.register('insert_editor_js')
-def anchor_editor_js():
-    """Include some extra javascript in the editor."""
-    js_files = [
-        'wagtailadmin/js/draftail.js',
-        'common/js/anchor.js',
-    ]
-    js_includes = format_html_join('\n', '<script src="{0}{1}"></script>', ((settings.STATIC_URL, filename) for filename in js_files))
-    return js_includes
 
 
 class WelcomePanel(object):

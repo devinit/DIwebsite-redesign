@@ -24,6 +24,7 @@ services:
       - HS_TICKET_PIPELINE
       - HS_TICKET_PIPELINE_STAGE
       - ELASTIC_SEARCH_URL
+      - CELERY_BROKER_URL
     build:
       context: .
     volumes:
@@ -64,6 +65,27 @@ services:
       - 5672:5672
       - 15672:15672
     restart: always
+    environment:
+      - RABBITMQ_DEFAULT_USER
+      - RABBITMQ_DEFAULT_PASS
+      - RABBITMQ_DEFAULT_VHOST
+
+  worker:
+    depends_on:
+      - db
+      - rabbitmq
+    env_file: .env
+    environment:
+      - CELERY_BROKER_URL
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/code/
+      - ./config/celery/default:/etc/default
+      - ./config/celery/init.d:/etc/init.d
+    restart: always
+    command: celery -A wagtaillinkchecker worker -l info
 
 volumes:
   diwebsite_db:

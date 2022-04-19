@@ -17,6 +17,29 @@ def get_previous_chapter(chapters, chapter_number):
     except Exception:
         return ''
 
+@register.simple_tag
+def get_previous_page(all_pages, label):
+    try:
+        for index, item in enumerate(all_pages):
+            if index > 0:
+                if item.label == label:
+                    return all_pages[index - 1]
+        return ''
+    except Exception:
+        return ''
+
+@register.simple_tag
+def get_next_page(all_pages, label):
+    try:
+        print(all_pages)
+        for index, item in enumerate(all_pages):
+            if index < len(all_pages) - 1:
+                if item.label == label:
+                    return all_pages[index + 1]
+
+        return ''
+    except Exception:
+        return ''
 
 @register.simple_tag
 def get_next_chapter(chapters, chapter_number):

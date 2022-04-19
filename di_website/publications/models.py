@@ -431,7 +431,7 @@ class PublicationPage(
 
     @cached_property
     def summary(self):
-        return get_first_child_of_type(self, PublicationSummaryPage)
+        return get_first_child_of_type (self, PublicationSummaryPage)
 
     @cached_property
     def chapters(self):
@@ -528,6 +528,10 @@ class PublicationForewordPage(
     @cached_property
     def label(self):
         return 'the foreword'
+
+    @cached_property
+    def label_type(self):
+        return 'foreword'
 
     @cached_property
     def nav_label(self):
@@ -736,7 +740,7 @@ class PublicationChapterPage(
         context['related_pages'] = get_related_pages(
             self, self.publication_related_links.all(), PublicationChapterPage.objects)
 
-        return context;
+        return context
 
 
 class PublicationAppendixPage(

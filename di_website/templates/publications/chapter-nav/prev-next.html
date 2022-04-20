@@ -1,6 +1,6 @@
 {% load report_utils %}
 
-{% if page.listing %}
+{% if label %}
     <div class="page__action__pagination">
         {% get_previous_page page.listing_and_appendicies label as previous %}
         {% if previous %}
@@ -16,4 +16,4 @@
             </a>
         {% endif %}
     </div>
-{% endif %}
+  {% endif %}

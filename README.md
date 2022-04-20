@@ -88,8 +88,6 @@ To exclude the Elastic Search dependency, run `docker-compose` with the `docker-
 
         docker-compose -f docker-compose.minimal.yml up --build
 
-> Ensure that .env has **DJANGO_SETTINGS_MODULE=di_website.settings.dev** or **DJANGO_SETTINGS_MODULE=di_website.settings.production** for celery worker container to work properly
-
 **Steps to develop with docker:**
 
 1. Create docker volume diwebsite_db

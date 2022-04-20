@@ -17,7 +17,6 @@ def get_previous_page(all_pages, label):
 @register.simple_tag
 def get_next_page(all_pages, label):
     try:
-        print(all_pages)
         for index, item in enumerate(all_pages):
             if index < len(all_pages) - 1:
                 if item.label == label:

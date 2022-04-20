@@ -2,32 +2,26 @@ from django import template
 
 register = template.Library()
 
-
 @register.simple_tag
-def get_previous_chapter(chapters, chapter_number):
-    if not chapters and not chapter_number:
-        return ''
+def get_previous_page(all_pages, label):
     try:
-        chapters = list(chapters)
-        for index, item in enumerate(chapters):
-            if int(item.chapter_number) == int(chapter_number):
-                if index > 0:
-                    return chapters[index - 1]
+        for index, item in enumerate(all_pages):
+            if index > 0:
+                if item.label == label:
+                    return all_pages[index - 1]
         return ''
     except Exception:
         return ''
 
 
 @register.simple_tag
-def get_next_chapter(chapters, chapter_number):
-    if not chapters and not chapter_number:
-        return ''
+def get_next_page(all_pages, label):
     try:
-        chapters = list(chapters)
-        for index, item in enumerate(chapters):
-            if int(item.chapter_number) == int(chapter_number):
-                if index < len(chapters) - 1:
-                    return chapters[index + 1]
+        for index, item in enumerate(all_pages):
+            if index < len(all_pages) - 1:
+                if item.label == label:
+                    return all_pages[index + 1]
+
         return ''
     except Exception:
         return ''

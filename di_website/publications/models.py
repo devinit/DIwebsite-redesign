@@ -530,6 +530,10 @@ class PublicationForewordPage(
         return 'the foreword'
 
     @cached_property
+    def label_type(self):
+        return 'foreword'
+
+    @cached_property
     def nav_label(self):
         return 'foreword'
 
@@ -736,7 +740,7 @@ class PublicationChapterPage(
         context['related_pages'] = get_related_pages(
             self, self.publication_related_links.all(), PublicationChapterPage.objects)
 
-        return context;
+        return context
 
 
 class PublicationAppendixPage(

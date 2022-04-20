@@ -431,7 +431,7 @@ class PublicationPage(
 
     @cached_property
     def summary(self):
-        return get_first_child_of_type (self, PublicationSummaryPage)
+        return get_first_child_of_type(self, PublicationSummaryPage)
 
     @cached_property
     def chapters(self):

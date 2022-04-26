@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
   python-build:
-    name: Python Build
+    name: Python & Docker Build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -20,14 +20,41 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pip-
             ${{ runner.os }}-
-      - name: Install dependencies
-        run: pip install -r requirements.txt
-      - name: Build the docker-compose stack
+      - name: Prepare
+        id: prep
         run: |
-          echo "DATABASE_URL=postgresql://di_website:${{ secrets.DB_PASSWORD }}@db/di_website" > .env
-          docker volume create --name=diwebsite_db
-          docker volume create --name="index_db"
-          docker-compose -f docker-compose.minimal.yml run blue /bin/sh -c "python3 -m coverage run manage.py test && python3 -m coverage xml && mv coverage.xml shared" && cd shared && python3 -m codecov
+          TAG=$(echo $GITHUB_SHA | head -c7)
+          IMAGE="my.docker.registry/progapangist/anycable_demo"
+          echo ::set-output name=tagged_image::${IMAGE}:${TAG}
+          echo ::set-output name=tag::${TAG}
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@master
+      - name: Cache Docker layers
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          # Key is named differently to avoid collision
+          key: ${{ runner.os }}-multi-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-multi-buildx
+      - name: Build image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          builder: ${{ steps.buildx.outputs.name }}
+          file: Dockerfile
+          push: false
+          tags: ${{ steps.prep.outputs.tagged_image }}
+          cache-from: type=local,src=/tmp/.buildx-cache
+          # Note the mode=max here
+          # More: https://github.com/moby/buildkit#--export-cache-options
+          # And: https://github.com/docker/buildx#--cache-tonametypetypekeyvalue
+          cache-to: type=local,mode=max,dest=/tmp/.buildx-cache-new
+      - name: Move cache
+        run: |
+          rm -rf /tmp/.buildx-cache
+          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
 
   js-test:
     name: JS Lint & Build

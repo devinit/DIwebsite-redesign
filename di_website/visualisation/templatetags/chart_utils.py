@@ -71,11 +71,9 @@ def load_viz_assets(context, source='header'):
     return load_as_template(context, '\n'.join(assets))
 
 @register.simple_tag(takes_context=True)
-def gets_row_highlights(context):
-    context = Context(context)
-    self = context['page']
+def gets_row_highlights(context, pivot_page):
     highlights = []
-    for highlight in self.row_highlights.all():
+    for highlight in pivot_page.row_highlights.all():
         highlights.append({
                 "field": highlight.row_highlight_field,
                 "condition": highlight.row_highlight_condition,

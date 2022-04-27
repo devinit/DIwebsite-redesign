@@ -88,9 +88,21 @@ jobs:
         run: |
           npm run build
 
+  automerge:
+    name: Auto Merge
+    needs: [python-build,js-test]
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: write
+    steps:
+      - uses: fastify/github-action-merge-dependabot@v3.1.4
+        with:
+          github-token: ${{secrets.PA_TOKEN}}
+
   deploy:
     name: Deploy
-    needs: [python-build,js-test]
+    needs: [automerge]
     runs-on: ubuntu-latest
     if: contains('
       refs/heads/master

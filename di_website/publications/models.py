@@ -695,7 +695,7 @@ class PublicationChapterPage(
 
     @cached_property
     def label_num(self):
-        return 'chapter %s' % str(self.chapter_number).zfill(2)
+        return 'chapter %s' % str(self.chapter_number).zfill(1)
 
     @cached_property
     def nav_label(self):
@@ -800,7 +800,7 @@ class PublicationAppendixPage(
 
     @cached_property
     def label_num(self):
-        return 'appendix %s' % str(self.appendix_number).zfill(2)
+        return 'appendix %s' % str(self.appendix_number).zfill(1)
 
     @cached_property
     def nav_label(self):

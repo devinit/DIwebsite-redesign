@@ -111,7 +111,6 @@ services:
       - web
       - consul
 
-
   certbot:
     container_name: certbot
     image: certbot/certbot:latest
@@ -151,16 +150,17 @@ services:
     env_file: .env
     environment:
       - CELERY_BROKER_URL
-      - DJANGO_SETTINGS_MODULE=di_website.settings.dev
     build:
       context: .
-      dockerfile: Dockerfile
     volumes:
       - ./:/code/
       - ./config/celery/default:/etc/default
       - ./config/celery/init.d:/etc/init.d
     restart: always
-    command: celery -A wagtaillinkchecker worker -l info
+    command: celery -A di_website worker -l info
+    networks:
+      - web
+      - consul
 
 volumes:
   diwebsite_db:

@@ -84,5 +84,8 @@ jobs:
             export SITE_URL=${{ env.SITE_URL }}
             export WWW_SITE_URL=${{ env.WWW_SITE_URL }}
             export DATA_SITE_URL=${{ env.DATA_SITE_URL }}
+            export RABBITMQ_DEFAULT_USER=di_website
+            export RABBITMQ_DEFAULT_PASS=${{ secrets.RABBITMQ_PASSWORD }}
+            export RABBITMQ_DEFAULT_VHOST=myvhost
             cp -r deploy_script/deploy.sh .
             chmod +x deploy.sh && ./deploy.sh run

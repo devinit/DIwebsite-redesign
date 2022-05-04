@@ -8,7 +8,11 @@
                 {% include 'publications/icon.html' with file='ico-arrow-left-blank' size=16 %}
             </a>
         {% endif %}
-        <span class="page-action__section">{{label}}</span>
+        {% if nav_label %}
+            <span class="page-action__section">{{nav_label}}</span>
+        {% else %}
+            <span class="page-action__section">{{label_num}}</span>
+        {% endif %}
         {% get_next_page page.listing_and_appendicies label as next %}
         {% if next %}
             <a href="{{ next.url }}" class="page__action__next">

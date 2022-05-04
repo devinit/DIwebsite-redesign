@@ -10,7 +10,7 @@
 {% block body %}
 
   {% if page.chapter_number %}
-    {% include 'publications/chapter-nav/nav.html' with page=page.get_parent.specific menu_label='Contents' chapter_number=page.chapter_number label=page.label %}
+    {% include 'publications/chapter-nav/nav.html' with page=page.get_parent.specific menu_label='Contents' chapter_number=page.chapter_number label=page.label label_num=page.label_num %}
   {% else %}
     {% include 'publications/chapter-nav/nav.html' with page=page.get_parent.specific menu_label='Contents' chapter_number=0 %}
   {% endif %}

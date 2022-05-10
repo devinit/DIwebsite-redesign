@@ -30,7 +30,7 @@ Pattern library available online at [http://development-initiatives.surge.sh/](h
 
 4. Add database URL to the `.env` file. This shall be read by `django-dotenv`
 
-        echo "DATABASE_URL=postgresql://postgres@/devinit" > .env
+        echo "DATABASE_URL=postgresql://di_website:di_website_pw@db/di_website" > .env
 
 5. Install python dependencies
 

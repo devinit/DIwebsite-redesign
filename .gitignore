@@ -129,3 +129,5 @@ node_modules/
 
 /src/assets/**/js/*.js
 /src/assets/**/js/*.LICENSE.txt
+
+package-lock.json

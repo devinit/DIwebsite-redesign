@@ -10,7 +10,7 @@
 
 {% block body %}
 
-  {% include 'publications/chapter-nav/nav.html' with page=page.get_parent.specific menu_label='Contents' chapter_number=0 label=page.label %}
+  {% include 'publications/chapter-nav/nav.html' with page=page.get_parent.specific menu_label='Contents' chapter_number=0 label=page.label nav_label=page.nav_label %}
 
   {% for block in page.content %}
 

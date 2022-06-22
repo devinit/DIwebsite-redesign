@@ -62,6 +62,7 @@ jobs:
           username: ${{ env.USERNAME }}
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
+          command_timeout: 30m
           script: |
             export BRANCH=${{ env.BRANCH }}
             export RABBITMQ_PASSWORD=${{ secrets.RABBITMQ_PASSWORD }}

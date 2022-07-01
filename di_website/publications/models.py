@@ -639,6 +639,14 @@ class PublicationSummaryPage(
                 sections.append(block)
         return sections
 
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+
+        context['related_pages'] = get_related_pages(
+            self, self.publication_related_links.all(), PublicationSummaryPage.objects)
+
+        return context
+
 
 class PublicationChapterPage(
     HeroMixin, ReportChildMixin, FlexibleContentMixin, PublishedDateMixin, PublicationPageSearchMixin,

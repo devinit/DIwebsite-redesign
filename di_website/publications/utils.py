@@ -171,3 +171,5 @@ def get_specific_related(queryset):
 
     return [x.related.specific for x in queryset if x.related and x.related.live]
 
+def relatedLinksPanel():
+    return FieldPanel('related_links')

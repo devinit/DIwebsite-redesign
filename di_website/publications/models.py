@@ -592,6 +592,7 @@ class PublicationSummaryPage(
         ),
         ReportDownloadPanel(),
         InlinePanel('page_notifications', label='Notifications'),
+        InlinePanel('publication_related_links', label='Related links', max_num=MAX_RELATED_LINKS),
     ]
 
     @cached_property

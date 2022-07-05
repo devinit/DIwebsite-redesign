@@ -8,6 +8,9 @@
   </div>
   {% endif %}
 {% endif %}
+
+{% include 'visualisation/chart_instructions.html' %}
+
 <div class="chart-container chart-container--full">
   <div class="charts__chart" data-title="{{item.title}}">
     {% load_as_template raw_html=item.html %}
@@ -39,8 +42,6 @@
 <div class="chart-fallback__alert chart-fallback__alert--ss">
   <p>{{ item.parent.larger_screen_text }}</p>
 </div>
-
-{% include 'visualisation/chart_instructions.html' %}
 
 {% if item.caption %}
   <figcaption class="media-caption">

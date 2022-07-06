@@ -1,7 +1,7 @@
 {% load string_utils %}
 
 {% if chart %}
-    <div class="max-meter max-meter--center responsive-graph" id="{{ id }}">
+    <div class="max-meter max-meter--center responsive-graph {{chart.slug}}" id="{{ id }}">
         {% if self.allow_share %}
           {% uid_url page as short_url %}
           <a href="#{{ id }}" data-id="{{ id }}" data-js="share-section-trigger"

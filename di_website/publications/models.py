@@ -592,6 +592,7 @@ class PublicationSummaryPage(
         ),
         ReportDownloadPanel(),
         InlinePanel('page_notifications', label='Notifications'),
+        InlinePanel('publication_related_links', label='Related links', max_num=MAX_RELATED_LINKS),
     ]
 
     @cached_property
@@ -637,6 +638,14 @@ class PublicationSummaryPage(
             if block.block_type == 'section_heading':
                 sections.append(block)
         return sections
+
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+
+        context['related_pages'] = get_related_pages(
+            self, self.publication_related_links.all(), PublicationSummaryPage.objects)
+
+        return context
 
 
 class PublicationChapterPage(

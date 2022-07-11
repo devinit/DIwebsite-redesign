@@ -8,7 +8,7 @@ from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.core.blocks import ChoiceBlock
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 
-from di_website.common.constants import INSTRUCTIONS_RICHTEXT_FEATURES, SIMPLE_RICHTEXT_FEATURES
+from di_website.common.constants import INSTRUCTIONS_RICHTEXT_FEATURES, POSITION_CHOICES, SIMPLE_RICHTEXT_FEATURES
 from di_website.publications.utils import WagtailImageField
 from di_website.visualisation.fields import AceEditorField
 from di_website.visualisation.utils import CaptionPanel, D3OptionsPanel, EChartOptionsPanel, InstructionsPanel, PlotlyOptionsPanel
@@ -31,6 +31,7 @@ class InstructionsMixin(GeneralInstructionsMixin):
     instructions_heading = models.TextField(
         blank=True, default='Interactive visualisation instructions',
         verbose_name='Accordion heading')
+    instruction_position = models.CharField(max_length=256, choices=POSITION_CHOICES, default='top', verbose_name='Position')
 
 
 class SpecificInstructionsMixin(InstructionsMixin):

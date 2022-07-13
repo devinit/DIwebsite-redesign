@@ -36,9 +36,9 @@ from .edit_handlers import MultiFieldPanel
 from .inlines import *
 from .mixins import (
     FilteredDatasetMixin, FlexibleContentMixin, HeroButtonMixin, InheritCTAMixin, PublicationPageSearchMixin,
-    PublishedDateMixin, ReportChildMixin, ReportDownloadMixin, UniqueForParentPageMixin, UUIDMixin)
+    PublishedDateMixin, ReportChildMixin, RelatedLinksMixin, ReportDownloadMixin, UniqueForParentPageMixin, UUIDMixin)
 from .utils import (
-    ContentPanel, PublishedDatePanel, ReportDownloadPanel, UUIDPanel, WagtailImageField,
+    ContentPanel, PublishedDatePanel, ReportDownloadPanel, UUIDPanel, WagtailImageField, RelatedLinksPanel,
     get_downloads, get_first_child_of_type, get_ordered_children_of_type)
 
 RED = 'poppy'
@@ -333,7 +333,7 @@ class PublicationIndexPage(HeroMixin, Page):
 
 class PublicationPage(
     HeroMixin, HeroButtonMixin, PublishedDateMixin, PublicationPageSearchMixin, UUIDMixin,
-    FilteredDatasetMixin, ReportDownloadMixin, Page):
+    FilteredDatasetMixin, RelatedLinksMixin, ReportDownloadMixin, Page):
 
     class Meta:
         verbose_name = 'Publication Page'
@@ -396,7 +396,7 @@ class PublicationPage(
         ReportDownloadPanel(),
         UUIDPanel(),
         InlinePanel('page_notifications', label='Notifications'),
-        InlinePanel('publication_related_links', label='Related links', max_num=MAX_RELATED_LINKS),
+        RelatedLinksPanel(),
         InlinePanel('publication_cta', label='Call To Action', max_num=2),
     ]
 

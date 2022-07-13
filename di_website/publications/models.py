@@ -396,7 +396,7 @@ class PublicationPage(
         ReportDownloadPanel(),
         UUIDPanel(),
         InlinePanel('page_notifications', label='Notifications'),
-        InlinePanel('publication_related_links', label='Related links', max_num=MAX_RELATED_LINKS),
+        RelatedLinksPanel(),
         InlinePanel('publication_cta', label='Call To Action', max_num=2),
     ]
 

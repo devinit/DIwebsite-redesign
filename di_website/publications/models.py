@@ -58,11 +58,6 @@ COLOUR_CHOICES = (
     (GREEN, 'Green')
 )
 
-RELATED_CHOICES = (
-    ('MANUAL', 'Manual'),
-    ('COUNTRY', 'Country'),
-    ('TOPIC', 'Topic')
-)
 class PublicationTopic(TaggedItemBase):
     content_object = ParentalKey('publications.PublicationPage', on_delete=models.CASCADE, related_name='publication_topics')
 
@@ -371,7 +366,6 @@ class PublicationPage(
     publication_type = models.ForeignKey(
         PublicationType, related_name="+", null=True, blank=False, on_delete=models.SET_NULL, verbose_name="Resource Type")
     topics = ClusterTaggableManager(through=PublicationTopic, blank=True, verbose_name="Topics")
-    related_options = models.CharField(max_length=253, choices=RELATED_CHOICES, default='Manual')
 
     content_panels = Page.content_panels + [
         FieldPanel('colour'),
@@ -403,7 +397,6 @@ class PublicationPage(
         UUIDPanel(),
         InlinePanel('page_notifications', label='Notifications'),
         InlinePanel('publication_related_links', label='Related links', max_num=MAX_RELATED_LINKS),
-        FieldPanel('related_options', heading='Related Links'),
         InlinePanel('publication_cta', label='Call To Action', max_num=2),
     ]
 

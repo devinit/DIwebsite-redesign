@@ -486,8 +486,18 @@ class PublicationPage(
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
 
-        context['related_pages'] = get_related_pages(
-            self, self.publication_related_links.all(), PublicationPage.objects)
+
+        if related_options == 'Manual':
+            context['related_pages'] = get_related_pages(
+                self, self.publication_related_links.all(), PublicationPage.objects)
+        elif related_options == 'Country':
+            queryset = PublicationPage.objects.filter(page_countries__in=self.page_countries)
+            context['related_pages'] = get_related_pages(
+                self, self.publication_related_links.all(), queryset)
+        else:
+            queryset = PublicationPage.objects.filter(topics__in=self.topics)
+            context['related_pages'] = get_related_pages(
+                self, self.publication_related_links.all(), queryset)
 
         return context
 

@@ -31,7 +31,7 @@ class InstructionsMixin(GeneralInstructionsMixin):
     instructions_heading = models.TextField(
         blank=True, default='Interactive visualisation instructions',
         verbose_name='Accordion heading')
-    instruction_position = models.CharField(max_length=256, choices=POSITION_CHOICES, default='top', verbose_name='Position')
+    instruction_position = models.CharField(max_length=256, choices=POSITION_CHOICES, default='bottom', verbose_name='Position')
 
 
 class SpecificInstructionsMixin(InstructionsMixin):

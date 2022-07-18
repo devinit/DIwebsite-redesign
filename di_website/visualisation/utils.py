@@ -24,6 +24,7 @@ def InstructionsPanel():
         [
             FieldPanel('instructions_heading'),
             FieldPanel('instructions'),
+            FieldPanel('instruction_position'),
         ],
         heading='Interactive visualisation instructions',
     )

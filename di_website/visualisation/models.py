@@ -22,7 +22,7 @@ from di_website.visualisation.utils import (
 )
 
 
-class VisualisationsPage(GeneralInstructionsMixin, Page):
+class VisualisationsPage(InstructionsMixin, Page):
     """
     Parent page for all visualisations
     """
@@ -87,6 +87,8 @@ class VisualisationsPage(GeneralInstructionsMixin, Page):
                     Optional: a general set of instructions that can be selected to display with child visualisation content.
                 ''', wrapper_class='help-block help-info no-padding-top'),
                 FieldPanel('instructions'),
+                FieldPanel('instruction_position'),
+
             ],
             heading='Interactive visualisation instructions',
         ),

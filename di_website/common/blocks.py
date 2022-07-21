@@ -402,7 +402,7 @@ class CustomEmbedBlock(StructBlock):
 
     class Meta:
         template = 'blocks/custom_embed.html'
-        icon = 'fa-external-link-alt'
+        icon = 'fa-gears'
         label = 'Custom Embed'
 
     def clean(self, value):

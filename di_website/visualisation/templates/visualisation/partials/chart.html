@@ -6,6 +6,11 @@
   <p>{{ item.subtitle }}</p>
 </div>
 {% endif %}
+
+{% if item.instruction_position == 'top' %}
+  {% include 'visualisation/chart_instructions.html' %}
+{% endif %}
+
 <div class="chart-container chart-container--full js-plotly-chart-wrapper js-lazy-loading">
   {% if item.selectable %}
     <select class="data-selector js-plotly-chart-data-selector"></select>
@@ -51,7 +56,9 @@
   <p>{{ item.parent.larger_screen_text }}</p>
 </div>
 
-{% include 'visualisation/chart_instructions.html' %}
+{% if item.instruction_position == 'bottom' %}
+  {% include 'visualisation/chart_instructions.html' %}
+{% endif %}
 
 {% if item.caption %}
   <figcaption class="media-caption">

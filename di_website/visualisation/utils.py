@@ -44,6 +44,7 @@ def SpecificInstructionsPanel():
             FieldPanel('display_general_instructions'),
             FieldPanel('instructions_heading'),
             FieldPanel('instructions'),
+            FieldPanel('instruction_position'),
         ],
         heading='Interactive visualisation instructions',
     )

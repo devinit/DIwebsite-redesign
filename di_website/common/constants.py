@@ -38,3 +38,8 @@ RICHTEXT_FEATURES_NO_FOOTNOTES.remove('footnote')
 FOOTNOTE_RICHTEXT_FEATURES = [
     'footnote',
 ]
+
+POSITION_CHOICES = (
+    ('top', 'Top'),
+    ('bottom', 'Bottom')
+)

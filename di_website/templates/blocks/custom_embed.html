@@ -1,0 +1,17 @@
+{% load wagtailimages_tags string_utils %}
+
+<section class="section">
+  <div class="row row--narrow">
+    <div class="is-typeset">
+      {% if self.embed_type == 'buzzsprout' %}
+      <div id="{{ self.embed_url|buzzsprout_container_id }}">
+      </div>
+      <script
+        src="{{ self.embed_url }}"
+        type="text/javascript"
+        charset="utf-8">
+      </script>
+      {% endif %}
+    </div>
+  </div>
+</section>

@@ -4,6 +4,9 @@ import bleach
 import uuid
 import re
 
+from urllib.parse import urlparse
+from urllib.parse import parse_qs
+
 from django import template
 from django.utils import formats
 from django.utils.text import Truncator, slugify
@@ -220,3 +223,13 @@ def definition_id(def_id, term):
 def add_string(stringA, stringB):
     """concatenate stringA & stringB"""
     return str(stringA) + str(stringB)
+
+@register.filter
+def buzzsprout_container_id(buzzsprout_url):
+    """extract container id from buzzsprout embed URL"""
+    parsed_url = urlparse(buzzsprout_url)
+    container_ids = parse_qs(parsed_url.query).get('container_id', [])
+    if len(container_ids) > 0:
+        return container_ids[0]
+    else:
+        return ""

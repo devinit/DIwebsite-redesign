@@ -1,4 +1,8 @@
+import re
+
+from django.core.exceptions import ValidationError
 from django.forms import Media
+from django.forms.utils import ErrorList
 
 from wagtail.core.blocks import (
     BooleanBlock,
@@ -386,6 +390,37 @@ class FullWidthVideoBlock(StructBlock):
         label = 'Full Width Video'
 
 
+class CustomEmbedBlock(StructBlock):
+    embed_type = ChoiceBlock(
+        required=True,
+        default='buzzsprout',
+        choices=(
+            ('buzzsprout', 'Buzzsprout'),
+        )
+    )
+    embed_url = URLBlock(required=True, help_text='The URL contained within the embed provider source code.')
+
+    class Meta:
+        template = 'blocks/custom_embed.html'
+        icon = 'fa-gears'
+        label = 'Custom Embed'
+
+    def clean(self, value):
+        errors = {}
+
+        if value.get('embed_type') == 'buzzsprout':
+            buzzsprout_regex = r'^https:\/\/www\.buzzsprout\.com\/.+container_id.+$'
+            pattern = re.compile(buzzsprout_regex)
+            match = re.match(pattern, value.get('embed_url'))
+            if match is None:
+                errors['embed_url'] = ErrorList(['Please enter a valid Buzzsprout embed URL.'])
+
+        if errors:
+            raise ValidationError('Validation error in StructBlock', params=errors)
+
+        return super().clean(value)
+
+
 class VideoDuoTextBlock(StructBlock):
     heading = CharBlock(icon='fa-heading', required=False, help_text='Section heading')
     video = EmbedBlock(
@@ -422,6 +457,7 @@ class SectionStreamBlock(StreamBlock):
     audio_block = AudioMediaBlock(max_num=1)
     video_duo = VideoDuoTextBlock()
     full_width_video_block = FullWidthVideoBlock()
+    custom_embed = CustomEmbedBlock()
     cta = CallToActionBlock(template='blocks/section_call_to_action.html')
 
     required = False

@@ -486,7 +486,7 @@ class PublicationPage(
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
 
-        context['related_pages'] = self.get_related_links(self, PublicationPage.objects)
+        context['related_pages'] = self.get_related_links(PublicationPage.objects)
 
         return context
 
@@ -554,7 +554,7 @@ class PublicationForewordPage(
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
 
-        context['related_pages'] = self.get_related_links(self, PublicationForwardPage.objects)
+        context['related_pages'] = self.get_related_links(PublicationForwardPage.objects)
 
         return context
 
@@ -639,7 +639,7 @@ class PublicationSummaryPage(
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
 
-        context['related_pages'] = self.get_related_links(self, PublicationSummaryPage.objects)
+        context['related_pages'] = self.get_related_links(PublicationSummaryPage.objects)
 
         return context
 
@@ -742,7 +742,7 @@ class PublicationChapterPage(
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
 
-        context['related_pages'] = self.get_related_links(self, PublicationChapterPage.objects)
+        context['related_pages'] = self.get_related_links(PublicationChapterPage.objects)
 
         return context
 
@@ -940,7 +940,7 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, PublicationPageSearch
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
 
-        context['related_pages'] = self.get_related_links(self, LegacyPublicationPage.objects)
+        context['related_pages'] = self.get_related_links(LegacyPublicationPage.objects)
 
         return context;
 
@@ -1061,7 +1061,7 @@ class ShortPublicationPage(
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
 
-        context['related_pages'] = self.get_related_links(self, ShortPublicationPage.objects)
+        context['related_pages'] = self.get_related_links(ShortPublicationPage.objects)
 
         return context
 
@@ -1112,7 +1112,7 @@ class AudioVisualMedia(PublishedDateMixin, TypesetBodyMixin, HeroMixin, Publicat
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
 
-        context['related_pages'] = self.get_related_links(self, AudioVisualMedia.objects)
+        context['related_pages'] = self.get_related_links(AudioVisualMedia.objects)
 
         return context
 

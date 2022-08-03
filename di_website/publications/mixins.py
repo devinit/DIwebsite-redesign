@@ -220,4 +220,4 @@ class RelatedLinksMixin(models.Model):
             queryset = objects.filter(page_countries__in=self.page_countries)
             return get_related_pages(self, self.publication_related_links.all(), queryset)
 
-        return get_related_pages(self, self.publication_related_links.all(), Page.objects)
+        return get_related_pages(self, self.publication_related_links.all(), objects)

@@ -1,5 +1,4 @@
 from django.utils.timezone import now
-from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.functional import cached_property
 
@@ -7,6 +6,7 @@ from wagtail.core.models import Page
 from wagtail.contrib.redirects.models import Redirect
 from wagtail.search import index
 
+from di_website.common.base import get_related_pages
 from di_website.common.templatetags.string_utils import uid
 
 from .fields import flexible_content_streamfield, content_streamfield
@@ -203,7 +203,21 @@ class HeroButtonMixin(models.Model):
         abstract = True
 
 class RelatedLinksMixin(models.Model):
-    related_options = models.CharField(max_length=253, choices=RELATED_CHOICES, default='Manual')
+    related_option_handler = models.CharField(
+        max_length=253, choices=RELATED_CHOICES, default='Manual', verbose_name='Show By')
 
     class Meta:
         abstract = True
+
+    def get_related_links(self, objects=None):
+        if not objects:
+            return None
+
+        if self.related_option_handler == 'Topic':
+            queryset = objects.filter(topics__in=self.topics)
+            return get_related_pages(self, self.publication_related_links.all(), queryset)
+        elif self.related_option_handler == 'Country':
+            queryset = objects.filter(page_countries__in=self.page_countries)
+            return get_related_pages(self, self.publication_related_links.all(), queryset)
+
+        return get_related_pages(self, self.publication_related_links.all(), Page.objects)

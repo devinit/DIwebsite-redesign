@@ -72,7 +72,7 @@ def UUIDPanel():
 
 def RelatedLinksPanel():
     return MultiFieldPanel([
-        FieldPanel('related_options', heading='Related page by:'),
+        FieldPanel('related_option_handler', heading='Show by'),
         InlinePanel('publication_related_links', label='Related links', max_num=MAX_RELATED_LINKS)
     ], heading='Related Links')
 
@@ -170,4 +170,3 @@ def get_specific_related(queryset):
         return None
 
     return [x.related.specific for x in queryset if x.related and x.related.live]
-

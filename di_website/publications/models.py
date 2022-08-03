@@ -485,19 +485,8 @@ class PublicationPage(
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
-        related_options = request.GET.get('choices', None)
 
-        if related_options == 'Topic':
-            queryset = PublicationPage.objects.filter(topics__in=self.topics)
-            context['related_pages'] = get_related_pages(
-                self, self.publication_related_links.all(), queryset)
-        elif related_options == 'Country':
-            queryset = PublicationPage.objects.filter(page_countries__in=self.page_countries)
-            context['related_pages'] = get_related_pages(
-                self, self.publication_related_links.all(), queryset)
-        else:
-            context['related_pages'] = get_related_pages(
-                self, self.publication_related_links.all(), PublicationPage.objects)
+        context['related_pages'] = self.get_related_links(self, PublicationPage.objects)
 
         return context
 
@@ -564,19 +553,8 @@ class PublicationForewordPage(
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
-        related_options = request.GET.get('choices', None)
 
-        if related_options == 'Topic':
-            queryset = PublicationForwardPage.objects.filter(topics__in=self.topics)
-            context['related_pages'] = get_related_pages(
-                self, self.publication_related_links.all(), queryset)
-        elif related_options == 'Country':
-            queryset = PublicationForwardPage.objects.filter(page_countries__in=self.page_countries)
-            context['related_pages'] = get_related_pages(
-                self, self.publication_related_links.all(), queryset)
-        else:
-            context['related_pages'] = get_related_pages(
-                self, self.publication_related_links.all(), PublicationForwardPage.objects)
+        context['related_pages'] = self.get_related_links(self, PublicationForwardPage.objects)
 
         return context
 
@@ -660,19 +638,8 @@ class PublicationSummaryPage(
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
-        related_options = request.GET.get('choices', None)
 
-        if related_options == 'Topic':
-            queryset = PublicationSummaryPage.objects.filter(topics__in=self.topics)
-            context['related_pages'] = get_related_pages(
-                self, self.publication_related_links.all(), queryset)
-        elif related_options == 'Country':
-            queryset = PublicationSummaryPage.objects.filter(page_countries__in=self.page_countries)
-            context['related_pages'] = get_related_pages(
-                self, self.publication_related_links.all(), queryset)
-        else:
-            context['related_pages'] = get_related_pages(
-                self, self.publication_related_links.all(), PublicationSummaryPage.objects)
+        context['related_pages'] = self.get_related_links(self, PublicationSummaryPage.objects)
 
         return context
 
@@ -774,19 +741,8 @@ class PublicationChapterPage(
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
-        related_options = request.GET.get('choices', None)
 
-        if related_options == 'Topic':
-            queryset = PublicationChapterPage.objects.filter(topics__in=self.topics)
-            context['related_pages'] = get_related_pages(
-                self, self.publication_related_links.all(), queryset)
-        elif related_options == 'Country':
-            queryset = PublicationChapterPage.objects.filter(page_countries__in=self.page_countries)
-            context['related_pages'] = get_related_pages(
-                self, self.publication_related_links.all(), queryset)
-        else:
-            context['related_pages'] = get_related_pages(
-                self, self.publication_related_links.all(), PublicationChapterPage.objects)
+        context['related_pages'] = self.get_related_links(self, PublicationChapterPage.objects)
 
         return context
 
@@ -983,19 +939,8 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, PublicationPageSearch
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
-        related_options = request.GET.get('choices', None)
 
-        if related_options == 'Topic':
-            queryset = LegacyPublicationPage.objects.filter(topics__in=self.topics)
-            context['related_pages'] = get_related_pages(
-                self, self.publication_related_links.all(), queryset)
-        elif related_options == 'Country':
-            queryset = LegacyPublicationPage.objects.filter(page_countries__in=self.page_countries)
-            context['related_pages'] = get_related_pages(
-                self, self.publication_related_links.all(), queryset)
-        else:
-            context['related_pages'] = get_related_pages(
-                self, self.publication_related_links.all(), LegacyPublicationPage.objects)
+        context['related_pages'] = self.get_related_links(self, LegacyPublicationPage.objects)
 
         return context;
 
@@ -1115,19 +1060,8 @@ class ShortPublicationPage(
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
-        related_options = request.GET.get('choices', None)
 
-        if related_options == 'Topic':
-            queryset = ShortPublicationPage.objects.filter(topics__in=self.topics)
-            context['related_pages'] = get_related_pages(
-                self, self.publication_related_links.all(), queryset)
-        elif related_options == 'Country':
-            queryset = ShortPublicationPage.objects.filter(page_countries__in=self.page_countries)
-            context['related_pages'] = get_related_pages(
-                self, self.publication_related_links.all(), queryset)
-        else:
-            context['related_pages'] = get_related_pages(
-                self, self.publication_related_links.all(), ShortPublicationPage.objects)
+        context['related_pages'] = self.get_related_links(self, ShortPublicationPage.objects)
 
         return context
 
@@ -1177,19 +1111,8 @@ class AudioVisualMedia(PublishedDateMixin, TypesetBodyMixin, HeroMixin, Publicat
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
-        related_options = request.GET.get('choices', None)
 
-        if related_options == 'Topic':
-            queryset = AudioVisualMedia.objects.filter(topics__in=self.topics)
-            context['related_pages'] = get_related_pages(
-                self, self.publication_related_links.all(), queryset)
-        elif related_options == 'Country':
-            queryset = AudioVisualMedia.objects.filter(page_countries__in=self.page_countries)
-            context['related_pages'] = get_related_pages(
-                self, self.publication_related_links.all(), queryset)
-        else:
-            context['related_pages'] = get_related_pages(
-                self, self.publication_related_links.all(), AudioVisualMedia.objects)
+        context['related_pages'] = self.get_related_links(self, AudioVisualMedia.objects)
 
         return context
 

@@ -1,6 +1,7 @@
 from django.utils.timezone import now
 from django.db import models
 from django.utils.functional import cached_property
+from di_website.common.constants import MAX_RELATED_LINKS
 
 from wagtail.core.models import Page
 from wagtail.contrib.redirects.models import Redirect
@@ -215,9 +216,15 @@ class RelatedLinksMixin(models.Model):
 
         if self.related_option_handler == 'Topic':
             queryset = objects.filter(topics__in=self.topics)
-            return get_related_pages(self, self.publication_related_links.all(), queryset)
+            if len(queryset) > MAX_RELATED_LINKS:
+                return get_related_pages(self, queryset[:MAX_RELATED_LINKS], queryset)
+            else:
+                return get_related_pages(self, queryset, objects)
         elif self.related_option_handler == 'Country':
             queryset = objects.filter(page_countries__in=self.page_countries)
-            return get_related_pages(self, self.publication_related_links.all(), queryset)
+            if len(queryset) > MAX_RELATED_LINKS:
+                return get_related_pages(self, queryset[:MAX_RELATED_LINKS], queryset)
+            else:
+                return get_related_pages(self, queryset, objects)
 
         return get_related_pages(self, self.publication_related_links.all(), objects)

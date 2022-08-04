@@ -205,7 +205,7 @@ class HeroButtonMixin(models.Model):
 
 class RelatedLinksMixin(models.Model):
     related_option_handler = models.CharField(
-        max_length=253, choices=RELATED_CHOICES, default='Manual', verbose_name='Show By')
+        max_length=253, choices=RELATED_CHOICES, default='MANUAL', verbose_name='Show By')
 
     class Meta:
         abstract = True
@@ -214,13 +214,13 @@ class RelatedLinksMixin(models.Model):
         if not objects:
             return None
 
-        if self.related_option_handler == 'Topic':
+        if self.related_option_handler == 'TOPIC':
             queryset = objects.filter(topics__in=self.topics)
             if len(queryset) > MAX_RELATED_LINKS:
                 return get_related_pages(self, queryset[:MAX_RELATED_LINKS], queryset)
             else:
                 return get_related_pages(self, queryset, objects)
-        elif self.related_option_handler == 'Country':
+        elif self.related_option_handler == 'COUNTRY':
             queryset = objects.filter(page_countries__in=self.page_countries)
             if len(queryset) > MAX_RELATED_LINKS:
                 return get_related_pages(self, queryset[:MAX_RELATED_LINKS], queryset)

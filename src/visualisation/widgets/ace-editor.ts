@@ -8,7 +8,7 @@ const initAceEditor = (widgetID: string): void => {
     if (editorNode && inputNode) {
       try {
         const mode = editorNode.dataset.mode;
-        ace.config.set('basePath', 'https://cdnjs.cloudflare.com/ajax/libs/ace/1.9.5/')
+        ace.config.set('basePath', 'https://cdnjs.cloudflare.com/ajax/libs/ace/1.9.5/');
         const editor = ace.edit(editorNode);
         editor.setTheme('ace/theme/monokai'); //TODO: set theme dynamically
         editor.session.setMode(`ace/mode/${mode}`);

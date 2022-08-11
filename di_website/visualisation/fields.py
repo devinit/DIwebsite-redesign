@@ -20,8 +20,8 @@ class AceEditorInput(widgets.HiddenInput):
             },
             js=[
                 versioned_static('visualisation/widgets/js/ace-editor.js'),
-                versioned_static('https://pagecdn.io/lib/ace/1.4.7/ace.js'),
-                versioned_static('https://pagecdn.io/lib/ace/1.4.7/theme-monokai.js'),
+                versioned_static('https://cdnjs.cloudflare.com/ajax/libs/ace/1.9.5/ace.min.js'),
+                versioned_static('https://cdnjs.cloudflare.com/ajax/libs/ace/1.9.5/theme-monokai.min.js'),
                 # versioned_static('https://cdn.plot.ly/plotly-basic-latest.min.js')
             ]
         )

@@ -257,8 +257,8 @@ class AceEditorJSONBlock(StructBlock):
     def media(self):
         return Media(
             js=[
-                'https://pagecdn.io/lib/ace/1.4.7/ace.js',
-                'https://pagecdn.io/lib/ace/1.4.7/theme-monokai.js'
+                'https://cdnjs.cloudflare.com/ajax/libs/ace/1.9.5/ace.min.js',
+                'https://cdnjs.cloudflare.com/ajax/libs/ace/1.9.5/theme-monokai.min.js'
             ]
         )
 

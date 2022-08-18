@@ -26,7 +26,7 @@
 		position: absolute;
 		left: -60px;
 		top: 30px;
-		max-width: 250px;
+		max-width: 150px;
 	}
 	@include respond-to($e-vp) {
 		max-width: 150px;

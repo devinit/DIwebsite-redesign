@@ -19,8 +19,8 @@ celery==4.4.7
 wagtailgeowidget==5.0.2
 xlrd>=1.0.0
 boxsdk==2.6.1
-cffi==1.14.6
-cryptography==3.3.2
+cffi>=1.15.1,<1.16
+cryptography>=37.0.4,<38.0
 pycparser==2.19
 pyjwt==1.7.1
 wagtail-metadata==3.3.0

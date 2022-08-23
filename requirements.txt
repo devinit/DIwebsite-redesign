@@ -25,5 +25,5 @@ pycparser==2.19
 pyjwt==1.7.1
 wagtail-metadata>=3.5.0,<4.0.0
 whitenoise==5.2.0
-wagtailmedia==0.5.0
+wagtailmedia>=0.10.1,<1.0.0
 PyGithub==1.54.1

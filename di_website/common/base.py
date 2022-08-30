@@ -58,7 +58,7 @@ def get_related_pages(callingPage, selected_pages, queryset=None, min_len=MAX_RE
 
     if count < min_len:
         difference = min_len - count
-        related_pages = [link.other_page for link in selected_pages]
+        related_pages = [link.other_page if hasattr(link, 'other_page') else link for link in selected_pages]
         if related_pages and queryset:
             id_list = [page.id for page in related_pages if page]
             id_list.append(callingPage.id)
@@ -68,7 +68,7 @@ def get_related_pages(callingPage, selected_pages, queryset=None, min_len=MAX_RE
         elif queryset:
             return list(queryset.live().exclude(id=callingPage.id)[:min_len])
 
-    return list([link.other_page for link in selected_pages])
+    return list([link.other_page if hasattr(link, 'other_page') else link for link in selected_pages])
 
 
 def multiple_email_validator(email_string):

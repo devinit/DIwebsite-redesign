@@ -554,7 +554,7 @@ class PublicationForewordPage(
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
 
-        context['related_pages'] = self.get_related_links(PublicationForwardPage.objects)
+        context['related_pages'] = self.get_related_links(PublicationForewordPage.objects)
 
         return context
 

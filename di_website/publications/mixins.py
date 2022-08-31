@@ -216,13 +216,12 @@ class RelatedLinksMixin(models.Model):
 
         if self.related_option_handler == 'TOPIC':
             queryset = objects.filter(topics__in=self.topics.get_queryset()).exclude(id=self.id).distinct()
+            slice_queryset = queryset[:MAX_RELATED_LINKS] if len(queryset) > MAX_RELATED_LINKS else queryset
+            return get_related_pages(self, slice_queryset, objects)
         elif self.related_option_handler == 'COUNTRY':
             countries = [country.country.name for country in self.page_countries.all()]
             queryset = objects.filter(page_countries__country__name__in=countries).exclude(id=self.id).distinct()
+            slice_queryset = queryset[:MAX_RELATED_LINKS] if len(queryset) > MAX_RELATED_LINKS else queryset
+            return get_related_pages(self, slice_queryset, objects)
         elif self.related_option_handler == 'MANUAL':
             return get_related_pages(self, self.publication_related_links.all(), objects)
-        
-        if len(queryset) > MAX_RELATED_LINKS:
-            return get_related_pages(self, queryset[:MAX_RELATED_LINKS], objects)
-        else:
-            return get_related_pages(self, queryset, objects)

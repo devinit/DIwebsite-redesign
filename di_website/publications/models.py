@@ -486,7 +486,12 @@ class PublicationPage(
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
 
-        context['related_pages'] = self.get_related_links(PublicationPage.objects)
+        context['related_pages'] = self.get_related_links({
+            'audio': AudioVisualMedia.objects,
+            'legacy': LegacyPublicationPage.objects,
+            'publication': PublicationPage.objects,
+            'short': ShortPublicationPage.objects
+        })
 
         return context
 
@@ -554,7 +559,7 @@ class PublicationForewordPage(
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
 
-        context['related_pages'] = self.get_related_links(PublicationForewordPage.objects)
+        context['related_pages'] = self.get_related_links({})
 
         return context
 
@@ -639,7 +644,7 @@ class PublicationSummaryPage(
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
 
-        context['related_pages'] = self.get_related_links(PublicationSummaryPage.objects)
+        context['related_pages'] = self.get_related_links({})
 
         return context
 
@@ -742,7 +747,7 @@ class PublicationChapterPage(
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
 
-        context['related_pages'] = self.get_related_links(PublicationChapterPage.objects)
+        context['related_pages'] = self.get_related_links({})
 
         return context
 
@@ -940,7 +945,12 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, PublicationPageSearch
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
 
-        context['related_pages'] = self.get_related_links(LegacyPublicationPage.objects)
+        context['related_pages'] = self.get_related_links({
+            'audio': AudioVisualMedia.objects,
+            'legacy': LegacyPublicationPage.objects,
+            'publication': PublicationPage.objects,
+            'short': ShortPublicationPage.objects
+        })
 
         return context;
 
@@ -1061,7 +1071,12 @@ class ShortPublicationPage(
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
 
-        context['related_pages'] = self.get_related_links(ShortPublicationPage.objects)
+        context['related_pages'] = self.get_related_links({
+            'audio': AudioVisualMedia.objects,
+            'legacy': LegacyPublicationPage.objects,
+            'publication': PublicationPage.objects,
+            'short': ShortPublicationPage.objects
+        })
 
         return context
 
@@ -1112,7 +1127,12 @@ class AudioVisualMedia(PublishedDateMixin, TypesetBodyMixin, HeroMixin, Publicat
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
 
-        context['related_pages'] = self.get_related_links(AudioVisualMedia.objects)
+        context['related_pages'] = self.get_related_links({
+            'audio': AudioVisualMedia.objects,
+            'legacy': LegacyPublicationPage.objects,
+            'publication': PublicationPage.objects,
+            'short': ShortPublicationPage.objects
+        })
 
         return context
 

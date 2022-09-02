@@ -215,13 +215,21 @@ class RelatedLinksMixin(models.Model):
             return None
 
         if self.related_option_handler == 'TOPIC':
-            queryset = objects.filter(topics__in=self.topics.get_queryset()).exclude(id=self.id).distinct()
-            slice_queryset = queryset[:MAX_RELATED_LINKS] if len(queryset) > MAX_RELATED_LINKS else queryset
+            combined_queryset = []
+            for key in objects:
+                results = objects[key].live().filter(topics__in=self.topics.get_queryset()).exclude(id=self.id).distinct()
+                for item in results:
+                    combined_queryset.append(item)
+            slice_queryset = combined_queryset[:MAX_RELATED_LINKS] if len(combined_queryset) > MAX_RELATED_LINKS else combined_queryset
             return get_related_pages(self, slice_queryset, objects)
         elif self.related_option_handler == 'COUNTRY':
             countries = [country.country.name for country in self.page_countries.all()]
-            queryset = objects.filter(page_countries__country__name__in=countries).exclude(id=self.id).distinct()
-            slice_queryset = queryset[:MAX_RELATED_LINKS] if len(queryset) > MAX_RELATED_LINKS else queryset
+            combined_queryset = []
+            for key in objects:
+                results = objects[key].live().filter(page_countries__country__name__in=countries).exclude(id=self.id).distinct()
+                for item in results:
+                    combined_queryset.append(item)
+            slice_queryset = combined_queryset[:MAX_RELATED_LINKS] if len(combined_queryset) > MAX_RELATED_LINKS else combined_queryset
             return get_related_pages(self, slice_queryset, objects)
         elif self.related_option_handler == 'MANUAL':
             return get_related_pages(self, self.publication_related_links.all(), objects)

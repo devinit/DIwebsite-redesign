@@ -1,18 +1,23 @@
 from django.utils.timezone import now
-from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.functional import cached_property
+from di_website.common.constants import MAX_RELATED_LINKS
 
 from wagtail.core.models import Page
 from wagtail.contrib.redirects.models import Redirect
 from wagtail.search import index
 
+from di_website.common.base import get_related_pages
 from di_website.common.templatetags.string_utils import uid
 
 from .fields import flexible_content_streamfield, content_streamfield
 from .utils import WagtailImageField, get_downloads
 
-
+RELATED_CHOICES = (
+    ('MANUAL', 'Manual'),
+    ('COUNTRY', 'Country'),
+    ('TOPIC', 'Topic')
+)
 class FilteredDatasetMixin(object):
     @cached_property
     def filtered_datasets(self):
@@ -197,3 +202,34 @@ class HeroButtonMixin(models.Model):
 
     class Meta:
         abstract = True
+
+class RelatedLinksMixin(models.Model):
+    related_option_handler = models.CharField(
+        max_length=253, choices=RELATED_CHOICES, default='MANUAL', verbose_name='Show By')
+
+    class Meta:
+        abstract = True
+
+    def get_related_links(self, objects=None):
+        if not objects:
+            return None
+
+        if self.related_option_handler == 'TOPIC' or self.related_option_handler == 'Topic':
+            combined_queryset = []
+            for key in objects:
+                results = objects[key].live().filter(topics__in=self.topics.get_queryset()).exclude(id=self.id).distinct()
+                for item in results:
+                    combined_queryset.append(item)
+            slice_queryset = combined_queryset[:MAX_RELATED_LINKS] if len(combined_queryset) > MAX_RELATED_LINKS else combined_queryset
+            return get_related_pages(self, slice_queryset, objects)
+        elif self.related_option_handler == 'COUNTRY'  or self.related_option_handler == 'Country':
+            countries = [country.country.name for country in self.page_countries.all()]
+            combined_queryset = []
+            for key in objects:
+                results = objects[key].live().filter(page_countries__country__name__in=countries).exclude(id=self.id).distinct()
+                for item in results:
+                    combined_queryset.append(item)
+            slice_queryset = combined_queryset[:MAX_RELATED_LINKS] if len(combined_queryset) > MAX_RELATED_LINKS else combined_queryset
+            return get_related_pages(self, slice_queryset, objects)
+        elif self.related_option_handler == 'MANUAL' or self.related_option_handler == 'Manual':
+            return get_related_pages(self, self.publication_related_links.all(), objects)

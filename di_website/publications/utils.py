@@ -2,7 +2,9 @@ from collections import defaultdict
 
 from django.db import models
 
-from wagtail.admin.edit_handlers import StreamFieldPanel, FieldPanel
+from di_website.common.constants import MAX_RELATED_LINKS
+
+from wagtail.admin.edit_handlers import StreamFieldPanel, FieldPanel, InlinePanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.documents.edit_handlers import DocumentChooserPanel
 
@@ -68,6 +70,11 @@ def PublishedDatePanel():
 def UUIDPanel():
     return FieldPanel('uuid')
 
+def RelatedLinksPanel():
+    return MultiFieldPanel([
+        FieldPanel('related_option_handler', heading='Show by'),
+        InlinePanel('publication_related_links', label='Related links', max_num=MAX_RELATED_LINKS)
+    ], heading='Related Links')
 
 def StateMixinPanel():
     return FieldPanel('use_state')

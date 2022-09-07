@@ -214,7 +214,7 @@ class RelatedLinksMixin(models.Model):
         if not objects:
             return None
 
-        if self.related_option_handler == 'TOPIC':
+        if self.related_option_handler == 'TOPIC' or self.related_option_handler == 'Topic':
             combined_queryset = []
             for key in objects:
                 results = objects[key].live().filter(topics__in=self.topics.get_queryset()).exclude(id=self.id).distinct()
@@ -222,7 +222,7 @@ class RelatedLinksMixin(models.Model):
                     combined_queryset.append(item)
             slice_queryset = combined_queryset[:MAX_RELATED_LINKS] if len(combined_queryset) > MAX_RELATED_LINKS else combined_queryset
             return get_related_pages(self, slice_queryset, objects)
-        elif self.related_option_handler == 'COUNTRY':
+        elif self.related_option_handler == 'COUNTRY'  or self.related_option_handler == 'Country':
             countries = [country.country.name for country in self.page_countries.all()]
             combined_queryset = []
             for key in objects:
@@ -231,5 +231,5 @@ class RelatedLinksMixin(models.Model):
                     combined_queryset.append(item)
             slice_queryset = combined_queryset[:MAX_RELATED_LINKS] if len(combined_queryset) > MAX_RELATED_LINKS else combined_queryset
             return get_related_pages(self, slice_queryset, objects)
-        elif self.related_option_handler == 'MANUAL':
+        elif self.related_option_handler == 'MANUAL' or self.related_option_handler == 'Manual':
             return get_related_pages(self, self.publication_related_links.all(), objects)

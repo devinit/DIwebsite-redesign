@@ -665,10 +665,12 @@ class PublicationChapterPage(
         choices=[(i, num2words(i).title()) for i in range(1, 21)]
     )
     colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=RED)
+    glossary_list = StreamField([('glossary', GlossaryAccordionBlock())])
 
     content_panels = Page.content_panels + [
         FieldPanel('colour'),
         hero_panels(),
+        StreamFieldPanel('glossary_list'),
         MultiFieldPanel(
             [
                 FieldPanel('chapter_number', widget=forms.Select),

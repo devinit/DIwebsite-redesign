@@ -1,6 +1,7 @@
 import operator
 from functools import reduce
 from itertools import chain
+from di_website.publications.blocks import GlossaryAccordionBlock
 from num2words import num2words
 from taggit.models import Tag, TaggedItemBase
 
@@ -19,7 +20,7 @@ from wagtail.admin.edit_handlers import (FieldPanel, InlinePanel, PageChooserPan
 from wagtail.contrib.redirects.models import Redirect
 from wagtail.contrib.search_promotions.templatetags.wagtailsearchpromotions_tags import get_search_promotions
 from wagtail.core import hooks
-from wagtail.core.blocks import (CharBlock, PageChooserBlock, StructBlock, URLBlock)
+from wagtail.core.blocks import (CharBlock, PageChooserBlock, StructBlock, URLBlock, ListBlock, RichTextBlock, TextBlock)
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Orderable, Page
 from wagtail.images.blocks import ImageChooserBlock
@@ -491,8 +492,6 @@ class PublicationPage(
             self, self.publication_related_links.all(), PublicationPage.objects)
 
         return context
-
-
 class PublicationForewordPage(
     HeroMixin, ReportChildMixin, FlexibleContentMixin, PublishedDateMixin, PublicationPageSearchMixin, UniqueForParentPageMixin,
     UUIDMixin, FilteredDatasetMixin, ReportDownloadMixin, InheritCTAMixin, Page):
@@ -503,10 +502,12 @@ class PublicationForewordPage(
     subpage_types = []
 
     colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=RED)
+    glossary_list = StreamField([('glossary', GlossaryAccordionBlock())])
 
     content_panels = Page.content_panels + [
         hero_panels(),
         FieldPanel('colour'),
+        StreamFieldPanel('glossary_list'),
         ContentPanel(),
         InlinePanel('publication_datasets', label='Datasets'),
         PublishedDatePanel(),
@@ -948,7 +949,7 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, PublicationPageSearch
         context['related_pages'] = get_related_pages(
             self, self.publication_related_links.all(), LegacyPublicationPage.objects)
 
-        return context;
+        return context
 
 
 class ShortPublicationPage(

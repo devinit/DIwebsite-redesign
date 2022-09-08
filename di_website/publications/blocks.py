@@ -1,8 +1,11 @@
 from django.forms.utils import flatatt
 from django.utils.html import format_html, format_html_join
-
-from wagtail.core.blocks import StreamBlock
+from wagtail.core.blocks import (ListBlock, RichTextBlock, StreamBlock,
+                                 StructBlock, TextBlock)
 from wagtailmedia.blocks import AbstractMediaChooserBlock
+
+from di_website.common.constants import RICHTEXT_FEATURES
+
 
 class AudioMediaBlock(AbstractMediaChooserBlock):
     def render_basic(self, value, context=None):
@@ -48,3 +51,13 @@ class AudioMediaStreamBlock(StreamBlock):
     media = AudioMediaBlock()
 
     required = False
+
+class GlossaryAccordionBlock(StructBlock):
+    items = ListBlock(StructBlock([
+        ('title', TextBlock(icon='fa-text')),
+        ('description', RichTextBlock(
+            icon='fa-paragraph',
+            template='blocks/paragraph_block.html',
+            features=RICHTEXT_FEATURES,
+            required=False))
+    ]))

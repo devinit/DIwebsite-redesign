@@ -13,7 +13,6 @@
   {% include 'publications/chapter-nav/nav.html' with page=page.get_parent.specific menu_label='Contents' chapter_number=0 label=page.label nav_label=page.nav_label %}
 
   {% for block in page.content %}
-
     {% if forloop.first and page.call_to_action %}
       <section class="section section--post">
         <div class="row row--narrow">
@@ -33,7 +32,24 @@
         {% if block.block_type == 'rich_text' and forloop.first %}
           {% include_block block with id=block.id|string_start classname='is-typeset--additionals' %}
         {% else %}
-          {% include_block block with id=block.id|string_start %}
+        {% if block.block_type == 'glossary' %}
+          {% for item in block.value.items%}
+          <li class="accordion__list-item">
+            <button type="button" class="accordion__heading">
+              {{item.title}}
+              <i role="presentation" aria-hidden="true" class="ico ico--20 ico-plus-blank"></i>
+            </button>
+            <div class="accordion__content">
+              <div class="is-typeset">
+                {{item.description|content}}
+              </div>
+            </div>
+          </li>
+          {% endfor %}
+        {% else %}
+        {% include_block block with id=block.id|string_start %}
+        {% endif %}
+
         {% endif %}
       </div>
     </section>

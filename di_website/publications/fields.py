@@ -1,3 +1,4 @@
+from di_website.publications.blocks import GlossaryAccordionBlock
 from wagtail.core.blocks.field_block import BooleanBlock
 from wagtail.core.fields import StreamField
 from wagtail.contrib.table_block.blocks import TableBlock
@@ -306,6 +307,7 @@ def flexible_content_streamfield(blank=False):
         ('interactive_chart', InteractiveChartBlock()),
         ('advanced_interactive_chart', AdvancedInteractiveChartBlock()),
         ('cta', CallToActionBlock()),
+        (('glossary', GlossaryAccordionBlock())),
 
     ], blank=blank)
 

@@ -58,6 +58,5 @@ class GlossaryAccordionBlock(StructBlock):
         ('description', RichTextBlock(
             icon='fa-paragraph',
             template='blocks/paragraph_block.html',
-            features=RICHTEXT_FEATURES,
-            required=False))
-    ]))
+            features=RICHTEXT_FEATURES,))
+    ]), required=False)

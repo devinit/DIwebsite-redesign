@@ -575,9 +575,11 @@ class PublicationSummaryPage(
     subpage_types = []
 
     colour = models.CharField(max_length=256, choices=COLOUR_CHOICES, default=RED)
+    glossary_list = StreamField([('glossary', GlossaryAccordionBlock())])
 
     content_panels = Page.content_panels + [
         FieldPanel('colour'),
+        StreamFieldPanel('glossary_list'),
         hero_panels(),
         ContentPanel(),
         InlinePanel('publication_datasets', label='Datasets'),

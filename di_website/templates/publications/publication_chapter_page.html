@@ -40,17 +40,7 @@
         {% else %}
           {% if block.block_type == 'glossary' %}
             {% for item in block.value.items%}
-              <li class="accordion__list-item">
-                <button type="button" class="accordion__heading">
-                  {{item.title}}
-                  <i role="presentation" aria-hidden="true" class="ico ico--20 ico-plus-blank"></i>
-                </button>
-                <div class="accordion__content">
-                  <div class="is-typeset">
-                    {{item.description|content}}
-                  </div>
-                </div>
-              </li>
+              {% include_block block %}
             {% endfor %}
           {% else %}
             {% include_block block with id=block.id|string_start %}

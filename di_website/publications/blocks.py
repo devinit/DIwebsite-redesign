@@ -53,6 +53,9 @@ class AudioMediaStreamBlock(StreamBlock):
     required = False
 
 class GlossaryAccordionBlock(StructBlock):
+    class Meta:
+        template = 'publications/blocks/glossary.html'
+
     items = ListBlock(StructBlock([
         ('title', TextBlock(icon='fa-text')),
         ('description', RichTextBlock(

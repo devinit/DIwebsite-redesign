@@ -24,7 +24,13 @@
         {% if block.block_type == 'rich_text' and forloop.first %}
           {% include_block block with id=block.id|string_start classname='is-typeset--additionals' %}
         {% else %}
-          {% include_block block with id=block.id|string_start %}
+        {% if block.block_type == 'glossary' %}
+            {% for item in block.value.items%}
+              {% include_block block %}
+            {% endfor %}
+          {% else %}
+            {% include_block block with id=block.id|string_start %}
+          {% endif %}
         {% endif %}
       </div>
     </section>

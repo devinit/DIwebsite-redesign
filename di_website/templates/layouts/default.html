@@ -18,7 +18,9 @@
   {% block html_header %}
     {% include 'includes/scaffold/header-assets.html' %}
   {% endblock %}
-
+  {% if page.alias_of %}
+    <link rel=canonical href={{page.alias_of.url}}>
+  {% endif %}
   {% block metadata %}
     {% meta_tags %}
   {% endblock %}

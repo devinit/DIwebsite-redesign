@@ -13,6 +13,8 @@ from wagtail.snippets.models import register_snippet
 
 from .constants import MAX_RELATED_LINKS
 
+from typing import Dict
+
 
 def hero_panels(allowed_pages=[]):
     """
@@ -58,17 +60,32 @@ def get_related_pages(callingPage, selected_pages, queryset=None, min_len=MAX_RE
 
     if count < min_len:
         difference = min_len - count
-        related_pages = [link.other_page for link in selected_pages]
+        related_pages = [link.other_page if hasattr(link, 'other_page') else link for link in selected_pages]
         if related_pages and queryset:
             id_list = [page.id for page in related_pages if page]
             id_list.append(callingPage.id)
             if id_list:
-                return list(related_pages) + list(queryset.live().exclude(id__in=id_list)[:difference])
+                bonus_pages = []
+                if isinstance(queryset, Dict):
+                    for key in queryset:
+                        results = queryset[key].live().exclude(id__in=id_list)
+                        for item in results:
+                            bonus_pages.append(item)
+                else:
+                    bonus_pages = queryset.live().exclude(id__in=id_list)
+                return list(related_pages) + list(bonus_pages[:difference])
             return list(queryset.live()[:min_len])
-        elif queryset:
+        elif isinstance(queryset, Dict):
+            bonus_pages = []
+            for key in queryset:
+                results = queryset[key].live().exclude(id=callingPage.id)
+                for item in results:
+                    bonus_pages.append(item)
+            return list(bonus_pages[:min_len])
+        else:
             return list(queryset.live().exclude(id=callingPage.id)[:min_len])
 
-    return list([link.other_page for link in selected_pages])
+    return list([link.other_page if hasattr(link, 'other_page') else link for link in selected_pages])
 
 
 def multiple_email_validator(email_string):

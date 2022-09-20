@@ -36,9 +36,9 @@ from .edit_handlers import MultiFieldPanel
 from .inlines import *
 from .mixins import (
     FilteredDatasetMixin, FlexibleContentMixin, HeroButtonMixin, InheritCTAMixin, PublicationPageSearchMixin,
-    PublishedDateMixin, ReportChildMixin, ReportDownloadMixin, UniqueForParentPageMixin, UUIDMixin)
+    PublishedDateMixin, ReportChildMixin, RelatedLinksMixin, ReportDownloadMixin, UniqueForParentPageMixin, UUIDMixin)
 from .utils import (
-    ContentPanel, PublishedDatePanel, ReportDownloadPanel, UUIDPanel, WagtailImageField,
+    ContentPanel, PublishedDatePanel, ReportDownloadPanel, UUIDPanel, WagtailImageField, RelatedLinksPanel,
     get_downloads, get_first_child_of_type, get_ordered_children_of_type)
 
 RED = 'poppy'
@@ -57,7 +57,6 @@ COLOUR_CHOICES = (
     (PURPLE, 'Purple'),
     (GREEN, 'Green')
 )
-
 
 class PublicationTopic(TaggedItemBase):
     content_object = ParentalKey('publications.PublicationPage', on_delete=models.CASCADE, related_name='publication_topics')
@@ -334,7 +333,7 @@ class PublicationIndexPage(HeroMixin, Page):
 
 class PublicationPage(
     HeroMixin, HeroButtonMixin, PublishedDateMixin, PublicationPageSearchMixin, UUIDMixin,
-    FilteredDatasetMixin, ReportDownloadMixin, Page):
+    FilteredDatasetMixin, RelatedLinksMixin, ReportDownloadMixin, Page):
 
     class Meta:
         verbose_name = 'Publication Page'
@@ -397,7 +396,7 @@ class PublicationPage(
         ReportDownloadPanel(),
         UUIDPanel(),
         InlinePanel('page_notifications', label='Notifications'),
-        InlinePanel('publication_related_links', label='Related links', max_num=MAX_RELATED_LINKS),
+        RelatedLinksPanel(),
         InlinePanel('publication_cta', label='Call To Action', max_num=2),
     ]
 
@@ -487,15 +486,19 @@ class PublicationPage(
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
 
-        context['related_pages'] = get_related_pages(
-            self, self.publication_related_links.all(), PublicationPage.objects)
+        context['related_pages'] = self.get_related_links({
+            'audio': AudioVisualMedia.objects,
+            'legacy': LegacyPublicationPage.objects,
+            'publication': PublicationPage.objects,
+            'short': ShortPublicationPage.objects
+        })
 
         return context
 
 
 class PublicationForewordPage(
     HeroMixin, ReportChildMixin, FlexibleContentMixin, PublishedDateMixin, PublicationPageSearchMixin, UniqueForParentPageMixin,
-    UUIDMixin, FilteredDatasetMixin, ReportDownloadMixin, InheritCTAMixin, Page):
+    UUIDMixin, FilteredDatasetMixin, ReportDownloadMixin, InheritCTAMixin, RelatedLinksMixin, Page):
     class Meta:
         verbose_name = 'Publication Foreword'
 
@@ -521,7 +524,7 @@ class PublicationForewordPage(
             max_num=1,
         ),
         ReportDownloadPanel(),
-        InlinePanel('publication_related_links', label='Related links', max_num=MAX_RELATED_LINKS),
+        RelatedLinksPanel(),
         InlinePanel('page_notifications', label='Notifications')
     ]
 
@@ -556,15 +559,14 @@ class PublicationForewordPage(
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
 
-        context['related_pages'] = get_related_pages(
-            self, self.publication_related_links.all(), PublicationForewordPage.objects)
+        context['related_pages'] = self.get_related_links({})
 
         return context
 
 
 class PublicationSummaryPage(
     HeroMixin, ReportChildMixin, FlexibleContentMixin, PublishedDateMixin, PublicationPageSearchMixin, UniqueForParentPageMixin,
-    UUIDMixin, FilteredDatasetMixin, ReportDownloadMixin, InheritCTAMixin, Page):
+    UUIDMixin, FilteredDatasetMixin, ReportDownloadMixin, RelatedLinksMixin, InheritCTAMixin, Page):
 
     class Meta:
         verbose_name = 'Publication Summary'
@@ -592,7 +594,7 @@ class PublicationSummaryPage(
         ),
         ReportDownloadPanel(),
         InlinePanel('page_notifications', label='Notifications'),
-        InlinePanel('publication_related_links', label='Related links', max_num=MAX_RELATED_LINKS),
+        RelatedLinksPanel(),
     ]
 
     @cached_property
@@ -642,15 +644,14 @@ class PublicationSummaryPage(
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
 
-        context['related_pages'] = get_related_pages(
-            self, self.publication_related_links.all(), PublicationSummaryPage.objects)
+        context['related_pages'] = self.get_related_links({})
 
         return context
 
 
 class PublicationChapterPage(
     HeroMixin, ReportChildMixin, FlexibleContentMixin, PublishedDateMixin, PublicationPageSearchMixin,
-    UUIDMixin, FilteredDatasetMixin, ReportDownloadMixin, InheritCTAMixin, Page):
+    UUIDMixin, FilteredDatasetMixin, ReportDownloadMixin, RelatedLinksMixin, InheritCTAMixin, Page):
 
     class Meta:
         verbose_name = 'Publication Chapter'
@@ -687,7 +688,7 @@ class PublicationChapterPage(
         ),
         ReportDownloadPanel(),
         InlinePanel('page_notifications', label='Notifications'),
-        InlinePanel('publication_related_links', label='Related links', max_num=MAX_RELATED_LINKS),
+        RelatedLinksPanel(),
     ]
 
     @cached_property
@@ -746,15 +747,14 @@ class PublicationChapterPage(
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
 
-        context['related_pages'] = get_related_pages(
-            self, self.publication_related_links.all(), PublicationChapterPage.objects)
+        context['related_pages'] = self.get_related_links({})
 
         return context
 
 
 class PublicationAppendixPage(
     HeroMixin, ReportChildMixin, FlexibleContentMixin, PublishedDateMixin, PublicationPageSearchMixin,
-    UUIDMixin, FilteredDatasetMixin, ReportDownloadMixin, Page):
+    UUIDMixin, FilteredDatasetMixin, ReportDownloadMixin,RelatedLinksMixin, Page):
 
     class Meta:
         verbose_name = 'Publication Appendix'
@@ -792,7 +792,7 @@ class PublicationAppendixPage(
         ),
         ReportDownloadPanel(),
         InlinePanel('page_notifications', label='Notifications'),
-        InlinePanel('publication_related_links', label='Related links', max_num=MAX_RELATED_LINKS),
+        RelatedLinksPanel(),
     ]
 
     @cached_property
@@ -848,7 +848,7 @@ class PublicationAppendixPage(
         return sections
 
 
-class LegacyPublicationPage(HeroMixin, PublishedDateMixin, PublicationPageSearchMixin, FilteredDatasetMixin, CallToActionMixin, ReportDownloadMixin, Page):
+class LegacyPublicationPage(HeroMixin, PublishedDateMixin, PublicationPageSearchMixin, FilteredDatasetMixin, CallToActionMixin, RelatedLinksMixin, ReportDownloadMixin, Page):
 
     class Meta:
         verbose_name = 'Legacy Publication'
@@ -914,7 +914,7 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, PublicationPageSearch
             description='Summary for the legacy publication.'
         ),
         InlinePanel('page_notifications', label='Notifications'),
-        InlinePanel('publication_related_links', label='Related links', max_num=MAX_RELATED_LINKS),
+        RelatedLinksPanel(),
     ]
 
     @cached_property
@@ -945,15 +945,19 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, PublicationPageSearch
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
 
-        context['related_pages'] = get_related_pages(
-            self, self.publication_related_links.all(), LegacyPublicationPage.objects)
+        context['related_pages'] = self.get_related_links({
+            'audio': AudioVisualMedia.objects,
+            'legacy': LegacyPublicationPage.objects,
+            'publication': PublicationPage.objects,
+            'short': ShortPublicationPage.objects
+        })
 
         return context;
 
 
 class ShortPublicationPage(
     HeroMixin, PublishedDateMixin, FlexibleContentMixin, PublicationPageSearchMixin,
-    UUIDMixin, FilteredDatasetMixin, CallToActionMixin, ReportDownloadMixin, Page):
+    UUIDMixin, FilteredDatasetMixin, CallToActionMixin, ReportDownloadMixin, RelatedLinksMixin, Page):
 
     class Meta:
         verbose_name = 'Short Publication'
@@ -1001,7 +1005,7 @@ class ShortPublicationPage(
         ),
         ReportDownloadPanel(),
         InlinePanel('page_notifications', label='Notifications'),
-        InlinePanel('publication_related_links', label='Related links', max_num=MAX_RELATED_LINKS),
+        RelatedLinksPanel(),
     ]
 
     @cached_property
@@ -1067,13 +1071,17 @@ class ShortPublicationPage(
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
 
-        context['related_pages'] = get_related_pages(
-            self, self.publication_related_links.all(), ShortPublicationPage.objects)
+        context['related_pages'] = self.get_related_links({
+            'audio': AudioVisualMedia.objects,
+            'legacy': LegacyPublicationPage.objects,
+            'publication': PublicationPage.objects,
+            'short': ShortPublicationPage.objects
+        })
 
         return context
 
 
-class AudioVisualMedia(PublishedDateMixin, TypesetBodyMixin, HeroMixin, PublicationPageSearchMixin, SectionBodyMixin, CallToActionMixin, Page):
+class AudioVisualMedia(PublishedDateMixin, TypesetBodyMixin, HeroMixin, PublicationPageSearchMixin, RelatedLinksMixin, SectionBodyMixin, CallToActionMixin, Page):
 
     """
     Audio Visual page to be used as a child of the Resources Index Page
@@ -1109,7 +1117,7 @@ class AudioVisualMedia(PublishedDateMixin, TypesetBodyMixin, HeroMixin, Publicat
         InlinePanel('page_countries', label="Countries"),
         FieldPanel('topics'),
         PublishedDatePanel(),
-        InlinePanel('publication_related_links', label='Related links', max_num=MAX_RELATED_LINKS),
+        RelatedLinksPanel(),
         InlinePanel('page_notifications', label='Notifications'),
     ]
 
@@ -1119,8 +1127,12 @@ class AudioVisualMedia(PublishedDateMixin, TypesetBodyMixin, HeroMixin, Publicat
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
 
-        context['related_pages'] = get_related_pages(
-            self, self.publication_related_links.all(), AudioVisualMedia.objects)
+        context['related_pages'] = self.get_related_links({
+            'audio': AudioVisualMedia.objects,
+            'legacy': LegacyPublicationPage.objects,
+            'publication': PublicationPage.objects,
+            'short': ShortPublicationPage.objects
+        })
 
         return context
 

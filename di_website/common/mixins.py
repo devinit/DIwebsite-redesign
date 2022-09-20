@@ -33,7 +33,7 @@ class CustomMetadataPageMixin(MetadataPageMixin):
         Defaults to ``summary_large_photo`` if there is a meta image,
         or ``summary`` if there is no image. Optional.
         """
-        return "summary_large_photo"
+        return "summary_large_image"
 
 
 class HeroMixin(CustomMetadataPageMixin, models.Model):

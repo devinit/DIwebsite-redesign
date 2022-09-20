@@ -323,3 +323,5 @@ GITHUB_TOKEN = os.getenv('GITHUB_TOKEN')
 PASSWORD_REQUIRED_TEMPLATE = 'password_required.html'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
+WAGTAILMETADATA_IMAGE_FILTER = 'fill-800x450'

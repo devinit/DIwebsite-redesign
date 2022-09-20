@@ -30,7 +30,7 @@ class CustomMetadataPageMixin(MetadataPageMixin):
     def get_meta_twitter_card_type(self):
         """
         What kind of Twitter card to show this as.
-        Defaults to ``summary_large_photo`` if there is a meta image,
+        Defaults to ``summary_large_image`` if there is a meta image,
         or ``summary`` if there is no image. Optional.
         """
         return "summary_large_image"

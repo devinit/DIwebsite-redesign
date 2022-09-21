@@ -82,7 +82,7 @@ def get_related_pages(callingPage, selected_pages, queryset=None, min_len=MAX_RE
                 for item in results:
                     bonus_pages.append(item)
             return list(bonus_pages[:min_len])
-        else:
+        elif queryset:
             return list(queryset.live().exclude(id=callingPage.id)[:min_len])
 
     return list([link.other_page if hasattr(link, 'other_page') else link for link in selected_pages])

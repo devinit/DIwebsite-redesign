@@ -14,9 +14,9 @@ from .fields import flexible_content_streamfield, content_streamfield
 from .utils import WagtailImageField, get_downloads
 
 RELATED_CHOICES = (
-    ('MANUAL', 'Manual'),
-    ('COUNTRY', 'Country'),
-    ('TOPIC', 'Topic')
+    ('Manual', 'Manual'),
+    ('Country', 'Country'),
+    ('Topic', 'Topic')
 )
 class FilteredDatasetMixin(object):
     @cached_property
@@ -205,7 +205,7 @@ class HeroButtonMixin(models.Model):
 
 class RelatedLinksMixin(models.Model):
     related_option_handler = models.CharField(
-        max_length=253, choices=RELATED_CHOICES, default='MANUAL', verbose_name='Show By')
+        max_length=253, choices=RELATED_CHOICES, default='Manual', verbose_name='Show By')
 
     class Meta:
         abstract = True

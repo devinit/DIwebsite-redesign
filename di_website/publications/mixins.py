@@ -13,14 +13,14 @@ from di_website.common.templatetags.string_utils import uid
 from .fields import flexible_content_streamfield, content_streamfield
 from .utils import WagtailImageField, get_downloads
 
-MANUAL = 'manual'
-COUNTRY = 'country'
-TOPIC = 'topic'
+
 RELATED_CHOICES = (
-    (MANUAL, 'Manual'),
-    (COUNTRY, 'Country'),
-    (TOPIC, 'Topic')
+    ('manual', 'Manual'),
+    ('country', 'Country'),
+    ('topic', 'Topic')
 )
+
+
 class FilteredDatasetMixin(object):
     @cached_property
     def filtered_datasets(self):
@@ -208,7 +208,7 @@ class HeroButtonMixin(models.Model):
 
 class RelatedLinksMixin(models.Model):
     related_option_handler = models.CharField(
-        max_length=253, choices=RELATED_CHOICES, default=MANUAL, verbose_name='Show By')
+        max_length=253, choices=RELATED_CHOICES, default='manual', verbose_name='Show By')
 
     class Meta:
         abstract = True

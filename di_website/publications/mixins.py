@@ -13,10 +13,13 @@ from di_website.common.templatetags.string_utils import uid
 from .fields import flexible_content_streamfield, content_streamfield
 from .utils import WagtailImageField, get_downloads
 
+MANUAL = 'manual'
+COUNTRY = 'country'
+TOPIC = 'topic'
 RELATED_CHOICES = (
-    ('Manual', 'Manual'),
-    ('Country', 'Country'),
-    ('Topic', 'Topic')
+    (MANUAL, 'Manual'),
+    (COUNTRY, 'Country'),
+    (TOPIC, 'Topic')
 )
 class FilteredDatasetMixin(object):
     @cached_property
@@ -205,7 +208,7 @@ class HeroButtonMixin(models.Model):
 
 class RelatedLinksMixin(models.Model):
     related_option_handler = models.CharField(
-        max_length=253, choices=RELATED_CHOICES, default='Manual', verbose_name='Show By')
+        max_length=253, choices=RELATED_CHOICES, default=MANUAL, verbose_name='Show By')
 
     class Meta:
         abstract = True
@@ -214,7 +217,7 @@ class RelatedLinksMixin(models.Model):
         if not objects:
             return None
 
-        if self.related_option_handler == 'TOPIC' or self.related_option_handler == 'Topic':
+        if self.related_option_handler == 'topic' or self.related_option_handler == 'Topic':
             combined_queryset = []
             for key in objects:
                 results = objects[key].live().filter(topics__in=self.topics.get_queryset()).exclude(id=self.id).distinct()
@@ -222,7 +225,7 @@ class RelatedLinksMixin(models.Model):
                     combined_queryset.append(item)
             slice_queryset = combined_queryset[:MAX_RELATED_LINKS] if len(combined_queryset) > MAX_RELATED_LINKS else combined_queryset
             return get_related_pages(self, slice_queryset, objects)
-        elif self.related_option_handler == 'COUNTRY'  or self.related_option_handler == 'Country':
+        elif self.related_option_handler == 'country'  or self.related_option_handler == 'Country':
             countries = [country.country.name for country in self.page_countries.all()]
             combined_queryset = []
             for key in objects:
@@ -231,5 +234,5 @@ class RelatedLinksMixin(models.Model):
                     combined_queryset.append(item)
             slice_queryset = combined_queryset[:MAX_RELATED_LINKS] if len(combined_queryset) > MAX_RELATED_LINKS else combined_queryset
             return get_related_pages(self, slice_queryset, objects)
-        elif self.related_option_handler == 'MANUAL' or self.related_option_handler == 'Manual':
+        elif self.related_option_handler == 'manual' or self.related_option_handler == 'Manual':
             return get_related_pages(self, self.publication_related_links.all(), objects)

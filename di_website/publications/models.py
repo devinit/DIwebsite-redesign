@@ -73,7 +73,6 @@ class ShortPublicationTopic(TaggedItemBase):
 class AudioVisualMediaTopic(TaggedItemBase):
     content_object = ParentalKey('publications.AudioVisualMedia', on_delete=models.CASCADE, related_name='audio_visual_media_topics')
 
-
 @hooks.register('construct_media_chooser_queryset')
 def show_my_uploaded_media_only(media, request):
     # Only show uploaded audio files
@@ -123,6 +122,32 @@ class Country(ClusterableModel):
         if not self.slug:
             self.slug = slugify(self.name)
         super(Country, self).save(*args, **kwargs)
+
+@register_snippet
+class PodcastProvider(models.Model):
+    PROVIDER_CHOICES = [
+        ('apple', 'Apple'),
+        ('spotify', 'Spotify'),
+        ('google', 'Google'),
+        ('amazon', 'Amazon'),
+    ]
+    podcast_provider_platform = models.CharField(
+        max_length=100,
+        choices=PROVIDER_CHOICES
+    )
+    link_url = models.CharField(max_length=255)
+
+    panels = [
+        FieldPanel('podcast_provider_platform'),
+        FieldPanel('link_url')
+    ]
+
+    def __str__(self):
+        return self.podcast_provider_platform
+
+    class Meta():
+        verbose_name = 'Podcast Provider'
+        verbose_name_plural = 'Podcast Providers'
 
 
 class PageCountry(Orderable):

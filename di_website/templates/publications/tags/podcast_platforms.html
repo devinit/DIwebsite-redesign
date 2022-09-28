@@ -1,0 +1,7 @@
+{% for platform in podcast_platforms %}
+    <p>
+        <a href="{{ platform.link_url }}">
+            {{ platform.podcast_provider_platform }}
+        </a>
+    </p>
+{% endfor %}

@@ -1,4 +1,4 @@
-{% load wagtailimages_tags string_utils %}
+{% load wagtailimages_tags string_utils podcast_snippet_tags %}
 
 <section class="section">
   <div class="row row--narrow">
@@ -11,5 +11,6 @@
       charset="utf-8">
     </script>
     {% endif %}
+    {% podcast_platforms %}
   </div>
 </section>

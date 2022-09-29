@@ -3,14 +3,9 @@
 <section class="section">
   <div class="row row--narrow">
     {% if self.embed_type == 'buzzsprout' %}
-    <div class="buzzsprout" id="{{ self.embed_url|buzzsprout_container_id }}">
-    </div>
-    <script
-      src="{{ self.embed_url }}"
-      type="text/javascript"
-      charset="utf-8">
-    </script>
+    <div class="buzzsprout" id="{{ self.embed_url|buzzsprout_container_id }}"></div>
+    <script src="{{ self.embed_url }}" type="text/javascript" charset="utf-8"></script>
     {% endif %}
-    {% podcast_platforms %}
+    <div class="space-section-top--small">{% podcast_platforms %}</div>
   </div>
 </section>

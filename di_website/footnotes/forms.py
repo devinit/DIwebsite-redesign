@@ -3,10 +3,12 @@ from django.utils.translation import ugettext_lazy as _
 
 from wagtail.admin.rich_text import DraftailRichTextArea
 
+from di_website.common.constants import SIMPLE_RICHTEXT_FEATURES
+
 
 class FootnoteForm(forms.Form):
     text = forms.CharField(
-        widget=DraftailRichTextArea,
+        widget=DraftailRichTextArea(features=SIMPLE_RICHTEXT_FEATURES),
         label=_('Text')
     )
     uuid = forms.CharField(

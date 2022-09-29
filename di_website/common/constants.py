@@ -43,3 +43,11 @@ POSITION_CHOICES = (
     ('top', 'Top'),
     ('bottom', 'Bottom')
 )
+
+
+PODCAST_PROVIDERS = [
+    ('apple', 'Apple'),
+    ('spotify', 'Spotify'),
+    ('google', 'Google'),
+    ('amazon', 'Amazon'),
+]

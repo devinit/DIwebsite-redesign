@@ -46,15 +46,6 @@ class FootnoteEntityElementHandler(InlineEntityElementHandler):
         }
 
 
-@hooks.register('insert_editor_js')
-def editor_js():
-    js_files = [
-        'footnotes/js/custom-vendor.js',
-    ]
-    js_includes = format_html_join('\n', '<script src="{0}"></script>', ((static(filename),) for filename in js_files))
-    return js_includes
-
-
 @hooks.register('register_rich_text_features')
 def register_footnote_feature(features):
     features.default_features.append('footnote')
@@ -74,7 +65,7 @@ def register_footnote_feature(features):
     features.register_editor_plugin(
         'draftail', feature_name, draftail_features.EntityFeature(
             control,
-            js=['footnotes/js/custom-admin.js'],
+            js=['footnotes/js/bundle.js'],
             css={'all': ['footnotes/css/footnotes.css']}
         )
     )

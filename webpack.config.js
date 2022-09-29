@@ -134,4 +134,4 @@ const adminConfig = {
   },
 };
 
-module.exports = [appConfig, wagtailAceEditorConfig, pivotTableConfig, diChartsConfig, chartsConfig];
+module.exports = [appConfig, wagtailAceEditorConfig, pivotTableConfig, diChartsConfig, chartsConfig, adminConfig];

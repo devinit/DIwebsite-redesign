@@ -12,7 +12,7 @@ const sharedConfig = {
   module: {
     rules: [
       {
-        test: /\.(ts|tsx)$/,
+        test: /\.(ts|tsx|js|jsx)$/,
         loader: 'babel-loader',
         include: path.resolve(__dirname, 'src'),
       },
@@ -134,5 +134,4 @@ const adminConfig = {
   },
 };
 
-// module.exports = [appConfig, wagtailAceEditorConfig, pivotTableConfig, diChartsConfig, chartsConfig];
-module.exports = [adminConfig];
+module.exports = [appConfig, wagtailAceEditorConfig, pivotTableConfig, diChartsConfig, chartsConfig];

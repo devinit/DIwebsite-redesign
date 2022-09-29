@@ -1,15 +1,11 @@
-{% load wagtailimages_tags string_utils %}
+{% load wagtailimages_tags string_utils podcast_snippet_tags %}
 
 <section class="section">
   <div class="row row--narrow">
     {% if self.embed_type == 'buzzsprout' %}
-    <div class="buzzsprout" id="{{ self.embed_url|buzzsprout_container_id }}">
-    </div>
-    <script
-      src="{{ self.embed_url }}"
-      type="text/javascript"
-      charset="utf-8">
-    </script>
+    <div class="buzzsprout" id="{{ self.embed_url|buzzsprout_container_id }}"></div>
+    <script src="{{ self.embed_url }}" type="text/javascript" charset="utf-8"></script>
     {% endif %}
+    <div class="space-section-top--small">{% podcast_platforms %}</div>
   </div>
 </section>

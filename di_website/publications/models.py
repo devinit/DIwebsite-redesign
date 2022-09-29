@@ -28,7 +28,7 @@ from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
 
 from di_website.common.base import (get_paginator_range, get_related_pages, hero_panels, call_to_action_panel)
-from di_website.common.constants import (MAX_PAGE_SIZE, MAX_RELATED_LINKS, RICHTEXT_FEATURES)
+from di_website.common.constants import (MAX_PAGE_SIZE, MAX_RELATED_LINKS, PODCAST_PROVIDERS, RICHTEXT_FEATURES)
 from di_website.common.mixins import (HeroMixin, OtherPageMixin, SectionBodyMixin, TypesetBodyMixin, CallToActionMixin)
 from di_website.downloads.utils import DownloadsPanel
 
@@ -72,7 +72,6 @@ class ShortPublicationTopic(TaggedItemBase):
 
 class AudioVisualMediaTopic(TaggedItemBase):
     content_object = ParentalKey('publications.AudioVisualMedia', on_delete=models.CASCADE, related_name='audio_visual_media_topics')
-
 
 @hooks.register('construct_media_chooser_queryset')
 def show_my_uploaded_media_only(media, request):
@@ -123,6 +122,29 @@ class Country(ClusterableModel):
         if not self.slug:
             self.slug = slugify(self.name)
         super(Country, self).save(*args, **kwargs)
+
+
+@register_snippet
+class PodcastProvider(models.Model):
+    podcast_provider_platform = models.CharField(
+        max_length=100,
+        choices=PODCAST_PROVIDERS
+    )
+    link_url = models.URLField(max_length=255)
+
+    panels = [
+        FieldPanel('podcast_provider_platform'),
+        FieldPanel('link_url')
+    ]
+
+    def __str__(self):
+        provider = [choice[1] for choice in PODCAST_PROVIDERS if choice[0] == self.podcast_provider_platform]
+
+        return '%s - %s' % (provider[0], self.link_url)
+
+    class Meta():
+        verbose_name = 'Podcast Provider'
+        verbose_name_plural = 'Podcast Providers'
 
 
 class PageCountry(Orderable):

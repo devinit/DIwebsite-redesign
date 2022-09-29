@@ -1,0 +1,11 @@
+{% for platform in podcast_platforms %}
+  {% if platform.podcast_provider_platform == 'apple' %}
+    <a target="_blank" href="{{ platform.link_url }}" style="display: inline-block; background-color: #000000; background-image: url(https://www.buzzsprout.com/images/badges/listen-on-embed.svg); background-repeat: no-repeat; border: 1px solid #000000; border-radius: 5px; margin: 0 5px 5px 0; text-indent: -9000px; background-position: 10px 7px; height: 40px; width: 165px;">Listen on Apple Podcasts</a>
+  {% elif platform.podcast_provider_platform == 'spotify' %}
+    <a target="_blank" href="{{ platform.link_url }}" style="display: inline-block; background-color: #000000; background-image: url(https://www.buzzsprout.com/images/badges/listen-on-embed.svg); background-repeat: no-repeat; border: 1px solid #000000; border-radius: 5px; margin: 0 5px 5px 0; text-indent: -9000px; background-position: 10px -53px; height: 40px; width: 106px;">Listen on Spotify</a>
+  {% elif platform.podcast_provider_platform == 'google' %}
+    <a target="_blank" href="{{ platform.link_url }}" style="display: inline-block; background-color: #000000; background-image: url(https://www.buzzsprout.com/images/badges/listen-on-embed.svg); background-repeat: no-repeat; border: 1px solid #000000; border-radius: 5px; margin: 0 5px 5px 0; text-indent: -9000px; background-position: 10px -113px; height: 40px; width: 165px;">Listen on Google Podcasts</a>
+  {% elif platform.podcast_provider_platform == 'amazon' %}
+    <a target="_blank" href="{{ platform.link_url }}" style="display: inline-block; background-color: #000000; background-image: url(https://www.buzzsprout.com/images/badges/listen-on-embed.svg); background-repeat: no-repeat; border: 1px solid #000000; border-radius: 5px; margin: 0 5px 5px 0; text-indent: -9000px; background-position: 10px -293px; height: 40px; width: 162px;">Listen on Amazon Music</a>
+  {% endif %}
+{% endfor %}

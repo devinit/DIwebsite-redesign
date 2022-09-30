@@ -88,6 +88,12 @@ def wysiwyg_tags(text):
     return mark_safe(re.sub(r'<p>\s*</p>', '', clean))
 
 
+@register.simple_tag
+def contains_hyperlinks(value):
+    if 'href=' in value:
+        return True
+    return False
+
 @register.filter
 def rich_text(value):
     if isinstance(value, RichText):

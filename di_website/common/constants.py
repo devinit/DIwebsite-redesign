@@ -12,6 +12,13 @@ SIMPLE_RICHTEXT_FEATURES = [
     'ul',
     'link'
 ]
+SIMPLE_FOOTNOTE_RICHTEXT_FEATURES = [
+    'bold',
+    'italic',
+    'ol',
+    'ul',
+    'non-modal-link'
+]
 RICHTEXT_FEATURES = [
     'h2',
     'h3',

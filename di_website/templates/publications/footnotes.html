@@ -10,7 +10,12 @@
                 <li class="footnotes__item">
                   <span class="heading type-m type-m--trailer footnotes__sub">{{ forloop.counter }}</span>
                   <a id="{{ item.footnote_id }}"></a>
-                  <div class="footnotes__text">{{ item.text | content | urlize }}</div>
+                  {% contains_hyperlinks item.text as item_contains_hyperlinks %}
+                  {% if item_contains_hyperlinks %}
+                    <div class="footnotes__text">{{ item.text | content }}</div>
+                  {% else %}
+                    <p class="footnotes__text">{{ item.text | urlize }}</p>
+                  {% endif %}
 
                   {% section_id forloop.counter|stringformat:"i" page.chapter_number|default_if_none:1 as section_id %}
                   <a class="footnotes__return" href="#{{ item.source_id }}">Return to source text</a>

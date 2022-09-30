@@ -14,7 +14,7 @@
                   {% if item_contains_hyperlinks %}
                     <div class="footnotes__text">{{ item.text | content }}</div>
                   {% else %}
-                    <p class="footnotes__text">{{ item.text | urlize }}</p>
+                    <div class="footnotes__text">{{ item.text | content | urlize }}</div>
                   {% endif %}
 
                   {% section_id forloop.counter|stringformat:"i" page.chapter_number|default_if_none:1 as section_id %}

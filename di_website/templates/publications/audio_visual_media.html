@@ -27,7 +27,13 @@
       <div class="max-meter max-meter--center">
         <div class="is-typeset wysiwyg">
           {% for block in page.body %}
-            {% include_block block %}
+            {% if block.block_type == 'accordion'%}
+              {% for item in block.value %}
+                {% include 'includes/partials/accordion.html' %}
+              {% endfor %}
+            {% else %}
+              {% include_block block %}
+            {% endif %}
           {% endfor %}
         </div>
       </div>

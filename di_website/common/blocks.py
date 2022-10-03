@@ -26,8 +26,18 @@ from di_website.publications.infographic import Infographic
 
 
 class AccordionBlock(StructBlock):
-    name =TextBlock(icon='fa-text')
-    description =  RichTextBlock(icon='fa-paragraph',template='blocks/paragraph_block.html',features=RICHTEXT_FEATURES_NO_FOOTNOTES)
+    accordion_items = ListBlock(StructBlock([
+    ('name', TextBlock(icon='fa-text')),
+    ('description', RichTextBlock(
+            icon='fa-paragraph',
+            template='blocks/paragraph_block.html',
+            features=RICHTEXT_FEATURES_NO_FOOTNOTES))
+    ]))
+
+
+    class Meta:
+        template = 'blocks/accordion_block.html'
+
 class ValueBlock(StructBlock):
     """
     A block for holding a single value.
@@ -323,7 +333,7 @@ class TypesetStreamBlock(StreamBlock):
         required=False
     )
     cta = CallToActionBlock()
-    accordion = ListBlock(AccordionBlock())
+    accordion = AccordionBlock()
 
     required = False
 

@@ -28,9 +28,8 @@
         <div class="is-typeset wysiwyg">
           {% for block in page.body %}
             {% if block.block_type == 'accordion'%}
-              {% for item in block.value %}
-                {% include 'includes/partials/accordion.html' %}
-              {% endfor %}
+              {{block.value}}
+
             {% else %}
               {% include_block block %}
             {% endif %}

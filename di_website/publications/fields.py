@@ -306,7 +306,7 @@ def flexible_content_streamfield(blank=False):
         ('interactive_chart', InteractiveChartBlock()),
         ('advanced_interactive_chart', AdvancedInteractiveChartBlock()),
         ('cta', CallToActionBlock()),
-        ('accordion', ListBlock(AccordionBlock()))
+        ('accordion', AccordionBlock())
 
     ], blank=blank)
 

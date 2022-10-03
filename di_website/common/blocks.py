@@ -461,3 +461,10 @@ class SectionStreamBlock(StreamBlock):
     cta = CallToActionBlock(template='blocks/section_call_to_action.html')
 
     required = False
+
+class AccordionBlock(StructBlock):
+    name =TextBlock(icon='fa-text')
+    description =  RichTextBlock(icon='fa-paragraph',template='blocks/paragraph_block.html',features=RICHTEXT_FEATURES_NO_FOOTNOTES,required=False)
+
+    class Meta:
+        template = 'blocks/accordion_block.html'

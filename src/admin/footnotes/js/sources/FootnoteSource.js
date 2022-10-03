@@ -79,8 +79,6 @@ class FootnoteSource extends Component {
     const selectedText = getSelectionText(editorState);
     const { url, urlParams, onload } = getChooserConfig(entityType, entity, selectedText);
 
-    $(document.body).on('hidden.bs.modal', this.onClose);
-
     // eslint-disable-next-line new-cap
     this.workflow = global.CustomModalWorkflow({
       url,
@@ -95,11 +93,13 @@ class FootnoteSource extends Component {
         onClose();
       },
     });
+
+    $(this.workflow.wrapper).on('hidden.bs.modal', this.onClose);
   }
 
   componentWillUnmount() {
+    $(this.workflow.wrapper).off('hidden.bs.modal', this.onClose);
     this.workflow = null;
-    $(document.body).off('hidden.bs.modal', this.onClose);
   }
 
   onChosen(data) {

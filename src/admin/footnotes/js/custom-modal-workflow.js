@@ -8,7 +8,7 @@ const $ = window.jQuery;
 /* global wagtailConfig */
 
 /* eslint-disable */
-function ModalWorkflow(opts) {
+function CustomModalWorkflow(opts) {
   /* options passed in 'opts':
     'url' (required): initial
     'responses' (optional): dict of callbacks to be called when the modal content
@@ -23,14 +23,14 @@ function ModalWorkflow(opts) {
   const errorCallback = opts.onError || function () {};
 
   /* remove any previous modals before continuing (closing doesn't remove them from the dom) */
-  $('body > .modal').remove();
+  // $('body > .modal').remove();
   $('.custom-modal').remove();
 
 
   // create new root element to append modal to
   const wrapper = document.createElement('div');
   wrapper.classList.add('custom-modal');
-  document.body.appendChild(wrapper);
+  self.wrapper = wrapper;
 
   // disable the trigger element so it cannot be clicked twice while modal is loading
   self.triggerElement = document.activeElement;
@@ -38,12 +38,11 @@ function ModalWorkflow(opts) {
 
   // set default contents of container
   const iconClose = '<svg class="icon icon-cross" aria-hidden="true" focusable="false"><use href="#icon-cross"></use></svg>';
-  let container = $('<div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">\n  <div class="modal-dialog">\n    <div class="modal-content">\n      <button type="button" class="button close button--icon text-replace" data-dismiss="modal">' + iconClose + wagtailConfig.STRINGS.CLOSE + '</button>\n      <div class="modal-body"></div>\n    </div><!-- /.modal-content -->\n  </div><!-- /.modal-dialog -->\n</div>');
+  const container = $('<div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">\n  <div class="modal-dialog">\n    <div class="modal-content">\n      <button type="button" class="button close button--icon text-replace" data-dismiss="modal">' + iconClose + wagtailConfig.STRINGS.CLOSE + '</button>\n      <div class="modal-body"></div>\n    </div><!-- /.modal-content -->\n  </div><!-- /.modal-dialog -->\n</div>');
 
   // add container to body and hide it, so content can be added to it before display
   $(wrapper).append(container);
-  // wrapper.appendChild(container);
-  // container = $('.modal')
+  $('body').append(wrapper);
   container.modal('hide');
 
   // add listener - once modal is about to be hidden, re-enable the trigger
@@ -54,7 +53,7 @@ function ModalWorkflow(opts) {
   // add listener - once modal is fully hidden (closed & css transitions end) - re-focus on trigger and remove from DOM
   container.on('hidden.bs.modal', function () {
     self.triggerElement.focus();
-    container.remove();
+    wrapper.remove();
   });
 
   self.body = container.find('.modal-body');
@@ -118,4 +117,4 @@ function ModalWorkflow(opts) {
 
   return self;
 }
-window.CustomModalWorkflow = ModalWorkflow;
+window.CustomModalWorkflow = CustomModalWorkflow;

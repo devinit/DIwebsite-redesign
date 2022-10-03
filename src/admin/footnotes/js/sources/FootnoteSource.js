@@ -82,7 +82,7 @@ class FootnoteSource extends Component {
     $(document.body).on('hidden.bs.modal', this.onClose);
 
     // eslint-disable-next-line new-cap
-    this.workflow = global.ModalWorkflow({
+    this.workflow = global.CustomModalWorkflow({
       url,
       urlParams,
       onload,

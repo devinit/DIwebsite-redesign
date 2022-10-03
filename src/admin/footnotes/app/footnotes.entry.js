@@ -1,3 +1,4 @@
+import '../js/custom-modal-workflow';
 import Footnote from '../js/decorators/Footnote';
 import FootnoteSource from '../js/sources/FootnoteSource';
 

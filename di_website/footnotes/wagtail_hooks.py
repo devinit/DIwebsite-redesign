@@ -22,10 +22,12 @@ def footnote_entity_decorator(props):
     Draft.js ContentState to database HTML.
     Converts the FOOTNOTE entities into a span tag.
     """
+    # print('Decorator', props)
     return DOM.create_element('span', {
         'data-footnote': props['text'],
         'data-type': 'footnote',
         'data-id': props['uuid'],
+        # 'data-richtext': 'yes' if props['use_richtext'] else 'no',
     }, props['text'])
 
 

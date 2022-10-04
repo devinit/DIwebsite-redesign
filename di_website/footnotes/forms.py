@@ -7,6 +7,7 @@ from di_website.common.constants import SIMPLE_RICHTEXT_FEATURES
 
 
 class FootnoteForm(forms.Form):
+    use_richtext = forms.BooleanField(required=False, initial=False, label=_('Use Rich Text'))
     text = forms.CharField(
         widget=DraftailRichTextArea(features=SIMPLE_RICHTEXT_FEATURES),
         label=_('Text')

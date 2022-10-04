@@ -26,6 +26,6 @@
   background-color: #89328F;
 }
 
-.accordion-spacing:first-child {
+.accordion-spacing .accordion__list-item:first-child {
   margin-top: 0;
 }

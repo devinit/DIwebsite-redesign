@@ -24,7 +24,7 @@ def footnote_entity_decorator(props):
         'data-footnote': props['text'],
         'data-type': 'footnote',
         'data-id': props['uuid'],
-    }, props['children'])
+    }, props['text'])
 
 
 class FootnoteEntityElementHandler(InlineEntityElementHandler):

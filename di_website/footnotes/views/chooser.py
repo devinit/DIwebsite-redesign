@@ -4,7 +4,6 @@ from di_website.footnotes.forms import FootnoteForm
 
 def chooser(request):
     form = FootnoteForm(initial=request.GET.dict())
-    # print(request.GET.dict())
 
     return render_modal_workflow(
         request, 'footnotes/chooser/chooser.html', None,
@@ -20,11 +19,9 @@ def chooser_upload(request):
         if form.is_valid():
             text = form.cleaned_data['text']
             uuid = form.cleaned_data['uuid']
-            richtext = form.cleaned_data['use_richtext']
             footnote_data = {
                 'text': text,
                 'uuid': uuid,
-                'use_richtext': richtext,
             }
             return render_modal_workflow(
                 request, None, None,

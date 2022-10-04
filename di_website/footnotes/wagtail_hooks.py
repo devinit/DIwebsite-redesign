@@ -1,7 +1,5 @@
 from draftjs_exporter.dom import DOM
 from django.conf.urls import include, url
-from django.utils.html import format_html_join
-from django.templatetags.static import static
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail.admin.rich_text.converters.html_to_contentstate import InlineEntityElementHandler
 from wagtail.core import hooks
@@ -22,13 +20,11 @@ def footnote_entity_decorator(props):
     Draft.js ContentState to database HTML.
     Converts the FOOTNOTE entities into a span tag.
     """
-    # print('Decorator', props)
     return DOM.create_element('span', {
         'data-footnote': props['text'],
         'data-type': 'footnote',
         'data-id': props['uuid'],
-        # 'data-richtext': 'yes' if props['use_richtext'] else 'no',
-    }, props['text'])
+    }, props['children'])
 
 
 class FootnoteEntityElementHandler(InlineEntityElementHandler):

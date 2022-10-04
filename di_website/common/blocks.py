@@ -3,29 +3,37 @@ import re
 from django.core.exceptions import ValidationError
 from django.forms import Media
 from django.forms.utils import ErrorList
-
-from wagtail.core.blocks import (
-    BooleanBlock,
-    CharBlock,
-    ChoiceBlock,
-    ListBlock,
-    PageChooserBlock,
-    RichTextBlock,
-    StreamBlock,
-    StructBlock,
-    TextBlock,
-    URLBlock
-)
+from wagtail.core.blocks import (BooleanBlock, CharBlock, ChoiceBlock,
+                                 ListBlock, PageChooserBlock, RichTextBlock,
+                                 StreamBlock, StructBlock, TextBlock, URLBlock)
 from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.blocks import ImageChooserBlock
 
-from di_website.common.constants import RICHTEXT_FEATURES, RICHTEXT_FEATURES_NO_FOOTNOTES
+from di_website.common.constants import (RICHTEXT_FEATURES,
+                                         RICHTEXT_FEATURES_NO_FOOTNOTES)
 from di_website.publications.blocks import AudioMediaBlock
 from di_website.publications.infographic import Infographic
 
 
+RED = 'poppy'
+BLUE = 'bluebell'
+PINK = 'rose'
+YELLOW = 'sunflower'
+ORANGE = 'marigold'
+PURPLE = 'lavendar'
+GREEN = 'leaf'
+COLOUR_CHOICES = (
+    (RED, 'Red'),
+    (BLUE, 'Blue'),
+    (PINK, 'Pink'),
+    (YELLOW, 'Yellow'),
+    (ORANGE, 'Orange'),
+    (PURPLE, 'Purple'),
+    (GREEN, 'Green')
+)
 class AccordionBlock(StructBlock):
+    colour = ChoiceBlock(choices=COLOUR_CHOICES, default=RED)
     accordion_items = ListBlock(StructBlock([
     ('name', TextBlock(icon='fa-text')),
     ('description', RichTextBlock(

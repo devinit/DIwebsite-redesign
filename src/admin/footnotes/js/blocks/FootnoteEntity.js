@@ -10,7 +10,7 @@ const $ = window.jQuery;
 
 const getAttributes = (data) => {
   const icon = ICON;
-  const label = data.text || null;
+  const label = data.text ? data.text.replace(/<[^>]+>/g, '') : null;
 
   return {
     icon,
@@ -74,7 +74,7 @@ export class FootnoteEntity extends Component {
 
     return (
       <span role="button" className="FootnoteEntity">
-        <TooltipEntity {...this.props} {...getAttributes(data)} />
+        <TooltipEntity {...this.props} {...getAttributes(data)}></TooltipEntity>
       </span>
     );
   }

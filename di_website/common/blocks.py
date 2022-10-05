@@ -15,25 +15,7 @@ from di_website.common.constants import (RICHTEXT_FEATURES,
 from di_website.publications.blocks import AudioMediaBlock
 from di_website.publications.infographic import Infographic
 
-
-RED = 'poppy'
-BLUE = 'bluebell'
-PINK = 'rose'
-YELLOW = 'sunflower'
-ORANGE = 'marigold'
-PURPLE = 'lavendar'
-GREEN = 'leaf'
-COLOUR_CHOICES = (
-    (RED, 'Red'),
-    (BLUE, 'Blue'),
-    (PINK, 'Pink'),
-    (YELLOW, 'Yellow'),
-    (ORANGE, 'Orange'),
-    (PURPLE, 'Purple'),
-    (GREEN, 'Green')
-)
 class AccordionBlock(StructBlock):
-    colour = ChoiceBlock(choices=COLOUR_CHOICES, default=RED)
     accordion_items = ListBlock(StructBlock([
     ('name', TextBlock(icon='fa-text')),
     ('description', RichTextBlock(

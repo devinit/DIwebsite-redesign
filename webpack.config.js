@@ -12,7 +12,7 @@ const sharedConfig = {
   module: {
     rules: [
       {
-        test: /\.(ts|tsx)$/,
+        test: /\.(ts|tsx|js|jsx)$/,
         loader: 'babel-loader',
         include: path.resolve(__dirname, 'src'),
       },
@@ -119,4 +119,19 @@ const appConfig = {
   },
 };
 
-module.exports = [appConfig, wagtailAceEditorConfig, pivotTableConfig, diChartsConfig, chartsConfig];
+const adminConfig = {
+  ...sharedConfig,
+  entry: { footnotes: './src/admin/footnotes/app/footnotes.entry.js' },
+  output: {
+    path: path.resolve(__dirname, 'src/assets/'),
+    filename: '[name]/js/bundle.js',
+    publicPath: '/assets/',
+    chunkFilename: (pathData) => {
+      const { runtime: name } = pathData.chunk;
+
+      return `${name}/js/${name}[chunkhash].bundle.js`;
+    },
+  },
+};
+
+module.exports = [appConfig, wagtailAceEditorConfig, pivotTableConfig, diChartsConfig, chartsConfig, adminConfig];

@@ -227,3 +227,7 @@ select optgroup {
 .accordion__heading:hover {
   background-color: #443e42 !important;
 }
+
+.accordion__list-item--active .accordion__heading {
+  background-color: #443e42 !important;
+}

@@ -223,3 +223,7 @@ select optgroup {
 .accordion-spacing .accordion__list-item:first-child {
   margin-top: 0;
 }
+
+.accordion__heading:hover {
+  background-color: #443e42 !important;
+}

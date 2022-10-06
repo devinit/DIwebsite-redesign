@@ -463,5 +463,6 @@ class SectionStreamBlock(StreamBlock):
     full_width_video_block = FullWidthVideoBlock()
     custom_embed = CustomEmbedBlock()
     cta = CallToActionBlock(template='blocks/section_call_to_action.html')
+    accordion = AccordionBlock()
 
     required = False

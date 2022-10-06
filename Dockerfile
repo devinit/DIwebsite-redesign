@@ -1,5 +1,5 @@
 
-FROM alpine:3.10.0
+FROM python:3.8.14-alpine
 LABEL maintainer="Napho <naphlin.akena@devinit.org>"
 
 RUN apk add postgresql-client && \

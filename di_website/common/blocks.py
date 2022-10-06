@@ -3,27 +3,30 @@ import re
 from django.core.exceptions import ValidationError
 from django.forms import Media
 from django.forms.utils import ErrorList
-
-from wagtail.core.blocks import (
-    BooleanBlock,
-    CharBlock,
-    ChoiceBlock,
-    ListBlock,
-    PageChooserBlock,
-    RichTextBlock,
-    StreamBlock,
-    StructBlock,
-    TextBlock,
-    URLBlock
-)
+from wagtail.core.blocks import (BooleanBlock, CharBlock, ChoiceBlock,
+                                 ListBlock, PageChooserBlock, RichTextBlock,
+                                 StreamBlock, StructBlock, TextBlock, URLBlock)
 from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.blocks import ImageChooserBlock
 
-from di_website.common.constants import RICHTEXT_FEATURES, RICHTEXT_FEATURES_NO_FOOTNOTES
+from di_website.common.constants import (RICHTEXT_FEATURES,
+                                         RICHTEXT_FEATURES_NO_FOOTNOTES)
 from di_website.publications.blocks import AudioMediaBlock
 from di_website.publications.infographic import Infographic
 
+class AccordionBlock(StructBlock):
+    accordion_items = ListBlock(StructBlock([
+    ('name', TextBlock(icon='fa-text')),
+    ('description', RichTextBlock(
+            icon='fa-paragraph',
+            template='blocks/paragraph_block.html',
+            features=RICHTEXT_FEATURES_NO_FOOTNOTES))
+    ]))
+
+
+    class Meta:
+        template = 'blocks/accordion_block.html'
 
 class ValueBlock(StructBlock):
     """
@@ -320,6 +323,7 @@ class TypesetStreamBlock(StreamBlock):
         required=False
     )
     cta = CallToActionBlock()
+    accordion = AccordionBlock()
 
     required = False
 
@@ -459,5 +463,6 @@ class SectionStreamBlock(StreamBlock):
     full_width_video_block = FullWidthVideoBlock()
     custom_embed = CustomEmbedBlock()
     cta = CallToActionBlock(template='blocks/section_call_to_action.html')
+    accordion = AccordionBlock()
 
     required = False

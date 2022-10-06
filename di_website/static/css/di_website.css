@@ -191,3 +191,47 @@ select optgroup {
 .is-typeset .cta {
   margin-top: 5rem;
 }
+
+.body--leaf .accordion__heading {
+  background-color: #109E67;
+}
+
+.body--poppy .accordion__heading {
+  background-color: #e84439;
+}
+
+.body--bluebell .accordion__heading {
+  background-color: #0089CB;
+}
+
+.body--rose .accordion__heading {
+  background-color: #C2145B;
+}
+
+.body--sunflower .accordion__heading {
+  background-color: #F49B20;
+}
+
+.body--marigold .accordion__heading {
+  background-color: #EB632B;
+}
+
+.body--lavendar .accordion__heading {
+  background-color: #89328F;
+}
+
+.accordion-spacing .accordion__list-item:first-child {
+  margin-top: 0;
+}
+
+.accordion__heading:hover {
+  background-color: #443e42 !important;
+}
+
+.accordion__list-item--active .accordion__heading {
+  background-color: #443e42 !important;
+}
+
+.wysiwyg .accordion-spacing .accordion__list-item:last-child {
+  margin-bottom: 2rem;
+}

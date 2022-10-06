@@ -63,7 +63,7 @@ def register_footnote_feature(features):
     features.register_editor_plugin(
         'draftail', feature_name, draftail_features.EntityFeature(
             control,
-            js=['footnotes/js/bundle.js'],
+            js=['footnotes/js/footnotes.js'],
             css={'all': ['footnotes/css/footnotes.css']}
         )
     )

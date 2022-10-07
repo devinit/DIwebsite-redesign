@@ -2,7 +2,7 @@ from draftjs_exporter.dom import DOM
 from django.conf.urls import include, url
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail.admin.rich_text.converters.html_to_contentstate import InlineEntityElementHandler
-from wagtail.core import hooks
+from wagtail import hooks
 from di_website.footnotes import urls
 
 ICON_PATH = ['M846.857 600c34.857 20 46.857 65.143 26.857 100l-36.571 62.857c-20 34.857-65.143 46.857-100 26.857l-152-87.429v175.429c0 40-33.143 73.143-73.143 73.143h-73.143c-40 0-73.143-33.143-73.143-73.143v-175.429l-152 87.429c-34.857 20-80 8-100-26.857l-36.571-62.857c-20-34.857-8-80 26.857-100l152-88-152-88c-34.857-20-46.857-65.143-26.857-100l36.571-62.857c20-34.857 65.143-46.857 100-26.857l152 87.429v-175.429c0-40 33.143-73.143 73.143-73.143h73.143c40 0 73.143 33.143 73.143 73.143v175.429l152-87.429c34.857-20 80-8 100 26.857l36.571 62.857c20 34.857 8 80-26.857 100l-152 88z']

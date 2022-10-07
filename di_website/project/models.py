@@ -2,17 +2,15 @@ from django.db import models
 
 from modelcluster.fields import ParentalKey
 
-from wagtail.admin.edit_handlers import (
-    StreamFieldPanel,
+from wagtail.admin.panels import (
     InlinePanel,
     PageChooserPanel,
     MultiFieldPanel,
     FieldPanel
 )
-from wagtail.images.edit_handlers import ImageChooserPanel
-from wagtail.core.fields import StreamField, RichTextField
-from wagtail.core.models import Orderable, Page
-from wagtail.core.blocks import PageChooserBlock
+from wagtail.fields import StreamField, RichTextField
+from wagtail.models import Orderable, Page
+from wagtail.blocks import PageChooserBlock
 
 from di_website.common.base import hero_panels, get_related_pages
 from di_website.common.mixins import HeroMixin, OtherPageMixin, TypesetBodyMixin
@@ -32,7 +30,7 @@ class ProjectPage(TypesetBodyMixin, HeroMixin, Page):
     )
     content_panels = Page.content_panels + [
         hero_panels(),
-        StreamFieldPanel('body'),
+        FieldPanel('body'),
         MultiFieldPanel([
             FieldPanel('other_pages_heading'),
             InlinePanel('project_related_links', label="Related link", max_num=MAX_RELATED_LINKS)
@@ -86,7 +84,7 @@ class FocusAreasPage(TypesetBodyMixin, HeroMixin, Page):
 
     content_panels = Page.content_panels + [
         hero_panels(),
-        StreamFieldPanel('body'),
+        FieldPanel('body'),
         MultiFieldPanel([
             InlinePanel('focus_areas_page_link', label="Focus Areas", max_num=6)
         ], heading='Focus Areas'),
@@ -108,7 +106,8 @@ class FocusAreasPageLink(Orderable):
         [('page', PageChooserBlock(page_type="project.ProjectPage", required=True))],
         verbose_name="Projects",
         null=True,
-        blank=True
+        blank=True,
+        use_json_field=True
     )
     title = models.CharField(
         max_length=255,
@@ -140,8 +139,8 @@ class FocusAreasPageLink(Orderable):
         FieldPanel('title'),
         FieldPanel('subtitle'),
         FieldPanel('body'),
-        ImageChooserPanel('image'),
-        StreamFieldPanel('projects')
+        FieldPanel('image'),
+        FieldPanel('projects')
     ]
 
 

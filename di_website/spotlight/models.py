@@ -3,11 +3,10 @@ from django.shortcuts import redirect
 from django.http import Http404
 
 from wagtail.search import index
-from wagtail.core.models import Page
-from wagtail.core.fields import StreamField, RichTextField
-from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, StreamFieldPanel
-from wagtail.snippets.edit_handlers import SnippetChooserPanel
-from wagtail.core.blocks import (
+from wagtail.models import Page
+from wagtail.fields import StreamField, RichTextField
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel
+from wagtail.blocks import (
     CharBlock,
     PageChooserBlock,
     StructBlock,
@@ -36,7 +35,7 @@ class SpotlightPage(HeroMixin, Page):
     currency_code = models.CharField(max_length=100, help_text='UGX, KES', default='')
     datasources_description = models.TextField(
         help_text='A description for data sources section', null=True, blank=True, verbose_name='Description')
-    datasources_links = StreamField([('link', LinkBlock()), ], null=True, blank=True, verbose_name='Links')
+    datasources_links = StreamField([('link', LinkBlock()), ], null=True, blank=True, verbose_name='Links', use_json_field=True)
     content_panels = Page.content_panels + [
         hero_panels(),
         MultiFieldPanel([
@@ -46,7 +45,7 @@ class SpotlightPage(HeroMixin, Page):
         ], heading='Settings'),
         MultiFieldPanel([
             FieldPanel('datasources_description'),
-            StreamFieldPanel('datasources_links')
+            FieldPanel('datasources_links')
         ], heading='Data Sources Section')
     ]
 
@@ -61,9 +60,9 @@ class SpotlightLocationComparisonPage(Page):
             ('name', TextBlock()),
             ('geocode', TextBlock()),
         ]))
-    ], null=True, blank=True, verbose_name='Default Locations')
+    ], null=True, blank=True, verbose_name='Default Locations', use_json_field=True)
     content_panels = Page.content_panels + [
-        StreamFieldPanel('default_locations'),
+        FieldPanel('default_locations'),
     ]
 
     parent_page_types = ['spotlight.SpotlightPage']
@@ -156,13 +155,13 @@ class SpotlightIndicator(Page):
         help_text='Text for the tooltip.Template strings can be used to substitute values e.g. {name}')
     config = StreamField(
         AceEditorStreamBlock(max_num=1, block_counts={'JSON': {'max_num':1}}),
-        null=True, blank=True, verbose_name='JSON Config')
+        null=True, blank=True, verbose_name='JSON Config', use_json_field=True)
 
     content_panels = Page.content_panels +  [
         FieldPanel('ddw_id'),
         FieldPanel('description'),
         FieldPanel('source'),
-        SnippetChooserPanel('color'),
+        FieldPanel('color'),
         FieldPanel('start_year'),
         FieldPanel('end_year'),
         FieldPanel('excluded_years'),
@@ -171,7 +170,7 @@ class SpotlightIndicator(Page):
         FieldPanel('value_prefix'),
         FieldPanel('value_suffix'),
         FieldPanel('tooltip_template'),
-        StreamFieldPanel('config')
+        FieldPanel('config')
     ]
 
     search_fields = Page.search_fields + [
@@ -189,7 +188,7 @@ class SpotlightIndicator(Page):
 class CountrySpotlight(TypesetBodyMixin, HeroMixin, Page):
     content_panels = Page.content_panels + [
         hero_panels(),
-        StreamFieldPanel('body')
+        FieldPanel('body')
     ]
 
     parent_page_types = ['datasection.DataSectionPage']

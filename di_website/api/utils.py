@@ -1,6 +1,6 @@
 import json
 
-from wagtail.core.models import Site
+from wagtail.models import Site
 
 from di_website.home.models import FooterSection, NewsLetter
 

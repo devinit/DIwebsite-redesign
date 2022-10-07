@@ -15,7 +15,7 @@ from django.core.files import File
 from django.conf import settings
 
 from wagtail.documents.models import Document
-from wagtail.core.models import Page
+from wagtail.models import Page
 
 from di_website.home.models import HomePage
 from di_website.ourteam.models import TeamMemberPage

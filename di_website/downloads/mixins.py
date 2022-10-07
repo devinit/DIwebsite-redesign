@@ -1,5 +1,5 @@
 from django.db import models
-from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
+from wagtail.admin.panels import FieldPanel
 
 
 class DownloadGroupMixin(models.Model):
@@ -26,5 +26,5 @@ class DownloadGroupMixin(models.Model):
     panels = [
         FieldPanel('title'),
         FieldPanel('singular_name'),
-        StreamFieldPanel('downloads'),
+        FieldPanel('downloads'),
     ]

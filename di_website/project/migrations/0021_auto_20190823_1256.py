@@ -3,8 +3,8 @@
 from django.db import migrations, models
 import django.db.models.deletion
 import modelcluster.fields
-import wagtail.core.blocks
-import wagtail.core.fields
+import wagtail.blocks
+import wagtail.fields
 
 
 class Migration(migrations.Migration):
@@ -26,7 +26,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='focusareaspagelink',
             name='projects',
-            field=wagtail.core.fields.StreamField([('page', wagtail.core.blocks.PageChooserBlock(required=True))], blank=True, null=True, verbose_name='Projects'),
+            field=wagtail.fields.StreamField([('page', wagtail.blocks.PageChooserBlock(required=True))], blank=True, null=True, verbose_name='Projects'),
         ),
         migrations.CreateModel(
             name='FocusAreasProjects',

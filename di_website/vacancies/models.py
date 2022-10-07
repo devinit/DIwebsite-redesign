@@ -1,16 +1,14 @@
 from django.db import models
 from django.utils.functional import cached_property
 
-from wagtail.admin.edit_handlers import (
+from wagtail.admin.panels import (
     FieldPanel,
     InlinePanel,
     MultiFieldPanel,
-    StreamFieldPanel
 )
-from wagtail.core.fields import RichTextField
+from wagtail.fields import RichTextField
 from wagtail.snippets.models import register_snippet
-from wagtail.core.models import Page, Orderable
-from wagtail.documents.edit_handlers import DocumentChooserPanel
+from wagtail.models import Page, Orderable
 
 from di_website.common.base import hero_panels
 from di_website.common.mixins import HeroMixin, SectionBodyMixin, TypesetBodyMixin
@@ -163,13 +161,13 @@ class VacancyPage(TypesetBodyMixin, SectionBodyMixin, HeroMixin, Page):
             FieldPanel('second_interview'),
             FieldPanel('job_start')
         ], heading='Dates'),
-        StreamFieldPanel('body'),
+        FieldPanel('body'),
         MultiFieldPanel([
             FieldPanel('downloads_title'),
             FieldPanel('downloads_description'),
             InlinePanel('page_downloads', label='Download', max_num=None)
         ], heading='Downloads'),
-        StreamFieldPanel('sections'),
+        FieldPanel('sections'),
         MultiFieldPanel([
             FieldPanel('other_pages_heading'),
             InlinePanel('other_pages', label='Other Pages')
@@ -213,6 +211,6 @@ class VacancyDownload(Orderable):
         return self.get_title
 
     panels = [
-        DocumentChooserPanel('file'),
+        FieldPanel('file'),
         FieldPanel('title')
     ]

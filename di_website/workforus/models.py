@@ -1,12 +1,11 @@
 from django.db import models
 
-from wagtail.core.models import Page
-from wagtail.core.fields import StreamField, RichTextField
-from wagtail.admin.edit_handlers import (
+from wagtail.models import Page
+from wagtail.fields import StreamField, RichTextField
+from wagtail.admin.panels import (
     FieldPanel,
     InlinePanel,
-    MultiFieldPanel,
-    StreamFieldPanel
+    MultiFieldPanel
 )
 
 from di_website.common.base import hero_panels
@@ -26,7 +25,8 @@ class WorkForUsPage(TypesetBodyMixin, HeroMixin, Page):
         BenefitsStreamBlock,
         verbose_name="Benefits",
         null=True,
-        blank=True
+        blank=True,
+        use_json_field=True
     )
     value_section_heading = models.CharField(
         blank=True,
@@ -42,7 +42,7 @@ class WorkForUsPage(TypesetBodyMixin, HeroMixin, Page):
     )
     values = StreamField([
         ('value', ValueBlock()),
-    ], null=True, blank=True)
+    ], null=True, blank=True, use_json_field=True)
     team_story_section_heading = models.CharField(
         blank=True,
         max_length=255,
@@ -59,7 +59,8 @@ class WorkForUsPage(TypesetBodyMixin, HeroMixin, Page):
         TeamStoryStreamBlock,
         verbose_name="Team Stories",
         null=True,
-        blank=True
+        blank=True,
+        use_json_field=True
     )
     vacancy_section_heading = models.TextField(
         blank=True,
@@ -75,17 +76,17 @@ class WorkForUsPage(TypesetBodyMixin, HeroMixin, Page):
     )
     content_panels = Page.content_panels + [
         hero_panels(),
-        StreamFieldPanel('body'),
-        StreamFieldPanel('benefits'),
+        FieldPanel('body'),
+        FieldPanel('benefits'),
         MultiFieldPanel([
             FieldPanel('value_section_heading'),
             FieldPanel('value_section_sub_heading'),
-            StreamFieldPanel('values')
+            FieldPanel('values')
         ], heading='Values Section'),
         MultiFieldPanel([
             FieldPanel('team_story_section_heading'),
             FieldPanel('team_story_section_sub_heading'),
-            StreamFieldPanel('team_stories')
+            FieldPanel('team_stories')
         ], heading='Team Stories Section'),
         MultiFieldPanel([
             FieldPanel('vacancy_section_heading'),

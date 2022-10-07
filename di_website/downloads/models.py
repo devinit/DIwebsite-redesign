@@ -2,9 +2,7 @@ from django import forms
 from django.db import models
 from django.utils.text import slugify
 from django.utils.functional import cached_property
-from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
-from wagtail.documents.edit_handlers import DocumentChooserPanel
-from wagtail.snippets.edit_handlers import SnippetChooserPanel
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.snippets.models import register_snippet
 from .fields import download_streamfield, download_image_streamfield, download_date_streamfield
 from .mixins import DownloadGroupMixin
@@ -90,7 +88,7 @@ class PublicationDownload(index.Indexed, BaseDownload):
     )
 
     panels = [
-        DocumentChooserPanel('file'),
+        FieldPanel('file'),
         FieldPanel('title'),
         FieldPanel('language', widget=forms.RadioSelect),
     ]
@@ -113,7 +111,7 @@ class PublicationDownload(index.Indexed, BaseDownload):
 class DataDownload(index.Indexed, BaseDownload):
 
     panels = [
-        DocumentChooserPanel('file'),
+        FieldPanel('file'),
         FieldPanel('title'),
     ]
 
@@ -141,7 +139,7 @@ class DownloadItem(models.Model):
     )
 
     panels = [
-        SnippetChooserPanel('download'),
+        FieldPanel('download'),
     ]
 
 
@@ -159,7 +157,7 @@ class DataDownloadItem(models.Model):
     )
 
     panels = [
-        SnippetChooserPanel('download'),
+        FieldPanel('download'),
     ]
 
 
@@ -181,7 +179,7 @@ class DownloadDatedItem(models.Model):
 
     panels = [
         FieldPanel('date'),
-        SnippetChooserPanel('download'),
+        FieldPanel('download'),
     ]
 
 

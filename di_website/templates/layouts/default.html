@@ -24,6 +24,9 @@
   {% block metadata %}
     {% meta_tags %}
   {% endblock %}
+  {% if request.in_preview_panel %}
+    <base target="_blank">
+  {% endif %}
 </head>
 <body class="body body--{{ id }} {% block colour %}{% endblock %}" id="body-{{ id }}">
   <!-- Google Tag Manager (noscript) -->

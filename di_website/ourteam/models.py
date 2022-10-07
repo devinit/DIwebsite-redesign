@@ -3,11 +3,9 @@ from django.contrib.auth.models import User
 
 from modelcluster.fields import ParentalKey
 
-from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
-from wagtail.core.models import Page, Orderable
-from wagtail.snippets.edit_handlers import SnippetChooserPanel
-from wagtail.images.edit_handlers import ImageChooserPanel
-from wagtail.core.fields import RichTextField
+from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.models import Page, Orderable
+from wagtail.fields import RichTextField
 
 from di_website.common.base import hero_panels
 from di_website.common.mixins import HeroMixin
@@ -119,8 +117,8 @@ class TeamMemberPage(TeamMemberMetadataPageMixin, Page):
     content_panels = Page.content_panels + [
         FieldPanel('user'),
         FieldPanel('name'),
-        ImageChooserPanel('image'),
-        SnippetChooserPanel('position'),
+        FieldPanel('image'),
+        FieldPanel('position'),
         InlinePanel('teammember_departments', label="Departments"),
         FieldPanel('email'),
         FieldPanel('telephone'),
@@ -150,7 +148,7 @@ class TeamMemberPageDepartment(Orderable, models.Model):
         verbose_name_plural = "team member departments"
 
     panels = [
-        SnippetChooserPanel('department'),
+        FieldPanel('department'),
     ]
 
     def __str__(self):

@@ -15,16 +15,15 @@ from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
 
-from wagtail.admin.edit_handlers import (FieldPanel, InlinePanel, PageChooserPanel, StreamFieldPanel)
+from wagtail.admin.panels import (FieldPanel, InlinePanel, PageChooserPanel)
 from wagtail.contrib.redirects.models import Redirect
 from wagtail.contrib.search_promotions.templatetags.wagtailsearchpromotions_tags import get_search_promotions
-from wagtail.core import hooks
-from wagtail.core.blocks import (CharBlock, PageChooserBlock, StructBlock, URLBlock)
-from wagtail.core.fields import RichTextField, StreamField
-from wagtail.core.models import Orderable, Page
+from wagtail import hooks
+from wagtail.blocks import (CharBlock, PageChooserBlock, StructBlock, URLBlock)
+from wagtail.fields import RichTextField, StreamField
+from wagtail.models import Orderable, Page
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.search.models import Query
-from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
 
 from di_website.common.base import (get_paginator_range, get_related_pages, hero_panels, call_to_action_panel)
@@ -107,7 +106,7 @@ class Country(ClusterableModel):
 
     panels = [
         FieldPanel('name'),
-        SnippetChooserPanel('region'),
+        FieldPanel('region'),
         FieldPanel('slug'),
     ]
 
@@ -191,7 +190,7 @@ class PublicationType(ClusterableModel):
 
     panels = [
         FieldPanel('name'),
-        SnippetChooserPanel('resource_category'),
+        FieldPanel('resource_category'),
         FieldPanel('show_in_filter'),
         FieldPanel('slug'),
     ]
@@ -383,7 +382,7 @@ class PublicationPage(
             ('photograph', ImageChooserBlock(required=False)),
             ('page', URLBlock(required=False))
         ], icon='fa-user', label='External Author'))
-    ], blank=True)
+    ], blank=True, use_json_field=True)
 
     publication_type = models.ForeignKey(
         PublicationType, related_name="+", null=True, blank=False, on_delete=models.SET_NULL, verbose_name="Resource Type")
@@ -400,8 +399,8 @@ class PublicationPage(
             heading='Hero Button Captions',
             description='Edit captions for hero buttons'
         ),
-        StreamFieldPanel('authors'),
-        SnippetChooserPanel('publication_type'),
+        FieldPanel('authors'),
+        FieldPanel('publication_type'),
         FieldPanel('topics'),
         InlinePanel('publication_datasets', label='Datasets'),
         InlinePanel('page_countries', label="Countries"),
@@ -891,7 +890,7 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, PublicationPageSearch
             ('photograph', ImageChooserBlock(required=False)),
             ('page', URLBlock(required=False))
         ], icon='fa-user', label='External Author'))
-    ], blank=True)
+    ], blank=True, use_json_field=True)
     publication_type = models.ForeignKey(
         PublicationType, related_name="+", null=True, blank=False, on_delete=models.SET_NULL, verbose_name="Resource Type")
     topics = ClusterTaggableManager(through=LegacyPublicationTopic, blank=True, verbose_name="Topics")
@@ -910,9 +909,9 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, PublicationPageSearch
     content_panels = Page.content_panels + [
         FieldPanel('colour'),
         hero_panels(),
-        StreamFieldPanel('authors'),
+        FieldPanel('authors'),
         call_to_action_panel(),
-        SnippetChooserPanel('publication_type'),
+        FieldPanel('publication_type'),
         FieldPanel('topics'),
         InlinePanel('page_countries', label="Countries"),
         PublishedDatePanel(),
@@ -1000,7 +999,7 @@ class ShortPublicationPage(
             ('photograph', ImageChooserBlock(required=False)),
             ('page', URLBlock(required=False))
         ], icon='fa-user', label='External Author'))
-    ], blank=True)
+    ], blank=True, use_json_field=True)
     publication_type = models.ForeignKey(
         PublicationType, related_name="+", null=True, blank=False, on_delete=models.SET_NULL, verbose_name="Resource Type")
     topics = ClusterTaggableManager(through=ShortPublicationTopic, blank=True, verbose_name="Topics")
@@ -1008,9 +1007,9 @@ class ShortPublicationPage(
     content_panels = Page.content_panels + [
         FieldPanel('colour'),
         hero_panels(),
-        StreamFieldPanel('authors'),
+        FieldPanel('authors'),
         call_to_action_panel(),
-        SnippetChooserPanel('publication_type'),
+        FieldPanel('publication_type'),
         FieldPanel('topics'),
         InlinePanel('page_countries', label="Countries"),
         PublishedDatePanel(),
@@ -1126,15 +1125,15 @@ class AudioVisualMedia(PublishedDateMixin, TypesetBodyMixin, HeroMixin, Publicat
             ('photograph', ImageChooserBlock(required=False)),
             ('page', URLBlock(required=False))
         ], icon='fa-user', label='External Participant'))
-    ], blank=True, help_text="The people involved in the podcast or webinar")
+    ], blank=True, help_text="The people involved in the podcast or webinar", use_json_field=True)
     topics = ClusterTaggableManager(through=AudioVisualMediaTopic, blank=True, verbose_name="Topics")
 
     content_panels = Page.content_panels + [
         hero_panels(),
-        StreamFieldPanel('participants'),
+        FieldPanel('participants'),
         call_to_action_panel(),
-        StreamFieldPanel('body'),
-        StreamFieldPanel('sections'),
+        FieldPanel('body'),
+        FieldPanel('sections'),
         FieldPanel('publication_type'),
         InlinePanel('page_countries', label="Countries"),
         FieldPanel('topics'),

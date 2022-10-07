@@ -1,9 +1,9 @@
 from django.db import models
 
-from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel, StreamFieldPanel
-from wagtail.core.fields import StreamField
-from wagtail.core.models import Page
-from wagtail.core.blocks import (
+from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.fields import StreamField
+from wagtail.models import Page
+from wagtail.blocks import (
     CharBlock,
     RichTextBlock,
     StructBlock,
@@ -38,7 +38,7 @@ class TimelineCarouselBlock(StructBlock):
 
 class OurStoryPage(SectionBodyMixin, TypesetBodyMixin, HeroMixin, Page):
 
-    timeline_items = StreamField([('timeline', TimelineCarouselBlock())])
+    timeline_items = StreamField([('timeline', TimelineCarouselBlock())], use_json_field=True)
     other_pages_heading = models.CharField(
         blank=True,
         max_length=255,
@@ -48,9 +48,9 @@ class OurStoryPage(SectionBodyMixin, TypesetBodyMixin, HeroMixin, Page):
 
     content_panels = Page.content_panels + [
         hero_panels(),
-        StreamFieldPanel('body'),
-        StreamFieldPanel('timeline_items'),
-        StreamFieldPanel('sections'),
+        FieldPanel('body'),
+        FieldPanel('timeline_items'),
+        FieldPanel('sections'),
         MultiFieldPanel([
             FieldPanel('other_pages_heading'),
             InlinePanel('other_pages', label='Related pages')
@@ -72,7 +72,7 @@ class WhoWeArePage(SectionBodyMixin, TypesetBodyMixin, HeroMixin, Page):
     value_section_sub_heading = models.TextField(blank=True)
     values = StreamField([
         ('value', ValueBlock()),
-    ], null=True, blank=True)
+    ], null=True, blank=True, use_json_field=True)
 
     other_pages_heading = models.CharField(
         blank=True,
@@ -83,11 +83,11 @@ class WhoWeArePage(SectionBodyMixin, TypesetBodyMixin, HeroMixin, Page):
 
     content_panels = Page.content_panels + [
         hero_panels(),
-        StreamFieldPanel('body'),
-        StreamFieldPanel('sections'),
+        FieldPanel('body'),
+        FieldPanel('sections'),
         FieldPanel('value_section_heading'),
         FieldPanel('value_section_sub_heading'),
-        StreamFieldPanel('values'),
+        FieldPanel('values'),
         MultiFieldPanel([
             FieldPanel('other_pages_heading'),
             InlinePanel('other_pages', label='Related pages')

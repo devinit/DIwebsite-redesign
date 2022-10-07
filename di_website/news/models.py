@@ -5,14 +5,14 @@ from django.db import models
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 
-from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, PageChooserPanel, StreamFieldPanel
-from wagtail.core.blocks import (
+from wagtail.admin.panels import FieldPanel, InlinePanel, PageChooserPanel
+from wagtail.blocks import (
     CharBlock,
     PageChooserBlock,
     StructBlock,
 )
-from wagtail.core.fields import StreamField, RichTextField
-from wagtail.core.models import Page
+from wagtail.fields import StreamField, RichTextField
+from wagtail.models import Page
 
 from taggit.models import Tag, TaggedItemBase
 
@@ -81,7 +81,7 @@ class NewsStoryPage(TypesetBodyMixin, HeroMixin, PublishedDateMixin, Page):
         PublishedDatePanel(),
         FieldPanel('press_release'),
         FieldPanel('topics'),
-        StreamFieldPanel('body'),
+        FieldPanel('body'),
         InlinePanel('news_related_links', label="Related links", max_num=MAX_RELATED_LINKS),
         InlinePanel('page_notifications', label='Notifications')
     ]
@@ -134,10 +134,10 @@ class PersonBlock(StructBlock):
 class MediaCenterPage(TypesetBodyMixin, HeroMixin, Page):
     contact_box = StreamField([
         ('contact', ContactBlock())
-    ], null=True, blank=True)
+    ], null=True, blank=True, use_json_field=True)
     spokespeople = StreamField([
         ('person', PersonBlock())
-    ], null=True, blank=True)
+    ], null=True, blank=True, use_json_field=True)
 
     def get_context(self, request):
         context = super(MediaCenterPage, self).get_context(request)
@@ -158,9 +158,9 @@ class MediaCenterPage(TypesetBodyMixin, HeroMixin, Page):
 
     content_panels = Page.content_panels + [
         hero_panels(),
-        StreamFieldPanel('contact_box'),
-        StreamFieldPanel('body'),
-        StreamFieldPanel('spokespeople'),
+        FieldPanel('contact_box'),
+        FieldPanel('body'),
+        FieldPanel('spokespeople'),
         InlinePanel('page_notifications', label='Notifications')
     ]
 

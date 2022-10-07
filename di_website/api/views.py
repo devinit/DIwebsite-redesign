@@ -7,7 +7,7 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 
 from github import Github
-from wagtail.core.models import Site
+from wagtail.models import Site
 
 from di_website.datasection.models import DataSectionPage
 from di_website.home.templatetags.footer_tags import get_footer_text

@@ -6,8 +6,7 @@ from modelcluster.models import ClusterableModel
 from wagtail.search import index
 
 from wagtail.snippets.models import register_snippet
-from wagtail.admin.edit_handlers import FieldPanel
-from wagtail.snippets.edit_handlers import SnippetChooserPanel
+from wagtail.admin.panels import FieldPanel
 
 
 @register_snippet

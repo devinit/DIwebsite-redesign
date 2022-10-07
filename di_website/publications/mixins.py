@@ -3,7 +3,7 @@ from django.db import models
 from django.utils.functional import cached_property
 from di_website.common.constants import MAX_RELATED_LINKS
 
-from wagtail.core.models import Page
+from wagtail.models import Page
 from wagtail.contrib.redirects.models import Redirect
 from wagtail.search import index
 

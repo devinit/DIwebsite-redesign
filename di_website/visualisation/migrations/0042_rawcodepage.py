@@ -4,8 +4,8 @@ import di_website.visualisation.fields
 from django.db import migrations, models
 import django.db.models.deletion
 import wagtail.contrib.routable_page.models
-import wagtail.core.blocks
-import wagtail.core.fields
+import wagtail.blocks
+import wagtail.fields
 
 
 class Migration(migrations.Migration):
@@ -20,18 +20,18 @@ class Migration(migrations.Migration):
             name='RawCodePage',
             fields=[
                 ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.page')),
-                ('instructions', wagtail.core.fields.RichTextField(blank=True)),
+                ('instructions', wagtail.fields.RichTextField(blank=True)),
                 ('instructions_heading', models.TextField(blank=True, default='Interactive visualisation instructions', verbose_name='Accordion heading')),
                 ('subtitle', models.TextField(blank=True, help_text='Optional: subtitle to appear underneath the title.', null=True)),
                 ('html', di_website.visualisation.fields.AceEditorField(blank=True, default='{% load wagtailcore_tags %}')),
                 ('javascript', di_website.visualisation.fields.AceEditorField(blank=True, default='"use strict";')),
                 ('css', di_website.visualisation.fields.AceEditorField(blank=True, default='/* CSS goes here */')),
-                ('caption', wagtail.core.fields.RichTextField(blank=True, help_text='Optional: caption text and link(s) for the chart', null=True)),
+                ('caption', wagtail.fields.RichTextField(blank=True, help_text='Optional: caption text and link(s) for the chart', null=True)),
                 ('use_plotly', models.BooleanField(blank=True, default=False, verbose_name='Use Plotly')),
                 ('plotly_bundle', models.CharField(blank=True, choices=[('basic', 'Basic'), ('cartesian', 'Cartesian')], default='basic', help_text='https://github.com/plotly/plotly.js/blob/master/dist/README.md#partial-bundles', max_length=100, verbose_name='Plotly Bundle')),
                 ('use_d3', models.BooleanField(blank=True, default=False, verbose_name='Use D3')),
                 ('d3_version', models.CharField(choices=[('v4', 'Version 4'), ('v5', 'Version 5'), ('v6', 'Version 6')], default='v4', max_length=50, verbose_name='D3 Version')),
-                ('d3_modules', wagtail.core.fields.StreamField([('module', wagtail.core.blocks.ChoiceBlock(choices=[('colour', 'Colour'), ('interpolate', 'Interpolate'), ('scale-chromatic', 'Scale Chromatic')], label='Module'))], blank=True, verbose_name='D3 Modules')),
+                ('d3_modules', wagtail.fields.StreamField([('module', wagtail.blocks.ChoiceBlock(choices=[('colour', 'Colour'), ('interpolate', 'Interpolate'), ('scale-chromatic', 'Scale Chromatic')], label='Module'))], blank=True, verbose_name='D3 Modules')),
                 ('use_echarts', models.BooleanField(blank=True, default=False, verbose_name='Use ECharts')),
             ],
             options={

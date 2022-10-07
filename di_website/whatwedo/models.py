@@ -1,19 +1,18 @@
 from django.db import models
 from django.utils.text import slugify
 
-from wagtail.core.blocks import (
+from wagtail.blocks import (
     CharBlock,
     RichTextBlock,
     StructBlock,
     TextBlock
 )
-from wagtail.core.models import Page
-from wagtail.core.fields import StreamField
-from wagtail.admin.edit_handlers import (
-    FieldPanel, InlinePanel, MultiFieldPanel, PageChooserPanel, StreamFieldPanel)
+from wagtail.models import Page
+from wagtail.fields import StreamField
+from wagtail.admin.panels import (
+    FieldPanel, InlinePanel, MultiFieldPanel, PageChooserPanel)
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.snippets.models import register_snippet
-from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
@@ -43,7 +42,7 @@ class WhatWeDoPage(TypesetBodyMixin, HeroMixin, Page):
         ('video_duo', VideoDuoTextBlock()),
         ('image_duo', ImageDuoTextBlock()),
         ('testimonial', TestimonialBlock())
-    ], verbose_name="Sections", null=True, blank=True)
+    ], verbose_name="Sections", null=True, blank=True, use_json_field=True)
     other_pages_heading = models.CharField(
         blank=True,
         max_length=255,
@@ -54,14 +53,15 @@ class WhatWeDoPage(TypesetBodyMixin, HeroMixin, Page):
         MapStreamBlock,
         verbose_name="Add Where We Work Locations",
         null=True,
-        blank=True
+        blank=True,
+        use_json_field=True
     )
 
     content_panels = Page.content_panels + [
         hero_panels(),
-        StreamFieldPanel('body'),
-        StreamFieldPanel('sections'),
-        StreamFieldPanel('locations_where_we_work'),
+        FieldPanel('body'),
+        FieldPanel('sections'),
+        FieldPanel('locations_where_we_work'),
         MultiFieldPanel([
             FieldPanel('other_pages_heading'),
             InlinePanel('other_pages', label='Related pages', max_num=MAX_OTHER_PAGES)
@@ -114,7 +114,7 @@ class ServicesPageRelatedExample(OtherPageMixin):
 
     panels = [
         PageChooserPanel('other_page'),
-        SnippetChooserPanel('topics')
+        FieldPanel('topics')
     ]
 
 
@@ -152,27 +152,28 @@ class ServicesPage(TypesetBodyMixin, HeroMixin, Page):
             ('heading', CharBlock(required=False)),
             ('body', RichTextBlock(required=False, features=RICHTEXT_FEATURES_NO_FOOTNOTES))
         ]))
-    ])
+    ], use_json_field=True)
 
     skills = StreamField([
         ('skill', StructBlock([
             ('heading', CharBlock(required=False)),
             ('body', RichTextBlock(required=False, features=RICHTEXT_FEATURES_NO_FOOTNOTES))
         ]))
-    ])
+    ], use_json_field=True)
 
     richtext_columns = StreamField([
         ('column', StructBlock([
             ('heading', TextBlock(required=False, icon='title')),
             ('content', RichTextBlock(features=RICHTEXT_FEATURES_NO_FOOTNOTES, icon='fa-paragraph'))
         ], template='blocks/richtext_column.html'))
-    ], null=True, blank=True)
+    ], null=True, blank=True, use_json_field=True)
 
     sections = StreamField(
         SectionStreamBlock(),
         verbose_name="Sections",
         null=True,
-        blank=True
+        blank=True,
+        use_json_field=True
     )
 
     class Meta:
@@ -185,13 +186,13 @@ class ServicesPage(TypesetBodyMixin, HeroMixin, Page):
             FieldPanel('contact_button_text'),
             FieldPanel('contact_email')
         ], heading='Contact aside'),
-        StreamFieldPanel('body'),
-        StreamFieldPanel('specialities'),
-        StreamFieldPanel('skills'),
+        FieldPanel('body'),
+        FieldPanel('specialities'),
+        FieldPanel('skills'),
         InlinePanel('services_related_news', label="Related news"),
         InlinePanel('services_related_example', label="Project examples"),
-        StreamFieldPanel('richtext_columns'),
-        StreamFieldPanel('sections'),
+        FieldPanel('richtext_columns'),
+        FieldPanel('sections'),
         InlinePanel('page_notifications', label='Notifications')
     ]
 

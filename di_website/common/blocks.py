@@ -3,7 +3,7 @@ import re
 from django.core.exceptions import ValidationError
 from django.forms import Media
 from django.forms.utils import ErrorList
-from wagtail.core.blocks import (BooleanBlock, CharBlock, ChoiceBlock,
+from wagtail.blocks import (BooleanBlock, CharBlock, ChoiceBlock,
                                  ListBlock, PageChooserBlock, RichTextBlock,
                                  StreamBlock, StructBlock, TextBlock, URLBlock)
 from wagtail.documents.blocks import DocumentChooserBlock
@@ -260,8 +260,8 @@ class AceEditorJSONBlock(StructBlock):
     def media(self):
         return Media(
             js=[
-                'https://cdnjs.cloudflare.com/ajax/libs/ace/1.9.5/ace.min.js',
-                'https://cdnjs.cloudflare.com/ajax/libs/ace/1.9.5/theme-monokai.min.js'
+                'https://cdnjs.cloudflare.com/ajax/libs/ace/1.11.2/ace.min.js',
+                'https://cdnjs.cloudflare.com/ajax/libs/ace/1.11.2/theme-monokai.min.js'
             ]
         )
 

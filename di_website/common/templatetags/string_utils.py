@@ -14,7 +14,7 @@ from django.utils.html import strip_tags
 from django.utils.safestring import mark_safe
 from django.template.base import VariableDoesNotExist
 
-from wagtail.core.rich_text import expand_db_html, RichText
+from wagtail.rich_text import expand_db_html, RichText
 
 from di_website.publications.fields import RichText as RichTextBlock
 

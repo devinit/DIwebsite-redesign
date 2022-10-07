@@ -5,9 +5,9 @@ from django.utils.functional import cached_property
 
 from modelcluster.fields import ParentalKey
 
-from wagtail.core.fields import RichTextField
-from wagtail.core.models import Page, Orderable
-from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, InlinePanel
+from wagtail.fields import RichTextField
+from wagtail.models import Page, Orderable
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel, InlinePanel
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 
 from di_website.common.edit_handlers import HelpPanel

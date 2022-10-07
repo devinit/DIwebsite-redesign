@@ -3,15 +3,13 @@ from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
 from datetime import datetime
 
-from wagtail.admin.edit_handlers import (
+from wagtail.admin.panels import (
     FieldPanel,
     InlinePanel,
     MultiFieldPanel,
-    PageChooserPanel,
-    StreamFieldPanel
+    PageChooserPanel
 )
-from wagtail.core.fields import StreamField
-from wagtail.core.models import Page
+from wagtail.models import Page
 
 from di_website.common.base import hero_panels, get_paginator_range, get_related_pages
 from di_website.common.mixins import OtherPageMixin, HeroMixin, TypesetBodyMixin
@@ -49,7 +47,7 @@ class EventPage(TypesetBodyMixin, HeroMixin, Page):
             FieldPanel('location'),
         ], heading='Event Details'),
         FieldPanel('registration_link'),
-        StreamFieldPanel('body'),
+        FieldPanel('body'),
         FieldPanel('raw_content'),
         MultiFieldPanel([
             FieldPanel('other_pages_heading'),
@@ -78,7 +76,7 @@ class EventIndexPage(TypesetBodyMixin, HeroMixin, Page):
 
     content_panels = Page.content_panels + [
         hero_panels(),
-        StreamFieldPanel('body'),
+        FieldPanel('body'),
         InlinePanel('page_notifications', label='Notifications')
     ]
 

@@ -3,16 +3,14 @@ from django.db import models
 from di_website.common.mixins import HeroMixin, SectionBodyMixin, TypesetBodyMixin
 from di_website.common.base import hero_panels
 
-from wagtail.admin.edit_handlers import (
+from wagtail.admin.panels import (
     FieldPanel,
     MultiFieldPanel,
-    StreamFieldPanel,
     InlinePanel,
     PageChooserPanel,
 )
 
-from wagtail.core.fields import StreamField
-from wagtail.core.models import Page
+from wagtail.models import Page
 
 
 class General(TypesetBodyMixin, HeroMixin, SectionBodyMixin, Page):
@@ -34,8 +32,8 @@ class General(TypesetBodyMixin, HeroMixin, SectionBodyMixin, Page):
     content_panels = Page.content_panels + [
         hero_panels(),
         FieldPanel('show_breadcrumbs'),
-        StreamFieldPanel('body'),
-        StreamFieldPanel('sections'),
+        FieldPanel('body'),
+        FieldPanel('sections'),
         MultiFieldPanel([
             FieldPanel('other_pages_heading'),
             InlinePanel('other_pages', label='Related pages')

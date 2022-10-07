@@ -3,19 +3,16 @@ Home page models, reusable snippets, other common models
 """
 from django.db import models
 
-from wagtail.admin.edit_handlers import (
+from wagtail.admin.panels import (
     FieldPanel,
     InlinePanel,
     PageChooserPanel,
-    StreamFieldPanel
+    MultiFieldPanel
 )
-from wagtail.images.edit_handlers import ImageChooserPanel
-from wagtail.admin.edit_handlers import MultiFieldPanel
-from wagtail.core.models import Orderable, Page
-from wagtail.core.fields import RichTextField, StreamField
+from wagtail.models import Orderable, Page
+from wagtail.fields import RichTextField, StreamField
 from wagtail.snippets.models import register_snippet
-from wagtail.core.blocks import CharBlock, PageChooserBlock, RichTextBlock, StructBlock
-from wagtail.documents.edit_handlers import DocumentChooserPanel
+from wagtail.blocks import CharBlock, PageChooserBlock, RichTextBlock, StructBlock
 
 from wagtailmetadata.models import MetadataPageMixin
 
@@ -182,7 +179,7 @@ class CookieNotice(models.Model):
         FieldPanel('body'),
         MultiFieldPanel([
             FieldPanel('download_link_caption'),
-            DocumentChooserPanel('cookie_policy'),
+            FieldPanel('cookie_policy'),
         ], heading='Download Link'),
     ]
 
@@ -254,7 +251,7 @@ class HomePage(HomePageMetaData, SectionBodyMixin, Page):
             ('related_page', PageChooserBlock(required=False)),
             ('button_caption', CharBlock(required=False, help_text='Overwrite title text from the related page'))
         ], template='home/blocks/featured_content.html'))
-    ], null=True, blank=True)
+    ], null=True, blank=True, use_json_field=True)
     featured_work_heading = models.CharField(
         blank=True,
         null=True,
@@ -275,15 +272,15 @@ class HomePage(HomePageMetaData, SectionBodyMixin, Page):
                 'events.EventPage',
                 'project.ProjectPage'
             ]),
-            ImageChooserPanel('hero_image'),
+            FieldPanel('hero_image'),
             FieldPanel('hero_link_caption')
         ], heading='Hero Section'),
-        StreamFieldPanel('featured_content'),
+        FieldPanel('featured_content'),
         MultiFieldPanel([
             FieldPanel('featured_work_heading'),
             InlinePanel('featured_pages', label='Featured Pages')
         ], heading='Featured Work'),
-        StreamFieldPanel('sections'),
+        FieldPanel('sections'),
         InlinePanel('page_notifications', label='Notifications')
     ]
 
@@ -320,8 +317,8 @@ class StandardPage(SectionBodyMixin, TypesetBodyMixin, HeroMixin, Page):
 
     content_panels = Page.content_panels + [
         hero_panels(),
-        StreamFieldPanel('body'),
-        StreamFieldPanel('sections'),
+        FieldPanel('body'),
+        FieldPanel('sections'),
         MultiFieldPanel([
             FieldPanel('other_pages_heading'),
             InlinePanel('other_pages', label='Related links')

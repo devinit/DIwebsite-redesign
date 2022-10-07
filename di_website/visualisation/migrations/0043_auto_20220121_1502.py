@@ -2,7 +2,7 @@
 
 from django.db import migrations, models
 import django.db.models.deletion
-import wagtail.core.fields
+import wagtail.fields
 
 
 class Migration(migrations.Migration):
@@ -17,9 +17,9 @@ class Migration(migrations.Migration):
             name='PivotTable',
             fields=[
                 ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.page')),
-                ('instructions', wagtail.core.fields.RichTextField(blank=True)),
+                ('instructions', wagtail.fields.RichTextField(blank=True)),
                 ('instructions_heading', models.TextField(blank=True, default='Interactive visualisation instructions', verbose_name='Accordion heading')),
-                ('caption', wagtail.core.fields.RichTextField(blank=True, help_text='Optional: caption text and link(s) for the chart', null=True)),
+                ('caption', wagtail.fields.RichTextField(blank=True, help_text='Optional: caption text and link(s) for the chart', null=True)),
                 ('data_source_url', models.TextField(help_text='Link to the CSV data file')),
                 ('row_label', models.CharField(help_text='CSV column to show as the label for each table row', max_length=200)),
                 ('column_label', models.CharField(help_text='CSV column to show as the label for each table column', max_length=200)),

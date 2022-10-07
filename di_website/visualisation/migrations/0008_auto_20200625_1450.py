@@ -2,7 +2,7 @@
 
 import django.contrib.postgres.fields.jsonb
 from django.db import migrations, models
-import wagtail.core.fields
+import wagtail.fields
 
 
 class Migration(migrations.Migration):
@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='chartpage',
             name='caption',
-            field=wagtail.core.fields.RichTextField(blank=True, help_text='Optional: caption text and link(s) for the chart', null=True),
+            field=wagtail.fields.RichTextField(blank=True, help_text='Optional: caption text and link(s) for the chart', null=True),
         ),
         migrations.AddField(
             model_name='chartpage',

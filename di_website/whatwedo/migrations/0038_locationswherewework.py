@@ -3,7 +3,7 @@
 from django.db import migrations, models
 import django.db.models.deletion
 import modelcluster.fields
-import wagtail.core.fields
+import wagtail.fields
 import wagtailgeowidget.blocks
 
 
@@ -24,7 +24,7 @@ class Migration(migrations.Migration):
                 ('address', models.CharField(blank=True, max_length=255, null=True, verbose_name='Address')),
                 ('latitude', models.CharField(blank=True, max_length=255, null=True, verbose_name='Latitude')),
                 ('longitude', models.CharField(blank=True, max_length=255, null=True, verbose_name='Longitude')),
-                ('body', wagtail.core.fields.StreamField([('map', wagtailgeowidget.blocks.GeoBlock())])),
+                ('body', wagtail.fields.StreamField([('map', wagtailgeowidget.blocks.GeoBlock())])),
                 ('page', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='locations_where_work', to='wagtailcore.Page')),
             ],
             options={

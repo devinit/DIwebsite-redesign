@@ -3,7 +3,7 @@ import re
 from django.core.exceptions import ValidationError
 from django.forms import Media
 from django.forms.utils import ErrorList
-from wagtail.core.blocks import (BooleanBlock, CharBlock, ChoiceBlock,
+from wagtail.blocks import (BooleanBlock, CharBlock, ChoiceBlock,
                                  ListBlock, PageChooserBlock, RichTextBlock,
                                  StreamBlock, StructBlock, TextBlock, URLBlock)
 from wagtail.documents.blocks import DocumentChooserBlock

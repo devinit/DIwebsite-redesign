@@ -4,8 +4,8 @@ from django.db import migrations
 from django.utils.functional import cached_property
 from django.forms import CharField, Media
 
-import wagtail.core.fields
-from wagtail.core.blocks import FieldBlock
+import wagtail.fields
+from wagtail.blocks import FieldBlock
 from wagtail.admin.staticfiles import versioned_static
 
 from di_website.visualisation.fields import AceEditorInput
@@ -31,6 +31,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='chartpage',
             name='charts',
-            field=wagtail.core.fields.StreamField([('chart', ChartBlock())], blank=True),
+            field=wagtail.fields.StreamField([('chart', ChartBlock())], blank=True),
         ),
     ]

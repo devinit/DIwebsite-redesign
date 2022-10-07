@@ -19,9 +19,9 @@ class AceEditorInput(widgets.HiddenInput):
                 'all': ('visualisation/widgets/css/ace-editor.css',)
             },
             js=[
+                versioned_static('https://cdnjs.cloudflare.com/ajax/libs/ace/1.11.2/ace.min.js'),
+                versioned_static('https://cdnjs.cloudflare.com/ajax/libs/ace/1.11.2/theme-monokai.min.js'),
                 versioned_static('visualisation/widgets/js/ace-editor.js'),
-                versioned_static('https://cdnjs.cloudflare.com/ajax/libs/ace/1.9.5/ace.min.js'),
-                versioned_static('https://cdnjs.cloudflare.com/ajax/libs/ace/1.9.5/theme-monokai.min.js'),
                 # versioned_static('https://cdn.plot.ly/plotly-basic-latest.min.js')
             ]
         )

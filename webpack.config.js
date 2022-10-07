@@ -124,7 +124,7 @@ const adminConfig = {
   entry: { footnotes: './src/admin/footnotes/app/footnotes.entry.js' },
   output: {
     path: path.resolve(__dirname, 'src/assets/'),
-    filename: '[name]/js/bundle.js',
+    filename: '[name]/js/footnotes.js',
     publicPath: '/assets/',
     chunkFilename: (pathData) => {
       const { runtime: name } = pathData.chunk;

@@ -2,10 +2,10 @@ from django.db import models
 from django.utils.functional import cached_property
 from django.http import Http404
 
-from wagtail.core.models import Page
-from wagtail.core.fields import RichTextField, StreamField
-from wagtail.admin.edit_handlers import FieldPanel
-from wagtail.core.blocks import ChoiceBlock
+from wagtail.models import Page
+from wagtail.fields import RichTextField, StreamField
+from wagtail.admin.panels import FieldPanel
+from wagtail.blocks import ChoiceBlock
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 
 from di_website.common.constants import INSTRUCTIONS_RICHTEXT_FEATURES, POSITION_CHOICES, SIMPLE_RICHTEXT_FEATURES
@@ -154,7 +154,7 @@ class D3OptionsMixin(models.Model):
     d3_version = models.CharField(default='v4', max_length=50, choices=D3_VERSIONS, verbose_name='D3 Version')
     d3_modules = StreamField([
         ('module', ChoiceBlock(label='Module', choices=D3_MODULES))
-    ], blank=True, verbose_name='D3 Modules')
+    ], blank=True, verbose_name='D3 Modules', use_json_field=True)
 
 
 class EChartOptionsMixin(models.Model):

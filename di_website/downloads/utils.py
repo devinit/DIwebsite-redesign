@@ -1,4 +1,4 @@
-from wagtail.admin.edit_handlers import InlinePanel
+from wagtail.admin.panels import InlinePanel
 from di_website.publications.edit_handlers import MultiFieldPanel
 
 

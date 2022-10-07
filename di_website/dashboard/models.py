@@ -3,7 +3,7 @@ from django.utils.functional import cached_property
 
 from wagtailmetadata.models import MetadataPageMixin
 
-from wagtail.core.models import Page
+from wagtail.models import Page
 
 
 class OrganisationDashboard(MetadataPageMixin, Page):

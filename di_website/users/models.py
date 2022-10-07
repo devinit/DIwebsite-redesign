@@ -2,7 +2,7 @@ from django.db import models
 from django.utils.text import slugify
 
 from wagtail.snippets.models import register_snippet
-from wagtail.admin.edit_handlers import FieldPanel
+from wagtail.admin.panels import FieldPanel
 from wagtail.search import index
 
 from modelcluster.fields import ParentalKey

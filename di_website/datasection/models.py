@@ -15,14 +15,14 @@ from modelcluster.contrib.taggit import ClusterTaggableManager
 
 from taggit.models import Tag, TaggedItemBase
 
-from wagtail.admin.edit_handlers import (
+from wagtail.admin.panels import (
     FieldPanel, InlinePanel, MultiFieldPanel,
-    PageChooserPanel, StreamFieldPanel
+    PageChooserPanel
 )
-from wagtail.core.blocks import CharBlock, PageChooserBlock, StructBlock, URLBlock
+from wagtail.blocks import CharBlock, PageChooserBlock, StructBlock, URLBlock
 from wagtail.images.blocks import ImageChooserBlock
-from wagtail.core.fields import RichTextField, StreamField
-from wagtail.core.models import Orderable, Page
+from wagtail.fields import RichTextField, StreamField
+from wagtail.models import Orderable, Page
 from wagtail.snippets.models import register_snippet
 
 from di_website.common.base import get_paginator_range, hero_panels, other_pages_panel
@@ -104,7 +104,7 @@ class DataSource(ClusterableModel):
             ('photograph', ImageChooserBlock(required=False)),
             ('page', URLBlock(required=False))
         ], icon='fa-user'))
-    ], blank=True)
+    ], blank=True, use_json_field=True)
     description = models.TextField(blank=True, null=True)
     organisation = models.TextField(blank=True, null=True)
     link_to_metadata = models.URLField(blank=True)
@@ -121,7 +121,7 @@ class DataSource(ClusterableModel):
     panels = [
         FieldPanel('source_id'),
         FieldPanel('title'),
-        StreamFieldPanel('authors'),
+        FieldPanel('authors'),
         FieldPanel('description'),
         FieldPanel('organisation'),
         FieldPanel('link_to_metadata'),
@@ -150,23 +150,23 @@ class DataSource(ClusterableModel):
 class DataSectionPage(TypesetBodyMixin, HeroMixin, Page):
     """ Main page for datasets """
 
-    quotes = StreamField(QuoteStreamBlock, verbose_name="Quotes", null=True, blank=True)
+    quotes = StreamField(QuoteStreamBlock, verbose_name="Quotes", null=True, blank=True, use_json_field=True)
     dataset_info = RichTextField(
         null=True, blank=True,
         help_text='A description of the datasets',
         features=RICHTEXT_FEATURES_NO_FOOTNOTES)
     tools = StreamField(
         [('tool', BannerBlock(template='datasection/tools_banner_block.html'))],
-        verbose_name="Tools", null=True, blank=True)
+        verbose_name="Tools", null=True, blank=True, use_json_field=True)
     other_pages_heading = models.CharField(
         blank=True, max_length=255, verbose_name='Heading', default='More about')
 
     content_panels = Page.content_panels + [
         hero_panels(allowed_pages=['datasection.DataSetListing']),
-        StreamFieldPanel('body'),
+        FieldPanel('body'),
         FieldPanel('dataset_info'),
-        StreamFieldPanel('tools'),
-        StreamFieldPanel('quotes'),
+        FieldPanel('tools'),
+        FieldPanel('quotes'),
         MultiFieldPanel([
             FieldPanel('other_pages_heading'),
             InlinePanel('other_pages', label='Related pages')
@@ -232,8 +232,8 @@ class DatasetPage(DataSetMixin, TypesetBodyMixin, HeroMixin, Page):
         FieldPanel('dataset_id'),
         FieldPanel('dataset_title'),
         FieldPanel('release_date'),
-        StreamFieldPanel('body'),
-        StreamFieldPanel('authors'),
+        FieldPanel('body'),
+        FieldPanel('authors'),
         InlinePanel('dataset_downloads', label='Downloads', max_num=None),
         metadata_panel(),
         MultiFieldPanel([
@@ -345,7 +345,7 @@ class DataSetListing(DatasetListingMetadataPageMixin, TypesetBodyMixin, Page):
 
     content_panels = Page.content_panels + [
         FieldPanel('hero_text'),
-        StreamFieldPanel('body'),
+        FieldPanel('body'),
         MultiFieldPanel([
             FieldPanel('other_pages_heading'),
             InlinePanel('other_pages', label='Related pages')

@@ -1,7 +1,7 @@
 from django.db import models
 
-from wagtail.core.models import Orderable
-from wagtail.core.fields import RichTextField, StreamField
+from wagtail.models import Orderable
+from wagtail.fields import RichTextField, StreamField
 
 from di_website.common.blocks import BaseStreamBlock, SectionStreamBlock, TypesetStreamBlock, TypesetFootnoteStreamBlock
 from di_website.common.constants import RICHTEXT_FEATURES_NO_FOOTNOTES
@@ -96,7 +96,8 @@ class BaseStreamBodyMixin(models.Model):
         BaseStreamBlock(),
         verbose_name="Page Body",
         null=True,
-        blank=True
+        blank=True,
+        use_json_field=True
     )
 
     class Meta:
@@ -108,7 +109,8 @@ class TypesetBodyMixin(models.Model):
         TypesetStreamBlock(),
         verbose_name="Page Body",
         null=True,
-        blank=True
+        blank=True,
+        use_json_field=True
     )
 
     class Meta:
@@ -120,7 +122,8 @@ class TypesetBodyFootnoteMixin(models.Model):
         TypesetFootnoteStreamBlock(),
         verbose_name="Page Body",
         null=True,
-        blank=True
+        blank=True,
+        use_json_field=True
     )
 
     class Meta:
@@ -132,7 +135,8 @@ class SectionBodyMixin(models.Model):
         SectionStreamBlock(),
         verbose_name="Sections",
         null=True,
-        blank=True
+        blank=True,
+        use_json_field=True
     )
 
     class Meta:

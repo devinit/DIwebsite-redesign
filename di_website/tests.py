@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.test import override_settings
 
-from wagtail.tests.utils import WagtailPageTests
+from wagtail.test.utils import WagtailPageTests
 
 from di_website.blog.models import BlogIndexPage, BlogArticlePage
 from di_website.home.models import HomePage

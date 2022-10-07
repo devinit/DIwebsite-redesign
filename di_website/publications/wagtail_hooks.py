@@ -9,8 +9,9 @@ from draftjs_exporter.dom import DOM
 
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail.admin.rich_text.converters.html_to_contentstate import InlineEntityElementHandler
-from wagtail.core import hooks
-from wagtail.core.whitelist import allow_without_attributes, attribute_rule
+from wagtail.admin.ui.components import Component
+from wagtail import hooks
+from wagtail.whitelist import allow_without_attributes, attribute_rule
 
 
 @hooks.register('register_rich_text_features')
@@ -57,10 +58,10 @@ class AnchorEntityElementHandler(InlineEntityElementHandler):
         }
 
 
-class WelcomePanel(object):
+class WelcomePanel(Component):
     order = 50
 
-    def render(self):
+    def render_html(self, parent_context):
         template = loader.get_template('wagtailadmin/welcome_panel.html')
         return template.render({})
 

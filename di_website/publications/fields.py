@@ -1,8 +1,8 @@
-from wagtail.core.blocks.field_block import BooleanBlock
-from wagtail.core.fields import StreamField
+from wagtail.blocks.field_block import BooleanBlock
+from wagtail.fields import StreamField
 from wagtail.contrib.table_block.blocks import TableBlock
 from wagtail.images.blocks import ImageChooserBlock
-from wagtail.core.blocks import (
+from wagtail.blocks import (
     CharBlock,
     ListBlock,
     RichTextBlock,
@@ -308,7 +308,7 @@ def flexible_content_streamfield(blank=False):
         ('cta', CallToActionBlock()),
         ('accordion', AccordionBlock())
 
-    ], blank=blank)
+    ], blank=blank, use_json_field=True)
 
 
 def content_streamfield(blank=False):
@@ -318,4 +318,4 @@ def content_streamfield(blank=False):
         ('table', Table()),
         ('rich_text', RichTextNoFootnotes()),
         ('anchor', AnchorBlock()),
-    ], blank=blank)
+    ], blank=blank, use_json_field=True)

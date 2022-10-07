@@ -1,11 +1,11 @@
-from wagtail.core.blocks import (
+from wagtail.blocks import (
     CharBlock,
     DateBlock,
     ListBlock,
     StructBlock,
     TextBlock
 )
-from wagtail.core.fields import StreamField
+from wagtail.fields import StreamField
 from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.images.blocks import ImageChooserBlock
 
@@ -24,7 +24,7 @@ download_streamfield = StreamField([
         template='content/blocks/list.html',
         label='Add download'
     ))
-])
+], use_json_field=True)
 
 download_image_streamfield = StreamField([
     ('items', ListBlock(
@@ -41,7 +41,7 @@ download_image_streamfield = StreamField([
         template='content/blocks/list.html',
         label='Add download'
     ))
-])
+], use_json_field=True)
 
 download_date_streamfield = StreamField([
     ('items', ListBlock(
@@ -58,4 +58,4 @@ download_date_streamfield = StreamField([
         template='content/blocks/list.html',
         label='Add download'
     ))
-])
+], use_json_field=True)

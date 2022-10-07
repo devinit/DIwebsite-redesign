@@ -1,7 +1,7 @@
 import os
 from django.conf import settings
 
-from wagtail.core.models import Site
+from wagtail.models import Site
 
 from di_website.home.models import HomePage
 

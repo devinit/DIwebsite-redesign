@@ -4,11 +4,9 @@ from django.core.validators import EmailValidator
 
 from modelcluster.fields import ParentalKey
 
-from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel, PageChooserPanel
-from wagtail.core.models import Orderable, Page
-from wagtail.core.fields import RichTextField
-from wagtail.documents.edit_handlers import DocumentChooserPanel
-from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel, PageChooserPanel
+from wagtail.models import Orderable, Page
+from wagtail.fields import RichTextField
 from wagtail.snippets.models import register_snippet
 
 from .constants import MAX_RELATED_LINKS
@@ -23,7 +21,7 @@ def hero_panels(allowed_pages=[]):
         MultiFieldPanel -- Hero content for a page
     """
     return MultiFieldPanel([
-        ImageChooserPanel('hero_image'),
+        FieldPanel('hero_image'),
         FieldPanel('hero_image_credit_name'),
         FieldPanel('hero_image_credit_url'),
         FieldPanel('hero_text', classname="hero_excerpt"),

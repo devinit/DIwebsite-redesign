@@ -6,9 +6,9 @@ from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
 from django.shortcuts import render
 
-from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, StreamFieldPanel
-from wagtail.core.fields import RichTextField
-from wagtail.core.models import Page
+from wagtail.admin.panels import FieldPanel, InlinePanel
+from wagtail.fields import RichTextField
+from wagtail.models import Page
 
 from di_website.common.base import hero_panels
 from di_website.common.mixins import HeroMixin, TypesetBodyMixin
@@ -52,7 +52,7 @@ class ContactPage(TypesetBodyMixin, HeroMixin, Page):
 
     content_panels = Page.content_panels + [
         hero_panels(),
-        StreamFieldPanel('body'),
+        FieldPanel('body'),
         FieldPanel('success_alert', classname="full"),
         InlinePanel('page_notifications', label='Notifications')
     ]

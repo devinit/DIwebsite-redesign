@@ -73,7 +73,7 @@ INSTALLED_APPS = [
     'wagtail.images',
     'wagtail.search',
     'wagtail.admin',
-    'wagtail.core',
+    'wagtail',
     'wagtaillinkchecker',
     'wagtailgeowidget',
     'wagtailmedia',
@@ -259,7 +259,7 @@ WAGTAIL_SITE_NAME = "Development Initiatives Website"
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
-BASE_URL = os.getenv('BASE_URL') or 'http://devinit.org'
+WAGTAILADMIN_BASE_URL = os.getenv('BASE_URL') or 'http://devinit.org'
 
 INTERNAL_IPS = ["127.0.0.1"]
 

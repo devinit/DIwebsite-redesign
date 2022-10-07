@@ -6,14 +6,13 @@ from django.db import models
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 
-from wagtail.admin.edit_handlers import (
+from wagtail.admin.panels import (
     FieldPanel, InlinePanel,
     MultiFieldPanel, PageChooserPanel,
-    StreamFieldPanel)
-from wagtail.core.fields import StreamField
-from wagtail.core.models import Page
-from wagtail.images.edit_handlers import ImageChooserPanel
-from wagtail.core.blocks import (
+)
+from wagtail.fields import StreamField
+from wagtail.models import Page
+from wagtail.blocks import (
     CharBlock,
     PageChooserBlock,
     StructBlock,
@@ -101,7 +100,8 @@ class BlogArticlePage(TypesetBodyFootnoteMixin, HeroMixin, CallToActionMixin, Pa
         ],
         blank=True,
         help_text="Additional authors. If order is important, please use this instead of internal author page.",
-        verbose_name='Other Authors')
+        verbose_name='Other Authors',
+        use_json_field=True)
 
     published_date = models.DateTimeField(
         blank=True,
@@ -113,11 +113,11 @@ class BlogArticlePage(TypesetBodyFootnoteMixin, HeroMixin, CallToActionMixin, Pa
         hero_panels(),
         MultiFieldPanel([
             PageChooserPanel('internal_author_page', TeamMemberPage),
-            StreamFieldPanel('other_authors')
+            FieldPanel('other_authors')
         ], heading="Author information"),
         call_to_action_panel(),
         FieldPanel('topics'),
-        StreamFieldPanel('body'),
+        FieldPanel('body'),
         FieldPanel('published_date'),
         InlinePanel('blog_related_links', label='Related links', max_num=MAX_RELATED_LINKS),
         InlinePanel('page_notifications', label='Notifications')

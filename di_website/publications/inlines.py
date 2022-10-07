@@ -2,8 +2,8 @@ from django.db import models
 
 from modelcluster.fields import ParentalKey
 
-from wagtail.core.models import Orderable
-from wagtail.admin.edit_handlers import FieldPanel, PageChooserPanel
+from wagtail.models import Orderable
+from wagtail.admin.panels import FieldPanel, PageChooserPanel
 
 from di_website.downloads.models import DownloadItem, DataDownloadItem
 

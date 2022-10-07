@@ -4,7 +4,7 @@
 
 from django import template
 
-from wagtail.core.models import Page, Site
+from wagtail.models import Page, Site
 
 from di_website.context import globals
 

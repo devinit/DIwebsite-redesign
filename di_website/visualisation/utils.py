@@ -1,5 +1,4 @@
-from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, StreamFieldPanel
-from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 
 from di_website.common.edit_handlers import HelpPanel
 
@@ -51,7 +50,7 @@ def SpecificInstructionsPanel():
 
 def FallbackImagePanel():
     return MultiFieldPanel([
-            ImageChooserPanel('fallback_image'),
+            FieldPanel('fallback_image'),
             FieldPanel('display_fallback_mobile'),
             FieldPanel('display_fallback_tablet'),
             FieldPanel('alternative_text'),
@@ -78,7 +77,7 @@ def D3OptionsPanel():
         [
             FieldPanel('use_d3'),
             FieldPanel('d3_version'),
-            StreamFieldPanel('d3_modules'),
+            FieldPanel('d3_modules'),
         ],
         classname='collapsible',
         heading='d3 Options',

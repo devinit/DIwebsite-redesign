@@ -1,13 +1,12 @@
 from django.db import models
 
-from wagtail.core.models import Page
-from wagtail.core.fields import StreamField
-from wagtail.admin.edit_handlers import (
+from wagtail.models import Page
+from wagtail.fields import StreamField
+from wagtail.admin.panels import (
     FieldPanel,
     InlinePanel,
     MultiFieldPanel,
     PageChooserPanel,
-    StreamFieldPanel
 )
 
 from di_website.common.base import hero_panels
@@ -26,7 +25,8 @@ class PlacesPage(TypesetBodyMixin, HeroMixin, Page):
         PlaceStreamBlock,
         verbose_name="Places",
         null=True,
-        blank=True
+        blank=True,
+        use_json_field=True
     )
     other_pages_heading = models.CharField(
         blank=True,
@@ -37,8 +37,8 @@ class PlacesPage(TypesetBodyMixin, HeroMixin, Page):
 
     content_panels = Page.content_panels + [
         hero_panels(),
-        StreamFieldPanel('body'),
-        StreamFieldPanel('places'),
+        FieldPanel('body'),
+        FieldPanel('places'),
         MultiFieldPanel([
             FieldPanel('other_pages_heading'),
             InlinePanel('other_pages', label='Related pages', max_num=MAX_OTHER_PAGES)

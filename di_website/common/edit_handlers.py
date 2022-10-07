@@ -3,8 +3,8 @@ from django.utils.html import format_html
 from django.utils.translation import ugettext_lazy as _
 from django.utils.html import mark_safe
 
-from wagtail.admin.edit_handlers import EditHandler
-from wagtail.admin.edit_handlers import HelpPanel as WagtailHelpPanel
+from wagtail.admin.panels import EditHandler
+from wagtail.admin.panels import HelpPanel as WagtailHelpPanel
 
 
 class BaseReadOnlyPanel(EditHandler):
@@ -56,7 +56,7 @@ class ReadOnlyPanel(BaseReadOnlyPanel):
 
 def HelpPanel(
     content='',
-    template='wagtailadmin/edit_handlers/help_panel.html',
+    template='wagtailadmin/panels/help_panel.html',
     heading='',
     classname='',
     wrapper_class='help-block help-info'

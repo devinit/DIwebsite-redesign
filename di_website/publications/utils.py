@@ -4,9 +4,7 @@ from django.db import models
 
 from di_website.common.constants import MAX_RELATED_LINKS
 
-from wagtail.admin.edit_handlers import StreamFieldPanel, FieldPanel, InlinePanel
-from wagtail.images.edit_handlers import ImageChooserPanel
-from wagtail.documents.edit_handlers import DocumentChooserPanel
+from wagtail.admin.panels import FieldPanel, InlinePanel
 
 from .edit_handlers import MultiFieldPanel
 
@@ -50,7 +48,7 @@ def create_download(item):
 def ContentPanel(heading='Content', description='Main content for the page. Build page content by adding new rows from the available content types.'):
     return MultiFieldPanel(
         [
-            StreamFieldPanel('content'),
+            FieldPanel('content'),
         ],
         heading=heading,
         description=description,
@@ -84,8 +82,8 @@ def ReportDownloadPanel():
     return MultiFieldPanel([
         FieldPanel('download_report_title'),
         FieldPanel('download_report_body'),
-        ImageChooserPanel('download_report_cover'),
-        DocumentChooserPanel('report_download')
+        FieldPanel('download_report_cover'),
+        FieldPanel('report_download')
     ], heading='Report download section')
 
 

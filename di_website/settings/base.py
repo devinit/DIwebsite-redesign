@@ -84,6 +84,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'wagtailmetadata',
     'django_google_optimize',
+    'markdownify.apps.MarkdownifyConfig',
 
     'django.contrib.sitemaps',
     'django.contrib.admin',

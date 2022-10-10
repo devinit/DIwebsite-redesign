@@ -3,6 +3,7 @@
     <h2>{{ block_definition.meta.label }}</h2>
     {% if help_text %}
         <div class="help-block help-info">
+            <svg class="icon icon-help" aria-hidden="true"><use href="#icon-help"></use></svg>
             <p>{{ help_text|safe }}</p>
         </div>
     {% endif %}

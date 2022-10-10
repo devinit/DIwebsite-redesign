@@ -1,7 +1,9 @@
+from django.conf import settings
 from django.db import models
 
 from wagtail.models import Orderable
 from wagtail.fields import RichTextField, StreamField
+from wagtail.images.models import SourceImageIOError
 
 from di_website.common.blocks import BaseStreamBlock, SectionStreamBlock, TypesetStreamBlock, TypesetFootnoteStreamBlock
 from di_website.common.constants import RICHTEXT_FEATURES_NO_FOOTNOTES
@@ -29,6 +31,12 @@ class CustomMetadataPageMixin(MetadataPageMixin):
 
     def get_meta_twitter_card_type(self):
         return 'summary_large_image'
+
+    def get_meta_image_rendition(self):
+        try:
+            return super(CustomMetadataPageMixin, self).get_meta_image_rendition()
+        except SourceImageIOError:
+            return None
 
 
 class HeroMixin(CustomMetadataPageMixin, models.Model):

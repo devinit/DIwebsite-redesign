@@ -2,6 +2,7 @@ import json
 
 from django.conf import settings
 from django.template import loader
+from django.templatetags.static import static
 from django.utils.html import escape, format_html, format_html_join
 from django.utils.safestring import mark_safe
 
@@ -78,79 +79,8 @@ def register_welcome_panel(request, panels):
 @hooks.register('insert_editor_css')
 def editor_css():
 
-    # For the data-text selector, see https://css-tricks.com/snippets/css/prevent-long-urls-from-breaking-out-of-container/
-    # This fixes long URLs breaking the interface
-    # Any extra CSS for customising the admin interface can be added here as well
-    return format_html(
-        """
-        <style>
-
-            body.page-editor.model-personpage button.action-preview {{
-                display: none;
-            }}
-
-            .model_choice_field.radio_select label,
-            .model_multiple_choice_field.radio_select label,
-            .model_multiple_choice_field.checkbox_select_multiple label,
-            #id_display_state label {{
-                display: block;
-                float: none;
-                width: 100%;
-            }}
-
-            .page-editor .multiple .field-col,
-            .page-editor .multiple .field-content,
-            .page-editor .sequence-container .field-col,
-            .page-editor .sequence-container .field-content
-            {{
-                float: none;
-            }}
-
-            .page-editor .multiple label,
-            .page-editor .sequence-container label,
-            .page-editor .custom__itemlist .sequence-container
-            {{
-                width: 100%;
-            }}
-
-            .page-editor .sequence-container .stream-menu-inner ul
-            {{
-                text-align: center;
-            }}
-
-            .page-editor .sequence-container .stream-menu-inner ul li
-            {{
-                display: inline-block;
-                float: none;
-            }}
-
-            .page-editor .sequence-container .stream-menu li {{
-                width: auto;
-            }}
-
-            .page-editor .sequence-container [data-text="true"] {{
-                overflow-wrap: break-word;
-                word-wrap: break-word;
-                -ms-word-break: break-all;
-                word-break: break-all;
-                word-break: break-word;
-                -ms-hyphens: auto;
-                -moz-hyphens: auto;
-                -webkit-hyphens: auto;
-                hyphens: auto;
-            }}
-
-            .button-block .fields {{
-                border-bottom: 1px solid #e6e6e6;
-            }}
-
-            .indent-fields .fields {{
-                margin-left: 5%;
-            }}
-
-        </style>
-        """
-    )
+    # Any extra CSS for customising the page editor can be added here as well
+    return format_html('<link rel="stylesheet" href="{}">', static("css/editor.css"))
 
 
 @hooks.register('construct_whitelister_element_rules')

@@ -4,6 +4,7 @@ import bleach
 import uuid
 import re
 
+from bleach.css_sanitizer import CSSSanitizer
 from urllib.parse import urlparse
 from urllib.parse import parse_qs
 
@@ -73,6 +74,7 @@ ATTRS['table'] = ['id', 'summary', 'title']
 ATTRS['th'] = ['id', 'colspan', 'rowspan', 'width']
 ATTRS['td'] = ['id', 'colspan', 'rowspan']
 
+css_sanitizer = CSSSanitizer(allowed_css_properties=STYLES)
 
 @register.filter(name='wysiwyg_tags')
 def wysiwyg_tags(text):
@@ -80,7 +82,7 @@ def wysiwyg_tags(text):
         text,
         tags=WYSIWYG_LIST,
         attributes=ATTRS,
-        styles=STYLES,
+        css_sanitizer=css_sanitizer,
         strip=True,
         strip_comments=True
     )

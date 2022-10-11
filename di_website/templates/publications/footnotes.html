@@ -1,4 +1,4 @@
-{% load string_utils wagtailcore_tags %}
+{% load string_utils wagtailcore_tags markdownify %}
 {% uid_url page as short_url %}
 {% if page.footnotes_list %}
   <section class="section section--alt">
@@ -10,8 +10,7 @@
                 <li class="footnotes__item">
                   <span class="heading type-m type-m--trailer footnotes__sub">{{ forloop.counter }}</span>
                   <a id="{{ item.footnote_id }}"></a>
-                  {% comment %} FIXME: implement a better way of checking for richtext than data-block-key {% endcomment %}
-                  <div class="footnotes__text">{% if 'data-block-key' in item.text %}{{ item.text | content }}{% else %}{{ item.text | urlize }}{% endif %}</div>
+                  <div class="footnotes__text">{{ item.text | markdownify }}</div>
 
                   {% section_id forloop.counter|stringformat:"i" page.chapter_number|default_if_none:1 as section_id %}
                   <a class="footnotes__return" href="#{{ item.source_id }}">Return to source text</a>

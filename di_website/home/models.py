@@ -11,6 +11,7 @@ from wagtail.admin.panels import (
 )
 from wagtail.models import Orderable, Page
 from wagtail.fields import RichTextField, StreamField
+from wagtail.images.models import SourceImageIOError
 from wagtail.snippets.models import register_snippet
 from wagtail.blocks import CharBlock, PageChooserBlock, RichTextBlock, StructBlock
 
@@ -210,6 +211,12 @@ class HomePageMetaData(MetadataPageMixin):
 
     def get_meta_title(self):
         return self.title
+
+    def get_meta_image_rendition(self):
+        try:
+            return super(HomePageMetaData, self).get_meta_image_rendition()
+        except SourceImageIOError:
+            return None
 
 
 class HomePage(HomePageMetaData, SectionBodyMixin, Page):

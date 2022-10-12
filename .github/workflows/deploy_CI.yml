@@ -5,6 +5,9 @@ on:
     branches:
       - develop
       - master
+    tags:
+      - '*-beta*'
+      - 'v[0-9]+.[0-9]+.[0-9]+'
 
 jobs:
   deploy:
@@ -13,7 +16,7 @@ jobs:
     if: contains('
       refs/heads/master
       refs/heads/develop
-      ', github.ref)
+      ', github.ref) || ${{ github.event.ref }} =~ ^refs/tags/*-beta* || ${{ github.event.ref }} =~ ^refs/tags/v[0-9]+.[0-9]+.[0-9]+
     steps:
       - uses: actions/checkout@v2
       - name: zip deploy script
@@ -23,7 +26,7 @@ jobs:
           tar -cvf deploy.tar deploy_script
 
       - name: Set env for develop branch
-        if: endsWith(github.ref, '/develop')
+        if: endsWith(github.ref, '/develop') || ${{ github.event.ref }} =~ ^refs/tags/*-beta*
         run: |
           echo "ENVIRONMENT=${{ secrets.DEV_ENV }}" >> $GITHUB_ENV
           echo "HOST=${{ secrets.DEV_HOST }}" >> $GITHUB_ENV
@@ -34,7 +37,7 @@ jobs:
           echo "DATA_SITE_URL=dev.devinit.org" >> $GITHUB_ENV
 
       - name: Set env for master branch
-        if: endsWith(github.ref, '/master')
+        if: endsWith(github.ref, '/master') || ${{ github.event.ref }} =~ ^refs/tags/v[0-9]+.[0-9]+.[0-9]+
         run: |
           echo "ENVIRONMENT=${{ secrets.PROD_ENV }}" >> $GITHUB_ENV
           echo "HOST=${{ secrets.PROD_HOST }}" >> $GITHUB_ENV

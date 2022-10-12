@@ -1,4 +1,4 @@
-{% load wagtailcore_tags string_utils %}
+{% load wagtailcore_tags string_utils footnotes_utils %}
 
 <div class="max-meter max-meter--center accordion-spacing">
   {% for item in self.accordion_items %}
@@ -9,7 +9,7 @@
       </button>
       <div class="accordion__content">
         <div class="is-typeset">
-          {{item.description|content}}
+          {% content_with_footnotes item.description %}
         </div>
       </div>
     </li>

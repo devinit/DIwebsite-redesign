@@ -5,6 +5,8 @@ on:
     branches:
       - develop
       - master
+    tags:
+      - '*-beta*'
 
 jobs:
   deploy:
@@ -13,7 +15,7 @@ jobs:
     if: contains('
       refs/heads/master
       refs/heads/develop
-      ', github.ref)
+      ', github.ref) || ${{ github.event.ref }} =~ ^refs/tags/*-beta*
     steps:
       - uses: actions/checkout@v2
       - name: zip deploy script
@@ -23,7 +25,7 @@ jobs:
           tar -cvf deploy.tar deploy_script
 
       - name: Set env for develop branch
-        if: endsWith(github.ref, '/develop')
+        if: endsWith(github.ref, '/develop') || ${{ github.event.ref }} =~ ^refs/tags/*-beta*
         run: |
           echo "ENVIRONMENT=${{ secrets.DEV_ENV }}" >> $GITHUB_ENV
           echo "HOST=${{ secrets.DEV_HOST }}" >> $GITHUB_ENV

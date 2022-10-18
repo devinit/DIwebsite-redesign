@@ -142,11 +142,23 @@ function perform_git_operations {
             git fetch
             git stash
             git checkout $ACTIVE_BRANCH
-            git reset --hard origin/$ACTIVE_BRANCH
             } || {
             log "Failed to update from git repository"
             exit 20;
         }
+
+        if [[ $ACTIVE_BRANCH == *"refs/tags"* ]]
+        then
+            log "Deployment is from a release tag"
+        else
+            {
+                log "Hard reset to target branch"
+                git reset --hard origin/$ACTIVE_BRANCH
+                } || {
+                log "Failed to update from git repository"
+                exit 20;
+            }
+        fi
     else
         {
             git clone -b $ACTIVE_BRANCH $REPOSITORY

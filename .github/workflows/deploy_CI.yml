@@ -30,7 +30,7 @@ jobs:
         run: echo "BRANCH=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
         id: extract_branch
 
-      - name: Set env for develop branch
+      - name: Set env for staging or dev
         if: endsWith(github.ref, '/develop') || ${{ github.event.ref }} =~ ^refs/tags/*-beta*
         run: |
           echo "ENVIRONMENT=${{ secrets.DEV_ENV }}" >> $GITHUB_ENV
@@ -40,8 +40,8 @@ jobs:
           echo "SITE_URL=dev.devinit.org" >> $GITHUB_ENV
           echo "DATA_SITE_URL=dev.devinit.org" >> $GITHUB_ENV
 
-      - name: Set env for master branch
-        if: endsWith(github.ref, '/master') || ${{ github.event.ref }} =~ ^refs/tags/v[0-9]+.[0-9]+.[0-9]+
+      - name: Set env for production
+        if: endsWith(github.ref, '/master') || (${{ github.event.ref }} =~ ^refs/tags/v[0-9]+.[0-9]+.[0-9]+ && !(${{ github.event.ref }} =~ ^refs/tags/*-beta*))
         run: |
           echo "ENVIRONMENT=${{ secrets.PROD_ENV }}" >> $GITHUB_ENV
           echo "HOST=${{ secrets.PROD_HOST }}" >> $GITHUB_ENV

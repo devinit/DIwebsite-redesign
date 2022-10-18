@@ -16,7 +16,7 @@ jobs:
     if: contains('
       refs/heads/master
       refs/heads/develop
-      ', github.ref) || ${{ github.event.ref }} =~ ^refs/tags/*-beta* || ${{ github.event.ref }} =~ ^refs/tags/v[0-9]+.[0-9]+.[0-9]+
+      ', github.ref) || ${{ github.event.ref }} =~ ^refs/tags/v[0-9]+.[0-9]+.[0-9]+-beta* || ${{ github.event.ref }} =~ ^refs/tags/v[0-9]+.[0-9]+.[0-9]+
     steps:
       - uses: actions/checkout@v2
       - name: zip deploy script
@@ -31,7 +31,7 @@ jobs:
         id: extract_branch
 
       - name: Set env for staging or dev
-        if: endsWith(github.ref, '/develop') || ${{ github.event.ref }} =~ ^refs/tags/*-beta*
+        if: endsWith(github.ref, '/develop') || ${{ github.event.ref }} =~ ^refs/tags/v[0-9]+.[0-9]+.[0-9]+-beta*
         run: |
           echo "ENVIRONMENT=${{ secrets.DEV_ENV }}" >> $GITHUB_ENV
           echo "HOST=${{ secrets.DEV_HOST }}" >> $GITHUB_ENV
@@ -41,7 +41,7 @@ jobs:
           echo "DATA_SITE_URL=dev.devinit.org" >> $GITHUB_ENV
 
       - name: Set env for production
-        if: endsWith(github.ref, '/master') || (${{ github.event.ref }} =~ ^refs/tags/v[0-9]+.[0-9]+.[0-9]+ && !(${{ github.event.ref }} =~ ^refs/tags/*-beta*))
+        if: endsWith(github.ref, '/master') || ((${{ github.event.ref }} =~ ^refs/tags/v[0-9]+.[0-9]+.[0-9]+) && !(${{ github.event.ref }} =~ ^refs/tags/v[0-9]+.[0-9]+.[0-9]+-beta*))
         run: |
           echo "ENVIRONMENT=${{ secrets.PROD_ENV }}" >> $GITHUB_ENV
           echo "HOST=${{ secrets.PROD_HOST }}" >> $GITHUB_ENV

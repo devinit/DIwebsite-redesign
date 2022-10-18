@@ -145,7 +145,7 @@ services:
 
   worker:
     depends_on:
-      - web
+      - db
       - rabbitmq
     env_file: .env
     environment:

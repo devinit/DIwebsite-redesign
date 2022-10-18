@@ -25,13 +25,18 @@ jobs:
           cp deploy.sh deploy_script
           tar -cvf deploy.tar deploy_script
 
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]${GITHUB_REF#refs/heads/}"
+        id: extract_branch
+
       - name: Set env for develop branch
         if: endsWith(github.ref, '/develop') || ${{ github.event.ref }} =~ ^refs/tags/*-beta*
         run: |
           echo "ENVIRONMENT=${{ secrets.DEV_ENV }}" >> $GITHUB_ENV
           echo "HOST=${{ secrets.DEV_HOST }}" >> $GITHUB_ENV
           echo "USERNAME=${{ secrets.USERNAME }}" >> $GITHUB_ENV
-          echo "BRANCH=${{ secrets.DEV_BRANCH }}" >> $GITHUB_ENV
+          echo "BRANCH=${{ steps.extract_branch.outputs.branch }}" >> $GITHUB_ENV
           echo "WWW_SITE_URL=dev.devinit.org" >> $GITHUB_ENV
           echo "SITE_URL=dev.devinit.org" >> $GITHUB_ENV
           echo "DATA_SITE_URL=dev.devinit.org" >> $GITHUB_ENV
@@ -42,7 +47,7 @@ jobs:
           echo "ENVIRONMENT=${{ secrets.PROD_ENV }}" >> $GITHUB_ENV
           echo "HOST=${{ secrets.PROD_HOST }}" >> $GITHUB_ENV
           echo "USERNAME=${{ secrets.USERNAME }}" >> $GITHUB_ENV
-          echo "BRANCH=${{ secrets.PROD_BRANCH }}" >> $GITHUB_ENV
+          echo "BRANCH=${{ steps.extract_branch.outputs.branch }}" >> $GITHUB_ENV
           echo "WWW_SITE_URL=www.devinit.org" >> $GITHUB_ENV
           echo "SITE_URL=devinit.org" >> $GITHUB_ENV
           echo "DATA_SITE_URL=data.devinit.org" >> $GITHUB_ENV

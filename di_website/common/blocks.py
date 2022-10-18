@@ -21,7 +21,7 @@ class AccordionBlock(StructBlock):
     ('description', RichTextBlock(
             icon='fa-paragraph',
             template='blocks/paragraph_block.html',
-            features=RICHTEXT_FEATURES_NO_FOOTNOTES))
+            features=RICHTEXT_FEATURES))
     ]))
 
 

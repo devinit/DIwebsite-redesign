@@ -72,7 +72,7 @@ services:
 
   worker:
     depends_on:
-      - db
+      - web
       - rabbitmq
     build:
       context: .

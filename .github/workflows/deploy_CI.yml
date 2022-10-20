@@ -16,7 +16,7 @@ jobs:
     if: contains('
       refs/heads/master
       refs/heads/develop
-      ', github.ref) || ${{ github.event.ref }} =~ ^refs/tags/*-beta* || ${{ github.event.ref }} =~ ^refs/tags/v[0-9]+.[0-9]+.[0-9]+
+      ', github.ref) || ${{ github.event.ref }} =~ ^refs/tags/v[0-9]+.[0-9]+.[0-9]+-beta* || ${{ github.event.ref }} =~ ^refs/tags/v[0-9]+.[0-9]+.[0-9]+
     steps:
       - uses: actions/checkout@v2
       - name: zip deploy script
@@ -25,29 +25,31 @@ jobs:
           cp deploy.sh deploy_script
           tar -cvf deploy.tar deploy_script
 
-      - name: Extract branch name
+      - name: Set BRANCH env
         shell: bash
-        run: echo "##[set-output name=branch;]${GITHUB_REF#refs/heads/}"
+        run: echo "BRANCH=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
         id: extract_branch
 
-      - name: Set env for develop branch
-        if: endsWith(github.ref, '/develop') || ${{ github.event.ref }} =~ ^refs/tags/*-beta*
+      - name: Get Version
+        if: ${{ github.event.ref }} =~ ^refs/tags/v[0-9]+.[0-9]+.[0-9]
+        run: echo "TAG=$(echo $GITHUB_REF | cut -d / -f 3)" >> $GITHUB_ENV
+
+      - name: Set env for staging or dev
+        if: endsWith(github.ref, '/develop') || contains(env.TAG, '-beta')
         run: |
           echo "ENVIRONMENT=${{ secrets.DEV_ENV }}" >> $GITHUB_ENV
           echo "HOST=${{ secrets.DEV_HOST }}" >> $GITHUB_ENV
           echo "USERNAME=${{ secrets.USERNAME }}" >> $GITHUB_ENV
-          echo "BRANCH=${{ steps.extract_branch.outputs.branch }}" >> $GITHUB_ENV
           echo "WWW_SITE_URL=dev.devinit.org" >> $GITHUB_ENV
           echo "SITE_URL=dev.devinit.org" >> $GITHUB_ENV
           echo "DATA_SITE_URL=dev.devinit.org" >> $GITHUB_ENV
 
-      - name: Set env for master branch
-        if: endsWith(github.ref, '/master') || ${{ github.event.ref }} =~ ^refs/tags/v[0-9]+.[0-9]+.[0-9]+
+      - name: Set env for production
+        if: endsWith(github.ref, '/master') || contains(env.TAG, '-beta') != true
         run: |
           echo "ENVIRONMENT=${{ secrets.PROD_ENV }}" >> $GITHUB_ENV
           echo "HOST=${{ secrets.PROD_HOST }}" >> $GITHUB_ENV
           echo "USERNAME=${{ secrets.USERNAME }}" >> $GITHUB_ENV
-          echo "BRANCH=${{ steps.extract_branch.outputs.branch }}" >> $GITHUB_ENV
           echo "WWW_SITE_URL=www.devinit.org" >> $GITHUB_ENV
           echo "SITE_URL=devinit.org" >> $GITHUB_ENV
           echo "DATA_SITE_URL=data.devinit.org" >> $GITHUB_ENV

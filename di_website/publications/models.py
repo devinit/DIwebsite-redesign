@@ -37,7 +37,7 @@ from .mixins import (
     FilteredDatasetMixin, FlexibleContentMixin, HeroButtonMixin, InheritCTAMixin, PublicationPageSearchMixin,
     PublishedDateMixin, ReportChildMixin, RelatedLinksMixin, ReportDownloadMixin, UniqueForParentPageMixin, UUIDMixin)
 from .utils import (
-    ContentPanel, PublishedDatePanel, ReportDownloadPanel, UUIDPanel, WagtailImageField, RelatedLinksPanel,
+    ContentPanel, HeroButtonPanel, PublishedDatePanel, ReportDownloadPanel, UUIDPanel, WagtailImageField, RelatedLinksPanel,
     get_downloads, get_first_child_of_type, get_ordered_children_of_type)
 
 RED = 'poppy'
@@ -359,6 +359,8 @@ class PublicationPage(
     class Meta:
         verbose_name = 'Publication Page'
 
+    template = 'publications/publication_page_c.html'
+
     parent_page_types = ['PublicationIndexPage', 'general.General']
     subpage_types = [
         'PublicationForewordPage',
@@ -391,14 +393,7 @@ class PublicationPage(
     content_panels = Page.content_panels + [
         FieldPanel('colour'),
         hero_panels(),
-        MultiFieldPanel(
-            [
-                FieldPanel('read_online_button_text'),
-                FieldPanel('request_hard_copy_text'),
-            ],
-            heading='Hero Button Captions',
-            description='Edit captions for hero buttons'
-        ),
+        HeroButtonPanel(),
         FieldPanel('authors'),
         FieldPanel('publication_type'),
         FieldPanel('topics'),

@@ -87,6 +87,18 @@ def ReportDownloadPanel():
     ], heading='Report download section')
 
 
+def HeroButtonPanel(heading='Hero Button Captions', description='Edit captions for hero buttons'):
+    return MultiFieldPanel(
+        [
+            FieldPanel('download_button_caption'),
+            FieldPanel('read_online_button_text'),
+            FieldPanel('request_hard_copy_text'),
+        ],
+        heading=heading,
+        description=description
+    )
+
+
 def ForeignKeyField(model=None, required=False, on_delete=models.SET_NULL, related_name='+', **kwargs) -> models.ForeignKey:
     if not model:
         raise ValueError('ForeignKeyField requires a valid model string reference')

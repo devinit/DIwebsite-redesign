@@ -197,6 +197,8 @@ class InheritCTAMixin(models.Model):
 
 
 class HeroButtonMixin(models.Model):
+    download_button_caption = models.CharField(
+        max_length=100, default="Downloads", blank=True, null=True, verbose_name='Downloads')
     read_online_button_text = models.CharField(
         max_length=256, default="Read Online", blank=True, null=True, verbose_name='Read Online')
     request_hard_copy_text = models.CharField(

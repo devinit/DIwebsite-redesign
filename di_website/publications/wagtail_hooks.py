@@ -17,7 +17,7 @@ from wagtail.whitelist import allow_without_attributes, attribute_rule
 
 @hooks.register('register_rich_text_features')
 def register_anchor_feature(features):
-    """Register the `anchor` feature, which uses the `ANCHOR` Draft.js entity type, and is stored as HTML with a `<a href>` tag."""
+    """Register the `anchor` feature, which uses the `ANCHOR` Draft.js entity type, and is stored as HTML with a `<div href>` tag."""
     features.default_features.append('anchor')
     feature_name = 'anchor'
     type_ = 'ANCHOR'
@@ -25,7 +25,7 @@ def register_anchor_feature(features):
     control = {
         'type': type_,
         'label': '#',
-        'description': 'Anchor link',
+        'description': 'Anchor',
     }
 
     features.register_editor_plugin(
@@ -33,7 +33,7 @@ def register_anchor_feature(features):
     )
 
     features.register_converter_rule('contentstate', feature_name, {
-        'from_database_format': {'a[href]': AnchorEntityElementHandler(type_)},
+        'from_database_format': {'span[data-anchor]': AnchorEntityElementHandler(type_)},
         'to_database_format': {'entity_decorators': {type_: anchor_entity_decorator}},
     })
 
@@ -42,20 +42,20 @@ def anchor_entity_decorator(props):
     """Draft.js ContentState to database HTML.
     Converts the ANCHOR entities into an a tag.
     """
-    return DOM.create_element('a', { 'href': props['href'] }, props['children'])
+    return DOM.create_element('span', { "data-id": props['anchor'], "data-type": 'anchor' }, props['children'])
 
 
 class AnchorEntityElementHandler(InlineEntityElementHandler):
     """Database HTML to Draft.js ContentState.
-    Converts the a tag into an ANCHOR entity, with the right data.
+    Converts the div tag into an ANCHOR entity, with the right data.
     """
 
     mutability = 'IMMUTABLE'
 
     def get_attribute_data(self, attrs):
-        """Take the ``href`` value from the ``href`` HTML attribute."""
+        """Take the ``data-anchor`` value from the ``data-anchor`` HTML attribute."""
         return {
-            'href': attrs['href'],
+            'anchor': attrs['data-anchor'],
         }
 
 

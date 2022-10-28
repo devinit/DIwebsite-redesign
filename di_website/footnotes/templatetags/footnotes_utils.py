@@ -35,10 +35,6 @@ class FootnotesContentNode(template.Node):
             features='html5lib'
         )
 
-        # not tied to foonotes - handles anchors added through the Richtext Editor
-        for span in soup.select('span[data-type="anchor"]'):
-            span['id'] = span['data-id']
-
         for span in soup.select('span[data-type="footnote"]'):
 
             # get the tag

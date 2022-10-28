@@ -29,7 +29,7 @@ class AnchorSource extends React.Component {
       if (anchorID) {
         // Uses the Draft.js API to create a new entity with the right data.
         const contentWithEntity = content.createEntity(entityType.type, 'IMMUTABLE', {
-          anchor: anchorID,
+          id: anchorID,
         });
         const entityKey = contentWithEntity.getLastCreatedEntityKey();
 

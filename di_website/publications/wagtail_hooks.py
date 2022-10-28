@@ -33,7 +33,7 @@ def register_anchor_feature(features):
     )
 
     features.register_converter_rule('contentstate', feature_name, {
-        'from_database_format': {'span[data-anchor]': AnchorEntityElementHandler(type_)},
+        'from_database_format': {'span[data-id]': AnchorEntityElementHandler(type_)},
         'to_database_format': {'entity_decorators': {type_: anchor_entity_decorator}},
     })
 
@@ -42,7 +42,7 @@ def anchor_entity_decorator(props):
     """Draft.js ContentState to database HTML.
     Converts the ANCHOR entities into an a tag.
     """
-    return DOM.create_element('span', { "data-id": props['anchor'], "data-type": 'anchor' }, props['children'])
+    return DOM.create_element('span', { "data-id": props['id'], "data-type": 'anchor' }, props['children'])
 
 
 class AnchorEntityElementHandler(InlineEntityElementHandler):
@@ -55,7 +55,7 @@ class AnchorEntityElementHandler(InlineEntityElementHandler):
     def get_attribute_data(self, attrs):
         """Take the ``data-anchor`` value from the ``data-anchor`` HTML attribute."""
         return {
-            'anchor': attrs['data-anchor'],
+            'id': attrs['data-id'],
         }
 
 

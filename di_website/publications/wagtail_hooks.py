@@ -17,7 +17,7 @@ from wagtail.whitelist import allow_without_attributes, attribute_rule
 
 @hooks.register('register_rich_text_features')
 def register_anchor_feature(features):
-    """Register the `anchor` feature, which uses the `ANCHOR` Draft.js entity type, and is stored as HTML with a `<div href>` tag."""
+    """Register the `anchor` feature, which uses the `ANCHOR` Draft.js entity type, and is stored as HTML with a `<span>` tag."""
     features.default_features.append('anchor')
     feature_name = 'anchor'
     type_ = 'ANCHOR'

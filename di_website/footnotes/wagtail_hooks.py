@@ -70,6 +70,6 @@ def register_footnote_feature(features):
 
     features.register_converter_rule('contentstate', feature_name, {
         # Note here that the conversion is more complicated than for blocks and inline styles.
-        'from_database_format': {'span[data-footnote]': FootnoteEntityElementHandler(type_)},
+        'from_database_format': {'span[data-type="footnote"]': FootnoteEntityElementHandler(type_)},
         'to_database_format': {'entity_decorators': {type_: footnote_entity_decorator}},
     })

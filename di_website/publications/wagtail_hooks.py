@@ -33,7 +33,7 @@ def register_anchor_feature(features):
     )
 
     features.register_converter_rule('contentstate', feature_name, {
-        'from_database_format': {'span[data-id]': AnchorEntityElementHandler(type_)},
+        'from_database_format': {'span[data-type="anchor"]': AnchorEntityElementHandler(type_)},
         'to_database_format': {'entity_decorators': {type_: anchor_entity_decorator}},
     })
 

@@ -21,15 +21,15 @@ class AnchorSource extends React.Component {
     const end = selection.getEndOffset();
     const selectedText = currentBlock.getText().slice(start, end);
 
-    const anchorText = window.prompt('Anchor link display text', selectedText);
+    const anchorText = window.prompt('Anchor content text', selectedText);
 
     if (anchorText) {
-      const anchorHref = window.prompt('Anchor point ID');
+      const anchorID = window.prompt('Anchor point ID');
 
-      if (anchorHref) {
+      if (anchorID) {
         // Uses the Draft.js API to create a new entity with the right data.
         const contentWithEntity = content.createEntity(entityType.type, 'IMMUTABLE', {
-          href: `#${anchorHref}`,
+          id: anchorID,
         });
         const entityKey = contentWithEntity.getLastCreatedEntityKey();
 

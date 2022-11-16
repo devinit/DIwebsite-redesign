@@ -7,10 +7,11 @@ from wagtail.blocks import (BooleanBlock, CharBlock, ChoiceBlock,
                                  ListBlock, PageChooserBlock, RichTextBlock,
                                  StreamBlock, StructBlock, TextBlock, URLBlock)
 from wagtail.documents.blocks import DocumentChooserBlock
+from wagtail.contrib.table_block.blocks import TableBlock
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.blocks import ImageChooserBlock
 
-from di_website.common.constants import (RICHTEXT_FEATURES,
+from di_website.common.constants import (FOOTNOTE_RICHTEXT_FEATURES, RICHTEXT_FEATURES,
                                          RICHTEXT_FEATURES_NO_FOOTNOTES)
 from di_website.publications.blocks import AudioMediaBlock
 from di_website.publications.infographic import Infographic
@@ -301,7 +302,6 @@ class CallToActionBlock(StructBlock):
         label = 'Call To Action'
         template = 'blocks/call_to_action.html'
 
-
 class TypesetStreamBlock(StreamBlock):
     """
     The custom blocks that can be used under an element with the typeset class (not sections)
@@ -333,6 +333,33 @@ class BasicInfographicBlock(Infographic):
         template = 'blocks/basic_infographic.html'
 
 
+class Table(StructBlock):
+
+    class Meta:
+        help_text = 'Displays tabular data with an optional heading.'
+        icon = 'list-ol'
+        label = 'Table'
+        form_template = 'publications/block_forms/custom_struct.html'
+        template = 'publications/blocks/table.html'
+
+    heading = CharBlock(
+        required=False
+    )
+    table = TableBlock()
+    caption = RichTextBlock(
+        required=False,
+        features=FOOTNOTE_RICHTEXT_FEATURES,
+        help_text='Optional: caption text to appear below the table'
+    )
+    caption_link = URLBlock(
+        required=False,
+        help_text='Optional: external link to appear below the table'
+    )
+    caption_label = CharBlock(
+        required=False,
+        help_text='Optional: label for the caption link, defaults to the link if left blank'
+    )
+
 class TypesetFootnoteStreamBlock(StreamBlock):
     """
     The custom blocks that can be used under an element with the typeset class (not sections)
@@ -355,6 +382,7 @@ class TypesetFootnoteStreamBlock(StreamBlock):
     )
     infographic = BasicInfographicBlock()
     cta = CallToActionBlock()
+    table = Table()
 
     required = False
 

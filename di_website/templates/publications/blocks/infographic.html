@@ -1,7 +1,7 @@
 {% load string_utils responsive wagtailimages_tags footnotes_utils %}
 
 {% uid_url page as short_url %}
-<div class="max-meter max-meter--center responsive-graph" id="{{ id }}">
+<div class="max-meter max-meter--center responsive-graph {% if not value.full_width%} infographic-width {% endif %} " id="{{ id }}">
   <a href="#{{ id }}" data-id="{{ id }}" data-js="share-section-trigger"
     class="section-chapter__link">{% include 'publications/icon.html' with file='ico-link-'|add:page.colour size=16 %}Share
     chart</a>

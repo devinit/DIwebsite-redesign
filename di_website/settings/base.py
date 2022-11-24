@@ -22,7 +22,8 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 ADMINS = [
     ('Edwin', 'edwin.magezi@devinit.org'),
     ('Alex', 'alex.miller@devinit.org'),
-    ('David', 'david.ebukali@devinit.org')
+    ('David', 'david.ebukali@devinit.org'),
+    ('Chris', 'chrisw@devinit.org')
 ]
 
 
@@ -326,3 +327,7 @@ PASSWORD_REQUIRED_TEMPLATE = 'password_required.html'
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 WAGTAILMETADATA_IMAGE_FILTER = 'fill-800x450'
+
+EMAIL_ADMINS_CACHE_TIMEOUT = 30
+EMAIL_ADMINS_MAX_EMAILS_PER_TIMEOUT = 2
+EMAIL_ADMINS_CACHE_COUNTER_KEY = 'email_admins_cache_counter_key'

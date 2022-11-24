@@ -241,3 +241,7 @@ select optgroup {
     background-color: #dfdfdf !important;
     color: #443e42;
 }
+
+.max-meter.infographic-width {
+  max-width: 750px !important;
+}

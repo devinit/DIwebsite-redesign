@@ -181,3 +181,9 @@ class Infographic(StructBlock):
 class PublicationInfographic(Infographic):
     class Meta:
         template = 'publications/blocks/infographic.html'
+
+    full_width =  BooleanBlock(
+                        default=True,
+                        required=False,
+                        help_text='Optional: uncheck this box to match inforgraphic width to block content width'
+                    )

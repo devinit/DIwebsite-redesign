@@ -199,7 +199,7 @@ if config('ELASTIC_SEARCH_URL', ''):
                         },
                         'tokenizer': {
                             'edgengram_tokenizer': {
-                                'type': 'edgeNGram',
+                                'type': 'edge_ngram',
                                 'min_gram': 3,
                                 'max_gram': 10,
                                 'token_chars': elastic_search_tokens

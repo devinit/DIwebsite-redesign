@@ -1,5 +1,5 @@
 {% extends "layouts/default.html" %}
-{% load navigation_tags static wagtailcore_tags wagtailimages_tags card_tags string_utils responsive %}
+{% load navigation_tags static wagtailcore_tags wagtailimages_tags card_tags string_utils responsive chart_utils %}
 
 {% block hero %}
   {% include 'includes/heroes/hero.html' %}
@@ -81,3 +81,13 @@
   </section>
 
 {% endblock %}
+
+{% block html_header %}
+  {{block.super}}
+  {% load_viz_assets source='header' %}
+{% endblock html_header %}
+
+{% block html_footer %}
+  {{block.super}}
+  {% load_viz_assets source='footer' %}
+{% endblock html_footer %}

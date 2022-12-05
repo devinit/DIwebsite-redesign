@@ -46,7 +46,8 @@ def load_viz_assets(context, source='header'):
     context = Context(context)
     self = context['page']
     assets = []
-    for block in self.content:
+    content = self.tools if hasattr(self, 'tools') else self.content
+    for block in content:
         if block.block_type == 'advanced_interactive_chart':
             chart_page = block.value['chart_page']
             if chart_page and source == 'header':

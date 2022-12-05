@@ -3,10 +3,29 @@ declare const ace: any; // eslint-disable-line @typescript-eslint/no-explicit-an
 
 // import 'ace/webpack-resolver';
 
+import { css_beautify, html_beautify, js_beautify } from 'js-beautify';
+
 const initAceEditor = (widgetID: string): void => {
   if (widgetID) {
     const editorNode = document.getElementById(`${widgetID}-ace-editor`);
     const inputNode = document.getElementById(widgetID) as HTMLInputElement;
+
+    const getBeautifiedValue = (mode?: string, value = '') => {
+      if (mode === 'html') {
+        return html_beautify(value);
+      }
+
+      if (mode === 'javascript') {
+        return js_beautify(value);
+      }
+
+      if (mode === 'css') {
+        return css_beautify(value);
+      }
+
+      return value;
+    };
+
     if (editorNode && inputNode) {
       try {
         const mode = editorNode.dataset.mode;
@@ -16,12 +35,19 @@ const initAceEditor = (widgetID: string): void => {
         const editor = ace.edit(editorNode);
         editor.setTheme('ace/theme/monokai'); //TODO: set theme dynamically
         editor.session.setMode(`ace/mode/${mode}`);
+        editor.session.setValue(getBeautifiedValue(mode, editor.session.getValue()));
+        // console.log(mode, beautify);
+
+        // const beautify = ace.require('ace/ext/beautify');
+        // console.log(beautify);
 
         editor.getSession().on('change', () => {
-          inputNode.value = editor.getSession().getValue();
+          console.log('testing');
+
+          inputNode.value = getBeautifiedValue(mode, editor.getSession().getValue());
         });
       } catch (error) {
-        editorNode.innerHTML = `Rendering Error: ${error.message}`;
+        editorNode.innerHTML = `Rendering Error: ${(error as any).message}`;
       }
     }
   }

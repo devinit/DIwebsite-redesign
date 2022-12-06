@@ -46,30 +46,33 @@ def load_viz_assets(context, source='header'):
     context = Context(context)
     self = context['page']
     assets = []
-    content = self.tools if hasattr(self, 'tools') else self.content
-    for block in content:
-        if block.block_type == 'advanced_interactive_chart':
-            chart_page = block.value['chart_page']
-            if chart_page and source == 'header':
-                header_assets = chart_page.specific.header_assets
-                duplicate = False
-                for asset in assets:
-                    if asset == header_assets:
-                        duplicate = True
+    try:
+        content = self.tools if hasattr(self, 'tools') else self.content
+        for block in content:
+            if block.block_type == 'advanced_interactive_chart':
+                chart_page = block.value['chart_page']
+                if chart_page and source == 'header':
+                    header_assets = chart_page.specific.header_assets
+                    duplicate = False
+                    for asset in assets:
+                        if asset == header_assets:
+                            duplicate = True
 
-                if not duplicate:
-                    assets.append(header_assets)
-            elif chart_page and source == 'footer':
-                footer_assets = chart_page.specific.footer_assets
-                duplicate = False
-                for asset in assets:
-                    if asset == footer_assets:
-                        duplicate = True
+                    if not duplicate:
+                        assets.append(header_assets)
+                elif chart_page and source == 'footer':
+                    footer_assets = chart_page.specific.footer_assets
+                    duplicate = False
+                    for asset in assets:
+                        if asset == footer_assets:
+                            duplicate = True
 
-                if not duplicate:
-                    assets.append(footer_assets)
+                    if not duplicate:
+                        assets.append(footer_assets)
 
-    return load_as_template(context, '\n'.join(assets))
+        return load_as_template(context, '\n'.join(assets))
+    except AttributeError:
+        return ''
 
 @register.simple_tag(takes_context=True)
 def gets_row_highlights(context, pivot_page):

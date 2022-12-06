@@ -28,17 +28,17 @@ LOGGING = {
         'null': {
             'class': 'logging.NullHandler',
         },
-        # 'mail_admins': {
-        #     'level': 'ERROR',
-        #     'class': 'di_website.logging.ThrottledAdminEmailHandler'
-        # },
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'di_website.logging.ThrottledAdminEmailHandler'
+        },
     },
     'loggers': {
-        # 'django': {
-        #     'handlers': ['mail_admins'],
-        #     'level': 'ERROR',
-        #     'propagate': True,
-        # },
+        'django': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
         'django.security.DisallowedHost': {
             'handlers': ['null'],
             'propagate': False,

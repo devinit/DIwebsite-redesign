@@ -36,14 +36,8 @@ const initAceEditor = (widgetID: string): void => {
         editor.setTheme('ace/theme/monokai'); //TODO: set theme dynamically
         editor.session.setMode(`ace/mode/${mode}`);
         editor.session.setValue(getBeautifiedValue(mode, editor.session.getValue()));
-        // console.log(mode, beautify);
-
-        // const beautify = ace.require('ace/ext/beautify');
-        // console.log(beautify);
 
         editor.getSession().on('change', () => {
-          console.log('testing');
-
           inputNode.value = getBeautifiedValue(mode, editor.getSession().getValue());
         });
       } catch (error) {

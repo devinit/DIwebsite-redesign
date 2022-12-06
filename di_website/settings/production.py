@@ -1,7 +1,7 @@
 from .base import *
 from decouple import config
 
-DEBUG = True
+DEBUG = False
 
 SECRET_KEY = config('SECRET_KEY',
                     '3bxacdim+p6h*6-j7(zq$t4#4=vzu97+xzeb9-=0rqbh+_o#_d')

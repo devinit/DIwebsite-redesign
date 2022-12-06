@@ -44,8 +44,8 @@ def chapter_nav_slice(chapters, chapter_number=0, max_length=6):
 def page_contains_chart(context):
     charts = {'plotly_studio': False, 'advanced': False}
     self = context['page']
-    content = self.tools if hasattr(self, 'tools') else self.content
     try:
+        content = self.tools if hasattr(self, 'tools') else self.content
         for item in content:
             if item.block.name == 'interactive_chart':
                 charts['plotly_studio'] = True

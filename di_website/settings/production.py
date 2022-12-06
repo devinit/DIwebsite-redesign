@@ -30,18 +30,18 @@ LOGGING = {
         },
         'mail_admins': {
             'level': 'ERROR',
-            'class': 'di_website.custom_middleware.ThrottledAdminEmailHandler'
+            'class': 'di_website.logging.ThrottledAdminEmailHandler'
         },
     },
     'loggers': {
-        'django.security.DisallowedHost': {
-            'handlers': ['null'],
-            'propagate': False,
-        },
         'django': {
             'handlers': ['mail_admins'],
             'level': 'ERROR',
             'propagate': True,
+        },
+        'django.security.DisallowedHost': {
+            'handlers': ['null'],
+            'propagate': False,
         },
     },
 }

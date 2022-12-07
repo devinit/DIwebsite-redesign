@@ -54,7 +54,7 @@ jobs:
           echo "DATA_SITE_URL=dev.devinit.org" >> $GITHUB_ENV
 
       - name: copy deploy file via ssh
-        uses: appleboy/scp-action@v0.1.4
+        uses: appleboy/scp-action@v0.1.3
         env:
           HOST: ${{ env.HOST }}
           USERNAME: ${{ env.USERNAME }}
@@ -65,7 +65,7 @@ jobs:
           target: '.'
 
       - name: run deployment
-        uses: appleboy/ssh-action@master
+        uses: appleboy/ssh-action@v0.1.4
         with:
           host: ${{ env.HOST }}
           username: ${{ env.USERNAME }}

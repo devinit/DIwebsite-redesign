@@ -1,0 +1,15 @@
+{% load string_utils %}
+
+{% if chart %}
+  <div class="row row--narrow space-section-bottom">
+    <div class="max-meter max-meter--center responsive-graph {{chart.slug}}">
+        {% if chart.get_verbose_name == 'Plotly Studio Chart Page' %}
+          {% include 'visualisation/partials/chart.html' with item=chart show_title=self.show_title %}
+        {% elif chart.get_verbose_name == 'Advanced Chart Page' %}
+          {% include 'visualisation/partials/advanced_chart.html' with item=chart show_title=self.show_title %}
+        {% elif chart.get_verbose_name == 'Raw Code Snippet' %}
+          {% include 'visualisation/partials/raw_code_snippet.html' with item=chart show_title=self.show_title %}
+        {% endif %}
+    </div>
+  </div>
+{% endif %}

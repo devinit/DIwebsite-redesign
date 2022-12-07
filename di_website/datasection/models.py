@@ -29,6 +29,7 @@ from di_website.common.base import get_paginator_range, hero_panels, other_pages
 from di_website.common.constants import MAX_PAGE_SIZE, MAX_RELATED_LINKS, RICHTEXT_FEATURES_NO_FOOTNOTES
 from di_website.common.mixins import HeroMixin, OtherPageMixin, SectionBodyMixin, TypesetBodyMixin
 from di_website.common.blocks import BannerBlock
+from di_website.publications.fields import AdvancedInteractiveChartBlock
 from di_website.publications.models import Country
 from di_website.downloads.models import BaseDownload
 
@@ -156,7 +157,10 @@ class DataSectionPage(TypesetBodyMixin, HeroMixin, Page):
         help_text='A description of the datasets',
         features=RICHTEXT_FEATURES_NO_FOOTNOTES)
     tools = StreamField(
-        [('tool', BannerBlock(template='datasection/tools_banner_block.html'))],
+        [
+            ('tool', BannerBlock(template='datasection/tools_banner_block.html')),
+            ('advanced_interactive_chart', AdvancedInteractiveChartBlock(template='datasection/interactive_chart.html')),
+        ],
         verbose_name="Tools", null=True, blank=True, use_json_field=True)
     other_pages_heading = models.CharField(
         blank=True, max_length=255, verbose_name='Heading', default='More about')

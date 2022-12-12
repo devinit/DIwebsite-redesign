@@ -43,7 +43,7 @@ def chapter_nav_slice(chapters, chapter_number=0, max_length=6):
 @register.simple_tag(takes_context=True)
 def page_contains_chart(context):
     charts = {'plotly_studio': False, 'advanced': False}
-    self = context['page']
+    self = context.get('page')
     try:
         content = self.tools if hasattr(self, 'tools') else self.content
         for item in content:

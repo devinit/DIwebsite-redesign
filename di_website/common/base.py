@@ -84,7 +84,7 @@ def get_related_pages(callingPage, selected_pages, queryset=None, min_len=MAX_RE
             return list(queryset.live().exclude(id=callingPage.id)[:min_len])
 
     order_related_pages_by_date = list([link.other_page if hasattr(link, 'other_page') else link for link in selected_pages])
-    order_related_pages_by_date.sort(key=lambda x: x.specific.published_date, reverse=True)
+    order_related_pages_by_date.sort(key=lambda x: x.specific.last_published_at, reverse=True)
     return order_related_pages_by_date
 
 

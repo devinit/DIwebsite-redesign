@@ -333,32 +333,3 @@ WAGTAILMETADATA_IMAGE_FILTER = 'fill-800x450'
 EMAIL_ADMINS_CACHE_TIMEOUT = 30
 EMAIL_ADMINS_MAX_EMAILS_PER_TIMEOUT = 2
 EMAIL_ADMINS_CACHE_COUNTER_KEY = 'email_admins_cache_counter_key'
-
-SLACK_CHANNEL = '#test-exceptions'
-SLACK_TOKEN = os.environ.get('SLACK_TOKEN')
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'filters': {
-        'require_debug_true': {
-            '()': 'django.utils.log.RequireDebugTrue',
-        },
-    },
-    'handlers': {
-        'console': {
-            'level': 'DEBUG',
-            'class': 'logging.StreamHandler',
-        },
-        'slack_admins': {
-            'level': 'ERROR',
-            'filters': ['require_debug_true'],
-            'class': 'django_slack.log.SlackExceptionHandler',
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['console', 'slack_admins'],
-            'propagate': True,
-        },
-    },
-}

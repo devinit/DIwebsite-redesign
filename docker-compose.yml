@@ -57,7 +57,7 @@ services:
       - SERVICE_8090_TAGS=backends
       - CELERY_BROKER_URL
       - SLACK_BOT_TOKEN
-      - CHANNEL
+      - SLACK_CHANNEL
     volumes:
       - ./:/code/
       - ./config/celery/default:/etc/default
@@ -85,7 +85,7 @@ services:
       - SERVICE_8090_TAGS=backends
       - CELERY_BROKER_URL
       - SLACK_BOT_TOKEN
-      - CHANNEL
+      - SLACK_CHANNEL
     volumes:
       - ./:/code/
       - ./config/celery/default:/etc/default

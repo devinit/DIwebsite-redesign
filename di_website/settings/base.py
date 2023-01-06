@@ -86,7 +86,7 @@ INSTALLED_APPS = [
     'wagtailmetadata',
     'django_google_optimize',
     'markdownify.apps.MarkdownifyConfig',
-    'django_slack',
+    # 'django_slack',
 
     'django.contrib.sitemaps',
     'django.contrib.admin',
@@ -329,11 +329,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 WAGTAILMETADATA_IMAGE_FILTER = 'fill-800x450'
 
-<<<<<<< HEAD
 EMAIL_ADMINS_CACHE_TIMEOUT = 30
 EMAIL_ADMINS_MAX_EMAILS_PER_TIMEOUT = 2
 EMAIL_ADMINS_CACHE_COUNTER_KEY = 'email_admins_cache_counter_key'
-=======
+
 SLACK_CHANNEL = '#test-exceptions'
 SLACK_TOKEN = os.environ.get('SLACK_TOKEN')
 LOGGING = {
@@ -362,4 +361,3 @@ LOGGING = {
         },
     },
 }
->>>>>>> 94d8bcb1 ( Add django-slack logger)

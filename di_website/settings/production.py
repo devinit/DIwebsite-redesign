@@ -1,5 +1,6 @@
 from .base import *
 from decouple import config
+import slack_messages.log
 
 DEBUG = False
 
@@ -32,10 +33,14 @@ LOGGING = {
             'level': 'ERROR',
             'class': 'di_website.logging.ThrottledAdminEmailHandler'
         },
+        'slack_admins': {
+            'level': 'ERROR',
+            'class': 'slack_messages.log.SlackExceptionHandler',
+        },
     },
     'loggers': {
         'django': {
-            'handlers': ['mail_admins'],
+            'handlers': ['mail_admins', 'slack_admins'],
             'level': 'ERROR',
             'propagate': True,
         },

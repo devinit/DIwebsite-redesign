@@ -83,7 +83,9 @@ def get_related_pages(callingPage, selected_pages, queryset=None, min_len=MAX_RE
         elif queryset:
             return list(queryset.live().exclude(id=callingPage.id)[:min_len])
 
-    return list([link.other_page if hasattr(link, 'other_page') else link for link in selected_pages])
+    order_related_pages_by_date = list([link.other_page if hasattr(link, 'other_page') else link for link in selected_pages])
+    order_related_pages_by_date.sort(key=lambda x: x.specific.last_published_at, reverse=True)
+    return order_related_pages_by_date
 
 
 def multiple_email_validator(email_string):

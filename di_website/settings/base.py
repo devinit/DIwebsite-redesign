@@ -20,11 +20,10 @@ PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
 ADMINS = [
-    ('Thatcher', 'kaliisat@devinit.org'),
-    # ('Edwin', 'edwin.magezi@devinit.org'),
-    # ('Alex', 'alex.miller@devinit.org'),
-    # ('David', 'david.ebukali@devinit.org'),
-    # ('Chris', 'chrisw@devinit.org')
+    ('Edwin', 'edwin.magezi@devinit.org'),
+    ('Alex', 'alex.miller@devinit.org'),
+    ('David', 'david.ebukali@devinit.org'),
+    ('Chris', 'chrisw@devinit.org')
 ]
 
 

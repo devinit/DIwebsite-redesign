@@ -85,9 +85,9 @@ def get_related_pages(callingPage, selected_pages, queryset=None, min_len=MAX_RE
 
     order_related_pages_by_date = list([link.other_page if hasattr(link, 'other_page') else link for link in selected_pages])
     remove_blank_pages = list(filter(None, order_related_pages_by_date))
-    remove_unpublished_pages = [d for d in remove_blank_pages if getattr(d.specific, 'last_published_at', 0) != 0 and d.specific.last_published_at]
-    remove_unpublished_pages.sort(key=lambda x: x.specific.last_published_at, reverse=True)
-    return remove_unpublished_pages
+    pages_with_published_date = [d for d in remove_blank_pages if getattr(d.specific, 'published_date', 0) != 0 and d.specific.published_date]
+    pages_with_published_date.sort(key=lambda x: x.specific.published_date, reverse=True)
+    return pages_with_published_date
 
 def multiple_email_validator(email_string):
     email_list = email_string.split(',')

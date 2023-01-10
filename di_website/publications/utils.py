@@ -72,7 +72,7 @@ def RelatedLinksPanel():
     return MultiFieldPanel([
         FieldPanel('related_option_handler', heading='Show by'),
         InlinePanel('publication_related_links', label='Related links', max_num=MAX_RELATED_LINKS)
-    ], heading='Related Links')
+    ], heading='Related Links', help_text="Displays only publications, podcasts, blogs and news stories")
 
 def StateMixinPanel():
     return FieldPanel('use_state')

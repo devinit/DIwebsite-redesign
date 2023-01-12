@@ -86,7 +86,6 @@ INSTALLED_APPS = [
     'wagtailmetadata',
     'django_google_optimize',
     'markdownify.apps.MarkdownifyConfig',
-    # 'django_slack',
 
     'django.contrib.sitemaps',
     'django.contrib.admin',

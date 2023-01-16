@@ -1,6 +1,6 @@
 from .base import *
 from decouple import config
-import slack_messages.log
+import slack_hero.log
 
 DEBUG = False
 
@@ -35,7 +35,7 @@ LOGGING = {
         },
         'slack_admins': {
             'level': 'ERROR',
-            'class': 'slack_messages.log.SlackExceptionHandler',
+            'class': 'slack_hero.log.SlackExceptionHandler',
         },
     },
     'loggers': {

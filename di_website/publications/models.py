@@ -709,6 +709,7 @@ class PublicationChapterPage(
 
     @cached_property
     def chapter_word(self):
+        1/0
         return num2words(self.chapter_number)
 
     @cached_property

@@ -64,7 +64,7 @@
 }
 
 /** ==== CHARTS ==== **/
-// .svg-container .main-svg .hoverlayer .hovertext
+.svg-container .main-svg .hoverlayer .hovertext
 .plotly-charts-tooltip {
   background-color: #FFFFFF;
   border-color: #f1f1f1;
@@ -244,4 +244,28 @@ select optgroup {
 
 .max-meter.infographic-width {
   max-width: 750px !important;
+}
+
+.definitionList__definition {
+  font-size: 13px !important;
+}
+
+.hero__title span,
+.hero__meta-item,
+.hero__subtitle,
+.hero__content a,
+.accordion__heading,
+.card__tag,
+.l-footer__col a,
+.media-caption a,
+.section-chapter__link,
+.wysiwyg p,
+.wysiwyg cite,
+.m-downloads__list a,
+table th,
+.cta,
+.js-copy-trigger,
+.download__list a, 
+h2 {
+  opacity: initial !important;
 }

@@ -15,7 +15,7 @@
         </ul>
     {% endif %}
     <div class="share__copy {% if hide_social %} share__copy--no-social {% endif %}">
-        <input readonly class="js-copy-field" type="text" value="{{ short_url }}" title="Short URL for sharing">
+        <input id="shortUrl" readonly class="js-copy-field" type="text" value="{{ short_url }}" title="Short URL for sharing">
         <button class="button js-copy-trigger">Copy</button>
     </div>
 </div>

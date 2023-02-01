@@ -30,6 +30,18 @@ A clear and concise description of what you expected to happen
 **Screenshots/GIF**
 If applicable, add screenshots or a GIF to help explain your problem.
 
+**Links to pages**
+Include links to affected pages
+
+**Project**
+Which DI project is this bug connected to ?
+
+**Tags**
+Any keywords to identify this bug.
+
+**Budget Code**
+Include the budget code this work should be charged to.
+
 **Desktop (please complete the following information):**
  - OS: [e.g. iOS]
  - Browser [e.g. chrome, safari]

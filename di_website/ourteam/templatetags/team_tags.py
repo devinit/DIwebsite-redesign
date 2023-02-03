@@ -6,16 +6,14 @@ from di_website.publications.models import AudioVisualMedia, LegacyPublicationPa
 
 register = template.Library()
 
-AUTHOR_INDEXES = [0,1,2,3,4]
-
-def get_query(count_list, field_name, value):
+def streamfield_index_query(field_name, value, index_count=3):
+    """
+    Generates an OR query for manually filtering through a list of streamfield values by checking each index
+    """
     query = None
-    for count in count_list:
-        filter = models.Q(**{field_name + "__%s__value" % count: value})
-        if not query:
-            query = filter
-        else:
-            query = query | filter
+    for index in range(index_count):
+        filter = models.Q(**{field_name + "__%s__value" % index: value})
+        query = filter if not query else query | filter
     return query
 
 
@@ -24,9 +22,10 @@ def user_content(author_page):
     """
     Blogs, Publications that were authored by the user
     """
-    publications_query = get_query(AUTHOR_INDEXES, 'authors', author_page.pk)
-    blog_query = get_query(AUTHOR_INDEXES, 'other_authors', author_page.pk)
-    audio_visual_query = get_query(AUTHOR_INDEXES, 'participants', author_page.pk)
+    index_count = 5
+    publications_query = streamfield_index_query('authors', author_page.pk, index_count)
+    blog_query = streamfield_index_query('other_authors', author_page.pk, index_count)
+    audio_visual_query = streamfield_index_query('participants', author_page.pk, index_count)
 
     return sorted(list(chain(
         BlogArticlePage.objects.filter(internal_author_page=author_page).live().order_by('-published_date'),

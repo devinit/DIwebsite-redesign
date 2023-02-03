@@ -51,3 +51,5 @@ PODCAST_PROVIDERS = [
     ('google', 'Google'),
     ('amazon', 'Amazon'),
 ]
+
+AUTHOR_INDEXES = [0,1,2,3,4]

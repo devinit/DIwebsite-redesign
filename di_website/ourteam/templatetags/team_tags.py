@@ -12,8 +12,8 @@ def streamfield_index_query(field_name, value, index_count=3):
     """
     query = None
     for index in range(index_count):
-        filter = models.Q(**{field_name + "__%s__value" % index: value})
-        query = filter if not query else query | filter
+        sub_query = models.Q(**{field_name + "__%s__value" % index: value})
+        query = sub_query if not query else query | sub_query
     return query
 
 

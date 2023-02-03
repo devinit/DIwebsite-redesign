@@ -121,13 +121,3 @@ class PageNotification(models.Model):
         FieldPanel('message'),
         FieldPanel('emails')
     ]
-
-def get_query(count_list, field_name, value):
-    query = None
-    for count in count_list:
-        filter = models.Q(**{field_name + "__%s__value" % count: value})
-        if not query:
-            query = filter
-        else:
-            query = query | filter
-    return query

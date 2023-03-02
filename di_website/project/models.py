@@ -27,6 +27,7 @@ RELATED_CHOICES = (
     ('manual', 'Manual'),
     ('topic', 'Topic')
 )
+SECTION_TITLE = 'Section Title'
 
 class FocusAreasPageLinkTopic(TaggedItemBase):
     content_object = ParentalKey('project.FocusAreasPageLink', blank=True, on_delete=models.CASCADE, related_name='focus_areas_page_link_topics')
@@ -44,7 +45,7 @@ class ProjectPage(PublishedDateMixin, TypesetBodyMixin, HeroMixin, Page):
         max_length=255,
         null=True,
         blank=True,
-        verbose_name='Section Title',
+        verbose_name=SECTION_TITLE,
         default='Related content'
     )
     topics = ClusterTaggableManager(through=ProjectPageTopic, blank=True, verbose_name="Topics")
@@ -100,7 +101,7 @@ class FocusAreasPage(TypesetBodyMixin, HeroMixin, Page):
         max_length=255,
         null=True,
         blank=True,
-        verbose_name='Section Title',
+        verbose_name=SECTION_TITLE,
         default='More about'
     )
 
@@ -157,7 +158,7 @@ class FocusAreasPageLink(ClusterableModel):
         verbose_name='Image',
         help_text='Add an image to this focus area'
     )
-    related_page_section_title = models.CharField(blank=True, max_length=255, default='Key Projects and Publications', verbose_name='Section Title')
+    related_page_section_title = models.CharField(blank=True, max_length=255, default='Key Projects and Publications', verbose_name=SECTION_TITLE)
     related_page_handler = models.CharField(max_length=253, choices=RELATED_CHOICES, default='manual', verbose_name='Show By')
     topics = ClusterTaggableManager(through=FocusAreasPageLinkTopic, blank=True, verbose_name="Topics")
     panels = [

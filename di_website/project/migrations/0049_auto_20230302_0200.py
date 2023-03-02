@@ -4,11 +4,11 @@ from django.db import migrations
 
 
 def add_published_date(apps, schema_editor):
-    Project = apps.get_model('project', 'ProjectPage')
-    for project in Project.objects.all():
-        if project.first_published_at is not None:
-            project.published_date = project.first_published_at
-            project.save()
+    project = apps.get_model('project', 'ProjectPage')
+    for project_page in project.objects.all():
+        if project_page.first_published_at is not None:
+            project_page.published_date = project_page.first_published_at
+            project_page.save()
 
 
 class Migration(migrations.Migration):

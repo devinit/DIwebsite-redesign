@@ -21,6 +21,8 @@ from di_website.common.constants import ALT_MAX_RELATED_LINKS, MAX_RELATED_LINKS
 from di_website.publications.models import AudioVisualMedia, LegacyPublicationPage, PublicationPage, ShortPublicationPage
 from di_website.publications.mixins import PublishedDateMixin
 from di_website.publications.utils import PublishedDatePanel
+from di_website.blog.models import BlogArticlePage
+from di_website.news.models import NewsStoryPage
 
 
 RELATED_CHOICES = (
@@ -92,7 +94,7 @@ class FocusAreasPage(TypesetBodyMixin, HeroMixin, Page):
     http://development-initiatives.surge.sh/page-templates/08-focus-areas
     """
     subpage_types = ['ProjectPage', 'general.General', 'FocusAreasPage']
-    parent_page_types = ['whatwedo.WhatWeDoPage']
+    parent_page_types = ['whatwedo.WhatWeDoPage', 'FocusAreasPage']
 
     class Meta():
         verbose_name = 'Focus Areas Page'
@@ -172,7 +174,7 @@ class FocusAreasPageLink(ClusterableModel):
             FieldPanel('related_page_handler', heading='Show by'),
             FieldPanel('topics', help_text="Fill in tags if you selected topics above"),
             FieldPanel('projects'),
-        ], heading='Focus Area Pages', help_text="Displays only projects, publications, podcasts, blogs and news stories")
+        ], heading='Focus Area Pages', help_text="Manual option displays all page types while Topic only matches projects, publications, podcasts, blogs and news stories")
     ]
 
     def get_topic_related_pages(self):
@@ -182,6 +184,8 @@ class FocusAreasPageLink(ClusterableModel):
             'publication': PublicationPage.objects,
             'short': ShortPublicationPage.objects,
             'project': ProjectPage.objects,
+            'blog': BlogArticlePage.objects,
+            'news': NewsStoryPage.objects,
         }
 
         if self.related_page_handler == 'topic' or self.related_page_handler == 'Topic':
@@ -190,16 +194,10 @@ class FocusAreasPageLink(ClusterableModel):
                 results = objects[key].live().filter(topics__in=self.topics.get_queryset()).order_by('title').distinct()
                 for item in results:
                     if item.title:
-                        combined_queryset[item.title] = item
-            combined_queryset = self.remove_duplicates(combined_queryset)
+                        combined_queryset[item.title] = item #remove duplicate titles, usually alias pages
+            combined_queryset = [combined_queryset[key] for key in combined_queryset.keys()]
             slice_queryset = combined_queryset[:ALT_MAX_RELATED_LINKS] if len(combined_queryset) > ALT_MAX_RELATED_LINKS else combined_queryset
             return get_related_pages(self, slice_queryset, objects, ALT_MAX_RELATED_LINKS)
-    
-    def remove_duplicates(self, queryset):
-        unique_list = []
-        for key in queryset.keys():
-            unique_list.append(queryset[key])
-        return unique_list
 
 
 class FocusAreasProjects(OtherPageMixin):

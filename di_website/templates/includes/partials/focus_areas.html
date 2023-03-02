@@ -2,18 +2,32 @@
 {% load wagtailimages_tags wagtailcore_tags static responsive %}
 
 {% block project_aside %}
-  {% if self.projects %}
-    <h3 class="project__subheading">Key projects</h3>
-
-    {% for block in self.projects %}
-        {% if block.value.specific.hero_image %}
-            {% image block.value.specific.hero_image max-313x178 as hero_img %}
-            <a href="{% pageurl block.value.specific %}" class="project-card" style="background-image: url({{hero_img.url}});">
+  <h3 class="project__subheading">{{ self.related_page_section_title }}</h3>
+  {% if self.related_page_handler == 'manual' %}
+    {% if self.projects %}
+      {% for block in self.projects %}
+          {% if block.value.specific.hero_image %}
+              {% image block.value.specific.hero_image max-313x178 as hero_img %}
+              <a href="{% pageurl block.value.specific %}" class="project-card" style="background-image: url({{hero_img.url}});">
+          {% else %}
+              <a href="{% pageurl block.value.specific %}" class="project-card" style="background-image: url({% static 'img/fallback-image.jpg' %});">
+          {% endif %}
+              <span class="project-card__caption">{{ block.value.title }}</span>
+              </a>
+      {% endfor %}
+    {% endif %}
+  {% else %}
+  {% with related_pages=self.get_topic_related_pages %}
+    {% for self in related_pages %}
+      {% if self.hero_image %}
+        {% image self.hero_image max-313x178 as hero_img %}
+          <a href="{% pageurl self %}" class="project-card" style="background-image: url({{hero_img.url}});">
         {% else %}
-            <a href="{% pageurl block.value.specific %}" class="project-card" style="background-image: url({% static 'img/fallback-image.jpg' %});">
+          <a href="{% pageurl self %}" class="project-card" style="background-image: url({% static 'img/fallback-image.jpg' %});">
         {% endif %}
-            <span class="project-card__caption">{{ block.value.title }}</span>
-            </a>
+          <span class="project-card__caption">{{ self.title }}</span>
+          </a>
     {% endfor %}
+  {% endwith %}
   {% endif %}
 {% endblock project_aside %}

@@ -2,7 +2,9 @@
 {% load wagtailimages_tags wagtailcore_tags static responsive %}
 
 {% block project_aside %}
-  <h3 class="project__subheading">{{ self.related_page_section_title }}</h3>
+  {% if self.related_page_section_title %}
+    <h3 class="project__subheading">{{ self.related_page_section_title }}</h3>
+  {% endif %}
   {% if self.related_page_handler == 'manual' %}
     {% if self.projects %}
       {% for block in self.projects %}

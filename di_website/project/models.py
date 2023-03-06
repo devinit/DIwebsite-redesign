@@ -17,7 +17,7 @@ from wagtail.blocks import PageChooserBlock
 
 from di_website.common.base import hero_panels, get_related_pages
 from di_website.common.mixins import HeroMixin, OtherPageMixin, TypesetBodyMixin
-from di_website.common.constants import ALT_MAX_RELATED_LINKS, MAX_RELATED_LINKS, RICHTEXT_FEATURES_NO_FOOTNOTES
+from di_website.common.constants import MAX_RELATED_LINKS, RICHTEXT_FEATURES_NO_FOOTNOTES
 from di_website.publications.models import AudioVisualMedia, LegacyPublicationPage, PublicationPage, ShortPublicationPage
 from di_website.publications.mixins import PublishedDateMixin
 from di_website.publications.utils import PublishedDatePanel
@@ -160,7 +160,7 @@ class FocusAreasPageLink(ClusterableModel):
         verbose_name='Image',
         help_text='Add an image to this focus area'
     )
-    related_page_section_title = models.CharField(blank=True, max_length=255, default='Key Projects and Publications', verbose_name=SECTION_TITLE)
+    related_page_section_title = models.CharField(blank=True, max_length=255, default='Key projects and publications', verbose_name=SECTION_TITLE)
     related_page_handler = models.CharField(max_length=253, choices=RELATED_CHOICES, default='manual', verbose_name='Show By')
     topics = ClusterTaggableManager(through=FocusAreasPageLinkTopic, blank=True, verbose_name="Topics")
     panels = [
@@ -168,7 +168,7 @@ class FocusAreasPageLink(ClusterableModel):
         FieldPanel('subtitle'),
         FieldPanel('body'),
         FieldPanel('image'),
-        
+
         MultiFieldPanel([
             FieldPanel('related_page_section_title'),
             FieldPanel('related_page_handler', heading='Show by'),
@@ -178,6 +178,7 @@ class FocusAreasPageLink(ClusterableModel):
     ]
 
     def get_topic_related_pages(self):
+        ALT_MAX_RELATED_LINKS = 2
         objects = {
             'audio': AudioVisualMedia.objects,
             'legacy': LegacyPublicationPage.objects,

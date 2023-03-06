@@ -1,6 +1,9 @@
 from django.db import models
 
 from modelcluster.fields import ParentalKey
+from modelcluster.contrib.taggit import ClusterTaggableManager
+from taggit.models import TaggedItemBase
+from modelcluster.models import ClusterableModel
 
 from wagtail.admin.panels import (
     InlinePanel,
@@ -15,9 +18,28 @@ from wagtail.blocks import PageChooserBlock
 from di_website.common.base import hero_panels, get_related_pages
 from di_website.common.mixins import HeroMixin, OtherPageMixin, TypesetBodyMixin
 from di_website.common.constants import MAX_RELATED_LINKS, RICHTEXT_FEATURES_NO_FOOTNOTES
+from di_website.publications.models import AudioVisualMedia, LegacyPublicationPage, PublicationPage, ShortPublicationPage
+from di_website.publications.mixins import PublishedDateMixin
+from di_website.publications.utils import PublishedDatePanel
+from di_website.blog.models import BlogArticlePage
+from di_website.news.models import NewsStoryPage
 
 
-class ProjectPage(TypesetBodyMixin, HeroMixin, Page):
+RELATED_CHOICES = (
+    ('manual', 'Manual'),
+    ('topic', 'Topic')
+)
+SECTION_TITLE = 'Section Title'
+
+class FocusAreasPageLinkTopic(TaggedItemBase):
+    content_object = ParentalKey('project.FocusAreasPageLink', blank=True, on_delete=models.CASCADE, related_name='focus_areas_page_link_topics')
+
+
+class ProjectPageTopic(TaggedItemBase):
+    content_object = ParentalKey('project.ProjectPage', blank=True, on_delete=models.CASCADE, related_name='project_page_topics')
+
+
+class ProjectPage(PublishedDateMixin, TypesetBodyMixin, HeroMixin, Page):
     """
     http://development-initiatives.surge.sh/page-templates/08-1-project
     """
@@ -25,11 +47,14 @@ class ProjectPage(TypesetBodyMixin, HeroMixin, Page):
         max_length=255,
         null=True,
         blank=True,
-        verbose_name='Section Title',
+        verbose_name=SECTION_TITLE,
         default='Related content'
     )
+    topics = ClusterTaggableManager(through=ProjectPageTopic, blank=True, verbose_name="Topics")
     content_panels = Page.content_panels + [
         hero_panels(),
+        PublishedDatePanel(),
+        FieldPanel('topics'),
         FieldPanel('body'),
         MultiFieldPanel([
             FieldPanel('other_pages_heading'),
@@ -68,8 +93,8 @@ class FocusAreasPage(TypesetBodyMixin, HeroMixin, Page):
     """
     http://development-initiatives.surge.sh/page-templates/08-focus-areas
     """
-    subpage_types = ['ProjectPage', 'general.General']
-    parent_page_types = ['whatwedo.WhatWeDoPage']
+    subpage_types = ['ProjectPage', 'general.General', 'FocusAreasPage']
+    parent_page_types = ['whatwedo.WhatWeDoPage', 'FocusAreasPage']
 
     class Meta():
         verbose_name = 'Focus Areas Page'
@@ -78,7 +103,7 @@ class FocusAreasPage(TypesetBodyMixin, HeroMixin, Page):
         max_length=255,
         null=True,
         blank=True,
-        verbose_name='Section Title',
+        verbose_name=SECTION_TITLE,
         default='More about'
     )
 
@@ -96,14 +121,14 @@ class FocusAreasPage(TypesetBodyMixin, HeroMixin, Page):
     ]
 
 
-class FocusAreasPageLink(Orderable):
+class FocusAreasPageLink(ClusterableModel):
     page = ParentalKey(
         Page,
         related_name='focus_areas_page_link',
         on_delete=models.CASCADE
     )
     projects = StreamField(
-        [('page', PageChooserBlock(page_type="project.ProjectPage", required=True))],
+        [('page', PageChooserBlock(required=True))],
         verbose_name="Projects",
         null=True,
         blank=True,
@@ -135,13 +160,45 @@ class FocusAreasPageLink(Orderable):
         verbose_name='Image',
         help_text='Add an image to this focus area'
     )
+    related_page_section_title = models.CharField(blank=True, max_length=255, default='Key projects and publications', verbose_name=SECTION_TITLE)
+    related_page_handler = models.CharField(max_length=253, choices=RELATED_CHOICES, default='manual', verbose_name='Show By')
+    topics = ClusterTaggableManager(through=FocusAreasPageLinkTopic, blank=True, verbose_name="Topics")
     panels = [
         FieldPanel('title'),
         FieldPanel('subtitle'),
         FieldPanel('body'),
         FieldPanel('image'),
-        FieldPanel('projects')
+
+        MultiFieldPanel([
+            FieldPanel('related_page_section_title'),
+            FieldPanel('related_page_handler', heading='Show by'),
+            FieldPanel('topics', help_text="Fill in tags if you selected topics above"),
+            FieldPanel('projects'),
+        ], heading='Focus Area Pages', help_text="Manual option displays all page types while Topic only matches projects, publications, podcasts, blogs and news stories")
     ]
+
+    def get_topic_related_pages(self):
+        ALT_MAX_RELATED_LINKS = 2
+        objects = {
+            'audio': AudioVisualMedia.objects,
+            'legacy': LegacyPublicationPage.objects,
+            'publication': PublicationPage.objects,
+            'short': ShortPublicationPage.objects,
+            'project': ProjectPage.objects,
+            'blog': BlogArticlePage.objects,
+            'news': NewsStoryPage.objects,
+        }
+
+        if self.related_page_handler == 'topic' or self.related_page_handler == 'Topic':
+            combined_queryset = {}
+            for key in objects:
+                results = objects[key].live().filter(topics__in=self.topics.get_queryset()).order_by('title').distinct()
+                for item in results:
+                    if item.title:
+                        combined_queryset[item.title] = item #remove duplicate titles, usually alias pages
+            combined_queryset = [combined_queryset[key] for key in combined_queryset.keys()]
+            slice_queryset = combined_queryset[:ALT_MAX_RELATED_LINKS] if len(combined_queryset) > ALT_MAX_RELATED_LINKS else combined_queryset
+            return get_related_pages(self, slice_queryset, objects, ALT_MAX_RELATED_LINKS)
 
 
 class FocusAreasProjects(OtherPageMixin):

@@ -31,8 +31,8 @@
         {% else %}
           <li class="hero__meta-item hero__meta-item--block">{{ page.get_parent.specific.publication_type|default_if_none:"Publication" }}</li>
         {% endif %}
-        {% if page.published_date %}
-          <li class="hero__meta-item">{{ page.published_date|date:"j F Y" }}</li>
+        {% if page.publication_date %}
+          <li class="hero__meta-item">{{ page.publication_date|date:"j F Y" }}</li>
         {% endif %}
       </ul>
       {% if page.get_verbose_name  == "Publication Chapter" %}

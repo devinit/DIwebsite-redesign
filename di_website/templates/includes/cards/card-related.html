@@ -10,8 +10,8 @@
 
     <div class="card__body">
         {% if not hide_date %}
-          {% if item.published_date %}
-            <span class="card__meta">{{ item.published_date|date:"j F Y" }}</span>
+          {% if item.publication_date %}
+            <span class="card__meta">{{ item.publication_date|date:"j F Y" }}</span>
           {% else %}
             <span class="card__meta">{{ item.first_published_at|date:"j F Y" }}</span>
           {% endif %}

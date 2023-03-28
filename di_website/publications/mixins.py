@@ -1,4 +1,3 @@
-from django.utils.timezone import now
 from django.db import models
 from django.utils.functional import cached_property
 from di_website.common.constants import MAX_RELATED_LINKS
@@ -84,9 +83,20 @@ class PublishedDateMixin(models.Model):
 
     published_date = models.DateTimeField(
         blank=True,
-        default=now,
+        null=True,
         help_text='This date will be used for display and ordering',
     )
+
+    @cached_property
+    def publication_date(self):
+        if self.published_date:
+            return self.published_date
+
+        parent = self.get_parent()
+        if parent and parent.published_date:
+            return parent.published_date
+
+        return None
 
 
 class UUIDMixin(models.Model):

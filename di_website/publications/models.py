@@ -5,6 +5,7 @@ from num2words import num2words
 from taggit.models import Tag, TaggedItemBase
 
 from django import forms
+from django.utils.timezone import now
 from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db import models
@@ -491,6 +492,9 @@ class PublicationPage(
         return False
 
     def save(self, *args, **kwargs):
+        if not self.published_date:
+            self.published_date = now()
+
         super(PublicationPage, self).save(*args, **kwargs)
 
         old_path = '/%s' % self.slug

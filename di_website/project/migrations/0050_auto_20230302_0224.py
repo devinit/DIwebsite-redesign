@@ -9,7 +9,6 @@ import modelcluster.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('taggit', '0005_auto_20220424_2025'),
         ('project', '0049_auto_20230302_0200'),
     ]
 

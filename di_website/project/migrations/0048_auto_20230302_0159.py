@@ -12,7 +12,6 @@ import wagtail.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('taggit', '0005_auto_20220424_2025'),
         ('project', '0047_auto_20221012_1214'),
     ]
 

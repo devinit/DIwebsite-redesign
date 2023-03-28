@@ -1,4 +1,5 @@
 from django.utils.timezone import now
+from django.utils.functional import cached_property
 from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db import models
@@ -137,6 +138,10 @@ class BlogArticlePage(TypesetBodyFootnoteMixin, HeroMixin, CallToActionMixin, Pa
             self, self.blog_related_links.all(), BlogArticlePage.objects)
 
         return context
+
+    @cached_property
+    def publication_date(self):
+        return self.published_date
 
 
 class BlogPageRelatedLink(OtherPageMixin):

@@ -6,8 +6,8 @@
 {% block hero_meta %}
     <ul class="hero__meta">
         <li class="hero__meta-item hero__meta-item--block">Blog</li>
-        {% if page.published_date %}
-          <li class="hero__meta-item">{{ page.published_date|date:"j F Y" }}</li>
+        {% if page.publication_date %}
+          <li class="hero__meta-item">{{ page.publication_date|date:"j F Y" }}</li>
         {% else %}
           <li class="hero__meta-item">{{ page.first_published_at|date:"j F Y" }}</li>
         {% endif %}

@@ -7,8 +7,8 @@
             {% if item|classname in global.publication_classnames %}{{ item.publication_type|default_if_none:"Publication" }}{% endif %}
             {% if item|classname == global.dataset_classname %}Dataset{% endif %}
         </span>
-        {% if item.published_date  %}
-          <span class="card__meta">{{ item.published_date|date:"j F Y" }}</span>
+        {% if item.publication_date  %}
+          <span class="card__meta">{{ item.publication_date|date:"j F Y" }}</span>
         {% elif item.first_published_at %}
           <span class="card__meta">{{ item.first_published_at|date:"j F Y" }}</span>
         {% elif item.release_date %}

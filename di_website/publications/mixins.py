@@ -225,6 +225,11 @@ class RelatedLinksMixin(models.Model):
     class Meta:
         abstract = True
 
+    def sort_pages(self, combined_queryset):
+        pages_with_published_date = [d for d in combined_queryset if getattr(d.specific, 'published_date', 0) != 0 and d.specific.published_date]
+        pages_with_published_date.sort(key=lambda x: x.specific.published_date, reverse=True)
+        return pages_with_published_date[:MAX_RELATED_LINKS] if len(pages_with_published_date) > MAX_RELATED_LINKS else pages_with_published_date
+
     def get_related_links(self, objects=None):
         if not objects:
             return None
@@ -235,9 +240,7 @@ class RelatedLinksMixin(models.Model):
                 results = objects[key].live().filter(topics__in=self.topics.get_queryset()).exclude(id=self.id).distinct()
                 for item in results:
                     combined_queryset.append(item)
-            pages_with_published_date = [d for d in combined_queryset if getattr(d.specific, 'published_date', 0) != 0 and d.specific.published_date]
-            pages_with_published_date.sort(key=lambda x: x.specific.published_date, reverse=True)
-            slice_queryset = pages_with_published_date[:MAX_RELATED_LINKS] if len(pages_with_published_date) > MAX_RELATED_LINKS else pages_with_published_date
+            slice_queryset = self.sort_pages(combined_queryset)
             return get_related_pages(self, slice_queryset, objects)
         elif self.related_option_handler == 'country'  or self.related_option_handler == 'Country':
             countries = [country.country.name for country in self.page_countries.all()]
@@ -246,9 +249,7 @@ class RelatedLinksMixin(models.Model):
                 results = objects[key].live().filter(page_countries__country__name__in=countries).exclude(id=self.id).distinct()
                 for item in results:
                     combined_queryset.append(item)
-            pages_with_published_date = [d for d in combined_queryset if getattr(d.specific, 'published_date', 0) != 0 and d.specific.published_date]
-            pages_with_published_date.sort(key=lambda x: x.specific.published_date, reverse=True)
-            slice_queryset = pages_with_published_date[:MAX_RELATED_LINKS] if len(pages_with_published_date) > MAX_RELATED_LINKS else pages_with_published_date
+            slice_queryset = self.sort_pages(combined_queryset)
             return get_related_pages(self, slice_queryset, objects)
         elif self.related_option_handler == 'manual' or self.related_option_handler == 'Manual':
             return get_related_pages(self, self.publication_related_links.all(), objects)

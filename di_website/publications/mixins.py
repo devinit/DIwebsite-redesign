@@ -179,11 +179,11 @@ class ReportDownloadMixin(models.Model):
 
     download_report_cover = WagtailImageField(verbose_name='Report cover')
     download_report_title = models.CharField(
-        max_length=255, null=True, blank=True,
+        max_length=255, blank=True,
         default="Download this report", verbose_name='Section title')
-    download_report_body = models.TextField(null=True, blank=True, verbose_name='Section body')
+    download_report_body = models.TextField(blank=True, verbose_name='Section body')
     download_report_button_text = models.CharField(
-        max_length=255, null=True, blank=True,
+        max_length=255, blank=True,
         default="Download now", verbose_name='Button caption')
     report_download = models.ForeignKey(
         'wagtaildocs.Document',
@@ -208,12 +208,12 @@ class InheritCTAMixin(models.Model):
 
 class HeroButtonMixin(models.Model):
     download_button_caption = models.CharField(
-        max_length=100, default="Downloads", blank=True, null=True, verbose_name='Downloads')
+        max_length=100, default="Downloads", blank=True, verbose_name='Downloads')
     read_online_button_text = models.CharField(
-        max_length=256, default="Read Online", blank=True, null=True, verbose_name='Read Online')
+        max_length=256, default="Read Online", blank=True, verbose_name='Read Online')
     request_hard_copy_text = models.CharField(
         max_length=256, default="Request a hard copy", blank=True,
-        null=True, verbose_name='Read Hard Copy')
+        verbose_name='Read Hard Copy')
 
     class Meta:
         abstract = True

@@ -265,7 +265,56 @@ select optgroup {
 table th,
 .cta,
 .js-copy-trigger,
-.download__list a, 
+.download__list a,
 h2 {
   opacity: initial !important;
+}
+
+body.body--bluebell .pullout.so-what {
+  background: url('../svg/bluebell-stripes.svg') !important;
+}
+body.body--bluebell .pullout.so-what::before {
+  background: url('../svg/bluebell-stripes.svg') !important;
+}
+body.body--leaf .pullout.so-what {
+  background: url('../svg/leaf-stripes.svg') !important;
+}
+body.body--leaf .pullout.so-what::before {
+  background: url('../svg/leaf-stripes.svg') !important;
+}
+body.body--sunflower .pullout.so-what {
+  background: url('../svg/sunflower-stripes.svg') !important;
+}
+body.body--sunflower .pullout.so-what::before {
+  background: url('../svg/sunflower-stripes.svg') !important;
+}
+body.body--lavendar .pullout.so-what {
+  background: url('../svg/lavendar-stripes.svg') !important;
+}
+body.body--lavendar .pullout.so-what::before {
+  background: url('../svg/lavendar-stripes.svg') !important;
+}
+body.body--rose .pullout.so-what {
+  background: url('../svg/rose-stripes.svg') !important;
+}
+body.body--rose .pullout.so-what::before {
+  background: url('../svg/rose-stripes.svg') !important;
+}
+body.body--marigold .pullout.so-what {
+  background: url('../svg/marigold-stripes.svg') !important;
+}
+body.body--marigold .pullout.so-what::before {
+  background: url('../svg/marigold-stripes.svg') !important;
+}
+
+body.body--poppy .pullout.so-what {
+  background: url('../svg/poppy-stripes.svg') !important;
+}
+body.body--poppy .pullout.so-what::before {
+  background: url('../svg/poppy-stripes.svg') !important;
+}
+
+.so-what .pullout__heading {
+  color: #443e42 !important;
+  border-bottom: 3px solid #443e42 !important;
 }

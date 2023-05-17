@@ -77,7 +77,14 @@ class CaseStudy(StructBlock):
         ],
     )
 
+class SoWhat(CaseStudy):
 
+    class Meta:
+        help_text = 'Displays a so what box with a heading, and at least one block of WYSIWYG content, infographic, or captioned image.'
+        label = 'So what'
+        template = 'publications/blocks/so_what.html'
+
+    section_label = CharBlock(default="So What")
 class DefinitionList(StructBlock):
 
     class Meta:

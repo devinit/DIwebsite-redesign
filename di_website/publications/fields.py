@@ -313,8 +313,8 @@ def flexible_content_streamfield(blank=False):
         ('interactive_chart', InteractiveChartBlock()),
         ('advanced_interactive_chart', AdvancedInteractiveChartBlock()),
         ('cta', CallToActionBlock()),
-        ('accordion', AccordionBlock())
-
+        ('accordion', AccordionBlock()),
+        ('so_what', SoWhat())
     ], blank=blank, use_json_field=True)
 
 

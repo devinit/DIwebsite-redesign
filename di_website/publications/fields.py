@@ -85,6 +85,21 @@ class SoWhat(CaseStudy):
         template = 'publications/blocks/so_what.html'
 
     section_label = CharBlock(default="So What")
+    authors = StreamBlock(
+        [
+            ('internal_author', PageChooserBlock(
+                required=False, target_model='ourteam.TeamMemberPage', icon='user', label='Internal Author')),
+            ('external_author', StructBlock([
+                ('name', CharBlock(required=False)),
+                ('title', CharBlock(required=False)),
+                ('photograph', ImageChooserBlock(required=False)),
+                ('page', URLBlock(required=False))
+            ], icon='user', label='External Author'))
+        ],
+        blank=True,
+        verbose_name='Authors',
+        use_json_field=True)
+
 class DefinitionList(StructBlock):
 
     class Meta:

@@ -8,7 +8,11 @@
   {% if page %}
   {% include 'publications/share-block.html' with share_type='chart' title=value.heading|default:page.title short_url=short_url|add:'#'|add:id data_js='share-section' data_id=id %}
   {% endif %}
-
+  {% if value.interactive_chart_url.url %}
+  <a href="{{ value.interactive_chart_url.url }}" class="button" target="_blank">
+    {{ value.interactive_chart_url.button_caption }}
+  </a>
+  {% endif %}
   {% if value.heading %}
   <h2  class="type-l type-l--trailer">{{ value.heading }}</h2>
   {% endif %}

@@ -333,3 +333,28 @@ body.body--poppy .pullout.so-what::before {
 .so-what .m-author__meta {
   color: #fff !important;
 }
+
+.so-what.pullout::before {
+  width: 0 !important;
+}
+
+@media screen and (max-width: 1000px) {
+  .so-what-parent > * {
+    padding-left: 3em;
+  }
+}
+
+@media screen and (min-width: 1180px){
+  .so-what-parent .section-chapter__link {
+    margin-left: 10vw;
+  }
+}
+
+.row--narrow.so-what-parent {
+  padding-left: 0;
+  margin-left: 0;
+}
+
+.so-what-parent .pullout__heading-wrapper {
+  left: 80px;
+}

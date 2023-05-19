@@ -274,15 +274,7 @@ body.body--bluebell .pullout.so-what {
   background: url('../svg/bluebell-stripes.svg') !important;
 }
 
-body.body--bluebell .pullout.so-what::before {
-  background: url('../svg/bluebell-stripes.svg') !important;
-}
-
 body.body--leaf .pullout.so-what {
-  background: url('../svg/leaf-stripes.svg') !important;
-}
-
-body.body--leaf .pullout.so-what::before {
   background: url('../svg/leaf-stripes.svg') !important;
 }
 
@@ -290,22 +282,11 @@ body.body--sunflower .pullout.so-what {
   background: url('../svg/sunflower-stripes.svg') !important;
 }
 
-body.body--sunflower .pullout.so-what::before {
-  background: url('../svg/sunflower-stripes.svg') !important;
-}
-
 body.body--lavendar .pullout.so-what {
   background: url('../svg/lavendar-stripes.svg') !important;
 }
 
-body.body--lavendar .pullout.so-what::before {
-  background: url('../svg/lavendar-stripes.svg') !important;
-}
-
 body.body--rose .pullout.so-what {
-  background: url('../svg/rose-stripes.svg') !important;
-}
-body.body--rose .pullout.so-what::before {
   background: url('../svg/rose-stripes.svg') !important;
 }
 
@@ -313,15 +294,7 @@ body.body--marigold .pullout.so-what {
   background: url('../svg/marigold-stripes.svg') !important;
 }
 
-body.body--marigold .pullout.so-what::before {
-  background: url('../svg/marigold-stripes.svg') !important;
-}
-
 body.body--poppy .pullout.so-what {
-  background: url('../svg/poppy-stripes.svg') !important;
-}
-
-body.body--poppy .pullout.so-what::before {
   background: url('../svg/poppy-stripes.svg') !important;
 }
 

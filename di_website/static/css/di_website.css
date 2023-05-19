@@ -271,31 +271,31 @@ h2 {
 }
 
 body.body--bluebell .pullout.so-what {
-  background: url('../svg/bluebell-stripes.svg') !important;
+  background: url('../svg/bluebell-stripes.svg');
 }
 
 body.body--leaf .pullout.so-what {
-  background: url('../svg/leaf-stripes.svg') !important;
+  background: url('../svg/leaf-stripes.svg');
 }
 
 body.body--sunflower .pullout.so-what {
-  background: url('../svg/sunflower-stripes.svg') !important;
+  background: url('../svg/sunflower-stripes.svg');
 }
 
 body.body--lavendar .pullout.so-what {
-  background: url('../svg/lavendar-stripes.svg') !important;
+  background: url('../svg/lavendar-stripes.svg');
 }
 
 body.body--rose .pullout.so-what {
-  background: url('../svg/rose-stripes.svg') !important;
+  background: url('../svg/rose-stripes.svg');
 }
 
 body.body--marigold .pullout.so-what {
-  background: url('../svg/marigold-stripes.svg') !important;
+  background: url('../svg/marigold-stripes.svg');
 }
 
 body.body--poppy .pullout.so-what {
-  background: url('../svg/poppy-stripes.svg') !important;
+  background: url('../svg/poppy-stripes.svg');
 }
 
 .so-what .pullout__heading {
@@ -315,11 +315,17 @@ body.body--poppy .pullout.so-what {
   .so-what-parent > * {
     padding-left: 3em;
   }
+  .pullout.so-what{
+    background-size: 6% !important;
+  }
 }
 
 @media screen and (min-width: 1180px){
   .so-what-parent .section-chapter__link {
     margin-left: 10vw;
+  }
+  .pullout.so-what{
+    background-size: 4% !important;
   }
 }
 

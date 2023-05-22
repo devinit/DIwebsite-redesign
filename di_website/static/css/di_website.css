@@ -336,4 +336,7 @@ body.body--poppy .pullout.so-what {
 
 .so-what-parent .pullout__heading-wrapper {
   left: 80px;
+  padding-left: 1em;
+  padding-right: 1em;
+  background-color: #fff;
 }

@@ -321,11 +321,17 @@ body.body--poppy .pullout.so-what {
 }
 
 @media screen and (min-width: 1180px){
-  .so-what-parent .section-chapter__link {
-    margin-left: 10vw;
+  .so-what-parent .section-chapter__link:nth-child(2) {
+    margin-left: 3em;
   }
+
   .pullout.so-what{
     background-size: 2.5% !important;
+  }
+
+  .infographic-link-parent {
+    display: flex;
+    margin-left: 10vw;
   }
 }
 

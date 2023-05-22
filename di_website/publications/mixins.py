@@ -89,11 +89,11 @@ class PublishedDateMixin(models.Model):
 
     @cached_property
     def publication_date(self):
-        if self.published_date:
+        if hasattr(self, 'published_date') and self.published_date:
             return self.published_date
 
         parent = self.get_parent()
-        if parent and parent.published_date:
+        if parent and hasattr(parent, 'published_date') and parent.published_date:
             return parent.published_date
 
         return None

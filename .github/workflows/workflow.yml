@@ -87,8 +87,10 @@ jobs:
       - name: Build
         run: |
           npm run build
+
   test-coverage:
     name: Test Coverage
+    needs: [python-build]
     steps:
       - uses: actions/checkout@v3.5.0
       - uses: codecov/codecov-action@v3
@@ -97,6 +99,7 @@ jobs:
           files: ./coverage.xml
           fail_ci_if_error: true
           verbose: true
+
   automerge:
     name: Auto Merge
     needs: [python-build,js-test]

@@ -333,17 +333,10 @@ body.body--poppy .pullout.so-what {
     background-size: 2.5% !important;
   }
 
-  .infographic-link-parent, .so-what-authors {
+  .infographic-link-parent {
     display: flex;
   }
 
-  .so-what-authors {
-    justify-content: flex-end;
-  }
-
-  .so-what-authors .m-author {
-    min-width: 300px;
-  }
 }
 
 .row--narrow.so-what-parent {

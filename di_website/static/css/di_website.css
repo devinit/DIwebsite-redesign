@@ -321,7 +321,7 @@ body.body--poppy .pullout.so-what {
 }
 
 @media screen and (min-width: 1180px){
-  .so-what-parent .section-chapter__link:nth-of-type(1), .so-what-parent .infographic-link-parent {
+  .so-what-parent .section-chapter__link:nth-of-type(1), .so-what-parent .infographic-link-parent, .share__wrapper {
     margin-left: 8vw;
   }
 

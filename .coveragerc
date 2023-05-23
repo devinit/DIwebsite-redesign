@@ -1,11 +1,9 @@
 [run]
-branch = True
-
-[report]
-ignore_errors = True
-
-[html]
-directory = coverage_html_report
+  source = .
+  omit =
+    manage.py
+    */migrations/*
+    di_website/*
 
 [xml]
-output = coverage.xml
+  output = coverage/coverage.xml

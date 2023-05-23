@@ -7,7 +7,7 @@
     class="section-chapter__link">{% include 'publications/icon.html' with file='ico-link-'|add:page.colour size=16 %}Share
     chart</a>
     {% if value.interactive_chart_url.url %}
-    <a href="{{ value.interactive_chart_url.url }}" class="section-chapter__link" target="_blank">
+    <a href="{{ value.interactive_chart_url.url }}"  rel="noreferrer" class="section-chapter__link" target="_blank">
       {{ value.interactive_chart_url.button_caption }}
     </a>
     {% endif %}

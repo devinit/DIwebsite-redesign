@@ -177,7 +177,6 @@ class Infographic(StructBlock):
         help_text='Optional: list of downloads to appear below the image or table'
     )
 
-
 class PublicationInfographic(Infographic):
     class Meta:
         template = 'publications/blocks/infographic.html'
@@ -187,3 +186,15 @@ class PublicationInfographic(Infographic):
                         required=False,
                         help_text='Optional: uncheck this box to match inforgraphic width to block content width'
                     )
+    interactive_chart_url = StructBlock(
+        [
+            ( 'url', CharBlock(
+                required=False,
+                help_text='Link to be used to navigate to the interactive version of the chart') ),
+            ( 'button_caption', CharBlock(
+                required=False,
+                default='Navigate to interactive chart',
+                help_text= 'Caption to add to button that navigates to interactive chart'
+            ))
+        ],
+    )

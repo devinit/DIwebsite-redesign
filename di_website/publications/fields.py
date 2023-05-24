@@ -77,6 +77,28 @@ class CaseStudy(StructBlock):
         ],
     )
 
+class SoWhat(CaseStudy):
+
+    class Meta:
+        help_text = 'Displays a so what box with a heading, and at least one block of WYSIWYG content, infographic, or captioned image.'
+        label = 'So what'
+        template = 'publications/blocks/so_what.html'
+
+    section_label = CharBlock(default="So What")
+    authors = StreamBlock(
+        [
+            ('internal_author', PageChooserBlock(
+                required=False, target_model='ourteam.TeamMemberPage', icon='user', label='Internal Author')),
+            ('external_author', StructBlock([
+                ('name', CharBlock(required=False)),
+                ('title', CharBlock(required=False)),
+                ('photograph', ImageChooserBlock(required=False)),
+                ('page', URLBlock(required=False))
+            ], icon='user', label='External Author'))
+        ],
+        blank=True,
+        verbose_name='Authors',
+        use_json_field=True)
 
 class DefinitionList(StructBlock):
 
@@ -306,8 +328,8 @@ def flexible_content_streamfield(blank=False):
         ('interactive_chart', InteractiveChartBlock()),
         ('advanced_interactive_chart', AdvancedInteractiveChartBlock()),
         ('cta', CallToActionBlock()),
-        ('accordion', AccordionBlock())
-
+        ('accordion', AccordionBlock()),
+        ('so_what', SoWhat())
     ], blank=blank, use_json_field=True)
 
 

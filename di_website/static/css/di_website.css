@@ -265,7 +265,88 @@ select optgroup {
 table th,
 .cta,
 .js-copy-trigger,
-.download__list a, 
+.download__list a,
 h2 {
   opacity: initial !important;
+}
+
+body.body--bluebell .pullout.so-what {
+  background: url('../svg/bluebell-stripes.svg');
+}
+
+body.body--leaf .pullout.so-what {
+  background: url('../svg/leaf-stripes.svg');
+}
+
+body.body--sunflower .pullout.so-what {
+  background: url('../svg/sunflower-stripes.svg');
+}
+
+body.body--lavendar .pullout.so-what {
+  background: url('../svg/lavendar-stripes.svg');
+}
+
+body.body--rose .pullout.so-what {
+  background: url('../svg/rose-stripes.svg');
+}
+
+body.body--marigold .pullout.so-what {
+  background: url('../svg/marigold-stripes.svg');
+}
+
+body.body--poppy .pullout.so-what {
+  background: url('../svg/poppy-stripes.svg');
+}
+
+.so-what .pullout__heading {
+  color: #443e42 !important;
+  border-bottom: 3px solid #443e42 !important;
+}
+
+.so-what .m-author__meta {
+  color: #fff !important;
+}
+
+.so-what.pullout::before {
+  width: 0 !important;
+}
+
+@media screen and (max-width: 1000px) {
+  .so-what-parent > * {
+    padding-left: 3em;
+  }
+  .pullout.so-what{
+    background-size: 6% !important;
+  }
+}
+
+@media screen and (min-width: 1180px){
+  .so-what-parent .so-what-box-link, .so-what-parent .share__wrapper:first-of-type {
+    margin-left: 8vw;
+  }
+
+  .infographic-link-parent .section-chapter__link:nth-child(2) {
+    margin-left: 3em;
+  }
+
+  .pullout.so-what{
+    background-size: 2.5% !important;
+  }
+
+  .infographic-link-parent {
+    display: flex;
+  }
+
+}
+
+.row--narrow.so-what-parent {
+  padding-left: 0;
+  margin-left: 0;
+}
+
+.so-what-parent .pullout__heading-wrapper {
+  left: 80px;
+  padding-left: 1em;
+  padding-right: 1em;
+  background-color: #fff;
 }

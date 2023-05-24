@@ -14,7 +14,7 @@
 
   {% for block in page.content %}
     <section class="section section--large">
-      <div class="row row--narrow">
+      <div class="row row--narrow {% if block.block_type == 'so_what' %} so-what-parent{% endif %}">
         {% if forloop.first %}
           {% if page.authors|length > 0 %}
             <div class="max-meter max-meter--center">

@@ -181,7 +181,7 @@ class ReportDownloadMixin(models.Model):
     download_report_title = models.CharField(
         max_length=255, blank=True,
         default="Download this report", verbose_name='Section title')
-    download_report_body = models.TextField(blank=True, verbose_name='Section body')
+    download_report_body = models.TextField(blank=True, verbose_name='Section body', default='')
     download_report_button_text = models.CharField(
         max_length=255, blank=True,
         default="Download now", verbose_name='Button caption')

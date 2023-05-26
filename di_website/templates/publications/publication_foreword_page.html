@@ -28,7 +28,7 @@
       </section>
     {% endif %}
 
-    <section class="section {% if forloop.first %}section--post{% endif %} {% if block.block_type == 'accordion' %}accordion_section{% elif block.block_type == 'rich_text' %}rich_text_section{% endif %}">
+    <section class="section {% if forloop.first %}section--post{% endif %} {% if block.block_type == 'accordion' or block.block_type == 'rich_text' %}reduce_section_margins{% endif %}">
       <div class="row row--narrow {% if block.block_type == 'so_what' %} so-what-parent{% endif %}">
         {% if block.block_type == 'rich_text' and forloop.first %}
           {% include_block block with id=block.id|string_start classname='is-typeset--additionals' %}

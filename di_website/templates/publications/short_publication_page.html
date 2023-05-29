@@ -13,7 +13,7 @@
   {% include 'publications/chapter-nav/nav.html' with page=page menu_label='Jump to section' chapter_number=page.chapter_number %}
 
   {% for block in page.content %}
-    <section class="section section--large">
+    <section class="section section--large {% if block.block_type == 'accordion' or block.block_type == 'rich_text' %}reduce_section_margins{% endif %}">
       <div class="row row--narrow {% if block.block_type == 'so_what' %} so-what-parent{% endif %}">
         {% if forloop.first %}
           {% if page.authors|length > 0 %}

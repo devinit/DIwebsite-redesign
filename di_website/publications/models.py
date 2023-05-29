@@ -35,7 +35,7 @@ from di_website.downloads.utils import DownloadsPanel
 from .edit_handlers import MultiFieldPanel
 from .inlines import *
 from .mixins import (
-    FilteredDatasetMixin, FlexibleContentMixin, HeroButtonMixin, InheritCTAMixin, PublicationPageSearchMixin,
+    FilteredDatasetMixin, FlexibleContentMixin, HeroButtonMixin, InheritCTAMixin, PubForewordFlexibleContentMixin, PublicationPageSearchMixin,
     PublishedDateMixin, ReportChildMixin, RelatedLinksMixin, ReportDownloadMixin, UniqueForParentPageMixin, UUIDMixin)
 from .utils import (
     ContentPanel, HeroButtonPanel, PublishedDatePanel, ReportDownloadPanel, UUIDPanel, WagtailImageField, RelatedLinksPanel,
@@ -517,7 +517,7 @@ class PublicationPage(
 
 
 class PublicationForewordPage(
-    HeroMixin, ReportChildMixin, FlexibleContentMixin, PublishedDateMixin, PublicationPageSearchMixin, UniqueForParentPageMixin,
+    HeroMixin, ReportChildMixin, PubForewordFlexibleContentMixin, PublishedDateMixin, PublicationPageSearchMixin, UniqueForParentPageMixin,
     UUIDMixin, FilteredDatasetMixin, ReportDownloadMixin, InheritCTAMixin, RelatedLinksMixin, Page):
     class Meta:
         verbose_name = 'Publication Foreword'

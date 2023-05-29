@@ -1,6 +1,7 @@
 from wagtail.blocks.field_block import BooleanBlock
 from wagtail.fields import StreamField
 from wagtail.contrib.table_block.blocks import TableBlock
+from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.blocks import (
     CharBlock,
@@ -310,6 +311,15 @@ class AdvancedInteractiveChartBlock(StructBlock):
         context['chart'] = chart_page.specific if chart_page and chart_page.live else ''
         return context
 
+class VideoBlock(StructBlock):
+    class Meta:
+        icon='fa-video-camera'
+        template='blocks/foreword_embed.html'
+
+    video_url = EmbedBlock(
+        required=False,
+        help_text='Insert an embed URL e.g. https://www.youtube.com/embed/SGJFWirQ3ks'
+    )
 
 def flexible_content_streamfield(blank=False):
     return StreamField([
@@ -340,4 +350,27 @@ def content_streamfield(blank=False):
         ('table', Table()),
         ('rich_text', RichTextNoFootnotes()),
         ('anchor', AnchorBlock()),
+    ], blank=blank, use_json_field=True)
+
+
+def pub_foreword_flexible_content_streamfield(blank=False):
+    return StreamField([
+        ('captioned_image', CaptionedImage()),
+        ('case_study', CaseStudy()),
+        ('definition_list', DefinitionList()),
+        ('block_quote', SectionBlockQuote(template='blocks/publication_blockquote.html')),
+        ('downloads', Downloads()),
+        ('section_heading', SectionHeading()),
+        ('table', Table()),
+        ('pivot_table', PivotTable()),
+        ('dynamic_table', DynamicTable()),
+        ('rich_text', RichText()),
+        ('infographic', PublicationInfographic()),
+        ('anchor', AnchorBlock()),
+        ('interactive_chart', InteractiveChartBlock()),
+        ('advanced_interactive_chart', AdvancedInteractiveChartBlock()),
+        ('cta', CallToActionBlock()),
+        ('accordion', AccordionBlock()),
+        ('so_what', SoWhat()),
+        ('video', VideoBlock())
     ], blank=blank, use_json_field=True)

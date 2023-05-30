@@ -320,9 +320,7 @@ class VideoBlock(StructBlock):
         required=False,
         help_text='Insert an embed URL e.g. https://www.youtube.com/embed/SGJFWirQ3ks'
     )
-
-def flexible_content_streamfield(blank=False):
-    return StreamField([
+FLEXIBLE_CONTENT_BLOCKS = [
         ('captioned_image', CaptionedImage()),
         ('case_study', CaseStudy()),
         ('definition_list', DefinitionList()),
@@ -340,8 +338,10 @@ def flexible_content_streamfield(blank=False):
         ('cta', CallToActionBlock()),
         ('accordion', AccordionBlock()),
         ('so_what', SoWhat())
-    ], blank=blank, use_json_field=True)
+    ]
 
+def flexible_content_streamfield(blank=False):
+    return StreamField(FLEXIBLE_CONTENT_BLOCKS, blank=blank, use_json_field=True)
 
 def content_streamfield(blank=False):
     return StreamField([
@@ -354,23 +354,4 @@ def content_streamfield(blank=False):
 
 
 def pub_foreword_flexible_content_streamfield(blank=False):
-    return StreamField([
-        ('captioned_image', CaptionedImage()),
-        ('case_study', CaseStudy()),
-        ('definition_list', DefinitionList()),
-        ('block_quote', SectionBlockQuote(template='blocks/publication_blockquote.html')),
-        ('downloads', Downloads()),
-        ('section_heading', SectionHeading()),
-        ('table', Table()),
-        ('pivot_table', PivotTable()),
-        ('dynamic_table', DynamicTable()),
-        ('rich_text', RichText()),
-        ('infographic', PublicationInfographic()),
-        ('anchor', AnchorBlock()),
-        ('interactive_chart', InteractiveChartBlock()),
-        ('advanced_interactive_chart', AdvancedInteractiveChartBlock()),
-        ('cta', CallToActionBlock()),
-        ('accordion', AccordionBlock()),
-        ('so_what', SoWhat()),
-        ('video', VideoBlock())
-    ], blank=blank, use_json_field=True)
+    return StreamField(FLEXIBLE_CONTENT_BLOCKS + [('video', VideoBlock())], blank=blank, use_json_field=True)

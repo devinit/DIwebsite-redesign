@@ -9,7 +9,7 @@ from wagtail.search import index
 from di_website.common.base import get_related_pages
 from di_website.common.templatetags.string_utils import uid
 
-from .fields import flexible_content_streamfield, content_streamfield
+from .fields import flexible_content_streamfield, content_streamfield, pub_foreword_flexible_content_streamfield
 from .utils import WagtailImageField, get_downloads
 
 
@@ -158,6 +158,11 @@ class FlexibleContentMixin(models.Model):
 
     content = flexible_content_streamfield()
 
+class PubForewordFlexibleContentMixin(models.Model):
+    class Meta:
+        abstract = True
+
+    content = pub_foreword_flexible_content_streamfield()
 
 class ContentMixin(models.Model):
     class Meta:

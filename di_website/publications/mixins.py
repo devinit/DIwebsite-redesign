@@ -179,11 +179,11 @@ class ReportDownloadMixin(models.Model):
 
     download_report_cover = WagtailImageField(verbose_name='Report cover')
     download_report_title = models.CharField(
-        max_length=255, null=True, blank=True,
+        max_length=255, blank=True,
         default="Download this report", verbose_name='Section title')
-    download_report_body = models.TextField(null=True, blank=True, verbose_name='Section body')
+    download_report_body = models.TextField(blank=True, verbose_name='Section body', default='')
     download_report_button_text = models.CharField(
-        max_length=255, null=True, blank=True,
+        max_length=255, blank=True,
         default="Download now", verbose_name='Button caption')
     report_download = models.ForeignKey(
         'wagtaildocs.Document',
@@ -208,12 +208,12 @@ class InheritCTAMixin(models.Model):
 
 class HeroButtonMixin(models.Model):
     download_button_caption = models.CharField(
-        max_length=100, default="Downloads", blank=True, null=True, verbose_name='Downloads')
+        max_length=100, default="Downloads", blank=True, verbose_name='Downloads')
     read_online_button_text = models.CharField(
-        max_length=256, default="Read Online", blank=True, null=True, verbose_name='Read Online')
+        max_length=256, default="Read Online", blank=True, verbose_name='Read Online')
     request_hard_copy_text = models.CharField(
         max_length=256, default="Request a hard copy", blank=True,
-        null=True, verbose_name='Read Hard Copy')
+        verbose_name='Read Hard Copy')
 
     class Meta:
         abstract = True
@@ -225,6 +225,11 @@ class RelatedLinksMixin(models.Model):
     class Meta:
         abstract = True
 
+    def sort_pages(self, combined_queryset):
+        pages_with_published_date = [d for d in combined_queryset if getattr(d.specific, 'published_date', 0) != 0 and d.specific.published_date]
+        pages_with_published_date.sort(key=lambda x: x.specific.published_date, reverse=True)
+        return pages_with_published_date[:MAX_RELATED_LINKS] if len(pages_with_published_date) > MAX_RELATED_LINKS else pages_with_published_date
+
     def get_related_links(self, objects=None):
         if not objects:
             return None
@@ -235,7 +240,7 @@ class RelatedLinksMixin(models.Model):
                 results = objects[key].live().filter(topics__in=self.topics.get_queryset()).exclude(id=self.id).distinct()
                 for item in results:
                     combined_queryset.append(item)
-            slice_queryset = combined_queryset[:MAX_RELATED_LINKS] if len(combined_queryset) > MAX_RELATED_LINKS else combined_queryset
+            slice_queryset = self.sort_pages(combined_queryset)
             return get_related_pages(self, slice_queryset, objects)
         elif self.related_option_handler == 'country'  or self.related_option_handler == 'Country':
             countries = [country.country.name for country in self.page_countries.all()]
@@ -244,7 +249,7 @@ class RelatedLinksMixin(models.Model):
                 results = objects[key].live().filter(page_countries__country__name__in=countries).exclude(id=self.id).distinct()
                 for item in results:
                     combined_queryset.append(item)
-            slice_queryset = combined_queryset[:MAX_RELATED_LINKS] if len(combined_queryset) > MAX_RELATED_LINKS else combined_queryset
+            slice_queryset = self.sort_pages(combined_queryset)
             return get_related_pages(self, slice_queryset, objects)
         elif self.related_option_handler == 'manual' or self.related_option_handler == 'Manual':
             return get_related_pages(self, self.publication_related_links.all(), objects)

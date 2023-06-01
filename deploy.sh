@@ -237,6 +237,8 @@ function setup_blue_green_deployment {
     npm ci
     npm run build
 
+    # Attempt to stop new container. Sometimes there is a hanging one still running...
+    docker-compose stop ${new_state}
     # update the new state container
     echo "Update the ${new_state} container"
     docker-compose up -d ${new_state}

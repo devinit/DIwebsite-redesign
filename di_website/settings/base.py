@@ -75,7 +75,6 @@ INSTALLED_APPS = [
     'wagtail.search',
     'wagtail.admin',
     'wagtail',
-    'wagtaillinkchecker',
     'wagtailgeowidget',
     'wagtailmedia',
 

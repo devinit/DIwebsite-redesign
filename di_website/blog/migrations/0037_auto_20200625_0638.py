@@ -2,8 +2,8 @@
 
 from django.db import migrations, models
 import django.db.models.deletion
-import wagtail.core.blocks
-import wagtail.core.fields
+import wagtail.blocks
+import wagtail.fields
 import wagtail.images.blocks
 
 
@@ -23,6 +23,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='blogarticlepage',
             name='other_authors',
-            field=wagtail.core.fields.StreamField([('internal_author', wagtail.core.blocks.PageChooserBlock(icon='user', label='Internal Author', page_type=['ourteam.TeamMemberPage'], required=False)), ('external_author', wagtail.core.blocks.StructBlock([('name', wagtail.core.blocks.CharBlock(required=False)), ('title', wagtail.core.blocks.CharBlock(required=False)), ('photograph', wagtail.images.blocks.ImageChooserBlock(required=False)), ('page', wagtail.core.blocks.URLBlock(required=False))], icon='user', label='External Author'))], blank=True, help_text='Additional authors. If order is important, please use this instead of internal author page.', verbose_name='Other Authors'),
+            field=wagtail.fields.StreamField([('internal_author', wagtail.blocks.PageChooserBlock(icon='user', label='Internal Author', page_type=['ourteam.TeamMemberPage'], required=False)), ('external_author', wagtail.blocks.StructBlock([('name', wagtail.blocks.CharBlock(required=False)), ('title', wagtail.blocks.CharBlock(required=False)), ('photograph', wagtail.images.blocks.ImageChooserBlock(required=False)), ('page', wagtail.blocks.URLBlock(required=False))], icon='user', label='External Author'))], blank=True, help_text='Additional authors. If order is important, please use this instead of internal author page.', verbose_name='Other Authors'),
         ),
     ]

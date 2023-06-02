@@ -2,8 +2,8 @@
 
 from django.db import migrations, models
 import django.db.models.deletion
-import wagtail.core.blocks
-import wagtail.core.fields
+import wagtail.blocks
+import wagtail.fields
 import wagtail.snippets.blocks
 
 
@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
             name='SpotlightPage',
             fields=[
                 ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
-                ('themes', wagtail.core.fields.StreamField([('theme', wagtail.core.blocks.StructBlock([('name', wagtail.core.blocks.TextBlock(required=True)), ('indicators', wagtail.core.blocks.ListBlock(wagtail.core.blocks.StructBlock([('ddw_id', wagtail.core.blocks.CharBlock(max_length=255, required=True, verbose_name='DDW ID')), ('name', wagtail.core.blocks.TextBlock(required=True)), ('description', wagtail.core.blocks.RichTextBlock(help_text='A description of this indicator')), ('source', wagtail.snippets.blocks.SnippetChooserBlock('spotlight.snippets.Source')), ('color', wagtail.snippets.blocks.SnippetChooserBlock('spotlight.snippets.Color')), ('start_year', wagtail.core.blocks.IntegerBlock()), ('end_year', wagtail.core.blocks.IntegerBlock()), ('range', wagtail.core.blocks.CharBlock(max_length=100, required=False)), ('value_prefix', wagtail.core.blocks.CharBlock(max_length=100, required=False)), ('value_suffix', wagtail.core.blocks.CharBlock(max_length=100, required=False)), ('tooltip_template', wagtail.core.blocks.TextBlock(help_text='Text for the tooltip.Template strings can be used to substitute values e.g. {name}', required=True))])))]))])),
+                ('themes', wagtail.fields.StreamField([('theme', wagtail.blocks.StructBlock([('name', wagtail.blocks.TextBlock(required=True)), ('indicators', wagtail.blocks.ListBlock(wagtail.blocks.StructBlock([('ddw_id', wagtail.blocks.CharBlock(max_length=255, required=True, verbose_name='DDW ID')), ('name', wagtail.blocks.TextBlock(required=True)), ('description', wagtail.blocks.RichTextBlock(help_text='A description of this indicator')), ('source', wagtail.snippets.blocks.SnippetChooserBlock('spotlight.snippets.Source')), ('color', wagtail.snippets.blocks.SnippetChooserBlock('spotlight.snippets.Color')), ('start_year', wagtail.blocks.IntegerBlock()), ('end_year', wagtail.blocks.IntegerBlock()), ('range', wagtail.blocks.CharBlock(max_length=100, required=False)), ('value_prefix', wagtail.blocks.CharBlock(max_length=100, required=False)), ('value_suffix', wagtail.blocks.CharBlock(max_length=100, required=False)), ('tooltip_template', wagtail.blocks.TextBlock(help_text='Text for the tooltip.Template strings can be used to substitute values e.g. {name}', required=True))])))]))])),
             ],
             options={
                 'verbose_name': 'Spotlight Page',

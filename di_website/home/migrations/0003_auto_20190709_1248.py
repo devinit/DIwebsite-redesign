@@ -3,7 +3,7 @@
 from django.db import migrations, models
 import django.db.models.deletion
 import modelcluster.fields
-import wagtail.core.fields
+import wagtail.fields
 
 
 class Migration(migrations.Migration):
@@ -32,7 +32,7 @@ class Migration(migrations.Migration):
             name='FooterText',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('body', wagtail.core.fields.RichTextField()),
+                ('body', wagtail.fields.RichTextField()),
             ],
             options={
                 'verbose_name_plural': 'Footer Text',
@@ -83,7 +83,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='homepage',
             name='hero_text',
-            field=wagtail.core.fields.RichTextField(blank=True, help_text='A description of the page content', null=True),
+            field=wagtail.fields.RichTextField(blank=True, help_text='A description of the page content', null=True),
         ),
         migrations.AddField(
             model_name='homepage',

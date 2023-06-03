@@ -24,7 +24,7 @@ class CaptionedImage(StructBlock):
 
     class Meta:
         help_text = 'Displays an image with an optionally linked caption.'
-        icon = 'image'
+        icon = 'heroicons-photograph-solid'
         label = 'Captioned image'
         form_template = 'publications/block_forms/custom_struct.html'
         template = 'publications/blocks/captioned_image.html'
@@ -274,7 +274,7 @@ class InteractiveChartBlock(StructBlock):
 
     class Meta:
         help_text = 'Select a Plotly Studio chart page'
-        icon = 'fa-area-chart'
+        icon = 'heroicons-chart-square-bar-solid'
         label = 'Plotly Studio Chart'
         template = 'publications/blocks/interactive_chart.html'
         form_template = 'publications/block_forms/custom_struct.html'
@@ -294,7 +294,7 @@ class AdvancedInteractiveChartBlock(StructBlock):
 
     class Meta:
         help_text = 'Select an advanced chart page'
-        icon = 'fa-area-chart'
+        icon = 'heroicons-chart-square-bar-solid'
         label = 'Advanced Interactive Chart'
         template = 'publications/blocks/interactive_chart.html'
         form_template = 'publications/block_forms/custom_struct.html'
@@ -313,7 +313,7 @@ class AdvancedInteractiveChartBlock(StructBlock):
 
 class VideoBlock(StructBlock):
     class Meta:
-        icon='fa-video-camera'
+        icon='heroicons-video-camera-solid'
         template='blocks/foreword_embed.html'
 
     video_url = EmbedBlock(

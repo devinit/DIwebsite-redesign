@@ -18,7 +18,7 @@ class BenefitBlock(StructBlock):
     image = ImageChooserBlock(required=False)
 
     class Meta():
-        icon = 'fa-heart'
+        icon = 'heroicons-heart-solid'
 
 
 class BenefitsStreamBlock(StreamBlock):
@@ -39,7 +39,7 @@ class TeamStoryBlock(StructBlock):
     logo = ImageChooserBlock()
 
     class Meta():
-        icon = 'fa-book'
+        icon = 'heroicons-book-open-solid'
         verbose_name = 'Team Story'
 
 

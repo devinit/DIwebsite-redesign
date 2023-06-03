@@ -16,7 +16,7 @@ class PlaceBlock(StructBlock):
     subtitle = TextBlock(required=False)
     image = ImageChooserBlock(required=False)
     body = RichTextBlock(
-        icon='fa-paragraph',
+        icon='heroicons-pencil-alt-solid',
         template='blocks/paragraph_block.html',
         features=RICHTEXT_FEATURES_NO_FOOTNOTES
     )
@@ -24,7 +24,7 @@ class PlaceBlock(StructBlock):
     links = StreamBlock([('link', LinkBlock())], required=False)
 
     class Meta():
-        icon = 'fa-globe'
+        icon = 'heroicons-globe-alt-solid'
         template = 'blocks/place_block.html'
 
 

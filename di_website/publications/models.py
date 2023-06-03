@@ -376,7 +376,7 @@ class PublicationPage(
         ('internal_author', PageChooserBlock(
             required=False,
             target_model='ourteam.TeamMemberPage',
-            icon='fa-user',
+            icon='heroicons-user-solid',
             label='Internal Author'
         )),
         ('external_author', StructBlock([
@@ -384,7 +384,7 @@ class PublicationPage(
             ('title', CharBlock(required=False)),
             ('photograph', ImageChooserBlock(required=False)),
             ('page', URLBlock(required=False))
-        ], icon='fa-user', label='External Author'))
+        ], icon='heroicons-user-solid', label='External Author'))
     ], blank=True, use_json_field=True)
 
     publication_type = models.ForeignKey(
@@ -881,14 +881,14 @@ class LegacyPublicationPage(HeroMixin, PublishedDateMixin, PublicationPageSearch
         ('internal_author', PageChooserBlock(
             required=False,
             target_model='ourteam.TeamMemberPage',
-            icon='fa-user',
+            icon='heroicons-user-solid',
             label='Internal Author')),
         ('external_author', StructBlock([
             ('name', CharBlock(required=False)),
             ('title', CharBlock(required=False)),
             ('photograph', ImageChooserBlock(required=False)),
             ('page', URLBlock(required=False))
-        ], icon='fa-user', label='External Author'))
+        ], icon='heroicons-user-solid', label='External Author'))
     ], blank=True, use_json_field=True)
     publication_type = models.ForeignKey(
         PublicationType, related_name="+", null=True, blank=False, on_delete=models.SET_NULL, verbose_name="Resource Type")
@@ -990,14 +990,14 @@ class ShortPublicationPage(
         ('internal_author', PageChooserBlock(
             required=False,
             target_model='ourteam.TeamMemberPage',
-            icon='fa-user',
+            icon='heroicons-user-solid',
             label='Internal Author')),
         ('external_author', StructBlock([
             ('name', CharBlock(required=False)),
             ('title', CharBlock(required=False)),
             ('photograph', ImageChooserBlock(required=False)),
             ('page', URLBlock(required=False))
-        ], icon='fa-user', label='External Author'))
+        ], icon='heroicons-user-solid', label='External Author'))
     ], blank=True, use_json_field=True)
     publication_type = models.ForeignKey(
         PublicationType, related_name="+", null=True, blank=False, on_delete=models.SET_NULL, verbose_name="Resource Type")
@@ -1116,14 +1116,14 @@ class AudioVisualMedia(PublishedDateMixin, TypesetBodyMixin, HeroMixin, Publicat
         ('internal_participant', PageChooserBlock(
             required=False,
             target_model='ourteam.TeamMemberPage',
-            icon='fa-user', label='Internal Participant'
+            icon='heroicons-user-solid', label='Internal Participant'
         )),
         ('external_participant', StructBlock([
             ('name', CharBlock(required=False)),
             ('title', CharBlock(required=False)),
             ('photograph', ImageChooserBlock(required=False)),
             ('page', URLBlock(required=False))
-        ], icon='fa-user', label='External Participant'))
+        ], icon='heroicons-user-solid', label='External Participant'))
     ], blank=True, help_text="The people involved in the podcast or webinar", use_json_field=True)
     topics = ClusterTaggableManager(through=AudioVisualMediaTopic, blank=True, verbose_name="Topics")
 

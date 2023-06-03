@@ -76,11 +76,11 @@ INSTALLED_APPS = [
     'wagtail.admin',
     'wagtail',
     'wagtailgeowidget',
+    'wagtail_heroicons',
     'wagtailmedia',
 
     'modelcluster',
     'taggit',
-    'wagtailfontawesome',
     'widget_tweaks',
     'wagtailmetadata',
     'django_google_optimize',

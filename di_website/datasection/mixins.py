@@ -21,14 +21,14 @@ class DataSetMixin(models.Model):
         ('internal_author', PageChooserBlock(
             required=False,
             target_model='ourteam.TeamMemberPage',
-            icon='fa-user'
+            icon='heroicons-user-solid'
         )),
         ('external_author', StructBlock([
             ('name', CharBlock(required=False)),
             ('title', CharBlock(required=False)),
             ('photograph', ImageChooserBlock(required=False)),
             ('page', URLBlock(required=False))
-        ], icon='fa-user'))
+        ], icon='heroicons-user-solid'))
     ], blank=True, use_json_field=True)
     meta_data = StreamField(
         [

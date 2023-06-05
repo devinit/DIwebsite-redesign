@@ -76,7 +76,6 @@ INSTALLED_APPS = [
     'wagtail.admin',
     'wagtail',
     'wagtailgeowidget',
-    'wagtail_heroicons',
     'wagtailmedia',
 
     'modelcluster',
@@ -85,6 +84,7 @@ INSTALLED_APPS = [
     'wagtailmetadata',
     'django_google_optimize',
     'markdownify.apps.MarkdownifyConfig',
+    'wagtail_heroicons',
 
     'django.contrib.sitemaps',
     'django.contrib.admin',

@@ -61,19 +61,15 @@ Pattern library available online at [http://development-initiatives.surge.sh/](h
 
         path_to_virtual_env_folder/bin/
 
-11. Run Celery worker
-
-        celery -A wagtaillinkchecker worker -l info
-
-12. Build static assets - refer to *Pattern library* section, then in the project root
+11. Build static assets - refer to *Pattern library* section, then in the project root
 
         python3 manage.py collectstatic
 
-13. Run
+12. Run
 
         python3 manage.py runserver
 
-14. Test
+13. Test
 
         python3 manage.py test
 

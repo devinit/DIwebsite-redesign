@@ -2,7 +2,7 @@
 
 import di_website.publications.models
 from django.db import migrations
-import wagtail.core.fields
+import wagtail.fields
 
 
 class Migration(migrations.Migration):
@@ -19,6 +19,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='audiovisualmedia',
             name='media_content',
-            field=wagtail.core.fields.StreamField(di_website.publications.blocks.AudioMediaStreamBlock(max_num=1), blank=True, null=True),
+            field=wagtail.fields.StreamField(di_website.publications.blocks.AudioMediaStreamBlock(max_num=1), blank=True, null=True),
         ),
     ]

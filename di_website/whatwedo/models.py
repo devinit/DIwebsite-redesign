@@ -164,7 +164,7 @@ class ServicesPage(TypesetBodyMixin, HeroMixin, Page):
     richtext_columns = StreamField([
         ('column', StructBlock([
             ('heading', TextBlock(required=False, icon='title')),
-            ('content', RichTextBlock(features=RICHTEXT_FEATURES_NO_FOOTNOTES, icon='fa-paragraph'))
+            ('content', RichTextBlock(features=RICHTEXT_FEATURES_NO_FOOTNOTES, icon='heroicons-pencil-alt-solid'))
         ], template='blocks/richtext_column.html'))
     ], null=True, blank=True, use_json_field=True)
 

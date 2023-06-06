@@ -2,8 +2,8 @@
 
 from django.db import migrations, models
 import django.db.models.deletion
-import wagtail.core.blocks
-import wagtail.core.fields
+import wagtail.blocks
+import wagtail.fields
 import wagtail.images.blocks
 
 
@@ -39,7 +39,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='publicationpage',
             name='download_report_body',
-            field=wagtail.core.fields.RichTextField(blank=True, null=True),
+            field=wagtail.fields.RichTextField(blank=True, null=True),
         ),
         migrations.AddField(
             model_name='publicationpage',
@@ -64,6 +64,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='publicationpage',
             name='authors',
-            field=wagtail.core.fields.StreamField([('internal_author', wagtail.core.blocks.PageChooserBlock(icon='fa-user', page_type=['ourteam.TeamMemberPage'], required=False)), ('external_author', wagtail.core.blocks.StructBlock([('name', wagtail.core.blocks.CharBlock(required=False)), ('title', wagtail.core.blocks.CharBlock(required=False)), ('photograph', wagtail.images.blocks.ImageChooserBlock(required=False)), ('page', wagtail.core.blocks.URLBlock(required=False))], icon='fa-user'))], blank=True),
+            field=wagtail.fields.StreamField([('internal_author', wagtail.blocks.PageChooserBlock(icon='fa-user', page_type=['ourteam.TeamMemberPage'], required=False)), ('external_author', wagtail.blocks.StructBlock([('name', wagtail.blocks.CharBlock(required=False)), ('title', wagtail.blocks.CharBlock(required=False)), ('photograph', wagtail.images.blocks.ImageChooserBlock(required=False)), ('page', wagtail.blocks.URLBlock(required=False))], icon='fa-user'))], blank=True),
         ),
     ]

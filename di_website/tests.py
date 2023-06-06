@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.test import override_settings
 
-from wagtail.test.utils import WagtailPageTests
+from wagtail.test.utils import WagtailPageTestCase
 
 from di_website.blog.models import BlogIndexPage, BlogArticlePage
 from di_website.home.models import HomePage
@@ -10,7 +10,7 @@ from di_website.users.models import Department
 
 
 @override_settings(STATICFILES_STORAGE='django.contrib.staticfiles.storage.StaticFilesStorage')
-class TestUserProfileCreation(WagtailPageTests):
+class TestUserProfileCreation(WagtailPageTestCase):
 
     def setUp(self):
         self.team_page = OurTeamPage(title="Our Team", slug="team")
@@ -67,7 +67,7 @@ class TestUserProfileCreation(WagtailPageTests):
 
 
 @override_settings(STATICFILES_STORAGE='django.contrib.staticfiles.storage.StaticFilesStorage')
-class TestBlogPages(WagtailPageTests):
+class TestBlogPages(WagtailPageTestCase):
     def setUp(self):
         self.blog_index_page = BlogIndexPage(title="Test Blog Index Page", slug="blog")
         home_page = HomePage.objects.first()

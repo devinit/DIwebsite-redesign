@@ -70,22 +70,6 @@ services:
       - RABBITMQ_DEFAULT_PASS
       - RABBITMQ_DEFAULT_VHOST
 
-  worker:
-    depends_on:
-      - web
-      - rabbitmq
-    build:
-      context: .
-    env_file: .env
-    environment:
-      - CELERY_BROKER_URL
-    volumes:
-      - ./:/code/
-      - ./config/celery/default:/etc/default
-      - ./config/celery/init.d:/etc/init.d
-    restart: always
-    command: celery -A di_website worker -l info
-
 volumes:
   diwebsite_db:
     external: true

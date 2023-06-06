@@ -2,7 +2,7 @@
 
 from django.db import migrations, models
 import django.db.models.deletion
-import wagtail.core.fields
+import wagtail.fields
 
 
 class Migration(migrations.Migration):
@@ -77,7 +77,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='legacypublicationpage',
             name='content',
-            field=wagtail.core.fields.RichTextField(blank=True, help_text='Short summary for the legacy report', null=True, verbose_name='Summary'),
+            field=wagtail.fields.RichTextField(blank=True, help_text='Short summary for the legacy report', null=True, verbose_name='Summary'),
         ),
         migrations.AlterField(
             model_name='publicationappendixpage',

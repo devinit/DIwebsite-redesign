@@ -18,9 +18,9 @@ from di_website.publications.infographic import Infographic
 
 class AccordionBlock(StructBlock):
     accordion_items = ListBlock(StructBlock([
-    ('name', TextBlock(icon='fa-text')),
+    ('name', TextBlock(icon='heroicons-pencil-solid')),
     ('description', RichTextBlock(
-            icon='fa-paragraph',
+            icon='heroicons-pencil-alt-solid',
             template='blocks/paragraph_block.html',
             features=RICHTEXT_FEATURES))
     ]))
@@ -89,7 +89,7 @@ class BlockQuote(StructBlock):
     source = TextBlock(required=False, help_text='Who is this quote acredited to?')
 
     class Meta:
-        icon = 'fa-quote-left'
+        icon = 'openquote'
         template = 'blocks/blockquote.html'
 
 
@@ -102,7 +102,7 @@ class SectionBlockQuote(StructBlock):
     center = BooleanBlock(default=False, required=False)
 
     class Meta:
-        icon = 'fa-quote-right'
+        icon = 'openquote'
         template = 'blocks/section_blockquote.html'
 
 
@@ -118,13 +118,13 @@ class AbstractLinkBlock(StructBlock):
     url = URLBlock(required=False, help_text='An alternative to an internal page')
 
     class Meta:
-        icon = 'fa-link'
+        icon = 'heroicons-link-solid'
         abstract = True
 
 
 class LinkBlock(AbstractLinkBlock):
     class Meta:
-        icon = 'fa-link'
+        icon = 'heroicons-link-solid'
         template = 'blocks/link_block.html'
 
 
@@ -158,7 +158,7 @@ class BannerBlock(StructBlock):
     image_credit_url = URLBlock(required=False, help_text='A link to the image source, if any')
     video = EmbedBlock(
         help_text='Insert an embed URL e.g https://www.youtube.com/embed/SGJFWirQ3ks',
-        icon='fa-video-camera',
+        icon='heroicons-video-camera-solid',
         template='blocks/embed_block.html',
         required=False
     )
@@ -191,7 +191,7 @@ class BannerBlock(StructBlock):
         required=False, default=False, help_text='Sets the background to a lighter colour')
 
     class Meta():
-        icon = 'fa-flag'
+        icon = 'heroicons-flag-solid'
         template = 'blocks/banner/banner_block.html'
         label = 'Banner Block'
 
@@ -201,7 +201,7 @@ class SectionParagraphBlock(StructBlock):
     center = BooleanBlock(default=False, required=False)
 
     class Meta():
-        icon = 'fa-paragraph'
+        icon = 'heroicons-pencil-alt-solid'
         template = 'blocks/section_paragraph_block.html'
 
 
@@ -209,7 +209,7 @@ class AnchorBlock(StructBlock):
     anchor_id = CharBlock(required=True, help_text='The unique indentifier for this anchor')
 
     class Meta:
-        icon = 'fa-slack'
+        icon = 'heroicons-badge-check-solid'
         template = 'blocks/anchor_block.html'
 
 
@@ -219,7 +219,7 @@ class BaseStreamBlock(StreamBlock):
     Define the custom blocks that `StreamField` will utilize
     """
     paragraph_block = RichTextBlock(
-        icon='fa-paragraph',
+        icon='heroicons-pencil-alt-solid',
         template='blocks/paragraph_block.html',
         features=RICHTEXT_FEATURES_NO_FOOTNOTES
     )
@@ -234,13 +234,13 @@ class BaseStreamBlock(StreamBlock):
 
 class TypeSetImageBlock(ImageBlock):
     class Meta:
-        icon = 'fa-image'
+        icon = 'heroicons-photograph-solid'
         template = 'blocks/image_block.html'
 
 
 class TestimonialBlock(StructBlock):
     body = RichTextBlock(
-        icon='fa-paragraph',
+        icon='heroicons-pencil-alt-solid',
         template='blocks/paragraph_block.html',
         features=RICHTEXT_FEATURES_NO_FOOTNOTES
     )
@@ -248,7 +248,7 @@ class TestimonialBlock(StructBlock):
     image = ImageChooserBlock(required=False)
 
     class Meta:
-        icon = 'fa-quote-left'
+        icon = 'openquote'
         template = 'blocks/testimonial_block.html'
 
 
@@ -298,7 +298,7 @@ class CallToActionBlock(StructBlock):
         help_text='Optional: has priority over the button URL field')
 
     class Meta:
-        icon = 'fa-flag'
+        icon = 'heroicons-flag-solid'
         label = 'Call To Action'
         template = 'blocks/call_to_action.html'
 
@@ -308,7 +308,7 @@ class TypesetStreamBlock(StreamBlock):
     """
     anchor = AnchorBlock()
     paragraph_block = RichTextBlock(
-        icon='fa-paragraph',
+        icon='heroicons-pencil-alt-solid',
         template='blocks/paragraph_block.html',
         features=RICHTEXT_FEATURES_NO_FOOTNOTES
     )
@@ -318,7 +318,7 @@ class TypesetStreamBlock(StreamBlock):
     image = TypeSetImageBlock()
     video = EmbedBlock(
         help_text='Insert an embed URL e.g https://www.youtube.com/embed/SGJFWirQ3ks',
-        icon='fa-video-camera',
+        icon='heroicons-video-camera-solid',
         template='blocks/embed_block.html',
         required=False
     )
@@ -366,7 +366,7 @@ class TypesetFootnoteStreamBlock(StreamBlock):
     """
     anchor = AnchorBlock()
     paragraph_block = RichTextBlock(
-        icon='fa-paragraph',
+        icon='heroicons-pencil-alt-solid',
         template='blocks/paragraph_block_footnote.html',
         features=RICHTEXT_FEATURES
     )
@@ -376,7 +376,7 @@ class TypesetFootnoteStreamBlock(StreamBlock):
     image = TypeSetImageBlock()
     video = EmbedBlock(
         help_text='Insert an embed URL e.g https://www.youtube.com/embed/SGJFWirQ3ks',
-        icon='fa-video-camera',
+        icon='heroicons-video-camera-solid',
         template='blocks/embed_block.html',
         required=False
     )
@@ -391,13 +391,13 @@ class TypesetFootnoteStreamBlock(StreamBlock):
 class MediaImageBlock(ImageBlock):
     class Meta:
         template = 'blocks/media_image_block.html'
-        icon = 'fa-image'
+        icon = 'heroicons-photograph-solid'
 
 
 class ImageDuoTextBlock(ImageBlock):
-    heading = CharBlock(icon='fa-heading', required=False)
+    heading = CharBlock(icon='title', required=False)
     side_text = RichTextBlock(
-        icon='fa-paragraph',
+        icon='heroicons-pencil-alt-solid',
         features=RICHTEXT_FEATURES_NO_FOOTNOTES,
         template='blocks/paragraph_block.html',
         required=True
@@ -407,7 +407,7 @@ class ImageDuoTextBlock(ImageBlock):
 
     class Meta:
         template = 'blocks/duo_body_block_img.html'
-        icon = 'fa-image'
+        icon = 'heroicons-photograph-solid'
 
 
 class FullWidthVideoBlock(StructBlock):
@@ -418,7 +418,7 @@ class FullWidthVideoBlock(StructBlock):
 
     class Meta:
         template = 'blocks/full_width_embed.html'
-        icon = 'fa-video-camera'
+        icon = 'heroicons-video-camera-solid'
         label = 'Full Width Video'
 
 
@@ -434,7 +434,7 @@ class CustomEmbedBlock(StructBlock):
 
     class Meta:
         template = 'blocks/custom_embed.html'
-        icon = 'fa-gears'
+        icon = 'heroicons-adjustments-solid'
         label = 'Custom Embed'
 
     def clean(self, value):
@@ -454,15 +454,15 @@ class CustomEmbedBlock(StructBlock):
 
 
 class VideoDuoTextBlock(StructBlock):
-    heading = CharBlock(icon='fa-heading', required=False, help_text='Section heading')
+    heading = CharBlock(icon='title', required=False, help_text='Section heading')
     video = EmbedBlock(
         help_text='Insert an embed URL e.g https://www.youtube.com/embed/SGJFWirQ3ks',
-        icon='fa-video-camera',
+        icon='heroicons-video-camera-solid',
         template='blocks/embed_block.html',
         required=False
     )
     side_text = RichTextBlock(
-        icon='fa-paragraph',
+        icon='heroicons-pencil-alt-solid',
         features=RICHTEXT_FEATURES_NO_FOOTNOTES,
         template='blocks/paragraph_block.html',
         required=True
@@ -472,7 +472,7 @@ class VideoDuoTextBlock(StructBlock):
 
     class Meta:
         template = 'blocks/duo_body_block_vid.html'
-        icon = 'fa-video-camera'
+        icon = 'heroicons-video-camera-solid'
 
 
 class SectionStreamBlock(StreamBlock):

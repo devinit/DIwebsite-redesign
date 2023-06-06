@@ -14,7 +14,7 @@ class TeamMemberQuoteBlock(StructBlock):
     team_member = PageChooserBlock(page_type='ourteam.TeamMemberPage', required=False)
 
     class Meta():
-        icon = 'fa-users'
+        icon = 'heroicons-user-solid'
 
 
 class ExternalMemberQuoteBlock(StructBlock):
@@ -25,7 +25,7 @@ class ExternalMemberQuoteBlock(StructBlock):
     external_member_photo = ImageChooserBlock(required=False)
 
     class Meta():
-        icon = 'fa-user'
+        icon = 'heroicons-user-solid'
 
 
 class QuoteStreamBlock(StreamBlock):

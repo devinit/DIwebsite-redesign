@@ -23,7 +23,8 @@ ADMINS = [
     ('Edwin', 'edwin.magezi@devinit.org'),
     ('Alex', 'alex.miller@devinit.org'),
     ('David', 'david.ebukali@devinit.org'),
-    ('Chris', 'chrisw@devinit.org')
+    ('Chris', 'chrisw@devinit.org'),
+    ('Thatcher', 'kaliisat@devinit.org')
 ]
 
 

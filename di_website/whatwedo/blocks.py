@@ -23,9 +23,9 @@ class LocationsMapBlock(StructBlock):
     """
     Renders a map with all the DI office locations
     """
-    heading = CharBlock(icon='fa-heading', required=False)
+    heading = CharBlock(icon='title', required=False)
     description = RichTextBlock(
-        icon='fa-paragraph',
+        icon='heroicons-pencil-alt-solid',
         template='blocks/paragraph_block.html',
         features=RICHTEXT_FEATURES_NO_FOOTNOTES,
         required=False)
@@ -36,7 +36,7 @@ class LocationsMapBlock(StructBlock):
         help_text='Applies a lighter background to the section')
 
     class Meta():
-        icon = 'fa-map-marker'
+        icon = 'heroicons-location-marker-solid'
         template = 'blocks/locations_map.html'
 
 
@@ -44,8 +44,8 @@ class FocusAreasBlock(StructBlock):
     """
     Renders the focus areas section
     """
-    heading = CharBlock(icon='fa-heading', required=False, default='Our focus areas')
-    focus_areas = ListBlock(TextBlock(icon='fa-text'), required=False)
+    heading = CharBlock(icon='title', required=False, default='Our focus areas')
+    focus_areas = ListBlock(TextBlock(icon='heroicons-pencil-solid'), required=False)
     button = ButtonBlock()
     light = BooleanBlock(
         default=False,
@@ -53,7 +53,7 @@ class FocusAreasBlock(StructBlock):
         help_text='Applies a lighter background to the section')
 
     class Meta():
-        icon = 'fa-list'
+        icon = 'heroicons-list-ul-solid'
         template = 'blocks/focus_areas.html'
 
 
@@ -61,16 +61,16 @@ class ExpertiseBlock(StructBlock):
     """
     Renders the 'our expertise' section
     """
-    heading = CharBlock(icon='fa-heading', required=False, default='Our expertise')
+    heading = CharBlock(icon='title', required=False, default='Our expertise')
     description = RichTextBlock(
-        icon='fa-paragraph',
+        icon='heroicons-pencil-alt-solid',
         template='blocks/paragraph_block.html',
         features=RICHTEXT_FEATURES_NO_FOOTNOTES,
         required=False)
     expertise_list = ListBlock(StructBlock([
-        ('name', TextBlock(icon='fa-text')),
+        ('name', TextBlock(icon='heroicons-pencil-solid')),
         ('description', RichTextBlock(
-            icon='fa-paragraph',
+            icon='heroicons-pencil-alt-solid',
             template='blocks/paragraph_block.html',
             features=RICHTEXT_FEATURES_NO_FOOTNOTES,
             required=False))
@@ -93,7 +93,7 @@ class WhereWeWorkLocationBlock(StructBlock):
     google_map = GeoBlock()
 
     class Meta():
-        icon = 'fa-map'
+        icon = 'heroicons-map-solid'
 
 
 class MapStreamBlock(StreamBlock):

@@ -12,7 +12,6 @@ class Migration(migrations.Migration):
         ('wagtailcore', '0045_assign_unlock_grouppagepermission'),
         ('home', '0065_auto_20200702_1244'),
         ('common', '0006_auto_20190924_0826'),
-        ('wagtaillinkchecker', '0005_auto_20180922_1835'),
         ('events', '0032_auto_20200702_1244'),
         ('wagtailsearchpromotions', '0002_capitalizeverbose'),
         ('project', '0043_auto_20200702_1244'),

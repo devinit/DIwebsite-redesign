@@ -2,8 +2,8 @@
 
 from django.db import migrations, models
 import django.db.models.deletion
-import wagtail.core.blocks
-import wagtail.core.fields
+import wagtail.blocks
+import wagtail.fields
 import wagtailmetadata.models
 
 
@@ -27,7 +27,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='countryspotlight',
             name='country_spotlight',
-            field=wagtail.core.fields.StreamField([('country_info', wagtail.core.blocks.StructBlock([('title', wagtail.core.blocks.CharBlock()), ('spotlight_description', wagtail.core.blocks.StreamBlock([('description', wagtail.core.blocks.RichTextBlock(features=['h2', 'h3', 'h4', 'bold', 'italic', 'ol', 'ul', 'hr', 'link', 'document-link', 'image', 'embed', 'anchor'], icon='fa-paragraph', template='blocks/paragraph_block.html'))], blank=True, max_num=2)), ('spotlight_page', wagtail.core.blocks.StreamBlock([('add_spotlight_page', wagtail.core.blocks.PageChooserBlock(page_type=['spotlight.SpotlightPage'], required=False))], blank=True, max_num=2)), ('background_theme', wagtail.core.blocks.ChoiceBlock(choices=[('light', 'Light'), ('dark', 'Dark')], help_text='Select background theme for this section'))]))], blank=True, help_text='Add Country Spotlight.'),
+            field=wagtail.fields.StreamField([('country_info', wagtail.blocks.StructBlock([('title', wagtail.blocks.CharBlock()), ('spotlight_description', wagtail.blocks.StreamBlock([('description', wagtail.blocks.RichTextBlock(features=['h2', 'h3', 'h4', 'bold', 'italic', 'ol', 'ul', 'hr', 'link', 'document-link', 'image', 'embed', 'anchor'], icon='fa-paragraph', template='blocks/paragraph_block.html'))], blank=True, max_num=2)), ('spotlight_page', wagtail.blocks.StreamBlock([('add_spotlight_page', wagtail.blocks.PageChooserBlock(page_type=['spotlight.SpotlightPage'], required=False))], blank=True, max_num=2)), ('background_theme', wagtail.blocks.ChoiceBlock(choices=[('light', 'Light'), ('dark', 'Dark')], help_text='Select background theme for this section'))]))], blank=True, help_text='Add Country Spotlight.'),
         ),
         migrations.CreateModel(
             name='SpotlightLocationComparisonPage',
@@ -35,9 +35,9 @@ class Migration(migrations.Migration):
                 ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
                 ('hero_image_credit_name', models.TextField(blank=True, help_text='Name of source of image used in hero if any', null=True, verbose_name='Image credit name')),
                 ('hero_image_credit_url', models.URLField(blank=True, help_text='A Link to the original source of the image if any', null=True, verbose_name='Image credit url')),
-                ('hero_text', wagtail.core.fields.RichTextField(blank=True, help_text='A description of the page content', null=True)),
+                ('hero_text', wagtail.fields.RichTextField(blank=True, help_text='A description of the page content', null=True)),
                 ('hero_link_caption', models.CharField(blank=True, help_text='Text to display on the link button', max_length=255)),
-                ('default_locations', wagtail.core.fields.StreamField([('locations', wagtail.core.blocks.StreamBlock([('name', wagtail.core.blocks.TextBlock()), ('geocode', wagtail.core.blocks.TextBlock())]))], blank=True, null=True, verbose_name='Default Locations')),
+                ('default_locations', wagtail.fields.StreamField([('locations', wagtail.blocks.StreamBlock([('name', wagtail.blocks.TextBlock()), ('geocode', wagtail.blocks.TextBlock())]))], blank=True, null=True, verbose_name='Default Locations')),
                 ('hero_image', models.ForeignKey(blank=True, help_text='Hero Image', null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtailimages.Image')),
                 ('hero_link', models.ForeignKey(blank=True, help_text='Choose a page to link to for the Call to Action', null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtailcore.Page', verbose_name='Hero link')),
                 ('search_image', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtailimages.Image', verbose_name='Search image')),

@@ -2,7 +2,7 @@
 
 from django.db import migrations, models
 import django.db.models.deletion
-import wagtail.core.fields
+import wagtail.fields
 
 
 class Migration(migrations.Migration):
@@ -42,7 +42,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='spotlightpage',
             name='hero_text',
-            field=wagtail.core.fields.RichTextField(blank=True, help_text='A description of the page content', null=True),
+            field=wagtail.fields.RichTextField(blank=True, help_text='A description of the page content', null=True),
         ),
         migrations.AddField(
             model_name='spotlightpage',

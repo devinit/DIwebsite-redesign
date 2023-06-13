@@ -244,7 +244,8 @@ class RelatedLinksMixin(models.Model):
             for key in objects:
                 results = objects[key].live().filter(topics__in=self.topics.get_queryset()).exclude(id=self.id).distinct()
                 for item in results:
-                    combined_queryset.append(item)
+                    if not item.alias_of:
+                        combined_queryset.append(item)
             slice_queryset = self.sort_pages(combined_queryset)
             return get_related_pages(self, slice_queryset, objects)
         elif self.related_option_handler == 'country'  or self.related_option_handler == 'Country':
@@ -253,7 +254,8 @@ class RelatedLinksMixin(models.Model):
             for key in objects:
                 results = objects[key].live().filter(page_countries__country__name__in=countries).exclude(id=self.id).distinct()
                 for item in results:
-                    combined_queryset.append(item)
+                    if not item.alias_of:
+                        combined_queryset.append(item)
             slice_queryset = self.sort_pages(combined_queryset)
             return get_related_pages(self, slice_queryset, objects)
         elif self.related_option_handler == 'manual' or self.related_option_handler == 'Manual':

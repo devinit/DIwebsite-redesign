@@ -11,7 +11,7 @@
                             href="{{ item.value.file.file.url }}"
                             class="js-ga-download-click"
                             data-event-label="{{ item.value.file.file }}"
-                        >{{ item.value.file.file }}<span class="downloadSize">{{ item.value.file.file | file_info }}</span></a></li>
+                        >{{ item.value.file.file }}<span class="downloadSize">{% if item.value.file.file|file_exists %}{{ item.value.file.file | file_info }}{% endif %}</span></a></li>
                 {% else %}
                     <li><a href="{{ item.value.url }}">{{ item.value.label }}</a>&nbsp;{% include 'publications/icon.html' with file='ico-external-'|add:page.colour size=12 %}</li>
                 {% endif %}

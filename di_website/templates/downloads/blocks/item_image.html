@@ -12,7 +12,7 @@
         <div class="card-content">
             <h3 class="card__headng">{{ value.title }}</h3>
             <p class="card__excerpt">{{ value.description }}</p>
-            <div class="button--a11y reportCard__action button button--reverse" title="Download {{ group.singular_name|lower }} | {% if value.file|file_exists %}{{ value.file|file_info }}{% endif %}"><span>Download {{ value.file|file_label }}</span></div>
+            <div class="button--a11y reportCard__action button button--reverse" title="Download {{ group.singular_name|lower }} | {% if value.file|file_exists %}{{ value.file|file_info }}{% endif %}"><span>Download {% if value.file|file_exists %}{{ value.file|file_label }}{% endif %}</span></div>
         </div>
     </a>
 {% endif %}

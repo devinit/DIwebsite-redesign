@@ -524,7 +524,7 @@ body.body--sunflower {
     }
     .m-authors {
         a {
-            color: $sunflower;
+            color: $yellow5;
             &:hover, &:focus {
                 color: $slate;
             }
@@ -532,7 +532,7 @@ body.body--sunflower {
     }
     .is-typeset {
         a:not(.button) {
-            color: $sunflower;
+            color: $yellow5;
             &:hover {
                 border-color: $sunflower;
             }
@@ -544,15 +544,15 @@ body.body--sunflower {
         }
     }
     .section-chapter__link {
-        color: $sunflower;
+        color: $yellow5;
     }
     .section-chapter__number {
-        color: $sunflower;
+        color: $yellow5;
         border-color: $sunflower;
     }
     .media-caption {
         a {
-            color: $sunflower;
+            color: $yellow5;
         }
         border-color: $sunflower;
     }
@@ -582,7 +582,7 @@ body.body--sunflower {
         }
     }
     .m-downloads__list a {
-        color: $sunflower;
+        color: $yellow5;
     }
     .share {
         background-color: $sunflower;
@@ -595,17 +595,17 @@ body.body--sunflower {
         color: $sunflower;
     }
     .orderReport__content .button {
-        color: $sunflower;
+        color: $yellow5;
         border-color: $sunflower;
     }
     .footnotes__text a {
-        color: $sunflower;
+        color: $yellow5;
     }
     .footnotes__link {
-        color: $sunflower;
+        color: $yellow5;
     }
     .footnotes__return {
-        color: $sunflower;
+        color: $yellow5;
     }
     .card__tag {
         background-color: $sunflower;
@@ -625,13 +625,13 @@ body.body--sunflower {
             background-color: $sunflower;
         }
         p, cite {
-            color: $sunflower;
+            color: $yellow5;
         }
     }
     .chapter-block-wrapper {
         .button {
             border-color: $sunflower;
-            color: $sunflower;
+            color: $yellow5;
             &:hover, &:focus {
                 background-color: $sunflower;
                 color: #fff;
@@ -645,7 +645,7 @@ body.body--sunflower {
             }
         }
         .list-item a {
-        	color: $sunflower;
+        	color: $yellow5;
         	text-decoration: underline;
         	&:hover, &:focus {
                 color: $slate;
@@ -700,7 +700,7 @@ body.body--sunflower {
         }
     }
     .pagination__item-link {
-        color: $sunflower;
+        color: $yellow5;
     }
     .pagination__item-prev-link,
     .pagination__item-next-link {

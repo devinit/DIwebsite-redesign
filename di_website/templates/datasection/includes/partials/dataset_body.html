@@ -29,12 +29,14 @@
                 <span class="button--faux__meta">Download</span>
                 <ul class="button--faux__list">
                   {% for item in page.get_dataset_downloads %}
-                    {% if item.file|file_info != item.file.title %}
-                      <li>
-                        <a href="{{ item.file.url }}" class="js-ga-download-click"
-                          data-event-label="Download {{ item.file }}"
-                          title="Download {{ item.file | file_label }}">{{item.file}} - {{ item.file|file_info }}</a>
-                      </li>
+                    {% if item.file|file_exists %}
+                      {% if item.file|file_info != item.file.title %}
+                        <li>
+                          <a href="{{ item.file.url }}" class="js-ga-download-click"
+                            data-event-label="Download {{ item.file }}"
+                            title="Download {{ item.file | file_label }}">{{item.file}} - {{ item.file|file_info }}</a>
+                        </li>
+                      {% endif %}
                     {% endif %}
                   {% endfor %}
                 </ul>

@@ -69,8 +69,8 @@
                                 href="{{ item.file.url }}"
                                 class="js-ga-download-click"
                                 data-event-label="Download {{ item.file }} / vacancy / {{ page.title }}"
-                                title="Download {{ item.file | file_label }}"
-                            >{{ item.file|file_info }}</a>
+                                title="Download {% if item.file|file_exists %}{{ item.file | file_label }}{% endif %}"
+                            >{% if item.file|file_exists %}{{ item.file|file_info }}{% endif %}</a>
                         </li>
                     </ul>
                 </div>

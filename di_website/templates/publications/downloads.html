@@ -11,7 +11,7 @@
                             href="{{ download.download.file.url }}"
                             class="js-ga-download-click"
                             data-event-label="{{ download_title }} / {{ download.download.language }} / {{ page.title }}"
-                        >{{ download.download.language }}<span class="downloadSize">{{ download.download.file|file_info }}</span></a>
+                        >{{ download.download.language }}<span class="downloadSize"> {% if download.download.file|file_exists %}{{ download.download.file|file_info }} {% endif %}</span></a>
                     </li>
                 {% endif %}
             {% endfor %}

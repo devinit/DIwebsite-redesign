@@ -15,7 +15,7 @@
                                 href="{{ item.download.file.url }}"
                                 class="download__link js-ga-download-click"
                                 data-event-label="{{ item.prefix }}{{ item.download.get_title }} / {{ group }}"
-                            >{{ item.prefix }}{{ item.download.get_title }} ({{ item.download.file | file_info }})</a>
+                            >{{ item.prefix }}{{ item.download.get_title }} ({% if item.download.file|file_exists %}{{ item.download.file | file_info }} {% endif %})</a>
                         {% endfor %}
                     </li>
                 {% endfor %}
@@ -32,7 +32,7 @@
                                     href="{{ item.download.file.url }}"
                                     class="download__link js-ga-download-click"
                                     data-event-label="{{ item.prefix }}{{ item.download.get_title }} / Data"
-                                >{{ item.prefix }}{{ item.download.get_title }} ({{ item.download.file | file_info }})</a>
+                                >{{ item.prefix }}{{ item.download.get_title }} ({% if item.download.file|file_exists %}{{ item.download.file | file_info }}{% endif %})</a>
                             {% endfor %}
                         </li>
                     {% endfor %}

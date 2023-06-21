@@ -376,7 +376,7 @@ body.body--poppy .pullout.so-what {
 }
 
 body.body--sunflower .m-authors a {
-  color: #a85d00 !important; }
+  color: #a85d00 !important; } #f49b21
 
 body.body--sunflower .is-typeset a:not(.button) {
     color: #a85d00 !important; }
@@ -503,3 +503,19 @@ body.body--marigold .chapter-block-wrapper .list-item a, body.body--sunflower .c
   color: #ac4622 !important;}
 body.body--marigold .pagination__item-link {
   color: #ac4622 !important; }
+
+body.body--sunflower  .chapter-block-wrapper--alt .button {
+    color: #fff !important;
+}
+body.body--leaf  .chapter-block-wrapper--alt .button {
+  color: #fff !important;
+}
+body.body--marigold  .chapter-block-wrapper--alt .button {
+  color: #fff !important;
+}
+body.body--bluebell  .chapter-block-wrapper--alt .button {
+  color: #fff !important;
+}
+body.body--bluebell  .chapter-block-wrapper--alt .button {
+  color: #fff !important;
+}

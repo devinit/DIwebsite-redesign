@@ -284,7 +284,7 @@ body.body--leaf {
     }
     .m-authors {
         a {
-            color: $leaf;
+            color: $leaf-dark;
             &:hover, &:focus {
                 color: $slate;
             }
@@ -292,7 +292,7 @@ body.body--leaf {
     }
     .is-typeset {
         a:not(.button) {
-            color: $leaf;
+            color: $leaf-dark;
             &:hover {
                 border-color: $leaf;
             }
@@ -304,15 +304,15 @@ body.body--leaf {
         }
     }
     .section-chapter__link {
-        color: $leaf;
+        color: $leaf-dark;
     }
     .section-chapter__number {
-        color: $leaf;
+        color: $leaf-dark;
         border-color: $leaf;
     }
     .media-caption {
         a {
-            color: $leaf;
+            color: $leaf-dark;
         }
         border-color: $leaf;
     }
@@ -342,7 +342,7 @@ body.body--leaf {
         }
     }
     .m-downloads__list a {
-        color: $leaf;
+        color: $leaf-dark;
     }
     .share {
         background-color: $leaf;
@@ -352,20 +352,20 @@ body.body--leaf {
         }
     }
     .download__link {
-        color: $leaf;
+        color: $leaf-dark;
     }
     .orderReport__content .button {
-        color: $leaf;
+        color: $leaf-dark;
         border-color: $leaf;
     }
     .footnotes__text a {
-        color: $leaf;
+        color: $leaf-dark;
     }
     .footnotes__link {
-        color: $leaf;
+        color: $leaf-dark;
     }
     .footnotes__return {
-        color: $leaf;
+        color: $leaf-dark;
     }
     .card__tag {
         background-color: $leaf;
@@ -385,13 +385,13 @@ body.body--leaf {
             background-color: $leaf;
         }
         p, cite {
-            color: $leaf;
+            color: $leaf-dark;
         }
     }
     .chapter-block-wrapper {
         .button {
             border-color: $leaf;
-            color: $leaf;
+            color: $leaf-dark;
             &:hover, &:focus {
                 background-color: $leaf;
                 color: #fff;
@@ -405,7 +405,7 @@ body.body--leaf {
             }
         }
         .list-item a {
-        	color: $leaf;
+        	color: $leaf-dark;
         	text-decoration: underline;
         	&:hover, &:focus {
                 color: $slate;
@@ -460,7 +460,7 @@ body.body--leaf {
         }
     }
     .pagination__item-link {
-        color: $leaf;
+        color: $leaf-dark;
     }
     .pagination__item-prev-link,
     .pagination__item-next-link {

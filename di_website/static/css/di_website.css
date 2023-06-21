@@ -354,3 +354,152 @@ body.body--poppy .pullout.so-what {
 .reduce_section_margins {
   margin: 4em;
 }
+
+.color-sunflower {
+  color: #a85d00 !important;
+}
+
+.color-leaf {
+  color: #007851 !important;
+}
+
+.color-bluebell {
+  color: #0071b1 !important;
+}
+
+.color-marigold {
+  color: #ac4622 !important;
+}
+
+.color-poppy {
+  color: #bc2629 !important;
+}
+
+body.body--sunflower .m-authors a {
+  color: #a85d00 !important; }
+
+body.body--sunflower .is-typeset a:not(.button) {
+    color: #a85d00 !important; }
+body.body--sunflower .section-chapter__link {
+  color: #a85d00 !important; }
+body.body--sunflower .section-chapter__number {
+  color: #a85d00 !important;
+}
+body.body--sunflower .media-caption a {
+  color: #a85d00 !important; }
+body.body--sunflower .m-downloads__list a {
+  color: #a85d00 !important; }
+body.body--sunflower .download__link {
+  color: #a85d00 !important; }
+body.body--sunflower .orderReport__content .button {
+    color: #a85d00 !important;}
+body.body--sunflower .footnotes__text a {
+  color: #a85d00 !important; }
+body.body--sunflower .footnotes__link {
+    color: #a85d00 !important; }
+body.body--sunflower .footnotes__return {
+  color: #a85d00 !important; }
+body.body--sunflower blockquote p, body.body--sunflower blockquote cite {
+  color: #a85d00 !important; }
+body.body--sunflower .chapter-block-wrapper .button {
+  color: #a85d00 !important; }
+body.body--sunflower .chapter-block-wrapper .list-item a, body.body--sunflower .chapter-block-wrapper .unordered-list li a, .unordered-list body.body--sunflower .chapter-block-wrapper li a, body.body--sunflower .chapter-block-wrapper .is-typeset ul li a, .is-typeset ul body.body--sunflower .chapter-block-wrapper li a, body.body--sunflower .chapter-block-wrapper .ordered-list li a, .ordered-list body.body--sunflower .chapter-block-wrapper li a, body.body--sunflower .chapter-block-wrapper .is-typeset ol li a, .is-typeset ol body.body--sunflower .chapter-block-wrapper li a, body.body--sunflower .chapter-block-wrapper .nobullet-list li a, .nobullet-list body.body--sunflower .chapter-block-wrapper li a {
+    color: #a85d00 !important;}
+body.body--sunflower .pagination__item-link {
+  color: #a85d00 !important; }
+
+body.body--leaf .m-authors a {
+    color: #007851 !important; }
+body.body--leaf .is-typeset a:not(.button) {
+  color: #007851 !important; }
+body.body--leaf .section-chapter__link {
+  color: #007851 !important; }
+body.body--leaf .section-chapter__number {
+  color: #007851 !important;
+}
+body.body--leaf .media-caption a {
+  color: #007851 !important; }
+body.body--leaf .m-downloads__list a {
+  color: #007851 !important; }
+body.body--leaf .download__link {
+  color: #007851 !important; }
+body.body--leaf .orderReport__content .button {
+    color: #007851 !important;}
+body.body--leaf .footnotes__text a {
+  color: #007851 !important; }
+body.body--leaf .footnotes__link {
+    color: #007851 !important; }
+body.body--leaf .footnotes__return {
+  color: #007851 !important; }
+body.body--leaf blockquote p, body.body--sunflower blockquote cite {
+  color: #007851 !important; }
+body.body--leaf .chapter-block-wrapper .button {
+  color: #007851 !important; }
+body.body--leaf .chapter-block-wrapper .list-item a, body.body--sunflower .chapter-block-wrapper .unordered-list li a, .unordered-list body.body--sunflower .chapter-block-wrapper li a, body.body--sunflower .chapter-block-wrapper .is-typeset ul li a, .is-typeset ul body.body--sunflower .chapter-block-wrapper li a, body.body--sunflower .chapter-block-wrapper .ordered-list li a, .ordered-list body.body--sunflower .chapter-block-wrapper li a, body.body--sunflower .chapter-block-wrapper .is-typeset ol li a, .is-typeset ol body.body--sunflower .chapter-block-wrapper li a, body.body--sunflower .chapter-block-wrapper .nobullet-list li a, .nobullet-list body.body--sunflower .chapter-block-wrapper li a {
+  color: #007851 !important;}
+body.body--leaf .pagination__item-link {
+  color: #007851 !important; }
+
+body.body--bluebell .m-authors a {
+  color: #0071b1 !important; }
+body.body--bluebell .is-typeset a:not(.button) {
+  color: #0071b1 !important; }
+body.body--bluebell .section-chapter__link {
+  color: #0071b1 !important; }
+body.body--bluebell .section-chapter__number {
+  color: #0071b1 !important;
+}
+body.body--bluebell .media-caption a {
+  color: #0071b1 !important; }
+body.body--bluebell .m-downloads__list a {
+  color: #0071b1 !important; }
+body.body--bluebell .download__link {
+  color: #0071b1 !important; }
+body.body--bluebell .orderReport__content .button {
+    color: #0071b1 !important;}
+body.body--bluebell .footnotes__text a {
+  color: #0071b1 !important; }
+body.body--bluebell .footnotes__link {
+    color: #0071b1 !important; }
+body.body--bluebell .footnotes__return {
+  color: #0071b1 !important; }
+body.body--bluebell blockquote p, body.body--sunflower blockquote cite {
+  color: #0071b1 !important; }
+body.body--bluebell .chapter-block-wrapper .button {
+  color: #0071b1 !important; }
+body.body--bluebell .chapter-block-wrapper .list-item a, body.body--sunflower .chapter-block-wrapper .unordered-list li a, .unordered-list body.body--sunflower .chapter-block-wrapper li a, body.body--sunflower .chapter-block-wrapper .is-typeset ul li a, .is-typeset ul body.body--sunflower .chapter-block-wrapper li a, body.body--sunflower .chapter-block-wrapper .ordered-list li a, .ordered-list body.body--sunflower .chapter-block-wrapper li a, body.body--sunflower .chapter-block-wrapper .is-typeset ol li a, .is-typeset ol body.body--sunflower .chapter-block-wrapper li a, body.body--sunflower .chapter-block-wrapper .nobullet-list li a, .nobullet-list body.body--sunflower .chapter-block-wrapper li a {
+    color: #0071b1 !important;}
+body.body--bluebell .pagination__item-link {
+  color: #0071b1 !important; }
+
+body.body--marigold .m-authors a {
+  color: #ac4622 !important; }
+body.body--marigold .is-typeset a:not(.button) {
+  color: #ac4622 !important; }
+body.body--marigold .section-chapter__link {
+  color: #ac4622 !important; }
+body.body--marigold .section-chapter__number {
+  color: #ac4622 !important;
+}
+body.body--marigold .media-caption a {
+  color: #ac4622 !important; }
+body.body--marigold .m-downloads__list a {
+  color: #ac4622 !important; }
+body.body--marigold .download__link {
+  color: #ac4622 !important; }
+body.body--marigold .orderReport__content .button {
+  color: #ac4622 !important;}
+body.body--marigold .footnotes__text a {
+  color: #ac4622 !important; }
+body.body--marigold .footnotes__link {
+  color: #ac4622 !important; }
+body.body--marigold .footnotes__return {
+  color: #ac4622 !important; }
+body.body--marigold blockquote p, body.body--sunflower blockquote cite {
+  color: #ac4622 !important; }
+body.body--marigold .chapter-block-wrapper .button {
+  color: #ac4622 !important; }
+body.body--marigold .chapter-block-wrapper .list-item a, body.body--sunflower .chapter-block-wrapper .unordered-list li a, .unordered-list body.body--sunflower .chapter-block-wrapper li a, body.body--sunflower .chapter-block-wrapper .is-typeset ul li a, .is-typeset ul body.body--sunflower .chapter-block-wrapper li a, body.body--sunflower .chapter-block-wrapper .ordered-list li a, .ordered-list body.body--sunflower .chapter-block-wrapper li a, body.body--sunflower .chapter-block-wrapper .is-typeset ol li a, .is-typeset ol body.body--sunflower .chapter-block-wrapper li a, body.body--sunflower .chapter-block-wrapper .nobullet-list li a, .nobullet-list body.body--sunflower .chapter-block-wrapper li a {
+  color: #ac4622 !important;}
+body.body--marigold .pagination__item-link {
+  color: #ac4622 !important; }

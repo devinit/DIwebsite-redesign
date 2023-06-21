@@ -51,7 +51,7 @@ body.body--bluebell {
     }
     .m-authors {
         a {
-            color: $bluebell;
+            color: $blue4;
             &:hover, &:focus {
                 color: $slate;
             }
@@ -59,7 +59,7 @@ body.body--bluebell {
     }
     .is-typeset {
         a:not(.button) {
-            color: $bluebell;
+            color: $blue4;
             &:hover {
                 border-color: $bluebell;
             }
@@ -71,11 +71,11 @@ body.body--bluebell {
         }
     }
     .section-chapter__link {
-        color: $bluebell;
+        color: $blue4;
     }
     .media-caption {
         a {
-            color: $bluebell;
+            color: $blue4;
         }
         border-color: $bluebell;
     }
@@ -99,7 +99,7 @@ body.body--bluebell {
         }
     }
     .m-downloads__list a {
-        color: $bluebell;
+        color: $blue4;
     }
     .share {
         background-color: $bluebell;
@@ -109,20 +109,20 @@ body.body--bluebell {
         }
     }
     .download__link {
-        color: $bluebell;
+        color: $blue4;
     }
     .orderReport__content .button {
-        color: $bluebell;
+        color: $blue4;
         border-color: $bluebell;
     }
     .footnotes__text a {
-        color: $bluebell;
+        color: $blue4;
     }
     .footnotes__link {
-        color: $bluebell;
+        color: $blue4;
     }
     .footnotes__return {
-        color: $bluebell;
+        color: $blue4;
     }
     .card__tag {
         background-color: $bluebell;
@@ -142,7 +142,7 @@ body.body--bluebell {
             background-color: $bluebell;
         }
         p, cite {
-            color: $bluebell;
+            color: $blue4;
         }
     }
     .pullout {
@@ -154,7 +154,7 @@ body.body--bluebell {
     .chapter-block-wrapper {
         .button {
             border-color: $bluebell;
-            color: $bluebell;
+            color: $blue4;
             &:hover, &:focus {
                 background-color: $bluebell;
                 color: #fff;
@@ -168,7 +168,7 @@ body.body--bluebell {
             }
         }
         .list-item a {
-        	color: $bluebell;
+        	color: $blue4;
         	text-decoration: underline;
         	&:hover, &:focus {
                 color: $slate;
@@ -223,7 +223,7 @@ body.body--bluebell {
         }
     }
     .pagination__item-link {
-        color: $bluebell;
+        color: $blue4;
     }
     .pagination__item-prev-link,
     .pagination__item-next-link {

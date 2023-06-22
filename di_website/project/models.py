@@ -121,7 +121,8 @@ class FocusAreasPage(TypesetBodyMixin, HeroMixin, Page):
     ]
 
 
-class FocusAreasPageLink(ClusterableModel):
+class FocusAreasPageLink(Orderable, ClusterableModel):
+
     page = ParentalKey(
         Page,
         related_name='focus_areas_page_link',

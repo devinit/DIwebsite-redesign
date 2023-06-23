@@ -331,3 +331,12 @@ WAGTAILMETADATA_IMAGE_FILTER = 'fill-800x450'
 EMAIL_ADMINS_CACHE_TIMEOUT = 30
 EMAIL_ADMINS_MAX_EMAILS_PER_TIMEOUT = 2
 EMAIL_ADMINS_CACHE_COUNTER_KEY = 'email_admins_cache_counter_key'
+
+WAGTAILIMAGES_FORMAT_CONVERSIONS = {
+    'webp': 'webp',
+    'jpg': 'webp',
+    'jpeg': 'webp',
+    'png': 'webp',
+    'bmp': 'webp',
+    'gif': 'gif'
+}

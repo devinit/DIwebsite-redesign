@@ -14,8 +14,10 @@ from django.utils.text import Truncator, slugify
 from django.utils.html import strip_tags
 from django.utils.safestring import mark_safe
 from django.template.base import VariableDoesNotExist
+from django.db.models.fields.files import FieldFile
 
 from wagtail.rich_text import expand_db_html, RichText
+from wagtail.documents.models import Document
 
 from di_website.publications.fields import RichText as RichTextBlock
 
@@ -136,31 +138,54 @@ def sizeof_fmt(num, suffix='B'):
 
 @register.filter
 def file_info(file):
-    try:
-        return '%s %s' % (os.path.splitext(file.url)[1][1:].upper(), sizeof_fmt(file.file.size))
-    except Exception:
-        return file.title
+    if isinstance(file, Document):
+        try:
+            return '%s %s' % (os.path.splitext(file.url)[1][1:].upper(), sizeof_fmt(file.file.size))
+        except Exception:
+            return file.title
+    if isinstance(file, FieldFile):
+        try:
+            return '%s %s' % (os.path.splitext(file.url)[1][1:].upper(), sizeof_fmt(file.size))
+        except Exception:
+            return os.path.basename(file.name)
 
 
 @register.filter
 def file_label(file):
-    try:
-        return '%s | %s %s' % (
-            file.title,
-            os.path.splitext(file.url)[1][1:].upper(),
-            sizeof_fmt(file.file.size)
-        )
-    except Exception:
-        return file.title
+    if isinstance(file, Document):
+        try:
+            return '%s | %s %s' % (
+                file.title,
+                os.path.splitext(file.url)[1][1:].upper(),
+                sizeof_fmt(file.file.size)
+            )
+        except Exception:
+            return file.title
+    if isinstance(file, FieldFile):
+        try:
+            return '%s | %s %s' % (
+                os.path.basename(file.name),
+                os.path.splitext(file.url)[1][1:].upper(),
+                sizeof_fmt(file.size)
+            )
+        except Exception:
+            return os.path.basename(file.name)
 
 
 @register.filter
 def file_exists(file):
-    try:
-        if file.size:
-            return True
-    except:
-        return False
+    if isinstance(file, Document):
+        try:
+            if file.file.size:
+                return True
+        except:
+            return False
+    if isinstance(file, FieldFile):
+        try:
+            if file.size:
+                return True
+        except:
+            return False
 
 
 @register.filter(expects_localtime=True, is_safe=False)

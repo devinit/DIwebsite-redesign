@@ -12,10 +12,10 @@
             {% if image.url != '/media/not-found' %}
               <div class="card__media" style="background-image: url({{image.url}});"></div>
             {% else %}
-              <div class="card__media" style="background-image: url({% static 'img/fallback-image.jpg' %})"></div>
+              <div class="card__media" style="background-image: url({% static 'img/fallback-image.webp' %})"></div>
             {% endif %}
           {% else %}
-            <div class="card__media" style="background-image: url({% static 'img/fallback-image.jpg' %})"></div>
+            <div class="card__media" style="background-image: url({% static 'img/fallback-image.webp' %})"></div>
           {% endif %}
           <div class="card__body">
             <h3 class="card__title"><span>{{ page.title }}</span></h3>

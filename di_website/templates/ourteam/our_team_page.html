@@ -60,11 +60,11 @@
                   {% if img.url != '/media/not-found' %}
                     <img height="400px" width="400px" src="{{img.url}}" alt="{{img.alt}}" srcset="{{ img.srcset }}">
                   {% else %}
-                    <img height="400px" width="400px" src="{% static 'img/profile-fallback.jpg' %}"
+                    <img height="400px" width="400px" src="{% static 'img/profile-fallback.webp' %}"
                       alt="Placeholder profile picture">
                   {% endif %}
                   {% else %}
-                    <img height="400px" width="400px" src="{% static 'img/profile-fallback.jpg' %}"
+                    <img height="400px" width="400px" src="{% static 'img/profile-fallback.webp' %}"
                       alt="Placeholder profile picture">
                   {% endif %}
                 </div>

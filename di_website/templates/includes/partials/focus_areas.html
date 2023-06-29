@@ -12,7 +12,7 @@
               {% image block.value.specific.hero_image max-313x178 as hero_img %}
               <a href="{% pageurl block.value.specific %}" class="project-card" style="background-image: url({{hero_img.url}});">
           {% else %}
-              <a href="{% pageurl block.value.specific %}" class="project-card" style="background-image: url({% static 'img/fallback-image.jpg' %});">
+              <a href="{% pageurl block.value.specific %}" class="project-card" style="background-image: url({% static 'img/fallback-image.webp' %});">
           {% endif %}
               <span class="project-card__caption">{{ block.value.title }}</span>
               </a>
@@ -25,7 +25,7 @@
         {% image self.hero_image max-313x178 as hero_img %}
           <a href="{% pageurl self %}" class="project-card" style="background-image: url({{hero_img.url}});">
         {% else %}
-          <a href="{% pageurl self %}" class="project-card" style="background-image: url({% static 'img/fallback-image.jpg' %});">
+          <a href="{% pageurl self %}" class="project-card" style="background-image: url({% static 'img/fallback-image.webp' %});">
         {% endif %}
           <span class="project-card__caption">{{ self.title }}</span>
           </a>

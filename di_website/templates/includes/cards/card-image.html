@@ -13,9 +13,9 @@
 {% else %}
   {% if card_type == "duo" %}
     <div class="card__media">
-      <img src="{% static 'img/fallback-image.jpg' %}" alt="{{hero_img.alt}}"/>
+      <img src="{% static 'img/fallback-image.webp' %}" alt="{{hero_img.alt}}"/>
     </div>
   {% else %}
-    <div class="card__media" style="background-image: url({% static 'img/fallback-image.jpg' %});"></div>
+    <div class="card__media" style="background-image: url({% static 'img/fallback-image.webp' %});"></div>
   {% endif %}
 {% endif %}

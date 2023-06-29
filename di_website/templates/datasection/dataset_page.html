@@ -28,7 +28,7 @@
                   <img src="{{ image.url }}" alt="{{item.specific.hero_image.title}}" srcset="{{ image.srcset }}"/>
                 {% endif %}
               {% else %}
-                <img src="{% static 'img/fallback-image.jpg' %}" height="290px" width="464px"/>
+                <img src="{% static 'img/fallback-image.webp' %}" height="290px" width="464px"/>
               {% endif %}
               <div class="card__media__caption">
                 <span class="card__meta">{{item.specific.release_date|date:"j F Y"}}</span>

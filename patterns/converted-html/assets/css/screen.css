@@ -1058,7 +1058,7 @@ input[type="file"] {
       margin-left: -2em; } }
 
 .branding {
-  background-image: url(/assets/img/logo-red.png);
+  background-image: url(/assets/img/logo-red.webp);
   background-size: contain;
   background-repeat: no-repeat;
   width: 194px;
@@ -5595,7 +5595,7 @@ html.no-js .chapter-nav__child__overflow {
   transition: all, ease-in-out, 0.3s; }
 
 body.body--bluebell .branding {
-  background-image: url(/assets/img/logo-blue.png); }
+  background-image: url(/assets/img/logo-blue.webp); }
 
 body.body--bluebell .header {
   background-color: #0089cc; }
@@ -5775,7 +5775,7 @@ body.body--bluebell .form-field .button {
   border-color: #0089cc; }
 
 body.body--leaf .branding {
-  background-image: url(/assets/img/logo-green.png); }
+  background-image: url(/assets/img/logo-green.webp); }
 
 body.body--leaf .header {
   background-color: #109e68; }
@@ -5959,7 +5959,7 @@ body.body--leaf .form-field .button {
   border-color: #109e68; }
 
 body.body--sunflower .branding {
-  background-image: url(/assets/img/logo-yellow.png); }
+  background-image: url(/assets/img/logo-yellow.webp); }
 
 body.body--sunflower .header {
   background-color: #f49b21; }
@@ -6143,7 +6143,7 @@ body.body--sunflower .form-field .button {
   border-color: #f49b21; }
 
 body.body--marigold .branding {
-  background-image: url(/assets/img/logo-orange.png); }
+  background-image: url(/assets/img/logo-orange.webp); }
 
 body.body--marigold .header {
   background-color: #eb642b; }
@@ -6327,7 +6327,7 @@ body.body--marigold .form-field .button {
   border-color: #eb642b; }
 
 body.body--rose .branding {
-  background-image: url(/assets/img/logo-pink.png); }
+  background-image: url(/assets/img/logo-pink.webp); }
 
 body.body--rose .header {
   background-color: #c2135b; }
@@ -6511,7 +6511,7 @@ body.body--rose .form-field .button {
   border-color: #c2135b; }
 
 body.body--lavendar .branding {
-  background-image: url(/assets/img/logo-purple.png); }
+  background-image: url(/assets/img/logo-purple.webp); }
 
 body.body--lavendar .header {
   background-color: #893190; }

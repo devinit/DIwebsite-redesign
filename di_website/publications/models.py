@@ -1100,6 +1100,12 @@ class ShortPublicationPage(
 
         return context
 
+    def save(self, *args, **kwargs):
+        if not self.published_date:
+            self.published_date = now()
+
+        super(ShortPublicationPage, self).save(*args, **kwargs)
+
 
 class AudioVisualMedia(PublishedDateMixin, TypesetBodyMixin, HeroMixin, PublicationPageSearchMixin, RelatedLinksMixin, SectionBodyMixin, CallToActionMixin, Page):
 

@@ -300,6 +300,9 @@ then
     docker-compose exec -T ${new_state} python manage.py collectstatic --noinput
     sudo chown -R di_website:di_website assets
 
+    start_new_process "Convert images to webp"
+    docker-compose exec -T ${new_state} python convert_to_webp.py --noinput
+
     exit 0
 
 

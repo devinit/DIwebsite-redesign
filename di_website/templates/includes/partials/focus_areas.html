@@ -9,7 +9,7 @@
     {% if self.projects %}
       {% for block in self.projects %}
           {% if block.value.specific.hero_image %}
-              {% image block.value.specific.hero_image max-313x178 as hero_img %}
+              {% responsiveimage block.value.specific.hero_image max-313x178 as hero_img %}
               <a href="{% pageurl block.value.specific %}" class="project-card" style="background-image: url({{hero_img.url}});">
           {% else %}
               <a href="{% pageurl block.value.specific %}" class="project-card" style="background-image: url({% static 'img/fallback-image.webp' %});">
@@ -22,7 +22,7 @@
   {% with related_pages=self.get_topic_related_pages %}
     {% for self in related_pages %}
       {% if self.hero_image %}
-        {% image self.hero_image max-313x178 as hero_img %}
+        {% responsiveimage self.hero_image max-313x178 as hero_img %}
           <a href="{% pageurl self %}" class="project-card" style="background-image: url({{hero_img.url}});">
         {% else %}
           <a href="{% pageurl self %}" class="project-card" style="background-image: url({% static 'img/fallback-image.webp' %});">

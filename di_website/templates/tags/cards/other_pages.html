@@ -8,7 +8,7 @@
       {% for page in other_pages %}
         <a href="{% pageurl page %}" class="card">
           {% if page.hero_image %}
-            {% image page.hero_image fill-400x250 as image %}
+            {% responsiveimage page.hero_image fill-400x250 as image %}
             {% if image.url != '/media/not-found' %}
               <div class="card__media" style="background-image: url({{image.url}});"></div>
             {% else %}

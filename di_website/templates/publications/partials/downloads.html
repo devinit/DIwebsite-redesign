@@ -1,4 +1,4 @@
-{% load wagtailimages_tags %}
+{% load wagtailimages_tags responsive %}
 <section class="section">
   <div class="row row--narrow">
     {% for item in page.call_to_action %}
@@ -14,7 +14,7 @@
       {% if page.report_download %}
         <div class="orderReport">
           {% if page.download_report_cover %}
-            {% image page.download_report_cover fill-250x340 as cover_image %}
+            {% responsiveimage page.download_report_cover fill-250x340 as cover_image %}
             <div class="orderReport__img" style="background-image: url({{cover_image.url}});"></div>
           {% endif %}
           <div class="orderReport__content">

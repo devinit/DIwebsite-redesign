@@ -51,7 +51,7 @@ body.body--bluebell {
     }
     .m-authors {
         a {
-            color: $bluebell;
+            color: $blue4;
             &:hover, &:focus {
                 color: $slate;
             }
@@ -59,7 +59,7 @@ body.body--bluebell {
     }
     .is-typeset {
         a:not(.button) {
-            color: $bluebell;
+            color: $blue4;
             &:hover {
                 border-color: $bluebell;
             }
@@ -71,11 +71,11 @@ body.body--bluebell {
         }
     }
     .section-chapter__link {
-        color: $bluebell;
+        color: $blue4;
     }
     .media-caption {
         a {
-            color: $bluebell;
+            color: $blue4;
         }
         border-color: $bluebell;
     }
@@ -99,7 +99,7 @@ body.body--bluebell {
         }
     }
     .m-downloads__list a {
-        color: $bluebell;
+        color: $blue4;
     }
     .share {
         background-color: $bluebell;
@@ -109,20 +109,20 @@ body.body--bluebell {
         }
     }
     .download__link {
-        color: $bluebell;
+        color: $blue4;
     }
     .orderReport__content .button {
-        color: $bluebell;
+        color: $blue4;
         border-color: $bluebell;
     }
     .footnotes__text a {
-        color: $bluebell;
+        color: $blue4;
     }
     .footnotes__link {
-        color: $bluebell;
+        color: $blue4;
     }
     .footnotes__return {
-        color: $bluebell;
+        color: $blue4;
     }
     .card__tag {
         background-color: $bluebell;
@@ -142,7 +142,7 @@ body.body--bluebell {
             background-color: $bluebell;
         }
         p, cite {
-            color: $bluebell;
+            color: $blue4;
         }
     }
     .pullout {
@@ -154,7 +154,7 @@ body.body--bluebell {
     .chapter-block-wrapper {
         .button {
             border-color: $bluebell;
-            color: $bluebell;
+            color: $blue4;
             &:hover, &:focus {
                 background-color: $bluebell;
                 color: #fff;
@@ -168,7 +168,7 @@ body.body--bluebell {
             }
         }
         .list-item a {
-        	color: $bluebell;
+        	color: $blue4;
         	text-decoration: underline;
         	&:hover, &:focus {
                 color: $slate;
@@ -223,7 +223,7 @@ body.body--bluebell {
         }
     }
     .pagination__item-link {
-        color: $bluebell;
+        color: $blue4;
     }
     .pagination__item-prev-link,
     .pagination__item-next-link {
@@ -284,7 +284,7 @@ body.body--leaf {
     }
     .m-authors {
         a {
-            color: $leaf;
+            color: $leaf-dark;
             &:hover, &:focus {
                 color: $slate;
             }
@@ -292,7 +292,7 @@ body.body--leaf {
     }
     .is-typeset {
         a:not(.button) {
-            color: $leaf;
+            color: $leaf-dark;
             &:hover {
                 border-color: $leaf;
             }
@@ -304,15 +304,15 @@ body.body--leaf {
         }
     }
     .section-chapter__link {
-        color: $leaf;
+        color: $leaf-dark;
     }
     .section-chapter__number {
-        color: $leaf;
+        color: $leaf-dark;
         border-color: $leaf;
     }
     .media-caption {
         a {
-            color: $leaf;
+            color: $leaf-dark;
         }
         border-color: $leaf;
     }
@@ -342,7 +342,7 @@ body.body--leaf {
         }
     }
     .m-downloads__list a {
-        color: $leaf;
+        color: $leaf-dark;
     }
     .share {
         background-color: $leaf;
@@ -352,20 +352,20 @@ body.body--leaf {
         }
     }
     .download__link {
-        color: $leaf;
+        color: $leaf-dark;
     }
     .orderReport__content .button {
-        color: $leaf;
+        color: $leaf-dark;
         border-color: $leaf;
     }
     .footnotes__text a {
-        color: $leaf;
+        color: $leaf-dark;
     }
     .footnotes__link {
-        color: $leaf;
+        color: $leaf-dark;
     }
     .footnotes__return {
-        color: $leaf;
+        color: $leaf-dark;
     }
     .card__tag {
         background-color: $leaf;
@@ -385,13 +385,13 @@ body.body--leaf {
             background-color: $leaf;
         }
         p, cite {
-            color: $leaf;
+            color: $leaf-dark;
         }
     }
     .chapter-block-wrapper {
         .button {
             border-color: $leaf;
-            color: $leaf;
+            color: $leaf-dark;
             &:hover, &:focus {
                 background-color: $leaf;
                 color: #fff;
@@ -405,7 +405,7 @@ body.body--leaf {
             }
         }
         .list-item a {
-        	color: $leaf;
+        	color: $leaf-dark;
         	text-decoration: underline;
         	&:hover, &:focus {
                 color: $slate;
@@ -460,7 +460,7 @@ body.body--leaf {
         }
     }
     .pagination__item-link {
-        color: $leaf;
+        color: $leaf-dark;
     }
     .pagination__item-prev-link,
     .pagination__item-next-link {
@@ -524,7 +524,7 @@ body.body--sunflower {
     }
     .m-authors {
         a {
-            color: $sunflower;
+            color: $yellow5;
             &:hover, &:focus {
                 color: $slate;
             }
@@ -532,7 +532,7 @@ body.body--sunflower {
     }
     .is-typeset {
         a:not(.button) {
-            color: $sunflower;
+            color: $yellow5;
             &:hover {
                 border-color: $sunflower;
             }
@@ -544,15 +544,15 @@ body.body--sunflower {
         }
     }
     .section-chapter__link {
-        color: $sunflower;
+        color: $yellow5;
     }
     .section-chapter__number {
-        color: $sunflower;
+        color: $yellow5;
         border-color: $sunflower;
     }
     .media-caption {
         a {
-            color: $sunflower;
+            color: $yellow5;
         }
         border-color: $sunflower;
     }
@@ -582,7 +582,7 @@ body.body--sunflower {
         }
     }
     .m-downloads__list a {
-        color: $sunflower;
+        color: $yellow5;
     }
     .share {
         background-color: $sunflower;
@@ -595,17 +595,17 @@ body.body--sunflower {
         color: $sunflower;
     }
     .orderReport__content .button {
-        color: $sunflower;
+        color: $yellow5;
         border-color: $sunflower;
     }
     .footnotes__text a {
-        color: $sunflower;
+        color: $yellow5;
     }
     .footnotes__link {
-        color: $sunflower;
+        color: $yellow5;
     }
     .footnotes__return {
-        color: $sunflower;
+        color: $yellow5;
     }
     .card__tag {
         background-color: $sunflower;
@@ -625,13 +625,13 @@ body.body--sunflower {
             background-color: $sunflower;
         }
         p, cite {
-            color: $sunflower;
+            color: $yellow5;
         }
     }
     .chapter-block-wrapper {
         .button {
             border-color: $sunflower;
-            color: $sunflower;
+            color: $yellow5;
             &:hover, &:focus {
                 background-color: $sunflower;
                 color: #fff;
@@ -645,7 +645,7 @@ body.body--sunflower {
             }
         }
         .list-item a {
-        	color: $sunflower;
+        	color: $yellow5;
         	text-decoration: underline;
         	&:hover, &:focus {
                 color: $slate;
@@ -700,7 +700,7 @@ body.body--sunflower {
         }
     }
     .pagination__item-link {
-        color: $sunflower;
+        color: $yellow5;
     }
     .pagination__item-prev-link,
     .pagination__item-next-link {
@@ -761,7 +761,7 @@ body.body--marigold {
     }
     .m-authors {
         a {
-            color: $marigold;
+            color: $orange12;
             &:hover, &:focus {
                 color: $slate;
             }
@@ -769,7 +769,7 @@ body.body--marigold {
     }
     .is-typeset {
         a:not(.button) {
-            color: $marigold;
+            color: $orange12;
             &:hover {
                 border-color: $marigold;
             }
@@ -781,15 +781,15 @@ body.body--marigold {
         }
     }
     .section-chapter__link {
-        color: $marigold;
+        color: $orange12;
     }
     .section-chapter__number {
-        color: $marigold;
+        color: $orange12;
         border-color: $marigold;
     }
     .media-caption {
         a {
-            color: $marigold;
+            color: $orange12;
         }
         border-color: $marigold;
     }
@@ -819,7 +819,7 @@ body.body--marigold {
         }
     }
     .m-downloads__list a {
-        color: $marigold;
+        color: $orange12;
     }
     .share {
         background-color: $marigold;
@@ -829,20 +829,20 @@ body.body--marigold {
         }
     }
     .download__link {
-        color: $marigold;
+        color: $orange12;
     }
     .orderReport__content .button {
-        color: $marigold;
+        color: $orange12;
         border-color: $marigold;
     }
     .footnotes__text a {
-        color: $marigold;
+        color: $orange12;
     }
     .footnotes__link {
-        color: $marigold;
+        color: $orange12;
     }
     .footnotes__return {
-        color: $marigold;
+        color: $orange12;
     }
     .card__tag {
         background-color: $marigold;
@@ -862,13 +862,13 @@ body.body--marigold {
             background-color: $marigold;
         }
         p, cite {
-            color: $marigold;
+            color: $orange12;
         }
     }
     .chapter-block-wrapper {
         .button {
             border-color: $marigold;
-            color: $marigold;
+            color: $orange12;
             &:hover, &:focus {
                 background-color: $marigold;
                 color: #fff;
@@ -937,7 +937,7 @@ body.body--marigold {
         }
     }
     .pagination__item-link {
-        color: $marigold;
+        color: $orange12;
     }
     .pagination__item-prev-link,
     .pagination__item-next-link {

@@ -56,7 +56,7 @@
               <div class="profile">
                 <div class="profile__media">
                   {% if profile.image %}
-                    {% responsiveimage profile.image fill-400x400-c100 srcset=global.sq_crop_srcs as img %}
+                    {% image profile.image fill-400x400-c100 format-webp-lossless as img %}
                   {% if img.url != '/media/not-found' %}
                     <img height="400px" width="400px" src="{{img.url}}" alt="{{img.alt}}" srcset="{{ img.srcset }}">
                   {% else %}

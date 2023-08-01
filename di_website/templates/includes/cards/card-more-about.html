@@ -5,7 +5,7 @@
         {% image more_about_page.hero_image max-400x250 as hero_img %}
         <div class="card__media" style="background-image: url({{hero_img.url}});"></div>
     {% else %}
-        <div class="card__media" style="background-image: url({% static 'img/fallback-image.jpg' %});"></div>
+        <div class="card__media" style="background-image: url({% static 'img/fallback-image.webp' %});"></div>
     {% endif %}
 
     <div class="card__body">

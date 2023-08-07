@@ -166,12 +166,6 @@ AUTH_PASSWORD_VALIDATORS = [
 
 if config('ELASTIC_SEARCH_URL', ''):
 
-    elastic_search_tokens = [
-        'letter',
-        'digit',
-        'symbol',
-    ]
-
     WAGTAILSEARCH_BACKENDS = {
         'default': {
             'BACKEND': 'wagtail.search.backends.elasticsearch7',
@@ -184,7 +178,7 @@ if config('ELASTIC_SEARCH_URL', ''):
                     'analysis': {
                         'analyzer': {
                             "default": {
-                                "tokenizer": "edgengram_tokenizer",
+                                "tokenizer": "standard_tokenizer",
                                 "filter": [ "stop_filter",  "lowercase_filter" ]
                             }
                         },
@@ -198,11 +192,8 @@ if config('ELASTIC_SEARCH_URL', ''):
                             }
                         },
                         'tokenizer': {
-                            'edgengram_tokenizer': {
-                                'type': 'edge_ngram',
-                                'min_gram': 3,
-                                'max_gram': 10,
-                                'token_chars': elastic_search_tokens
+                            'standard_tokenizer': {
+                                'type': 'standard'
                             }
                         },
                     },

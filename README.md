@@ -48,11 +48,6 @@ Pattern library available online at [http://development-initiatives.surge.sh/](h
 
         python3 manage.py migrate
 
-
-9. Install Rabbitmq in Ubuntu
-
-        sudo apt-get install rabbitmq-server
-
 10. Add
 
         export DJANGO_SETTINGS_MODULE=di_website.settings.dev
@@ -78,9 +73,8 @@ Pattern library available online at [http://development-initiatives.surge.sh/](h
 **Install dependencies**
 
 - [PostgreSQL](https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-20-04-quickstart)
-- [Elastic Search](https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-elasticsearch-on-ubuntu-20-04)
 
-To exclude the Elastic Search dependency, run `docker-compose` with the `docker-compose.minimal.yml` file, as below
+Run `docker-compose` with the `docker-compose.minimal.yml` file, as below
 
         docker-compose -f docker-compose.minimal.yml up --build
 
@@ -112,11 +106,6 @@ If the deployment is from scratch, follow commands below to update content with 
    docker-compose exec web python manage.py importwp
    docker-compose exec web python manage.py update_index
    ```
-To enable rabbitmq management
-   ```
-   docker-compose exec rabbitmq rabbitmq-plugins enable rabbitmq_management
-   ```
-
 
 ## For Spotlights
 1. Fetch data from the old CMS repo

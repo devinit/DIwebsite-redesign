@@ -164,46 +164,13 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-if config('ELASTIC_SEARCH_URL', ''):
-
-    WAGTAILSEARCH_BACKENDS = {
-        'default': {
-            'BACKEND': 'wagtail.search.backends.elasticsearch7',
-            'AUTO_UPDATE': True,
-            'ATOMIC_REBUILD': True,
-            'URLS': [config('ELASTIC_SEARCH_URL', '')],
-            'TIMEOUT': 10,
-            'INDEX_SETTINGS': {
-                'settings': {
-                    'analysis': {
-                        'analyzer': {
-                            "default": {
-                                "tokenizer": "standard_tokenizer",
-                                "filter": [ "stop_filter",  "lowercase_filter" ]
-                            }
-                        },
-                        'filter': {
-                            'stop_filter': {
-                                'type': 'stop',
-                                'ignore_case': True
-                            },
-                            'lowercase_filter': {
-                                'type': 'lowercase'
-                            }
-                        },
-                        'tokenizer': {
-                            'standard_tokenizer': {
-                                'type': 'standard'
-                            }
-                        },
-                    },
-                    'index': {
-                        'number_of_shards': 2
-                    }
-                }
-            }
-        }
+WAGTAILSEARCH_BACKENDS = {
+    'default': {
+        'BACKEND': 'wagtail.search.backends.database',
+        'AUTO_UPDATE': True,
+        'ATOMIC_REBUILD': True,
     }
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
@@ -273,9 +240,6 @@ HS_TICKET_PIPELINE = config('HS_TICKET_PIPELINE', '891429')
 HS_TICKET_PIPELINE_STAGE = config('HS_TICKET_PIPELINE_STAGE', '891430')
 
 GOOGLE_MAPS_V3_APIKEY = "AIzaSyAZAIjZtkBlsF0ZqvrlkvyLfVn6Bju6bJ4"
-
-# Celery
-CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL')
 
 # Disable update notifications on CMS
 WAGTAIL_ENABLE_UPDATE_CHECK = False

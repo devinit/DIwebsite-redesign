@@ -74,13 +74,8 @@ jobs:
           command_timeout: 30m
           script: |
             export BRANCH=${{ env.BRANCH }}
-            export RABBITMQ_PASSWORD=${{ secrets.RABBITMQ_PASSWORD }}
-            export ELASTIC_SEARCH_URL=${{ secrets.ELASTIC_SEARCH_URL }}
-            export ELASTIC_PASSWORD=${{ secrets.ELASTIC_PASSWORD }}
             export SECRET_KEY="${{ secrets.SECRET_KEY }}"
-            export ELASTIC_USERNAME=${{ secrets.ELASTIC_USERNAME }}
             export ENVIRONMENT=${{ env.ENVIRONMENT }}
-            export CELERY_BROKER_URL=${{ secrets.CELERY_BROKER_URL }}
             export DATABASE_URL=${{ secrets.DATABASE_URL }}
             export DEFAULT_FROM_EMAIL=${{ secrets.DEFAULT_FROM_EMAIL }}
             export EMAIL_HOST=${{ secrets.EMAIL_HOST }}
@@ -94,8 +89,5 @@ jobs:
             export SITE_URL=${{ env.SITE_URL }}
             export WWW_SITE_URL=${{ env.WWW_SITE_URL }}
             export DATA_SITE_URL=${{ env.DATA_SITE_URL }}
-            export RABBITMQ_DEFAULT_USER=di_website
-            export RABBITMQ_DEFAULT_PASS=${{ secrets.RABBITMQ_PASSWORD }}
-            export RABBITMQ_DEFAULT_VHOST=myvhost
             cp -r deploy_script/deploy.sh .
             chmod +x deploy.sh && ./deploy.sh run

@@ -14,7 +14,6 @@ services:
   blue:
     depends_on:
       - db
-      - rabbitmq
     expose:
       - "8090"
     env_file: .env
@@ -22,29 +21,15 @@ services:
       - HS_API_KEY
       - HS_TICKET_PIPELINE
       - HS_TICKET_PIPELINE_STAGE
-      - ELASTIC_SEARCH_URL
     build:
       context: .
     volumes:
       - ./:/code/
-      - ./config/celery/default:/etc/default
-      - ./config/celery/init.d:/etc/init.d
     restart: always
     command: python manage.py runserver 0.0.0.0:80
     ports:
       - "80:80"
 
-  rabbitmq:
-    image: rabbitmq:latest
-    ports:
-      - 4369:4369
-      - 5671:5671
-      - 5672:5672
-      - 15672:15672
-    restart: always
-
 volumes:
   diwebsite_db:
-    external: true
-  index_db:
     external: true

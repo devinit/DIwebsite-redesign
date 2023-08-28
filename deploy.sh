@@ -23,7 +23,7 @@ REPOSITORY="git@github.com:devinit/"$APP_NAME".git"
 ACTIVE_BRANCH=$BRANCH
 ENVIRONMENT=$ENVIRONMENT
 STAGING_IP=
-ENVIROMENT_VARIABLES='ENVIRONMENT;SECRET_KEY;DEFAULT_FROM_EMAIL;EMAIL_HOST;EMAIL_BACKEND;EMAIL_HOST_USER;EMAIL_HOST_PASSWORD;HS_API_KEY;HS_TICKET_PIPELINE;HS_TICKET_PIPELINE_STAGE;ELASTIC_USERNAME;ELASTIC_PASSWORD;RABBITMQ_PASSWORD;DATABASE_URL;CELERY_BROKER_URL;ELASTIC_SEARCH_URL;BRANCH;GITHUB_TOKEN;SITE_URL;WWW_SITE_URL;DATA_SITE_URL'
+ENVIROMENT_VARIABLES='ENVIRONMENT;SECRET_KEY;DEFAULT_FROM_EMAIL;EMAIL_HOST;EMAIL_BACKEND;EMAIL_HOST_USER;EMAIL_HOST_PASSWORD;HS_API_KEY;HS_TICKET_PIPELINE;HS_TICKET_PIPELINE_STAGE;DATABASE_URL;BRANCH;GITHUB_TOKEN;SITE_URL;WWW_SITE_URL;DATA_SITE_URL'
 
 OIFS=$IFS
 IFS=';'
@@ -45,7 +45,7 @@ function log {
 
 function setup_docker_storage {
 
-    start_new_process 'Setting up new docker storage for postgres and elastic search'
+    start_new_process 'Setting up new docker storage for postgres'
     docker_volumes="$( docker volume ls )"
 
     for storage in $DOCKER_STORAGE
@@ -120,9 +120,9 @@ function backup_database {
 
 }
 
-function elastic_search_reindex {
+function search_reindex {
 
-    start_new_process "Re-indexing elastic search"
+    start_new_process "Re-indexing search"
     cd $APP_DIR
     sleep 60s
     docker-compose exec -T ${new_state} python manage.py update_index
@@ -168,35 +168,6 @@ function perform_git_operations {
             exit 20;
         }
     fi
-}
-
-
-function start_link_checker_processes {
-
-    start_new_process "Creating Rabbit MQ user and vhost for celery"
-    cd $APP_DIR
-
-    until docker-compose exec -T rabbitmq rabbitmqctl start_app; do
-        log "Rabbit is unavailable - sleeping"
-        sleep 10
-    done
-    if  docker-compose exec -T rabbitmq rabbitmqctl list_users | grep -q "di_website"; then
-        log "user already exists. Skipping ..."
-    else
-        docker-compose exec -T rabbitmq rabbitmqctl add_user di_website $RABBITMQ_PASSWORD
-        docker-compose exec -T rabbitmq rabbitmqctl add_vhost myvhost
-        docker-compose exec -T rabbitmq rabbitmqctl set_user_tags di_website di_website
-        docker-compose exec -T rabbitmq rabbitmqctl set_permissions -p myvhost di_website ".*" ".*" ".*"
-    fi
-
-
-    start_new_process "Starting celery"
-    docker-compose exec -T ${new_state} chown root '/etc/default/celeryd'
-    docker-compose exec -T ${new_state} chmod 640 '/etc/default/celeryd'
-    docker-compose exec -T ${new_state} /etc/init.d/celeryd start
-
-    log "Finished setting up link checker .."
-
 }
 
 function enable_https_configs {
@@ -293,8 +264,7 @@ then
     source scripts/init.sh
     docker-compose -f docker-compose-consul.yml up -d
     setup_blue_green_deployment
-    start_link_checker_processes
-    elastic_search_reindex
+    search_reindex
 
     start_new_process "Generating static assets"
     docker-compose exec -T ${new_state} python manage.py collectstatic --noinput

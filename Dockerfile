@@ -49,10 +49,6 @@ RUN apk add --no-cache --virtual .build-deps build-base linux-headers \
 
 RUN apk add --no-cache bash
 
-# Create unprivileged celery user
-RUN addgroup celery
-RUN adduser -D -g '' celery -G celery
-
 #Install nvm to be used by user wagail
 EXPOSE 8090
 

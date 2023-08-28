@@ -15,14 +15,6 @@ DEBUG_TOOLBAR_CONFIG = {
     'INTERCEPT_REDIRECTS': False,
 }
 
-if not config('ELASTIC_SEARCH_URL', ''):
-    WAGTAILSEARCH_BACKENDS = {
-        'default': {
-            'BACKEND': 'wagtail.search.backends.database',
-            'AUTO_UPDATE': True,
-            'ATOMIC_REBUILD': True,
-        }
-    }
 
 try:
     from .local import *

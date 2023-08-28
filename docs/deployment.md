@@ -36,12 +36,7 @@ The combination of Consul, Registrator and Compose is used to implement service 
         PROD_HOST - production server IP
         USERNAME - production username
         PROD_BRANCH - production branch
-        RABBITMQ_PASSWORD - rabbitmq password
-        ELASTIC_SEARCH_URL - elasticsearch url
-        ELASTIC_PASSWORD - elasticsearch password
         SECRET_KEY
-        ELASTIC_USERNAME
-        CELERY_BROKER_URL
         DATABASE_URL
         DEFAULT_FROM_EMAIL
         EMAIL_HOST

@@ -295,3 +295,17 @@ WAGTAILIMAGES_FORMAT_CONVERSIONS = {
     'bmp': 'webp',
     'gif': 'gif'
 }
+
+# Caches
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'wagtail_cache',
+        'TIMEOUT': 86400,
+    },
+    'renditions': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'wagtail_renditions_cache',
+        'TIMEOUT': 86400,
+    }
+}

@@ -7,6 +7,8 @@ until psql $DATABASE_URL -c '\l'; do
   sleep 1
 done
 
+python manage.py createcachetable
+
 
 if [ "$1" = 'gunicorn' ]; then
     >&2 echo "Executing collectstatic and migration"

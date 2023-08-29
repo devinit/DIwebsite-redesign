@@ -12,6 +12,8 @@ from django.db import models
 from django.utils.functional import cached_property
 from django.utils.text import slugify
 
+from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
+
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
@@ -272,30 +274,28 @@ class PublicationIndexPage(HeroMixin, Page):
             audio_visual_media = audio_visual_media.filter(publication_type__slug=types_filter)
 
         if search_filter:
-            query = Query.get(search_filter)
-            query.add_hit()
-            if stories:
-                child_count = reduce(operator.add, [len(pub.get_children()) for pub in stories])
-                if child_count:
-                    pub_children = reduce(operator.or_, [pub.get_children() for pub in stories]).live().specific().search(search_filter).annotate_score("_child_score")
-                    if pub_children:
-                        matching_parents = reduce(operator.or_, [stories.parent_of(child).annotate(_score=models.Value(child._child_score, output_field=models.FloatField())) for child in pub_children])
-                        stories = list(chain(stories.exclude(id__in=matching_parents.values_list('id', flat=True)).search(search_filter).annotate_score("_score"), matching_parents))
-                    else:
-                        stories = stories.search(search_filter).annotate_score("_score")
-                else:
-                    stories = stories.search(search_filter).annotate_score("_score")
-            legacy_pubs = legacy_pubs.search(search_filter).annotate_score("_score")
-            short_pubs = short_pubs.search(search_filter).annotate_score("_score")
-            audio_visual_media = audio_visual_media.search(search_filter).annotate_score('_score')
+            print(search_filter)
+            query = SearchQuery(search_filter)
+            vector = SearchVector("title", "hero_text")
+            stories = stories.annotate(
+                _search=vector,
+                _score=SearchRank(vector, query)
+            ).filter(_search=query)
+            legacy_pubs = legacy_pubs.annotate(
+                _search=vector,
+                _score=SearchRank(vector, query)
+            ).filter(_search=query)
+            short_pubs = short_pubs.annotate(
+                _search=vector,
+                _score=SearchRank(vector, query)
+            ).filter(_search=query)
+            audio_visual_media = audio_visual_media.annotate(
+                _search=vector,
+                _score=SearchRank(vector, query)
+            ).filter(_search=query)
 
         story_list = list(chain(stories, legacy_pubs, short_pubs, audio_visual_media))
-        elasticsearch_is_active = True
-        for story in story_list:
-            if hasattr(story, "_score"):
-                if story._score is None:
-                    elasticsearch_is_active = False
-        if selected_sort == "score" and elasticsearch_is_active:
+        if selected_sort == "score":
             story_list.sort(key=lambda x: x._score, reverse=True)
         elif selected_sort == "date_asc":
             story_list.sort(key=lambda x: x.published_date, reverse=False)

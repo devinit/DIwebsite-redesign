@@ -15,6 +15,7 @@ import os
 import dj_database_url
 from decouple import config
 import dotenv
+from storages.backends.s3boto3 import S3Boto3Storage
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
@@ -94,8 +95,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'whitenoise.runserver_nostatic',
+    'collectfast',
     'django.contrib.staticfiles',
     'django.contrib.postgres',
+
 ]
 
 MIDDLEWARE = [
@@ -205,14 +208,31 @@ STATICFILES_DIRS = [
 # Javascript / CSS assets being served from cache (e.g. after a Wagtail upgrade).
 # See https://docs.djangoproject.com/en/2.2/ref/contrib/staticfiles/#manifeststaticfilesstorage
 # STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+USE_SPACES = config('USE_SPACES') == 'TRUE'
+AWS_STATIC_LOCATION = 'assets'
+AWS_MEDIA_LOCATION = 'media'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
-STATIC_URL = '/assets/'
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'storage')
-MEDIA_URL = '/media/'
-
+if USE_SPACES:
+    AWS_S3_FILE_OVERWRITE = False
+    AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+    AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
+    AWS_DEFAULT_ACL = 'public-read'
+    AWS_S3_ENDPOINT_URL = 'https://ams3.digitaloceanspaces.com'
+    AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
+    STATIC_URL = f'https://{AWS_S3_ENDPOINT_URL}/{AWS_STATIC_LOCATION}/'
+    MEDIA_URL = f'https://{AWS_S3_ENDPOINT_URL}/{AWS_MEDIA_LOCATION}/'
+    STATICFILES_STORAGE = 'di_website.settings.custom_storages.StaticStorage'
+    DEFAULT_FILE_STORAGE = 'di_website.settings.custom_storages.MediaStorage'
+    COLLECTFAST_STRATEGY = 'collectfast.strategies.boto3.Boto3Strategy'
+    COLLECTFAST_THREADS = 20
+else:
+    STATIC_URL = '/assets/'
+    STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'storage')
+    COLLECTFAST_ENABLED = False
 
 # Wagtail settings
 
@@ -234,11 +254,6 @@ EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL') or 'devinitautomailer@gmail.com'
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
-
-# hubspot settings
-HS_API_KEY = config('HS_API_KEY', default='')
-HS_TICKET_PIPELINE = config('HS_TICKET_PIPELINE', '891429')
-HS_TICKET_PIPELINE_STAGE = config('HS_TICKET_PIPELINE_STAGE', '891430')
 
 GOOGLE_MAPS_V3_APIKEY = "AIzaSyAZAIjZtkBlsF0ZqvrlkvyLfVn6Bju6bJ4"
 
@@ -308,5 +323,10 @@ CACHES = {
         'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
         'LOCATION': 'wagtail_renditions_cache',
         'TIMEOUT': 86400,
-    }
+    },
+    'collectfast': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'collectfast_cache',
+        'TIMEOUT': 86400,
+    },
 }

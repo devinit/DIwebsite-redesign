@@ -82,9 +82,6 @@ jobs:
             export EMAIL_BACKEND=${{ secrets.EMAIL_BACKEND }}
             export EMAIL_HOST_USER=${{ secrets.EMAIL_HOST_USER }}
             export EMAIL_HOST_PASSWORD=${{secrets.EMAIL_HOST_PASSWORD }}
-            export HS_API_KEY=${{ secrets.HS_API_KEY }}
-            export HS_TICKET_PIPELINE=${{ secrets.HS_TICKET_PIPELINE }}
-            export HS_TICKET_PIPELINE_STAGE=${{ secrets.HS_TICKET_PIPELINE_STAGE }}
             export GITHUB_TOKEN=${{ secrets.TOKEN_GITHUB }}
             export SITE_URL=${{ env.SITE_URL }}
             export WWW_SITE_URL=${{ env.WWW_SITE_URL }}

@@ -24,9 +24,6 @@ services:
       - "8090"
     env_file: .env
     environment:
-      - HS_API_KEY
-      - HS_TICKET_PIPELINE
-      - HS_TICKET_PIPELINE_STAGE
       - SERVICE_8090_NAME=blue
       - SERVICE_8090_TAGS=backends
     volumes:
@@ -44,9 +41,6 @@ services:
       - "8090"
     env_file: .env
     environment:
-      - HS_API_KEY
-      - HS_TICKET_PIPELINE
-      - HS_TICKET_PIPELINE_STAGE
       - SERVICE_8090_NAME=green
       - SERVICE_8090_TAGS=backends
     volumes:

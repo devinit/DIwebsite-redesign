@@ -43,9 +43,6 @@ The combination of Consul, Registrator and Compose is used to implement service 
         EMAIL_BACKEND
         EMAIL_HOST_USER
         EMAIL_HOST_PASSWORD
-        HS_API_KEY
-        HS_TICKET_PIPELINE
-        HS_TICKET_PIPELINE_STAGE
 ```
 
 - The deployment stage shall only run for the develop and master branches

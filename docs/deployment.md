@@ -43,6 +43,10 @@ The combination of Consul, Registrator and Compose is used to implement service 
         EMAIL_BACKEND
         EMAIL_HOST_USER
         EMAIL_HOST_PASSWORD
+        PROD_S3_ENDPOINT_URL
+        PROD_STORAGE_BUCKET_NAME
+        PROD_S3_ACCESS_KEY_ID
+        PROD_S3_SECRET_ACCESS_KEY
 ```
 
 - The deployment stage shall only run for the develop and master branches

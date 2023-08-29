@@ -52,6 +52,11 @@ write_files:
          AcceptEnv DATABASE_URL
          AcceptEnv BRANCH
          AcceptEnv DEFAULT_FROM_EMAIL
+         AcceptEnv USE_SPACES
+         AcceptEnv AWS_S3_ENDPOINT_URL
+         AcceptEnv AWS_STORAGE_BUCKET_NAME
+         AcceptEnv AWS_ACCESS_KEY_ID
+         AcceptEnv AWS_SECRET_ACCESS_KEY
 
 runcmd:
   - mkdir -p /home/<user>/.ssh && chmod 0700 /home/<user>/.ssh

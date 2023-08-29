@@ -7,7 +7,7 @@
       <img src="{{hero_img.url}}" alt="{{hero_img.alt}}"/>
     </div>
   {% else %}
-    {% responsiveimage item.hero_image max-400x250 as hero_img %}
+    {% image item.hero_image max-400x250 as hero_img %}
     <div class="card__media" style="background-image: url({{hero_img.url}});"></div>
   {% endif %}
 {% else %}

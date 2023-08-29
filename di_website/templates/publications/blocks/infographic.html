@@ -25,7 +25,7 @@
   </div>
   {% endif %}
   <figure>
-    {% responsiveimage value.wide_image width-1200 as wide %}
+    {% image value.wide_image width-1200 as wide %}
     <a href="{{ wide.url }}" target="_blank" title="Click to open image in new window">
       <picture>
         {% for block in value.images %}

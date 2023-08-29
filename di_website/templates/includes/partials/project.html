@@ -4,7 +4,7 @@
   <div class="project__main">
     <div class="project__header">
       {% if self.image %}
-        {% responsiveimage self.image fill-180x112-c100 as image %}
+        {% image self.image fill-180x112-c100 as image %}
         <div class="project__media">
           <img src="{{ image.url }}" alt="{{ image.alt }}">
         </div>

@@ -274,7 +274,6 @@ class PublicationIndexPage(HeroMixin, Page):
             audio_visual_media = audio_visual_media.filter(publication_type__slug=types_filter)
 
         if search_filter:
-            print(search_filter)
             query = SearchQuery(search_filter)
             vector = SearchVector("title", "hero_text")
             stories = stories.annotate(

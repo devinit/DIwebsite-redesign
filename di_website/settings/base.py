@@ -15,7 +15,6 @@ import os
 import dj_database_url
 from decouple import config
 import dotenv
-from storages.backends.s3boto3 import S3Boto3Storage
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
@@ -226,6 +225,7 @@ if USE_SPACES:
     DEFAULT_FILE_STORAGE = 'di_website.settings.custom_storages.MediaStorage'
     COLLECTFAST_STRATEGY = 'collectfast.strategies.boto3.Boto3Strategy'
     COLLECTFAST_THREADS = 20
+    AWS_QUERYSTRING_AUTH = False
 else:
     STATIC_URL = '/assets/'
     STATIC_ROOT = os.path.join(BASE_DIR, 'assets')

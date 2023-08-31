@@ -54,4 +54,4 @@ EXPOSE 8090
 
 # start uWSGI, using a wrapper script to allow us to easily add more commands to container startup:
 ENTRYPOINT ["/code/docker-entrypoint.sh"]
-CMD ["gunicorn","di_website.wsgi:application","--bind","0.0.0.0:8090","--workers","3"]
+CMD ["gunicorn","di_website.wsgi:application","--bind","0.0.0.0:8090","--workers","4","--worker-class","gevent","--worker-connections","10"]

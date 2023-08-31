@@ -94,9 +94,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'whitenoise.runserver_nostatic',
+    'collectfast',
     'django.contrib.staticfiles',
     'django.contrib.postgres',
-    'compressor',
+
 ]
 
 MIDDLEWARE = [
@@ -194,7 +195,6 @@ USE_TZ = True
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'compressor.finders.CompressorFinder',
 ]
 
 STATICFILES_DIRS = [
@@ -220,18 +220,20 @@ if USE_SPACES:
     AWS_S3_ENDPOINT_URL = 'https://ams3.digitaloceanspaces.com'
     AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.ams3.cdn.digitaloceanspaces.com'
     AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
-    COMPRESS_ENABLED = True
     STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_STATIC_LOCATION}/'
     MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_MEDIA_LOCATION}/'
-    COMPRESS_STORAGE = 'di_website.settings.custom_storages.StaticStorage'
+    STATICFILES_STORAGE = 'di_website.settings.custom_storages.StaticStorage'
     DEFAULT_FILE_STORAGE = 'di_website.settings.custom_storages.MediaStorage'
+    COLLECTFAST_STRATEGY = 'collectfast.strategies.boto3.Boto3Strategy'
+    COLLECTFAST_THREADS = 20
     AWS_QUERYSTRING_AUTH = False
 else:
-    MEDIA_URL = '/media/'
     STATIC_URL = '/assets/'
+    STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    MEDIA_URL = '/media/'
     MEDIA_ROOT = os.path.join(BASE_DIR, 'storage')
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
+    COLLECTFAST_ENABLED = False
 
 # Wagtail settings
 
@@ -322,5 +324,10 @@ CACHES = {
         'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
         'LOCATION': 'wagtail_renditions_cache',
         'TIMEOUT': 86400,
-    }
+    },
+    'collectfast': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'collectfast_cache',
+        'TIMEOUT': 86400,
+    },
 }

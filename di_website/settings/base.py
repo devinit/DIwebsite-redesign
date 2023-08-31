@@ -207,7 +207,6 @@ STATICFILES_DIRS = [
 # See https://docs.djangoproject.com/en/2.2/ref/contrib/staticfiles/#manifeststaticfilesstorage
 # STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 USE_SPACES = config('USE_SPACES') == 'TRUE'
-AWS_STATIC_LOCATION = 'assets'
 AWS_MEDIA_LOCATION = 'media'
 
 if USE_SPACES:
@@ -219,17 +218,16 @@ if USE_SPACES:
     AWS_S3_ENDPOINT_URL = 'https://ams3.digitaloceanspaces.com'
     AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.ams3.cdn.digitaloceanspaces.com'
     AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
-    STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_STATIC_LOCATION}/'
     MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_MEDIA_LOCATION}/'
-    STATICFILES_STORAGE = 'di_website.settings.custom_storages.StaticStorage'
     DEFAULT_FILE_STORAGE = 'di_website.settings.custom_storages.MediaStorage'
     AWS_QUERYSTRING_AUTH = False
 else:
-    STATIC_URL = '/assets/'
-    STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
     MEDIA_URL = '/media/'
     MEDIA_ROOT = os.path.join(BASE_DIR, 'storage')
+
+STATIC_URL = '/assets/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Wagtail settings
 

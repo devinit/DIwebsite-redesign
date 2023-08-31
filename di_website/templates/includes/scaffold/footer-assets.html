@@ -1,5 +1,7 @@
-{% load static %}
+{% load static compress %}
 
+{% compress js %}
 <script src="{% static 'js/app.bundle.js' %}"></script>
 <script src="{% static 'notice/js/bundle.js' %}"></script>
+{% endcompress %}
 {% include 'includes/partials/anchor.html' %}

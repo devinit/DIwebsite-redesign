@@ -242,4 +242,16 @@ docker-compose restart nginx
 
 If you accidentally have multiple IP addresses for one service in Consul (e.g. stopped service while consul was down)
 
-First, bash into nginx, then `curl -sX GET http://consul:8500/v1/catalog/service/blue` to get the ServiceId.  Followed by `docker-compose -f docker-compose-consul.yml exec consul consul services deregister -id=c06d9f779d7a:blue:8090`
+Check nginx:
+```
+docker-compose exec nginx cat /etc/nginx/conf.d/nginx.conf
+```
+
+Find real IP address:
+```
+docker container ps
+docker inspect e20e0a57d399
+"IPAddress": "192.168.208.6",
+```
+
+First, bash into nginx, then `curl -sX GET http://consul:8500/v1/catalog/service/blue` to get the ServiceId.  Followed by `docker-compose -f docker-compose-consul.yml exec consul consul services deregister -id=ab9298cc69bd:blue:8090`

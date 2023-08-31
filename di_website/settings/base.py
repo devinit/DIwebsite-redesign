@@ -94,7 +94,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'whitenoise.runserver_nostatic',
-    'collectfast',
     'django.contrib.staticfiles',
     'django.contrib.postgres',
 
@@ -224,8 +223,6 @@ if USE_SPACES:
     MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_MEDIA_LOCATION}/'
     STATICFILES_STORAGE = 'di_website.settings.custom_storages.StaticStorage'
     DEFAULT_FILE_STORAGE = 'di_website.settings.custom_storages.MediaStorage'
-    COLLECTFAST_STRATEGY = 'collectfast.strategies.boto3.Boto3Strategy'
-    COLLECTFAST_THREADS = 20
     AWS_QUERYSTRING_AUTH = False
 else:
     STATIC_URL = '/assets/'
@@ -233,7 +230,6 @@ else:
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
     MEDIA_URL = '/media/'
     MEDIA_ROOT = os.path.join(BASE_DIR, 'storage')
-    COLLECTFAST_ENABLED = False
 
 # Wagtail settings
 
@@ -323,11 +319,6 @@ CACHES = {
     'renditions': {
         'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
         'LOCATION': 'wagtail_renditions_cache',
-        'TIMEOUT': 86400,
-    },
-    'collectfast': {
-        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
-        'LOCATION': 'collectfast_cache',
         'TIMEOUT': 86400,
     },
 }

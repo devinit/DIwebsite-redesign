@@ -235,9 +235,6 @@ function setup_blue_green_deployment {
 
 if [ ${args[0]} == 'run' ]
 then
-    if [ -d $APP_DIR ]; then
-        backup_database
-    fi
 
 
     perform_git_operations

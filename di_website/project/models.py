@@ -111,7 +111,7 @@ class FocusAreasPage(TypesetBodyMixin, HeroMixin, Page):
         hero_panels(),
         FieldPanel('body'),
         MultiFieldPanel([
-            InlinePanel('focus_areas_page_link', label="Focus Areas", max_num=6)
+            InlinePanel('focus_areas_page_link', label="Focus Areas"),
         ], heading='Focus Areas'),
         MultiFieldPanel([
             FieldPanel('other_pages_heading'),

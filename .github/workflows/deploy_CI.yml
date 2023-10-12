@@ -42,6 +42,11 @@ jobs:
           echo "WWW_SITE_URL=www.devinit.org" >> $GITHUB_ENV
           echo "SITE_URL=devinit.org" >> $GITHUB_ENV
           echo "DATA_SITE_URL=data.devinit.org" >> $GITHUB_ENV
+          echo "USE_SPACES=FALSE" >> $GITHUB_ENV
+          echo "AWS_S3_ENDPOINT_URL=None" >> $GITHUB_ENV
+          echo "AWS_STORAGE_BUCKET_NAME=None" >> $GITHUB_ENV
+          echo "AWS_ACCESS_KEY_ID=None" >> $GITHUB_ENV
+          echo "AWS_SECRET_ACCESS_KEY=None" >> $GITHUB_ENV
 
       - name: Set env for staging or dev
         if: endsWith(github.ref, '/develop') || contains(env.TAG, '-beta')
@@ -52,6 +57,11 @@ jobs:
           echo "WWW_SITE_URL=dev.devinit.org" >> $GITHUB_ENV
           echo "SITE_URL=dev.devinit.org" >> $GITHUB_ENV
           echo "DATA_SITE_URL=dev.devinit.org" >> $GITHUB_ENV
+          echo "USE_SPACES=TRUE" >> $GITHUB_ENV
+          echo "AWS_S3_ENDPOINT_URL=${{ secrets.PROD_S3_ENDPOINT_URL }}" >> $GITHUB_ENV
+          echo "AWS_STORAGE_BUCKET_NAME=${{ secrets.PROD_STORAGE_BUCKET_NAME }}" >> $GITHUB_ENV
+          echo "AWS_ACCESS_KEY_ID=${{ secrets.PROD_S3_ACCESS_KEY_ID }}" >> $GITHUB_ENV
+          echo "AWS_SECRET_ACCESS_KEY=${{ secrets.PROD_S3_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
 
       - name: copy deploy file via ssh
         uses: appleboy/scp-action@v0.1.3
@@ -74,28 +84,22 @@ jobs:
           command_timeout: 30m
           script: |
             export BRANCH=${{ env.BRANCH }}
-            export RABBITMQ_PASSWORD=${{ secrets.RABBITMQ_PASSWORD }}
-            export ELASTIC_SEARCH_URL=${{ secrets.ELASTIC_SEARCH_URL }}
-            export ELASTIC_PASSWORD=${{ secrets.ELASTIC_PASSWORD }}
             export SECRET_KEY="${{ secrets.SECRET_KEY }}"
-            export ELASTIC_USERNAME=${{ secrets.ELASTIC_USERNAME }}
             export ENVIRONMENT=${{ env.ENVIRONMENT }}
-            export CELERY_BROKER_URL=${{ secrets.CELERY_BROKER_URL }}
             export DATABASE_URL=${{ secrets.DATABASE_URL }}
             export DEFAULT_FROM_EMAIL=${{ secrets.DEFAULT_FROM_EMAIL }}
             export EMAIL_HOST=${{ secrets.EMAIL_HOST }}
             export EMAIL_BACKEND=${{ secrets.EMAIL_BACKEND }}
             export EMAIL_HOST_USER=${{ secrets.EMAIL_HOST_USER }}
             export EMAIL_HOST_PASSWORD=${{secrets.EMAIL_HOST_PASSWORD }}
-            export HS_API_KEY=${{ secrets.HS_API_KEY }}
-            export HS_TICKET_PIPELINE=${{ secrets.HS_TICKET_PIPELINE }}
-            export HS_TICKET_PIPELINE_STAGE=${{ secrets.HS_TICKET_PIPELINE_STAGE }}
             export GITHUB_TOKEN=${{ secrets.TOKEN_GITHUB }}
             export SITE_URL=${{ env.SITE_URL }}
             export WWW_SITE_URL=${{ env.WWW_SITE_URL }}
             export DATA_SITE_URL=${{ env.DATA_SITE_URL }}
-            export RABBITMQ_DEFAULT_USER=di_website
-            export RABBITMQ_DEFAULT_PASS=${{ secrets.RABBITMQ_PASSWORD }}
-            export RABBITMQ_DEFAULT_VHOST=myvhost
+            export USE_SPACES=${{ env.USE_SPACES }}
+            export AWS_S3_ENDPOINT_URL=${{ env.AWS_S3_ENDPOINT_URL }}
+            export AWS_STORAGE_BUCKET_NAME=${{ env.AWS_STORAGE_BUCKET_NAME }}
+            export AWS_ACCESS_KEY_ID=${{ env.AWS_ACCESS_KEY_ID }}
+            export AWS_SECRET_ACCESS_KEY=${{ env.AWS_SECRET_ACCESS_KEY }}
             cp -r deploy_script/deploy.sh .
             chmod +x deploy.sh && ./deploy.sh run

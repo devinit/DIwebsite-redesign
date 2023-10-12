@@ -1,5 +1,6 @@
 upstream spotlights {
     server 157.245.39.153;
+    keepalive 4;
 }
 
 upstream blue {
@@ -12,6 +13,7 @@ upstream blue {
             server 127.0.0.1:12345;
         {{ end }}
     {{ end }}
+    keepalive 4;
 }
 
 upstream green {
@@ -24,12 +26,13 @@ upstream green {
             server 127.0.0.1:12345;
         {{ end }}
     {{ end }}
+    keepalive 4;
 }
 
 server {
     listen 80;
 
-    server_name devinit.org www.devinit.org;
+    server_name devinit.org www.devinit.org refactor.devinit.org;
 
     client_max_body_size 100M;
 
@@ -44,11 +47,16 @@ server {
             {{ end }}
         {{ end }}
         proxy_read_timeout 600;
-        proxy_buffering off;
+        proxy_buffer_size          128k;
+        proxy_buffers              4 256k;
+        proxy_busy_buffers_size    256k;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header   X-Real-IP $remote_addr;
         proxy_set_header Host $http_host;
         proxy_redirect off;
         proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_http_version 1.1;
+        proxy_set_header   "Connection" "";
     }
 
     error_page 404 /404-static.html;
@@ -97,30 +105,44 @@ server {
 
     location /data/spotlight-uganda {
         proxy_pass http://spotlights/spotlight/spotlight-uganda;
+        proxy_http_version 1.1;
+        proxy_set_header   "Connection" "";
     }
 
     location /data/spotlight-uganda/compare {
         proxy_pass http://spotlights/spotlight/spotlight-uganda/compare;
+        proxy_http_version 1.1;
+        proxy_set_header   "Connection" "";
     }
 
     location /data/spotlight-kenya {
         proxy_pass http://spotlights/spotlight/spotlight-kenya;
+        proxy_http_version 1.1;
+        proxy_set_header   "Connection" "";
     }
 
     location /data/spotlight-kenya/compare {
         proxy_pass http://spotlights/spotlight/spotlight-kenya/compare;
+        proxy_http_version 1.1;
+        proxy_set_header   "Connection" "";
     }
 
     location /_next {
         proxy_pass http://spotlights;
+        proxy_http_version 1.1;
+        proxy_set_header   "Connection" "";
     }
 
     location /static {
         proxy_pass http://spotlights;
+        proxy_http_version 1.1;
+        proxy_set_header   "Connection" "";
     }
 
     location /bitly {
         proxy_pass http://spotlights;
+        proxy_http_version 1.1;
+        proxy_set_header   "Connection" "";
     }
 
     rewrite ^(/publications)(.*)$ /resources$2 permanent;

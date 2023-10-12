@@ -49,13 +49,9 @@ RUN apk add --no-cache --virtual .build-deps build-base linux-headers \
 
 RUN apk add --no-cache bash
 
-# Create unprivileged celery user
-RUN addgroup celery
-RUN adduser -D -g '' celery -G celery
-
 #Install nvm to be used by user wagail
 EXPOSE 8090
 
 # start uWSGI, using a wrapper script to allow us to easily add more commands to container startup:
 ENTRYPOINT ["/code/docker-entrypoint.sh"]
-CMD ["gunicorn","di_website.wsgi:application","--bind","0.0.0.0:8090","--workers","3"]
+CMD ["gunicorn","di_website.wsgi:application","--bind","0.0.0.0:8090","--workers","4","--worker-class","gevent","--worker-connections","10"]

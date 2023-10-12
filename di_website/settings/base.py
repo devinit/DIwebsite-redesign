@@ -95,6 +95,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
+    'django.contrib.postgres',
+
 ]
 
 MIDDLEWARE = [
@@ -164,46 +166,13 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-if config('ELASTIC_SEARCH_URL', ''):
-
-    WAGTAILSEARCH_BACKENDS = {
-        'default': {
-            'BACKEND': 'wagtail.search.backends.elasticsearch7',
-            'AUTO_UPDATE': True,
-            'ATOMIC_REBUILD': True,
-            'URLS': [config('ELASTIC_SEARCH_URL', '')],
-            'TIMEOUT': 10,
-            'INDEX_SETTINGS': {
-                'settings': {
-                    'analysis': {
-                        'analyzer': {
-                            "default": {
-                                "tokenizer": "standard_tokenizer",
-                                "filter": [ "stop_filter",  "lowercase_filter" ]
-                            }
-                        },
-                        'filter': {
-                            'stop_filter': {
-                                'type': 'stop',
-                                'ignore_case': True
-                            },
-                            'lowercase_filter': {
-                                'type': 'lowercase'
-                            }
-                        },
-                        'tokenizer': {
-                            'standard_tokenizer': {
-                                'type': 'standard'
-                            }
-                        },
-                    },
-                    'index': {
-                        'number_of_shards': 2
-                    }
-                }
-            }
-        }
+WAGTAILSEARCH_BACKENDS = {
+    'default': {
+        'BACKEND': 'wagtail.search.backends.database',
+        'AUTO_UPDATE': True,
+        'ATOMIC_REBUILD': True,
     }
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
@@ -237,14 +206,28 @@ STATICFILES_DIRS = [
 # Javascript / CSS assets being served from cache (e.g. after a Wagtail upgrade).
 # See https://docs.djangoproject.com/en/2.2/ref/contrib/staticfiles/#manifeststaticfilesstorage
 # STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+USE_SPACES = config('USE_SPACES') == 'TRUE'
+AWS_MEDIA_LOCATION = 'media'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
+if USE_SPACES:
+    AWS_S3_FILE_OVERWRITE = True
+    AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+    AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
+    AWS_DEFAULT_ACL = 'public-read'
+    AWS_S3_ENDPOINT_URL = 'https://ams3.digitaloceanspaces.com'
+    AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.ams3.cdn.digitaloceanspaces.com'
+    AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
+    MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_MEDIA_LOCATION}/'
+    DEFAULT_FILE_STORAGE = 'di_website.settings.custom_storages.MediaStorage'
+    AWS_QUERYSTRING_AUTH = False
+else:
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'storage')
+
 STATIC_URL = '/assets/'
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'storage')
-MEDIA_URL = '/media/'
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Wagtail settings
 
@@ -267,15 +250,7 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL') or 'devinitautomailer@gmail.com'
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
-# hubspot settings
-HS_API_KEY = config('HS_API_KEY', default='')
-HS_TICKET_PIPELINE = config('HS_TICKET_PIPELINE', '891429')
-HS_TICKET_PIPELINE_STAGE = config('HS_TICKET_PIPELINE_STAGE', '891430')
-
 GOOGLE_MAPS_V3_APIKEY = "AIzaSyAZAIjZtkBlsF0ZqvrlkvyLfVn6Bju6bJ4"
-
-# Celery
-CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL')
 
 # Disable update notifications on CMS
 WAGTAIL_ENABLE_UPDATE_CHECK = False
@@ -330,4 +305,18 @@ WAGTAILIMAGES_FORMAT_CONVERSIONS = {
     'png': 'webp',
     'bmp': 'webp',
     'gif': 'gif'
+}
+
+# Caches
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'wagtail_cache',
+        'TIMEOUT': 86400,
+    },
+    'renditions': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'wagtail_renditions_cache',
+        'TIMEOUT': 86400,
+    },
 }

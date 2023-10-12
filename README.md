@@ -48,11 +48,6 @@ Pattern library available online at [http://development-initiatives.surge.sh/](h
 
         python3 manage.py migrate
 
-
-9. Install Rabbitmq in Ubuntu
-
-        sudo apt-get install rabbitmq-server
-
 10. Add
 
         export DJANGO_SETTINGS_MODULE=di_website.settings.dev
@@ -78,9 +73,8 @@ Pattern library available online at [http://development-initiatives.surge.sh/](h
 **Install dependencies**
 
 - [PostgreSQL](https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-20-04-quickstart)
-- [Elastic Search](https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-elasticsearch-on-ubuntu-20-04)
 
-To exclude the Elastic Search dependency, run `docker-compose` with the `docker-compose.minimal.yml` file, as below
+Run `docker-compose` with the `docker-compose.minimal.yml` file, as below
 
         docker-compose -f docker-compose.minimal.yml up --build
 
@@ -112,11 +106,6 @@ If the deployment is from scratch, follow commands below to update content with 
    docker-compose exec web python manage.py importwp
    docker-compose exec web python manage.py update_index
    ```
-To enable rabbitmq management
-   ```
-   docker-compose exec rabbitmq rabbitmq-plugins enable rabbitmq_management
-   ```
-
 
 ## For Spotlights
 1. Fetch data from the old CMS repo
@@ -144,3 +133,125 @@ Widget code sits in the `src` directory. Update the `webpack.config.js` with you
 To bundle your code, run:
 
         npm run build
+
+## Deployment from scratch notes
+
+```
+# Upgrade general dependencies
+apt update
+apt upgrade
+
+# Install docker
+sudo snap refresh && sudo snap install docker
+
+# Install docker ce and compose
+apt-get install ca-certificates curl gnupg
+sudo install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+sudo chmod a+r /etc/apt/keyrings/docker.gpg
+echo \
+  "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+apt-get update
+apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+
+# Start docker daemon
+sudo systemctl enable docker.service
+sudo systemctl enable containerd.service
+
+# Enable docker logrotate
+nano /etc/docker/daemon.json
+{
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "10m",
+    "max-file": "3"
+  }
+}
+systemctl restart docker.service
+
+# Turn on firewall
+ufw allow 80
+ufw allow 443
+ufw allow 22
+ufw enable
+
+# Create user and add to docker group
+adduser di_website
+groupadd docker
+usermod -aG docker di_website
+
+# Install npm
+apt install npm
+
+# Set up containers
+su di_website
+cd ~
+git clone https://github.com/devinit/DIWebsite-redesign.git
+
+APP_NAME="DIwebsite-redesign"
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+APP_DIR=$SCRIPT_DIR'/'$APP_NAME
+DATABASE_BACKUP=$SCRIPT_DIR'/database_backup'
+DATABASE_NAME='di_website'
+DOCKER_STORAGE='diwebsite_db;index_db'
+REPOSITORY="git@github.com:devinit/"$APP_NAME".git"
+
+cat "$APP_DIR/config/nginx/django_https.ctmpl" >> $APP_DIR"/config/nginx/django.conf.ctmpl"
+
+cd ~/DIWebsite-redesign
+
+chmod +x scripts/*
+
+cd ssl
+openssl genrsa > privkey.pem
+openssl req -new -x509 -key privkey.pem > fullchain.pem
+
+cd ..
+
+docker pull gliderlabs/registrator:latest
+docker network create "consul"
+
+docker-compose -f docker-compose-consul.yml up -d
+new_state='blue'
+docker build . -t diwebsite-redesign_web:new
+docker tag diwebsite-redesign_web:new diwebsite-redesign_web:${new_state}
+state='green'
+docker tag diwebsite-redesign_web:new diwebsite-redesign_web:${state}
+docker volume create --name=diwebsite_db
+docker-compose up -d ${new_state}
+docker-compose exec -T db psql
+DROP SCHEMA public CASCADE;
+CREATE SCHEMA public;
+docker-compose exec -T db psql -U di_website -d di_website < ../2023-08-09.backup
+docker-compose down
+
+source scripts/init.sh
+docker-compose stop green
+docker-compose exec -T ${new_state} python manage.py update_index
+
+new_upstream=${blue_upstream}
+./scripts/activate.sh ${new_state} ${state} ${new_upstream} ${key_value_store}
+
+docker-compose restart nginx
+
+```
+
+###
+
+If you accidentally have multiple IP addresses for one service in Consul (e.g. stopped service while consul was down)
+
+Check nginx:
+```
+docker-compose exec nginx cat /etc/nginx/conf.d/nginx.conf
+```
+
+Find real IP address:
+```
+docker container ps
+docker inspect e20e0a57d399
+"IPAddress": "192.168.208.6",
+```
+
+First, bash into nginx, then `curl -sX GET http://consul:8500/v1/catalog/service/blue` to get the ServiceId.  Followed by `docker-compose -f docker-compose-consul.yml exec consul consul services deregister -id=ab9298cc69bd:blue:8090`

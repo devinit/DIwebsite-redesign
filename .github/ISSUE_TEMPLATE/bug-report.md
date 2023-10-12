@@ -3,7 +3,7 @@ name: Bug Report
 about: PLEASE HELP US PROCESS GITHUB ISSUES FASTER BY PROVIDING THE FOLLOWING INFORMATION.
 title: '[BUG] '
 labels: 'bug'
-assignees: 'edwinmp'
+assignees: 'wakibi'
 
 ---
 <!--

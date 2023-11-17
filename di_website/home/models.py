@@ -20,6 +20,7 @@ from wagtailmetadata.models import MetadataPageMixin
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
 
+from .mixins import HomePageContentMixin
 from di_website.common.base import hero_panels, get_related_pages
 from di_website.common.mixins import HeroMixin, OtherPageMixin, SectionBodyMixin, TypesetBodyMixin
 from di_website.common.constants import SIMPLE_RICHTEXT_FEATURES, RICHTEXT_FEATURES_NO_FOOTNOTES
@@ -219,7 +220,7 @@ class HomePageMetaData(MetadataPageMixin):
             return None
 
 
-class HomePage(HomePageMetaData, SectionBodyMixin, Page):
+class HomePage(HomePageMetaData, SectionBodyMixin, HomePageContentMixin, Page):
     def __str__(self):
         return self.title
 
@@ -266,6 +267,8 @@ class HomePage(HomePageMetaData, SectionBodyMixin, Page):
         max_length=200,
         verbose_name='Section heading'
     )
+    new_content = models.BooleanField(blank=True, default=False,
+                                      help_text='This should be checked once all new content has been added')
 
     content_panels = Page.content_panels + [
         MultiFieldPanel([
@@ -288,6 +291,8 @@ class HomePage(HomePageMetaData, SectionBodyMixin, Page):
             InlinePanel('featured_pages', label='Featured Pages')
         ], heading='Featured Work'),
         FieldPanel('sections'),
+        FieldPanel('new_content'),
+        FieldPanel('content'),
         InlinePanel('page_notifications', label='Notifications')
     ]
 

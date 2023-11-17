@@ -1,0 +1,10 @@
+{% load static wagtailcore_tags card_tags generic_tags content_tags %}
+
+{% get_featured_pages self.featured_pages as featured_pages %}
+{% with related_pages=featured_pages heading=self.featured_work_heading %}
+  {% if self.featured_pages|length == 1 %}
+      {% include 'home/includes/featured_page.html' %}
+  {% else %}
+      {% include 'includes/partials/related_content.html' %}
+  {% endif %}
+{% endwith %}

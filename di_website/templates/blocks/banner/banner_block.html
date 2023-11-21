@@ -37,7 +37,7 @@
                 {% include_block button %}
               {% else %}
                 {% if button.value.page %}
-                  <a href="{% pageurl button.value.page %}" class="button button--reverse">
+                  <a href="{% pageurl button.value.page %}" class="button {% if not self.light %} button--reverse{% endif %}">
                     {% if button.value.caption %}
                     {{ button.value.caption }}
                     {% else %}
@@ -45,7 +45,7 @@
                     {% endif %}
                   </a>
                 {% elif button.value.url %}
-                  <a href="{{ button.value.url }}" class="button button--reverse">
+                  <a href="{{ button.value.url }}" class="button {% if not self.light %} button--reverse{% endif %}">
                     {{ button.value.caption }}
                   </a>
                 {% endif %}

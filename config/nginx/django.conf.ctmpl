@@ -27,9 +27,16 @@ upstream green {
 }
 
 server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    server_name _;
+    return 444;
+}
+
+server {
     listen 80;
 
-    server_name devinit.org www.devinit.org;
+    server_name devinit.org www.devinit.org dev.devinit.org;
 
     client_max_body_size 100M;
 

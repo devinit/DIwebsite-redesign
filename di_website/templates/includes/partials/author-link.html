@@ -2,7 +2,7 @@
 
 <a href="{% if page %}{% pageurl page %}{% else %}{{link}}{% endif %}?referrer=author" class="m-author">
   {% if img %}
-    {% responsiveimage img fill-200x200 as image %}
+    {% image img fill-200x200 as image %}
     {% if image.url != '/media/not-found' %}
       <div class="m-author__image" style="background-image: url({{image.url}})"></div>
     {% else %}

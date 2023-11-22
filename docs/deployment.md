@@ -36,21 +36,17 @@ The combination of Consul, Registrator and Compose is used to implement service 
         PROD_HOST - production server IP
         USERNAME - production username
         PROD_BRANCH - production branch
-        RABBITMQ_PASSWORD - rabbitmq password
-        ELASTIC_SEARCH_URL - elasticsearch url
-        ELASTIC_PASSWORD - elasticsearch password
         SECRET_KEY
-        ELASTIC_USERNAME
-        CELERY_BROKER_URL
         DATABASE_URL
         DEFAULT_FROM_EMAIL
         EMAIL_HOST
         EMAIL_BACKEND
         EMAIL_HOST_USER
         EMAIL_HOST_PASSWORD
-        HS_API_KEY
-        HS_TICKET_PIPELINE
-        HS_TICKET_PIPELINE_STAGE
+        PROD_S3_ENDPOINT_URL
+        PROD_STORAGE_BUCKET_NAME
+        PROD_S3_ACCESS_KEY_ID
+        PROD_S3_SECRET_ACCESS_KEY
 ```
 
 - The deployment stage shall only run for the develop and master branches

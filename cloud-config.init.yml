@@ -1,6 +1,6 @@
 #cloud-config
 # ^ the line above must be kept exactly as is
-# Digital Ocean droplet creation using User Data Cloud-Init 
+# Digital Ocean droplet creation using User Data Cloud-Init
 # ------------------------------------------------------------------------------
 # 1. Change '<user>' to your custom username, this is used for ssh login
 # 2. Change '<ssh-rsa>' public key under `ssh-authorized-keys:`
@@ -49,13 +49,14 @@ write_files:
          AcceptEnv LANG LC_*
          AcceptEnv EMAIL_*
          Subsystem sftp /usr/lib/openssh/sftp-server
-         AcceptEnv ELASTIC_*
          AcceptEnv DATABASE_URL
-         AcceptEnv HS_*
-         AcceptEnv CELERY_BROKER_URL
-         AcceptEnv RABBITMQ_PASSWORD
          AcceptEnv BRANCH
          AcceptEnv DEFAULT_FROM_EMAIL
+         AcceptEnv USE_SPACES
+         AcceptEnv AWS_S3_ENDPOINT_URL
+         AcceptEnv AWS_STORAGE_BUCKET_NAME
+         AcceptEnv AWS_ACCESS_KEY_ID
+         AcceptEnv AWS_SECRET_ACCESS_KEY
 
 runcmd:
   - mkdir -p /home/<user>/.ssh && chmod 0700 /home/<user>/.ssh

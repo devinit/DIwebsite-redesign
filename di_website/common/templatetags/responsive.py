@@ -1,5 +1,3 @@
-import os
-from PIL import Image
 from django import template
 from wagtail.images.models import SourceImageIOError
 from wagtail.images.templatetags.wagtailimages_tags import ImageNode
@@ -7,17 +5,6 @@ from django.utils.safestring import mark_safe
 from di_website.common.templatetags.string_utils import uid
 
 register = template.Library()
-
-
-def convert_to_webp(file_path):
-    if os.path.exists(file_path):
-        convert_image = Image.open(file_path)
-        # Convert the image to WebP format
-        if file_path.lower().endswith((".jpg", ".jpeg", ".png")):
-            webp_path = os.path.splitext(file_path)[0] + ".webp"
-            convert_image.save(webp_path, "WebP")
-            return True
-    return False
 
 
 @register.tag(name="responsiveimage")
@@ -142,16 +129,11 @@ class ResponsiveImageNode(ImageNode, template.Node):
                     tmprend.file.name = 'not-found'
 
             for index, rend in enumerate(srcset_renditions):
-                if convert_to_webp(rend.file.path):
-                    rend.file.name = rend.file.name.rsplit('.', 1)[0] + '.webp'
                 newsrcseturls.append(' '.join([rend.url, widths[index]]))
 
         except KeyError:
             newsrcseturls = []
             pass
-
-        if convert_to_webp(rendition.file.path):
-            rendition.file.name = rendition.file.name.rsplit('.', 1)[0] + '.webp'
 
         if self.output_var_name:
             rendition.srcset = ', '.join(newsrcseturls)

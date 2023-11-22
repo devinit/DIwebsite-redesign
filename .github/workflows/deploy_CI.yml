@@ -70,7 +70,6 @@ jobs:
         with:
           host: ${{ env.HOST }}
           username: ${{ env.USERNAME }}
-          passphrase: ${{ secrets.PASS_PHRASE }}
           port: ${{ secrets.PORT }}
           key: ${{ secrets.KEY }}
           source: 'deploy_script'
@@ -81,7 +80,6 @@ jobs:
         with:
           host: ${{ env.HOST }}
           username: ${{ env.USERNAME }}
-          passphrase: ${{ secrets.PASS_PHRASE }}
           port: ${{ secrets.PORT }}
           key: ${{ secrets.KEY }}
           command_timeout: 30m

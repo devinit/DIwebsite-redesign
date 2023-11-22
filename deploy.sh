@@ -246,6 +246,8 @@ then
 
     mkdir -p $APP_DIR"/assets"
     mkdir -p $APP_DIR"/storage"
+    mkdir -p $APP_DIR"/ssl"
+    mkdir -p $APP_DIR"/certbot_logs"
 
     enable_https_configs
 

@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - develop
+      - production
     tags:
       - '*-beta*'
       - 'v[0-9]+.[0-9]+.[0-9]+'
@@ -15,6 +16,7 @@ jobs:
     if: contains('
       refs/heads/master
       refs/heads/develop
+      refs/heads/production
       ', github.ref) || ${{ github.event.ref }} =~ ^refs/tags/v[0-9]+.[0-9]+.[0-9]+-beta* || ${{ github.event.ref }} =~ ^refs/tags/v[0-9]+.[0-9]+.[0-9]+
     steps:
       - uses: actions/checkout@v3.5.0
@@ -49,7 +51,7 @@ jobs:
           echo "AWS_SECRET_ACCESS_KEY=None" >> $GITHUB_ENV
 
       - name: Set env for staging or dev
-        if: endsWith(github.ref, '/develop') || contains(env.TAG, '-beta')
+        if: endsWith(github.ref, '/develop') || endsWith(github.ref, '/production') || contains(env.TAG, '-beta')
         run: |
           echo "ENVIRONMENT=${{ secrets.DEV_ENV }}" >> $GITHUB_ENV
           echo "HOST=${{ secrets.DEV_HOST }}" >> $GITHUB_ENV
@@ -68,6 +70,7 @@ jobs:
         env:
           HOST: ${{ env.HOST }}
           USERNAME: ${{ env.USERNAME }}
+          PASSPHRASE: ${{ secrets.PASS_PHRASE }}
           PORT: ${{ secrets.PORT }}
           KEY: ${{ secrets.KEY }}
         with:
@@ -79,6 +82,7 @@ jobs:
         with:
           host: ${{ env.HOST }}
           username: ${{ env.USERNAME }}
+          passphrase: ${{ secrets.PASS_PHRASE }}
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
           command_timeout: 30m

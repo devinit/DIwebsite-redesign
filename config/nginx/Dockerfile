@@ -1,4 +1,4 @@
-FROM nginx:latest
+FROM nginx:1.24.0
 
 RUN apt-get update -qqy && apt-get -qqy install curl runit wget unzip cron && \
     rm -rf /var/lib/apt/lists/* /var/cache/apt/*

@@ -1,4 +1,16 @@
 server {
+    listen [::]:443 ssl default_server;
+    listen 443 ssl default_server;
+    server_name _;
+    # Use below to avoid SSL errors on non-existent domains
+    set $empty "";
+    ssl_ciphers aNULL;
+    ssl_certificate data:$empty;
+    ssl_certificate_key data:$empty;
+    return 444;
+}
+
+server {
     listen 443 ssl;
     # ssl on;
     ssl_certificate /etc/ssl/fullchain.pem;
@@ -8,7 +20,7 @@ server {
     ssl_ciphers HIGH:!aNULL:!eNULL:!EXPORT:!CAMELLIA:!DES:!MD5:!PSK:!RC4;
     ssl_prefer_server_ciphers on;
 
-    server_name www.devinit.org devinit.org refactor.devinit.org;
+    server_name www.devinit.org devinit.org dev.devinit.org refactor.devinit.org;
 
     client_max_body_size 100M;
 

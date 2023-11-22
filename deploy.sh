@@ -267,7 +267,7 @@ then
 
     start_new_process "Generating static assets"
     docker-compose exec -T ${new_state} python manage.py collectstatic --noinput
-    chown -R di_website:di_website assets
+    sudo chown -R di_website:di_website assets
 
     exit 0
 

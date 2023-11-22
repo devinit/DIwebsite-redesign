@@ -82,8 +82,8 @@ jobs:
           host: ${{ env.HOST }}
           username: ${{ env.USERNAME }}
           passphrase: ${{ secrets.PASS_PHRASE }}
-          key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
+          key: ${{ secrets.KEY }}
           command_timeout: 30m
           script: |
             export BRANCH=${{ env.BRANCH }}

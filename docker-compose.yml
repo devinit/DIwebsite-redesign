@@ -93,5 +93,5 @@ volumes:
 networks:
   web:
   consul:
-    external:
-      name: consul
+    external: true
+    name: consul

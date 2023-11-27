@@ -105,8 +105,8 @@ function backup_database {
 
     cd $APP_DIR
 
-    log "Starting backup from remote docker machine $(docker-compose ps -q db)"
-    docker-compose exec -T db pg_dump -U di_website -d di_website >  $file_name
+    log "Starting backup from remote docker machine $(docker compose ps -q db)"
+    docker compose exec -T db pg_dump -U di_website -d di_website >  $file_name
 
     log "Database backup completed..."
 
@@ -125,7 +125,7 @@ function search_reindex {
     start_new_process "Re-indexing search"
     cd $APP_DIR
     sleep 60s
-    docker-compose exec -T ${new_state} python manage.py update_index
+    docker compose exec -T ${new_state} python manage.py update_index
 
 }
 
@@ -209,14 +209,14 @@ function setup_blue_green_deployment {
     npm run build
 
     # Attempt to stop new container. Sometimes there is a hanging one still running...
-    docker-compose stop ${new_state}
+    docker compose stop ${new_state}
     # update the new state container
     echo "Update the ${new_state} container"
-    docker-compose up -d ${new_state}
+    docker compose up -d ${new_state}
 
     # Check the new state container is ready
     echo "Check the ${new_state} container is ready"
-    docker-compose run --rm --entrypoint /bin/bash ${new_state} ./scripts/wait-for-it.sh ${new_state}:8090 --timeout=60
+    docker compose run --rm --entrypoint /bin/bash ${new_state} ./scripts/wait-for-it.sh ${new_state}:8090 --timeout=60
     chmod +x ./scripts/activate.sh
     ./scripts/activate.sh ${new_state} ${state} ${new_upstream} ${key_value_store}
 
@@ -230,7 +230,7 @@ function setup_blue_green_deployment {
     docker tag diwebsite-redesign_web:new diwebsite-redesign_web:latest
 
     echo "Stop the ${state} container"
-    docker-compose stop ${state}
+    docker compose stop ${state}
 }
 
 if [ ${args[0]} == 'run' ]
@@ -261,12 +261,12 @@ then
     #run this script within this subprocess
     chmod +x scripts/*
     source scripts/init.sh
-    docker-compose -f docker-compose-consul.yml up -d
+    docker compose -f docker-compose-consul.yml up -d
     setup_blue_green_deployment
     search_reindex
 
     start_new_process "Generating static assets"
-    docker-compose exec -T ${new_state} python manage.py collectstatic --noinput
+    docker compose exec -T ${new_state} python manage.py collectstatic --noinput
     sudo chown -R di_website:di_website assets
 
     exit 0

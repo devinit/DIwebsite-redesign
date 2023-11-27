@@ -42,11 +42,11 @@ jobs:
           echo "WWW_SITE_URL=www.devinit.org" >> $GITHUB_ENV
           echo "SITE_URL=devinit.org" >> $GITHUB_ENV
           echo "DATA_SITE_URL=data.devinit.org" >> $GITHUB_ENV
-          echo "USE_SPACES=FALSE" >> $GITHUB_ENV
-          echo "AWS_S3_ENDPOINT_URL=None" >> $GITHUB_ENV
-          echo "AWS_STORAGE_BUCKET_NAME=None" >> $GITHUB_ENV
-          echo "AWS_ACCESS_KEY_ID=None" >> $GITHUB_ENV
-          echo "AWS_SECRET_ACCESS_KEY=None" >> $GITHUB_ENV
+          echo "USE_SPACES=TRUE" >> $GITHUB_ENV
+          echo "AWS_S3_ENDPOINT_URL=${{ secrets.PROD_S3_ENDPOINT_URL }}" >> $GITHUB_ENV
+          echo "AWS_STORAGE_BUCKET_NAME=${{ secrets.PROD_STORAGE_BUCKET_NAME }}" >> $GITHUB_ENV
+          echo "AWS_ACCESS_KEY_ID=${{ secrets.PROD_S3_ACCESS_KEY_ID }}" >> $GITHUB_ENV
+          echo "AWS_SECRET_ACCESS_KEY=${{ secrets.PROD_S3_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
 
       - name: Set env for staging or dev
         if: endsWith(github.ref, '/develop') || contains(env.TAG, '-beta')
@@ -58,10 +58,10 @@ jobs:
           echo "SITE_URL=dev.devinit.org" >> $GITHUB_ENV
           echo "DATA_SITE_URL=dev.devinit.org" >> $GITHUB_ENV
           echo "USE_SPACES=TRUE" >> $GITHUB_ENV
-          echo "AWS_S3_ENDPOINT_URL=${{ secrets.PROD_S3_ENDPOINT_URL }}" >> $GITHUB_ENV
-          echo "AWS_STORAGE_BUCKET_NAME=${{ secrets.PROD_STORAGE_BUCKET_NAME }}" >> $GITHUB_ENV
-          echo "AWS_ACCESS_KEY_ID=${{ secrets.PROD_S3_ACCESS_KEY_ID }}" >> $GITHUB_ENV
-          echo "AWS_SECRET_ACCESS_KEY=${{ secrets.PROD_S3_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
+          echo "AWS_S3_ENDPOINT_URL=${{ secrets.DEV_S3_ENDPOINT_URL }}" >> $GITHUB_ENV
+          echo "AWS_STORAGE_BUCKET_NAME=${{ secrets.DEV_STORAGE_BUCKET_NAME }}" >> $GITHUB_ENV
+          echo "AWS_ACCESS_KEY_ID=${{ secrets.DEV_S3_ACCESS_KEY_ID }}" >> $GITHUB_ENV
+          echo "AWS_SECRET_ACCESS_KEY=${{ secrets.DEV_S3_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
 
       - name: copy deploy file via ssh
         uses: appleboy/scp-action@v0.1.4

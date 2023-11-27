@@ -6,13 +6,13 @@ new_state=$1
 old_state=$2
 new_upstream=$3
 key_value_store=$4
-was_state=$(docker-compose run --rm nginx curl ${key_value_store}?raw)
+was_state=$(docker compose run --rm nginx curl ${key_value_store}?raw)
 
 pid_was=$(docker exec nginx pidof nginx 2> /dev/null || echo '-')
 echo "Activate the ${new_state} container, old Nginx pids: ${pid_was}"
 
 echo "Set the ${new_state} container as working"
-docker-compose run --rm nginx curl -X PUT -d ${new_state} ${key_value_store} > /dev/null
+docker compose run --rm nginx curl -X PUT -d ${new_state} ${key_value_store} > /dev/null
 
 if [[ ${pid_was} != '-' ]]
 then

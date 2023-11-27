@@ -39,8 +39,8 @@ services:
 
 networks:
   consul:
-    external:
-      name: consul
+    external: true
+    name: consul
 
 volumes:
   consul:

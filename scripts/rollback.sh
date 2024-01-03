@@ -25,10 +25,10 @@ echo "Create the diwebsite-redesign_web:${new_state} image"
 docker tag diwebsite-redesign_web:new diwebsite-redesign_web:${new_state}
 
 echo "Update the ${new_state} container"
-docker-compose up -d ${new_state}
+docker compose up -d ${new_state}
 
 echo "Check the ${new_state} container is ready"
-docker-compose run --rm --entrypoint bash ${new_state} ./scripts/wait-for-it.sh ${new_state}:8090 --timeout=60
+docker compose run --rm --entrypoint bash ${new_state} ./scripts/wait-for-it.sh ${new_state}:8090 --timeout=60
 
 ./activate.sh ${new_state} ${state} ${new_upstream} ${key_value_store}
 
@@ -36,4 +36,4 @@ echo "Set the ${new_state} image as ${state}"
 docker tag diwebsite-redesign_web:${new_state} diwebsite-redesign_web:${state}
 
 echo "Stop the ${state} container"
-docker-compose stop ${state}
+docker compose stop ${state}

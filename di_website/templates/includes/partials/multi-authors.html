@@ -34,7 +34,7 @@
             {% if author.value.page %}
               <a href="{{ author.value.page }}">{{ author.value.name }}</a>{% if not forloop.last %}, {% endif %}
             {% else %}
-              {% if author.block_type == 'internal_participant'%}
+              {% if author.block_type == 'internal_participant' and author.value.live %}
                 <a href="{% pageurl author.value %}?referrer=author">
                   {{ author.value.name }}
                 </a>{% if not forloop.last %},{% endif %}

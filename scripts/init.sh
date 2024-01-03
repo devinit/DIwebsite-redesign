@@ -27,5 +27,5 @@ then
     docker tag diwebsite-redesign_web:latest diwebsite-redesign_web:blue
     docker tag diwebsite-redesign_web:latest diwebsite-redesign_web:green
  #   cd .
-    docker-compose up --build -d
+    docker compose up --build -d
 fi

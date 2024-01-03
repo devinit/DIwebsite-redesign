@@ -85,7 +85,7 @@
         "localforage": "^1.9.0",
         "mobx": "^6.3.12",
         "papaparse": "^5.3.0",
-        "plotly.js": "^1.54.5",
+        "plotly.js": "^2.25.2",
         "plotly.js-basic-dist": "^1.54.3",
         "plotly.js-cartesian-dist": "^1.54.3",
         "plotly.js-finance-dist": "^1.54.3",

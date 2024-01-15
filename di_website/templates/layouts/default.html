@@ -33,6 +33,9 @@
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NH32T6V"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
+<script src="{% static 'js/admin_user.js' %}" type="application/javascript"
+        defer
+        data-user="{{ request.user.is_authenticated }}"></script>
   {% wagtailuserbar %}
   <div class="ui-base">
     {% cookie_notice %}

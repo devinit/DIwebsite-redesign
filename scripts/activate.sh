@@ -51,7 +51,7 @@ then
                 if [[ ${count} -eq 10 ]]
                 then
                     echo 'Timeout'
-                    ./reset.sh ${key_value_store} ${old_state}
+                    ./scripts/reset.sh ${key_value_store} ${old_state}
                     exit 1
                 fi
                 echo "Wait for reloading, pids: ${pid}"

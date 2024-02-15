@@ -162,37 +162,6 @@ class FooterText(models.Model):
         verbose_name_plural = 'Footer Text'
 
 
-@register_snippet
-class CookieNotice(models.Model):
-    heading = models.CharField(max_length=255, blank=True, null=True)
-    body = models.TextField(blank=True, null=True)
-    download_link_caption = models.CharField(max_length=255, blank=True, null=True, verbose_name='Link Caption')
-    cookie_policy = models.ForeignKey(
-        'wagtaildocs.Document',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+',
-        verbose_name='Policy Doc'
-    )
-
-    panels = [
-        FieldPanel('heading'),
-        FieldPanel('body'),
-        MultiFieldPanel([
-            FieldPanel('download_link_caption'),
-            FieldPanel('cookie_policy'),
-        ], heading='Download Link'),
-    ]
-
-    def __str__(self):
-        return self.heading or self.body or 'Blank Notice'
-
-    class Meta():
-        verbose_name = "Cookie Notice"
-        verbose_name_plural = "Cookie Notices"
-
-
 class HomePageMetaData(MetadataPageMixin):
 
     class Meta:

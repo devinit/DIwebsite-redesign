@@ -1,15 +1,31 @@
-{% load wagtailcore_tags wagtailuserbar wagtailmetadata_tags report_utils static cookie_tags %}
+{% load wagtailcore_tags wagtailuserbar wagtailmetadata_tags report_utils static %}
 <!doctype html>
 <!--[if IE 9]> <html lang="en-GB" class="no-js ie9"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--><html lang="en-GB" class="no-js"><!--<![endif]-->
 <head>
-  <!-- Google Tag Manager -->
-  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-NH32T6V');</script>
-  <!-- End Google Tag Manager -->
+  <!-- Default consent states -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){
+      dataLayer.push(arguments);
+    }
+    gtag('consent', 'default', {
+      'ad_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied',
+      'analytics_storage': 'denied'
+    });
+  </script>
+  <!-- End default consent states-->
+  <!-- GA4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-07HZJ1SYZS"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-07HZJ1SYZS');
+  </script>
+  <!-- End GA4 -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>
@@ -29,13 +45,57 @@
   {% endif %}
 </head>
 <body class="body body--{{ id }} {% block colour %}{% endblock %}" id="body-{{ id }}">
-  <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NH32T6V"
-  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-  <!-- End Google Tag Manager (noscript) -->
+  <!-- Cookie Consent by TermsFeed https://www.TermsFeed.com -->
+  <script type="text/javascript" src="https://www.termsfeed.com/public/cookie-consent/4.1.0/cookie-consent.js" charset="UTF-8"></script>
+  <script type="text/javascript" charset="UTF-8">
+  document.addEventListener('DOMContentLoaded', function () {
+  cookieconsent.run({
+    "notice_banner_type":"simple",
+    "consent_type":"express",
+    "palette":"dark",
+    "language":"en",
+    "page_load_consent_levels":["strictly-necessary"],
+    "notice_banner_reject_button_hide":false,
+    "preferences_center_close_button_hide":false,
+    "page_refresh_confirmation_buttons":false,
+    "website_name":"Development Initiatives Poverty Research, Ltd.",
+    "website_privacy_policy_url":"https://devinit-prod-static.ams3.cdn.digitaloceanspaces.com/media/documents/Privacy_and_cookies_policy.pdf",
+    "callbacks": {
+      "scripts_specific_loaded": (level) => {
+        switch(level) {
+          case 'targeting':
+            gtag('consent', 'update', {
+              'ad_storage': 'granted',
+              'ad_user_data': 'granted',
+              'ad_personalization': 'granted',
+              'analytics_storage': 'granted'
+            });
+            break;
+        }
+      }
+    },
+    "callbacks_force": true
+    });
+  });
+  </script>
+
+  <!-- Mouseflow -->
+  <script type="text/plain" data-cookie-consent="tracking">
+    window._mfq = window._mfq || [];
+    (function() {
+      var mf = document.createElement("script");
+      mf.type = "text/javascript"; mf.defer = true;
+      mf.src = "//cdn.mouseflow.com/projects/0abe85f5-2641-44d4-bbae-690751b5f50d.js";
+      document.getElementsByTagName("head")[0].appendChild(mf);
+    })();
+  </script>
+  <!-- end of Mouseflow-->
+
+  <noscript>Free cookie consent management tool by <a href="https://www.termsfeed.com/">TermsFeed</a></noscript>
+  <!-- End Cookie Consent by TermsFeed https://www.TermsFeed.com -->
+
   {% wagtailuserbar %}
   <div class="ui-base">
-    {% cookie_notice %}
     <a href="#pagecontent" class="skiplink" data-js="skiplink">Skip to main content</a>
     {% block header %}
       {% include 'includes/scaffold/header.html' %}

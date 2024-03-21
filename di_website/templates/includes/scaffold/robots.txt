@@ -2,6 +2,9 @@
 User-agent: *
 Disallow: /admin/
 
+User-agent: *
+Disallow: /_util/
+
 # Group 2
 User-agent: *
 Allow: /

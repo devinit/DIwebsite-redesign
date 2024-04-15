@@ -242,7 +242,7 @@ WAGTAIL_SITE_NAME = "Development Initiatives Website"
 
 # Wagtail 2FA settings (https://github.com/labd/wagtail-2fa)
 WAGTAIL_2FA_REQUIRED = True
-WAGTAIL_2FA_OTP_TOTP_NAME = f"DI Website CMS {os.getenv('ENVIRONMENT') or 'Dev'}"
+WAGTAIL_2FA_OTP_TOTP_NAME = f"DI Website CMS ({os.getenv('ENVIRONMENT') or 'Dev'})"
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash

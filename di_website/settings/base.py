@@ -97,6 +97,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.postgres',
 
+    # Wagtail 2FA (https://github.com/labd/wagtail-2fa)
+    'wagtail_2fa',
+    'django_otp',
+    'django_otp.plugins.otp_totp',
+
 ]
 
 MIDDLEWARE = [
@@ -105,6 +110,8 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    # Wagtail 2FA (https://github.com/labd/wagtail-2fa)
+    'wagtail_2fa.middleware.VerifyUserMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -232,6 +239,10 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # Wagtail settings
 
 WAGTAIL_SITE_NAME = "Development Initiatives Website"
+
+# Wagtail 2FA settings (https://github.com/labd/wagtail-2fa)
+WAGTAIL_2FA_REQUIRED = True
+WAGTAIL_2FA_OTP_TOTP_NAME = "DI Website CMS"
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash

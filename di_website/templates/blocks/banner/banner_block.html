@@ -1,6 +1,8 @@
 {% load wagtailcore_tags wagtailimages_tags responsive %}
 
+{% if self.section %}
 <section class="section">
+{% endif %}
   <div class="row row--narrow">
     <div class="banner{% if self.light %} banner--light{% endif %}">
       <div class="l-banner{% if self.media_orientation == 'right' %} l-banner--reverse{% endif %}">
@@ -56,4 +58,6 @@
       </div>
     </div>
   </div>
+{% if self.section %}
 </section>
+{% endif %}

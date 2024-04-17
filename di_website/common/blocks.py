@@ -153,6 +153,7 @@ class ImageBlock(StructBlock):
 
 
 class BannerBlock(StructBlock):
+    section = True
     image = ImageChooserBlock(required=False)
     image_credit_name = TextBlock(required=False, help_text='The name of the image source')
     image_credit_url = URLBlock(required=False, help_text='A link to the image source, if any')
@@ -194,6 +195,10 @@ class BannerBlock(StructBlock):
         icon = 'heroicons-flag-solid'
         template = 'blocks/banner/banner_block.html'
         label = 'Banner Block'
+
+
+class ContentBannerBlock(BannerBlock):
+    section = False
 
 
 class SectionParagraphBlock(StructBlock):

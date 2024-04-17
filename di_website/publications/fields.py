@@ -11,7 +11,8 @@ from wagtail.blocks import (
     StructBlock,
     TextBlock,
     URLBlock,
-    PageChooserBlock
+    PageChooserBlock,
+    ContentBannerBlock
 )
 from wagtail.snippets.blocks import SnippetChooserBlock
 
@@ -337,7 +338,8 @@ FLEXIBLE_CONTENT_BLOCKS = [
         ('advanced_interactive_chart', AdvancedInteractiveChartBlock()),
         ('cta', CallToActionBlock()),
         ('accordion', AccordionBlock()),
-        ('so_what', SoWhat())
+        ('so_what', SoWhat()),
+        ('content_banner', ContentBannerBlock()),
     ]
 
 def flexible_content_streamfield(blank=False):

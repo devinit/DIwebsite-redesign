@@ -153,7 +153,6 @@ class ImageBlock(StructBlock):
 
 
 class BannerBlock(StructBlock):
-    section = True
     image = ImageChooserBlock(required=False)
     image_credit_name = TextBlock(required=False, help_text='The name of the image source')
     image_credit_url = URLBlock(required=False, help_text='A link to the image source, if any')
@@ -198,7 +197,8 @@ class BannerBlock(StructBlock):
 
 
 class ContentBannerBlock(BannerBlock):
-    section = False
+    class Meta():
+        template = 'blocks/banner/content_banner_block.html'
 
 
 class SectionParagraphBlock(StructBlock):

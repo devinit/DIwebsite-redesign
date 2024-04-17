@@ -11,14 +11,13 @@ from wagtail.blocks import (
     StructBlock,
     TextBlock,
     URLBlock,
-    PageChooserBlock,
-    ContentBannerBlock
+    PageChooserBlock
 )
 from wagtail.snippets.blocks import SnippetChooserBlock
 
 from di_website.common.constants import RICHTEXT_FEATURES, RICHTEXT_FEATURES_NO_FOOTNOTES, FOOTNOTE_RICHTEXT_FEATURES
 from .infographic import PublicationInfographic
-from di_website.common.blocks import AccordionBlock, AnchorBlock, CallToActionBlock, SectionBlockQuote
+from di_website.common.blocks import AccordionBlock, AnchorBlock, CallToActionBlock, SectionBlockQuote, ContentBannerBlock
 
 
 class CaptionedImage(StructBlock):

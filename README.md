@@ -255,3 +255,7 @@ docker inspect e20e0a57d399
 ```
 
 First, bash into nginx, then `curl -sX GET http://consul:8500/v1/catalog/service/blue` to get the ServiceId.  Followed by `docker-compose -f docker-compose-consul.yml exec consul consul services deregister -id=ab9298cc69bd:blue:8090`
+
+## 2FA Notes
+
+We are using [wagtail-2fa](https://github.com/labd/wagtail-2fa/). The documentation about which version of this package matching with a specific version of wagtail is terrible. You will have to go through all the changelogs or something similar. If you intend to upgrade either `Wagtail` or `wagtail-2fa`, we advise you set `DEBUG = False` after running all your tests in debug mode, and test 2FA login as well with debug set off. This is because this package attempts to use `wagtail.svg` which keeps changing names in the Wagtail package, and `ManifestStaticFilesStorage` will not throw any errors with `DEBUG = True`. So the only way to test that the two packages (Wagtail and wagtail-2fa) are compatible is turning off debug. Also, don't forget to `collectstatic` before testing.

@@ -196,6 +196,11 @@ class BannerBlock(StructBlock):
         label = 'Banner Block'
 
 
+class ContentBannerBlock(BannerBlock):
+    class Meta():
+        template = 'blocks/banner/content_banner_block.html'
+
+
 class SectionParagraphBlock(StructBlock):
     text = RichTextBlock(features=RICHTEXT_FEATURES_NO_FOOTNOTES)
     center = BooleanBlock(default=False, required=False)

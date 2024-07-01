@@ -21,8 +21,8 @@
 // }
 
 .notice__wrapper {
-    position: relative;
-    display: block;
+    position: fixed;
+    bottom: 0;
     width: 100%;
     z-index: 12;
     &--notice {
@@ -52,24 +52,24 @@
         @include font-size($epsilon);
         @extend %font-body;
     }
+    button,a {
+        margin: 0.2em;
+    }
     strong, b {
         @extend %font-heading;
     }
-    a {
-        text-decoration: underline;
-    }
     .notice__wrapper--notice & {
-        h1,h2,h3,p,a {
+        h1,h2,h3,p {
             color: #fff;
         }
     }
     .notice__wrapper--alert & {
-        h1,h2,h3,p,a {
+        h1,h2,h3,p {
             color: darken($warning, 15%);
         }
     }
     .notice__wrapper--warning & {
-        h1,h2,h3,p,a {
+        h1,h2,h3,p {
             color: darken($error, 15%);
         }
     }

@@ -1,6 +1,5 @@
 {% load wagtailcore_tags %}
 
-{% if notice.heading or notice.body %}
 <div class="notice__wrapper notice__wrapper--notice display-none" data-notice id="cookie-notice">
   <div class="row">
     <div class="notice__content">
@@ -8,17 +7,20 @@
       <h2>{{ notice.heading }}</h2>
       {% endif %}
       {% if notice.body %}
-      <p>
-        {{ notice.body }}
-        {% if notice.download_link_caption %}
-        <a href="{{notice.cookie_policy.url}}">{{ notice.download_link_caption }}</a>
-        {% else %}
-        <a href="{{notice.cookie_policy.url}}">{{ notice.cookie_policy.title }}</a>
-        {% endif %}
-      </p>
+        <p>{{ notice.body }}</p>
       {% endif %}
-      <button data-notice-dismiss class="notice__button"></button>
+        <button data-notice-accept-all class="button button--reverse">
+          Accept all cookies
+        </button>
+        <button data-notice-accept-necessary  class="button button--reverse">
+          Accept necessary cookies
+        </button>
+        {% if notice.set_cookie_page %}
+        <a target="_blank" href="{% pageurl notice.set_cookie_page %}" class="button button--reverse">
+          View cookies
+        </a>
+        {% endif %}
+        <p>You can change your preferences at any time by visiting our Privacy and cookies policy.</p>
     </div>
   </div>
 </div>
-{% endif %}

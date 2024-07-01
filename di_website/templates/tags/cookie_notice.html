@@ -1,5 +1,6 @@
 {% load wagtailcore_tags %}
 
+{% if request.get_full_path != notice.set_cookie_page.url %}
 <div class="notice__wrapper notice__wrapper--notice display-none" data-notice id="cookie-notice">
   <div class="row">
     <div class="notice__content">
@@ -24,3 +25,4 @@
     </div>
   </div>
 </div>
+{% endif %}

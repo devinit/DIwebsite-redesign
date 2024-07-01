@@ -1,6 +1,6 @@
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags string_utils %}
 
-{% if request.get_full_path != notice.set_cookie_page.url %}
+{% if request.get_full_path|remove_url_parameters != notice.set_cookie_page.url %}
 <div class="notice__wrapper notice__wrapper--notice display-none" data-notice id="cookie-notice">
   <div class="row">
     <div class="notice__content">
@@ -10,10 +10,10 @@
       {% if notice.body %}
         <p>{{ notice.body }}</p>
       {% endif %}
-        <button data-notice-accept id="all" class="button button--reverse">
+        <button data-notice-accept-all id="cookie-notice" class="button button--reverse">
           Accept all cookies
         </button>
-        <button data-notice-accept id="necessary" class="button button--reverse">
+        <button data-notice-accept-necessary id="cookie-notice" class="button button--reverse">
           Accept necessary cookies
         </button>
         {% if notice.set_cookie_page %}
@@ -22,6 +22,25 @@
         </a>
         {% endif %}
         <p>You can change your preferences at any time by visiting our Privacy and cookies policy.</p>
+    </div>
+  </div>
+</div>
+{% else %}
+<div class="notice__wrapper notice__wrapper--notice" id="cookie-notice">
+  <div class="row">
+    <div class="notice__content">
+      {% if notice.heading %}
+      <h2>{{ notice.heading }}</h2>
+      {% endif %}
+      {% if notice.body %}
+        <p>{{ notice.body }}</p>
+      {% endif %}
+        <button data-notice-accept-all id="cookie-notice" class="button button--reverse">
+          Accept all cookies
+        </button>
+        <button data-notice-accept-necessary id="cookie-notice" class="button button--reverse">
+          Accept necessary cookies
+        </button>
     </div>
   </div>
 </div>

@@ -2,20 +2,28 @@ import $ from 'jquery';
 
 export default function setupNotices(
 	selector = '[data-notice]',
-	trigger = '[data-notice-accept]'
+	trigger_all = '[data-notice-accept-all]',
+  trigger_necessary = '[data-notice-accept-necessary]'
 ) {
 
-	$(trigger).on('click', e => {
+	$(trigger_all).on('click', e => {
 		e.preventDefault();
-    const choice = e.target.id;
 		const notice = $(e.target).closest(selector).first();
 		if (notice) {
-			dismissNotice(notice, choice);
+			dismissNotice(e.target, notice, "all");
 		}
 	});
 
-	function dismissNotice(notice, choice) {
-		const id = notice.attr('id');
+  $(trigger_necessary).on('click', e => {
+		e.preventDefault();
+		const notice = $(e.target).closest(selector).first();
+		if (notice) {
+			dismissNotice(e.target, notice, "necessary");
+		}
+	});
+
+	function dismissNotice(trigger, notice, choice) {
+		const id = trigger.id;
 		setCookie(id, 'dismissed');
     setCookie(id + '-choice', choice);
 		notice.slideUp(300, ()=> {

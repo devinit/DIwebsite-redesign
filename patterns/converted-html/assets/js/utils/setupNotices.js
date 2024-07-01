@@ -2,28 +2,25 @@ import $ from 'jquery';
 
 export default function setupNotices(
 	selector = '[data-notice]',
-	trigger = '[data-notice-dismiss]'
+	trigger = '[data-notice-accept]'
 ) {
 
 	$(trigger).on('click', e => {
 		e.preventDefault();
+    const choice = e.target.id;
 		const notice = $(e.target).closest(selector).first();
 		if (notice) {
-			dismissNotice(notice);
+			dismissNotice(notice, choice);
 		}
 	});
 
-	function dismissNotice(notice) {
+	function dismissNotice(notice, choice) {
 		const id = notice.attr('id');
 		setCookie(id, 'dismissed');
+    setCookie(id + '-choice', choice);
 		notice.slideUp(300, ()=> {
 			notice.remove();
 		});
-	}
-
-	function getCookie(key) {
-		var keyValue = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');
-		return keyValue ? keyValue[2] : null;
 	}
 
 	function setCookie(key, value) {

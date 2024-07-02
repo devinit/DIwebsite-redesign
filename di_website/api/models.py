@@ -15,7 +15,7 @@ class CookieConsentLogEntry(models.Model):
 
 
     def __str__(self):
-        return self.token
+        return self.token or 'Unknown log entry'
 
     class Meta():
         verbose_name = "Cookie Consent Log Entry"

@@ -1,7 +1,8 @@
 {% load wagtailcore_tags string_utils %}
 
+{% csrf_token %}
 {% if request.get_full_path|remove_url_parameters != notice.set_cookie_page.url %}
-<div class="notice__wrapper notice__wrapper--notice display-none" data-notice id="cookie-notice">
+<div class="notice__wrapper notice__wrapper--notice display-none" data-notice id="cookie_notice">
   <div class="row">
     <div class="notice__content">
       {% if notice.heading %}
@@ -10,10 +11,10 @@
       {% if notice.body %}
         <p>{{ notice.body }}</p>
       {% endif %}
-        <button data-notice-accept-all id="cookie-notice" class="button button--reverse">
+        <button data-notice-accept-all id="cookie_notice" class="button button--reverse">
           Accept all cookies
         </button>
-        <button data-notice-accept-necessary id="cookie-notice" class="button button--reverse">
+        <button data-notice-accept-necessary id="cookie_notice" class="button button--reverse">
           Accept necessary cookies
         </button>
         {% if notice.set_cookie_page %}
@@ -26,7 +27,7 @@
   </div>
 </div>
 {% else %}
-<div class="notice__wrapper notice__wrapper--notice" id="cookie-notice">
+<div class="notice__wrapper notice__wrapper--notice" id="cookie_notice">
   <div class="row">
     <div class="notice__content">
       {% if notice.heading %}
@@ -35,10 +36,10 @@
       {% if notice.body %}
         <p>{{ notice.body }}</p>
       {% endif %}
-        <button data-notice-accept-all id="cookie-notice" class="button button--reverse">
+        <button data-notice-accept-all id="cookie_notice" class="button button--reverse {% if request.COOKIES.cookie_notice_choice == 'all' %}button--active{% endif %}">
           Accept all cookies
         </button>
-        <button data-notice-accept-necessary id="cookie-notice" class="button button--reverse">
+        <button data-notice-accept-necessary id="cookie_notice" class="button button--reverse {% if request.COOKIES.cookie_notice_choice == 'necessary' %}button--active{% endif %}">
           Accept necessary cookies
         </button>
     </div>

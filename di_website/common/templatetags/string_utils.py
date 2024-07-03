@@ -260,3 +260,9 @@ def buzzsprout_container_id(buzzsprout_url):
         return container_ids[0]
     else:
         return ""
+
+@register.filter
+def remove_url_parameters(url):
+    """Remove parameters from a url-like string"""
+    split_url = url.split("?")
+    return split_url[0]

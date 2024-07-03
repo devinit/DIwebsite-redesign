@@ -166,23 +166,19 @@ class FooterText(models.Model):
 class CookieNotice(models.Model):
     heading = models.CharField(max_length=255, blank=True, null=True)
     body = models.TextField(blank=True, null=True)
-    download_link_caption = models.CharField(max_length=255, blank=True, null=True, verbose_name='Link Caption')
-    cookie_policy = models.ForeignKey(
-        'wagtaildocs.Document',
+    set_cookie_page = models.ForeignKey(
+        'wagtailcore.Page',
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
         related_name='+',
-        verbose_name='Policy Doc'
+        verbose_name='Page'
     )
 
     panels = [
         FieldPanel('heading'),
         FieldPanel('body'),
-        MultiFieldPanel([
-            FieldPanel('download_link_caption'),
-            FieldPanel('cookie_policy'),
-        ], heading='Download Link'),
+        PageChooserPanel('set_cookie_page')
     ]
 
     def __str__(self):

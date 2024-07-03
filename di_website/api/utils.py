@@ -115,3 +115,18 @@ def serialise_location_comparison_page(live_pages):
             serialised_data['default_locations'].append(block.value)
 
     return serialised_data
+
+
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
+
+
+def anonymise_ip_address(ip_address):
+    ip_split = ip_address.split(".")
+    ip_split[-1] = "0"
+    return ".".join(ip_split)

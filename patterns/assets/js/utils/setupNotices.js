@@ -70,7 +70,7 @@ export default function setupNotices(
   function setCookie(key, value) {
       var today = new Date();
       var expire = new Date();
-      expire.setTime(today.getTime() + 3600000 * 24 * 14);
+      expire.setTime(today.getTime() + 3600000 * 24 * 30 * 6);
       document.cookie = key + "=" + encodeURI(value) + ";expires=" + expire.toGMTString() + ';path=/';
   }
 };

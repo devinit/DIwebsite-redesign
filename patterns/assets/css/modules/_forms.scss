@@ -210,7 +210,7 @@
 	background-color: #fff;
 	min-height: $form-item-height;
 	font-size: 16px; // Stop IOS doing the zoom thing, the Git!
-	&::focus-within {
+	&:focus-within {
 	    border: 0;
 	    padding: 0;
 	}
@@ -306,7 +306,6 @@ textarea.form-item {
 		width: 100%;
 		display: block;
 		height: $form-item-height;
-		background-color: transparent;
 		padding-left: $form-padding/2;
 		padding-right: 25px;
 		vertical-align: middle;

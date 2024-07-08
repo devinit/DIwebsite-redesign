@@ -98,7 +98,6 @@ $mobile-fallback-width: 400px;
         width: auto;
         height: 35px;
         @include font-size($zeta);
-        background-color: transparent;
         padding-left: $form-padding/2;
         padding-right: 25px;
         vertical-align: middle;

@@ -40,11 +40,11 @@ export default function setupNotices(
     setCookie(id + '_choice', choice);
     setCookie(id + '_token', token);
     if(choice == "necessary"){
-      $(trigger_all).removeClass('button--active');
+      $(trigger_all).removeClass('button--radioactive');
     }else{
-      $(trigger_necessary).removeClass('button--active');
+      $(trigger_necessary).removeClass('button--radioactive');
     }
-    $(trigger).addClass('button--active');
+    $(trigger).addClass('button--radioactive');
     notice.slideUp(300, ()=> {
       notice.remove();
     });

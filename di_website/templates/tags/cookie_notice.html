@@ -1,7 +1,6 @@
 {% load wagtailcore_tags string_utils %}
 
 {% csrf_token %}
-{% if request.get_full_path|remove_url_parameters != notice.set_cookie_page.url %}
 <div class="notice__wrapper notice__wrapper--notice display-none" data-notice id="cookie_notice">
   <div class="row">
     <div class="notice__content">
@@ -18,32 +17,14 @@
           Accept necessary cookies
         </button>
         {% if notice.set_cookie_page %}
-        <a target="_blank" rel="noopener" href="{% pageurl notice.set_cookie_page %}" class="button button--reverse">
-          View cookies
-        </a>
+          {% if request.get_full_path|remove_url_parameters != notice.set_cookie_page.url %}
+          <a target="_blank" rel="noopener" href="{% pageurl notice.set_cookie_page %}" class="button button--reverse">
+            View cookies
+          </a>
+          {% endif %}
         {% endif %}
-        <p>You can change your preferences at any time by visiting our Privacy and cookies policy.</p>
+        <p>You can change your preferences at any time by clicking the button at the bottom of this page.</p>
     </div>
   </div>
 </div>
-{% else %}
-<script>document.cookie = 'cookie_notice=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'</script>
-<div class="notice__wrapper notice__wrapper--notice display-none" data-notice id="cookie_notice">
-  <div class="row">
-    <div class="notice__content">
-      {% if notice.heading %}
-      <h2>{{ notice.heading }}</h2>
-      {% endif %}
-      {% if notice.body %}
-        <p>{{ notice.body }}</p>
-      {% endif %}
-        <button data-notice-accept-all id="cookie_notice" class="button--radio {% if request.COOKIES.cookie_notice_choice == 'all' %}button--radioactive{% endif %}">
-          Accept all cookies
-        </button>
-        <button data-notice-accept-necessary id="cookie_notice" class="button--radio {% if request.COOKIES.cookie_notice_choice == 'necessary' %}button--radioactive{% endif %}">
-          Accept necessary cookies
-        </button>
-    </div>
-  </div>
-</div>
-{% endif %}
+

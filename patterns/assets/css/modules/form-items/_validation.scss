@@ -11,7 +11,7 @@
 
 .form-message {
 	display: none;
-	@include leader($internal-spacing/4);
+	margin-top: ($internal-spacing/4);
 	@include font-size($form-label-size - 2);
 	.form-field--error & {
 		display: block;

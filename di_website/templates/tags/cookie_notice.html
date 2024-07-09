@@ -27,16 +27,20 @@
   </div>
 </div>
 {% else %}
-<div class="notice__wrapper notice__wrapper--notice" id="cookie_notice">
+<script>document.cookie = 'cookie_notice=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'</script>
+<div class="notice__wrapper notice__wrapper--notice display-none" data-notice id="cookie_notice">
   <div class="row">
     <div class="notice__content">
+      {% if notice.heading %}
+      <h2>{{ notice.heading }}</h2>
+      {% endif %}
       {% if notice.body %}
         <p>{{ notice.body }}</p>
       {% endif %}
-        <button data-notice-accept-all id="cookie_notice" class="button button--reverse {% if request.COOKIES.cookie_notice_choice == 'all' %}button--active{% endif %}">
+        <button data-notice-accept-all id="cookie_notice" class="button--radio {% if request.COOKIES.cookie_notice_choice == 'all' %}button--radioactive{% endif %}">
           Accept all cookies
         </button>
-        <button data-notice-accept-necessary id="cookie_notice" class="button button--reverse {% if request.COOKIES.cookie_notice_choice == 'necessary' %}button--active{% endif %}">
+        <button data-notice-accept-necessary id="cookie_notice" class="button--radio {% if request.COOKIES.cookie_notice_choice == 'necessary' %}button--radioactive{% endif %}">
           Accept necessary cookies
         </button>
     </div>

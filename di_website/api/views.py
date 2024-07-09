@@ -5,6 +5,7 @@ import requests
 from django.conf import settings
 from django.http import JsonResponse, HttpResponse
 from django.views.decorators.http import require_http_methods
+from django.db.utils import DataError
 
 from github import Github
 from wagtail.models import Site
@@ -144,9 +145,14 @@ def post_cookie_consent_log_entry(request):
     token = json_data.pop('token')
     client_ip = get_client_ip(request)
     anon_ip = anonymise_ip_address(client_ip)
+    if anon_ip == '0':
+        anon_ip = '0.0.0.0'
     json_data['anonymised_ip_address'] = anon_ip
-    CookieConsentLogEntry.objects.update_or_create(
-        token=token,
-        defaults=json_data
-    )
+    try:
+        CookieConsentLogEntry.objects.update_or_create(
+            token=token,
+            defaults=json_data
+        )
+    except DataError:
+        pass
     return HttpResponse(status=204)

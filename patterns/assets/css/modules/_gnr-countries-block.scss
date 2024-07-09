@@ -167,7 +167,6 @@
 		position: absolute;
 		top: 50%;
 		left: 12px;
-		background-position: 0 0;
 		transform: translateY(-50%) rotate(-90deg);
 		-webkit-transform: translateY(-50%) rotate(-90deg);
 		background: url(../img/arrow-down.svg) no-repeat;
@@ -364,7 +363,6 @@
 	letter-spacing: 0;
 	display: inline-block;
 	box-shadow: none;
-	padding: 0;
 	position: absolute;
 	top: 0;
 	right: 0;

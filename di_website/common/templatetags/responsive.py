@@ -59,7 +59,6 @@ class ResponsiveImageNode(ImageNode, template.Node):
             return ''
 
         try:
-            print(self.get_filter())
             rendition = image.get_rendition(self.filter_specs)
         except SourceImageIOError:
             # It's fairly routine for people to pull down remote databases to their

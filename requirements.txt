@@ -28,4 +28,4 @@ wagtail-metadata>=4.0.2,<4.1.0
 whitenoise==5.2.0
 wagtailmedia>=0.13.0,<1.0.0
 PyGithub==1.54.1
-wagtail-2fa==1.6.6
+wagtail-2fa==1.6.9

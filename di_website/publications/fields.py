@@ -17,7 +17,7 @@ from wagtail.snippets.blocks import SnippetChooserBlock
 
 from di_website.common.constants import RICHTEXT_FEATURES, RICHTEXT_FEATURES_NO_FOOTNOTES, FOOTNOTE_RICHTEXT_FEATURES
 from .infographic import PublicationInfographic
-from di_website.common.blocks import AccordionBlock, AnchorBlock, CallToActionBlock, SectionBlockQuote
+from di_website.common.blocks import AccordionBlock, AnchorBlock, CallToActionBlock, SectionBlockQuote, ContentBannerBlock
 
 
 class CaptionedImage(StructBlock):
@@ -337,7 +337,8 @@ FLEXIBLE_CONTENT_BLOCKS = [
         ('advanced_interactive_chart', AdvancedInteractiveChartBlock()),
         ('cta', CallToActionBlock()),
         ('accordion', AccordionBlock()),
-        ('so_what', SoWhat())
+        ('so_what', SoWhat()),
+        ('content_banner', ContentBannerBlock()),
     ]
 
 def flexible_content_streamfield(blank=False):

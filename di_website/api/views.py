@@ -1,10 +1,11 @@
 import csv
-
+import json
 import requests
 
 from django.conf import settings
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.views.decorators.http import require_http_methods
+from django.db.utils import DataError
 
 from github import Github
 from wagtail.models import Site
@@ -18,7 +19,9 @@ from di_website.spotlight.models import (SpotlightLocationComparisonPage,
 from .utils import (fetch_and_serialise_footer_sections,
                     fetch_and_serialise_newsletters,
                     serialise_location_comparison_page, serialise_page,
-                    serialise_spotlight_theme, serialiseDatasources)
+                    serialise_spotlight_theme, serialiseDatasources,
+                    get_client_ip, anonymise_ip_address)
+from .models import CookieConsentLogEntry
 
 
 @require_http_methods(["GET"])
@@ -134,3 +137,22 @@ def dashboard_data_view(request):
 
         print(e)
         return JsonResponse({ 'error': 'An error occurred' }, safe=False)
+
+
+@require_http_methods(["POST"])
+def post_cookie_consent_log_entry(request):
+    json_data = json.loads(request.body)
+    token = json_data.pop('token')
+    client_ip = get_client_ip(request)
+    anon_ip = anonymise_ip_address(client_ip)
+    if anon_ip == '0':
+        anon_ip = '0.0.0.0'
+    json_data['anonymised_ip_address'] = anon_ip
+    try:
+        CookieConsentLogEntry.objects.update_or_create(
+            token=token,
+            defaults=json_data
+        )
+    except DataError:
+        pass
+    return HttpResponse(status=204)

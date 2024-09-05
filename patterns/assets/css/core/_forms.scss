@@ -7,8 +7,8 @@ label, legend, select {
 	color: $form-label-color;
 }
 
-input[type="search"]::search-decoration,
-input[type="search"]::search-cancel-button,
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
 input[type="submit"],
 button,
 .button {

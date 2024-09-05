@@ -95,7 +95,10 @@ a.card {
         display: block;
     }
     .card--feature & {
-        @include maintain-ratio(16 9);
+        $ratio: 16 9;
+        $ratio-height: percentage(nth($ratio, 2) / nth($ratio, 1));
+        height: 0;
+        padding-bottom: $ratio-height;
         width: 60%;
     }
     .card--duo & {

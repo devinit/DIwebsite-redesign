@@ -6,6 +6,17 @@
 		<div class="l-footer">
 			<div class="l-footer__col">
 				{% subscribe_to_newsletter %}
+        <h4 class="footer__title" style="padding-top: 2em;">Cookie preferences</h4>
+        <ul class="footer__list">
+          <li>
+            <a id="change_cookie_preferences"></a>
+            <a
+            href="#"
+            class="button"
+            onclick="document.cookie = 'cookie_notice=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'; location.reload();"
+            >Change preferences</a>
+          </li>
+        </ul>
 			</div>
 			{% get_footer_sections parent=site_root calling_page=self %}
 		</div>
